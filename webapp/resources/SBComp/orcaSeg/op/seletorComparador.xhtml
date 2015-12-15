@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sbc="http://java.sun.com/jsf/composite/SBComp"
+      xmlns:op="http://java.sun.com/jsf/composite/SBComp/orcaSeg/op">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="op"/>
+
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+
+        <sbc:cabecalho/>
+
+        <!-- MODULO PRINCIPAL, PESQUISA PARA COMPARAÇÃO -->
+        <div class="wrapper">
+            <div id="container">
+
+                <h1>Compare agora</h1>
+
+
+
+                <p:dialog  id="idseletorOp1" widgetVar="seletorOp1" header="compononente dialog teste telas " modal="true" height="500px" width="950px" >  
+                    Selecione a Primeira Operadora
+                    <sbc:seletorItemFacil_2 itemSelecionado="#{pgComparacao.op1}"   seletor="#{pgComparacao.seletorDeOperadora}"  />
+                </p:dialog>  
+
+
+                <p:dialog id="seletorOps2"  widgetVar="seletorOp2" header="Modal Dialog2" modal="true" height="500">  
+                    Selecione a Segunda Operadora
+                    <sbc:seletorItemFacil_2 itemSelecionado="#{pgComparacao.op2}" seletor="#{pgComparacao.seletorDeOperadora}" />
+                </p:dialog>
+
+
+                <p:dialog id="seletorOps3"  widgetVar="seletorOp3"  header="Modal Dialog3" modal="true" height="500">  
+                    Selecione a 
+                    <sbc:seletorItemFacil_2 itemSelecionado="#{pgComparacao.op3}" seletor="#{pgComparacao.seletorDeOperadora}" />
+                </p:dialog> 
+
+
+
+
+                <c:if  test="#{pgComparacao.op1== null } " > 
+                    <p:outputLabel value=" operadora 1 nao selecionada" />
+                </c:if> 
+                <c:if  test="#{pgComparacao.op1 != null } " > 
+
+                    <p:graphicImage value="#{pgTesteTelas.op1.imgMedia}" style="margin-top:45px"  />
+                </c:if> 
+
+
+
+
+
+
+                <h:panelGrid columns="2"  width="100%" style="background-color: #DDECE9" >
+                    <h:panelGrid columns="3"  cellpadding="10"   rules="rows"  style="background-color: #DDECE9 ; text-align: center;  "  >
+
+                        <p:column >  
+                            <a  href="javascrit:;" onclick="PF('seletorOp1').show();"      style="width: 210px; height: 50px; font-size:18pt; position: relative; bottom: 70px; border: 13px solid #39A180; " > Pesquisar </a> 
+                        </p:column>  
+                        <p:column>
+                            <a  href="javascrit:;" onclick="PF('seletorOp1').show();"      style="width: 210px; height: 50px; font-size:18pt; position: relative; bottom: 70px; border: 13px solid #39A180; " > Pesquisar </a> 
+                        </p:column>  
+                        <p:column>
+                            <a  href="javascrit:;" onclick="PF('seletorOp1').show();"      style="width: 210px; height: 50px; font-size:18pt; position: relative; bottom: 70px; border: 13px solid #39A180; " > Pesquisar </a> 
+                        </p:column>  
+
+                        <p:column style="text-align: center ; " >
+                            <c:if  test="#{ empty pgComparacao.op1}"   >
+
+                                <p:outputLabel value=" Operadora 1 nao selecionada" style="text-align: center ; position: relative; top: 80px; " />
+
+                            </c:if> 
+                            <c:if  test="#{not empty pgComparacao.op1}"  > 
+
+                                <p:graphicImage value="#{pgComparacao.op1.imgMedia}" style="margin-top:45px"  />
+                            </c:if> 
+                        </p:column>
+
+                        <p:column style="text-align: center ;" >
+                            <c:if  test="#{ empty pgComparacao.op2}"   > 
+                                <p:outputLabel value=" Operadora 2 nao selecionada" style="text-align: center ; position: relative; top: 80px;  "  />
+                            </c:if> 
+                            <c:if  test="#{not empty pgComparacao.op2}"  > 
+
+                                <p:graphicImage value="#{pgComparacao.op2.imgMedia}" style="margin-top:45px"  />
+                            </c:if> 
+                        </p:column>
+
+                        <p:column style="text-align: center ;">
+                            <c:if  test="#{ empty pgComparacao.op3}"   >
+
+                                <p:outputLabel value=" Operadora 3 nao selecionada" style="text-align: center ; position: relative; top: 80px;" />
+
+                            </c:if> 
+                            <c:if  test="#{not empty pgComparacao.op3}"  > 
+
+                                <p:graphicImage value="#{pgComparacao.op3.imgMedia}" style="margin-top:45px"  />
+                            </c:if> 
+
+                        </p:column>
+
+
+
+
+                    </h:panelGrid  >
+                    <a href="#" class="botaoGrande">Compare Agora</a>
+
+                </h:panelGrid>
+
+
+                <br class="clear" />
+            </div>
+        </div>
+
+    </cc:implementation>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+

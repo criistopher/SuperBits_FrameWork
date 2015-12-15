@@ -1,0 +1,30 @@
+package com.super_bits.modulosSB.Persistencia.registro.persistidos;
+
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.BeansInterface.basico.ItfBeanContatoCorporativo;
+
+public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implements
+        ItfBeanContatoCorporativo {
+
+    public EntidadeContatoCorporativo(Class<?> pClasseModelo) {
+        super(pClasseModelo);
+        // TODO implementar EntidadeContatoCorporativo
+    }
+
+    @Override
+    public String getSite() {
+
+        return (String) GetValorByTipoCampoEsperado(FabCampos.SITE);
+    }
+
+    @Override
+    public String telefone() {
+        return (String) GetValorByTipoCampoEsperado(FabCampos.TELEFONE);
+    }
+
+    @Override
+    public String responsavel() {
+        return (String) GetValorByTipoCampoEsperado(FabCampos.RESPONSAVEL);
+    }
+
+}

@@ -1,0 +1,53 @@
+/*
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
+
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+
+/**
+ *
+ * @author sfurbino
+ */
+public class ErroSBCoreDeveloperSopMessagem extends ErroSB {
+
+    private final int tamanhoLinha = 30;
+
+    private String formatarMensagem(String cabecalho) {
+
+        String texto = cabecalho + mensagemEnviada.toUpperCase() + "\n";
+        if (erroJava == null) {
+            return "ocorreu um erro, a exception não foi gerada para realizar o StackTrace, e a mensagem enviada foi " + mensagemEnviada;
+        }
+
+        String mensagem = "";
+        String causa = "";
+        if (erroJava.getMessage() != null) {
+            mensagem = "MENSAGEM: \n" + UtilSBCoreStrings.quebrarStringEmLinhas(erroJava.getMessage(), tamanhoLinha);
+        }
+        if (erroJava.getCause() != null) {
+            causa = "CAUSA: \n" + UtilSBCoreStrings.quebrarStringEmLinhas(erroJava.getCause().toString(), tamanhoLinha);
+
+        }
+        texto = texto + "\n\n" + mensagem + "\n\n" + causa;
+
+        //String texto = "Alerta de Sistema" + erroJava.getMessage() + "\n \n causa:" + erroJava.getCause().getMessage();
+        System.out.println("TESTEEEEEEE:::::::: /n/n" + texto);
+        return texto;
+
+    }
+
+    @Override
+    protected void alertarSistema() {
+
+        UTILSBCoreDesktopApp.showMessageStopProcess(formatarMensagem("ALERTA DE SISTEMA"));
+    }
+
+    @Override
+    protected void alertarUsuario() {
+        UTILSBCoreDesktopApp.showMessageStopProcess(formatarMensagem("ALERTA PARA USUARIO"));
+    }
+
+}

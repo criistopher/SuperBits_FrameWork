@@ -1,0 +1,104 @@
+package com.super_bits.modulosSB.Persistencia.registro.NAOPersistidos;
+
+import com.super_bits.modulosSB.Persistencia.Campo.CampoEsperado;
+import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo.TC;
+import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
+import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import java.lang.reflect.Field;
+
+@SuppressWarnings("serial")
+public abstract class ItemSimples extends ItemGenerico implements
+        ItfBeanSimples {
+
+    public ItemSimples() {
+        super();
+
+        //	adcionaCampoEsperado(new CampoEsperado(TC.IMG_PEQUENA, CInfo.SITE_URL
+        //			+CInfo.pastaImagens + "/SBPequeno.jpg"));
+        adcionaCampoEsperado(new CampoEsperado(TC.NOME_CURTO));
+        adcionaCampoEsperado(new CampoEsperado(TC.ID));
+
+    }
+
+    public String getImgPequena() {
+
+        return UtilSBPersistenciaArquivosDeEntidade.getURLImagem(this, TC.IMG_PEQUENA);
+
+    }
+
+    public String getNomeCurto() {
+        String nome = (String) GetValorByTipoCampoEsperado(TC.NOME_CURTO);
+        String nomeCurto = "";
+        nome = nome.replace("-", " ");
+        nome = nome.replace(".", " ");
+        for (String parte : nome.split(" ")) {
+            if (nomeCurto.length() < 25) {
+                if (nomeCurto.length() > 0) {
+                    nomeCurto = nomeCurto + " " + parte;
+                } else {
+                    nomeCurto = nomeCurto + parte;
+                }
+            }
+        }
+        return nomeCurto;
+    }
+
+    public String getNomeCurtoURLAmigavel() {
+        String nomeCurto = (String) GetValorByTipoCampoEsperado(TC.NOME_CURTO);
+        return UtilSBCoreStrings.makeStrUrlAmigavel(nomeCurto);
+    }
+
+    public int getId() {
+        return Integer.parseInt(GetValorByTipoCampoEsperado(TC.ID).toString());
+    }
+
+    public String getCampoSQLNomeCurto() {
+        Field campo = getCampoByAnotacao(TC.NOME_CURTO);
+        if (campo == null) {
+            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "nome curto não encontrado, chamando metodo GetSQLNomeCurto");
+            return "NomeCurto não encontrado na classe" + this.getClass().getSimpleName();
+        }
+        return campo.getName();
+
+    }
+
+    public void uploadFoto(Object event) {
+        //FileUploadEvent event
+        //TODO MOVER DESTA PASTA
+        /**
+         * String categoria = (String) event.getComponent().getAttributes()
+         * .get("catImagem"); ArquivosDeEntidade.SalvaIMAGEM(this,
+         * event.getFile(), categoria);
+         *
+         */
+    }
+
+    @Override
+    public String toString() {
+        if (this == null) {
+            return "nulo";
+        }
+        return getNomeCurto();
+    }
+
+    @Override
+    public int hashCode() {
+        if (this == null) {
+            return "nulo".hashCode();
+        }
+        System.out.println(getNomeCurto() + "||" + getNomeCurto().hashCode());
+        return getNomeCurto().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.hashCode() == this.hashCode()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+package com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas;
+
+import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo.TC;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import java.io.Serializable;
+
+public class TemaPrimeFaces extends EntidadeSimples implements Serializable {
+
+    private static final long serialVersionUID = 9027133796805913449L;
+    @InfoCampo(tipo = TC.ID)
+    private int id;
+
+    @InfoCampo(tipo = TC.NOME_CURTO)
+    private String name;
+
+    @InfoCampo(tipo = TC.IMG_PEQUENA)
+    private String image;
+
+    public TemaPrimeFaces() {
+    }
+
+    public TemaPrimeFaces(int pid, String name, String image) {
+        this.id = pid;
+        this.name = name;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public String getImgPequena() {
+        return image;
+    }
+
+}

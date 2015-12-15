@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.Persistencia.util;
+
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
+/**
+ *
+ * @author sfurbino
+ */
+public enum FabTeste implements ItfFabrica {
+
+    tipo1 {
+
+                @Override
+                public ItemTeste getRegistro() {
+                    return new ItemTeste("item1");
+                }
+            }, tipo2 {
+
+                @Override
+                public ItemTeste getRegistro() {
+                    return new ItemTeste("item 2");
+                }
+            }, tipo3 {
+
+                @Override
+                public ItemTeste getRegistro() {
+                    return new ItemTeste("item3 ");
+                }
+            };
+
+    @Override
+    public abstract ItemTeste getRegistro();
+}

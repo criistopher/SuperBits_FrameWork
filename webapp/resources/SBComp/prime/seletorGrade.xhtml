@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+
+      >
+
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="registro"
+                      type="com.super_bits.Interface.JSFBeans.SB.fachadas.ItfBeanSimples"
+                      />
+        <cc:attribute name="lista" type="java.util.List"  />
+        <cc:attribute name="idAtualizacaoOnChange"  />
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+      
+
+        
+        <p:selectOneListbox  value="#{cc.attrs.registro}" immediate="true" var="it" converter="conversorGenerico" style="height: 100%; width: 100%; background-color: #DDECE9;  ">  
+            <f:attribute name="idAtualizacao" value="testeAgoraVai" />	
+            <f:selectItems value="#{cc.attrs.lista}" var="item"  itemValue="#{item}" />  
+
+            <p:column  >  
+                <p:graphicImage value="#{it.imgPequena}" width="40"/>  
+            </p:column>  
+
+            <p:column >  
+                #{it.nomeCurto} 
+            </p:column>  
+
+            
+        </p:selectOneListbox>  
+ 
+     
+
+
+
+           
+
+    </cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=jcmanpr.jar  -DgroupId=com.super_bits  -DartifactId=ocrCARMEN   -Dpackaging=jar   -Dversion=1   -DgeneratePom=true   
+mvn install:install-file -Dfile=jgx.jar          -DgroupId=com.super_bits  -DartifactId=ocrIMGCARMEN   -Dpackaging=jar   -Dversion=1   -DgeneratePom=true   

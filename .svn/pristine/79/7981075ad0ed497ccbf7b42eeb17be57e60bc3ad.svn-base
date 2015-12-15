@@ -1,0 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.Persistencia.util;
+
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
+/**
+ *
+ * @author sfurbino
+ */
+public abstract class UtilSBPersistenciaFabricas {
+
+    /**
+     *
+     * Realiza a persistencia de todos os registros obtidos com getRegistro da
+     * fábrica
+     *
+     * @param pFabrica Enum que extende ItfFabrica e retorna entidades
+     * persistiveis no getRegistro
+     */
+    public static void persistirRegistrosDaFabrica(Class pFabrica) {
+        if (pFabrica.getEnumConstants() == null) {
+            SBCore.getCentralDeMensagens().enviaMensagemSistema("Erro persistindo Registros da Fabrica" + pFabrica.getSimpleName(), ItfCentralMensagens.TP_MENSAGEM.ALERTA);
+            return;
+        }
+        for (Object obj : pFabrica.getEnumConstants()) {
+            UtilSBPersistencia.mergeRegistro(((ItfFabrica) obj).getRegistro());
+        }
+
+    }
+
+    /**
+     * Percorre todas as Classes do Pacote e caso seja do tipo Fabrica cadastra
+     * o Objeto
+     *
+     * @param pPacote
+     */
+    public static void persistirFabricasDoPacote(String pPacote) {
+
+        for (Class classe : UtilSBCoreReflexao.classesDoPacote(pPacote)) {
+            boolean implementaFabrica = false;
+            for (Class itf : classe.getInterfaces()) {
+                if (itf == ItfFabrica.class) {
+                    implementaFabrica = true;
+                }
+            }
+            if (implementaFabrica) {
+                persistirRegistrosDaFabrica(classe);
+            }
+        }
+    }
+
+}

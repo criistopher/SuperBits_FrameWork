@@ -1,0 +1,39 @@
+package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico;
+
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+
+
+
+public class InfoErroCritico {
+	
+
+	private String tituloErro;
+	private String mensagemErro;
+	private String printStack;
+	
+	public InfoErroCritico(String pTituloErro,Exception pExcept) {
+		tituloErro=UtilSBCoreStrings.makeStrUrlAmigavel(pTituloErro);
+		mensagemErro= pExcept.getMessage();
+		StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        pExcept.printStackTrace(pw);
+        pw.close();
+        printStack= sw.getBuffer().toString().replace("", "");
+        
+	}
+	public String getTituloErro() {
+		return tituloErro;
+	}
+	public String getMensagemErro() {
+		return mensagemErro;
+	}
+	public String getPrintStack() {
+		return printStack;
+	}
+
+	
+
+}

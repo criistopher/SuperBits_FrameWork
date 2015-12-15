@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>SBPersistencia</artifactId>
+    <packaging>jar</packaging>
+    <name>SBPersistencia</name>
+
+    <parent>
+        <groupId>com.super_bits</groupId>
+        <artifactId>SB_FRAMEWORK</artifactId>
+        <version>1.5.2-SNAPSHOT</version>
+    </parent>
+
+
+    <description>
+        Sistema para manipulação de dados utilizando JPA2 com Hibernate
+        Possui:
+
+        Classes de axilio para pojo + querys
+        Dao Generico Tipado
+        Metodos estáticos para opeções em banco de dados
+        Classes genericas de Entidade com metodos uteis como loadByID
+        Classes genericas para entidades comuns especificas como: endereco, grafico  e outros
+        Anotações para campo avançadas como Configuração de mascara
+
+        * Super-Bits.com CODE CNPJ 20.019.971/0001-90
+    </description>
+
+
+
+    <repositories>
+
+        <repository>
+            <id>com.super_bits</id>
+            <url>file://${basedir}/../</url>
+        </repository>
+
+
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+
+        </repository>
+
+
+
+
+    </repositories>
+
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.super_bits</groupId>
+            <artifactId>editorImagem</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>com.super_bits</groupId>
+            <artifactId>SBCore</artifactId>
+            <version>1.5.2-SNAPSHOT</version>
+
+        </dependency>
+
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.35</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.10.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>4.0.4.Final</version>
+
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.9.Final</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.mevenide</groupId>
+            <artifactId>netbeans-debugger-plugin</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+
+        <!-- WEBSERVICE  -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.2.5</version>
+        </dependency>
+
+    </dependencies>
+
+
+
+
+
+</project>

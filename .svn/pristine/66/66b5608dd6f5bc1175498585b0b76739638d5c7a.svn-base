@@ -1,0 +1,109 @@
+package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
+
+import java.io.Serializable;
+import java.lang.reflect.Field;
+
+public class Campo implements Serializable, ItfCampo {
+
+    enum TIPOVALORMAXIMO {
+
+        numCaracter, valor, padrao
+    }
+
+    private FabCampos tipoCampo;
+    private String nomeCamponaClasse;
+    private String tipoValor;
+    private String tipoVisualizacao;
+    private String valorPadrao;
+    private Field campo;
+    private int[] seguranca = {1};
+    private int valorMaximo;
+
+    private void initAll(FabCampos pTipo, Field pCampo) {
+
+        switch (pTipo) {
+            case TELEFONE:
+            case CALENDARIO:
+            case LCCEP:
+            case LOOKUP:
+            case LOOKUPMULTIPLO:
+            case MOEDA:
+            case TEXTOSIMPLES:
+
+            default:
+                break;
+        }
+        campo = pCampo;
+        nomeCamponaClasse = pCampo.getName();
+        tipoValor = pCampo.getType().getSimpleName();
+        tipoVisualizacao = pTipo.toString().toUpperCase();
+        setTipoCampo(pTipo);
+
+    }
+
+    /**
+     * Cria campo a partir do Field (reflection) e Tipo do Campo, especificando
+     * o valor padrão diferenciado (sobrescreve o valorPadrão da anotação)
+     *
+     * @param pTipo
+     * @param campo
+     * @param PvalorPadrao
+     */
+    public Campo(FabCampos pTipo, Field campo, String PvalorPadrao) {
+        initAll(pTipo, campo);
+        valorPadrao = PvalorPadrao;
+    }
+
+    /**
+     *
+     * Cria campo a partir do Field (reflection) e Tipo do Campo
+     *
+     * @param pTipo Tipo do campo
+     * @param pCampo Field reflection
+     */
+    public Campo(FabCampos pTipo, Field pCampo) {
+        initAll(pTipo, pCampo);
+
+    }
+
+    public void setValorPadrao(String valorPadrao) {
+        this.valorPadrao = valorPadrao;
+    }
+
+    public String getValorPadrao() {
+        return valorPadrao;
+    }
+
+    public void setNomeCamponaClasse(String nomeCamponaClasse) {
+        this.nomeCamponaClasse = nomeCamponaClasse;
+    }
+
+    public String getNomeCamponaClasse() {
+        return nomeCamponaClasse;
+    }
+
+    public String getTipoValor() {
+        return tipoValor;
+    }
+
+    public void setTipoValor(String tipoValor) {
+        this.tipoValor = tipoValor;
+    }
+
+    public String getTipoVisualizacao() {
+        return tipoVisualizacao;
+    }
+
+    public void setTipoVisualizacao(String tipoVisualizacao) {
+        this.tipoVisualizacao = tipoVisualizacao;
+    }
+
+    public FabCampos getTipoCampo() {
+        return tipoCampo;
+    }
+
+    public void setTipoCampo(FabCampos tipoCampo) {
+        this.tipoCampo = tipoCampo;
+    }
+
+}

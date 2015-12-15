@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sbc="http://java.sun.com/jsf/composite/SBComp"
+	xmlns:op="http://java.sun.com/jsf/composite/SBComp/orcaSe/op">
+
+<!-- INTERFACE -->
+<cc:interface>
+	<cc:attribute name="op"/>
+	
+</cc:interface>
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+<p:panel header="#{cc.attrs.op.nome}">
+<p:panelGrid columns="2" >
+
+
+<p:outputLabel value="Cod. ANS"/>
+<p:outputLabel value="#{cc.attrs.op.codigoANS}"/>
+<p:outputLabel value="Cidade"/>
+<p:outputLabel value="#{cc.attrs.op.cidade}"/>
+<p:outputLabel value="Bairro"/>
+<p:outputLabel value="#{cc.attrs.op.bairro}"/>
+<p:outputLabel value="CEP"/>
+<p:outputLabel value="#{cc.attrs.op.CEP}"/>
+<p:outputLabel value="Telefone"/>
+<p:outputLabel value="#{cc.attrs.op.telefone}"/>
+
+</p:panelGrid>
+</p:panel>
+
+
+</cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

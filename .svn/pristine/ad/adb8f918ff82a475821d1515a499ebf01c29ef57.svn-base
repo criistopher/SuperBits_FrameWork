@@ -1,0 +1,10 @@
+package com.super_bits.modulosSB.Persistencia.Campo;
+
+public class CampoMoeda extends Campo {
+
+    public CampoMoeda() {
+        super(null, null);
+        // TODO implmentar campo Moeda
+    }
+
+}

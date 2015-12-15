@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=primefaces-5.2.jar  -DgroupId=com.super_bits.view.primefaces  -DartifactId=primePremium   -Dpackaging=jar   -Dversion=5.2   -DgeneratePom=true   

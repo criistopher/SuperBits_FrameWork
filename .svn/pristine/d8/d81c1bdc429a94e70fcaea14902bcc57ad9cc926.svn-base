@@ -1,0 +1,77 @@
+/*
+ *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.UtilGeral;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * Métodos Staticos para auxiliar na Reflexão de Classes
+ *
+ * @author Salvio
+ */
+public abstract class UtilSBCoreReflexao {
+
+    public static List<?> procuraCamposPorTipo(Object instancia, Class tipoProcurado) {
+        Class classe = instancia.getClass();
+        Field[] fields = classe.getDeclaredFields();
+
+        List<Object> resposta = new ArrayList<>();
+        for (Field campo : fields) {
+            if (campo.getType().getName().equals(tipoProcurado.getName())) {
+                campo.setAccessible(true);
+                try {
+                    resposta.add(campo.get(instancia));
+                } catch (IllegalArgumentException | IllegalAccessException ex) {
+                    Logger.getLogger(UtilSBCoreReflexao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+
+                System.out.println("nao encontrou" + campo.getType().getName() + "-" + tipoProcurado.getName());
+            }
+        }
+        return resposta;
+    }
+
+    public static String getSimpleNamebyString(String pNomeCompleto) {
+        return getCaminhoParcialFinalByFullName(pNomeCompleto, 1);
+    }
+
+    public static String getCaminhoParcialFinalByFullName(String nomecompleto, int pNCasas) {
+        String[] casas = nomecompleto.split("\\.");
+        int ultimacasa = casas.length - 1;
+        String resposta = "";
+        for (int i = ultimacasa; i > ultimacasa - pNCasas; i--) {
+            if (i == ultimacasa) {
+                resposta = casas[i];
+            } else {
+                resposta = casas[i] + "." + resposta;
+            }
+        }
+        return resposta;
+
+    }
+
+    public static String getCaminhoParcialInicialByFullName(String nomecompleto, int pNCasas) {
+
+        String[] casas = nomecompleto.split("\\.");
+        int ultimacasa = casas.length - 1;
+        String resposta = "";
+        for (int i = 0; i <= pNCasas - 1; i++) {
+            if (i == 0) {
+                resposta = casas[i];
+            } else {
+                resposta = resposta + "." + casas[i];
+            }
+        }
+        return resposta;
+
+    }
+
+}

@@ -1,0 +1,16 @@
+package com.super_bits.modulosSB.SBCore.BeansInterface.basico;
+
+import java.util.List;
+
+public interface ItfBeanSimples {
+
+    public String getImgPequena();
+
+    public String getNomeCurto();
+
+    public int getId();
+
+    public String getCampoSQLNomeCurto();
+
+	//	public void uploadFoto(FileUploadEvent event);
+}

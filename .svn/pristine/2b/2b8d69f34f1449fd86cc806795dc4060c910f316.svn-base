@@ -1,0 +1,130 @@
+package com.super_bits.modulosSB.Persistencia.Campo;
+
+import com.super_bits.modulosSB.Persistencia.InjecaoPorReflexao.excecao.FormatFieldException;
+import com.super_bits.modulosSB.Persistencia.InjecaoPorReflexao.excecao.MapFieldException;
+import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo.TC;
+import com.super_bits.modulosSB.Persistencia.anotacoes.util.ErrorMessages;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CampoMapValores implements Serializable {
+
+    private final Map<TC, CampoEsperado> mapaDeCampos = new HashMap<TC, CampoEsperado>();
+
+    public void AdcionaCampo(CampoEsperado pCampo) {
+
+        if ((pCampo.getTipoCampo() == null) || (pCampo.getValorPadrao() == null)) {
+            try {
+                throw new MapFieldException(String.format(ErrorMessages.FIELD_CAN_NOT_BE_NULL, pCampo.getTipoCampo(), pCampo.getValorPadrao()));
+            } catch (MapFieldException e) {
+
+                SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro adcionando campo esperado em CampoMapValores", e);
+            }
+        }
+        // setando UPERCASE para os nomes dos campos
+        this.mapaDeCampos.put(pCampo.getTipoCampo(), pCampo);
+    }
+
+    public CampoEsperado getCampo(TC name) {
+
+        CampoEsperado campo = this.mapaDeCampos.get(name);
+
+        if (campo == null) {
+            try {
+                throw new MapFieldException(String.format(ErrorMessages.FIELD_NOT_FOUNDED, name));
+            } catch (MapFieldException e) {
+
+                SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro obtendo Campo no CampoMapValores", e);
+            }
+        }
+        return campo;
+    }
+
+    public String getValorPadrao(TC name) throws MapFieldException {
+        CampoEsperado campo = getCampo(name);
+        return campo.getValorPadrao();
+    }
+
+    public Integer getIntValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Long getLongValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Double getDoubleValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Float getFloatValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        try {
+            return Float.parseFloat(value);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Boolean getBooleanValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        try {
+            return Boolean.parseBoolean(value);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Character getCharacterValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        if (value.length() != 1) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name));
+        }
+
+        try {
+            return value.charAt(0);
+        } catch (NumberFormatException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+    public Date getDateValue(TC name) throws MapFieldException, FormatFieldException {
+        String value = getValorPadrao(name);
+
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
+        try {
+            return formater.parse(value);
+        } catch (ParseException e) {
+            throw new FormatFieldException(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
+        }
+    }
+
+}

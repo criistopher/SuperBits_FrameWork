@@ -1,0 +1,58 @@
+package com.super_bits.modulosSB.webPaginas.controller.listenners;
+
+import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfInicioFimAppWP;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import org.jboss.weld.util.ServiceLoader;
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Salvio
+ */
+public class ContextoWebPaginas implements ServletContextListener {
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        System.out.println("Iniciando contexto");
+        try {
+            ServiceLoader<ItfInicioFimAppWP> services = ServiceLoader.load(ItfInicioFimAppWP.class);
+
+            if (!services.iterator().hasNext()) {
+                ErroSBCoreFW erro = (ErroSBCoreFW) ErroSBCoreFW.class.newInstance();
+                erro.Alerta(ErroSB.TIPO_ERRO.PARA_TUDO, "classe de especificada em service para início e fim não foi encontrada");
+            }
+            ItfInicioFimAppWP inicio = services.iterator().next().getValue();
+            inicio.inicio();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            SBCore.RelatarErro(ErroSB.TIPO_ERRO.PARA_TUDO, "Erro carregando classe inicio fim contexto", ex);
+        }
+
+        PgUtil paginautil = new PgUtil();
+        paginautil.getCores().carregarCores();
+
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        System.out.println("Finalizando contexto");
+    }
+
+}

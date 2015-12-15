@@ -1,0 +1,129 @@
+/*
+ *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.BeansGenericos.basico;
+
+import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfUsuario;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * Usuário anonimo
+ *
+ * TODO: Criar pacote Objetos SuperBits, mover Itens Genericos e interfaces,
+ * separando por assunto
+ *
+ * @author Salvio
+ */
+public class UsuarioAnonimo implements ItfUsuario, Serializable {
+
+    @Override
+    public String getEmail() {
+        return "anonimo@naoTenhoEmail.com.br";
+    }
+
+    @Override
+    public String getSenha() {
+        return "";
+    }
+
+    @Override
+    public String getComplemento() {
+        return "";
+    }
+
+    @Override
+    public int getCEP() {
+        return 00000000;
+    }
+
+    @Override
+    public String getTelefone() {
+        return "";
+    }
+
+    @Override
+    public String getNomeLongo() {
+        return "Usuário não Identificado";
+    }
+
+    @Override
+    public String getDescritivo() {
+        return "usuário anoniomo, não identificado no sistema";
+    }
+
+    @Override
+    public String getImgGrande() {
+        return "/img/usuarioanonimo.jpg";
+    }
+
+    @Override
+    public String getImgMedia() {
+        return "/img/usuarioanonimo.jpg";
+    }
+
+    @Override
+    public List<String> getGaleria() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getImgPequena() {
+        return "/img/usuarioanonimo.jpg";
+    }
+
+    @Override
+    public String getNomeCurto() {
+        return "Anônimo";
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
+
+    @Override
+    public String getCampoSQLNomeCurto() {
+        return "email";
+    }
+
+    @Override
+    public String getNome() {
+        return "Anônimo";
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.hashCode() == this.hashCode()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return getNome().hashCode();
+    }
+
+    @Override
+    public ItfGrupoUsuario getGrupo() {
+        return new GrupoUsuariosDoSistema();
+
+    }
+
+    @Override
+    public void setGrupo(ItfGrupoUsuario grupo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

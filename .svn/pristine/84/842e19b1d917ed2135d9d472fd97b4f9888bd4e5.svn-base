@@ -1,0 +1,71 @@
+/*
+ *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
+
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *
+ * @author Salvio
+ */
+public class SessaoOffline implements ItfSessao {
+
+    private ItfUsuario usuarioLogado;
+    private final Date dataInicial;
+    private Date dataFinal;
+    private final List<ItfAcesso> acoesRealizadas;
+
+    public SessaoOffline() {
+        this.acoesRealizadas = new ArrayList();
+        this.usuarioLogado = new UsuarioAnonimo();
+        this.dataInicial = new Date();
+
+    }
+
+    @Override
+    public ItfUsuario getUsuario() {
+        return usuarioLogado;
+    }
+
+    @Override
+    public Date getInicio() {
+        return dataInicial;
+    }
+
+    @Override
+    public Date getFim() {
+        return dataFinal;
+    }
+
+    @Override
+    public List<ItfAcesso> getAcoesRealizadas() {
+        return acoesRealizadas;
+    }
+
+    @Override
+    public void setUsuario(ItfUsuario pUsuario) {
+        System.out.println("Usuario " + pUsuario.getNome() + "Vinculado  a SessaoAtual iniciada em:" + getInicio());
+        usuarioLogado = pUsuario;
+    }
+
+    @Override
+    public boolean isIdentificado() {
+        if (usuarioLogado == null) {
+            System.out.println("id Usuario logado está nulo");
+            return false;
+        }
+        if (usuarioLogado.getId() == 0) {
+            System.out.println("id Usuario logado = 0" + usuarioLogado.getNome());
+            return false;
+        }
+        return true;
+    }
+
+}

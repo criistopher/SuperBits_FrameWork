@@ -1,0 +1,90 @@
+package com.super_bits.modulosSB.Persistencia.Campo;
+
+import com.super_bits.modulosSB.Persistencia.Campo.CampoUtil.tipoCampo;
+import java.io.Serializable;
+import java.lang.reflect.Field;
+
+public class Campo implements Serializable {
+
+    private static final long serialVersionUID = 5771761374005934114L;
+    private tipoCampo tipoCampo;
+
+    private String nomeCamponaClasse;
+    private String tipoValor;
+    private String tipoVisualizacao;
+    private String valorPadrao;
+    private int[] seguranca = {1};
+
+    private void initAll(tipoCampo pTipo, Field campo) {
+
+        switch (pTipo) {
+            case TELEFONE:
+            case CALENDARIO:
+            case CEP:
+            case LOOKUP:
+            case LOOKUPMULTIPLO:
+            case MOEDA:
+            case TEXTOSIMPLES:
+
+            default:
+                break;
+        }
+
+        nomeCamponaClasse = campo.getName();
+        tipoValor = campo.getType().getSimpleName();
+        tipoVisualizacao = pTipo.toString().toUpperCase();
+        setTipoCampo(pTipo);
+
+    }
+
+    public Campo(tipoCampo pTipo, Field campo, String PvalorPadrao) {
+        initAll(pTipo, campo);
+        valorPadrao = PvalorPadrao;
+    }
+
+    public Campo(tipoCampo pTipo, Field campo) {
+        initAll(pTipo, campo);
+
+    }
+
+    public void setValorPadrao(String valorPadrao) {
+        this.valorPadrao = valorPadrao;
+    }
+
+    public String getValorPadrao() {
+        return valorPadrao;
+    }
+
+    public void setNomeCamponaClasse(String nomeCamponaClasse) {
+        this.nomeCamponaClasse = nomeCamponaClasse;
+    }
+
+    public String getNomeCamponaClasse() {
+        return nomeCamponaClasse;
+    }
+
+    public String getTipoValor() {
+        return tipoValor;
+    }
+
+    public void setTipoValor(String tipoValor) {
+        this.tipoValor = tipoValor;
+    }
+
+    public String getTipoVisualizacao() {
+        return tipoVisualizacao;
+    }
+
+    public void setTipoVisualizacao(String tipoVisualizacao) {
+        this.tipoVisualizacao = tipoVisualizacao;
+    }
+
+    public tipoCampo getTipoCampo() {
+        return tipoCampo;
+    }
+
+    public void setTipoCampo(tipoCampo tipoCampo) {
+        this.tipoCampo = tipoCampo;
+    }
+
+}

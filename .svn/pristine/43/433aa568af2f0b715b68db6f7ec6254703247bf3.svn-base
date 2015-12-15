@@ -1,0 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.SBCore.fabrica;
+
+import java.util.List;
+
+/**
+ *
+ * @author sfurbino
+ */
+public interface ItfFabrica {
+
+    /**
+     *
+     *
+     * Este método deve ser declarado como abstrado na fabrica do tipo enum.
+     * Desta forma, cada
+     *
+     *
+     * @return
+     */
+    public Object getRegistro();
+
+    /**
+     *
+     * Cria todos os registros da fabbrica e retorna em uma lista
+     *
+     * ##############################################################################
+     * ESTE METODO DEVE SER IMPLEMENTADO NO MODO STATIC
+     *
+     *
+     * @return Todos os registros
+     */
+    public List getRegistros();
+
+    /**
+     * Cria todos os TIPOS da fabbrica e retorna em uma lista
+     *
+     * ##############################################################################
+     * ESTE METODO DEVE SER IMPLEMENTADO NO MODO STATIC
+     *
+     *
+     * @return
+     */
+    public List getTipos();
+
+}

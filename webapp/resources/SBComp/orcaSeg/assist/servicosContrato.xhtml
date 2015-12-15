@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sbc="http://java.sun.com/jsf/composite/SBComp"
+	xmlns:assist="http://java.sun.com/jsf/composite/SBComp/orcaSeg/assist">
+
+<!-- INTERFACE -->
+<cc:interface>
+	
+	
+	
+</cc:interface>
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+
+    <sbc:cabecalho/>
+    <div class="wrapper">
+        <div id="container">
+           
+             
+  
+  
+    <h:panelGrid columns="5" cellpadding="5"  >       
+  <h:panelGrid columns="1">
+      <a class="bassist"> Abrangência </a>  
+        <p:selectOneRadio layout="grid" columns="1"  >       
+            <f:selectItem itemLabel="Municipal" itemValue="Option 1" />            
+            <f:selectItem itemLabel="Estadual" itemValue="Option 2" />             
+            <f:selectItem itemLabel="Nacional" itemValue="Option 3" />           
+            <f:selectItem itemLabel="Internacional" itemValue="Option 4" />  
+          </p:selectOneRadio>
+        </h:panelGrid>
+        
+       
+       
+       <h:panelGrid columnClasses="column3Class" >
+         <a class="bassist">Participação</a> 
+  		<p:selectOneRadio layout="grid" columns="1"  >     
+            <f:selectItem itemLabel="Coparticipativo" itemValue="Option 1"  />  
+            <f:selectItem itemLabel="Integral" itemValue="Option 2" />  
+        </p:selectOneRadio>
+        </h:panelGrid>
+  		
+  
+  		 <p:column >
+         <a class="bassist">Forma de Contrato</a> 
+        <p:selectOneRadio layout="grid" columns="1">    
+            <f:selectItem itemLabel="Ambulatorial" itemValue="Option 1" />  
+            <f:selectItem itemLabel="Hospitalar" itemValue="Option 2" />     
+        </p:selectOneRadio>  
+  			 </p:column>
+
+		<p:column>
+         <a class="bassist">Acomodação</a> 
+  		<p:selectOneRadio layout="grid" columns="1" >     
+            <f:selectItem itemLabel="Enfermaria" itemValue="Option 1" />  
+            <f:selectItem itemLabel="Apartamento" itemValue="Option 2" />  
+        </p:selectOneRadio> 
+		  </p:column>
+		  
+		 	<p:column>
+         <a class="bassist">Opcionais do Pano</a>   
+        <p:selectManyCheckbox layout="grid" columns="1">   
+            <f:selectItem itemLabel="Obstreticia" itemValue="Option 1" />  
+            <f:selectItem itemLabel="Odontologico" itemValue="Option 2" />     
+       	</p:selectManyCheckbox>  
+		 </p:column> 
+		 
+         </h:panelGrid  >
+         
+         
+         
+         
+         <p:panel  style="text-align:center"  >
+         <h:outputLabel value="As opções de serviço devem ser escolhidas de acordo com sua necessidade" style="text-align:center" /> 
+         </p:panel> 
+         
+          
+       
+        
+        
+         <a class="bassistG"> Continuar </a>
+                
+        </div>
+    </div>
+        
+    <sbc:rodape/>
+ 
+      
+  
+    <p:separator/>
+  
+    
+  
+				  
+            
+
+
+</cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

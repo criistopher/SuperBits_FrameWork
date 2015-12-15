@@ -1,0 +1,18 @@
+package com.super_bits.modulosSB.Persistencia.registro.persistidos;
+
+import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfBeanContatoCorporativo;
+
+public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implements
+        ItfBeanContatoCorporativo {
+
+    public EntidadeContatoCorporativo(Class<?> pClasseModelo) {
+        super(pClasseModelo);
+        // TODO implementar EntidadeContatoCorporativo
+    }
+
+    public String getSite() {
+
+        return "www.sosaude.com.br";
+    }
+
+}

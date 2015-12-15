@@ -1,0 +1,62 @@
+/*
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes;
+
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
+/**
+ *
+ * @author sfurbino
+ */
+public enum FabCampos implements ItfFabrica {
+
+    TEXTO_SIMPLES,
+    IMG_PEQUENA,
+    IMG_MEDIA,
+    IMG_GRANDE,
+    NOME_CURTO,
+    NOME_LONGO,
+    DESCRITIVO,
+    ID,
+    LAT,
+    LONG,
+    LCLOGRADOURO,
+    LCCEP,
+    LCBairro,
+    LCCidade,
+    LCTelefone,
+    LCComplemeto,
+    HTML,
+    CHART_VALOR,
+    CHART_LABEL,
+    CHART_CATEGORIA,
+    CALENDARIO,
+    TELEFONE,
+    MOEDA,
+    LOOKUP,
+    LOOKUPMULTIPLO,
+    CEP,
+    TEXTOSIMPLES,
+    COR,
+    SITE,
+    URL,
+    RESPONSAVEL;
+
+    @Override
+    public Campo getRegistro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static FabCampos getTipoPadraoByClasse(Class pClasse) {
+
+        return FabCampos.TEXTOSIMPLES;
+    }
+
+    public static Campo getTipoCampoByProp(String pProp) {
+        return null;
+    }
+
+};

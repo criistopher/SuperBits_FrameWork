@@ -1,0 +1,13 @@
+package com.super_bits.modulosSB.Persistencia.Campo;
+
+import java.lang.reflect.Field;
+
+public class CampoData extends Campo {
+
+	public CampoData(
+			com.super_bits.modulosSB.Persistencia.Campo.CampoUtil.tipoCampo pTipo,
+			Field campo) {
+		super(pTipo, campo);
+	}
+
+}

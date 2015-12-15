@@ -1,0 +1,10 @@
+package com.super_bits.modulosSB.Persistencia.Campo;
+
+public class CampoNumero extends Campo {
+
+    public CampoNumero(String pNome) {
+        super(null, null);
+        // TODO Implementar campo numero
+    }
+
+}

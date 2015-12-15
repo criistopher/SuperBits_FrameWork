@@ -1,0 +1,52 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.SBCore.Mensagens;
+
+/**
+ *
+ * @author Salvio
+ */
+public interface ItfCentralMensagens {
+
+    public static enum TP_MENSAGEM {
+
+        AVISO, ALERTA, ERRO, ERRO_FATAL
+    }
+
+    /**
+     * pTipoMsg No caso de mensagem ao usuário se comporta da seguinte forma:
+     * AVISO-> Exibe a mensagem com icone Informativo, ALERTA exibe a mensagem
+     * em tela cheia, ERRO exibe a mensagem com icone de erro, ERRO_FATAL No
+     * caso de mensagem ao Sistema: TipoMsg nfo-> salva de forma temporária.
+     * ALerta-> salva de forma permanente ErroFatal-Salva de forma permanente e
+     * tenta Alertar os Administradores
+     */
+    public static enum TP_DESTINATARIO {
+
+        USUARIO, SISTEMA, DESENVOLVEDOR
+    };
+
+    /**
+     * Envia uma mensagem na tela do usuário que chamou o métodos
+     *
+     * @param pMensagem Mensagem que será enviada
+     * @param pTipoMsg AVISO-> Exibe a mensagem com icone Informativo, ALERTA
+     * exibe a mensagem em tela cheia, ERRO exibe a mensagem com icone de erro,
+     * ERRO_FATAL envia o usuário para pagina de Erro
+     */
+    public void enviaMensagemUsuario(String pMensagem, TP_MENSAGEM pTipoMsg);
+
+    /**
+     * Cria um Log sobre o Evento. I
+     *
+     * @param pMensagem Mensagem que será exibida
+     * @param pTipoMsg nfo-> salva de forma temporária. ALerta-> salva de forma
+     * permanente ErroFatal-Salva de forma permanente e tenta Alertar os
+     * Administradores
+     */
+    public void enviaMensagemSistema(String pMensagem, TP_MENSAGEM pTipoMsg);
+
+}

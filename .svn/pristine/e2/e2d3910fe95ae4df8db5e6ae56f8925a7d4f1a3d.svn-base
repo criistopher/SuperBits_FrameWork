@@ -1,0 +1,93 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.SBCore.ManipulaArquivo;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ *
+ * Conjunto de Utilitáros para manipulação de arquivos Texto
+ *
+ * @author Sálvio Furbino <salviof@gmail.com>
+ * @since 25/05/2014
+ *
+ */
+public abstract class UtilSBCoreArquivoTexto {
+
+    /**
+     *
+     * Cria uma nova linha no arquivo, e escreve o conteúdo possui tratamento
+     * para criação do arquivo caso não exista
+     *
+     * @param pCaminhaoArquivo Caminho do arquivo
+     * @param pLinha Conteúdo da linha que será escrita
+     * @return Verdadeiro -> suecesso da operação, Falso falha na operação
+     *
+     */
+    public synchronized static boolean escreverEmArquivo(String pCaminhaoArquivo, String pLinha) {
+        File arquivo = new File(pCaminhaoArquivo);
+      //  if (!arquivo.exists()) {
+        //      try {
+        // arquivo.mkdirs();
+        //     arquivo.createNewFile();
+        //        } catch (IOException ex) {
+        //             SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, pLinha, ex);
+        //            return false;
+        //         }
+        //     }
+        System.out.println("Escrevendo em arquivo" + pCaminhaoArquivo);
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(pCaminhaoArquivo, true)))) {
+            out.println(pLinha);
+            out.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println("errp" + e.getMessage());
+            return false;
+        }
+    }
+
+    public static synchronized void printLnNoArquivo(String linha, String pArquivo) {
+        PrintWriter output;
+
+        try {
+            output = new PrintWriter(new FileWriter(pArquivo, true));
+            output.println(linha);
+            output.flush();
+            output.close();
+            System.out.println(linha);
+        } catch (IOException ex) {
+            System.out.println("ERRO");
+        }
+
+    }
+
+    /**
+     *
+     * Limpa o contaúdo do arquivo
+     *
+     * @param pCaminhoArquivo caminho absoluto do arquivo
+     * @return verdadeiro se executar com sucesso, falso se falhar na operação
+     */
+    public synchronized static boolean limparArquivoTexto(String pCaminhoArquivo) {
+        File arquivo = new File(pCaminhoArquivo);
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(arquivo);
+            writer.print("");
+            writer.close();
+            return true;
+        } catch (FileNotFoundException ex) {
+            return false;
+        }
+
+    }
+
+}

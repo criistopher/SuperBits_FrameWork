@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sbc="http://java.sun.com/jsf/composite/SBComp"
+>
+
+<!-- INTERFACE -->
+<cc:interface>
+	<cc:attribute name="lista"
+		type="java.util.List" required="true"/>
+</cc:interface>
+
+<cc:implementation>
+
+
+
+
+	<h:form>
+	
+    <p:dataTable var="pl" value="#{cc.attrs.lista}">
+
+        <p:column headerText="Nome ">
+       
+            <h:outputText value="#{pl.nomeCurto}" />
+        </p:column>
+                <p:column headerText="Convênio ">
+            <sbc:link TIPO_VIEW_IMAGEM="true" registro="#{pl.operadora}"/>
+        </p:column>
+	 <p:column headerText=" Apartamento">
+            <h:outputText value="#{pl.apartamento.descricao}" />
+        </p:column>
+         <p:column headerText="Cobertura Geográfica ">
+            <h:outputText value="#{pl.coberturaGeografica.descricao}" />
+        </p:column>
+         <p:column headerText="Cooparticipação  ">
+            <h:outputText value="#{pl.coparticipativo.descricao}" />
+        </p:column>
+         <p:column headerText="Internação ">
+            <h:outputText value="#{pl.internacao.descricao}" />
+        </p:column>
+         <p:column headerText="Obstetricia ">
+            <h:outputText value="#{pl.obstetricia.descricao}" />
+        </p:column>
+         <p:column headerText="Odontologia ">
+            <h:outputText value="#{pl.odontologia.descricao}" />
+        </p:column>
+         <p:column headerText="Tipo Plano ">
+            <h:outputText value="#{pl.tipoPlano.nomeCurto}" />
+        </p:column>
+		
+    </p:dataTable>
+</h:form>
+
+</cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

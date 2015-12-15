@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sbc="http://java.sun.com/jsf/composite/SBComp"
+	xmlns:op="http://java.sun.com/jsf/composite/SBComp/orcaSeg/op">
+
+<!-- INTERFACE -->
+<cc:interface>
+	<cc:attribute name="op"/>
+
+</cc:interface>
+<!-- IMPLEMENTATION -->
+<cc:implementation>
+    
+ <!-- CABEÇALHO -->
+        <div class="wrapper">
+            <div id="header">
+                <div id="logo">
+                    <h1><a href="#">OrçaSeg</a></h1>
+                    <p>Orçamento de seguros</p>
+                </div>
+                <div id="topnav">
+                    <ul>
+                        <li><a href="#">Pagina Inicial</a></li>
+                        <li><a href="#">Compare</a></li>
+                        <li><a href="#">Orçamento</a></li>
+                        <li><a href="#">Operadoras</a></li>
+                    </ul>
+                </div>
+                <br class="clear" />
+            </div>
+        </div>
+	<!-- ************** INICIO ULTIMA TELA ... MOSTRA AS OPERADORAS COMPARADAS TESTE DE LAYOUT ********** -->
+
+    <div class="wrapper">
+        <div id="container">
+
+
+
+            <h2> RESULTADO COMPARAÇÃO </h2>
+
+            <h:panelGrid columns="4" rendered="true" cellspacing="30px"
+                         cellpadding="10px" rules="all" border="1" 
+                         width="100%">
+
+
+                <p:outputLabel value="Descrição" style="font-weight:bold" />
+                <p:outputLabel value="#{pgTesteTelas.operadora.nomeCurto}"
+                               style="font-weight:bold" />
+                <p:outputLabel value="#{pgTesteTelas.operadora.nomeCurto}"
+                               style="font-weight:bold" />
+                <p:outputLabel value="#{pgTesteTelas.operadora.nomeCurto}"
+                               style="font-weight:bold" />
+
+
+
+
+                <p:outputLabel value="Codigo ANS" style="font-weight:bold"
+                               id="descricao1" />
+                <op:codigoANS op="#{cc.attrs.op1}" />
+                <op:codigoANS op="#{cc.attrs.op2}" />
+                <op:codigoANS op="#{cc.attrs.op3}" />
+
+                <p:outputLabel value="Pontuação Total" style="font-weight:bold"
+                               id="descricao2" />
+
+                <op:ultimoIDSS op="#{cc.attrs.op1}" />
+                <op:ultimoIDSS op="#{cc.attrs.op2}" />
+                <op:ultimoIDSS op="#{cc.attrs.op3}" />
+
+                <p:outputLabel value="Qualificação" style="font-weight:bold"
+                               id="descricao3" />
+
+                <op:ultimaQualificacaoANS op="#{cc.attrs.op1}" />
+                <op:ultimaQualificacaoANS op="#{cc.attrs.op2}" />
+                <op:ultimaQualificacaoANS op="#{cc.attrs.op3}" />
+
+                <p:outputLabel value="Reclamações" style="font-weight:bold"
+                               id="descricao4" />
+
+                <op:ultimasRelcamacoesANS op="#{cc.attrs.op1}" />
+                <op:ultimasRelcamacoesANS op="#{cc.attrs.op2}" />
+                <op:ultimasRelcamacoesANS op="#{cc.attrs.op3}" />
+
+                <p:outputLabel value="Satisfação do Usuario" style="font-weight:bold"
+                               id="descricao5" />
+
+                <op:qualificacaoUsuarioANS op="#{cc.attrs.op1}" />
+                <op:qualificacaoUsuarioANS op="#{cc.attrs.op2}" />
+                <op:qualificacaoUsuarioANS op="#{cc.attrs.op3}" />
+
+
+                <p:outputLabel value="Rede Credenciada" style="font-weight:bold"
+                               id="descricao6" />
+                <op:resumoRedeCredenciada op="#{cc.attrs.op1}" />
+                <op:resumoRedeCredenciada op="#{cc.attrs.op2}" />
+                <op:resumoRedeCredenciada op="#{cc.attrs.op3}" />
+
+
+
+                <p:outputLabel value="Tipo de Contrato" style="font-weight:bold"
+                               id="descricao7" />
+                <op:tipoDeContratacao op="#{cc.attrs.op1}" />
+                <op:tipoDeContratacao op="#{cc.attrs.op2}" />
+                <op:tipoDeContratacao op="#{cc.attrs.op3}" />
+
+                <p:outputLabel value="Tipo de Plano" style="font-weight:bold"
+                               id="descricao8" />
+                <op:opcoesDePlano op="#{cc.attrs.op1}" />
+                <op:opcoesDePlano op="#{cc.attrs.op2}" />
+                <op:opcoesDePlano op="#{cc.attrs.op3}" />
+            </h:panelGrid>
+
+
+
+
+        </div>
+    </div>
+
+    <p:tooltip for="descricao1" value="Código de registro da operadora na Agência Nacional de Saúde" style="max-width:200px; background-color:transparent; font-size:12pt" showEffect="fade" hideEffect="fade"  />      
+    <p:tooltip for="descricao2" value="Pontuação total é a média de todos os indices da ANS. Define o rank geral de qualidade de uma operadora" style="max-width:200px; background-color:transparent; font-size:12pt"  showEffect="fade" hideEffect="fade"/>
+    <p:tooltip for="descricao3" value="O salvim tem que me falar o que qualificação" style="max-width:200px; background-color:transparent" showEffect="fade" hideEffect="fade" />
+    <p:tooltip for="descricao4" value="Mostra o numero de reclamações da operadora nos ultimos 6 meses" style="max-width:200px" showEffect="fade" hideEffect="fade" />
+    <p:tooltip for="descricao5" value="Exibe o numero total do indice de satisfação do usuario com a operadora" style="max-width:200px" showEffect="fade" hideEffect="fade" />
+
+    <p:tooltip for="descricao6" value="Mostra o numero total de prestadores da rede credenciada" style="max-width:200px" showEffect="fade" hideEffect="fade" />
+    <p:tooltip for="descricao7"  style="max-width:200px" showEffect="fade" hideEffect="fade" />
+    <p:tooltip for="descricao8"  style="max-width:200px" showEffect="fade" hideEffect="fade" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+
+</cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

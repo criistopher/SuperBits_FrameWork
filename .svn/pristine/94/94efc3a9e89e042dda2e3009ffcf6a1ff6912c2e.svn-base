@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.super_bits.modulosSB.Persistencia.util;
+
+import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import java.lang.reflect.Field;
+
+/**
+ *
+ * @author Salvio
+ */
+public class UtilSBPersistenciaReflexaoJPA {
+
+    public static Field getSBCampobyTipoCampo(Class pClasse, InfoCampo.TC pTipoCampo) {
+
+        Class classe = pClasse;
+        boolean fim = false;
+        while (!fim) {
+
+            Field[] fields = classe.getDeclaredFields();
+
+            for (Field field : fields) {
+                InfoCampo annotationField = field.getAnnotation(InfoCampo.class);
+
+                if (annotationField != null) {
+
+                    if (annotationField.tipo().equals(pTipoCampo)) {
+                        return field;
+                    }
+                    // injetaValor(field, annotationField, objectInstance, campos);
+                }
+            }
+
+            classe = classe.getSuperclass();
+
+            if (classe.getSimpleName().equals(EntidadeSimples.class.getSimpleName())
+                    || classe.getSimpleName().contains("Entdidade")
+                    || classe.getSimpleName().equals(Object.class.getSimpleName())) {
+                fim = true;
+            }
+        }
+        return null;
+    }
+}

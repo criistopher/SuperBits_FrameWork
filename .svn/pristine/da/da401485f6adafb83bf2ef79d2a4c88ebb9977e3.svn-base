@@ -1,0 +1,11 @@
+package com.super_bits.modulosSB.SBCore.InfoCampos.registro.BeansInterface.basico;
+
+public interface ItfBeanContatoCorporativo extends ItfBeanEndereco {
+
+    public String getSite();
+
+    public String telefone();
+
+    public String responsavel();
+
+}

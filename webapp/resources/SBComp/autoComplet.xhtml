@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sbc="http://java.sun.com/jsf/composite/SBComp">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="seletorDeItem" type="com.super_bits.Interface.bean.SB.B_SeletorDeItem" required="true"/>
+
+
+
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:panelGrid columns="1">
+            <h:panelGrid columns="2">
+                <p:autoComplete value="#{cc.attrs.seletorDeItem.itemSelecionado}" completeMethod="#{cc.attrs.seletorDeItem.autocompletUpdate}"  
+                                var="item" itemLabel="#{item.nomeCurto}" itemValue="#{item}" converter="conversorGenerico" forceSelection="true">  
+                    <p:column>  
+                        <p:graphicImage value="#{item.imagemMedia}" width="40" height="50"/>  
+                    </p:column>  
+
+                    <p:column>  
+                        #{item.nomeCurto}
+                    </p:column>  
+                </p:autoComplete> 
+                <p:commandButton value="Mostrar Todos" onclick="#{cc.attrs.seletorDeItem.mostrarTodos}" 
+                                 update="mostratodos"/>
+            </h:panelGrid>
+        </h:panelGrid>
+        <p:panel header="Selecione " id="mostratodos" rendered="#{cc.attrs.seletorDeItem.mostraTodos}" >
+
+            <p:dataGrid var="item2" value="#{cc.attrs.seletorDeItem.opcoes}" columns="3"  
+                        rows="12" paginator="true"  
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        rowsPerPageTemplate="9,12,15">  
+
+                <p:panel header="#{item2.nomeCurto}" style="text-align:center">  
+                    <p:graphicImage value="#{item2.imgMedia}" />
+                </p:panel>  
+
+            </p:dataGrid>  
+
+
+        </p:panel>
+
+    </cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

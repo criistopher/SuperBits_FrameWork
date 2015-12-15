@@ -1,0 +1,322 @@
+package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
+
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.BeansInterface.basico.ItfBeanGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.BeansInterface.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
+public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Serializable {
+
+    protected CampoMapValores camposEsperados;
+    protected List<Campo> camposEncontrados = new ArrayList<Campo>();
+    private Map<String, Object> valorCampoByName;
+
+    private static Class<?> classeModelo;
+
+    public String getTesteParametro(String pteste) {
+        if (pteste == null) {
+            pteste = "";
+        }
+        return "o parametro é" + pteste;
+    }
+
+    public void makeValorCampoByName() {
+
+        Map<String, Object> resp = new TreeMap<String, Object>();
+
+        Class<?> current = this.getClass();
+
+        for (Field field : current.getDeclaredFields()) {
+            field.setAccessible(true);
+            if (!Modifier.isStatic(field.getModifiers())) {
+                if (!resp.containsKey(field.getName())) {
+                    try {
+                        resp.put(field.getName(), field.get(this));
+                    } catch (IllegalArgumentException e) {
+
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+        valorCampoByName = resp;
+    }
+
+    private void aplicaValores() {
+        Map<String, Field> campos = analyze(this);
+        for (String nomeCampo : campos.keySet()) {
+            try {
+                campos.get(nomeCampo).setAccessible(true);
+                campos.get(nomeCampo)
+                        .set(this, valorCampoByName.get(nomeCampo));
+
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+
+                SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro aplicando valor padrão do campo", e);
+            }
+        }
+    }
+
+    public void MakeCamposEncontrados() {
+        // TODO Para cada Filed adciona um Campo
+        Map<String, Field> mapEncontrados = analyze(this);
+        camposEncontrados.clear();
+        for (String teste : mapEncontrados.keySet()) {
+
+            Field campoEncontrado = mapEncontrados.get(teste);
+            //String tipoc = campoEncontrado.getType().getSimpleName();
+            //String nome = campoEncontrado.getName();
+            // campoEncontrado.getDeclaredAnnotations();
+            // campoEncontrado.getName();
+            InfoCampo anotacaoInfoCampo = campoEncontrado
+                    .getAnnotation(InfoCampo.class);
+
+            campoEncontrado.setAccessible(true);
+            if (anotacaoInfoCampo != null) {
+                // TODO cria campo de acordo com anotação
+
+                Campo novoCampo = new Campo(FabCampos.TEXTOSIMPLES,
+                        campoEncontrado);
+                camposEncontrados.add(novoCampo);
+            } else {
+
+                Campo novoCampo = new Campo(FabCampos.TEXTOSIMPLES,
+                        campoEncontrado);
+
+                if (campoEncontrado.getType().getSimpleName().equals("String")) {
+                    camposEncontrados.add(novoCampo);
+                }
+                if (campoEncontrado.getType().getSimpleName().equals("int")) {
+                    camposEncontrados.add(novoCampo);
+                }
+                if (campoEncontrado.getType().getSimpleName().equals("Date")) {
+                    novoCampo = new Campo(FabCampos.CALENDARIO,
+                            campoEncontrado);
+                    camposEncontrados.add(novoCampo);
+
+                }
+
+            }// tipo do valor
+
+            System.out.println("campo" + teste);
+        }
+
+    }
+
+    public void MakeCamposEsperados() {
+        // TODO De acordo com o SUPER da classe adciona os campos Esperados
+    }
+
+    protected static Map<String, Field> analyze(Object object) {
+        if (object == null) {
+            throw new NullPointerException();
+        }
+
+        Map<String, Field> map = new TreeMap<String, Field>();
+
+        Class<?> current = object.getClass();
+
+        for (Field field : current.getDeclaredFields()) {
+            if (!Modifier.isStatic(field.getModifiers())) {
+                if (!map.containsKey(field.getName())) {
+                    map.put(field.getName(), field);
+                }
+            }
+
+        }
+        return map;
+    }
+
+    public void copiaDados(Object dados) {
+        if (dados == null) {
+            return;
+        }
+        Map<String, Field> fromFields = analyze(dados);
+        Map<String, Field> toFields = analyze(this);
+        fromFields.keySet().retainAll(toFields.keySet());
+
+        for (Entry<String, Field> fromFieldEntry : fromFields.entrySet()) {
+            final String name = fromFieldEntry.getKey();
+            final Field sourceField = fromFieldEntry.getValue();
+            final Field targetField = toFields.get(name);
+            if (targetField.getType().isAssignableFrom(sourceField.getType())) {
+                sourceField.setAccessible(true);
+                if (Modifier.isFinal(targetField.getModifiers())) {
+                    continue;
+                }
+                targetField.setAccessible(true);
+                try {
+                    targetField.set(this, sourceField.get(dados));
+                } catch (IllegalAccessException e) {
+                    throw new IllegalStateException("Can't access field!");
+                }
+            }
+        }
+    }
+
+    protected ItemGenerico() {
+        super();
+        this.camposEsperados = new CampoMapValores();
+        classeModelo = this.getClass();
+        UtilSBCoreReflexao.instanciarListas(this);
+    }
+
+    protected static Field getCampoByAnotacao(FabCampos pNomedaAnotacao) {
+        Field campo = UtilSBCoreCampoReflexao.getSBCampobyTipoCampo(classeModelo, pNomedaAnotacao);
+        if (campo == null) {
+            return null;
+        }
+        return campo;
+
+    }
+
+    protected void adcionaCampoEsperado(CampoEsperado pCampo) {
+        Field campo;
+
+        campo = getCampoByAnotacao(pCampo.getTipoCampo());
+        if (campo != null) {
+            pCampo.setCampoReflex(campo);
+            pCampo.setFoiAnotado(true);
+
+        } else {
+            pCampo.setFoiAnotado(false);
+        }
+
+        camposEsperados.AdcionaCampo(pCampo);
+
+    }
+
+    protected Object GetValorByTipoCampoEsperado(FabCampos tipoCampo) {
+        CampoEsperado campoPadrao = camposEsperados.getCampo(tipoCampo);
+
+        classeModelo = this.getClass();
+        if (campoPadrao.getFoiAnotado()) {
+            Field campoReflecao;
+            try {
+
+                campoReflecao = campoPadrao.getCampoReflex();
+
+                campoReflecao.setAccessible(true);
+                // System.out.println(campoReflecao.toString());
+                Object valor;
+                try {
+                    String tipoDeValor = campoReflecao.getType().getName();
+                    if (tipoDeValor.equals("java.lang.String")) {
+                        valor = (String) campoReflecao.get(this);
+                    } else {
+
+                        // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
+                        if (campoReflecao.getType().getName().equals("int")) {
+                            // System.out.println("TTTTIIIPOOOO int");
+                            valor = (Integer) campoReflecao.get(this);
+                        } else if (campoReflecao.getType().getName()
+                                .equals("java.lang.Double")
+                                || campoReflecao.getType().getName()
+                                .equals("double")) {
+                            valor = (Double) campoReflecao.get(this);
+                        } else if (campoReflecao.getType().getSimpleName()
+                                .equals("Date")) {
+                            valor = ((Date) campoReflecao.get(this)).toString();
+
+                        } else {
+
+                            valor = campoReflecao.get(this).toString();
+                        }
+                    }
+
+                    if (valor == null || valor.toString().equals("")) {
+                        return campoPadrao.getValorPadrao();
+                    } else {
+                        return valor;
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "erro obtendo valor de campo ", e);
+                }
+
+            } catch (SecurityException e) {
+
+                SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "erro obtendo valor de campo ", e);
+            }
+        }
+
+        if (campoPadrao.getAnotacaoObrigatoria()) {
+
+            try {
+                throw new ErroDeMapaDeCampos(String.format(
+                        ErrorMessages.CAMPO_ANOTACAO_OBRIGATORIO,
+                        campoPadrao.getTipoCampo()));
+            } catch (ErroDeMapaDeCampos e) {
+
+                e.printStackTrace();
+            }
+        }
+
+        return campoPadrao.getValorPadrao();
+
+    }
+
+    public static Class<?> getClasseModelo() {
+
+        return classeModelo;
+    }
+
+    public List<Campo> getCamposEncontrados() {
+        if (camposEncontrados == null || camposEncontrados.size() == 0) {
+            MakeCamposEncontrados();
+        }
+        return camposEncontrados;
+    }
+
+    public Map<String, Object> getValorCampoByName() {
+        try {
+            if (valorCampoByName == null) {
+                makeValorCampoByName();
+            }
+
+            return valorCampoByName;
+        } finally {
+            aplicaValores();
+        }
+    }
+
+    public void setValorCampoByName(Map<String, Object> valorCampoByName) {
+        this.valorCampoByName = valorCampoByName;
+    }
+
+    @Override
+    public Field getCampo(FabCampos pInfoCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNomeCampo(FabCampos pInfocampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}

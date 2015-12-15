@@ -1,0 +1,27 @@
+/* 
+ *  Super-Bits.com CODE CNPJ 20.019.971/0001-90 
+
+ */
+package com.super_bits.modulosSB.SBCore.Mensagens;
+
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
+
+/**
+ *
+ * @author Salvio
+ */
+public class CentramMensagemProgramadorMsgThread implements ItfCentralMensagens {
+
+    @Override
+    public void enviaMensagemUsuario(String pMensagem, TP_MENSAGEM pTipoMsg) {
+        System.out.println("MENSAGEM USUÁRIO:" + pMensagem);
+        UTILSBCoreDesktopApp.showMessage(pMensagem);
+    }
+
+    @Override
+    public void enviaMensagemSistema(String pMensagem, TP_MENSAGEM pTipoMsg) {
+        System.out.println("MENSAGEM SISTEMA:" + pMensagem);
+        UTILSBCoreDesktopApp.showMessage(pMensagem);
+    }
+
+}

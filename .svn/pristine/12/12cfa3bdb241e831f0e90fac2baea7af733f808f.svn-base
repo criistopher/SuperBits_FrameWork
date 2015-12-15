@@ -1,0 +1,15 @@
+package com.super_bits.modulosSB.SBCore.BeansInterface.basico;
+
+
+
+
+
+public interface ItfBeanEndereco extends ItfBeanNormal{
+//	public LatLng getLocalizacao();
+
+	public String getComplemento();
+
+	public int getCEP();
+	public String getTelefone();
+
+}

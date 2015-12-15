@@ -1,0 +1,64 @@
+/*
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
+
+ */
+package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
+
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+/**
+ *
+ * @author sfurbino
+ */
+public class ErroSBCoreDeveloperSopMessagem extends ErroSB {
+
+    private final int tamanhoLinha = 30;
+
+    private String formatarMensagem(String cabecalho) {
+
+        String texto = cabecalho + mensagemEnviada.toUpperCase() + "\n";
+        if (erroJava == null) {
+            return "ocorreu um erro, a exception não foi gerada para realizar o StackTrace, e a mensagem enviada foi " + mensagemEnviada;
+        }
+
+        String mensagem = "";
+        String causa = "";
+        if (erroJava.getMessage() != null) {
+            mensagem = "MENSAGEM: \n" + erroJava.getMessage();
+        }
+        if (erroJava.getCause() != null) {
+            causa = "CAUSA_FINAL: \n" + erroJava.getCause().toString();
+
+        }
+        texto += "\n\n" + mensagem + "\n\n" + causa;
+        if (ExceptionUtils.getRootCause(erroJava) != null) {
+            texto += "\n CAUSA_INICIAL \n" + ExceptionUtils.getRootCause(erroJava).getMessage();
+        }
+        if (erroJava.getStackTrace() != null) {
+            texto += "\n [LOCAL_PROVAVEL_PARA_CORREÇÃO:] \n";
+            for (StackTraceElement etapa : erroJava.getStackTrace()) {
+
+                if (etapa.getClassName().contains("super_bits")) {
+                    texto += "\n" + etapa.getClassName() + "->" + etapa.getMethodName() + "-Linha" + etapa.getLineNumber();
+                }
+            }
+        }
+        texto = UtilSBCoreStrings.quebrarStringEmLinhas(texto, tamanhoLinha);
+        return texto;
+
+    }
+
+    @Override
+    protected void alertarSistema() {
+
+        UTILSBCoreDesktopApp.showMessageStopProcess(formatarMensagem("ALERTA DE SISTEMA"));
+    }
+
+    @Override
+    protected void alertarUsuario() {
+        UTILSBCoreDesktopApp.showMessageStopProcess(formatarMensagem("ALERTA PARA USUARIO"));
+    }
+
+}
