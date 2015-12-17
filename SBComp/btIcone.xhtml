@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="descricao" required="true"  />
+        <cc:attribute name="icone" required="true" />
+        <cc:attribute name="acao" method-signature="void listener()"  />
+        <cc:attribute name="update"   />
+        <cc:attribute name="corBotao" default="#0288d1" />
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <p:commandButton id="btIcon#{cc.id}" style="background-color:#{cc.attrs.corBotao}; " icon="#{cc.attrs.icone}" action="#{cc.attrs.acao}" update="#{pgUtil.makeCaminhoCompletoID(cc.attrs.update)}" />
+        <p:tooltip for="btIcon#{cc.id}" value="#{cc.attrs.descricao}"/>
+
+    </cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:SBComp="http://xmlns.jcp.org/jsf/composite/SBComp">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+
+        <cc:attribute name="acao"  method-signature="void listener()" required="true"   />
+        <cc:attribute name="opcoes" required="true"  />
+        <cc:attribute name="opcaoSelecionada" required="true" type="com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcaoDoSistema" />
+        <cc:attribute name="pid" default="#{cc.attrs.id}" />
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+
+
+        <c:forEach items="#{cc.attrs.opcoes}" var="opc" varStatus="rec"   >
+
+
+            <div class="grid_3" >
+                <h:form>
+
+                    <p:commandButton  value="#{opc.nomeAcao}" icon="#{opc.iconeAcao}" id="#{cc.attrs.pid}#{rec.index}" action="#{cc.attrs.acao}"   >
+                        <f:setPropertyActionListener target="#{cc.attrs.opcaoSelecionada}" value="#{opc}"  />
+                    </p:commandButton>
+                    <p:tooltip value="#{opc.descricao}" for="#{cc.attrs.pid}#{rec.index}"/>
+                </h:form>
+            </div>
+
+
+        </c:forEach>
+
+
+
+    </cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+

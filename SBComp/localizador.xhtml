@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="codigoBen" required="true"  />
+        <cc:attribute name="acaoSelecao" required="true"  method-signature="void action()" />
+        <cc:attribute name="idAtualizacao" required="true"  />
+        <cc:attribute name="textoCampoLocalizacao" required="true"  />
+
+
+    </cc:interface>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form>
+            <p:focus for="codBarras" />
+            <h:panelGroup >
+                <p:inputText  required="true" styleClass="ui-texto-destaque-ultra" value="#{cc.attrs.codigoBen}" rendered="true" id="codBarras"  />
+                <p:watermark for="codBarras" value="#{cc.attrs.textoCampoLocalizacao} " />
+                <p:commandButton  inline="true" value="Localizar" icon="ui-icon-search" style="font-size:12pt;alignment-adjust: central" accesskey="f9" action="#{cc.attrs.acaoSelecao}"  update="#{pgUtil.makeCaminhoCompletoID(cc.attrs.idAtualizacao)}"  />
+            </h:panelGroup  >
+        </h:form>
+
+    </cc:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+
