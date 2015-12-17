@@ -24,7 +24,7 @@ import javax.persistence.EntityManager;
  */
 public class UtilSBAcessosModel {
 
-    public static void criarAcessosNoBanco() {
+    public static void criarNovosAcessosNoBanco() {
 
         Class[] classesControllers = SBCore.getConfiguradorDeAcessos().getClassesController();
         if (classesControllers == null) {

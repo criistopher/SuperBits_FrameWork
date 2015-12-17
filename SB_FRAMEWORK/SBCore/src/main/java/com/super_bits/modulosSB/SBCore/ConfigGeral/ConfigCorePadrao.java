@@ -26,9 +26,9 @@ import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
  */
 public class ConfigCorePadrao implements ItfConfiguradorCore {
 
-    private Class<? extends InfoErroSB> classeErro;
-    private Class<? extends ItfCentralMensagens> classeCentralMensagens;
-    private Class<? extends ControleDeSessaoAbstratoSBCore> classeControleSessao;
+    private final Class<? extends InfoErroSB> classeErro;
+    private final Class<? extends ItfCentralMensagens> classeCentralMensagens;
+    private final Class<? extends ControleDeSessaoAbstratoSBCore> classeControleSessao;
 
     public ConfigCorePadrao() {
         classeCentralMensagens = CentralMensagemArqTexto.class;

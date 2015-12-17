@@ -21,7 +21,7 @@ public interface ItfAcesso {
         SOLICITAR_EMAIL, USUARIO_SENHA_SEM_CRIPTOGRAFIA
     }
 
-    public String getNomeAcesso();
+    public ItfAcaoDoSistema getAcao();
 
     public String getDescricaoAcesso();
 

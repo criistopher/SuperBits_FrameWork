@@ -8,14 +8,14 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import org.junit.Assert;
+
 import org.junit.Before;
 
 /**
  *
  * @author sfurbino
  */
-public abstract class TesteJunit extends Assert {
+public abstract class TesteJunit extends org.junit.Assert {
 
     protected void configDesenvolvedorPadrao() {
         SBCore.configurar(new ConfigCoreDeveloperStopMessage());

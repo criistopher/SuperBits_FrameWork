@@ -5,8 +5,6 @@
  */
 package com.super_bits.modulosSB.SBCore.fabrica;
 
-import java.util.List;
-
 /**
  *
  * @author sfurbino

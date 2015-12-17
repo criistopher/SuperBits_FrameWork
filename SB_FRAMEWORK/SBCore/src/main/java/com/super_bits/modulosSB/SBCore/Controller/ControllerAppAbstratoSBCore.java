@@ -15,6 +15,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -116,10 +118,10 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
             }
             if (novosAcessos != null) {
                 for (ItfAcesso ac : novosAcessos) {
-                    System.out.println("nomeAcesso:" + ac.getNomeAcesso());
+                    System.out.println("nomeAcesso:" + ac.getAcao());
 
-                    if (ac.getNomeAcesso() != null) {
-                        acessos.put(ac.getNomeAcesso().hashCode(), ac);
+                    if (ac.getAcao() != null) {
+                        acessos.put(ac.getAcao().hashCode(), ac);
                     }
                 }
             }
@@ -141,6 +143,16 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         String nomeAcesso = buildNomeClasse();
         System.out.println("Verificando permissao para:" + nomeAcesso);
         InfoAcao infoAcessoMetodo = metodo.getAnnotation(InfoAcao.class);
+
+        Annotation[] anotacoes = metodo.getAnnotations();
+
+        for (Annotation an : anotacoes) {
+            Field[] flds = an.annotationType().getDeclaredFields();
+            for (Field fld : flds) {
+                fld.getName();
+            }
+        }
+
         ItfAcesso acesso = getAcessos().get(nomeAcesso.hashCode());
 
         if (acesso == null) {
@@ -148,15 +160,15 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
             return false;
         }
 
-        String nomeAmigavel = infoAcessoMetodo.nomeAmigavel();
-        if (nomeAmigavel == null) {
-            nomeAmigavel = nomeAcesso;
-        }
+        //  String nomeAmigavel = infoAcessoMetodo.nomeAmigavel();
+        //   if (nomeAmigavel == null) {
+        //          nomeAmigavel = nomeAcesso;
+        //      }
         if (isPermitido(acesso, usuario)) {
             return true;
 
         } else {
-            SBCore.enviarMensagemUsuario(usuario.getNome() + ", SOLICITE ACESSO ao recurso  " + nomeAmigavel, FabMensagens.AVISO);
+            SBCore.enviarMensagemUsuario(usuario.getNome() + ", SOLICITE ACESSO ao recurso  ", FabMensagens.AVISO);
             return false;
         }
     }
@@ -183,7 +195,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
         System.out.println("Listando permitidos");
         for (ItfUsuario usuario : pAcesso.getUsuariosPermitidos()) {
-            System.out.println("permitido:" + usuario.getNome() + pAcesso.getNomeAcesso());
+            System.out.println("permitido:" + usuario.getNome() + pAcesso.getAcao());
             if (usuario.getId() == pUsuario.getId()) {
                 return true;
             }
@@ -216,7 +228,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     }
 
     protected void mensagemAcessoNegado(ItfAcesso pAcao) {
-        String mensagem = " Acesso NEGADO para:" + pAcao.getNomeAcesso();
+        String mensagem = " Acesso NEGADO para:" + pAcao.getAcao();
         FabMensagens.enviarMensagemUsuario(mensagem, FabMensagens.ALERTA);
 
     }

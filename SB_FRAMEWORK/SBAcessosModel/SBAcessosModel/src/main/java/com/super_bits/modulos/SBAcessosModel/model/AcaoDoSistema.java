@@ -2,35 +2,45 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.Controller.anotacoes;
+package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Method;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
  * @author sfurbino
  */
-public class AcaoDoSistema extends ItemSimples implements ItfAcaoDoSistema {
+@Entity
+public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
-    @InfoCampo(tipo = FabCampos.ID)
-    private final int id;
+    @Id
+    @GeneratedValue()
+    private int id;
 
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
-    private final String nomeAcao;
+    private String nomeAcao;
 
-    private final String iconeAcao;
+    private String iconeAcao;
 
-    private final String cor;
+    private String cor;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
-    private final String descricao;
+    private String descricao;
 
-    private final Method metodo;
+    private Method metodo;
 
     private String urlAction;
+
+    public AcaoDoSistema() {
+        super();
+    }
 
     public AcaoDoSistema(int id, String nomeAcao, String iconeAcao, String cor, String descricao, Method metodo, String pURLAction) {
         this.id = id;

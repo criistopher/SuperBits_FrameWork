@@ -23,14 +23,11 @@ public @interface InfoAcao {
 
     public boolean padraoBloqueado() default false;
 
-    @Deprecated
-    public String nomeAmigavel();
-
     /**
      * ToString do Tipo da acao facture pelo nome
      *
      * @return
      */
-    public String nomeAcaoFacture() default "NaoEspecificado";
+    public FabAcaoGenerica acao();
 
 }

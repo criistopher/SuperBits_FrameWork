@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
 import com.super_bits.modulosSB.SBCore.Controller.anotacoes.InfoAcao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
@@ -14,7 +15,10 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaModulos;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 /**
@@ -38,10 +43,11 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
     @Id
     private int id;
 
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     private String nomeAcesso;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
-    private String nomeAmigavel;
+    @ManyToOne
+    private AcaoDoSistema acaoDoSistema;
 
     private TIPO_AUTENTICACAO tipoAutenticacao;
 
@@ -87,6 +93,15 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
         this.usuariosNegados = new ArrayList<>();
     }
 
+    /**
+     *
+     * O acesso deve ser criado a partir de um método.
+     *
+     * O sistema irá analizar as anotações
+     *
+     *
+     * @param pMetodo
+     */
     public AcessoSB(Method pMetodo) {
         this.gruposPermitidos = new ArrayList<>();
         this.gruposNegados = new ArrayList<>();
@@ -95,14 +110,31 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
 
         String pNomeAcesso = pMetodo.getDeclaringClass().getSimpleName() + "." + pMetodo.getName();
         InfoAcao info = pMetodo.getAnnotation(InfoAcao.class);
-        if (info != null) {
-            nomeAmigavel = info.nomeAmigavel();
-        } else {
-            nomeAmigavel = pNomeAcesso;
+
+        Annotation[] anotacoes = pMetodo.getAnnotations();
+        if (anotacoes != null) {
+            for (Annotation a : anotacoes) {
+
+                try {
+                    Method metodo = a.getClass().getMethod("acao");
+                    try {
+                        ItfFabricaModulos acao = (ItfFabricaModulos) metodo.invoke(a);
+                        ItfAcaoDoSistema acaoDoSistema = (ItfAcaoDoSistema) acao.getRegistro();
+                        System.out.println(acaoDoSistema.getNomeAcao());
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", ex);
+                    }
+                } catch (NoSuchMethodException | SecurityException ex) {
+                    FabErro.PARA_TUDO.paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA", ex);
+                }
+
+            }
+
         }
 
         this.loadByID(pNomeAcesso.hashCode());
-        if (id == 0) {
+        if (id
+                == 0) {
             //System.out.println("cadastrando Acao ID:" + pNomeAcesso.hashCode());
             id = pNomeAcesso.hashCode();
             nomeAcesso = pNomeAcesso;
@@ -152,11 +184,6 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
         gruposPermitidos.add(pGrupoPermitido);
     }
 
-    @Override
-    public String getNomeAcesso() {
-        return nomeAcesso;
-    }
-
     public void setNomeAcesso(String pNomeAcesso) {
         nomeAcesso = pNomeAcesso;
     }
@@ -181,27 +208,22 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
         return (List) gruposPermitidos;
     }
 
-    public String getNomeAmigavel() {
-        return nomeAmigavel;
-    }
-
-    public void setNomeAmigavel(String nomeAmigavel) {
-        this.nomeAmigavel = nomeAmigavel;
-    }
-
     @Override
     public List<ItfUsuario> getUsuariosDisponiveis() {
         try {
-            listaTodosUsuarios = (List<ItfUsuario>) UtilSBPersistencia.getListaTodos(UsuarioSB.class);
+            listaTodosUsuarios = (List<ItfUsuario>) UtilSBPersistencia.getListaTodos(UsuarioSB.class
+            );
 
             List<ItfUsuario> usuariosDisponiveis = new ArrayList<>();
             usuariosDisponiveis = listaTodosUsuarios;
 
-            if (getUsuariosNegados().isEmpty() == false) {
+            if (getUsuariosNegados()
+                    .isEmpty() == false) {
                 usuariosDisponiveis.removeAll(getUsuariosNegados());
             }
 
-            if (getUsuariosPermitidos().isEmpty() == false) {
+            if (getUsuariosPermitidos()
+                    .isEmpty() == false) {
                 usuariosDisponiveis.removeAll(getUsuariosPermitidos());
             }
 
@@ -226,16 +248,19 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
     @Override
     public List<ItfGrupoUsuario> getGruposDisponiveis() {
         try {
-            listaTodosGruposUsuarios = (List<ItfGrupoUsuario>) UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class);
+            listaTodosGruposUsuarios = (List<ItfGrupoUsuario>) UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class
+            );
 
             List<ItfGrupoUsuario> grupoUsuariosDisponiveis = new ArrayList<>();
             grupoUsuariosDisponiveis = listaTodosGruposUsuarios;
 
-            if (getGruposNegados().isEmpty() == false) {
+            if (getGruposNegados()
+                    .isEmpty() == false) {
                 grupoUsuariosDisponiveis.removeAll(getGruposNegados());
             }
 
-            if (getGruposPermitidos().isEmpty() == false) {
+            if (getGruposPermitidos()
+                    .isEmpty() == false) {
                 grupoUsuariosDisponiveis.removeAll(getGruposPermitidos());
             }
 
@@ -250,5 +275,10 @@ public class AcessoSB extends EntidadeSimples implements ItfAcesso, Serializable
     @Override
     public TIPO_AUTENTICACAO getTipoAutenticacao() {
         return tipoAutenticacao;
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcao() {
+        return acaoDoSistema;
     }
 }
