@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -34,6 +38,9 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     private String descricao;
     @OneToMany(targetEntity = UsuarioSB.class, fetch = FetchType.EAGER)
     private List<ItfUsuario> usuarios;
+    private boolean ativo = false;
+    @Temporal(TemporalType.DATE)
+    private Date dataHoraCriacao;
 
     public GrupoUsuarioSB() {
         this.usuarios = new ArrayList<>();
@@ -73,6 +80,23 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @Override
     public List<ItfUsuario> getUsuarios() {
         return usuarios;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Date getDataHoraCriacao() {
+        return dataHoraCriacao;
+    }
+
+    @PrePersist
+    public void configuracoesInsert() {
+        dataHoraCriacao = new Date();
     }
 
 }

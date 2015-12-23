@@ -4,13 +4,14 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
-import com.super_bits.modulosSB.SBCore.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.sessao.ControleDeSessaoAbstratoSBCore;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
+import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 @RequestScoped
 @Named
-public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore {
+public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implements Serializable {
 
     @Inject
     private SessaoAtualSBWP sessaoAtual;

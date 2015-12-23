@@ -18,7 +18,7 @@ import javax.inject.Named;
  * @author sfurbino
  */
 @ApplicationScoped
-public class TipoCampos extends ContantesWeb {
+public class TipoCampos extends ConstantesWeb {
 
     public TipoCampos() {
         super(FabCampos.class);

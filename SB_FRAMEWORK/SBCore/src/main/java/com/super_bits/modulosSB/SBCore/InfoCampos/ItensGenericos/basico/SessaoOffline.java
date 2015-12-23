@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
@@ -21,7 +21,7 @@ public class SessaoOffline implements ItfSessao {
     private ItfUsuario usuarioLogado;
     private final Date dataInicial;
     private Date dataFinal;
-    private final List<ItfAcesso> acoesRealizadas;
+    private final List<ItfPermissao> acoesRealizadas;
 
     public SessaoOffline() {
         this.acoesRealizadas = new ArrayList();
@@ -46,7 +46,7 @@ public class SessaoOffline implements ItfSessao {
     }
 
     @Override
-    public List<ItfAcesso> getAcoesRealizadas() {
+    public List<ItfPermissao> getAcoesRealizadas() {
         return acoesRealizadas;
     }
 

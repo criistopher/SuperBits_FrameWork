@@ -4,8 +4,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSB;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.List;
@@ -20,14 +21,14 @@ public interface ItfPgAcessos {
      *
      * @return Todos os Acessos do Sistema
      */
-    public List<AcessoSB> getAcessos();
+    public List<PermissaoSB> getAcessos();
 
     /**
      * Acesso selecionado para edição
      *
      * @return Acesso selecionado para edição
      */
-    public ItfAcesso getAcessoSelecionado();
+    public ItfPermissao getAcessoSelecionado();
 
     /**
      * Usuário Selecionado para inclusão em acessoSBSelecionado.negados ou

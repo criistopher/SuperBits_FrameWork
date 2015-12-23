@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +23,7 @@ public interface ItfSessao {
 
     public Date getFim();
 
-    public List<ItfAcesso> getAcoesRealizadas();
+    public List<ItfPermissao> getAcoesRealizadas();
 
     public void setUsuario(ItfUsuario pUsuario);
 

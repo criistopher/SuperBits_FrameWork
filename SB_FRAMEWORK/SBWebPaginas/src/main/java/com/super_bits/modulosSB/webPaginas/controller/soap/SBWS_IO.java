@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.soap;
 
-import com.super_bits.modulosSB.SBCore.Controller.SBWS_Client;
+import com.super_bits.Controller.SBWS_Client;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import javax.xml.ws.Endpoint;
 

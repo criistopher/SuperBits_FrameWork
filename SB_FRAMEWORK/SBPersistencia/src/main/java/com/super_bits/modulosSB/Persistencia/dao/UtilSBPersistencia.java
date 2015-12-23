@@ -24,6 +24,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.metamodel.EntityType;
+import javax.validation.constraints.NotNull;
 import org.hibernate.exception.JDBCConnectionException;
 
 /**
@@ -166,6 +167,31 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         }
     }
 
+    public static EntityManager getNovoEMIniciandoTransacao() {
+        EntityManager em = getNovoEM();
+        em.getTransaction().begin();
+        return em;
+    }
+
+    public static EntityManager finzalizaTransacaoEFechaEM(@NotNull EntityManager em) {
+        try {
+            if (em == null) {
+                throw new UnsupportedOperationException("O entity manager está nulo");
+
+            }
+            if (!em.isOpen()) {
+                throw new UnsupportedOperationException("O entity manager está fechado");
+            }
+            em.getTransaction().commit();
+
+            em.close();
+
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+        }
+        return em;
+    }
+
     public UtilSBPersistencia() {
 
         if (emFacturePadrao == null) {
@@ -215,7 +241,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         try {
             System.out.println("executando alteração do tipo" + pTipoAlteracao);
             if (SBCore.isControleDeAcessoDefinido()) {
-                if (!SBCore.getConfiguradorDeAcessos().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString())) {
+                if (!SBCore.getConfiguradorDePermissao().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString()).isSucesso()) {
                     FabMensagens.enviarMensagemUsuario("Ação não permita para este usuário, solicite permição ao Administrador", FabMensagens.AVISO);
                     if (pTipoAlteracao == FabInfoPersistirEntidade.INSERT) {
                         return false;
@@ -283,6 +309,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             case MERGE:
 
                                 novoRegistro = em.merge(entidade);
+
                                 sucesso = true;
                                 break;
                             default:
@@ -517,7 +544,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                                     + campoNomeCurto + " like '" + parametro + "'";
 
                         case PRIMEIRO_REGISTRO:
-                            throw new UnsupportedOperationException("A busca por Ultimo Registro ainda não foi implementada");
+                            sql = "from " + pClasseRegisto.getSimpleName();
+                            break;
                         case SQL:
                             sql = pSQL;
                             break;
@@ -567,7 +595,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                     }
                     return resposta.get(0);
 
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     if (e.getCause() != null) {
                         if (e.getCause().getClass().getSimpleName().equals(JDBCConnectionException.class.getSimpleName())) {
                             renovarConexao();
@@ -613,7 +641,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      */
     public static Object mergeRegistro(Object object) {
         if (object == null) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("O registro enviado para Persistencia é nulo", null);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("O registro enviado para Persistencia é nulo ", null);
             return null;
         }
         return executaAlteracaoEmBancao(new InfoPerisistirEntidade(object, null, null, FabInfoPersistirEntidade.MERGE));
@@ -842,6 +870,19 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     /**
      *
+     * Retorna o primeiro registro da tabela
+     *
+     * @param pClasse Classe Entity que representa a tabela
+     * @param pEM
+     * @return
+     */
+    public static Object getRegistroByPrimeiro(Class pClasse, EntityManager pEM) {
+        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.PRIMEIRO_REGISTRO, null);
+
+    }
+
+    /**
+     *
      * Localiza um único registro do tipo empresa procurando por: _____________
      * Em caso de numero: Telefones CNPJ e ID __1______________________________
      * Em caso de String pelo nome, site, e e-mail
@@ -930,6 +971,14 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static boolean executaSQL(EntityManager pEm, String pSql) {
         return executaSQLcmd(pEm, pSql);
+    }
+
+    public static void iniciarTransacao() {
+
+    }
+
+    public static void finalizarTransacao() {
+
     }
 
 }

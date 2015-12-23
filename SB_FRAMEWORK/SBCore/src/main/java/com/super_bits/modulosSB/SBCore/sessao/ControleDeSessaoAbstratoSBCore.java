@@ -5,8 +5,8 @@
 package com.super_bits.modulosSB.SBCore.sessao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -21,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSessao {
 
     @Override
-    public void registrarAcao(ItfAcesso pAcesso) {
+    public void registrarAcao(ItfPermissao pAcesso) {
         getSessaoAtual().getAcoesRealizadas().add(pAcesso);
     }
 

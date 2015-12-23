@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
@@ -19,8 +19,6 @@ import javax.persistence.TemporalType;
  */
 public class Entidade_Sessao implements ItfSessao, Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     protected static final int IDANONIMO = 0;
 
     @Id
@@ -38,7 +36,7 @@ public class Entidade_Sessao implements ItfSessao, Serializable {
 
     private int id_filtroFinal;
 
-    private List<ItfAcesso> acessos;
+    private List<ItfPermissao> acessos;
 
     private ItfUsuario usuario;
 
@@ -95,7 +93,7 @@ public class Entidade_Sessao implements ItfSessao, Serializable {
     }
 
     @Override
-    public List<ItfAcesso> getAcoesRealizadas() {
+    public List<ItfPermissao> getAcoesRealizadas() {
         return acessos;
     }
 

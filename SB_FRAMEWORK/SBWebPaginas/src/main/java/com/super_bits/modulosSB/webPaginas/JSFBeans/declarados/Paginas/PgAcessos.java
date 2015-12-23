@@ -3,13 +3,14 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSB;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.CrudDataSet;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -50,7 +51,7 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
     private GrupoUsuarioSB grupoUsuarioSBExclusao;
 
     @InfoMB_Bean(descricao = "Bean SB de para gerenciamento de acessos", exemplo = "{h:inputText value='#{pgAcessos.acessoSB.nomeAcesso}'/}")
-    private AcessoSB acessoSelecionado;
+    private PermissaoSB acessoSelecionado;
 
     private CrudDataSet<UsuarioSB> usuariosCrud;
     private CrudDataSet<GrupoUsuarioSB> grupoUsuariosCrud;
@@ -143,12 +144,12 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
     }
 
     @Override
-    public ItfAcesso getAcessoSelecionado() {
+    public ItfPermissao getAcessoSelecionado() {
         return acessoSelecionado;
     }
 
-    public void setAcessoSelecionado(ItfAcesso acessoSelecionado) {
-        this.acessoSelecionado = (AcessoSB) acessoSelecionado;
+    public void setAcessoSelecionado(ItfPermissao acessoSelecionado) {
+        this.acessoSelecionado = (PermissaoSB) acessoSelecionado;
     }
 
     @Override
@@ -191,9 +192,9 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
     }
 
     @Override
-    public List<AcessoSB> getAcessos() {
+    public List<PermissaoSB> getAcessos() {
         try {
-            return (List<AcessoSB>) UtilSBPersistencia.getListaTodos(AcessoSB.class, getEMPagina());
+            return (List<PermissaoSB>) UtilSBPersistencia.getListaTodos(PermissaoSB.class, getEMPagina());
         } catch (Exception exception) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("\n\nERRO GENÉRICO: " + exception + " \nArquivo: PgAcessos.java \nMétodo/Atributo/Local: getAcessos \n\n", exception);
         }
@@ -300,7 +301,7 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
         return getConversation();
     }
 
-    public void setAcessoSelecionado(AcessoSB acessoSelecionado) {
+    public void setAcessoSelecionado(PermissaoSB acessoSelecionado) {
         this.acessoSelecionado = acessoSelecionado;
     }
 

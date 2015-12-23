@@ -28,7 +28,7 @@ public class Permitido_Grupos implements Serializable {
     private GrupoUsuarioSB grupo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private AcessoSB acesso;
+    private PermissaoSB acesso;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Permitido_Grupos implements Serializable {
         this.grupo = grupo;
     }
 
-    public AcessoSB getAcesso() {
+    public PermissaoSB getAcesso() {
         return acesso;
     }
 
-    public void setAcesso(AcessoSB acesso) {
+    public void setAcesso(PermissaoSB acesso) {
         this.acesso = acesso;
     }
 }

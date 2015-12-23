@@ -5,14 +5,15 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Method;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,7 +23,6 @@ import javax.persistence.Id;
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Id
-    @GeneratedValue()
     private int id;
 
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
@@ -34,9 +34,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
 
-    private Method metodo;
+    private boolean precisaPermissao;
 
     private String urlAction;
+
+    private int idMetodo;
+
+    @ManyToOne
+    private ModuloAcaoSistema modulo;
 
     public AcaoDoSistema() {
         super();
@@ -48,7 +53,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.iconeAcao = iconeAcao;
         this.cor = cor;
         this.descricao = descricao;
-        this.metodo = metodo;
+
         this.urlAction = pURLAction;
     }
 
@@ -95,20 +100,66 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return descricao;
     }
 
-    /**
-     *
-     * @see ItfAcaoDoSistema#getMetodoExecucao()
-     *
-     * @return
-     */
     @Override
-    public Method getMetodoExecucao() {
-        return metodo;
+    public boolean isPrecisaPermissao() {
+        return precisaPermissao;
+    }
+
+    public void setPrecisaPermissao(boolean precisaPermissao) {
+        this.precisaPermissao = precisaPermissao;
     }
 
     @Override
     public String getUrlAction() {
         return urlAction;
+    }
+
+    public void setUrlAction(String urlAction) {
+        this.urlAction = urlAction;
+    }
+
+    @Override
+    public int getIdMetodo() {
+        return idMetodo;
+    }
+
+    /**
+     *
+     * @param idMetodo
+     */
+    @Override
+    public void setIdMetodo(int idMetodo) {
+        this.idMetodo = idMetodo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNomeAcao(String nomeAcao) {
+        this.nomeAcao = nomeAcao;
+    }
+
+    public void setIconeAcao(String iconeAcao) {
+        this.iconeAcao = iconeAcao;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public ItfModuloAcaoSistema getModulo() {
+        return modulo;
+    }
+
+    @Override
+    public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo) {
+        modulo = (ModuloAcaoSistema) pmodulo;
     }
 
 }

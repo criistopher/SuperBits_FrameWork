@@ -60,6 +60,9 @@ public enum FabErro {
 
     /**
      * APLICAÇÃO RECOMENDADA: EXECUTA UM SYSTEM.EXIT()
+     *
+     * @param pTexto TExto explicativo
+     * @param pErro Objeto Throable que jerou a situação
      */
     public void paraSistema(String pTexto, Throwable pErro) {
         SBCore.RelatarErro(this, pTexto, pErro);

@@ -93,7 +93,7 @@ public class InfoPerisistirEntidade {
 
     @Override
     public String toString() {
-        String relatorio = "Informações sobre o InfoPersistencia Entidade: /n" + "Entidade" + entidadesEnviadas()
+        String relatorio = "Informações sobre o InfoPersistencia Entidade: \n" + "Entidade: " + entidadesEnviadas() + "->"
                 + getValoresRegistro();
         return relatorio;
     }

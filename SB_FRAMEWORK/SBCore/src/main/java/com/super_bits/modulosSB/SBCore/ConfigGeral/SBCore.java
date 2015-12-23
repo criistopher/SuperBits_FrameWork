@@ -5,7 +5,8 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfConfiguradorDeAcessos;
+import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -13,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
@@ -21,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ServiceConfigurationError;
-import java.util.ServiceLoader;
 
 /**
  *
@@ -57,7 +57,7 @@ public class SBCore {
     private static Class<? extends ItfCentralEventos> centralEventos;
     private static String diretorioBase;
     private static String nomeProjeto;
-    private static ItfConfiguradorDeAcessos configuradorDeAcessos;
+    private static ItfCfgPermissoes configuradorDePermissao;
     private static String cliente = "SuperBits";
     private static String grupoProjeto = "";
     private static boolean controleDeAcessosDefinido;
@@ -122,24 +122,12 @@ public class SBCore {
 
         try {
             // Definindo configuração de acessos
-            ServiceLoader<ItfConfiguradorDeAcessos> services = ServiceLoader.load(ItfConfiguradorDeAcessos.class);
 
-            if (!services.iterator().hasNext()) {
-                FabErro.PARA_TUDO.paraSistema("Configurador de Acessos não foi encontrato, crie uma classe com o nome ConfigAcessosSB implementando ItfCofiguradorDeAcessos no pacote com.super_bits.ConfigAcessosSB  ", null);
+            Class configPermissao = UtilSBCoreReflexao.classeQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+            configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
 
-                configurado = false;
-            } else {
-                try {
-                    ItfConfiguradorDeAcessos configuracao = (ItfConfiguradorDeAcessos) services.iterator().next();
-                    configuradorDeAcessos = configuracao;
-                    controleDeAcessosDefinido = true;
-                } catch (ServiceConfigurationError e) {
-                    controleDeAcessosDefinido = false;
-                    System.out.println("################ SERVICE DE CONFIGURADOR DE ACESSOS NÃO ENCONTRADO#############");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("################ SERVICE DE CONFIGURADOR DE ACESSOS NÃO ENCONTRADO#############");
+        } catch (Throwable t) {
+            FabErro.PARA_TUDO.paraSistema("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
         }
     }
 
@@ -326,8 +314,8 @@ public class SBCore {
         return null;
     }
 
-    public static ItfConfiguradorDeAcessos getConfiguradorDeAcessos() {
-        return configuradorDeAcessos;
+    public static ItfCfgPermissoes getConfiguradorDePermissao() {
+        return configuradorDePermissao;
     }
 
     public static String getCaminhoDesenvolvimento() {

@@ -19,6 +19,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -180,7 +181,9 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             wp.forward(req, resp);
 
         } catch (Throwable erro) {
+            System.out.println("Erro Reidenrizando pagina>>>" + recurso);
             erroCritico = new InfoErroCritico("", erro);
+            //    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro executando forward de Recurso" + recurso, erro);
         }
 

@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -20,6 +21,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
@@ -48,6 +52,8 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private String telefone;
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoUsuario;
+    @Temporal(TemporalType.DATE)
+    private Date dataCadastro;
 
     @ManyToOne()
     private GrupoUsuarioSB grupo;
@@ -131,6 +137,23 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
 
     public void setId(int pId) {
         id = pId;
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public void setGrupo(GrupoUsuarioSB grupo) {
+        this.grupo = grupo;
+    }
+
+    @PrePersist
+    public void configuracoesInsert() {
+        dataCadastro = new Date();
     }
 
 }

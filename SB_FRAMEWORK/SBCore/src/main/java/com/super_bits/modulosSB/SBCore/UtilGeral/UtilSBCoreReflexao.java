@@ -217,4 +217,53 @@ public abstract class UtilSBCoreReflexao {
         return resposta;
     }
 
+    /**
+     *
+     *
+     * Retorna a classe que extende determinado tipo de classe
+     *
+     * TODO: DISPARAR ERRO QUANDO ENCONTRAR MAIS DE UMA
+     *
+     * @param pTipo
+     * @param pCaminhoPacote
+     * @return
+     */
+    public static Class classeQueEstendeIsto(Class pTipo, String pCaminhoPacote) {
+
+        /**
+         * Informações úteis sobre a biblioteca: // O parâmetro new
+         * SubTypesScanner(false) permite a listagem de classes através
+         * deObject.class // `, isto é, classes que não tem herança
+         * explícita.Caso contrário essas classes seriam ignoradas // .
+         *
+         *
+         * parâmetro ClasspathHelper.forClassLoader() lista todas as classes do
+         * Class Loader atual, caso contrário seriam listadas apenas as classes
+         * do projeto/jar atual.
+         *
+         *
+         * Somente tenha cuidado se alguma classe que não puder ser carregada
+         * (talvez por falta de uma dependência), senão você acaba com uma
+         * exceção como essa:
+         *
+         * at org.reflections.ReflectionUtils.forName(ReflectionUtils.java:378)
+         * at org.reflections.ReflectionUtils.forNames(ReflectionUtils.java:387)
+         * at org.reflections.Reflections.getSubTypesOf(Reflections.java:338) at
+         * snippet.ListClasses.main(ListClasses.java:15)
+         */
+        Reflections r = new Reflections(
+                pCaminhoPacote,
+                new SubTypesScanner(true),
+                ClasspathHelper.forClassLoader()
+        );
+        Set<Class<?>> classes = r.getSubTypesOf(pTipo);
+
+        //exibe a lista classes
+        for (Class<?> c : classes) {
+            return c;
+        }
+        return null;
+
+    }
+
 }

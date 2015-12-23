@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.fabrica;
 
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import java.util.List;
 
@@ -17,6 +18,18 @@ import java.util.List;
  */
 public interface ItfFabricaModulos extends ItfFabrica {
 
-    List<ItfGrupoUsuario> acessoGruposLiberadosPadrao();
+    /**
+     * Não implementado ainda;
+     *
+     * @return
+     */
+    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao();
 
+    /**
+     *
+     * Retorna o mesmo que o getRegistro
+     *
+     * @return
+     */
+    public ItfAcaoDoSistema getAcaoDoSistema();
 }

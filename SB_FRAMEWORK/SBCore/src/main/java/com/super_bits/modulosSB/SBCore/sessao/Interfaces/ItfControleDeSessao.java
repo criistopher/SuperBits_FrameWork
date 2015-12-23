@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.sessao.Interfaces;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 
 /**
@@ -19,7 +19,7 @@ public interface ItfControleDeSessao {
 
     public abstract void efetuarLogOut();
 
-    public abstract void registrarAcao(ItfAcesso pAcesso);
+    public abstract void registrarAcao(ItfPermissao pAcesso);
 
     public abstract void logarEmailESenha(String usuario, String senha);
 

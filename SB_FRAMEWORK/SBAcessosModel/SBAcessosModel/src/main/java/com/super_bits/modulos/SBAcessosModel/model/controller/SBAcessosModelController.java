@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.controller;
 
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
+import com.super_bits.Controller.Interfaces.ItfPermissao;
 import java.util.List;
 
 /**
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface SBAcessosModelController {
 
-    public List<ItfAcesso> getAcessosSistema();
+    public List<ItfPermissao> getAcessosSistema();
 
 }

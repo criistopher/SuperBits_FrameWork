@@ -63,8 +63,8 @@ public class AcessoSBTest extends TestCase {
     @Test
     public void testGetUsuariosDisponiveis() {
         init();
-        List<AcessoSB> acessos = (List<AcessoSB>) UtilSBPersistencia.getListaTodos(AcessoSB.class);
-        AcessoSB acessoSelecionado = acessos.get(0);
+        List<PermissaoSB> acessos = (List<PermissaoSB>) UtilSBPersistencia.getListaTodos(PermissaoSB.class);
+        PermissaoSB acessoSelecionado = acessos.get(0);
 
         acessoSelecionado.getUsuariosDisponiveis();
         System.out.println("#########");

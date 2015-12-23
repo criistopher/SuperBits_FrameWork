@@ -10,8 +10,6 @@ import java.io.Serializable;
  */
 public class ParametroURL implements Serializable {
 
-    private static final long serialVersionUID = -8411336168925646012L;
-
     public static enum tipoPrURL {
 
         TEXTO, ENTIDADE, OBJETO_COM_CONSTRUCTOR

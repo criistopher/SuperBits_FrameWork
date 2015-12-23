@@ -31,7 +31,7 @@ public class Negado_Usuarios implements Serializable {
     private UsuarioSB usuario;
 
     @ManyToOne
-    private AcessoSB acesso;
+    private PermissaoSB acesso;
 
     public int getId() {
         return id;
@@ -49,11 +49,11 @@ public class Negado_Usuarios implements Serializable {
         this.usuario = usuario;
     }
 
-    public AcessoSB getAcesso() {
+    public PermissaoSB getAcesso() {
         return acesso;
     }
 
-    public void setAcesso(AcessoSB acesso) {
+    public void setAcesso(PermissaoSB acesso) {
         this.acesso = acesso;
     }
 }

@@ -90,9 +90,9 @@
 
         <!-- Prime Faces -->
         <dependency>
-            <groupId>com.super_bits.view.primefaces</groupId>
-            <artifactId>primePremium</artifactId>
-            <version>5.2</version>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.3</version>
         </dependency>
 
         <dependency>

@@ -37,7 +37,7 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     protected void lancarErroJUnit(Throwable erro) {
         // TODO MELHORAR NULL POINT EXCEPTION
-        FabErro.SOLICITAR_REPARO.paraDesenvolvedor("ERRODETESTE" + erro.getMessage(), erro);
+        FabErro.SOLICITAR_REPARO.paraDesenvolvedor("ERRO EM TESTE: \n" + erro.getMessage(), erro);
         throw new UnknownError("Aconteceu um erro na execução do teste" + erro.getMessage());
 
     }

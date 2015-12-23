@@ -8,10 +8,12 @@ import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
+ *
+ *
  * @author sfurbino
  */
 @ApplicationScoped
-public class TipoVisualCampo extends ContantesWeb {
+public class TipoVisualCampo extends ConstantesWeb {
 
     @Override
     public String getPadrao() {
