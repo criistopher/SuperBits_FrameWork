@@ -4,7 +4,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.ItfPermissao;
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas;
+
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
@@ -56,7 +56,7 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
     private CrudDataSet<UsuarioSB> usuariosCrud;
     private CrudDataSet<GrupoUsuarioSB> grupoUsuariosCrud;
     private BP_PickList<ItfUsuario> pickListUsuarioEmGrupo;
-    private CrudDataSet<AcessoSBWebPaginas> crudPaginasAcesso;
+
     private BP_PickList<UsuarioSB> pickListUsuarioPagina;
     private BP_PickList<GrupoUsuarioSB> pickListGrupoUsuarioPagina;
 
@@ -78,10 +78,6 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
         usuariosCrud = new CrudDataSet<>(UsuarioSB.class, getEMPagina());
         grupoUsuariosCrud = new CrudDataSet<>(GrupoUsuarioSB.class, getEMPagina());
 
-        crudPaginasAcesso = new CrudDataSet<>(AcessoSBWebPaginas.class, getEMPagina());
-
-        pickListUsuarioPagina = new BP_PickList<>((List) crudPaginasAcesso.getRegistro().getUsuarios(), UsuarioSB.class);
-        pickListGrupoUsuarioPagina = new BP_PickList<>((List) crudPaginasAcesso.getRegistro().getGrupoUsuarios(), GrupoUsuarioSB.class);
         System.out.println("USUARIOS::::::::::::::::::::" + grupoUsuariosCrud.getRegistro().getUsuarios());
         //inclusaoGrupos = new DualListModel<>();
         pickListUsuarioEmGrupo = new BP_PickList<>((List) grupoUsuariosCrud.getRegistro().getUsuarios(), UsuarioSB.class);
@@ -284,8 +280,7 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
     }
 
     public void mudaRegistroPaginas() {
-        pickListUsuarioPagina.setLista(crudPaginasAcesso.getRegistro().getUsuarios());
-        pickListGrupoUsuarioPagina.setLista(crudPaginasAcesso.getRegistro().getGrupoUsuarios());
+
     }
 
     public CrudDataSet<UsuarioSB> getUsuariosCrud() {
@@ -315,11 +310,6 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
 
     public void mudaListaTeste() {
         pickListUsuarioEmGrupo.setLista(grupoUsuariosCrud.getRegistro().getUsuarios());
-    }
-
-    public CrudDataSet<AcessoSBWebPaginas> getCrudPaginasAcesso() {
-
-        return crudPaginasAcesso;
     }
 
     public BP_PickList<UsuarioSB> getPickListUsuarioPagina() {

@@ -12,18 +12,23 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
@@ -43,20 +48,34 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @NotNull
     private String nome;
     @Column(nullable = false, unique = true)
+    @NotNull
     private String email;
+    @NotNull
+    @Column(unique = true)
+    @InfoCampo(label = "Usuário")
+    private String apelido;
+    @InfoCampo(tipo = FabCampos.SENHA)
     private String senha;
     private String complemento;
+    @InfoCampo(tipo = FabCampos.LCCEP)
     private String CEP;
+    @InfoCampo(tipo = FabCampos.Telefone, label = "Telefone")
     private String telefone;
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoUsuario;
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
+    private boolean ativo = true;
 
-    @ManyToOne()
+    @ManyToOne
+    @NotNull
     private GrupoUsuarioSB grupo;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuarios")
+    private List<GrupoUsuarioSB> gruposAdicionais;
 
     public UsuarioSB() {
         super(UsuarioSB.class);
@@ -139,12 +158,9 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         id = pId;
     }
 
+    @Override
     public Date getDataCadastro() {
         return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
     public void setGrupo(GrupoUsuarioSB grupo) {
@@ -154,6 +170,67 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @PrePersist
     public void configuracoesInsert() {
         dataCadastro = new Date();
+    }
+
+    @PreUpdate
+    public void ajustaConfiguracoes() {
+        System.out.println("Ajustando Configuracoes para salvar");
+        if (dataCadastro == null) {
+            dataCadastro = new Date();
+        }
+        if (email == null) {
+            if (getGrupo() != null) {
+                email = apelido + getGrupo().getNome();
+
+            }
+        }
+
+        if (apelido != null) {
+            if (nome == null) {
+                nome = apelido;
+            }
+        }
+
+        if (nome != null) {
+            if (apelido == null) {
+                apelido = nome;
+            }
+        }
+        if (!getGruposAdicionais().contains(getGrupo())) {
+            getGruposAdicionais().add(grupo);
+        }
+
+    }
+
+    @Override
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    @Override
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    @Override
+    public List<ItfGrupoUsuario> getGruposAdicionais() {
+        return (List) gruposAdicionais;
+    }
+
+    public void setGruposAdicionais(List<GrupoUsuarioSB> gruposAdicionais) {
+        this.gruposAdicionais = gruposAdicionais;
+    }
+
+    public boolean isGrupoPrincipal(GrupoUsuarioSB pGrupo) {
+        return (pGrupo == grupo);
     }
 
 }

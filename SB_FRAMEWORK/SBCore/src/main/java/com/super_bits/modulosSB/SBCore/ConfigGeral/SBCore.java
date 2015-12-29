@@ -123,11 +123,11 @@ public class SBCore {
         try {
             // Definindo configuração de acessos
 
-            Class configPermissao = UtilSBCoreReflexao.classeQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+            Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
             configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
 
         } catch (Throwable t) {
-            FabErro.PARA_TUDO.paraSistema("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
         }
     }
 

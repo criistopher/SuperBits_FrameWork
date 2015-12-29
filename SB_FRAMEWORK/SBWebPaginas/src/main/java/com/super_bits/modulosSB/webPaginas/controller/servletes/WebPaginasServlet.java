@@ -6,8 +6,8 @@
 package com.super_bits.modulosSB.webPaginas.controller.servletes;
 
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas;
-import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
@@ -19,10 +19,8 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,38 +78,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     }
 
                 }
-                List<AcessoSBWebPaginas> acessosPaginas = new ArrayList<>();
-                Map<String, AcessoSBWebPaginas> mpPaginasBancoAtual = new HashMap<>();
-                List<AcessoSBWebPaginas> paginasBancoAtual;
-                paginasBancoAtual = (List) UtilSBPersistencia.getListaTodos(AcessoSBWebPaginas.class);
 
-                for (AcessoSBWebPaginas pg : paginasBancoAtual) {
-                    mpPaginasBancoAtual.put(pg.getRecurso(), pg);
-                }
-
-                for (String recurso : mapaPaginas.keySet()) {
-
-                    AcessoSBWebPaginas paginaBySiteMap = new AcessoSBWebPaginas(recurso, mapaPaginas.get(recurso).getTitulo(), mapaPaginas.get(recurso).isAcessoLivre());
-
-                    AcessoSBWebPaginas paginaAtualizada = mpPaginasBancoAtual.get(recurso);
-                    if (paginaAtualizada == null) {
-                        paginaAtualizada = paginaBySiteMap;
-                    } else {
-                        if (paginaBySiteMap.isAcessoLiberado()) {
-                            paginaAtualizada.setAcessoLiberado(true);
-                        } else {
-                            paginaAtualizada.setAcessoLiberado(false);
-                        }
-
-                        paginaAtualizada.setNomePagina(paginaBySiteMap.getNomePagina());
-
-                    }
-
-                    acessosPaginas.add(paginaAtualizada);
-
-                }
-
-                UtilSBAcessosModel.criaAcessoWebPaginas(acessosPaginas);
                 System.out.println("Contexto Inicializado");
             } catch (InstantiationException | IllegalAccessException ex) {
 
@@ -140,14 +107,32 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                 try {
                     B_Pagina pagina = (B_Pagina) mapaPaginas.get(recurso);
                     List<ParametroURL> parametros = pagina.getParametrosURL();
-                    if (!pagina.isAcessoLivre()) {
-                        if (!UtilSBAcessosModel.acessoAPaginaPermitido(usuario, recurso)) {
+
+                    if (pagina.getAcaoVinculada() != null) {
+
+                        if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada())) {
                             RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
                             wp.forward(req, resp);
                             return;
                         }
-
                     }
+
+                    /**
+                     * OLD STYLE SEM AÇÃO VINCULADA
+                     *
+                     * if (!pagina.isAcessoLivre()) { if
+                     * (pagina.getAcaoVinculada() == null) {
+                     * FabErro.PARA_TUDO.paraSistema("Você não vinculou nenhuma
+                     * ação de sistema a esta pagina a qual o acesso não é
+                     * livre", null); }
+                     *
+                     * if (!UtilSBAcessosModel.acessoAPaginaPermitido(usuario,
+                     * recurso)) { RequestDispatcher wp =
+                     * req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
+                     * wp.forward(req, resp); return; }
+                     *
+                     * }
+                     */
                     int idParametro = 0;
 
                     for (String valorParametro : UtilSBWPServletTools.getParametrosDaPagina(caminhoCOmpleto)) {

@@ -10,18 +10,22 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -33,21 +37,34 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome")
+    @NotNull
     private String nome;
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Descrição")
     private String descricao;
-    @OneToMany(targetEntity = UsuarioSB.class, fetch = FetchType.EAGER)
-    private List<ItfUsuario> usuarios;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @JoinTable(name = "usuario_grupo",
+            uniqueConstraints = @UniqueConstraint(name = "usuarioDuplicado", columnNames = {"usuario_id", "grupo_id"}),
+            joinColumns = {
+                @JoinColumn(name = "grupo_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                @JoinColumn(name = "usuario_id",
+                        nullable = false, updatable = false)}
+    )
+    private List<UsuarioSB> usuarios;
+
     private boolean ativo = false;
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
 
     public GrupoUsuarioSB() {
-        this.usuarios = new ArrayList<>();
+        super();
     }
 
     public void adcionaUsuario(ItfUsuario pUsuario) {
-        usuarios.add(pUsuario);
+        usuarios.add((UsuarioSB) pUsuario);
     }
 
     @Override
@@ -79,7 +96,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
 
     @Override
     public List<ItfUsuario> getUsuarios() {
-        return usuarios;
+        return (List) usuarios;
     }
 
     public boolean isAtivo() {

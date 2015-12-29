@@ -58,6 +58,7 @@ public interface ItfB_Pagina {
 
     public ParametroURL getParametrobyTipoEntidade(String nomeEntidade);
 
+    @Deprecated
     public boolean isAcessoLivre();
 
 }

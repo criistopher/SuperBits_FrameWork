@@ -1,5 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
@@ -45,6 +47,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean parametrosDeUrlPreenchido = false;
     protected boolean foiInjetado = false;
     private boolean anotacoesConfiguradas = false;
+    private ItfAcaoDoSistema acaoVinculada;
 
     protected abstract String defineTitulo();
 
@@ -74,7 +77,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         aplicarAnotacoes();
         UtilSBCoreReflexao.instanciarListas(this);
         UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
+        acaoVinculada = UtilSBController.getAcaoByClasse(this.getClass());
 
+    }
+
+    public ItfAcaoDoSistema getAcaoVinculada() {
+        return acaoVinculada;
     }
 
     public EntityManager getEMPagina() {
@@ -557,7 +565,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public boolean isAcessoLivre() {
-        return acessoLivre;
+        if (acaoVinculada == null) {
+            return true;
+        } else {
+            return !acaoVinculada.isPrecisaPermissao();
+        }
+
     }
 
     @Override

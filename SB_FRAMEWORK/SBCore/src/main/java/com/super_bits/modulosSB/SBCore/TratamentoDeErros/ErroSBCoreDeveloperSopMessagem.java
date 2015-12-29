@@ -17,7 +17,7 @@ public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
     @Override
     protected void alertarResponsavel() {
 
-        UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Alertando Responsavel")));
+        UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Alertando Responsavel" + getMsgDesenvolvedorLancou())));
     }
 
     @Override

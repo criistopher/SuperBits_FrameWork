@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -28,6 +29,7 @@ public enum FabCampos implements ItfFabrica {
     LCCEP,
     LCBairro,
     LCCidade,
+    SENHA,
     Telefone,
     TelefoneComplementar,
     TelefoneCelularComplementar,
@@ -61,7 +63,11 @@ public enum FabCampos implements ItfFabrica {
     CNPJ,
     CPF,
     INSCRICAO_ESTADUAL,
-    INSCRIACAO_MUNICIPAL;
+    INSCRIACAO_MUNICIPAL,
+    REG_DATAALTERACAO,
+    REG_DATAINSERCAO,
+    REG_USUARIO_ALTERACAL,
+    REG_USUARIO_INSERCAO;
 
     @Override
     public Campo getRegistro() {
@@ -148,6 +154,10 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case QUANTIDADE:
                 break;
+            case SENHA:
+                break;
+            case PERCENTUAL:
+                break;
 
             default:
                 break;
@@ -181,13 +191,21 @@ public enum FabCampos implements ItfFabrica {
 
         if (anotacaoInfoCampo != null) {
 
-            anotacaoInfoCampo.Mask();
-            anotacaoInfoCampo.label();
-            anotacaoInfoCampo.obrigatorio();
+            sbCampo.setMascara(anotacaoInfoCampo.Mask());
+            if (anotacaoInfoCampo.label().length() > 0) {
+                sbCampo.setLabel(anotacaoInfoCampo.label());
+            }
+            sbCampo.setObrigatorio(anotacaoInfoCampo.obrigatorio());
             anotacaoInfoCampo.valoresAceitos();
         }
 
         Annotation[] outrasAnotacoes = campo.getAnnotations();
+
+        NotNull nulo = campo.getAnnotation(NotNull.class);
+        if (nulo != null) {
+            sbCampo.setObrigatorio(true);
+        }
+
         for (Annotation anotacao : outrasAnotacoes) {
             // Verificar outras anotacoes
         }
@@ -206,6 +224,14 @@ public enum FabCampos implements ItfFabrica {
 
         if (pClasse.getSimpleName().equals("Date")) {
             return FabCampos.CALENDARIO;
+        }
+
+        if (pClasse.getSimpleName().equals(Integer.class.getSimpleName())) {
+            return FabCampos.QUANTIDADE;
+        }
+
+        if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
+            return FabCampos.MOEDA;
         }
 
         return FabCampos.TEXTO_SIMPLES;

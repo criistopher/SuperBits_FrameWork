@@ -40,5 +40,13 @@ public @interface InfoPagina {
      */
     public String[] tags();
 
+    /**
+     *
+     * O direito de acesso está configurado na ação vinculada à pagina
+     *
+     * @return
+     * @deprecated
+     */
+    @Deprecated
     public boolean acessoLivre() default true;
 }

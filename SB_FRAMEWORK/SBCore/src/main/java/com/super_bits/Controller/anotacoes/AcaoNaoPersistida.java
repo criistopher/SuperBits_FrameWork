@@ -45,7 +45,7 @@ public class AcaoNaoPersistida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public String getUrlAction() {
+    public String getXHTMLAcao() {
         throw new UnsupportedOperationException("O METODO AINDA n\u00e3o FOI IMPLEMENTADO.");
     }
 

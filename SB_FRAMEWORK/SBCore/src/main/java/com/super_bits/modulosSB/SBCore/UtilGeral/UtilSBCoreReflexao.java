@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.view.InfoPagina;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -179,7 +181,7 @@ public abstract class UtilSBCoreReflexao {
      * @param CaminhoPacote
      * @return
      */
-    public static List<Class> classesDoPacote(String pCaminhoPacote) {
+    public static List<Class> getClassesDoPacote(String pCaminhoPacote) {
 
         /**
          * Informações úteis sobre a biblioteca: // O parâmetro new
@@ -228,7 +230,7 @@ public abstract class UtilSBCoreReflexao {
      * @param pCaminhoPacote
      * @return
      */
-    public static Class classeQueEstendeIsto(Class pTipo, String pCaminhoPacote) {
+    public static Class getClasseQueEstendeIsto(Class pTipo, String pCaminhoPacote) {
 
         /**
          * Informações úteis sobre a biblioteca: // O parâmetro new
@@ -264,6 +266,21 @@ public abstract class UtilSBCoreReflexao {
         }
         return null;
 
+    }
+
+    public static List<Class> getClassesComEstaAnotacao(Class pAnotacao, String pCaminhoPacote) {
+
+        List<Class> lista = new ArrayList<>();
+
+        Reflections reflections = new Reflections(pCaminhoPacote);
+
+        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(pAnotacao);
+
+//exibe a lista classes
+        for (Class<?> c : annotated) {
+            lista.add(c);
+        }
+        return lista;
     }
 
 }

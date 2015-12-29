@@ -7,11 +7,13 @@ package com.super_bits.modulos.SBAcessosModel.model;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.UtilSBController;
+import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import java.lang.reflect.Method;
+import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -38,6 +40,8 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private String urlAction;
 
+    private boolean acessoAPagina;
+
     private int idMetodo;
 
     @ManyToOne
@@ -47,14 +51,21 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         super();
     }
 
-    public AcaoDoSistema(int id, String nomeAcao, String iconeAcao, String cor, String descricao, Method metodo, String pURLAction) {
-        this.id = id;
+    public AcaoDoSistema(ItfFabricaAcoes pAcaoDoSistema, String nomeAcao, String iconeAcao, String cor, String descricao) {
+        this.id = UtilSBController.gerarIDAcaoDoSistema(pAcaoDoSistema);
         this.nomeAcao = nomeAcao;
         this.iconeAcao = iconeAcao;
         this.cor = cor;
         this.descricao = descricao;
 
-        this.urlAction = pURLAction;
+        ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
+        ItfFabricaAcoes enumModulo = pAcaoDoSistema;
+        InfoModulo anotacaoModulo = enumModulo.getClass().getAnnotation(InfoModulo.class);
+        moduloDaAcao.setId(enumModulo.getClass().getSimpleName().hashCode());
+        moduloDaAcao.setNome(anotacaoModulo.nomeDoModulo());
+        moduloDaAcao.setDescricao(anotacaoModulo.descricao());
+        modulo = moduloDaAcao;
+
     }
 
     /**
@@ -110,7 +121,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public String getUrlAction() {
+    public String getXHTMLAcao() {
         return urlAction;
     }
 
@@ -160,6 +171,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo) {
         modulo = (ModuloAcaoSistema) pmodulo;
+    }
+
+    public boolean isAcessoAPagina() {
+        return acessoAPagina;
+    }
+
+    public void setAcessoAPagina(boolean acessoAPagina) {
+        this.acessoAPagina = acessoAPagina;
     }
 
 }

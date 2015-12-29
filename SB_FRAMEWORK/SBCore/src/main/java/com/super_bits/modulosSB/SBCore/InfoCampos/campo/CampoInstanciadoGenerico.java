@@ -20,9 +20,11 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         super(pcampo);
         campoReflection = pCampoReflection;
         infoCampo = pCampoReflection.getAnnotation(InfoCampo.class);
+
     }
 
     @Override
+
     public String getNomeCamponaClasse() {
         return campoReflection.getName();
     }

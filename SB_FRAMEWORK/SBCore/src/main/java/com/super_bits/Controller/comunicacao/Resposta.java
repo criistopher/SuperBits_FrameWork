@@ -96,9 +96,9 @@ public class Resposta implements ItfResposta {
         calculaResultados();
         if (getMensagens().isEmpty()) {
             if (acaoDosistema != null) {
-                addMensagemAlertaDisparaERetorna(" A ação: " + acaoDosistema.getNomeAcao() + " foi realizada com sucesso!");
+                addAviso(" A ação: " + acaoDosistema.getNomeAcao() + " foi realizada com sucesso!");
             } else {
-                addMensagemAlertaDisparaERetorna("Operação realizada com sucesso");
+                addAviso("Operação realizada com sucesso");
             }
         }
 

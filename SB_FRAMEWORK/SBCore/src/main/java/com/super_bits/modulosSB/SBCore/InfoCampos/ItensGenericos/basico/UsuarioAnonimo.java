@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,7 +120,27 @@ public class UsuarioAnonimo extends ItemGenerico implements ItfUsuario, Serializ
 
     @Override
     public void setGrupo(ItfGrupoUsuario grupo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Este usuário é estático e não pode ser manipulado");
+    }
+
+    @Override
+    public List<ItfGrupoUsuario> getGruposAdicionais() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Date getDataCadastro() {
+        return new Date();
+    }
+
+    @Override
+    public String getApelido() {
+        return "Anonymous";
+    }
+
+    @Override
+    public boolean isAtivo() {
+        return true;
     }
 
 }

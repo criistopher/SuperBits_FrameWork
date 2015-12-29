@@ -71,6 +71,9 @@ public enum FabErro {
     /**
      * APLICAÇÃO RECOMENDADA: NÃO GERA LOG, E SÓ MANIFESTA NO MODO
      * DESENVOLVIMENTO
+     *
+     * @param pTexto Texto que gerou o disparo
+     * @param pErro Erro gerado
      */
     public void paraDesenvolvedor(String pTexto, Throwable pErro) {
         if (this == PARA_TUDO) {

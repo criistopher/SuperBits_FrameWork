@@ -70,6 +70,7 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
     @Override
     public void efetuarLogOut() {
         getSessaoAtual().setUsuario(new UsuarioAnonimo());
+        UtilSBWP_JSFTools.vaParaPaginaInicial();
     }
 
     public String getUsuarioLogar() {

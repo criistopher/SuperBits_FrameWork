@@ -5,18 +5,19 @@
  */
 package com.super_bits.modulos.SBAcessosModel;
 
+import com.super_bits.Controller.Interfaces.ItfControlerAPP;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas;
-import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.view.InfoPagina;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -36,30 +37,31 @@ public class UtilSBAcessosModel {
             }
             for (Class classeModulo : classesControllers) {
                 em.getTransaction().begin();
+
                 Method[] metodos = classeModulo.getDeclaredMethods();
-                ModuloAcaoSistema novoModulo = new ModuloAcaoSistema();
-                novoModulo.setNome(classeModulo.getSimpleName());
-                novoModulo.setId(classeModulo.getSimpleName().hashCode());
-                novoModulo.setDescricao(UtilSBCoreStrings.GetLorenIpsilum(5, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS));
-                novoModulo = (ModuloAcaoSistema) UtilSBPersistencia.mergeRegistro(novoModulo, em);
 
                 for (Method metodo : metodos) {
                     PermissaoSB novoAcesso = new PermissaoSB(metodo);
-                    novoAcesso.getAcao().setModuloAcaoSistema(novoModulo);
+
                     AcaoDoSistema acao = (AcaoDoSistema) novoAcesso.getAcao();
+                    UtilSBPersistencia.mergeRegistro(acao.getModulo(), em);
 
-                    acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
+                    if (acao.isPrecisaPermissao()) {
+                        acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
+                        PermissaoSB acessoEncontrado = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novoAcesso.getId(), em);
+                        if (acessoEncontrado == null) {
 
-                    PermissaoSB acessoEncontrado = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novoAcesso.getId(), em);
-                    if (acessoEncontrado == null) {
+                            UtilSBPersistencia.mergeRegistro(acao, em);
+                            UtilSBPersistencia.mergeRegistro(novoAcesso, em);
 
-                        UtilSBPersistencia.mergeRegistro(acao, em);
-                        UtilSBPersistencia.mergeRegistro(novoAcesso, em);
-
+                        }
                     }
                 }
                 em.getTransaction().commit();
+                criaNovasPermissaoParaPaginas(em);
+
             }
+
         } catch (Throwable t) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando acessos no banco", t);
             FabErro.LANCAR_EXCECÃO.PARA_TUDO.paraSistema(null, t);
@@ -67,68 +69,65 @@ public class UtilSBAcessosModel {
 
     }
 
-    public static boolean acessoAPaginaPermitido(ItfUsuario pUsuario, String pRecurso) {
-
-        try {
-            if (pUsuario == null) {
-                throw new UnsupportedOperationException("Usuario nulo para verificação de acesso a pagina");
-            }
-
-            if (pUsuario.equals(new UsuarioSistema())) {
-                return true;
-            }
-
-            EntityManager em = UtilSBPersistencia.getNovoEM();
-
-            try {
-                AcessoSBWebPaginas acessoPagina = (AcessoSBWebPaginas) UtilSBPersistencia.getRegistroByJPQL("from AcessoSBWebPaginas where recurso='" + pRecurso + "'", AcessoSBWebPaginas.class, em);
-
-                if (acessoPagina
-                        == null) {
-                    throw new UnsupportedOperationException("Ouve um problema ao Tentar localizar informaçoes de acesso da pagina" + pRecurso);
-
-                }
-                UsuarioSB usuario = (UsuarioSB) UtilSBPersistencia.getRegistroByID(UsuarioSB.class, pUsuario.getId(), em);
-
-                if (acessoPagina.getUsuarios()
-                        .contains(usuario)) {
-                    return true;
-                }
-                for (GrupoUsuarioSB grupo
-                        : acessoPagina.getGrupoUsuarios()) {
-                    if (grupo.getId() == usuario.getGrupo().getId()) {
-                        return true;
-                    }
-                    if (grupo.getUsuarios().contains(usuario)) {
-                        return true;
-                    }
-                }
-
-                return false;
-
-            } finally {
-                if (em != null) {
-                    em.close();
-                }
-            }
-        } catch (Throwable e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro verificando pemição para acesso a pagina", e);
+    /**
+     *
+     * ATENÇÃO ESTE MÉTODO SÓ DEVE SER CHAMADO PARA VERIFICAÇÃO DE ACESSO A
+     * PAGINAS VINCULADAS A UMA AÇÃO
+     *
+     *
+     * @param usuario
+     * @param pAcao
+     * @return
+     */
+    public static boolean acessoAcaoPermitido(ItfUsuario usuario, AcaoDoSistema pAcao) {
+        Class[] classesControllers = SBCore.getConfiguradorDePermissao().getClassesController();
+        if (classesControllers == null) {
             return false;
         }
-
-    }
-
-    public static void criaAcessoWebPaginas(List<AcessoSBWebPaginas> pRecursoPagina) {
-        for (AcessoSBWebPaginas novaPagina : pRecursoPagina) {
-
-            UtilSBPersistencia.mergeRegistro(novaPagina);
+        for (Class classeModulo : classesControllers) {
+            try {
+                ItfControlerAPP controle = (ItfControlerAPP) classeModulo.newInstance();
+                if (controle.possuiEstaAcao(pAcao)) {
+                    return controle.isAcessoPermitido(usuario, pAcao);
+                }
+            } catch (InstantiationException | IllegalAccessException ex) {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro identificando acesso a pagina", ex);
+            }
 
         }
+        return false;
     }
 
-    public static List<AcaoDoSistema> acoesPermitidasDoGrupo(GrupoUsuarioSB pGrupo) {
+    private static void criaNovasPermissaoParaPaginas(EntityManager em) {
+        try {
+            List<Class> paginas = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoPagina.class, "com.super_bits.vip.superkompras.webPaginas");
 
-        return null;
+            for (Class pg : paginas) {
+                ItfFabricaAcoes fabricaAcao = UtilSBController.getFabricaAcaoByClasse(pg);
+                if (fabricaAcao != null) {
+                    em.getTransaction().begin();
+                    AcaoDoSistema acao = (AcaoDoSistema) fabricaAcao.getAcaoDoSistema();
+                    UtilSBPersistencia.mergeRegistro(acao, em);
+                    PermissaoSB novaPermissao = new PermissaoSB(fabricaAcao);
+                    if (acao.isPrecisaPermissao()) {
+                        PermissaoSB permissãoEncontrada = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novaPermissao.getId(), em);
+                        if (permissãoEncontrada != null) {
+                            UtilSBPersistencia.mergeRegistro(novaPermissao, em);
+                        }
+                    }
+                    em.getTransaction().commit();
+                }
+
+            }
+
+        } catch (Throwable t) {
+            FabErro.PARA_TUDO.paraSistema("Erro criando Acesos WebPagina", t);
+        }
+
+    }
+
+    public ModuloAcaoSistema getModuloByAcaoEnum(ItfFabricaAcoes pAcao) {
+        return (ModuloAcaoSistema) pAcao.getAcaoDoSistema().getModulo();
     }
 
 }

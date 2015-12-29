@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
 public @interface InfoCampo {
 
     // TIPO CAMPO
-    FabCampos tipo() default FabCampos.AAA_DESCRITIVO;
+    FabCampos tipo() default FabCampos.TEXTO_SIMPLES;
 
-    String label() default "Label nao Especificado";
+    String label() default "";
 
     String Mask() default "";
 

@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import de.svenjacobs.loremipsum.LoremIpsum;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -477,16 +478,17 @@ public abstract class UtilSBCoreStrings {
             pQuantidade = 3;
         }
 
-        //     LoremIpsum lorem = new LoremIpsum();
+        LoremIpsum lorem = new LoremIpsum();
         switch (pTipoLTipo_loren) {
             case PALAVRAS:
-            //            return lorem.getWords(pQuantidade);
+
+                return lorem.getWords(pQuantidade);
             case PARAGRAFO:
-            //             return lorem.getParagraphs(pQuantidade);
+                return lorem.getParagraphs(pQuantidade);
 
         }
-        //      return lorem.getWords(3);
-        return null;
+        return lorem.getWords(3);
+
     }
 
     /**

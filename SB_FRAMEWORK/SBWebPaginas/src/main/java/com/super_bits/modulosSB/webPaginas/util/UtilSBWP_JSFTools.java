@@ -223,4 +223,10 @@ public abstract class UtilSBWP_JSFTools {
         return UtilSBWPServletTools.getCaminhoLocalServlet() + "/resources";
     }
 
+    public static void executarJavaScript(String pcomando) {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute(pcomando);
+
+    }
+
 }

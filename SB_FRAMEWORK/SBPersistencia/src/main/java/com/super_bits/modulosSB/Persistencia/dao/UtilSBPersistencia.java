@@ -309,7 +309,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             case MERGE:
 
                                 novoRegistro = em.merge(entidade);
-
+                                entidade = novoRegistro;
                                 sucesso = true;
                                 break;
                             default:
@@ -428,7 +428,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME_CURTO);
                             String parametro = (String) parametros[0];
                             sql = "from " + tipoRegisto.getSimpleName() + " where "
-                                    + campoNomeCurto + " like '" + parametro + "'";
+                                    + campoNomeCurto + " like '%" + parametro + "%'";
                             numeroParamentrosNativos = 1;
                             break;
                         case JPQL:
@@ -719,8 +719,19 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return selecaoRegistros(null, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
     }
 
-    public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class classe, EntityManager pEM) {
-        return selecaoRegistros(pEM, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
+    /**
+     *
+     *
+     * @see #getListaRegistrosLikeNomeCurto(java.lang.String, java.lang.Class)
+     *
+     *
+     * @param pNomeCurto
+     * @param pClasse
+     * @param pEM
+     * @return
+     */
+    public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class pClasse, EntityManager pEM) {
+        return selecaoRegistros(pEM, null, null, null, pClasse, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
     }
 
     public static List getListaTodos(Class pClasse) {
@@ -971,14 +982,6 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static boolean executaSQL(EntityManager pEm, String pSql) {
         return executaSQLcmd(pEm, pSql);
-    }
-
-    public static void iniciarTransacao() {
-
-    }
-
-    public static void finalizarTransacao() {
-
     }
 
 }

@@ -16,6 +16,9 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -49,8 +52,6 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
 
     private TIPO_AUTENTICACAO tipoAutenticacao;
 
-    private String descricao;
-
     @Transient
     private List<ItfUsuario> listaTodosUsuarios;
 
@@ -83,10 +84,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
 
     public PermissaoSB() {
         super();
-        this.gruposPermitidos = new ArrayList<>();
-        this.gruposNegados = new ArrayList<>();
-        this.usuariosPermitidos = new ArrayList<>();
-        this.usuariosNegados = new ArrayList<>();
+
     }
 
     /**
@@ -99,16 +97,16 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
      * @param pMetodo
      */
     public PermissaoSB(Method pMetodo) {
-        this.gruposPermitidos = new ArrayList<>();
-        this.gruposNegados = new ArrayList<>();
-        this.usuariosPermitidos = new ArrayList<>();
-        this.usuariosNegados = new ArrayList<>();
 
-        String pNomeAcesso = pMetodo.getDeclaringClass().getSimpleName() + "." + pMetodo.getName();
-        InfoAcao info = pMetodo.getAnnotation(InfoAcao.class);
-        id = UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo);
-        acaoDoSistema = (AcaoDoSistema) UtilSBController.getAcaoByMetodo(pMetodo);
+        this(UtilSBController.getFabricaAcaoByMetodo(pMetodo));
 
+    }
+
+    public PermissaoSB(ItfFabricaAcoes fabricaAcoes) {
+        super();
+        acaoDoSistema = (AcaoDoSistema) fabricaAcoes.getAcaoDoSistema();
+        id = acaoDoSistema.getId();
+        nomeAcesso = acaoDoSistema.getNomeAcao();
     }
 
     @Override
@@ -121,11 +119,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        return getAcao().getDescricao();
     }
 
     public void setGruposPermitidos(List<GrupoUsuarioSB> gruposPermitidos) {
@@ -150,7 +144,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
 
     @Override
     public String getDescricaoAcesso() {
-        return descricao;
+        return getAcao().getDescricao();
     }
 
     @Override

@@ -23,16 +23,18 @@ import java.util.Map;
 
 /**
  *
- * CLASSE PARA CONFIGURAÇÃO DE AÇOES DE ARQUIVAR_LOG.
  *
  *
+ * Classe para extender as ações do sistema da camada Controller do modelo MVC
  *
  *
  * @author Salvio
  */
 public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
-    private static final Map<Integer, ItfPermissao> permissoesPorMethodID = new HashMap<>();
+    private static final Map<Integer, ItfPermissao> permissoesPorAcaoID = new HashMap<>();
+    private static final Map<Integer, Integer> idPermissaoPorMetodoID = new HashMap<>();
+
     private static final Map<String, ItfUsuario> usuarios = new HashMap<>();
 
     public static ItfUsuario getUsuarioByEmail(String pEmail) {
@@ -62,18 +64,27 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     }
 
     protected static ItfPermissao getPermissaoPorAcao(ItfAcaoDoSistema pAcao) {
-        return getPermissoes().get(pAcao.getIdMetodo());
+        return getPermissoes().get(pAcao.getId());
     }
 
     protected static Map<Integer, ItfPermissao> getPermissoes() {
-
-        if (permissoesPorMethodID == null || permissoesPorMethodID.isEmpty()) {
-
+        if (permissoesPorAcaoID == null || permissoesPorAcaoID.isEmpty()) {
             reloadAcessos();
-
         }
+        return permissoesPorAcaoID;
+    }
 
-        return permissoesPorMethodID;
+    protected static ItfPermissao getPermissaoByMethodID(Integer pMethodID) {
+        if (idPermissaoPorMetodoID == null || idPermissaoPorMetodoID.isEmpty()) {
+            reloadAcessos();
+        }
+        Integer idPermissao = idPermissaoPorMetodoID.get(pMethodID);
+        if (idPermissao != null) {
+            return getPermissoes().get(idPermissao);
+        } else {
+            FabErro.PARA_TUDO.paraSistema("Nennhuma permissão foi encontrada vinculada a este método", null);
+            return null;
+        }
 
     }
 
@@ -119,7 +130,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         try {
 
             usuarios.clear();
-            permissoesPorMethodID.clear();
+            permissoesPorAcaoID.clear();
 
             ItfCfgPermissoes configPermissoes = SBCore.getConfiguradorDePermissao();
             List<ItfUsuario> usuariosAtualizados = configPermissoes.configuraUsuarios();
@@ -133,7 +144,8 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
                 for (ItfPermissao ac : permissoesAtualizadas) {
 
                     if (ac.getAcao() != null) {
-                        permissoesPorMethodID.put(ac.getAcao().getIdMetodo(), ac);
+                        permissoesPorAcaoID.put(ac.getAcao().getId(), ac);
+                        idPermissaoPorMetodoID.put(ac.getAcao().getIdMetodo(), ac.getAcao().getId());
                     }
                 }
             }
@@ -179,21 +191,20 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
         Method metodo = getMetodoChamado();
 
-        ItfPermissao acesso = null;
+        ItfPermissao permissao = null;
 
-        ItfAcaoDoSistema acao = UtilSBController.obterAcaoByMethodo(metodo);
-
+        ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo);
         if (acao == null) {
             FabErro.PARA_TUDO.paraSistema("A ANOTAÇÃO DE AÇÃO NÃO FOI ENCONTRADA NO METODO DE AÇÃO DO SISTEMA", null);
         }
 
-        acesso = getPermissoes().get(acao.getIdMetodo());
+        permissao = getPermissoes().get(acao.getId());
 
-        if (acesso == null) {
+        if (permissao == null) {
             FabErro.PARA_TUDO.paraSistema("O sistema não encontrou o registro de permissao da ação" + acao.getNomeAcao(), null);
         }
 
-        if (isPermitido(acesso, usuario)) {
+        if (isPermitido(permissao, usuario)) {
             return pResp;
 
         } else {
@@ -206,6 +217,9 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         System.out.println("PEsquisando lista de acesso negado");
 
         if (!pAcesso.getAcao().isPrecisaPermissao()) {
+            return true;
+        }
+        if (pUsuario.getEmail().equals(new UsuarioSistema().getEmail())) {
             return true;
         }
 
@@ -249,6 +263,31 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
         return false;
 
+    }
+
+    /**
+     *
+     * Verifica se o usuário possui acesso ao recurso
+     *
+     * @param pUsuario
+     * @param pAcao
+     * @return
+     */
+    @Override
+    public boolean isAcessoPermitido(ItfUsuario pUsuario, ItfAcaoDoSistema pAcao) {
+        return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), pUsuario);
+    }
+
+    /**
+     *
+     * Verifica se este modulo possui esta ação cadastrada em algum metodo
+     *
+     * @param permissao
+     * @return
+     */
+    @Override
+    public boolean possuiEstaAcao(ItfAcaoDoSistema permissao) {
+        return getPermissoes().get(permissao.getId()) != null;
     }
 
 }

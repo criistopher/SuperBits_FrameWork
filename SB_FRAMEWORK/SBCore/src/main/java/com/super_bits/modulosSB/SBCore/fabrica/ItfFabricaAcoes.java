@@ -16,7 +16,7 @@ import java.util.List;
  * @since 16/12/2015
  * @version 1.0
  */
-public interface ItfFabricaModulos extends ItfFabrica {
+public interface ItfFabricaAcoes extends ItfFabrica {
 
     /**
      * Não implementado ainda;

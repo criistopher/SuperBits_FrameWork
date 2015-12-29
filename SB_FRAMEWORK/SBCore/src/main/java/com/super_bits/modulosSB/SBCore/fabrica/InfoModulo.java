@@ -29,4 +29,6 @@ public @interface InfoModulo {
 
     public String nomeDoModulo();
 
+    public String descricao();
+
 }

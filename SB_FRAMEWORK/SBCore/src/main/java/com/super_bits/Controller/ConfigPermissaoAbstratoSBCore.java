@@ -88,7 +88,7 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
             acoesByHashMetodo.clear();
             for (Method metodo : metodos) {
 
-                acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), UtilSBController.obterAcaoByMethodo(metodo));
+                acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), UtilSBController.getAcaoByMetodo(metodo));
 
                 metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
             }

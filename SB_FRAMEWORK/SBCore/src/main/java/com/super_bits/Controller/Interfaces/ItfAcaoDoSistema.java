@@ -5,7 +5,6 @@
 package com.super_bits.Controller.Interfaces;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import java.lang.reflect.Method;
 
 /**
  *
@@ -21,7 +20,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public String getDescricao();
 
-    public String getUrlAction();
+    public String getXHTMLAcao();
 
     public ItfModuloAcaoSistema getModulo();
 

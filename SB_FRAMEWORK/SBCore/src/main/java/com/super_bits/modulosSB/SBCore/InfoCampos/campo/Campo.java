@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 public class Campo implements Serializable, ItfCampo {
 
@@ -20,7 +21,7 @@ public class Campo implements Serializable, ItfCampo {
 
     public int[] seguranca = {1};
 
-    private boolean obrigatorio;
+    protected boolean obrigatorio;
 
     private long valorMaximo;
 
@@ -36,6 +37,8 @@ public class Campo implements Serializable, ItfCampo {
         setLabel(pCampo.getLabel());
         setMascara(pCampo.getMascara());
         setTipoCampo(pCampo.getTipoCampo());
+        setObrigatorio(pCampo.isObrigatorio());
+
     }
 
     @Override
@@ -130,6 +133,10 @@ public class Campo implements Serializable, ItfCampo {
 
     public final void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setObrigatorio(boolean obrigatorio) {
+        this.obrigatorio = obrigatorio;
     }
 
 }

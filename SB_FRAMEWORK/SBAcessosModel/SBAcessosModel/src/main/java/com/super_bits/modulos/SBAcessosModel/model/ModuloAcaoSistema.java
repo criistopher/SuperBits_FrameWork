@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -97,6 +98,13 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @PrePersist
     public void configuracoesInsert() {
         dataHoraCriacao = new Date();
+    }
+
+    @PreUpdate
+    public void configuracoesMerge() {
+        if (dataHoraCriacao == null) {
+            dataHoraCriacao = new Date();
+        }
     }
 
     public Date getDataHoraCriacao() {
