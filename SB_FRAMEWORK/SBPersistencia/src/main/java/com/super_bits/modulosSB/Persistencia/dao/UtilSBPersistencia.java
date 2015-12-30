@@ -558,7 +558,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                         case ENCONTRAR_EMPRESA:
 
                             ItfBeanContatoCorporativo registroCorporativo = (ItfBeanContatoCorporativo) pClasseRegisto.newInstance();
-                            String telefone = registroCorporativo.getNomeCampo(FabCampos.TELEFONE);
+                            String telefone = registroCorporativo.getNomeCampo(FabCampos.TELEFONE_FIXO_NACIONAL);
 
                             String pr = (String) parametros[0];
                             sql = "from " + pClasseRegisto.getSimpleName() + " where "

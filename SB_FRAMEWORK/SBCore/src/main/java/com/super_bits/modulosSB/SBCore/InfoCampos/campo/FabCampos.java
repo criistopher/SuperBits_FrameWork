@@ -19,6 +19,7 @@ public enum FabCampos implements ItfFabrica {
     AAA_NOME_CURTO,
     AAA_NOME_LONGO,
     IMG_PEQUENA,
+    NOME_CURTO_COMPLETO,
     IMG_MEDIA,
     IMG_GRANDE,
     AAA_DESCRITIVO,
@@ -41,7 +42,9 @@ public enum FabCampos implements ItfFabrica {
     CHART_LABEL,
     CHART_CATEGORIA,
     CALENDARIO,
-    TELEFONE,
+    TELEFONE_FIXO_NACIONAL,
+    TELEFONE_FIXO_INTERNACIONAL,
+    TELEFONE_CELULAR,
     MOEDA,
     QUANTIDADE,
     PERCENTUAL,
@@ -118,7 +121,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case CALENDARIO:
                 break;
-            case TELEFONE:
+            case TELEFONE_FIXO_NACIONAL:
                 break;
             case MOEDA:
                 break;
@@ -157,6 +160,20 @@ public enum FabCampos implements ItfFabrica {
             case SENHA:
                 break;
             case PERCENTUAL:
+                break;
+            case NOME_CURTO_COMPLETO:
+                break;
+            case TELEFONE_FIXO_INTERNACIONAL:
+                break;
+            case TELEFONE_CELULAR:
+                break;
+            case REG_DATAALTERACAO:
+                break;
+            case REG_DATAINSERCAO:
+                break;
+            case REG_USUARIO_ALTERACAL:
+                break;
+            case REG_USUARIO_INSERCAO:
                 break;
 
             default:

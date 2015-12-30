@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Logradouro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanEndereco;
@@ -45,6 +46,27 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
             //		localizacao = new LatLng(latitude, longitude);
         }
 
+    }
+
+    @Override
+    public String getCEP() {
+
+        return (String) getValorByTipoCampoEsperado(FabCampos.LCCEP);
+    }
+
+    @Override
+    public String getComplemento() {
+        return (String) getValorByTipoCampoEsperado(FabCampos.LCComplemeto);
+    }
+
+    public Logradouro getLogradouro() {
+        return (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
+
+    }
+
+    @Override
+    public String getTelefone() {
+        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
     /**

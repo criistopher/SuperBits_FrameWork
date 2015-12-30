@@ -76,7 +76,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         descricao = defineDescricao();
         aplicarAnotacoes();
         UtilSBCoreReflexao.instanciarListas(this);
-        UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
+        }
+
         acaoVinculada = UtilSBController.getAcaoByClasse(this.getClass());
 
     }
@@ -91,7 +94,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             if (emPagina == null) {
                 emPagina = UtilSBPersistencia.getNovoEM();
             } else {
-                if (emPagina.isOpen()) {
+                if (!emPagina.isOpen()) {
                     emPagina = UtilSBPersistencia.getNovoEM();
                 }
             }

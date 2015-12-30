@@ -73,7 +73,7 @@ public class TipoCampos extends ConstantesWeb {
                 break;
             case CALENDARIO:
                 break;
-            case TELEFONE:
+            case TELEFONE_FIXO_NACIONAL:
                 break;
             case MOEDA:
                 break;
@@ -156,7 +156,153 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getDataHora() {
+
         return FabCampos.CALENDARIO.toString();
+
+    }
+
+    public String getIMG_PEQUENA() {
+        return FabCampos.IMG_PEQUENA.name();
+    }
+
+    public String getIMG_MEDIA() {
+        return FabCampos.IMG_MEDIA.name();
+    }
+
+    public String getIMG_GRANDE() {
+        return FabCampos.IMG_GRANDE.name();
+    }
+
+    public String getIDENTIFICADOR() {
+        return FabCampos.ID.name();
+    }
+
+    public String getLAT() {
+        return FabCampos.LAT.name();
+    }
+
+    public String LONG() {
+        return FabCampos.LONG.name();
+    }
+
+    public String getLCLOGRADOURO() {
+        return FabCampos.LCLOGRADOURO.name();
+    }
+
+    public String getLCCEP() {
+        return FabCampos.LCCEP.name();
+    }
+
+    public String getLCBairro() {
+        return FabCampos.LCBairro.name();
+    }
+
+    public String getLCCidade() {
+        return FabCampos.LCCidade.name();
+    }
+
+    public String getTelefone() {
+        return FabCampos.Telefone.name();
+    }
+
+    public String getTelefoneComplementar() {
+        return FabCampos.TELEFONE_CELULAR.name();
+    }
+
+    public String getLCComplemeto() {
+        return FabCampos.LCComplemeto.name();
+    }
+
+    public String getLCCampoAberto() {
+        return FabCampos.LCCampoAberto.name();
+    }
+
+    public String getHTML() {
+        return FabCampos.HTML.toString();
+    }
+
+    public String getCHART_VALOR() {
+        return FabCampos.CHART_VALOR.toString();
+    }
+
+    public String getCHART_LABEL() {
+        return FabCampos.CHART_LABEL.toString();
+    }
+
+    public String getCHART_CATEGORIA() {
+        return FabCampos.CHART_CATEGORIA.toString();
+    }
+
+    public String getCALENDARIO() {
+        return FabCampos.CALENDARIO.toString();
+    }
+
+    public String getTELEFONE_FIXO_NACIONAL() {
+        return FabCampos.TELEFONE_FIXO_NACIONAL.toString();
+    }
+
+    public String getMOEDA() {
+        return FabCampos.MOEDA.name();
+    }
+
+    public String getLOOKUP() {
+        return FabCampos.LOOKUP.toString();
+    }
+
+    public String getCOR() {
+        return FabCampos.COR.name();
+    }
+
+    public String getEMAIL() {
+        return FabCampos.EMAIL.toString();
+    }
+
+    public String getSITE() {
+        return FabCampos.SITE.toString();
+    }
+
+    public String getURL() {
+        return FabCampos.URL.toString();
+    }
+
+    public String getRESPONSAVEL() {
+        return FabCampos.RESPONSAVEL.name();
+    }
+
+    public String getCNPJ() {
+        return FabCampos.CNPJ.name();
+    }
+
+    public String getCPF() {
+        return FabCampos.CPF.name();
+    }
+
+    public String getINSCRICAO_ESTADUAL() {
+        return FabCampos.INSCRICAO_ESTADUAL.name();
+    }
+
+    public String getINSCRIACAO_MUNICIPAL() {
+        return FabCampos.INSCRIACAO_MUNICIPAL.name();
+    }
+
+    public String getAAA_NOME_CURTO() {
+        return FabCampos.AAA_NOME_CURTO.name();
+    }
+
+    public String getAAA_NOME_LONGO() {
+        return FabCampos.AAA_NOME_LONGO.name();
+    }
+
+    public String getAAA_DESCRITIVO() {
+        return FabCampos.AAA_DESCRITIVO.name();
+    }
+
+    public String getQUANTIDADE() {
+        return FabCampos.QUANTIDADE.name();
+    }
+
+    public String getPERCENTUA() {
+        return FabCampos.PERCENTUAL.name();
     }
 
 }

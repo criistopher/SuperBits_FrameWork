@@ -39,7 +39,7 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
 
     @Override
     public String telefone() {
-        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE);
+        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
     @Override

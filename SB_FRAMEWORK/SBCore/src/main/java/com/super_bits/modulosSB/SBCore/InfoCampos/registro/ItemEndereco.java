@@ -64,7 +64,7 @@ public class ItemEndereco extends ItemNormal implements ItfBeanEndereco {
     }
 
     public String getTelefone() {
-        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE);
+        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
 }

@@ -58,6 +58,7 @@ public class UtilSBAcessosModel {
                     }
                 }
                 em.getTransaction().commit();
+
                 criaNovasPermissaoParaPaginas(em);
 
             }

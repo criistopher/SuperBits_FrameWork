@@ -30,7 +30,7 @@ public class TesteJunitSBPersistencia extends TesteJunit {
             if (emTeste == null) {
                 emTeste = UtilSBPersistencia.getNovoEM();
             } else {
-                if (emTeste.isOpen()) {
+                if (!emTeste.isOpen()) {
                     emTeste = UtilSBPersistencia.getNovoEM();
                 }
             }

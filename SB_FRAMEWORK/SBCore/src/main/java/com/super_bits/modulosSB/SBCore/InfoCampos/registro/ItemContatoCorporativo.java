@@ -19,7 +19,7 @@ public class ItemContatoCorporativo extends ItemEndereco implements
 
     @Override
     public String telefone() {
-        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE);
+        return (String) getValorByTipoCampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
     @Override
