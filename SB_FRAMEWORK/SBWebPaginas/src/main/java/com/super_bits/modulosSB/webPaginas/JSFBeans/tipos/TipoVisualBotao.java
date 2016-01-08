@@ -50,6 +50,10 @@ public class TipoVisualBotao extends ConstantesWeb {
         return FabTipoVisualBotaoAcao.APENAS_ICONE.toString();
     }
 
+    public String getIconeENome() {
+        return FabTipoVisualBotaoAcao.ICONE_NOME.toString();
+    }
+
     public String getBotaoGigante() {
         return FabTipoVisualBotaoAcao.BOTAO_GIGANTE.toString();
     }

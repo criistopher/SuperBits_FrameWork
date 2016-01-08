@@ -24,17 +24,30 @@ import java.util.List;
 public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
 
     private final List<AcaoDoSistema> acoesRegistros;
-
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
-    protected final AcaoDoSistema acaoEditarRegistros;
-    protected final AcaoDoSistema acaoVisualizarRegistros;
+    protected final AcaoDoSistema acaoSalvarAlteracoes;
+
+    public enum estadoEdicao {
+
+        ALTERAR, CRIAR, VISUALIZAR
+    }
+
     protected AcaoDoSistema acaoSelecionada;
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
 
-    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro, AcaoDoSistema pAcaoNovoRegistro, AcaoDoSistema pAcaoListar, AcaoDoSistema pAcaoEditar, AcaoDoSistema pAcaoVisualizar) {
+    /**
+     *
+     * @param pAcoesRegistro Array de ações para cada registro ex.(new
+     * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
+     * @param pAcaoNovoRegistro Ação para um novo registro
+     * @param pAcaoListar Ação para listar os registros
+     * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pAcaoVisualizar Ação para visualizar o registro
+     */
+    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro, AcaoDoSistema pAcaoNovoRegistro, AcaoDoSistema pAcaoListar, AcaoDoSistema pAcaoSalvar) {
         super();
         acoesRegistros = new ArrayList<>();
         for (AcaoDoSistema acao : pAcoesRegistro) {
@@ -42,8 +55,10 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
         }
         acaoNovoRegistro = pAcaoNovoRegistro;
         acaoListarRegistros = pAcaoListar;
-        acaoEditarRegistros = pAcaoEditar;
-        acaoVisualizarRegistros = pAcaoVisualizar;
+        acaoSalvarAlteracoes = pAcaoSalvar;
+        acaoSelecionada = acaoListarRegistros;
+        xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+
     }
 
     private void iniciaNovoRegistro() {
@@ -56,7 +71,7 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
         podeEditar = true;
     }
 
-    private void iniciaVisualizacao() {
+    protected void iniciaVisualizacao() {
         novoRegistro = false;
         podeEditar = false;
     }
@@ -64,29 +79,29 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
     /**
      * Configura as propriedades pode editar, e novo registro, de acordo com a
      * opção selecionada
+     *
+     * @param pEstadoEdicao
      */
-    protected void atualizaInformacoesDeEdicao() {
+    protected void atualizaInformacoesDeEdicao(estadoEdicao pEstadoEdicao) {
 
-        if (acaoSelecionada != null) {
-            if (acaoSelecionada.getXHTMLAcao() != null) {
-                xhtmlAcaoAtual = acaoSelecionada.getXHTMLAcao();
-            }
-
-            if (acaoSelecionada == acaoEditarRegistros) {
+        switch (pEstadoEdicao) {
+            case ALTERAR:
                 iniciaEdicao();
-            }
-            if (acaoSelecionada == acaoNovoRegistro) {
+
+                break;
+            case CRIAR:
                 iniciaNovoRegistro();
-            }
-            if (acaoSelecionada == acaoVisualizarRegistros) {
-                iniciaVisualizacao();
-            }
+                break;
+            case VISUALIZAR:
+                podeEditar = false;
+                novoRegistro = false;
+                break;
+            default:
+                throw new AssertionError(pEstadoEdicao.name());
+
         }
+
     }
-
-    protected abstract void persistirNovoRegistro();
-
-    protected abstract void excluirNovoRegistro();
 
     public List<AcaoDoSistema> getAcoesRegistros() {
         return acoesRegistros;
@@ -118,6 +133,10 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
 
     public String getXhtmlAcaoAtual() {
         return xhtmlAcaoAtual;
+    }
+
+    public AcaoDoSistema getAcaoSalvarAlteracoes() {
+        return acaoSalvarAlteracoes;
     }
 
 }

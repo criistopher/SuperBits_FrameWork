@@ -163,11 +163,13 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     /**
      *
      * Retorna a resposta verificando as permissões e adicionando mensagens de
-     * erro para parametros não enviados
+     * erro para parametros não enviados (AINDA NÂO IMPLEMENTADO)
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      *
      * @param pTipoRetorno
      * @return
      */
+    @Deprecated
     protected static ItfResposta getNovaRespostaAutorizaChecaNulo(Class pTipoRetorno) {
         ItfResposta resposta = getNovaRespostaComAutorizacao(pTipoRetorno);
         Method metodo = getMetodoChamado();

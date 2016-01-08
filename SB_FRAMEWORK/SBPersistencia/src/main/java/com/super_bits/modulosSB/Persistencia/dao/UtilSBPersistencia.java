@@ -817,7 +817,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return registro encontrado
      */
     public static Object getRegistroByNomeCurto(Class pClasse, String parametro, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.NOMECURTO);
+        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.NOMECURTO, parametro);
     }
 
     /**

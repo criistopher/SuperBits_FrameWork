@@ -76,6 +76,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         descricao = defineDescricao();
         aplicarAnotacoes();
         UtilSBCoreReflexao.instanciarListas(this);
+        SBCore.ESTADO_APP teste = SBCore.getEstadoAPP();
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
         }

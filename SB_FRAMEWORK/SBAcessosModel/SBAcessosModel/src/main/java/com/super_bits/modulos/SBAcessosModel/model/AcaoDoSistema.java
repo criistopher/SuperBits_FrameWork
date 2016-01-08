@@ -125,7 +125,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return urlAction;
     }
 
-    public void setUrlAction(String urlAction) {
+    public void setXHTMLAcao(String urlAction) {
         this.urlAction = urlAction;
     }
 

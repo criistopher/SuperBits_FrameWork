@@ -13,6 +13,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,8 +40,10 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome")
     @NotNull
+    @Column(unique = true)
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Descrição")
+    @NotNull
     private String descricao;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
