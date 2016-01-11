@@ -109,4 +109,9 @@ public class AcaoNaoPersistida implements ItfAcaoDoSistema {
         throw new UnsupportedOperationException("O METODO AINDA n\u00e3o FOI IMPLEMENTADO.");
     }
 
+    @Override
+    public void setIcone(String pIcone) {
+        throw new UnsupportedOperationException("O METODO AINDA n\u00e3o FOI IMPLEMENTADO.");
+    }
+
 }

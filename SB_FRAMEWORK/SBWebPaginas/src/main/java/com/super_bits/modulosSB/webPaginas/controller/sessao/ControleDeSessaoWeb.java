@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -65,6 +66,8 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
     public void efetuarLogIn() {
         logarEmailESenha(usuarioLogar, senhaLogar);
         UtilSBWP_JSFTools.atualizaPorId("infoLoginSB");
+        SBCore.getConfiguradorDePermissao().configuraPermissoes();
+        sessaoAtual.setMenuSessao(SBCore.getConfiguradorDePermissao().definirMenu(sessaoAtual.getUsuario().getGrupo()));
     }
 
     @Override

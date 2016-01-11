@@ -30,6 +30,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void setId(int pId);
 
+    public void setIcone(String pIcone);
+
     public void setIdMetodo(int pID);
 
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo);

@@ -24,13 +24,23 @@ public class SessaoMenu implements ItfAcaoDoSistema {
 
     private ItfAcaoDoSistema acaoSessao;
     public List<ItfAcaoDoSistema> acoes;
+    public List<ItfAcaoDoSistema> sessoes;
 
     public List<ItfAcaoDoSistema> getAcoes() {
         return acoes;
     }
 
+    public void addAcao(ItfAcaoDoSistema pAcao) {
+        if (pAcao == null) {
+            throw new UnsupportedOperationException("A ação adicionada na sessao não pode ser nula");
+        }
+        acoes.add(pAcao);
+
+    }
+
     public SessaoMenu(ItfAcaoDoSistema pAcaoSessao) {
         acaoSessao = pAcaoSessao;
+        acaoSessao.setIcone("fa fa-list-alt");
     }
 
     @Override
@@ -116,6 +126,11 @@ public class SessaoMenu implements ItfAcaoDoSistema {
     @Override
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
         acaoSessao.uploadFoto(pTipo, pRecurso);
+    }
+
+    @Override
+    public void setIcone(String pIcone) {
+        acaoSessao.setIcone(pIcone);
     }
 
 }

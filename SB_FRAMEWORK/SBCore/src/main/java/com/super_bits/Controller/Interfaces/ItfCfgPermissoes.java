@@ -4,7 +4,10 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.GrupoUsuariosDoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.view.menu.MenuSBFW;
 import java.util.List;
 
 /**
@@ -20,5 +23,7 @@ public interface ItfCfgPermissoes {
     public ItfResposta ACAOCRUD(Class pEntidade, String TIPOACAO);
 
     public Class[] getClassesController();
+
+    public MenuSBFW definirMenu(ItfGrupoUsuario pGrupo);
 
 }

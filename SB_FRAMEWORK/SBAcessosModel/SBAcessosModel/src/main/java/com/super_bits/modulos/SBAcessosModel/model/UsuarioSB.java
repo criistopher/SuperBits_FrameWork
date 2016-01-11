@@ -180,7 +180,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         }
         if (email == null) {
             if (getGrupo() != null) {
-                email = apelido + getGrupo().getNome();
+                email = apelido + "@" + getGrupo().getNome();
 
             }
         }

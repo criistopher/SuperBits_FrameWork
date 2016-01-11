@@ -51,6 +51,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         super();
     }
 
+    /**
+     *
+     * @param pAcaoDoSistema Fabrica Enum da fabrica de Ação
+     * @param nomeAcao Nome da ação
+     * @param iconeAcao Icone
+     * @param cor cor
+     * @param descricao descricao
+     */
     public AcaoDoSistema(ItfFabricaAcoes pAcaoDoSistema, String nomeAcao, String iconeAcao, String cor, String descricao) {
         this.id = UtilSBController.gerarIDAcaoDoSistema(pAcaoDoSistema);
         this.nomeAcao = nomeAcao;
@@ -179,6 +187,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public void setAcessoAPagina(boolean acessoAPagina) {
         this.acessoAPagina = acessoAPagina;
+    }
+
+    @Override
+    public void setIcone(String pIcone) {
+        iconeAcao = pIcone;
     }
 
 }
