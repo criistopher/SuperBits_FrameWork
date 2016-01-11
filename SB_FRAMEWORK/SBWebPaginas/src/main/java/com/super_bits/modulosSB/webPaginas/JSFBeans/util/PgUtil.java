@@ -57,6 +57,10 @@ public class PgUtil implements Serializable {
         this.beanTodosSelecionados = beanTodosSelecionados;
     }
 
+    public String abrirXHTML(String pXHTML) {
+        return pXHTML;
+    }
+
     public Tema getTema() {
 
         if (tema == null) {

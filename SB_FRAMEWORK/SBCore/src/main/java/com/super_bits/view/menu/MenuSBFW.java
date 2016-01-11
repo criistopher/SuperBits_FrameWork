@@ -36,4 +36,8 @@ public class MenuSBFW {
         return sessoes;
     }
 
+    public boolean isTemMenu() {
+        return getSessoes().size() > 0;
+    }
+
 }

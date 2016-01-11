@@ -36,4 +36,10 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo);
 
+    public boolean isTipoAcaoDireta();
+
+    public boolean isTipoAcao();
+
+    public boolean isTipoSessaoMenu();
+
 }

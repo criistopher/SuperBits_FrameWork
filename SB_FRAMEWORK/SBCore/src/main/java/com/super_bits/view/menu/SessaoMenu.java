@@ -41,7 +41,9 @@ public class SessaoMenu implements ItfAcaoDoSistema {
 
     public SessaoMenu(ItfAcaoDoSistema pAcaoSessao) {
         acaoSessao = pAcaoSessao;
-        acaoSessao.setIcone("fa fa-list-alt");
+        if (acaoSessao.getIconeAcao() == null) {
+            acaoSessao.setIcone("fa fa-list-alt");
+        }
         acoes = new ArrayList<>();
     }
 
@@ -133,6 +135,21 @@ public class SessaoMenu implements ItfAcaoDoSistema {
     @Override
     public void setIcone(String pIcone) {
         acaoSessao.setIcone(pIcone);
+    }
+
+    @Override
+    public boolean isTipoAcaoDireta() {
+        return getXHTMLAcao() == null;
+    }
+
+    @Override
+    public boolean isTipoAcao() {
+        return false;
+    }
+
+    @Override
+    public boolean isTipoSessaoMenu() {
+        return true;
     }
 
 }

@@ -4,11 +4,10 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.UtilSBController;
-import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
@@ -192,6 +191,21 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public void setIcone(String pIcone) {
         iconeAcao = pIcone;
+    }
+
+    @Override
+    public boolean isTipoAcaoDireta() {
+        return getXHTMLAcao() == null;
+    }
+
+    @Override
+    public boolean isTipoAcao() {
+        return true;
+    }
+
+    @Override
+    public boolean isTipoSessaoMenu() {
+        return false;
     }
 
 }
