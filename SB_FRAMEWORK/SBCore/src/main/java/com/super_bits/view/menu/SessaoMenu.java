@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +42,7 @@ public class SessaoMenu implements ItfAcaoDoSistema {
     public SessaoMenu(ItfAcaoDoSistema pAcaoSessao) {
         acaoSessao = pAcaoSessao;
         acaoSessao.setIcone("fa fa-list-alt");
+        acoes = new ArrayList<>();
     }
 
     @Override

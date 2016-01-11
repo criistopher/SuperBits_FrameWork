@@ -32,4 +32,8 @@ public class MenuSBFW {
 
     }
 
+    public List<SessaoMenu> getSessoes() {
+        return sessoes;
+    }
+
 }
