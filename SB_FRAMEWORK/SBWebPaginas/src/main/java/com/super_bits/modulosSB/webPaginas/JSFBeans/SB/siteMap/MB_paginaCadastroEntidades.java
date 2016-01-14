@@ -6,8 +6,10 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -27,6 +29,8 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
     protected final AcaoDoSistema acaoSalvarAlteracoes;
+    @Inject
+    protected PgUtil paginaUtil;
 
     public enum estadoEdicao {
 
@@ -45,7 +49,7 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
      * @param pAcaoNovoRegistro Ação para um novo registro
      * @param pAcaoListar Ação para listar os registros
      * @param pAcaoSalvar Ação para Salvar alterações
-     * @param pAcaoVisualizar Ação para visualizar o registro
+     *
      */
     public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro, AcaoDoSistema pAcaoNovoRegistro, AcaoDoSistema pAcaoListar, AcaoDoSistema pAcaoSalvar) {
         super();

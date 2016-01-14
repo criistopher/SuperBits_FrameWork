@@ -16,9 +16,9 @@ import javax.persistence.EntityManager;
  */
 public class InfoPerisistirEntidade {
 
-    private Object pEntidade;
-    private List<Object> pEntidades;
-    private EntityManager pEM;
+    private Object entidade;
+    private List<Object> entidades;
+    private EntityManager em;
     private FabInfoPersistirEntidade tipoAlteracao;
 
     private enum TIPO_REGISTRO {
@@ -27,9 +27,9 @@ public class InfoPerisistirEntidade {
     }
 
     public InfoPerisistirEntidade(Object pEntidade, List<Object> pEntidades, EntityManager pEM, FabInfoPersistirEntidade tipoAlteracao) {
-        this.pEntidade = pEntidade;
-        this.pEntidades = pEntidades;
-        this.pEM = pEM;
+        this.entidade = pEntidade;
+        this.entidades = pEntidades;
+        this.em = pEM;
         this.tipoAlteracao = tipoAlteracao;
     }
 
@@ -40,11 +40,11 @@ public class InfoPerisistirEntidade {
             switch (getTipoRegistro()) {
 
                 case UNICO:
-                    ItfBeanSimples entidadeUnica = (ItfBeanSimples) pEntidade;
+                    ItfBeanSimples entidadeUnica = (ItfBeanSimples) entidade;
                     resposta += "nome:" + entidadeUnica.getNomeCurto() + " id:" + entidadeUnica.getId();
                     break;
                 case MULTIPLOS:
-                    ItfBeanSimples entidade = (ItfBeanSimples) pEntidades.get(0);
+                    ItfBeanSimples entidade = (ItfBeanSimples) entidades.get(0);
                     resposta += "nome:" + entidade.getNomeCurto() + "id:" + entidade.getId();
                     break;
                 case NULO:
@@ -60,12 +60,12 @@ public class InfoPerisistirEntidade {
     }
 
     private TIPO_REGISTRO getTipoRegistro() {
-        if (pEntidade != null) {
+        if (entidade != null) {
             return TIPO_REGISTRO.UNICO;
 
         }
-        if (pEntidade != null) {
-            if (pEntidades.size() > 0) {
+        if (entidade != null) {
+            if (entidades.size() > 0) {
                 return TIPO_REGISTRO.MULTIPLOS;
             }
         }
@@ -74,13 +74,13 @@ public class InfoPerisistirEntidade {
 
     private String entidadesEnviadas() {
         String resposta = "Registro nulo";
-        if (pEntidade != null) {
-            resposta = pEntidade.getClass().getName();
+        if (entidade != null) {
+            resposta = entidade.getClass().getName();
 
         }
-        if (pEntidades != null) {
-            if (pEntidades.size() > 0) {
-                resposta = pEntidades.get(0).getClass().getName();
+        if (entidades != null) {
+            if (entidades.size() > 0) {
+                resposta = entidades.get(0).getClass().getName();
             }
         }
         return resposta;
@@ -98,28 +98,48 @@ public class InfoPerisistirEntidade {
         return relatorio;
     }
 
+    public boolean isTemRegistroParaPersistir() {
+        if (entidade != null) {
+            return true;
+        }
+        if (entidade == null) {
+
+            if (entidades == null) {
+                return false;
+            }
+            if (entidades.isEmpty()) {
+                return false;
+            }
+
+        }
+        if (entidades != null) {
+            return entidades.size() > 0;
+        }
+        return false;
+    }
+
     public Object getpEntidade() {
-        return pEntidade;
+        return entidade;
     }
 
     public void setpEntidade(Object pEntidade) {
-        this.pEntidade = pEntidade;
+        this.entidade = pEntidade;
     }
 
     public List<Object> getpEntidades() {
-        return pEntidades;
+        return entidades;
     }
 
     public void setpEntidades(List<Object> pEntidades) {
-        this.pEntidades = pEntidades;
+        this.entidades = pEntidades;
     }
 
     public EntityManager getpEM() {
-        return pEM;
+        return em;
     }
 
     public void setpEM(EntityManager pEM) {
-        this.pEM = pEM;
+        this.em = pEM;
     }
 
     public FabInfoPersistirEntidade getTipoAlteracao() {

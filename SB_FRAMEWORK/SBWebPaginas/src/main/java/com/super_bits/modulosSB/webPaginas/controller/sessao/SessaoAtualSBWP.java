@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.SessaoOf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
 import com.super_bits.view.menu.MenuSBFW;
-import java.awt.Menu;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;

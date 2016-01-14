@@ -28,12 +28,15 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
     @Override
     public void logarEmailESenha(String pEmail, String pSenha) {
         ItfUsuario usuarioEncontrado = ControllerAppAbstratoSBCore.getUsuarioByEmail(pEmail);
-        System.out.println("Localizando usuario" + pEmail);
+
         if (usuarioEncontrado != null) {
             if (usuarioEncontrado.getSenha().equals(pSenha)) {
-                System.out.println("usuario encontrado");
-                getSessaoAtual().setUsuario(usuarioEncontrado);
+                if (!usuarioEncontrado.isAtivo()) {
+                    SBCore.enviarMensagemUsuario("Usuário Desativado, consulte o administrador.", FabMensagens.ALERTA);
+                    return;
+                }
 
+                getSessaoAtual().setUsuario(usuarioEncontrado);
                 SBCore.enviarAvisoAoUsuario("Bem vindo " + usuarioEncontrado.getNome());
 
             }

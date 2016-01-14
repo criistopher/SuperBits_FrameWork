@@ -305,4 +305,8 @@ public class TipoCampos extends ConstantesWeb {
         return FabCampos.PERCENTUAL.name();
     }
 
+    public String getSenha() {
+        return FabCampos.SENHA.name();
+    }
+
 }

@@ -52,12 +52,14 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private String nome;
     @Column(nullable = false, unique = true)
     @NotNull
+    @InfoCampo(tipo = FabCampos.EMAIL, label = "E-mail")
     private String email;
     @NotNull
     @Column(unique = true)
     @InfoCampo(label = "Usuário")
     private String apelido;
-    @InfoCampo(tipo = FabCampos.SENHA)
+    @InfoCampo(tipo = FabCampos.SENHA, label = "Senha")
+    @NotNull
     private String senha;
     private String complemento;
     @InfoCampo(tipo = FabCampos.LCCEP)
@@ -182,6 +184,11 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
             if (getGrupo() != null) {
                 email = apelido + "@" + getGrupo().getNome();
 
+            }
+        }
+        if (apelido == null) {
+            if (email != null) {
+                apelido = email;
             }
         }
 

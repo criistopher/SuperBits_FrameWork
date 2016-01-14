@@ -26,4 +26,6 @@ public interface ItfCfgPermissoes {
 
     public MenuSBFW definirMenu(ItfGrupoUsuario pGrupo);
 
+    public void atualizarInformacoesDePermissoesDoSistema();
+
 }

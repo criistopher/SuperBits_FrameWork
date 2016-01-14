@@ -7,16 +7,12 @@ package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;

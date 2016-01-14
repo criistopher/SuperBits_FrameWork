@@ -34,7 +34,6 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
     private static final Map<Integer, ItfPermissao> permissoesPorAcaoID = new HashMap<>();
     private static final Map<Integer, Integer> idPermissaoPorMetodoID = new HashMap<>();
-
     private static final Map<String, ItfUsuario> usuarios = new HashMap<>();
 
     public static ItfUsuario getUsuarioByEmail(String pEmail) {

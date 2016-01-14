@@ -239,6 +239,10 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         FabInfoPersistirEntidade pTipoAlteracao = pInfoEntidadesPersistencia.getTipoAlteracao();
 
         try {
+            if (!pInfoEntidadesPersistencia.isTemRegistroParaPersistir()) {
+                throw new UnsupportedOperationException("Favor informar ao menos uma entidade para persistir, é possível que você esteja tentando salvar um registro = a nulo");
+            }
+
             System.out.println("executando alteração do tipo" + pTipoAlteracao);
             if (SBCore.isControleDeAcessoDefinido()) {
                 if (!SBCore.getConfiguradorDePermissao().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString()).isSucesso()) {
@@ -251,21 +255,22 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 }
             }
         } catch (Exception e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Verificando permissoes de CRUD", e);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Verificando permissoes de CRUD" + e.getMessage(), e);
 
             if (e.getCause() != null) {
                 if (e.getCause().getClass().getSimpleName().equals(JDBCConnectionException.class.getSimpleName())) {
                     renovarConexao();
                 }
             }
+            return null;
 
         }
 
         try {
 
-            boolean entidadePaiEnviada = false;
+            boolean entityManagerPaiEnviada = false;
             if (pEM != null) {
-                entidadePaiEnviada = true;
+                entityManagerPaiEnviada = true;
             }
 
             EntityManager em = defineEM(pEM, null);
@@ -291,6 +296,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                     }
 
                     boolean sucesso = false;
+
                     Object novoRegistro = objetosPersistidos.get(0);
                     for (Object entidade : objetosPersistidos) {
                         sucesso = false;
@@ -359,7 +365,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 }
 
             } finally {
-                if (!entidadePaiEnviada) {
+                if (!entityManagerPaiEnviada) {
                     if (em != null) {
                         em.close();
                     }
@@ -625,9 +631,11 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      *
      * @param obj Objeto que será salvo em banco
      * @param pEm Entity manager que será utilizado
-     * @return Objeto apos ser persistido em banco
+     * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra
+     * falha
      */
     public static Object mergeRegistro(Object obj, EntityManager pEm) {
+
         return executaAlteracaoEmBancao(new InfoPerisistirEntidade(obj, null, pEm, FabInfoPersistirEntidade.MERGE));
 
     }

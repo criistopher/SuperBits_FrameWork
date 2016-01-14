@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
 import javax.persistence.EntityManager;
@@ -28,6 +29,7 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
 
     public EntidadeContatoCorporativo(Class<?> pClasseModelo) {
         super(pClasseModelo);
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.CNPJ));
         // TODO implementar EntidadeContatoCorporativo
     }
 
