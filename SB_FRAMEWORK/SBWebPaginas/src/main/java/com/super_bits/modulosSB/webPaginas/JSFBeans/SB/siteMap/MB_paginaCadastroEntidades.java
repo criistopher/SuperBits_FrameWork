@@ -111,6 +111,7 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
         return acoesRegistros;
     }
 
+    // Retorna ação de novo registro
     public AcaoDoSistema getAcaoNovoRegistro() {
         return acaoNovoRegistro;
     }
@@ -131,6 +132,7 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
         return acaoSelecionada;
     }
 
+    // Define a ação selecionada
     public void setAcaoSelecionada(AcaoDoSistema acaoSelecionada) {
         this.acaoSelecionada = acaoSelecionada;
     }
