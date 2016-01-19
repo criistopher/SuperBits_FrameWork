@@ -77,7 +77,7 @@ public enum FabErro {
      */
     public void paraDesenvolvedor(String pTexto, Throwable pErro) {
         if (this == PARA_TUDO) {
-            throw new UnsupportedOperationException("O erro do tipo Para tudo deve ser direcionado ao Sistema");
+            throw new UnsupportedOperationException(" O erro do tipo Para tudo deve ser direcionado ao Sistema ");
         }
         SBCore.RelatarErro(this, pTexto, pErro);
     }

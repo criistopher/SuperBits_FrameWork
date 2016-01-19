@@ -255,7 +255,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 }
             }
         } catch (Exception e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Verificando permissoes de CRUD" + e.getMessage(), e);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor(" Erro Verificando permissoes de CRUD " + e.getMessage(), e);
 
             if (e.getCause() != null) {
                 if (e.getCause().getClass().getSimpleName().equals(JDBCConnectionException.class.getSimpleName())) {
@@ -266,12 +266,14 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
         }
 
-        try {
-
-            boolean entityManagerPaiEnviada = false;
+          boolean entityManagerPaiEnviada = false;
             if (pEM != null) {
                 entityManagerPaiEnviada = true;
             }
+        
+        try {
+
+          
 
             EntityManager em = defineEM(pEM, null);
             if (em == null) {
@@ -365,7 +367,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 }
 
             } finally {
-                if (!entityManagerPaiEnviada) {
+                if (entityManagerPaiEnviada==false) {
                     if (em != null) {
                         em.close();
                     }
