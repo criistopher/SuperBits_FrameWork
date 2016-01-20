@@ -24,6 +24,10 @@ public @interface InfoCampo {
     boolean obrigatorio() default true;
 
     int acesso() default 1;
+    
+    int valorMinimo() default 0;
+    
+    int valorMaximo() default 0;
 
     ValorAceito[] valoresAceitos() default {};
 

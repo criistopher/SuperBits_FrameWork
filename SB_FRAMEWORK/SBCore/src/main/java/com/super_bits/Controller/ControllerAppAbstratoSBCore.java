@@ -185,10 +185,12 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
         ItfUsuario usuario = SBCore.getControleDeSessao().getSessaoAtual().getUsuario();
 
-        if (usuario == new UsuarioSistema()) {
-
+        
+        if (usuario.getEmail().equals(new UsuarioSistema().getEmail())) {
             return pResp;
         }
+        
+        
 
         Method metodo = getMetodoChamado();
 
