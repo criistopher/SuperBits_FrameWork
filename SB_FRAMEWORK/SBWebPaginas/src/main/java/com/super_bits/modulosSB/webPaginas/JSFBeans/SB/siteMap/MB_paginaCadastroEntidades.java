@@ -29,8 +29,7 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
     protected final AcaoDoSistema acaoSalvarAlteracoes;
-    @Inject
-    protected PgUtil paginaUtil;
+    
 
     public enum estadoEdicao {
 
