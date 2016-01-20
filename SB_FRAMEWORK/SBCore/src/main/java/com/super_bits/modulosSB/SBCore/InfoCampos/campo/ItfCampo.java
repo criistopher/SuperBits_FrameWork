@@ -19,24 +19,70 @@ public interface ItfCampo {
         NUMERO, LETRAS, DATAS
     }
 
+    /**
+     *
+     * @return enum do Tipo de campo conhecido (em FabCampo)
+     */
     public FabCampos getTipoCampo();
 
+    /**
+     *
+     * @return Retorna o Valor do Campo
+     */
     public TIPOPRIMITIVO getTipoValor();
 
+    /**
+     *
+     * @return Tipo de visualização do campo
+     */
     public String getTipoVisualizacao();
 
+    /**
+     *
+     * @return Label do campo (para formulários de cadastro)
+     */
     public String getLabel();
+    
+    /**
+     *
+     * @return Retorna o Label, formatado sem espaço e caracteres especiais
+     */
+    public String getIdComponente();
 
+    /**
+     *
+     * @return DEscrição do campo (para formulários de cadastro-> usado como dicas sobre o campo
+     */
     public String getDescricao();
 
+    /**
+     *
+     * @return MAscara do campo (Utiliza regex para criar uma mascara)
+     */
     public String getMascara();
 
+    /**
+     *
+     * @return Valor padrão ..
+     */
     public String getValorPadrao();
 
+    /**
+     *
+     * @return Verdadeiro se o campo for obrigatório e falso caso contrário
+     */
     public boolean isObrigatorio();
 
+    /**
+     *
+     * @return Valor maximo do campo (numero de caracteres para letras, e valor para numeros)
+     */
     public long getValorMaximo();
 
+    /**
+     *
+     * @return Valor minino (numero de caracters para letras, e valor para números)
+     */
     public long getValorMinimo();
 
 }

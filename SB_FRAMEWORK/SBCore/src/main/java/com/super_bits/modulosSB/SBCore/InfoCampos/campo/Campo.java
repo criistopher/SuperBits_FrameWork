@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
@@ -137,6 +138,11 @@ public class Campo implements Serializable, ItfCampo {
 
     public void setObrigatorio(boolean obrigatorio) {
         this.obrigatorio = obrigatorio;
+    }
+
+    @Override
+    public String getIdComponente() {
+        return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
     }
 
 }
