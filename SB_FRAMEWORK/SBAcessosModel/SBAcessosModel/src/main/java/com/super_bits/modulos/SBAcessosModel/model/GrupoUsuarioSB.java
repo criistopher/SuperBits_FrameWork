@@ -101,7 +101,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     public List<ItfUsuario> getUsuarios() {
         return (List) usuarios;
     }
-
+    @Override
     public boolean isAtivo() {
         return ativo;
     }

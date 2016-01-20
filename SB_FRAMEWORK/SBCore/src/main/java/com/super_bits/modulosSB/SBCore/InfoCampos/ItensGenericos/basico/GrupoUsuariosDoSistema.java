@@ -42,4 +42,9 @@ public class GrupoUsuariosDoSistema implements ItfGrupoUsuario {
         return new ArrayList<>();
     }
 
+    @Override
+    public boolean isAtivo() {
+       return true;
+    }
+
 }

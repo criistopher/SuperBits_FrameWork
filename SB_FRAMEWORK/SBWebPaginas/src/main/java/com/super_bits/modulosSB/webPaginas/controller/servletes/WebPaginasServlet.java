@@ -155,7 +155,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         }
 
         if (recurso == null) {
-            recurso = "/resources/SBComp/SBSystemPages/paginaNaoEncontrada.xhtml";
+            recurso = "/site/home.xhtml";
         }
         System.out.println("ForWard para" + recurso);
         RequestDispatcher wp = req.getRequestDispatcher(recurso);

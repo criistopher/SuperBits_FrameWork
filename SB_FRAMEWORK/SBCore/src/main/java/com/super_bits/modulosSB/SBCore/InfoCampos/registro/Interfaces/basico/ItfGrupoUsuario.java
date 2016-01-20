@@ -17,4 +17,5 @@ public interface ItfGrupoUsuario {
     public String getNome();
     public String getDescricao();
     public List<? extends ItfUsuario> getUsuarios();
+    public boolean isAtivo() ;
 }

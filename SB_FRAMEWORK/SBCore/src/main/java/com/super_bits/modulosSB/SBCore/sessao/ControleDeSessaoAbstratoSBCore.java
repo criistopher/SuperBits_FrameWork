@@ -31,8 +31,13 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
         if (usuarioEncontrado != null) {
             if (usuarioEncontrado.getSenha().equals(pSenha)) {
+             if (!usuarioEncontrado.getGrupo().isAtivo()){
+                    SBCore.enviarMensagemUsuario("O Grupo de usuário está desativado", FabMensagens.ALERTA);
+                    return;
+             }
+                
                 if (!usuarioEncontrado.isAtivo()) {
-                    SBCore.enviarMensagemUsuario("Usuário Desativado, consulte o administrador.", FabMensagens.ALERTA);
+                    SBCore.enviarMensagemUsuario("O Usuário está Desativado", FabMensagens.ALERTA);
                     return;
                 }
 
