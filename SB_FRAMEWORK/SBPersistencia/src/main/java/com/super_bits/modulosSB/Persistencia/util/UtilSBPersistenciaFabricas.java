@@ -21,6 +21,10 @@ import javax.persistence.EntityManager;
  * @author sfurbino
  */
 public abstract class UtilSBPersistenciaFabricas {
+    
+    public enum TipoOrdemGravacao{
+        ORDERNAR_POR_ID,ORDERNAR_POR_ORDEM_DE_DECLARCAO
+    }
 
     private static List<ItfBeanSimples> listaRegistros(Class pFabrica) {
         List<ItfBeanSimples> lista = new ArrayList<>();
@@ -34,9 +38,12 @@ public abstract class UtilSBPersistenciaFabricas {
 
     }
 
-    private static List<ItfBeanSimples> listaOrdenada(List<ItfBeanSimples> pLista) {
+    private static List<ItfBeanSimples> listaOrdenadaPorID(List<ItfBeanSimples> pLista) {
         return UtilSBCoreItens.ordernarPorId(pLista);
 
+    }
+    private static List<ItfBeanSimples> listaOrdenadaPorOrdemDEclaracao(Class pFabrica){
+        return listaRegistros(pFabrica);
     }
 
     /**
@@ -48,20 +55,31 @@ public abstract class UtilSBPersistenciaFabricas {
      * persistiveis no getRegistro
      * @param pEM Gerenciamento de sessão
      */
-    public static void persistirRegistrosDaFabrica(Class pFabrica, EntityManager pEM) {
+    public static void persistirRegistrosDaFabrica(Class pFabrica, EntityManager pEM,TipoOrdemGravacao pTipoOrdem) {
+        
         if (pFabrica.getEnumConstants() == null) {
-
             ItfMensagem msg = FabMensagens.ERRO.getMsgSistema("Nenum Enum foi encontrado para persistir nesta fabrica" + pFabrica.getSimpleName());
-
             SBCore.getCentralDeMensagens().enviaMensagem(msg);
             return;
-
         }
-
-        for (Object entidade : listaOrdenada(listaRegistros(pFabrica))) {
-
-            UtilSBPersistencia.mergeRegistro(entidade, pEM);
+        
+        switch (pTipoOrdem){
+            case ORDERNAR_POR_ID:
+                for (Object entidade : listaOrdenadaPorID(listaRegistros(pFabrica))) {
+                UtilSBPersistencia.mergeRegistro(entidade, pEM);
+                }
+                break;
+            case ORDERNAR_POR_ORDEM_DE_DECLARCAO:
+                for (Object entidade: listaRegistros(pFabrica)){
+                    UtilSBPersistencia.mergeRegistro(entidade,pEM);
+                }
+                break;
+            default:
+                throw new AssertionError(pTipoOrdem.name());
+            
+        
         }
-
+        
+        
     }
 }
