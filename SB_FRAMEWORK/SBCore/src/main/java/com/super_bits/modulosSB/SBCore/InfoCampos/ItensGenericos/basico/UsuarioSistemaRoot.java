@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Salvio
  */
-public class UsuarioSistema extends ItemGenerico implements ItfUsuario, Serializable {
+public class UsuarioSistemaRoot extends ItemGenerico implements ItfUsuario, Serializable {
 
     @Override
     public String getEmail() {

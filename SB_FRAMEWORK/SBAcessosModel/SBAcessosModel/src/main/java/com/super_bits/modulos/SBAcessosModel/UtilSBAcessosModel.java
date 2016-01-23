@@ -13,9 +13,8 @@ import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabTipoUsuarioInteracao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -84,7 +83,7 @@ public class UtilSBAcessosModel {
      */
     public static boolean acessoAcaoPermitido(ItfUsuario pUsuario, AcaoDoSistema pAcao) {
         
-      if (pUsuario.getEmail().equals(new UsuarioSistema().getEmail())) {
+      if (pUsuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
             return true;
         }
         

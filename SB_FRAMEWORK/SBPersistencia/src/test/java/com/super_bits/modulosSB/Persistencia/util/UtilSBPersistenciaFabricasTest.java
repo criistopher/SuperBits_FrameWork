@@ -28,7 +28,7 @@ public class UtilSBPersistenciaFabricasTest extends TesteJunitSBPersistencia {
      */
     @Test
     public void testPersistirRegistrosDaFabrica() {
-        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(FabTeste.class, getEmTeste());
+        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(FabTeste.class, getEmTeste(),UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ID);
     }
 
 }

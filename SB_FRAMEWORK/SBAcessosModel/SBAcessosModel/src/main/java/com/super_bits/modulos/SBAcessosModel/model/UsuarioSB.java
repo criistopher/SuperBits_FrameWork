@@ -47,7 +47,8 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Generated(GenerationTime.NEVER)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome")
+
     @NotNull
     private String nome;
     @Column(nullable = false, unique = true)
@@ -72,8 +73,9 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private Date dataCadastro;
     private boolean ativo = true;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = GrupoUsuarioSB.class)
     @NotNull
+    @InfoCampo(label = "Grupo")
     private GrupoUsuarioSB grupo;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuarios")

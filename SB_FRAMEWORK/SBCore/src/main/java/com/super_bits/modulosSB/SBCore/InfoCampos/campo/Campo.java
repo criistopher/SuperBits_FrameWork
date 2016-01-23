@@ -1,8 +1,9 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class Campo implements Serializable, ItfCampo {
 
@@ -22,6 +23,8 @@ public class Campo implements Serializable, ItfCampo {
 
     public int[] seguranca = {1};
 
+    public List<ItfBeanSimples> listaDeOpcoes;
+
     protected boolean obrigatorio;
 
     private long valorMaximo;
@@ -39,6 +42,7 @@ public class Campo implements Serializable, ItfCampo {
         setMascara(pCampo.getMascara());
         setTipoCampo(pCampo.getTipoCampo());
         setObrigatorio(pCampo.isObrigatorio());
+        setListaDeOpcoes(pCampo.getListaDeOpcoes());
 
     }
 
@@ -143,6 +147,15 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getIdComponente() {
         return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
+    }
+
+    @Override
+    public List<ItfBeanSimples> getListaDeOpcoes() {
+        return listaDeOpcoes;
+    }
+
+    public void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
+        listaDeOpcoes = pLista;
     }
 
 }

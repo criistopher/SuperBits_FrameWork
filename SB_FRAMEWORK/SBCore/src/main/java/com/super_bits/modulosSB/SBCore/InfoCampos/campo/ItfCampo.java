@@ -5,6 +5,9 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import java.util.List;
+
 /**
  *
  *
@@ -84,5 +87,13 @@ public interface ItfCampo {
      * @return Valor minino (numero de caracters para letras, e valor para números)
      */
     public long getValorMinimo();
+    
+    /**
+     *
+     * Retorna uma lista de opções para o caso de ManyToOne
+     * 
+     * @return Lista com opções de seleção
+     */
+    public List<ItfBeanSimples> getListaDeOpcoes();
 
 }

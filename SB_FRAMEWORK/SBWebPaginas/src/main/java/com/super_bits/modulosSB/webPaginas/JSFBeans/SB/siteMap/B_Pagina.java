@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 
 /**
@@ -382,6 +384,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     @Override
+    @PreDestroy
     public void fecharPagina() {
         if (emPagina != null) {
             if (emPagina.isOpen()) {
@@ -587,5 +590,14 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
 
     }
+    
+    
+    @PostConstruct
+   public void testePostConstructInterno(){
+       System.out.println("PostConstruct interno");
+        System.out.println("Executou post construct interno para"+this.getClass().getSimpleName());
+       
+   }    
+    
 
 }

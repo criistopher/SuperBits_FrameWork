@@ -16,8 +16,8 @@ import java.lang.reflect.Field;
  */
 public class UtilSBCoreCampoReflexao {
 
-    private static boolean isClasseBasicaSB(Class pClasse) {
-
+    public static boolean isClasseBasicaSB(Class pClasse) {
+        // todo Tratar EntidadeGenerica gerar trhow se Chegar no Object
         return (pClasse == ItemGenerico.class || pClasse == Object.class);
 
     }

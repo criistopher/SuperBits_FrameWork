@@ -47,4 +47,9 @@ public class GrupoUsuariosDoSistema implements ItfGrupoUsuario {
        return true;
     }
 
+    @Override
+    public String getXhtmlPaginaInicial() {
+        return "/site/home.xhtml";
+    }
+
 }

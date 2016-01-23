@@ -45,6 +45,9 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Descrição")
     @NotNull
     private String descricao;
+    
+    private String XhtmlPaginaInicial="/site/homeAdministrador.xhtml";
+    
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 
@@ -58,7 +61,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     )
     private List<UsuarioSB> usuarios;
 
-    private boolean ativo = false;
+    private boolean ativo = true;
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
 
@@ -118,5 +121,17 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     public void configuracoesInsert() {
         dataHoraCriacao = new Date();
     }
+
+    public String getXhtmlPaginaInicial() {
+        return XhtmlPaginaInicial;
+    }
+
+    public void setXhtmlPaginaInicial(String XhtmlPaginaInicial) {
+        this.XhtmlPaginaInicial = XhtmlPaginaInicial;
+    }
+
+    
+    
+    
 
 }

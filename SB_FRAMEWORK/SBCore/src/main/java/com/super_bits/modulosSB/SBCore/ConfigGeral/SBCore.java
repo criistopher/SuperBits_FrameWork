@@ -6,7 +6,10 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -303,6 +306,11 @@ public class SBCore {
         }
         return null;
 
+    }
+    
+    
+    public static boolean isPermitido(ItfAcaoDoSistema pAcao) {
+        return ControllerAppAbstratoSBCore.isAcessoPermitido(pAcao);   
     }
 
     public static ItfControleDeSessao getControleDeSessao() {

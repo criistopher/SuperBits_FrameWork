@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package com.super_bits.modulosSB.webPaginas.controller.servletes;
-
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
-
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
@@ -47,6 +45,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     private ControleDeSessaoWeb controleDeSessao;
     @Inject
     private InfoErroCritico erroCritico;
+    
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -155,10 +154,10 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         }
 
         if (recurso == null) {
-            recurso = "/site/home.xhtml";
+            recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
         }
         System.out.println("ForWard para" + recurso);
-        RequestDispatcher wp = req.getRequestDispatcher(recurso);
+        RequestDispatcher wp = req.getRequestDispatcher(recurso); 
 
         System.out.println("Dispatcher:" + wp.toString() + "-" + wp.getClass());
 

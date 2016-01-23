@@ -54,6 +54,7 @@ public abstract class UtilSBPersistenciaFabricas {
      * @param pFabrica Enum que extende ItfFabrica e retorna entidades
      * persistiveis no getRegistro
      * @param pEM Gerenciamento de sessão
+     * @param pTipoOrdem Especifica a ordem da gravação (podendo ser pelo id do registro, ou pela ordem de declaração do Enum)
      */
     public static void persistirRegistrosDaFabrica(Class pFabrica, EntityManager pEM,TipoOrdemGravacao pTipoOrdem) {
         

@@ -1,8 +1,10 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
+import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
@@ -39,6 +41,11 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         } else {
             super.adcionaCampoEsperado(pCampo);
         }
+    }
+
+    @Override
+    protected Campo getCampoByAnotacoes(Field pCampo) {
+        return FabCamposPersistencia.getCampoByAnotacoes(pCampo);
     }
 
     @Override

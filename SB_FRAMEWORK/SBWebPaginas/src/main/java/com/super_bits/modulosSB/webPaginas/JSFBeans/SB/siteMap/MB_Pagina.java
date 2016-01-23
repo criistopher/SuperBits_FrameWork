@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,13 @@ public abstract class MB_Pagina extends B_Pagina {
 
     public Map<String, SBNQ> getListas() {
         return listas;
+    }
+    
+    public boolean isAcessoPermitido(){
+        if (getAcaoVinculada()!=null){
+        return ControllerAppAbstratoSBCore.isAcessoPermitido(getAcaoVinculada());
+        }
+        return false;
     }
 
 }

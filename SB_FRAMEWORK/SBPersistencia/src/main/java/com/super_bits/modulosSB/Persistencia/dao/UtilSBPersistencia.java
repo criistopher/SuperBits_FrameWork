@@ -23,6 +23,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.metamodel.EntityType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.exception.JDBCConnectionException;
@@ -62,7 +64,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     //* TIPOS DE SELEÇÃO DE ITEM MAIS COMUNS */
     public static enum TipoSelecaoRegistro {
 
-        ID, NOMECURTO, LIKENOMECURTO, SQL, JPQL, ULTIMO_REGISTRO, PRIMEIRO_REGISTRO, ENCONTRAR_EMPRESA, ENCONTRAR_PESSOA
+        ID, NOMECURTO, LIKENOMECURTO, SQL, JPQL, ULTIMO_REGISTRO, PRIMEIRO_REGISTRO, ENCONTRAR_EMPRESA, ENCONTRAR_PESSOA, QUANTIDADE_REGISTROS
     }
 
     private static Map<String, EntityManagerFactory> bancoExtra = new HashMap<String, EntityManagerFactory>();
@@ -173,7 +175,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return em;
     }
 
-    public static EntityManager finzalizaTransacaoEFechaEM(@NotNull EntityManager em) {
+    public static boolean finzalizaTransacaoEFechaEM(@NotNull EntityManager em) {
         try {
             if (em == null) {
                 throw new UnsupportedOperationException("O entity manager está nulo");
@@ -185,11 +187,12 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
             em.getTransaction().commit();
 
             em.close();
-
+            return true;
         } catch (Throwable t) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+            return false;
         }
-        return em;
+
     }
 
     public UtilSBPersistencia() {
@@ -266,14 +269,12 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
         }
 
-          boolean entityManagerPaiEnviada = false;
-            if (pEM != null) {
-                entityManagerPaiEnviada = true;
-            }
-        
-        try {
+        boolean entityManagerPaiEnviada = false;
+        if (pEM != null) {
+            entityManagerPaiEnviada = true;
+        }
 
-          
+        try {
 
             EntityManager em = defineEM(pEM, null);
             if (em == null) {
@@ -367,7 +368,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 }
 
             } finally {
-                if (entityManagerPaiEnviada==false) {
+                if (entityManagerPaiEnviada == false) {
                     if (em != null) {
                         em.close();
                     }
@@ -397,7 +398,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @param tipoRegisto Tipo de registro selecionado
      * @param pTipoSelecao
      * @param parametros
-     * @return
+     * @return Uma seleção de regostros encontrados, ou uma lista sem registro
+     * caso Não encontre nada ou aconteça um erro
      */
     private static List<?> selecaoRegistros(EntityManager pEM, String pSQL, String pPQL, Integer maximo, Class tipoRegisto, TIPO_SELECAO_REGISTROS pTipoSelecao, Object... parametros) {
         // todo Se origem for uma MBPAGINA  utilizar o EntityManager da pagina
@@ -515,7 +517,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @param tipoRegisto Tipo de registro
      * @param pTipoSelecao Tipo de seleção
      * @param parametros Parametros
-     * @return
+     * @return O registro encontrado, ou um null caso não encontre ou aconteça
+     * algum erro em sql
      */
     private static Object selecaoRegistro(EntityManager pEM, String pSQL, String pPQL, Class pClasseRegisto, TipoSelecaoRegistro pTipoSelecao, Object... parametros) {
         boolean entityManagerPaiEnviado = false;
@@ -575,8 +578,17 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             break;
                         case ENCONTRAR_PESSOA:
                             ItfBeanContatoPessoa buscaPessoaFisica;
+                            throw new UnsupportedOperationException("A busca de pessoa ainda não foi implementada");
 
-                            break;
+                        case QUANTIDADE_REGISTROS:
+
+                            CriteriaBuilder qb = em.getCriteriaBuilder();
+                            CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+                            cq.select(qb.count(cq.from(pClasseRegisto)));
+                            return em.createQuery(cq).getSingleResult();
+
+                        default:
+                            throw new AssertionError(pTipoSelecao.name());
                     }
                     if (pTipoSelecao == TipoSelecaoRegistro.SQL) {
                         if (pClasseRegisto == null) {
@@ -647,7 +659,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * exista).
      *
      * @param object
-     * @return
+     * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra
+     * falha
      */
     public static Object mergeRegistro(Object object) {
         if (object == null) {
@@ -696,7 +709,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      *
      * @param pObj
      * @param pEM
-     * @return
+     * @return True caso consiga salvar a alteração, ou false caso não consiga
+     * executar o insert
      */
     public static boolean persistirRegistro(Object pObj) {
         return (boolean) executaAlteracaoEmBancao(new InfoPerisistirEntidade(pObj, null, null, FabInfoPersistirEntidade.INSERT));
@@ -992,6 +1006,14 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static boolean executaSQL(EntityManager pEm, String pSql) {
         return executaSQLcmd(pEm, pSql);
+    }
+
+    public static Long getQuantidadeRegistrosNaTabela(Class pClasse) {
+        return (Long) selecaoRegistro(null, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
+    }
+
+    public static Long getQuantidadeRegistrosNaTabela(Class pClasse, EntityManager pEM) {
+        return (Long) selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
     }
 
 }

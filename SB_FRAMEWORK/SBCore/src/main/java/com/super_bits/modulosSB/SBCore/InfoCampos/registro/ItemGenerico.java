@@ -13,6 +13,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -86,6 +87,10 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
     }
 
+    protected Campo getCampoByAnotacoes(Field pCampo) {
+        return FabCampos.getCampoByAnotacoesSimplesSemPersistencia(pCampo);
+    }
+
     /**
      * cria um mapa com todos os campos da classe.
      *
@@ -99,33 +104,38 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     protected void makeMapaCampos() {
 
         // Por segurança, sai caso o campo já tenha sido criado
-        Class<?> current = this.getClass();
         if (mapaCamposInstanciados != null) {
             if (mapaCamposInstanciados.isEmpty()) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("O mapa de campos não foi criado, pois nenhum campo foi encontrado, este erro é grave, reflita sobre a vida, tome um café quem sabe..", null);
             }
             return;
         }
+
+        // Definindo Classe Para analize de campos
+        Class<?> classeAnalizada = this.getClass();
         mapaCamposInstanciados = new HashMap<>();
 
-        for (Field campoEncontrado : current.getDeclaredFields()) {
-            campoEncontrado.getAnnotations(); // SE o campo não for estatico
-            if (!Modifier.isStatic(campoEncontrado.getModifiers())) {
-                campoEncontrado.setAccessible(true);
-                // Se este campo não foi adicionado antes (por segurança)
-                if (!mapaCamposInstanciados.containsKey(campoEncontrado.getName())) {
-                    InfoCampo anotacao = campoEncontrado.getAnnotation(InfoCampo.class);
-                    CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(FabCampos.getCampoByAnotacoes(campoEncontrado), campoEncontrado); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
-                    mapaCamposInstanciados.put(campoEncontrado.getName(), campoformatado);
-                    if (anotacao != null) {
-                        mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
+        while (!UtilSBCoreCampoReflexao.isClasseBasicaSB(classeAnalizada)) {
+
+            for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
+                campoEncontrado.getAnnotations(); // SE o campo não for estatico
+                if (!Modifier.isStatic(campoEncontrado.getModifiers())) {
+                    campoEncontrado.setAccessible(true);
+                    // Se este campo não foi adicionado antes (por segurança)
+                    if (!mapaCamposInstanciados.containsKey(campoEncontrado.getName())) {
+                        InfoCampo anotacao = campoEncontrado.getAnnotation(InfoCampo.class);
+                        CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(getCampoByAnotacoes(campoEncontrado), campoEncontrado); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
+                        mapaCamposInstanciados.put(campoEncontrado.getName(), campoformatado);
+                        if (anotacao != null) {
+                            mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
+                        }
+
                     }
-
                 }
+
             }
-
+            classeAnalizada = classeAnalizada.getSuperclass();
         }
-
     }
 
     protected static Map<String, Field> analyze(Object object) {

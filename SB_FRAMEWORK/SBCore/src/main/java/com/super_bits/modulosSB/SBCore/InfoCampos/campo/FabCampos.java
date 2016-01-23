@@ -128,6 +128,7 @@ public enum FabCampos implements ItfFabrica {
             case LOOKUP:
                 break;
             case LOOKUPMULTIPLO:
+
                 break;
             case COR:
                 break;
@@ -191,7 +192,24 @@ public enum FabCampos implements ItfFabrica {
      * @param pClasse
      * @return
      */
-    public static Campo getCampoByAnotacoes(Field campo) {
+    public static FabCampos getTipoPadraoByClasse(Class pClasse) {
+
+        if (pClasse.getSimpleName().equals("Date")) {
+            return FabCampos.CALENDARIO;
+        }
+
+        if (pClasse.getSimpleName().equals(Integer.class.getSimpleName())) {
+            return FabCampos.QUANTIDADE;
+        }
+
+        if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
+            return FabCampos.MOEDA;
+        }
+
+        return FabCampos.TEXTO_SIMPLES;
+    }
+
+    public static Campo getCampoByAnotacoesSimplesSemPersistencia(Field campo) {
 
         InfoCampo anotacaoInfoCampo = campo.getAnnotation(InfoCampo.class);
         FabCampos tipoDoCampo;
@@ -203,9 +221,9 @@ public enum FabCampos implements ItfFabrica {
             tipoDoCampo = getTipoPadraoByClasse(campo.getType());
 
         }
+
         sbCampo = tipoDoCampo.getRegistro();
         sbCampo.setLabel(campo.getName());
-
         if (anotacaoInfoCampo != null) {
 
             sbCampo.setMascara(anotacaoInfoCampo.Mask());
@@ -228,30 +246,6 @@ public enum FabCampos implements ItfFabrica {
         }
 
         return sbCampo;
+
     }
-
-    /**
-     *
-     * Retorna um tipo de campo padrão de acordo com a classe.
-     *
-     * @param pClasse
-     * @return
-     */
-    public static FabCampos getTipoPadraoByClasse(Class pClasse) {
-
-        if (pClasse.getSimpleName().equals("Date")) {
-            return FabCampos.CALENDARIO;
-        }
-
-        if (pClasse.getSimpleName().equals(Integer.class.getSimpleName())) {
-            return FabCampos.QUANTIDADE;
-        }
-
-        if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
-            return FabCampos.MOEDA;
-        }
-
-        return FabCampos.TEXTO_SIMPLES;
-    }
-
-};
+}

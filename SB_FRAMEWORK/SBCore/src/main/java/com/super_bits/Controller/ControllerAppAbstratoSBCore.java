@@ -11,7 +11,7 @@ import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
-import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -186,7 +186,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         ItfUsuario usuario = SBCore.getControleDeSessao().getSessaoAtual().getUsuario();
 
         
-        if (usuario.getEmail().equals(new UsuarioSistema().getEmail())) {
+        if (usuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
             return pResp;
         }
         
@@ -222,7 +222,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         if (!pAcesso.getAcao().isPrecisaPermissao()) {
             return true;
         }
-        if (pUsuario.getEmail().equals(new UsuarioSistema().getEmail())) {
+        if (pUsuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
             return true;
         }
 
@@ -279,6 +279,12 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     @Override
     public boolean isAcessoPermitido(ItfUsuario pUsuario, ItfAcaoDoSistema pAcao) {
         return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), pUsuario);
+    }
+    
+    
+    
+    public static boolean isAcessoPermitido(ItfAcaoDoSistema pAcao) {
+        return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), SBCore.getUsuarioLogado());
     }
 
     /**

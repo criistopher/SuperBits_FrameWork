@@ -46,12 +46,22 @@ public class UtilSBWPServletTools {
         APLICACAO, SESSAO, REQUEST
     }
 
+    /**
+     *
+     * Obtem o Bean por sua nomeação.
+     * 
+     * Obs: Utiliza FaceContext para obter a instancia atual, ou seja, use apenas dentro de MAnaged Bens, nunca direto no servelet
+     * 
+     * @param pNomeBean
+     * @param pClasse
+     * @return
+     */
     public static Object getBeanByNamed(String pNomeBean, Class pClasse) {
 
         FacesContext context = FacesContext.getCurrentInstance();
+        
         Object objeto = context.getApplication().evaluateExpressionGet(context, "#{" + pNomeBean + "}", pClasse);
-        if (objeto
-                == null) {
+        if (objeto  == null) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro Tentando obter objeto [" + pNomeBean + " ]de contexto injetado manualmento por evalutionExpressionGet", null);
         }
         return objeto;
