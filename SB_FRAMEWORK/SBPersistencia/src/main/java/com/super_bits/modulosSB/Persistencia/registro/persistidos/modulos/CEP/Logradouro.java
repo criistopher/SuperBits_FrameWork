@@ -5,6 +5,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -12,11 +13,12 @@ import javax.persistence.ManyToOne;
 public class Logradouro extends EntidadeSimples {
 
     @Id
+    @GeneratedValue
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     @Column(length = 150)
     private String descricao;
-    @ManyToOne
+    @ManyToOne(targetEntity = Bairro.class)
     private Bairro bairro;
 
     public Logradouro() {
