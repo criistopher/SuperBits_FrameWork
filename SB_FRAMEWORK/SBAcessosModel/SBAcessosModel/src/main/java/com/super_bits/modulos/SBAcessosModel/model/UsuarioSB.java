@@ -205,8 +205,11 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
                 apelido = nome;
             }
         }
+        if (getGruposAdicionais()!=null &&  getGrupo()!=null){
+            
         if (!getGruposAdicionais().contains(getGrupo())) {
             getGruposAdicionais().add(grupo);
+        }
         }
 
     }
