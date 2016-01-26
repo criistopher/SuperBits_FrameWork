@@ -154,4 +154,9 @@ public class AcaoNaoPersistida implements ItfAcaoDoSistema {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

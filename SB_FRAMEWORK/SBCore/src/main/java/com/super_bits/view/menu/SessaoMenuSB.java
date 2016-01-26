@@ -177,4 +177,9 @@ public class SessaoMenuSB implements ItfAcaoDoSistema {
 
     }
 
+    @Override
+    public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
+        
+    }
+
 }
