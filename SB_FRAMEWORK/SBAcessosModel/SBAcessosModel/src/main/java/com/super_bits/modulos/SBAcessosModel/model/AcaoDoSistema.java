@@ -39,7 +39,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private boolean precisaPermissao;
 
     private boolean acaoConfigurada;
-    
+
     private ItfFabricaAcoes fabrica;
 
     private String xhtmlAcao;
@@ -82,7 +82,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
         ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
         ItfFabricaAcoes enumModulo = pAcaoDoSistema;
-        fabrica=pAcaoDoSistema;
+        fabrica = pAcaoDoSistema;
         InfoModulo anotacaoModulo = enumModulo.getClass().getAnnotation(InfoModulo.class);
         moduloDaAcao.setId(enumModulo.getClass().getSimpleName().hashCode());
         moduloDaAcao.setNome(anotacaoModulo.nomeDoModulo());
@@ -251,10 +251,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         if (acaoConfigurada || validarNaoConfigurado) {
 
             if (isAcaoPrincipal && acaoPrincipal != null) {
-                throw new UnsupportedOperationException("Por ser uma ação principal, eta ação não pode conter uma ação principal"+fabrica.toString()+ nomeAcao); //To change body of generated methods, choose Tools | Templates.
+                throw new UnsupportedOperationException("Por ser uma ação principal, eta ação não pode conter uma ação principal" + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
             }
             if (!isAcaoPrincipal && acaoPrincipal == null) {
-                throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.."+fabrica.toString()+ nomeAcao); //To change body of generated methods, choose Tools | Templates.
+                throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
             }
 
             if (xhtmlAcao != null) {
@@ -283,14 +283,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal
     ) {
         isAcaoPrincipal = pisAcaoPrincipal;
+        if (pisAcaoPrincipal) {
+            acessoAPagina = true;
+        }
     }
 
     @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
-      acaoPrincipal=(AcaoDoSistema) pAcaoPrincipal;
+        acaoPrincipal = (AcaoDoSistema) pAcaoPrincipal;
     }
 
-    
-    
-    
 }
