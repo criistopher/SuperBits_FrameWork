@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,11 +32,12 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
     private final Map<Integer, Method> metodosByHashMetodo = new HashMap<>();
 
     public static List<ItfAcaoDoSistema> getAcoesDoSistema() {
-        return null;
+        throw new UnsupportedOperationException("Get Açoes do Sistema ainda não foi implementado");
     }
 
     public static List<ItfAcaoDoSistema> getAcoesDoModulo(Class<? extends ControllerAppAbstratoSBCore> modulo) {
-        return null;
+        throw new UnsupportedOperationException("Get Açoes do modulo ainda não foi implementado");
+
     }
 
     /**
@@ -48,6 +50,25 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
      */
     public ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo) {
         return acoesByHashMetodo.get(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo));
+    }
+
+    public Method getMetodoByAcao(ItfAcaoDoSistema pAcao) {
+
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.PRODUCAO) {
+            System.out.println("O metodo getMetodo pela ação deve ser usado com "
+                    + "moderação no modo de produção. (o custo de processamento é "
+                    + "elevado para utilizar muitas vezes seguida");
+        }
+
+        for (Map.Entry<Integer, Method> entry : metodosByHashMetodo.entrySet()) {
+
+            ItfAcaoDoSistema acaoDoMetodo = UtilSBController.getAcaoByMetodo(null, true);
+            if (pAcao.getNomeAcao().equals(pAcao.getNomeAcao())) {
+                return entry.getValue();
+            }
+        }
+        return null;
+
     }
 
     /**
@@ -88,7 +109,7 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
             acoesByHashMetodo.clear();
             for (Method metodo : metodos) {
 
-                acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), UtilSBController.getAcaoByMetodo(metodo));
+                acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), UtilSBController.getAcaoByMetodo(metodo, true));
 
                 metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
             }

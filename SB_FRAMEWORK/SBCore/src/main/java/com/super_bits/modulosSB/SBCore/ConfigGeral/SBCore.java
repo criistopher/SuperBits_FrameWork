@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -307,10 +308,9 @@ public class SBCore {
         return null;
 
     }
-    
-    
+
     public static boolean isPermitido(ItfAcaoDoSistema pAcao) {
-        return ControllerAppAbstratoSBCore.isAcessoPermitido(pAcao);   
+        return ControllerAppAbstratoSBCore.isAcessoPermitido(pAcao);
     }
 
     public static ItfControleDeSessao getControleDeSessao() {

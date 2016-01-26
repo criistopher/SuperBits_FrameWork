@@ -21,18 +21,18 @@ import java.util.List;
  */
 public class MenuSBFW {
 
-    private final List<SessaoMenu> sessoes;
+    private final List<SessaoMenuSB> sessoes;
 
     public MenuSBFW() {
         sessoes = new ArrayList<>();
     }
 
-    public void addSessao(SessaoMenu pSessao) {
+    public void addSessao(SessaoMenuSB pSessao) {
         sessoes.add(pSessao);
 
     }
 
-    public List<SessaoMenu> getSessoes() {
+    public List<SessaoMenuSB> getSessoes() {
         return sessoes;
     }
 

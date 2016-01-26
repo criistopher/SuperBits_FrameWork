@@ -14,7 +14,6 @@ import com.super_bits.Controller.comunicacao.Resposta;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -43,12 +42,8 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return usuarios.get(pEmail);
     }
 
-    protected void getAcaoDoMetodo(Method pMetodo) {
-
-    }
-
     public static ItfResposta getNovaResposta(Class pTipoRetorno) {
-        Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado()));
+        Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
 
         return resp;
     }
@@ -185,18 +180,15 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
         ItfUsuario usuario = SBCore.getControleDeSessao().getSessaoAtual().getUsuario();
 
-        
         if (usuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
             return pResp;
         }
-        
-        
 
         Method metodo = getMetodoChamado();
 
         ItfPermissao permissao = null;
 
-        ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo);
+        ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo, true);
         if (acao == null) {
             FabErro.PARA_TUDO.paraSistema("A ANOTAÇÃO DE AÇÃO NÃO FOI ENCONTRADA NO METODO DE AÇÃO DO SISTEMA", null);
         }
@@ -280,9 +272,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     public boolean isAcessoPermitido(ItfUsuario pUsuario, ItfAcaoDoSistema pAcao) {
         return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), pUsuario);
     }
-    
-    
-    
+
     public static boolean isAcessoPermitido(ItfAcaoDoSistema pAcao) {
         return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), SBCore.getUsuarioLogado());
     }

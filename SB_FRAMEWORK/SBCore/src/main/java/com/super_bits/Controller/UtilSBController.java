@@ -83,9 +83,10 @@ public class UtilSBController {
      * sistema a partir deste enum
      *
      * @param pMetodo O Metodo estático da ação
+     * @param pararSistemaCasoNaoEncontre :P
      * @return A ação vinculada ao método estático
      */
-    public static ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo) {
+    public static ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo, boolean pararSistemaCasoNaoEncontre) {
         try {
             ItfFabricaAcoes acao = getFabricaAcaoByMetodo(pMetodo);
             ItfAcaoDoSistema acaoSisTema = (ItfAcaoDoSistema) acao.getRegistro();

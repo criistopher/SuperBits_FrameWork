@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
@@ -37,17 +38,29 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private boolean precisaPermissao;
 
-    private String urlAction;
+    private boolean acaoConfigurada;
+
+    private String xhtmlAcao;
 
     private boolean acessoAPagina;
 
     private int idMetodo;
 
-    @ManyToOne
+    private boolean isAcaoPrincipal;
+
+    @ManyToOne(targetEntity = ModuloAcaoSistema.class)
     private ModuloAcaoSistema modulo;
+
+    @ManyToOne(targetEntity = AcaoDoSistema.class)
+    private AcaoDoSistema acaoPrincipal;
 
     public AcaoDoSistema() {
         super();
+    }
+
+    private void atualizaAcaoConfigurada() {
+        //TODO verificar todas variaveis que determinam se uma ação está configurada
+        acaoConfigurada = true;
     }
 
     /**
@@ -83,6 +96,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      */
     @Override
     public String getNomeAcao() {
+
         return nomeAcao;
     }
 
@@ -93,6 +107,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      */
     @Override
     public String getIconeAcao() {
+
         return iconeAcao;
     }
 
@@ -103,6 +118,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      */
     @Override
     public String getCor() {
+
         return cor;
     }
 
@@ -115,11 +131,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      */
     @Override
     public String getDescricao() {
+
         return descricao;
     }
 
     @Override
     public boolean isPrecisaPermissao() {
+
+        acaoConfigurada = true;
         return precisaPermissao;
     }
 
@@ -129,11 +148,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public String getXHTMLAcao() {
-        return urlAction;
+        return xhtmlAcao;
     }
 
     public void setXHTMLAcao(String urlAction) {
-        this.urlAction = urlAction;
+        this.xhtmlAcao = urlAction;
     }
 
     @Override
@@ -155,18 +174,22 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     public void setNomeAcao(String nomeAcao) {
+        atualizaAcaoConfigurada();
         this.nomeAcao = nomeAcao;
     }
 
     public void setIconeAcao(String iconeAcao) {
+        atualizaAcaoConfigurada();
         this.iconeAcao = iconeAcao;
     }
 
     public void setCor(String cor) {
+        atualizaAcaoConfigurada();
         this.cor = cor;
     }
 
     public void setDescricao(String descricao) {
+        atualizaAcaoConfigurada();
         this.descricao = descricao;
     }
 
@@ -190,6 +213,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public void setIcone(String pIcone) {
+        atualizaAcaoConfigurada();
         iconeAcao = pIcone;
     }
 
@@ -206,6 +230,56 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public boolean isTipoSessaoMenu() {
         return false;
+    }
+
+    @Override
+    public boolean isConfigurado() {
+        return acaoConfigurada;
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoPrincipal() {
+        return acaoPrincipal;
+    }
+
+    @Override
+    public void validarAcao(boolean validarNaoConfigurado) {
+
+        if (acaoConfigurada || validarNaoConfigurado) {
+
+            if (isAcaoPrincipal && acaoPrincipal != null) {
+                throw new UnsupportedOperationException("Por ser uma ação principal, eta ação não pode conter uma ação principal" + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+            }
+            if (!isAcaoPrincipal && acaoPrincipal == null) {
+                throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            if (xhtmlAcao != null) {
+                if (SBCore.getConfiguradorDePermissao().getMetodoByAcao(this) == null) {
+
+                    throw new UnsupportedOperationException("esta ação não contem um formulário, "
+                            + "sendo assim é provavel que esta  seja uma ação da camada controoler, "
+                            + "porém não encontrei um metodo estatico anotado com esta ação no sistema  nas classes da camada controller"
+                            + "Ao nomear a ação, não esqueça de começar pelo nome do objeto, em seguida o nome da ação"
+                            + "" + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+                }
+            } else {
+                System.out.println("[SBINFO]: A AÇÃO " + nomeAcao + " ainda não foi configurada");
+
+            }
+
+        }
+    }
+
+    @Override
+    public boolean isAcaoPrincipal() {
+        return isAcaoPrincipal;
+    }
+
+    @Override
+    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal
+    ) {
+        isAcaoPrincipal = pisAcaoPrincipal;
     }
 
 }

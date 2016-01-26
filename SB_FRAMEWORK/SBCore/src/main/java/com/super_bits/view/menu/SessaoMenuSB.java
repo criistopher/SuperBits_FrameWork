@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class SessaoMenu implements ItfAcaoDoSistema {
+public class SessaoMenuSB implements ItfAcaoDoSistema {
 
     private ItfAcaoDoSistema acaoSessao;
     public List<ItfAcaoDoSistema> acoes;
@@ -39,7 +39,7 @@ public class SessaoMenu implements ItfAcaoDoSistema {
 
     }
 
-    public SessaoMenu(ItfAcaoDoSistema pAcaoSessao) {
+    public SessaoMenuSB(ItfAcaoDoSistema pAcaoSessao) {
         acaoSessao = pAcaoSessao;
         if (acaoSessao.getIconeAcao() == null) {
             acaoSessao.setIcone("fa fa-list-alt");
@@ -150,6 +150,31 @@ public class SessaoMenu implements ItfAcaoDoSistema {
     @Override
     public boolean isTipoSessaoMenu() {
         return true;
+    }
+
+    @Override
+    public boolean isConfigurado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void validarAcao(boolean pValidarSeNaoConfigurado) {
+        boolean resultado = true;
+    }
+
+    @Override
+    public boolean isAcaoPrincipal() {
+        return false;
+    }
+
+    @Override
+    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
+
     }
 
 }
