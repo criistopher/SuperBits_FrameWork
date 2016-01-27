@@ -27,6 +27,7 @@ public class Bairro extends EntidadeSimples implements Serializable {
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     private String nome;
 
+    @InfoCampo(tipo = FabCampos.LCCidade)
     @ManyToOne
     @JoinColumn(name = "id_Cidade")
     private Cidade cidade;

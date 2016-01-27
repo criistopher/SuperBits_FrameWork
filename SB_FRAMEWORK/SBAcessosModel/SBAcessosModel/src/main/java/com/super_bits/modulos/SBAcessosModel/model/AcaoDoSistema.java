@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  *
@@ -39,7 +40,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private boolean precisaPermissao;
 
     private boolean acaoConfigurada;
-
+    @Transient
     private ItfFabricaAcoes fabrica;
 
     private String xhtmlAcao;
