@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -162,5 +163,35 @@ public class PgUtil implements Serializable {
 
         return null;
     }
+    
+    /**
+     *
+     * Função bastante útil, quando utilizada com component.clientID, pois o client 
+     * id retorna um id de componente a mais (provavelmente referenciando a ele mesmo)
+     * 
+     * @param pClientID O nome completo (onde o ultimo componente será removido do nome)
+     * @return O caminho do ID obtido sem nome do ultimo componente 
+     */
+    public String makeCaminhoComponenteByClientID(String pClientID) {
+        
+        boolean fim=false;
+        boolean encontrouDoisPontos=false;
+        String novoCaminho=new String();
+        for (int i=pClientID.length()-1;    i>=0 ; i--) {  
+          Character novo=  pClientID.charAt(i);
+         
+          
+          if (encontrouDoisPontos){
+              novoCaminho=novo.toString()+novoCaminho;
+          }
+           if (novo.equals(':')){
+              encontrouDoisPontos=true;
+          }
+          
+        }  
+        
+        
+       return novoCaminho; 
+    };
 
 }
