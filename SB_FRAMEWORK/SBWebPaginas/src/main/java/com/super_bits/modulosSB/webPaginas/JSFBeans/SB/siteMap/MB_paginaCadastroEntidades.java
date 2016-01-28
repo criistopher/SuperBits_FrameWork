@@ -20,8 +20,12 @@ import java.util.List;
  * @version 1.0
  *
  */
-public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
+public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversation implements ItfPaginaGerenciarEntidade<T> {
 
+    private T entidadeSelecionada;
+    private List<T> entidadesListadas; 
+    
+    
     private final List<AcaoDoSistema> acoesRegistros;
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
@@ -36,6 +40,9 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
+    
+    
+    public abstract void executarAcao(T pEntidadeSelecionada);
 
     /**
      *
@@ -102,42 +109,73 @@ public abstract class MB_paginaCadastroEntidades extends MB_PaginaConversation {
 
     }
 
+    @Override
     public List<AcaoDoSistema> getAcoesRegistros() {
         return acoesRegistros;
     }
 
     // Retorna ação de novo registro
+    @Override
     public AcaoDoSistema getAcaoNovoRegistro() {
         return acaoNovoRegistro;
     }
 
+    @Override
     public AcaoDoSistema getAcaoListarRegistros() {
         return acaoListarRegistros;
     }
 
+    @Override
     public boolean isPodeEditar() {
         return podeEditar;
     }
 
+    @Override
     public boolean isNovoRegistro() {
         return novoRegistro;
     }
 
+    @Override
     public AcaoDoSistema getAcaoSelecionada() {
         return acaoSelecionada;
     }
 
     // Define a ação selecionada
+    @Override
     public void setAcaoSelecionada(AcaoDoSistema acaoSelecionada) {
         this.acaoSelecionada = acaoSelecionada;
     }
 
+    @Override
     public String getXhtmlAcaoAtual() {
         return xhtmlAcaoAtual;
     }
 
+    @Override
     public AcaoDoSistema getAcaoSalvarAlteracoes() {
         return acaoSalvarAlteracoes;
     }
 
+    @Override
+    public T getEntidadeSelecionada() {
+        return entidadeSelecionada;
+    }
+
+    @Override
+    public void setEntidadeSelecionada(T entidadeSelecionada) {
+        this.entidadeSelecionada = entidadeSelecionada;
+    }
+
+    @Override
+    public List<T> getEntidadesListadas() {
+        return entidadesListadas;
+    }
+
+    @Override
+    public void setEntidadesListadas(List<T> entidadesListadas) {
+        this.entidadesListadas = entidadesListadas;
+    }
+
+    
+    
 }
