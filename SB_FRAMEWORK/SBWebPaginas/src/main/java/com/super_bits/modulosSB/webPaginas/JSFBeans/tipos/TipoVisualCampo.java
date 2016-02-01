@@ -42,4 +42,8 @@ public class TipoVisualCampo extends ConstantesWeb {
         return FabVisualizacaoCampo.labelEsquerda.toString();
     }
 
+    public String getLabelSuperior() {
+        return FabVisualizacaoCampo.labelSuperior.toString();
+    }
+
 }

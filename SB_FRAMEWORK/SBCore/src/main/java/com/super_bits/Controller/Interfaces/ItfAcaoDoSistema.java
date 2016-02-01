@@ -4,7 +4,6 @@
  */
 package com.super_bits.Controller.Interfaces;
 
-import com.super_bits.Controller.anotacoes.AcaoNaoPersistida;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 /**
@@ -165,10 +164,11 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return
      */
     public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal);
-    
+
     /**
      *
      * Configura a ação principal desta -sub-ação
+     *
      * @param pAcaoPrincipal Ação principal da subAcao
      */
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal);

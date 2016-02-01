@@ -267,10 +267,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
                             + "Ao nomear a ação, não esqueça de começar pelo nome do objeto, em seguida o nome da ação"
                             + "" + nomeAcao); //To change body of generated methods, choose Tools | Templates.
                 }
-            } else {
-                System.out.println("[SBINFO]: A AÇÃO " + nomeAcao + " ainda não foi configurada");
-
             }
+
+        } else {
+            System.out.println("[SBINFO]: A AÇÃO " + nomeAcao + " ainda não foi configurada");
 
         }
     }

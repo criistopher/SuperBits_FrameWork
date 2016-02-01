@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public enum FabVisualizacaoCampo {
 
-    resumido, labelEsquerda;
+    resumido, labelEsquerda, labelSuperior;
 
     public static FabVisualizacaoCampo getLabelEsquerda() {
         return labelEsquerda;
@@ -21,6 +21,10 @@ public enum FabVisualizacaoCampo {
 
     public static FabVisualizacaoCampo getResumido() {
         return resumido;
+    }
+
+    public static FabVisualizacaoCampo getLabelSuperior() {
+        return labelSuperior;
     }
 
 }

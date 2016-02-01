@@ -5,7 +5,6 @@
 package com.super_bits.modulosSB.SBCore.testesFW;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
@@ -18,6 +17,11 @@ public abstract class TesteAcoesDoSistema extends TesteJunit {
 
     private boolean validarAcoesNaoConfiguradas = false;
 
+    /**
+     *
+     * @param pValidarAcoesNaoCOnfiguradas True para validar todas as ações,
+     * False para validar apenas aquelas que foram configuradas
+     */
     public TesteAcoesDoSistema(boolean pValidarAcoesNaoCOnfiguradas) {
         validarAcoesNaoConfiguradas = pValidarAcoesNaoCOnfiguradas;
     }
