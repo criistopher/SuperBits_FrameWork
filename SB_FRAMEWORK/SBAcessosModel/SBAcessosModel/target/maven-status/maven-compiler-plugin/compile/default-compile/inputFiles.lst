@@ -1,0 +1,12 @@
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/UsuarioSB.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/GrupoUsuarioSB.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/Negado_Grupos.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/AcaoDoSistema.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/UtilSBAcessosModel.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/config/ConfigPersistenciaTestesAcesso.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/Negado_Usuarios.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/controller/SBAcessosModelController.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/ModuloAcaoSistema.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/Permitido_Grupos.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/Permitido_Usuarios.java
+/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBAcessosModel/SBAcessosModel/src/main/java/com/super_bits/modulos/SBAcessosModel/model/PermissaoSB.java
