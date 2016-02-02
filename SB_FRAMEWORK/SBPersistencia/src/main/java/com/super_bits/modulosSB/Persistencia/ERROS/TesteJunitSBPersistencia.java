@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
  *
  * @author sfurbino
  */
-public class TesteJunitSBPersistencia extends TesteJunit {
+public abstract class TesteJunitSBPersistencia extends TesteJunit {
 
     private EntityManager emTeste;
 
@@ -29,10 +29,8 @@ public class TesteJunitSBPersistencia extends TesteJunit {
         try {
             if (emTeste == null) {
                 emTeste = UtilSBPersistencia.getNovoEM();
-            } else {
-                if (!emTeste.isOpen()) {
-                    emTeste = UtilSBPersistencia.getNovoEM();
-                }
+            } else if (!emTeste.isOpen()) {
+                emTeste = UtilSBPersistencia.getNovoEM();
             }
             return emTeste;
         } catch (Exception e) {

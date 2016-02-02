@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
+
 /**
  *
  *
@@ -26,22 +28,22 @@ public class ConfigPersistenciaExemplo implements ItfConfigSBPersistencia {
 
     @Override
     public String formatoDataBanco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilSBCoreDataHora.datahoraSistemaFr.toString();
     }
 
     @Override
     public String formatoDataUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilSBCoreDataHora.horaUsuarioFr.toString();
     }
 
     @Override
     public String pastaImagensJPA() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "/img";
     }
 
     @Override
     public void criarBancoInicial() {
-        throw new UnsupportedOperationException("O METODO AINDA N\u00c3O FOI IMPLEMENTADO.");
+        System.out.println("Metodo criação de dados iniciais não foi implementado");
     }
 
 }

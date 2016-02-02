@@ -43,4 +43,6 @@ public interface ItfPaginaGerenciarEntidade<T> {
     
     public void executarAcao(T pCompradorSelecionado);
     
+    public void listarDados();
+    
 }

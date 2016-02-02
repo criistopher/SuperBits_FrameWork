@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -531,5 +532,18 @@ public abstract class UtilSBCoreStrings {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo primeiras letras da string" + pString, e);
         }
         return null;
+    }
+
+    /**
+     *
+     *
+     *
+     * @param pQuantidade com o numero passado por parametro
+     * @return Retorna uma String randomica
+     */
+    public static String getStringRandomica(int pQuantidade) {
+        UUID uuid = UUID.randomUUID();
+        String myRandom = uuid.toString();
+        return myRandom.substring(0, pQuantidade);
     }
 }

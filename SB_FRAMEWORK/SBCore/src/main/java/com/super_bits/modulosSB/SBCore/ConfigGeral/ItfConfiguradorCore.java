@@ -61,7 +61,7 @@ public interface ItfConfiguradorCore {
      * @return Status do desenvolvimento que pode ser DESENVOLVIMENTO, PRODUCAO
      * ou TESTES
      */
-    public SBCore.ESTADO_APP estadoApp();
+    public SBCore.ESTADO_APP getEstadoApp();
 
     /**
      * Diretorio onde o arquivo Jar ou War está localizado

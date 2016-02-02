@@ -92,7 +92,7 @@ public class SBCore {
 
     public static void configurar(ItfConfiguradorCore configuracoes) {
 
-        estadoAplicativo = configuracoes.estadoApp();
+        estadoAplicativo = configuracoes.getEstadoApp();
         centralMensagens = configuracoes.getCentralDeMensagens();
         classeErro = configuracoes.getClasseErro();
         diretorioBase = configuracoes.getDiretorioBase();

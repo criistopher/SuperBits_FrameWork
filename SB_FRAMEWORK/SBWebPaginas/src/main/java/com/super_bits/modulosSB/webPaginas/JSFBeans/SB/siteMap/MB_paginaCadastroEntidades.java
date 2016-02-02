@@ -23,9 +23,8 @@ import java.util.List;
 public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversation implements ItfPaginaGerenciarEntidade<T> {
 
     private T entidadeSelecionada;
-    private List<T> entidadesListadas; 
-    
-    
+    private List<T> entidadesListadas;
+
     private final List<AcaoDoSistema> acoesRegistros;
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
@@ -40,8 +39,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
-    
-    
+
     public abstract void executarAcao(T pEntidadeSelecionada);
 
     /**
@@ -64,6 +62,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+        entidadesListadas = new ArrayList<>();
 
     }
 
@@ -176,6 +175,4 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         this.entidadesListadas = entidadesListadas;
     }
 
-    
-    
 }

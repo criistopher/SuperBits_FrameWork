@@ -5,11 +5,11 @@
 package com.super_bits.modulosSB.SBCore.testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -17,14 +17,19 @@ import org.junit.Before;
  */
 public abstract class TesteJunit extends org.junit.Assert {
 
-    protected void configDesenvolvedorPadrao() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
-    }
+    protected abstract void configAmbienteDesevolvimento();
+
+    private boolean inicializou = false;
 
     @Before
     public void initPadrao() {
-        configDesenvolvedorPadrao();
-        assertTrue("Teste Assert", true);
+
+        if (!inicializou) {
+            configAmbienteDesevolvimento();
+            System.out.println("INIT PADRAO");
+        }
+
+        inicializou = true;
     }
 
     protected void configDesenvolvedorMultithreas() {

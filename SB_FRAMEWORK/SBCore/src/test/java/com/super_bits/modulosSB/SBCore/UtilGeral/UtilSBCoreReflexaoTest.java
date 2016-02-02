@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.List;
@@ -39,6 +41,11 @@ public class UtilSBCoreReflexaoTest extends TesteJunit {
             lancarErroJUnit(t);
         }
 
+    }
+
+    @Override
+    protected void configAmbienteDesevolvimento() {
+        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
     }
 
 }

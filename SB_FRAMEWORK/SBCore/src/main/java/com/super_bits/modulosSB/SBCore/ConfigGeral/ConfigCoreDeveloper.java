@@ -39,7 +39,7 @@ public class ConfigCoreDeveloper implements ItfConfiguradorCore {
     }
 
     @Override
-    public SBCore.ESTADO_APP estadoApp() {
+    public SBCore.ESTADO_APP getEstadoApp() {
         return SBCore.ESTADO_APP.DESENVOLVIMENTO;
     }
 

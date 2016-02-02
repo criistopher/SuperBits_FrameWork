@@ -27,7 +27,7 @@ public class TestesCore {
 
     @Test
     public void testeToString() {
-    //    InfoErroSB.FabErro tipo = InfoErroSB.FabErro.ARQUIVAR_LOG;
+        //    InfoErroSB.FabErro tipo = InfoErroSB.FabErro.ARQUIVAR_LOG;
 
         // System.out.println(tipo);
     }
