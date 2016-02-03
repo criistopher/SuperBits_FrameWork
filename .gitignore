@@ -1,1 +1,4 @@
-/SB_FRAMEWORK/target/
+target/
+# which matches 'target' in any sub folder
+/model_regras/nbproject/
+/webApp/nbproject/
