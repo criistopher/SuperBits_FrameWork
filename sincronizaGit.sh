@@ -1,4 +1,4 @@
-find . -name target-type d -exec rm -rf {} \;
+find . -name target -type d -exec rm -rf {} \;
 
 git pull
 git add --all
