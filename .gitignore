@@ -2,4 +2,7 @@ target/
 */target/*
 /target/**
 target/**
+target/
+/target/
+target
 # which matches 'target' in any sub folder
