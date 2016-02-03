@@ -1,5 +1,5 @@
-/* 
- *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90 
+/*
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
@@ -40,7 +40,9 @@ public interface ItfPaginaGerenciarEntidade<T> {
     void setEntidadeSelecionada(T entidadeSelecionada);
 
     void setEntidadesListadas(List<T> entidadesListadas);
-    
+
     public void executarAcao(T pCompradorSelecionado);
-    
+
+    public boolean isTemPesquisa();
+
 }

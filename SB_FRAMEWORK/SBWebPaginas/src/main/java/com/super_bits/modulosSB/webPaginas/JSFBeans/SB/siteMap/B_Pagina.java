@@ -49,7 +49,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean parametrosDeUrlPreenchido = false;
     protected boolean foiInjetado = false;
     private boolean anotacoesConfiguradas = false;
-    private ItfAcaoDoSistema acaoVinculada;
+    private AcaoManagedBean acaoVinculada;
 
     protected abstract String defineTitulo();
 
@@ -64,6 +64,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private String titulo;
     private String linkRotulo;
     private String descricao;
+    public static List<AcaoManagedBean> acoesMB;
     private String nomeMB;
     private final Map<String, String> infoIds = new HashMap<>();
     private final Map<String, String> infoWidget = new HashMap<>();
@@ -83,11 +84,19 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
         }
 
-        acaoVinculada = UtilSBController.getAcaoByClasse(this.getClass());
-
     }
 
-    public ItfAcaoDoSistema getAcaoVinculada() {
+    @Override
+    public AcaoManagedBean getAcaoVinculada() {
+
+        if (this.getClass().toString().equals(PaginaSimples.class.toString())) {
+            return null;
+        }
+
+        if (acaoVinculada == null) {
+            configAnotacoesClasse();
+        }
+
         return acaoVinculada;
     }
 
@@ -96,10 +105,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         try {
             if (emPagina == null) {
                 emPagina = UtilSBPersistencia.getNovoEM();
-            } else {
-                if (!emPagina.isOpen()) {
-                    emPagina = UtilSBPersistencia.getNovoEM();
-                }
+            } else if (!emPagina.isOpen()) {
+                emPagina = UtilSBPersistencia.getNovoEM();
             }
             return emPagina;
         } catch (Exception e) {
@@ -294,6 +301,21 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina", e);
 
         }
+        if (!this.getClass().toString().equals(PaginaSimples.class.toString())) {
+            ItfAcaoDoSistema acao = UtilSBController.getAcaoByClasse(this.getClass());
+
+            try {
+                if (acao == null) {
+                    throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
+                }
+                acaoVinculada = new AcaoManagedBean(acao, this);
+
+            } catch (Throwable t) {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);
+                FabErro.PARA_TUDO.paraSistema("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString(), t);
+            }
+        }
+
     }
 
     /**
@@ -339,6 +361,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
 
         }
+
     }
 
     private void makeURLPadrao() {
@@ -590,14 +613,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
 
     }
-    
-    
+
     @PostConstruct
-   public void testePostConstructInterno(){
-       System.out.println("PostConstruct interno");
-        System.out.println("Executou post construct interno para"+this.getClass().getSimpleName());
-       
-   }    
-    
+    public void testePostConstructInterno() {
+        System.out.println("PostConstruct interno");
+        System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
+
+    }
 
 }

@@ -6,6 +6,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL.tipo
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
+import com.super_bits.view.menu.ItfFabricaMenu;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +27,15 @@ public abstract class MB_SiteMapa implements Serializable {
     // Metodo para criar lista de paginas.add PARA DEFINIR A PAGINA COMO
     // PRINCIPAL BASTA NÃO SETAR O NOMECURTO
     protected abstract Map<String, ItfB_Pagina> buildPaginas();
+
+    /**
+     *
+     * Uma fabrica de menu é uma classe do tipo enum, contendo os diversos menus
+     * do sistema
+     *
+     * @return Fabrica de menus do sistema
+     */
+    public abstract Class<? extends ItfFabricaMenu> getFabricaMenu();
 
     /**
      * Método que cria paginas do Sistemas

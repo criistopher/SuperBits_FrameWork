@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
@@ -13,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
+import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -33,12 +35,13 @@ import javax.inject.Named;
 @Named
 public class PgUtil implements Serializable {
 
-    private static List<AcaoDoSistema> acoesMB;
-
     @Inject
     private Cores cores;
     @Inject
     private Tema tema;
+
+    @Inject
+    private SessaoAtualSBWP sessao;
 
     private BeanTodosSelecionados beanTodosSelecionados = new BeanTodosSelecionados();
 
@@ -196,10 +199,6 @@ public class PgUtil implements Serializable {
         }
 
         return novoCaminho;
-    }
-
-    public List<AcaoManagedBean> acoesPrincipais() {
-
     }
 
 }

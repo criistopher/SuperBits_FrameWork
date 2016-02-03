@@ -23,9 +23,9 @@ import java.util.List;
 public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversation implements ItfPaginaGerenciarEntidade<T> {
 
     private T entidadeSelecionada;
-    private List<T> entidadesListadas; 
-    
-    
+    private List<T> entidadesListadas;
+    private boolean temPesquisa;
+
     private final List<AcaoDoSistema> acoesRegistros;
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
@@ -40,8 +40,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
-    
-    
+
     public abstract void executarAcao(T pEntidadeSelecionada);
 
     /**
@@ -51,9 +50,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
      * @param pAcaoNovoRegistro Ação para um novo registro
      * @param pAcaoListar Ação para listar os registros
      * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pTempesquisa Informa se vai haver pesquisa na tela de
+     * gerenciamento
      *
      */
-    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro, AcaoDoSistema pAcaoNovoRegistro, AcaoDoSistema pAcaoListar, AcaoDoSistema pAcaoSalvar) {
+    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro,
+            AcaoDoSistema pAcaoNovoRegistro,
+            AcaoDoSistema pAcaoListar,
+            AcaoDoSistema pAcaoSalvar,
+            boolean pTempesquisa
+    ) {
         super();
         acoesRegistros = new ArrayList<>();
         for (AcaoDoSistema acao : pAcoesRegistro) {
@@ -64,7 +70,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-
+        temPesquisa = pTempesquisa;
     }
 
     private void iniciaNovoRegistro() {
@@ -176,6 +182,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         this.entidadesListadas = entidadesListadas;
     }
 
-    
-    
+    @Override
+    public boolean isTemPesquisa() {
+        return temPesquisa;
+    }
+
 }

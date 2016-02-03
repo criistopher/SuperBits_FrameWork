@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 package com.super_bits.modulosSB.webPaginas.controller.servletes;
+
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.B_Pagina;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
@@ -41,11 +45,13 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
     private Map<String, String> mapaRecursos;
     private Map<String, ItfB_Pagina> mapaPaginas;
+
     @Inject
     private ControleDeSessaoWeb controleDeSessao;
     @Inject
     private InfoErroCritico erroCritico;
-    
+    @Inject
+    private InfoWebApp infoAplicacao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,6 +83,24 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     }
 
                 }
+                System.out.println("O sitemap foi construido com sucesso");
+
+                System.out.println("Criando ações ManagedBenas");
+
+                if (!infoAplicacao.isAceosMBConfiguradas()) {
+
+                    try {
+                        for (ItfB_Pagina pagina : mapaPaginas.values()) {
+                            if (pagina.getAcaoVinculada() != null) {
+                                infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada().getAcaoOriginal(), pagina.getAcaoVinculada());
+                            }
+                        }
+
+                    } catch (Throwable t) {
+                        FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
+                    }
+
+                }
 
                 System.out.println("Contexto Inicializado");
             } catch (InstantiationException | IllegalAccessException ex) {
@@ -85,6 +109,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             }
 
         }
+
         ItfUsuario usuario = null;
         if (controleDeSessao != null) {
 
@@ -109,7 +134,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
                     if (pagina.getAcaoVinculada() != null) {
 
-                        if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada())) {
+                        if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada().getAcaoOriginal())) {
                             RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
                             wp.forward(req, resp);
                             return;
@@ -122,8 +147,9 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                      * if (!pagina.isAcessoLivre()) { if
                      * (pagina.getAcaoVinculada() == null) {
                      * FabErro.PARA_TUDO.paraSistema("Você não vinculou nenhuma
-                     * ação de sistema a esta pagina a qual o acesso não é
-                     * livre", null); }
+                     * ação de sipublic static List<AcaoManagedBean>
+                     * acoesMB;stema a esta pagina a qual o acesso não é livre",
+                     * null); }
                      *
                      * if (!UtilSBAcessosModel.acessoAPaginaPermitido(usuario,
                      * recurso)) { RequestDispatcher wp =
@@ -157,7 +183,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
         }
         System.out.println("ForWard para" + recurso);
-        RequestDispatcher wp = req.getRequestDispatcher(recurso); 
+        RequestDispatcher wp = req.getRequestDispatcher(recurso);
 
         System.out.println("Dispatcher:" + wp.toString() + "-" + wp.getClass());
 

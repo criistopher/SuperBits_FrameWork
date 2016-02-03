@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import java.lang.reflect.Field;
 
@@ -29,150 +30,158 @@ import java.lang.reflect.Field;
  * @since 30/01/2016
  * @version 1.0
  */
-public class AcaoManagedBean implements ItfAcaoDoSistema {
+public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
-    private AcaoDoSistema acaoVinculada;
-    private ItfB_Pagina paginaVinculada;
-    private InfoPagina infoPagina;
-    private String urlDeAcesso;
+    private final ItfAcaoDoSistema acaoOriginal;
 
-    public AcaoManagedBean(AcaoDoSistema pAcaoDoSistema) {
+    private final String urlDeAcesso;
 
+    public AcaoManagedBean(ItfAcaoDoSistema pAcaoDoSistema, ItfB_Pagina pagina) {
+        acaoOriginal = pAcaoDoSistema;
+        urlDeAcesso = pagina.getUrlPadrao();
     }
 
     @Override
     public String getNomeAcao() {
-        return acaoVinculada.getNomeAcao();
+        return acaoOriginal.getNomeAcao();
     }
 
     @Override
     public String getIconeAcao() {
-        return acaoVinculada.getIconeAcao();
+        return acaoOriginal.getIconeAcao();
     }
 
     @Override
     public String getCor() {
-        return acaoVinculada.getCor();
+        return acaoOriginal.getCor();
     }
 
     @Override
     public String getDescricao() {
-        return acaoVinculada.getDescricao();
+        return acaoOriginal.getDescricao();
     }
 
     @Override
     public String getXHTMLAcao() {
-        return acaoVinculada.getXHTMLAcao();
+        return acaoOriginal.getXHTMLAcao();
     }
 
     @Override
     public ItfModuloAcaoSistema getModulo() {
-        return acaoVinculada.getModulo();
+        return acaoOriginal.getModulo();
     }
 
     @Override
     public int getIdMetodo() {
-        return acaoVinculada.getIdMetodo();
+        return acaoOriginal.getIdMetodo();
     }
 
     @Override
     public boolean isPrecisaPermissao() {
-        return acaoVinculada.isPrecisaPermissao();
+        return acaoOriginal.isPrecisaPermissao();
     }
 
     @Override
     public void setId(int pId) {
-        acaoVinculada.setId(pId);
+        acaoOriginal.setId(pId);
     }
 
     @Override
     public void setIcone(String pIcone) {
-        acaoVinculada.setIcone(pIcone);
+        acaoOriginal.setIcone(pIcone);
     }
 
     @Override
     public void setIdMetodo(int pID) {
-        acaoVinculada.setIdMetodo(pID);
+        acaoOriginal.setIdMetodo(pID);
     }
 
     @Override
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo) {
-        acaoVinculada.setModuloAcaoSistema(pmodulo);
+        acaoOriginal.setModuloAcaoSistema(pmodulo);
     }
 
     @Override
     public boolean isTipoAcaoDireta() {
-        return acaoVinculada.isTipoAcaoDireta();
+        return acaoOriginal.isTipoAcaoDireta();
     }
 
     @Override
     public boolean isTipoAcao() {
-        return acaoVinculada.isTipoAcao();
+        return acaoOriginal.isTipoAcao();
     }
 
     @Override
     public boolean isTipoSessaoMenu() {
-        return acaoVinculada.isTipoSessaoMenu();
+        return acaoOriginal.isTipoSessaoMenu();
     }
 
     @Override
     public boolean isConfigurado() {
-        return acaoVinculada.isConfigurado();
+        return acaoOriginal.isConfigurado();
     }
 
     @Override
     public ItfAcaoDoSistema getAcaoPrincipal() {
-        return acaoVinculada.getAcaoPrincipal();
+        return acaoOriginal.getAcaoPrincipal();
     }
 
     @Override
     public void validarAcao(boolean pValidarSeNaoConfigurado) {
-        acaoVinculada.validarAcao(pValidarSeNaoConfigurado);
+        acaoOriginal.validarAcao(pValidarSeNaoConfigurado);
     }
 
     @Override
     public boolean isAcaoPrincipal() {
-        return acaoVinculada.isAcaoPrincipal();
+        return acaoOriginal.isAcaoPrincipal();
     }
 
     @Override
     public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
-        acaoVinculada.setAcaoPrincipal(acaoVinculada);
+        acaoOriginal.setAcaoPrincipal(acaoOriginal);
     }
 
     @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
-        acaoVinculada.setAcaoPrincipal(pAcaoPrincipal);
+        acaoOriginal.setAcaoPrincipal(pAcaoPrincipal);
     }
 
     @Override
     public String getImgPequena() {
-        return acaoVinculada.getImgPequena();
+        return acaoOriginal.getImgPequena();
     }
 
     @Override
     public String getNomeCurto() {
-        return acaoVinculada.getNomeCurto();
+        return acaoOriginal.getNomeCurto();
     }
 
     @Override
     public int getId() {
-        return acaoVinculada.getId();
+        return acaoOriginal.getId();
     }
 
     @Override
     public String getNomeCampo(FabCampos pInfocampo) {
-        return acaoVinculada.getNomeCampo(pInfocampo);
+        return acaoOriginal.getNomeCampo(pInfocampo);
     }
 
     @Override
     public Field getCampo(FabCampos pInfoCampo) {
-        return acaoVinculada.getCampo(pInfoCampo);
+        return acaoOriginal.getCampo(pInfoCampo);
     }
 
     @Override
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
-        acaoVinculada.uploadFoto(pTipo, pRecurso);
+        acaoOriginal.uploadFoto(pTipo, pRecurso);
+    }
+
+    public String getUrlDeAcesso() {
+        return urlDeAcesso;
+    }
+
+    public ItfAcaoDoSistema getAcaoOriginal() {
+        return acaoOriginal;
     }
 
 }

@@ -12,6 +12,8 @@ import com.super_bits.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -288,5 +290,10 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     public boolean possuiEstaAcao(ItfAcaoDoSistema permissao) {
         return getPermissoes().get(permissao.getId()) != null;
     }
+    
+    
+    
+    
+   
 
 }

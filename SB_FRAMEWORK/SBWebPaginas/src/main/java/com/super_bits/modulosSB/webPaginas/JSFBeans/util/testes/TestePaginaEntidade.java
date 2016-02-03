@@ -1,15 +1,10 @@
-/* 
- *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90 
+/*
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
-import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Cidade;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localidade;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Logradouro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
@@ -64,7 +59,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         assertTrue(" entidade selecionada não foi instanciado", pagina.getEntidadeSelecionada() != null);
         assertTrue("O boolean is novo registro não foi modificado", pagina.isNovoRegistro());
         assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
-
+        int quantidadeAnterior = pagina.getEntidadesListadas().size();
         // Define os valores para o usuario do novo comprador
         configurarDAdosInsert();
 
@@ -73,31 +68,36 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         pagina.executarAcao(pagina.getEntidadeSelecionada());
 
         T entidadeCadastrada = pagina.getEntidadeSelecionada();
-
+        int quantidadePosterior = pagina.getEntidadesListadas().size();
         assertTrue("A entidade selecionada não foi cadastrada", entidadeCadastrada != null);
-        assertTrue("A entidade não foi exibida na lista, a lista não possui um registro único", pagina.getEntidadesListadas().size() == 1);
-        assertTrue("A entidade exibida na lista, não parece ser a entidade que foi cadastrada", pagina.getEntidadesListadas().get(0).equals(entidadeCadastrada));
+
+        if (pagina.isTemPesquisa()) {
+            assertTrue(" A  lista de registros/entidades deve ser atualizada com um único registro apos o cadastro com sucesso (Verifique o procedore que atualiza a lista, e o parametro tem pesquisa foi configurado corretamente)", pagina.getEntidadesListadas().size() == 1);
+            assertTrue("A entidade exibida na lista, não parece ser a entidade que foi cadastrada", pagina.getEntidadesListadas().get(0).equals(entidadeCadastrada));
+        } else {
+            assertTrue("O novo registro não está aparecendo na lista, (Verifique o procedore que atualiza a lista, e o parametro tem pesquisa foi configurado corretamente)", quantidadePosterior > quantidadeAnterior);
+        }
 
     }
 
     public void editarDados() {
-        
-      //  pagina.setParametroPesquisa("nomeFantasia");
-    //    pagina.pesquisarComprador();
+
+        //  pagina.setParametroPesquisa("nomeFantasia");
+        //    pagina.pesquisarComprador();
         assertTrue("Nenhum comprador foi selecionado na pesquisa", pagina.getEntidadesListadas().size() > 0);
 
-   //     pagina.setAcaoSelecionada(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema());
+        //     pagina.setAcaoSelecionada(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema());
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
         assertTrue("O boolean is novo registro deve ser igual a false", !pagina.isNovoRegistro());
         assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
 
         //FabAcaoCadastros.COMPRADOR_NOVO.getAcaoDoSistema().getXHTMLAcao();
-      //  assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema().getXHTMLAcao()));
-        assertTrue("O comprador Selecionado está nulo!", pagina.getEntidadeSelecionada()!= null);
+        //  assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema().getXHTMLAcao()));
+        assertTrue("O comprador Selecionado está nulo!", pagina.getEntidadeSelecionada() != null);
         assertTrue("O comprador Selecionado não parece ser o que foi configurado ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
 
-     //   String cepAntigo = pagina.getEntidadeSelecionada().getCEP();
-    //    String cepNovo = "30190030";
+        //   String cepAntigo = pagina.getEntidadeSelecionada().getCEP();
+        //    String cepNovo = "30190030";
         List<T> listaTeste;
 
         pagina.setAcaoSelecionada(pagina.getAcaoSalvarAlteracoes());
@@ -108,7 +108,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
         assertTrue("Comprador selecionado não foi cadastrado", entidadeAlterada != null);
 
-       // assertTrue("Os dados da lista não foram atualizados", pagina.getEntidadesListadas().get(0).getCEP().equals(cepNovo));
+        // assertTrue("Os dados da lista não foram atualizados", pagina.getEntidadesListadas().get(0).getCEP().equals(cepNovo));
     }
 
     public void alterarStatus() {
