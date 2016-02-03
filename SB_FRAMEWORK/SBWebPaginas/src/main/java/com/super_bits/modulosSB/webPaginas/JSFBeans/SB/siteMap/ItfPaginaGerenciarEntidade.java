@@ -42,13 +42,9 @@ public interface ItfPaginaGerenciarEntidade<T> {
     void setEntidadesListadas(List<T> entidadesListadas);
 
     public void executarAcao(T pCompradorSelecionado);
-<<<<<<< HEAD
-    
+
     public void listarDados();
-    
-=======
 
     public boolean isTemPesquisa();
 
->>>>>>> 819d66f49e69fd45912f566a49c49d83f1c0281f
 }
