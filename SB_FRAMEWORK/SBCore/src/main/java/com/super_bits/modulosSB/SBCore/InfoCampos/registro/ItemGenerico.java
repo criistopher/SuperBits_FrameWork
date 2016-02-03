@@ -11,19 +11,23 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -85,6 +89,19 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
             return getInstancia();
         }
 
+        @Override
+        public boolean validarCampo() {
+            NotNull naopodeSerNulo =campoReflection.getAnnotation(NotNull.class);
+
+            if (naopodeSerNulo==null){
+                if (getValor()==null ){
+                    return false;
+                }
+            }
+          
+            return true;
+        }
+
     }
 
     protected Campo getCampoByAnotacoes(Field pCampo) {
@@ -94,7 +111,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     /**
      * cria um mapa com todos os campos da classe.
      *
-     * Aqueles encontrados encontrados com a Anotação @InfoCampo, tem suas
+     * Aqueles encontrados encontrados comgetCamposInstaciadosInvalidos a Anotação @InfoCampo, tem suas
      * configurações personalizadas
      *
      * Aqueles sem esta anotação são configurados de maneira padrão de acordo
@@ -387,5 +404,45 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<CampoInvalido> getCamposInvalidos() {
+            List<CampoInvalido> camposInvalidados=new ArrayList<>();
+            for (Entry<String, ItfCampoInstanciado> campo: getmapaCamposInstanciados().entrySet()){
+             if (campo.getValue().validarCampo()) {
+                 CampoInvalido novoCampoInvalido=new CampoInvalido();
+                 novoCampoInvalido.setNomeCampo(campo.getValue().getLabel());
+                 novoCampoInvalido.setProblemaInvalidou(" não pode ser nulo");
+                 camposInvalidados.add(novoCampoInvalido);
+             }
+             
+         }
+        return camposInvalidados;
+     
+       
+    }
+
+    @Override
+    public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
+
+        
+              List<ItfCampoInstanciado> camposInstanciadosInvalidados=new ArrayList<>();
+            for (Entry<String, ItfCampoInstanciado> campo: getmapaCamposInstanciados().entrySet()){
+             if (campo.getValue().validarCampo()) {
+                 camposInstanciadosInvalidados.add(campo.getValue());
+                 
+             }
+             
+         }
+        return camposInstanciadosInvalidados;
+        
+    }
+
+    
+    
+    
+    
+    
+    
 
 }

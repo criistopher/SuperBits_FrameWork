@@ -58,7 +58,14 @@ public interface ItfB_Pagina {
 
     public ParametroURL getParametrobyTipoEntidade(String nomeEntidade);
 
+    /**
+     *
+     * @return @deprecated O controle de acesso agora é configurado pela
+     * AcaoVinculada
+     */
     @Deprecated
     public boolean isAcessoLivre();
+
+    public AcaoManagedBean getAcaoVinculada();
 
 }

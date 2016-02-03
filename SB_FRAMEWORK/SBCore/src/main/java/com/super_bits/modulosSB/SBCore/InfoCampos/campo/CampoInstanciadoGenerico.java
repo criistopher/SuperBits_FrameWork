@@ -40,9 +40,8 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     }
 
     @Override
-    public boolean validarCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract boolean validarCampo();
+       
 
     @Override
     public boolean isVazio() {

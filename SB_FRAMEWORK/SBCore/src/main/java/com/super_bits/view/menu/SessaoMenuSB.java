@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,11 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class SessaoMenuSB implements ItfAcaoDoSistema {
+public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
 
     private ItfAcaoDoSistema acaoSessao;
-    public List<ItfAcaoDoSistema> acoes;
-    public List<ItfAcaoDoSistema> sessoes;
+    private List<ItfAcaoDoSistema> acoes;
+    private List<SessaoMenuSB> sessoes;
 
     public List<ItfAcaoDoSistema> getAcoes() {
         return acoes;
@@ -174,12 +175,28 @@ public class SessaoMenuSB implements ItfAcaoDoSistema {
 
     @Override
     public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
-
+        System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
     }
 
     @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
-        
+        System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
+    }
+
+    public ItfAcaoDoSistema getAcaoSessao() {
+        return acaoSessao;
+    }
+
+    public void setAcaoSessao(ItfAcaoDoSistema acaoSessao) {
+        this.acaoSessao = acaoSessao;
+    }
+
+    public List<SessaoMenuSB> getSessoes() {
+        return sessoes;
+    }
+
+    public void setSessoes(List<SessaoMenuSB> sessoes) {
+        this.sessoes = sessoes;
     }
 
 }

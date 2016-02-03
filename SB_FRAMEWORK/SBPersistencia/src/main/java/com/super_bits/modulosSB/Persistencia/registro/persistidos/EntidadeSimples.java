@@ -193,5 +193,10 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     public  Long getQuantidadeRegistros(){
         return UtilSBPersistencia.getQuantidadeRegistrosNaTabela(this.getClass());
     }
+    
+ 
+    
+    
+    
 
 }

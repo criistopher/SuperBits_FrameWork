@@ -24,6 +24,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     private T entidadeSelecionada;
     private List<T> entidadesListadas;
+<<<<<<< HEAD
+=======
+    private boolean temPesquisa;
+>>>>>>> 819d66f49e69fd45912f566a49c49d83f1c0281f
 
     private final List<AcaoDoSistema> acoesRegistros;
     protected final AcaoDoSistema acaoListarRegistros;
@@ -49,9 +53,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
      * @param pAcaoNovoRegistro Ação para um novo registro
      * @param pAcaoListar Ação para listar os registros
      * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pTempesquisa Informa se vai haver pesquisa na tela de
+     * gerenciamento
      *
      */
-    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro, AcaoDoSistema pAcaoNovoRegistro, AcaoDoSistema pAcaoListar, AcaoDoSistema pAcaoSalvar) {
+    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro,
+            AcaoDoSistema pAcaoNovoRegistro,
+            AcaoDoSistema pAcaoListar,
+            AcaoDoSistema pAcaoSalvar,
+            boolean pTempesquisa
+    ) {
         super();
         acoesRegistros = new ArrayList<>();
         for (AcaoDoSistema acao : pAcoesRegistro) {
@@ -62,8 +73,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+<<<<<<< HEAD
         entidadesListadas = new ArrayList<>();
 
+=======
+        temPesquisa = pTempesquisa;
+>>>>>>> 819d66f49e69fd45912f566a49c49d83f1c0281f
     }
 
     private void iniciaNovoRegistro() {
@@ -175,4 +190,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         this.entidadesListadas = entidadesListadas;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public boolean isTemPesquisa() {
+        return temPesquisa;
+    }
+
+>>>>>>> 819d66f49e69fd45912f566a49c49d83f1c0281f
 }

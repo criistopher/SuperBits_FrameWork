@@ -7,10 +7,10 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoCampos;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoVisualBotao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoVisualCampo;
+import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.eclipse.jetty.util.annotation.Name;
 
 /**
  *
@@ -21,7 +21,7 @@ import org.eclipse.jetty.util.annotation.Name;
  */
 @ApplicationScoped
 @Named
-public class Tipos {
+public class Tipos implements Serializable {
 
     @Inject
     private TipoCampos tipoCampo;

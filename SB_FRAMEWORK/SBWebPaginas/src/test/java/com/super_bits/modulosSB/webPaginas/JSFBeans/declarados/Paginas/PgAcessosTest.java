@@ -21,6 +21,7 @@ public class PgAcessosTest {
     public void setUp() {
 
         SBCore.configurar(new ConfigCoreDeveloper());
+        PgAcessos pgAcesso = new PgAcessos();
     }
 
     /**
