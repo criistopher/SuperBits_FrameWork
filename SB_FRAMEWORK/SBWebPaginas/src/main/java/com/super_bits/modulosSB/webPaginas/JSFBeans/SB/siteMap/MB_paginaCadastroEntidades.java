@@ -197,8 +197,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-            if (acao.getTipoAcao().equals(FabTipoAcaoParao.EDITAR_ABRIR_FORMULARIO)) {
-                return acao;
+            if (acao.getTipoAcao() != null) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoParao.EDITAR_ABRIR_FORMULARIO)) {
+                    return acao;
+                }
             }
         }
         throw new UnsupportedOperationException("a ação de editar ão foi encontrada");
@@ -207,8 +209,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-            if (acao.getTipoAcao().equals(FabTipoAcaoParao.ATIVAR_DESATIVAR)) {
-                return acao;
+            if (acao.getTipoAcao() != null) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoParao.ATIVAR_DESATIVAR)) {
+                    return acao;
+                }
             }
 
         }
@@ -218,8 +222,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-            if (acao.getTipoAcao().equals(FabTipoAcaoParao.VISUALIZAR_ABRIR_FORMULARIO)) {
-                return acao;
+            if (acao.getTipoAcao() != null) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoParao.VISUALIZAR_ABRIR_FORMULARIO)) {
+                    return acao;
+                }
             }
 
         }
