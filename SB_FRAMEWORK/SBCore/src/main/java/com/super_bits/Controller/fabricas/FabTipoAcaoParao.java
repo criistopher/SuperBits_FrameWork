@@ -21,7 +21,8 @@ public enum FabTipoAcaoParao implements ItfFabrica {
     ATIVAR_DESATIVAR,
     ATIVAR,
     DESATIVAR,
-    VISUALIZAR_ABRIR_FORMULARIO;
+    VISUALIZAR_ABRIR_FORMULARIO,
+    LISTAR_ABRIR_FORMULARIO;
 
     @Override
     public TipoAcaoPadrao getRegistro() {
@@ -42,7 +43,7 @@ public enum FabTipoAcaoParao implements ItfFabrica {
             case VISUALIZAR_ABRIR_FORMULARIO:
                 acaoPadrao.setNomePadrao("Visualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de visualizacao de registro");
-                acaoPadrao.setIconePadrao("fa fa-list-alt");
+                acaoPadrao.setIconePadrao("fa icon-expand");
                 break;
             case SALVAR_EDICAO:
                 acaoPadrao.setNomePadrao("Salvar registro editado");
@@ -58,6 +59,11 @@ public enum FabTipoAcaoParao implements ItfFabrica {
                 acaoPadrao.setNomePadrao("Atualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao");
                 acaoPadrao.setIconePadrao("fa fa-random");
+                break;
+            case LISTAR_ABRIR_FORMULARIO:
+                acaoPadrao.setNomePadrao("Listar registro");
+                acaoPadrao.setDescricaoPadrao("Exibe os registros existentes");
+                acaoPadrao.setIconePadrao("fa fa-list-alt");
                 break;
             case ATIVAR_DESATIVAR:
                 acaoPadrao.setNomePadrao("Alterador de status");
