@@ -194,21 +194,36 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         return temPesquisa;
     }
 
+    @Override
     public ItfAcaoDoSistema getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
             if (acao.getTipoAcao().equals(FabTipoAcaoParao.EDITAR_ABRIR_FORMULARIO)) {
                 return acao;
             }
         }
-        throw new UnsupportedOperationException("a ação de edição não foi encontrada");
+        throw new UnsupportedOperationException("a ação de editar ão foi encontrada");
     }
 
-    public ItfAcaoDoSistema getAcaoVisulizacao() {
+    @Override
+    public ItfAcaoDoSistema getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-            throw new UnsupportedOperationException("A ação do tipo visualizar ainda não existe");
+            if (acao.getTipoAcao().equals(FabTipoAcaoParao.ATIVAR_DESATIVAR)) {
+                return acao;
+            }
 
         }
-        throw new UnsupportedOperationException("a ação de edição não foi encontrada");
+        throw new UnsupportedOperationException("a ação de AticarEDesativar não foi encontrada");
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoVisualisar() {
+        for (ItfAcaoDoSistema acao : acoesRegistros) {
+            if (acao.getTipoAcao().equals(FabTipoAcaoParao.VISUALIZAR_ABRIR_FORMULARIO)) {
+                return acao;
+            }
+
+        }
+        throw new UnsupportedOperationException("a ação de Visualizar não foi encontrada");
     }
 
 }

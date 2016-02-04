@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import java.util.List;
 
@@ -46,5 +47,11 @@ public interface ItfPaginaGerenciarEntidade<T> {
     public void listarDados();
 
     public boolean isTemPesquisa();
+
+    public ItfAcaoDoSistema getAcaoVisualisar();
+
+    public ItfAcaoDoSistema getAcaoAlterarStatus();
+
+    public ItfAcaoDoSistema getAcaoEditar();
 
 }

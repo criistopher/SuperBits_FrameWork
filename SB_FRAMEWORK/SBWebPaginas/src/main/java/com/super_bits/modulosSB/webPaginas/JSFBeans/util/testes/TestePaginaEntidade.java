@@ -4,7 +4,11 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
+import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
@@ -40,7 +44,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             lancarErroJUnit(t);
         }
         try {
-            //         editarDados();
+            editarDados();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
@@ -62,8 +66,6 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     public void criarNovaEntidade() {
         try {
-            assertTrue("O XHTML de listar não selecionado ao abrir a pagina",
-                    pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
 
             // A pagina de gerenciar comprador pega a ação solicitada e define na ação selecionada.(Define a ação selecionada como ação de novo registro)
             pagina.setAcaoSelecionada(pagina.getAcaoNovoRegistro());
@@ -114,33 +116,37 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     public void editarDados() {
         try {
-            //  pagina.setParametroPesquisa("nomeFantasia");
-            //    pagina.pesquisarComprador();
-            assertTrue("Nenhum comprador foi selecionado na pesquisa", pagina.getEntidadesListadas().size() > 0);
-
-            //     pagina.setAcaoSelecionada(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema());
+            pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoEditar());
             pagina.executarAcao(pagina.getEntidadesListadas().get(0));
             assertTrue("O boolean is novo registro deve ser igual a false", !pagina.isNovoRegistro());
             assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
 
-            //FabAcaoCadastros.COMPRADOR_NOVO.getAcaoDoSistema().getXHTMLAcao();
-            //  assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(FabAcaoCadastros.COMPRADOR_ALTERAR.getAcaoDoSistema().getXHTMLAcao()));
-            assertTrue("O comprador Selecionado está nulo!", pagina.getEntidadeSelecionada() != null);
+            assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoEditar().getXHTMLAcao()));
+
+            assertTrue("O comprador Selecionado está nulo para edição!", pagina.getEntidadeSelecionada() != null);
             assertTrue("O comprador Selecionado não parece ser o que foi configurado ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
 
-            //   String cepAntigo = pagina.getEntidadeSelecionada().getCEP();
-            //    String cepNovo = "30190030";
-            List<T> listaTeste;
+            String nomeAntigo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+            String nomenovo = " [EDIT]" + ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+
+            try {
+                ((EntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabCampos.AAA_NOME_CURTO.toString()).setValor(nomenovo);
+                nomenovo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+            } catch (Throwable t) {
+                fail("Ocorreu um erro ao tentar configurar um novo valor para o nome curto da entidade");
+                lancarErroJUnit(t);
+            }
+
             pagina.setAcaoSelecionada(pagina.getAcaoSalvarAlteracoes());
             pagina.executarAcao(pagina.getEntidadeSelecionada());
 
-            T entidadeAlterada = pagina.getEntidadeSelecionada();
+            T entidadeAlterada = pagina.getEntidadesListadas().get(0);
 
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
             assertTrue("Comprador selecionado não foi cadastrado", entidadeAlterada != null);
+            assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !((EntidadeSimples) pagina.getEntidadesListadas().get(0)).getNomeCurto().equals(nomeAntigo));
+            assertTrue("O dado alterado do regsitro 0 da lista  de entidades não parece ser o mesmo da alteração realizada", ((EntidadeSimples) pagina.getEntidadesListadas().get(0)).getNomeCurto().equals(nomenovo));
 
-            //assertTrue("Os dados da lista não foram atualizados", pagina.getEntidadesListadas().get(0).getCEP().equals(cepNovo));
-            // assertTrue("Os dados da lista não foram atualizados", pagina.getEntidadesListadas().get(0).getCEP().equals(cepNovo));
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
