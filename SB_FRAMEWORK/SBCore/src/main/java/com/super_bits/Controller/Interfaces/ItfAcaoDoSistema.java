@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.Controller.fabricas.FabTipoAcaoParao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 /**
@@ -173,8 +174,23 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal);
 
+    /**
+     *
+     * @return Uma identificação única para esta ação
+     */
     public String getNomeUnico();
 
+    /**
+     *
+     * @return String representando o enum que gerou a ação
+     */
     public String getNomeEnumOriginal();
+
+    /**
+     * Tipo de ação é um tipo de ação conhecida do sistema
+     *
+     * @return
+     */
+    public FabTipoAcaoParao getTipoAcao();
 
 }

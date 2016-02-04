@@ -67,7 +67,7 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
         logarEmailESenha(usuarioLogar, senhaLogar);
         UtilSBWP_JSFTools.atualizaPorId("infoLoginSB");
         SBCore.getConfiguradorDePermissao().configuraPermissoes();
-        sessaoAtual.setMenuSessao(SBCore.getConfiguradorDePermissao().definirMenu(sessaoAtual.getUsuario().getGrupo()));
+        sessaoAtual.setMenusDaSessao(SBCore.getConfiguradorDePermissao().definirMenu(sessaoAtual.getUsuario().getGrupo()));
     }
 
     @Override

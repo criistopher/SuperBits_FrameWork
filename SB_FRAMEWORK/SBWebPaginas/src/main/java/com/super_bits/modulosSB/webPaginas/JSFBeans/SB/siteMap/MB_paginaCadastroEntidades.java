@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoParao;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import java.util.ArrayList;
 import java.util.List;
@@ -190,6 +192,23 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public boolean isTemPesquisa() {
         return temPesquisa;
+    }
+
+    public ItfAcaoDoSistema getAcaoEditar() {
+        for (ItfAcaoDoSistema acao : acoesRegistros) {
+            if (acao.getTipoAcao().equals(FabTipoAcaoParao.EDITAR_ABRIR_FORMULARIO)) {
+                return acao;
+            }
+        }
+        throw new UnsupportedOperationException("a ação de edição não foi encontrada");
+    }
+
+    public ItfAcaoDoSistema getAcaoVisulizacao() {
+        for (ItfAcaoDoSistema acao : acoesRegistros) {
+            throw new UnsupportedOperationException("A ação do tipo visualizar ainda não existe");
+
+        }
+        throw new UnsupportedOperationException("a ação de edição não foi encontrada");
     }
 
 }

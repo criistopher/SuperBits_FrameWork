@@ -6,7 +6,9 @@ package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
+import com.super_bits.Controller.fabricas.FabTipoAcaoParao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
@@ -58,6 +60,8 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private AcaoDoSistema acaoPrincipal;
 
     private String nomeOriginalEnum;
+
+    private FabTipoAcaoParao tipoAcao;
 
     public AcaoDoSistema() {
         super();
@@ -305,6 +309,20 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public String getNomeUnico() {
         return getModulo().getNome() + "." + getNomeEnumOriginal();
+    }
+
+    @Override
+    public FabTipoAcaoParao getTipoAcao() {
+        return tipoAcao;
+    }
+
+    public void configurarAcaoPadrao(FabTipoAcaoParao pTipoAcao) {
+
+        TipoAcaoPadrao tipoAcaoConfiguracao = (TipoAcaoPadrao) pTipoAcao.getRegistro();
+        nomeAcao = tipoAcaoConfiguracao.getNomePadrao();
+        iconeAcao = tipoAcaoConfiguracao.getIconePadrao();
+        descricao = tipoAcaoConfiguracao.getDescricaoPadrao();
+
     }
 
 }

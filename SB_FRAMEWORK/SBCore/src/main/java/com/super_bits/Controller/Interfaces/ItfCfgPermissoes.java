@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.GrupoUsu
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.view.menu.MenuSBFW;
+import com.super_bits.view.menu.MenusDaSessao;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface ItfCfgPermissoes {
 
     public Class[] getClassesController();
 
-    public MenuSBFW definirMenu(ItfGrupoUsuario pGrupo);
+    public MenusDaSessao definirMenu(ItfGrupoUsuario pGrupo);
 
     public void atualizarInformacoesDePermissoesDoSistema();
 

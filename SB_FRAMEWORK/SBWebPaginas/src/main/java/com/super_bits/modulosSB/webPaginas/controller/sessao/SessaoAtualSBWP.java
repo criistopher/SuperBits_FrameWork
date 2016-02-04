@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.SessaoOf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
 import com.super_bits.view.menu.MenuSBFW;
+import com.super_bits.view.menu.MenusDaSessao;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,14 +25,14 @@ public class SessaoAtualSBWP extends SessaoOffline implements ItfSessao, Seriali
     private boolean tipoViewDefinido = false;
     private ItfTipoView tipoView;
 
-    private MenuSBFW menuSessao;
+    private MenusDaSessao menusDaSessao;
 
-    public MenuSBFW getMenuSessao() {
-        return menuSessao;
+    public MenusDaSessao getMenusDaSessao() {
+        return menusDaSessao;
     }
 
-    public void setMenuSessao(MenuSBFW menuSessao) {
-        this.menuSessao = menuSessao;
+    public void setMenusDaSessao(MenusDaSessao menusDaSessao) {
+        this.menusDaSessao = menusDaSessao;
     }
 
     public void defineInfoTela() {

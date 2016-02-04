@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoParao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
@@ -190,6 +191,11 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     @Override
     public String getNomeEnumOriginal() {
         return acaoOriginal.getNomeEnumOriginal();
+    }
+
+    @Override
+    public FabTipoAcaoParao getTipoAcao() {
+        return null;
     }
 
 }
