@@ -322,6 +322,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         nomeAcao = tipoAcaoConfiguracao.getNomePadrao();
         iconeAcao = tipoAcaoConfiguracao.getIconePadrao();
         descricao = tipoAcaoConfiguracao.getDescricaoPadrao();
+        tipoAcao = pTipoAcao;
 
     }
 

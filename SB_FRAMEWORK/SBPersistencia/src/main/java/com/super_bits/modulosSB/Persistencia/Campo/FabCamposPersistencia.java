@@ -75,7 +75,7 @@ public enum FabCamposPersistencia {
             case LOOKUPMULTIPLO:
                 if (umParaMuitos != null) {
                     Class classeOpcoesMultiplo = umParaMuitos.targetEntity();
-                    sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
+                    //            sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
                 }
                 break;
         }
