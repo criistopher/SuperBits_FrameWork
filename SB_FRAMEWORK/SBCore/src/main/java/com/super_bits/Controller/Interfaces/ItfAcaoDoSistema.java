@@ -154,7 +154,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void validarAcao(boolean pValidarSeNaoConfigurado);
 
-    public boolean isAcaoPrincipal();
+    public boolean isUmaAcaoPrincipal();
 
     /**
      *
@@ -172,5 +172,9 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @param pAcaoPrincipal Ação principal da subAcao
      */
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal);
+
+    public String getNomeUnico();
+
+    public String getNomeEnumOriginal();
 
 }

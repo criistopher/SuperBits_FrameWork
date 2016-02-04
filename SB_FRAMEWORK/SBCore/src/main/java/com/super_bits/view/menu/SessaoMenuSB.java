@@ -169,7 +169,7 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoPrincipal() {
+    public boolean isUmaAcaoPrincipal() {
         return false;
     }
 
@@ -197,6 +197,16 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
 
     public void setSessoes(List<SessaoMenuSB> sessoes) {
         this.sessoes = sessoes;
+    }
+
+    @Override
+    public String getNomeUnico() {
+        return acaoSessao.getNomeUnico();
+    }
+
+    @Override
+    public String getNomeEnumOriginal() {
+        return acaoSessao.getNomeEnumOriginal();
     }
 
 }

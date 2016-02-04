@@ -6,11 +6,9 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import java.lang.reflect.Field;
 
 /**
@@ -132,8 +130,8 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoPrincipal() {
-        return acaoOriginal.isAcaoPrincipal();
+    public boolean isUmaAcaoPrincipal() {
+        return acaoOriginal.isUmaAcaoPrincipal();
     }
 
     @Override
@@ -182,6 +180,16 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
     public ItfAcaoDoSistema getAcaoOriginal() {
         return acaoOriginal;
+    }
+
+    @Override
+    public String getNomeUnico() {
+        return acaoOriginal.getNomeUnico();
+    }
+
+    @Override
+    public String getNomeEnumOriginal() {
+        return acaoOriginal.getNomeEnumOriginal();
     }
 
 }

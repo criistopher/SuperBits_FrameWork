@@ -91,14 +91,14 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
         @Override
         public boolean validarCampo() {
-            NotNull naopodeSerNulo =campoReflection.getAnnotation(NotNull.class);
+            NotNull naopodeSerNulo = campoReflection.getAnnotation(NotNull.class);
 
-            if (naopodeSerNulo==null){
-                if (getValor()==null ){
+            if (naopodeSerNulo == null) {
+                if (getValor() == null) {
                     return false;
                 }
             }
-          
+
             return true;
         }
 
@@ -111,8 +111,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     /**
      * cria um mapa com todos os campos da classe.
      *
-     * Aqueles encontrados encontrados comgetCamposInstaciadosInvalidos a Anotação @InfoCampo, tem suas
-     * configurações personalizadas
+     * Aqueles encontrados encontrados comgetCamposInstaciadosInvalidos a
+     * Anotação @InfoCampo, tem suas configurações personalizadas
      *
      * Aqueles sem esta anotação são configurados de maneira padrão de acordo
      * com o tipo
@@ -314,25 +314,22 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     String tipoDeValor = campoReflecao.getType().getName();
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
+                    } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
+                    if (campoReflecao.getType().getName().equals("int")) {
+                        // System.out.println("TTTTIIIPOOOO int");
+                        valor = (Integer) campoReflecao.get(this);
+                    } else if (campoReflecao.getType().getName()
+                            .equals("java.lang.Double")
+                            || campoReflecao.getType().getName()
+                            .equals("double")) {
+                        valor = (Double) campoReflecao.get(this);
+                    } else if (campoReflecao.getType().getSimpleName()
+                            .equals("Date")) {
+                        valor = ((Date) campoReflecao.get(this)).toString();
+
                     } else {
 
-                        // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                        if (campoReflecao.getType().getName().equals("int")) {
-                            // System.out.println("TTTTIIIPOOOO int");
-                            valor = (Integer) campoReflecao.get(this);
-                        } else if (campoReflecao.getType().getName()
-                                .equals("java.lang.Double")
-                                || campoReflecao.getType().getName()
-                                .equals("double")) {
-                            valor = (Double) campoReflecao.get(this);
-                        } else if (campoReflecao.getType().getSimpleName()
-                                .equals("Date")) {
-                            valor = ((Date) campoReflecao.get(this)).toString();
-
-                        } else {
-
-                            valor = campoReflecao.get(this).toString();
-                        }
+                        valor = campoReflecao.get(this).toString();
                     }
 
                     if (valor == null || valor.toString().equals("")) {
@@ -386,6 +383,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
     }
 
+    @Override
     public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome) {
         return getmapaCamposInstanciados().get(pNome);
     }
@@ -407,42 +405,33 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
     @Override
     public List<CampoInvalido> getCamposInvalidos() {
-            List<CampoInvalido> camposInvalidados=new ArrayList<>();
-            for (Entry<String, ItfCampoInstanciado> campo: getmapaCamposInstanciados().entrySet()){
-             if (campo.getValue().validarCampo()) {
-                 CampoInvalido novoCampoInvalido=new CampoInvalido();
-                 novoCampoInvalido.setNomeCampo(campo.getValue().getLabel());
-                 novoCampoInvalido.setProblemaInvalidou(" não pode ser nulo");
-                 camposInvalidados.add(novoCampoInvalido);
-             }
-             
-         }
+        List<CampoInvalido> camposInvalidados = new ArrayList<>();
+        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados().entrySet()) {
+            if (campo.getValue().validarCampo()) {
+                CampoInvalido novoCampoInvalido = new CampoInvalido();
+                novoCampoInvalido.setNomeCampo(campo.getValue().getLabel());
+                novoCampoInvalido.setProblemaInvalidou(" não pode ser nulo");
+                camposInvalidados.add(novoCampoInvalido);
+            }
+
+        }
         return camposInvalidados;
-     
-       
+
     }
 
     @Override
     public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
 
-        
-              List<ItfCampoInstanciado> camposInstanciadosInvalidados=new ArrayList<>();
-            for (Entry<String, ItfCampoInstanciado> campo: getmapaCamposInstanciados().entrySet()){
-             if (campo.getValue().validarCampo()) {
-                 camposInstanciadosInvalidados.add(campo.getValue());
-                 
-             }
-             
-         }
-        return camposInstanciadosInvalidados;
-        
-    }
+        List<ItfCampoInstanciado> camposInstanciadosInvalidados = new ArrayList<>();
+        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados().entrySet()) {
+            if (campo.getValue().validarCampo()) {
+                camposInstanciadosInvalidados.add(campo.getValue());
 
-    
-    
-    
-    
-    
-    
+            }
+
+        }
+        return camposInstanciadosInvalidados;
+
+    }
 
 }

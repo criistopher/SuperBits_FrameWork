@@ -65,18 +65,17 @@ public enum FabCamposPersistencia {
         // CONFIGURANDO OPÇÕES DE SELEÇÃO
         switch (sbCampo.getTipoCampo()) {
             case LOOKUP:
-                
-                if (umParaMuitos!=null){
-                Class classeOpcoes = muitosParaUm.targetEntity();
-                sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+
+                if (muitosParaUm != null) {
+                    Class classeOpcoes = muitosParaUm.targetEntity();
+                    sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
                 }
-                
-                
+
                 break;
             case LOOKUPMULTIPLO:
-                if (umParaMuitos!=null) {
-                Class classeOpcoesMultiplo = umParaMuitos.targetEntity();
-                sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
+                if (umParaMuitos != null) {
+                    Class classeOpcoesMultiplo = umParaMuitos.targetEntity();
+                    sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
                 }
                 break;
         }

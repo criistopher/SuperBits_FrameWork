@@ -31,11 +31,11 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
         if (usuarioEncontrado != null) {
             if (usuarioEncontrado.getSenha().equals(pSenha)) {
-             if (!usuarioEncontrado.getGrupo().isAtivo()){
+                if (!usuarioEncontrado.getGrupo().isAtivo()) {
                     SBCore.enviarMensagemUsuario("O Grupo de usuário está desativado", FabMensagens.ALERTA);
                     return;
-             }
-                
+                }
+
                 if (!usuarioEncontrado.isAtivo()) {
                     SBCore.enviarMensagemUsuario("O Usuário está Desativado", FabMensagens.ALERTA);
                     return;
@@ -43,7 +43,7 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
                 getSessaoAtual().setUsuario(usuarioEncontrado);
                 SBCore.enviarAvisoAoUsuario("Bem vindo " + usuarioEncontrado.getNome());
-
+                return;
             }
         }
         // Verificando se o usuário é um usuário adminstrador

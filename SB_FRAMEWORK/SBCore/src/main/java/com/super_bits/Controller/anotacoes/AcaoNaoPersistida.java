@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class AcaoNaoPersistida  extends ItemGenerico implements ItfAcaoDoSistema {
+public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Override
     public String getNomeAcao() {
@@ -119,7 +119,7 @@ public class AcaoNaoPersistida  extends ItemGenerico implements ItfAcaoDoSistema
     }
 
     @Override
-    public boolean isAcaoPrincipal() {
+    public boolean isUmaAcaoPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -148,5 +148,14 @@ public class AcaoNaoPersistida  extends ItemGenerico implements ItfAcaoDoSistema
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getNomeUnico() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNomeEnumOriginal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

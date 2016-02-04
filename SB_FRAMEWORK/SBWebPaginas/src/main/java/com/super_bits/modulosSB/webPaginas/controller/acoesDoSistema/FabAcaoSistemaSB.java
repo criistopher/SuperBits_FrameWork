@@ -39,6 +39,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
             case ACESSOS_GERENCIAR:
                 break;
             case DEMONSTRACAO_COMPONENTE:
+                acao.setPrecisaPermissao(false);
                 break;
             case DEMONSTRACAO_VALIDACAO:
                 break;

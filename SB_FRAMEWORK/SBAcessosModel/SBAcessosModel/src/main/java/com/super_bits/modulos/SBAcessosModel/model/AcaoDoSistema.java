@@ -57,6 +57,8 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @ManyToOne(targetEntity = AcaoDoSistema.class)
     private AcaoDoSistema acaoPrincipal;
 
+    private String nomeOriginalEnum;
+
     public AcaoDoSistema() {
         super();
     }
@@ -80,6 +82,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.iconeAcao = iconeAcao;
         this.cor = cor;
         this.descricao = descricao;
+        this.nomeOriginalEnum = pAcaoDoSistema.toString();
 
         ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
         ItfFabricaAcoes enumModulo = pAcaoDoSistema;
@@ -276,7 +279,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoPrincipal() {
+    public boolean isUmaAcaoPrincipal() {
         return isAcaoPrincipal;
     }
 
@@ -292,6 +295,16 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
         acaoPrincipal = (AcaoDoSistema) pAcaoPrincipal;
+    }
+
+    @Override
+    public String getNomeEnumOriginal() {
+        return nomeOriginalEnum;
+    }
+
+    @Override
+    public String getNomeUnico() {
+        return getModulo().getNome() + "." + getNomeEnumOriginal();
     }
 
 }

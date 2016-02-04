@@ -247,7 +247,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         }
 
         for (ItfGrupoUsuario grupo : pAcesso.getGruposPermitidos()) {
-            if (pUsuario.getGrupo().getId() == pUsuario.getGrupo().getId()) {
+            if (pUsuario.getGrupo().getId() == grupo.getId()) {
                 return true;
             }
 
@@ -290,10 +290,5 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     public boolean possuiEstaAcao(ItfAcaoDoSistema permissao) {
         return getPermissoes().get(permissao.getId()) != null;
     }
-    
-    
-    
-    
-   
 
 }

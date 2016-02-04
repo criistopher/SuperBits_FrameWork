@@ -133,11 +133,12 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     List<ParametroURL> parametros = pagina.getParametrosURL();
 
                     if (pagina.getAcaoVinculada() != null) {
-
-                        if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada().getAcaoOriginal())) {
-                            RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
-                            wp.forward(req, resp);
-                            return;
+                        if (pagina.getAcaoVinculada().isPrecisaPermissao()) {
+                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada().getAcaoOriginal())) {
+                                RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
+                                wp.forward(req, resp);
+                                return;
+                            }
                         }
                     }
 
