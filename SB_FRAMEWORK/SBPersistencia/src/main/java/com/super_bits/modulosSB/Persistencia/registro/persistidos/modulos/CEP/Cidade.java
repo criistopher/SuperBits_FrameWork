@@ -39,7 +39,7 @@ public class Cidade extends EntidadeSimples implements Serializable {
     private List<Bairro> bairros;
 
     //bi-directional many-to-one association to Localidade
-    @ManyToOne
+    @ManyToOne(targetEntity = Localidade.class)
     @JoinColumn(name = "id_Localidade")
     private Localidade localidade;
 
