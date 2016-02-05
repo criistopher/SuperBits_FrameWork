@@ -166,4 +166,9 @@ public abstract class UtilSBCoreArquivos {
         }
         return true;
     }
+
+    public static boolean isArquivoExiste(String pString) {
+        File f = new File(pString);
+        return f.exists();
+    }
 }

@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import java.util.List;
@@ -119,6 +120,22 @@ public abstract class SBWebPaginas {
     public static boolean isParametrosEmSubdominios() {
         validaConfigurado();
         return parametroEmSubdominio;
+    }
+
+    public static String getCaminhoWebAppDeveloper() {
+        return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp";
+    }
+
+    public static String getCaminhoWebResourcesDeveloper() {
+        return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/resources";
+    }
+
+    public static String getCaminhoWebSBCompDeveloper() {
+        return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/resources/SBComp";
+    }
+
+    public static String getCaminhoWebExemplorsDeveloper() {
+        return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/resources/exemplos";
     }
 
 }
