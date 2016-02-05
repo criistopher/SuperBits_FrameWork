@@ -50,6 +50,12 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         }
 
         try {
+            visualisarDados();
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+
+        try {
             //          alterarStatus();
         } catch (Throwable t) {
             lancarErroJUnit(t);
@@ -64,6 +70,17 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     public abstract ItfPaginaGerenciarEntidade definirPagina();
 
+    public void visualisarDados() {
+        pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoVisualisar());
+        pagina.executarAcao(pagina.getEntidadesListadas().get(0));
+
+        assertTrue("O XHTML para visualizar um registro não foi configurado ao executar a ação visualizar", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoVisualisar().getXHTMLAcao()));
+        assertTrue(" entidade selecionada está nula, durante a solicitação de visualização", pagina.getEntidadeSelecionada() != null);
+        assertTrue("O boolean is novo registro precisa estar falso durante a visualização", !pagina.isNovoRegistro());
+        assertTrue("O boolean  que permite a edição deve ser falso durante a visualização", !pagina.isPodeEditar());
+
+    }
+
     public void criarNovaEntidade() {
         try {
 
@@ -76,8 +93,8 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             // Testa se o xhtml foi definido como xhtml da ação de novo registro
             assertTrue("O XHTML para cadastrar um novo registro não foi configurado ao executar a ação com um novo registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoNovoRegistro().getXHTMLAcao()));
             assertTrue(" entidade selecionada não foi instanciado", pagina.getEntidadeSelecionada() != null);
-            assertTrue("O boolean is novo registro não foi modificado", pagina.isNovoRegistro());
-            assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
+            assertTrue("O boolean is novo registro deve ser true ao executar a ação novo registro", pagina.isNovoRegistro());
+            assertTrue("O boolean  que permite edição deve ser true ao executação a ação novo registro", pagina.isPodeEditar());
             int quantidadeAnterior = pagina.getEntidadesListadas().size();
             // Define os valores para o usuario do novo comprador
             configurarDAdosInsert();
@@ -128,7 +145,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
             String nomeAntigo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
             String nomenovo = " [EDIT]" + ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
-
+            int idEntidadeSelecionada = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getId();
             try {
                 ((EntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabCampos.AAA_NOME_CURTO.toString()).setValor(nomenovo);
                 nomenovo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
@@ -139,13 +156,17 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
             pagina.setAcaoSelecionada(pagina.getAcaoSalvarAlteracoes());
             pagina.executarAcao(pagina.getEntidadeSelecionada());
-
-            T entidadeAlterada = pagina.getEntidadesListadas().get(0);
+            ItfBeanSimples entidadeAlterada = null;
+            for (T entidade : pagina.getEntidadesListadas()) {
+                if (idEntidadeSelecionada == ((ItfBeanSimples) entidade).getId()) {
+                    entidadeAlterada = (ItfBeanSimples) entidade;
+                }
+            }
 
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
             assertTrue("Comprador selecionado não foi cadastrado", entidadeAlterada != null);
-            assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !((EntidadeSimples) pagina.getEntidadesListadas().get(0)).getNomeCurto().equals(nomeAntigo));
-            assertTrue("O dado alterado do regsitro 0 da lista  de entidades não parece ser o mesmo da alteração realizada", ((EntidadeSimples) pagina.getEntidadesListadas().get(0)).getNomeCurto().equals(nomenovo));
+            assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));
+            assertTrue("O dado alterado do regsitro 0 da lista  de entidades não parece ser o mesmo da alteração realizada", entidadeAlterada.getNomeCurto().equals(nomenovo));
 
         } catch (Throwable t) {
             lancarErroJUnit(t);
