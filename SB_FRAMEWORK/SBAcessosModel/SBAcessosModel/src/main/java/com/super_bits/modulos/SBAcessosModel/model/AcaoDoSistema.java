@@ -63,6 +63,23 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private FabTipoAcaoParao tipoAcao;
 
+    /**
+     *
+     * COnfigura o caminho para o XHTML de acordo com o nome da classe e tipo de
+     * ação
+     *
+     * @param pClasse
+     */
+    public void ConfigurarXHTMLPorClasse(Class pClasse) {
+
+        if (tipoAcao == null) {
+            throw new UnsupportedOperationException("Para configurar um xhtml por classe é nessesário informar o tipo de ação antes " + nomeOriginalEnum);
+        }
+
+        xhtmlAcao = "/site/" + pClasse.getSimpleName() + "/" + tipoAcao.toString() + ".xhtml";
+
+    }
+
     public AcaoDoSistema() {
         super();
     }
