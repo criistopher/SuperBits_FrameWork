@@ -193,4 +193,10 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public FabTipoAcaoParao getTipoAcao();
 
+    /**
+     *
+     * @return Verdadeiro se o caminho do XHTML foi configurado de forma
+     * automática de acordo com padrões do sistema ou personalizado
+     */
+    public boolean isCaminhoAutomaticoXHTML();
 }

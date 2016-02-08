@@ -158,4 +158,9 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public boolean isCaminhoAutomaticoXHTML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

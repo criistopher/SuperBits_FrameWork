@@ -13,8 +13,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
@@ -51,6 +49,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private boolean acessoAPagina;
 
+    private boolean caminhoAutomaticoXHTML;
+
+    private String idDescritivoJira;
+
     private int idMetodo;
 
     private boolean isAcaoPrincipal;
@@ -79,7 +81,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         }
 
         xhtmlAcao = "/site/" + pClasse.getSimpleName() + "/" + tipoAcao.toString() + ".xhtml";
-
+        caminhoAutomaticoXHTML = true;
     }
 
     public AcaoDoSistema() {
@@ -343,6 +345,19 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         descricao = tipoAcaoConfiguracao.getDescricaoPadrao();
         tipoAcao = pTipoAcao;
 
+    }
+
+    @Override
+    public boolean isCaminhoAutomaticoXHTML() {
+        return caminhoAutomaticoXHTML;
+    }
+
+    public String getIdDescritivoJira() {
+        return idDescritivoJira;
+    }
+
+    public void setIdDescritivoJira(String idDescritivoJira) {
+        this.idDescritivoJira = idDescritivoJira;
     }
 
 }

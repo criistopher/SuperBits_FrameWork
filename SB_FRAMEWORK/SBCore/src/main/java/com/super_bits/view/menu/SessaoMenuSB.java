@@ -215,4 +215,9 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
         return null;
     }
 
+    @Override
+    public boolean isCaminhoAutomaticoXHTML() {
+        return false;
+    }
+
 }

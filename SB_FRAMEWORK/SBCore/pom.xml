@@ -22,7 +22,7 @@
 
     <dependencies>
 
-        
+
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -77,9 +77,11 @@
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>br.com.postmon</groupId>
+            <artifactId>jpostmon</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>de.sven-jacobs</groupId>
             <artifactId>loremipsum</artifactId>
@@ -98,10 +100,17 @@
             <scope>test</scope>
         </dependency>
 
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
         </dependency>
 
 

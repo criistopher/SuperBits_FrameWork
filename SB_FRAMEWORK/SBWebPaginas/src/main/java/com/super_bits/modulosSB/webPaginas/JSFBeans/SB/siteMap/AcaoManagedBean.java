@@ -198,4 +198,9 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return null;
     }
 
+    @Override
+    public boolean isCaminhoAutomaticoXHTML() {
+        return false;
+    }
+
 }
