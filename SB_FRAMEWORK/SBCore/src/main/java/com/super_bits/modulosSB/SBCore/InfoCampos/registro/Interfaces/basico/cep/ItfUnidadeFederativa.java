@@ -10,4 +10,12 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ce
  */
 public interface ItfUnidadeFederativa {
 
+    public int getId();
+
+    public void setId(int pId);
+
+    public int getNome();
+
+    public void setNome(String pNome);
+
 }

@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
-public class Logradouro extends EntidadeSimples {
+public class Localizacao extends EntidadeSimples implements ItfLocal {
 
     @Id
     @GeneratedValue
@@ -26,7 +27,7 @@ public class Logradouro extends EntidadeSimples {
     @Transient
     private static List<UnidadeFederativa> unidadesFederativas;
 
-    public Logradouro() {
+    public Localizacao() {
 
     }
 

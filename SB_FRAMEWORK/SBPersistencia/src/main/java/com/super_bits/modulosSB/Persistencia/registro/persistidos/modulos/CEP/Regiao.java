@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class Regiao extends EntidadeSimples {
+public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     @Id
     private int id;

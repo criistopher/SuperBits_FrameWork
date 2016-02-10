@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Logradouro;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localizacao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.UnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
@@ -62,16 +62,16 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
         return (String) getValorByTipoCampoEsperado(FabCampos.LCComplemeto);
     }
 
-    public Logradouro getLogradouro() {
-        Logradouro endereco = (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
+    public Localizacao getLogradouro() {
+        Localizacao endereco = (Localizacao) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
         if (endereco == null) {
             ItfCampoInstanciado campoEndereco = getCampoByNomeOuAnotacao(FabCampos.LCLOGRADOURO.toString());
             {
-                campoEndereco.setValor(new Logradouro());
+                campoEndereco.setValor(new Localizacao());
             }
 
         }
-        return (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
+        return (Localizacao) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
     }
 
     @Override

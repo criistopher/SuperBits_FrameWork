@@ -336,8 +336,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
                     } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                    {
-                        if (campoReflecao.getType().getName().equals("int")) {
+                     if (campoReflecao.getType().getName().equals("int")) {
                             // System.out.println("TTTTIIIPOOOO int");
                             valor = (Integer) campoReflecao.get(this);
                         } else if (campoReflecao.getType().getName()
@@ -353,7 +352,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
                             valor = campoReflecao.get(this).toString();
                         }
-                    }
 
                     if (valor == null || valor.toString().equals("")) {
                         return campoPadrao.getValorPadrao();
@@ -471,6 +469,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
         try {
             String nomeparaHash = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_CURTO);
             nomeparaHash = UtilSBCoreStrings.removeCaracteresEspeciaisEspacosETracos(nomeparaHash);
+            nomeparaHash = nomeparaHash.toUpperCase();
             setValorByTipoCampoEsperado(FabCampos.ID, nomeparaHash.hashCode());
         } catch (Throwable t) {
 

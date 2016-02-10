@@ -11,7 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
  *
  * @author desenvolvedor
  */
-public class ItemCidade extends ItemSimples implements ItfUnidadeFederativa {
+public class ItemUnidadeFederativa extends ItemSimples implements ItfUnidadeFederativa {
 
     @Override
     public void setId(int pId) {

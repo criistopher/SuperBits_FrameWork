@@ -4,17 +4,19 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.cep;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfPais;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-public class ItemCidade extends ItemSimples implements ItfUnidadeFederativa {
+public class ItemPais extends ItemSimples implements ItfPais {
 
     @Override
-    public void setId(int pId) {
+    public void setId(int pID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -25,6 +27,11 @@ public class ItemCidade extends ItemSimples implements ItfUnidadeFederativa {
 
     @Override
     public void setNome(String pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ItfUnidadeFederativa> getUnidadesFederativas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -4,6 +4,7 @@ import com.sun.tools.corba.se.idl.UnionGen;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class Bairro extends EntidadeSimples implements Serializable {
+public class Bairro extends EntidadeSimples implements ItfBairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -52,6 +52,7 @@ public enum FabCidades implements ItfFabrica {
         switch (this) {
 
         }
+        novaCidade.configIDFromNomeCurto();
         return novaCidade;
     }
 

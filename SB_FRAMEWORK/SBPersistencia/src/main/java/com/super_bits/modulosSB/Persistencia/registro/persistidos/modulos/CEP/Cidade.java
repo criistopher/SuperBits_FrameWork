@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,7 +22,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-public class Cidade extends EntidadeSimples implements Serializable {
+public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
 
     private static final long serialVersionUID = 1L;
 

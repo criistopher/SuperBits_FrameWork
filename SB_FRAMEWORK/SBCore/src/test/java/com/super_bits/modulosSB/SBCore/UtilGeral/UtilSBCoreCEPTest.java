@@ -5,12 +5,9 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.cep.ItemLocal;
-import com.super_bits.modulosSB.SBCore.testesFW.TesteAcoesDoSistema;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
-import net.sf.cglib.core.Local;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
