@@ -1,9 +1,12 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Logradouro;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.UnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanEndereco;
+import java.util.List;
 
 public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBeanEndereco {
 
@@ -12,8 +15,8 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
      */
     private Double latitude;
     private Double longitude;
-    //private LatLng localizacao;
 
+    //private LatLng localizacao;
     public EntidadeEndereco(Class<?> pClasseModelo) {
 
         super(pClasseModelo);
@@ -60,8 +63,15 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
     }
 
     public Logradouro getLogradouro() {
-        return (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
+        Logradouro endereco = (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
+        if (endereco == null) {
+            ItfCampoInstanciado campoEndereco = getCampoByNomeOuAnotacao(FabCampos.LCLOGRADOURO.toString());
+            {
+                campoEndereco.setValor(new Logradouro());
+            }
 
+        }
+        return (Logradouro) getValorByTipoCampoEsperado(FabCampos.LCLOGRADOURO);
     }
 
     @Override

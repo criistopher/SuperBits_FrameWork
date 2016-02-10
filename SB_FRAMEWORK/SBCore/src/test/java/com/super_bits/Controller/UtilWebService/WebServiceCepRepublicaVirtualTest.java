@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.UtilWebService;
 
+import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtual;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -32,8 +33,7 @@ public class WebServiceCepRepublicaVirtualTest {
             System.out.println("Cep: " + webServiceCep.getCep());
             System.out.println("Logradouro: " + webServiceCep.getLogradouroFull());
             System.out.println("Bairro: " + webServiceCep.getBairro());
-            System.out.println("Cidade: "
-                    + webServiceCep.getCidade() + "/" + webServiceCep.getUf());
+            System.out.println("Cidade: " + webServiceCep.getCidade() + "/" + webServiceCep.getUf());
 
             //caso haja problemas imprime as exceções.
         } else {

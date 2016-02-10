@@ -34,6 +34,9 @@ public class Cidade extends EntidadeSimples implements Serializable {
     @Column(nullable = false)
     private String nome;
 
+    @InfoCampo(tipo = FabCampos.LCUnidadeFederativa)
+    private UnidadeFederativa unidadeFederativa;
+
     //bi-directional many-to-one association to Bairro
     @OneToMany(mappedBy = "cidade")
     private List<Bairro> bairros;
@@ -90,6 +93,14 @@ public class Cidade extends EntidadeSimples implements Serializable {
 
     public void setLocalidade(Localidade localidade) {
         this.localidade = localidade;
+    }
+
+    public UnidadeFederativa getUnidadeFederativa() {
+        return unidadeFederativa;
+    }
+
+    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
+        this.unidadeFederativa = unidadeFederativa;
     }
 
 }

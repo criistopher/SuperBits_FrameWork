@@ -1,7 +1,0 @@
-package com.super_bits.modulosSB.SBCore.BeansInterface.basico;
-
-public interface ItfBeanContatoPessoa extends ItfBeanEndereco{
-	
-	
-
-}

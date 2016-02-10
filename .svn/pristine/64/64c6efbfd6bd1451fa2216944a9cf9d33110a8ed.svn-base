@@ -1,7 +1,0 @@
-package com.super_bits.modulosSB.SBCore.BeansInterface.charts;
-
-public interface ItfBeanSimpleChart {
-		public String getLabel();
-		public Double getValor();
-		public String getCategoria();
-}

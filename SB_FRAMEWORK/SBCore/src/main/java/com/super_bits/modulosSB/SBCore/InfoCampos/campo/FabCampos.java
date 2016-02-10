@@ -30,6 +30,7 @@ public enum FabCampos implements ItfFabrica {
     LCCEP,
     LCBairro,
     LCCidade,
+    LCUnidadeFederativa,
     SENHA,
     Telefone,
     TelefoneComplementar,

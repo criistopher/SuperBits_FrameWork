@@ -60,15 +60,27 @@ public abstract class UtilSBCoreStrings {
         return getListaStringEntreCaracter(ptexto, '"', '"');
     }
 
+    /**
+     *
+     * Retorna String entre determinados caracteres exemplo:
+     *
+     * texto= dfkjklaskdjf[parametroum] [parametro2] inicial=[ final= ]
+     * retornaria uma lista com parametroum,parametro2
+     *
+     * @param texto texto onde as strings serão encontradas
+     * @param pInicial caracter que indica o inicio da string
+     * @param pFinal caracter que indica o fim da string
+     * @return
+     */
     public static List<String> getListaStringEntreCaracter(String texto, char pInicial, char pFinal) {
 
         char cInicial = pInicial;
         char cFinal = pFinal;
         List<String> resposta = new ArrayList<>();
-        String data = "[ffff]  [gggg]";
+
         String regex = "(" + cInicial + "\\w" + cFinal + ")+";
         Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(data);
+        Matcher m = p.matcher(texto);
 
         while (m.find()) {
             resposta.add(m.group());
@@ -79,6 +91,15 @@ public abstract class UtilSBCoreStrings {
     public static String removeCaracteresEspeciais(String param) {
         param = Normalizer.normalize(param, Normalizer.Form.NFD);
         param = param.replaceAll("[^\\p{ASCII}]", "");
+        return param;
+
+    }
+
+    public static String removeCaracteresEspeciaisEspacosETracos(String param) {
+        param = Normalizer.normalize(param, Normalizer.Form.NFD);
+        param = param.replaceAll("[^\\p{ASCII}]", "");
+        param = param.replace(" ", "");
+        param = param.replace(":", "");
         return param;
 
     }
@@ -538,12 +559,24 @@ public abstract class UtilSBCoreStrings {
      *
      *
      *
-     * @param pQuantidade com o numero passado por parametro
-     * @return Retorna uma String randomica
+     * @param pQuantidade quantidade de caracteres retornados
+     * @return Retorna uma String randomica de acordo com o n de caracteres
      */
     public static String getStringRandomica(int pQuantidade) {
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();
         return myRandom.substring(0, pQuantidade);
+    }
+
+    /**
+     *
+     *
+     * Retira as letras e retorna apenas os numeros na string
+     *
+     * @param pString String completa (com numeros e letras)
+     * @return string Contendo apenas as letras do numro
+     */
+    public static String getNumericosDaString(String pString) {
+        return pString.replaceAll("\\D*", ""); //To numeric digits only
     }
 }
