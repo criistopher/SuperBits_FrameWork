@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
@@ -14,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Tip
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -290,6 +292,25 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
     }
 
+    protected void setValorByTipoCampoEsperado(FabCampos tipoCampo, Object valor) {
+        try {
+            Field campo = getCampo(tipoCampo);
+            campo.set(this, valor);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro stando valor para Tipo de campo esperado", t);
+        }
+    }
+
+    protected void setValorByTipoCampoEsperado(FabCampos tipoCampo, int valor) {
+        try {
+            Field campo = getCampo(tipoCampo);
+            campo.setAccessible(true);
+            campo.set(this, valor);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro stando valor para Tipo de campo esperado", t);
+        }
+    }
+
     /**
      *
      * Retorna o Valor da propriedade de acordo com a anotação
@@ -315,21 +336,23 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
                     } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                    if (campoReflecao.getType().getName().equals("int")) {
-                        // System.out.println("TTTTIIIPOOOO int");
-                        valor = (Integer) campoReflecao.get(this);
-                    } else if (campoReflecao.getType().getName()
-                            .equals("java.lang.Double")
-                            || campoReflecao.getType().getName()
-                            .equals("double")) {
-                        valor = (Double) campoReflecao.get(this);
-                    } else if (campoReflecao.getType().getSimpleName()
-                            .equals("Date")) {
-                        valor = ((Date) campoReflecao.get(this)).toString();
+                    {
+                        if (campoReflecao.getType().getName().equals("int")) {
+                            // System.out.println("TTTTIIIPOOOO int");
+                            valor = (Integer) campoReflecao.get(this);
+                        } else if (campoReflecao.getType().getName()
+                                .equals("java.lang.Double")
+                                || campoReflecao.getType().getName()
+                                .equals("double")) {
+                            valor = (Double) campoReflecao.get(this);
+                        } else if (campoReflecao.getType().getSimpleName()
+                                .equals("Date")) {
+                            valor = ((Date) campoReflecao.get(this)).toString();
 
-                    } else {
+                        } else {
 
-                        valor = campoReflecao.get(this).toString();
+                            valor = campoReflecao.get(this).toString();
+                        }
                     }
 
                     if (valor == null || valor.toString().equals("")) {
@@ -432,6 +455,28 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
         }
         return camposInstanciadosInvalidados;
 
+    }
+
+    /**
+     *
+     * Localiza o nomeCurto, retira acentos, espaços e caracteres especiais,
+     * coloca tudo em maiusculo, e calcula o hash desta palavra
+     *
+     * Exemplo de utilização: Para integrar ids em sistemas diferentes
+     *
+     *
+     */
+    @Override
+    public void configIDFromNomeCurto() {
+        try {
+            String nomeparaHash = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_CURTO);
+            nomeparaHash = UtilSBCoreStrings.removeCaracteresEspeciaisEspacosETracos(nomeparaHash);
+            setValorByTipoCampoEsperado(FabCampos.ID, nomeparaHash.hashCode());
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando definir o ID para o item" + this.getClass().getName(), t);
+
+        }
     }
 
 }

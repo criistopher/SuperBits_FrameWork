@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.testesFW;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
@@ -34,6 +35,14 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     protected void configDesenvolvedorMultithreas() {
         SBCore.configurar(new ConfigCoreDeveloper());
+    }
+
+    protected void configDesenvolvedorPadraoSemClasseDePermissoes() {
+        SBCore.configurar(new ConfigCoreDeveloperStopMessage(), true);
+    }
+
+    protected void configDesenvolvedorPadrao() {
+        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
     }
 
     protected void configApenasLog() {

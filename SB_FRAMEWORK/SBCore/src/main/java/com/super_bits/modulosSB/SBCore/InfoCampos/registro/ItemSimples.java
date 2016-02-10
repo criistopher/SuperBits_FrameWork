@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
@@ -101,4 +102,5 @@ public abstract class ItemSimples extends ItemGenerico implements
             return false;
         }
     }
+
 }

@@ -7,8 +7,5 @@ public interface ItfBeanSimples extends ItfBeanGenerico {
     public String getNomeCurto();
 
     public int getId();
-    
-    
-    
 
 }

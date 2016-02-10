@@ -91,6 +91,10 @@ public class SBCore {
     }
 
     public static void configurar(ItfConfiguradorCore configuracoes) {
+        configurar(configuracoes, false);
+    }
+
+    public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
 
         estadoAplicativo = configuracoes.getEstadoApp();
         centralMensagens = configuracoes.getCentralDeMensagens();
@@ -131,7 +135,11 @@ public class SBCore {
             configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
 
         } catch (Throwable t) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
+            if (pIgnorarClassePermissao) {
+                System.out.println("A Classe de permissões não foi definida");
+            } else {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
+            }
         }
     }
 

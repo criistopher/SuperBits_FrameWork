@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+
 /**
  *
  *
@@ -12,7 +14,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ce
  *
  * @author desenvolvedor
  */
-public interface ItfLocal {
+public interface ItfLocal extends ItfBeanSimples {
 
     public long getLongitude();
 

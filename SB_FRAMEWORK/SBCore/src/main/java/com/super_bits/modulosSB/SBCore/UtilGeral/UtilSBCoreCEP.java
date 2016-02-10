@@ -6,7 +6,11 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.Controller.UtilWebService.cep.WebServiceCepPostmon;
 import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtual;
+import com.super_bits.modulosSB.SBCore.InfoCampos.cep.ItemBairro;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,13 +30,20 @@ public abstract class UtilSBCoreCEP {
 
         WebServiceCepRepublicaVirtual republicaVirtual = WebServiceCepRepublicaVirtual.searchCep("30190030");
         if (!republicaVirtual.isCepNotFound()) {
+            //ItfBairro bairroEncontrao = new ItemBairro(republicaVirtual);
 
             pLocal.setNome(republicaVirtual.getLogradouroFull());
+            pLocal.configIDFromNomeCurto();
 
+            return true;
         }
 
-        WebServiceCepPostmon postMon = new WebServiceCepPostmon();
+        return false;
 
+    }
+
+    public static List<String> cepsEncontrados(String parametros) {
+        return new ArrayList<>();
     }
 
 }
