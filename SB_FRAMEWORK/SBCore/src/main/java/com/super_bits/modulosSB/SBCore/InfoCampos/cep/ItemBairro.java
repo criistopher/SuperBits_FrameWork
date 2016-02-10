@@ -25,7 +25,7 @@ public class ItemBairro extends ItemSimples implements ItfBairro {
     }
 
     @Override
-    public int getNome() {
+    public String getNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

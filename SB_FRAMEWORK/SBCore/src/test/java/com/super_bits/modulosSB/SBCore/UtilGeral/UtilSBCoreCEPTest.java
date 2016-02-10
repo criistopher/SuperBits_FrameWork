@@ -24,7 +24,7 @@ public class UtilSBCoreCEPTest extends TesteJunit {
 
         ItemLocal local = new ItemLocal();
 
-        UtilSBCoreCEP.configuraEndereco("30190030", local);
+        UtilSBCoreCEP.configuraEndereco("31110600", local);
 
         System.out.println("Loca=" + local.getNome());
 

@@ -28,7 +28,7 @@ public abstract class UtilSBCoreCEP {
      */
     public static boolean configuraEndereco(String cep, ItfLocal pLocal) {
 
-        WebServiceCepRepublicaVirtual republicaVirtual = WebServiceCepRepublicaVirtual.searchCep("30190030");
+        WebServiceCepRepublicaVirtual republicaVirtual = WebServiceCepRepublicaVirtual.searchCep(cep);
         if (!republicaVirtual.isCepNotFound()) {
             //ItfBairro bairroEncontrao = new ItemBairro(republicaVirtual);
 

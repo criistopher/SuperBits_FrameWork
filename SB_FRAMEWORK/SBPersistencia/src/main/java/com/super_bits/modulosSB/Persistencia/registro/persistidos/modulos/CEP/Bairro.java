@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
 import com.sun.tools.corba.se.idl.UnionGen;
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -46,6 +47,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
 
     public void setId(int id) {
         this.id = id;
+
     }
 
     public String getNome() {
