@@ -9,8 +9,10 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
@@ -18,6 +20,7 @@ import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -199,6 +202,18 @@ public class PgUtil implements Serializable {
         }
 
         return novoCaminho;
+    }
+
+    public void preencherEndereco(String pcep, ItfLocal pLocal) {
+        UtilSBCoreCEP.configuraEndereco(pcep, pLocal);
+    }
+
+    public static List<String> getCepEncontrados() {
+        List<String> ceps = new ArrayList<>();
+        ceps.add("30190030 - Rua goias ");
+        ceps.add("30190030 - Rua Juca fontes ");
+
+        return ceps;
     }
 
 }

@@ -18,6 +18,7 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
 
     @Id
     @GeneratedValue
+    @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     @Column(length = 150)
