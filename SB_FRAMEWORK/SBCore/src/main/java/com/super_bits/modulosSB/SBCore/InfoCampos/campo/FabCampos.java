@@ -103,7 +103,8 @@ public enum FabCampos implements ItfFabrica {
             case LCLOGRADOURO:
                 break;
             case LCCEP:
-                sbCampo.setMascara("999-9999");
+                sbCampo.setMascara("#####-###");
+                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case LCBairro:
                 break;
