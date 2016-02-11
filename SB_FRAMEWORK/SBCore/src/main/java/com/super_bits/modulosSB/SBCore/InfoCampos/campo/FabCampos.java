@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import javax.swing.text.MaskFormatter;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -42,6 +43,7 @@ public enum FabCampos implements ItfFabrica {
     TELEFONE_FIXO_NACIONAL,
     TELEFONE_FIXO_INTERNACIONAL,
     TELEFONE_CELULAR,
+    TELEFONE_GENERICO,
     MOEDA_REAL,
     MOEDA_DOLAR,
     QUANTIDADE,
@@ -124,10 +126,13 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setMascara("##/##/####");
                 break;
             case TELEFONE_FIXO_NACIONAL:
+                sbCampo.setValidacaoRegex("^\\(?([1-9][0-9])\\)?\\s?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
                 break;
             case MOEDA_REAL:
                 // implementar: separadores, numero de casas decimais Sigla da moeda
-
+                sbCampo.setSeparadorDecimal(',');
+                sbCampo.setSeparadorMilhar('.');
+                sbCampo.setNumeroDeCasasDecimais(2);
                 break;
             case LOOKUP:
                 break;
@@ -138,10 +143,12 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setValidacaoRegex("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
                 break;
             case EMAIL:
+                sbCampo.setValorMinimo(6);
                 sbCampo.setValidacaoRegex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                 break;
             case SITE:
                 // REGEX
+                sbCampo.setValidacaoRegex("(www).?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\=]*)");
                 break;
             case URL:
                 // regex
@@ -149,6 +156,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case RESPONSAVEL:
                 //regex de nome completo
+                sbCampo.setValorMinimo(8);
                 sbCampo.setValidacaoRegex("^[a-z A-Z ÉÚÍÓÁÈÙÌÒÀÕÃÑÊÛÎÔÂËYÜÏÖÄ][a-zéúíóáèùìòàõãñêûîôâëyüïöä]+( [a-z A-Z ÉÚÍÓÁÈÙÌÒÀÕÃÑÊÛÎÔÂËYÜÏÖÄ][a-zéúíóáèùìòàõãñêûîôâëyüïöä]+)+$");
                 break;
             case CNPJ:
@@ -160,15 +168,14 @@ public enum FabCampos implements ItfFabrica {
                 //mascara(tipo primitivo numeral)
                 sbCampo.setMascara("###-###-###-##");
                 sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
+                sbCampo.setValorMinimo(11);
                 break;
             case INSCRICAO_ESTADUAL:
                 // mascara (tipo primitivo numeral)
-                sbCampo.setMascara("###-###-###-##");
                 sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case INSCRIACAO_MUNICIPAL:
                 // mascara (tipo primitivo numeral)
-                sbCampo.setMascara("###-###-###-##");
                 sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
 
@@ -180,24 +187,32 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case SENHA:
                 // tamanho minimo 3
-
+                sbCampo.setValorMinimo(3);
                 break;
             case PERCENTUAL:
                 break;
 
             case TELEFONE_FIXO_INTERNACIONAL:
                 // MAscara e Regex
+                sbCampo.setValidacaoRegex("^((\\+|00)(55)\\s?)(\\(([1-9][0-9])\\)\\s?)(((9\\d|[2-9])\\d{3})\\-(\\d{4}))$");
+                sbCampo.setMascara("*##(##)#####-####");
                 break;
             case TELEFONE_CELULAR:
                 // MAscara e Regex
+                sbCampo.setValidacaoRegex("^(\\(([1-9][0-9])\\)\\s?)(((9|)([6-9])\\d{3})\\-(\\d{4}))$");
+                sbCampo.setMascara("(##)#####-####");
                 break;
             case REG_DATAALTERACAO:
                 // tipo primitivo Data mascara data
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
+                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.DATAS);
+                sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
+                sbCampo.setMascara("##/##/####");
                 break;
             case REG_DATAINSERCAO:
                 // tipo primitivo Data mascara data
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
+                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.DATAS);
+                sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
+                sbCampo.setMascara("##/##/####");
                 break;
             case REG_USUARIO_ALTERACAL:
 
@@ -209,6 +224,9 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case MOEDA_DOLAR:
                 //implementar: separadores, numero de casas decimais Sigla da moeda
+                sbCampo.setSeparadorDecimal('.');
+                sbCampo.setSeparadorMilhar(',');
+                sbCampo.setNumeroDeCasasDecimais(2);
                 break;
             case VERDADEIRO_FALSO:
                 break;
@@ -220,6 +238,10 @@ public enum FabCampos implements ItfFabrica {
                 // regex
                 sbCampo.setValidacaoRegex("^[a-z A-Z ÉÚÍÓÁÈÙÌÒÀÕÃÑÊÛÎÔÂËYÜÏÖÄ][a-zéúíóáèùìòàõãñêûîôâëyüïöä]+( [a-z A-Z ÉÚÍÓÁÈÙÌÒÀÕÃÑÊÛÎÔÂËYÜÏÖÄ][a-zéúíóáèùìòàõãñêûîôâëyüïöä]+)+$");
                 sbCampo.setValorMinimo(8);
+                break;
+            case TELEFONE_GENERICO:
+                sbCampo.setValidacaoRegex("^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
+                sbCampo.setMascara("*##(##)#####-####");
                 break;
 
             default:
