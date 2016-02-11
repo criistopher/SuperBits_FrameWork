@@ -27,7 +27,7 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCLOGRADOURO, ""));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.Telefone, ""));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL, ""));
 
     }
 
