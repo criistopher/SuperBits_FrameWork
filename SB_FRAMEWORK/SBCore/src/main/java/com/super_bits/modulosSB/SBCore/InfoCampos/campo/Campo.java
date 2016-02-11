@@ -33,6 +33,10 @@ public class Campo implements Serializable, ItfCampo {
 
     private String validacaoRegex;
 
+    private char separadorDeciamal, separadorMilhar;
+
+    private int numCasasDecimais;
+
     public Campo(FabCampos pTipo) {
         tipoCampo = pTipo;
         tipoVisualizacao = pTipo.toString().toUpperCase();
@@ -171,47 +175,85 @@ public class Campo implements Serializable, ItfCampo {
 
     @Override
     public boolean isTemValidacaoRegex() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (validacaoRegex == null) {
+            return false;
+        }
+        if (validacaoRegex.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isTemValidacaoMinimo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (valorMinimo <= 0) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public boolean isTemValidacaoMaximo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (valorMaximo <= 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isTemMascara() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (mascara == null) {
+            return false;
+        }
+        if (mascara.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isNumeral() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (tipoValor != TIPOPRIMITIVO.NUMERO) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isMoeda() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (tipoCampo != FabCampos.MOEDA_REAL && tipoCampo != FabCampos.MOEDA_DOLAR) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public char getSeparadorDecimal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.separadorDeciamal;
+    }
+
+    public void setSeparadorDecimal(char pSeparadorDecimal) {
+        this.separadorDeciamal = pSeparadorDecimal;
     }
 
     @Override
     public char getSeparadorMilhar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return separadorMilhar;
+    }
+
+    public void setSeparadorMilhar(char pSeparadorMilhar) {
+        this.separadorMilhar = pSeparadorMilhar;
     }
 
     @Override
     public int getNumeroDeCasasDecimais() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return numCasasDecimais;
+    }
+
+    public void setNumeroDeCasasDecimais(int pNumeroDeCasasDecimais) {
+        this.numCasasDecimais = pNumeroDeCasasDecimais;
     }
 
 }
