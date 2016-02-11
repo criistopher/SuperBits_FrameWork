@@ -47,7 +47,7 @@ public abstract class UtilSBCoreValidacao {
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case LCCidade:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case Telefone:
+            case TELEFONE_FIXO_NACIONAL:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case LCComplemeto:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
@@ -61,9 +61,8 @@ public abstract class UtilSBCoreValidacao {
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case CALENDARIO:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case TELEFONE_FIXO_NACIONAL:
-                throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case MOEDA:
+
+            case MOEDA_REAL:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case LOOKUP:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");

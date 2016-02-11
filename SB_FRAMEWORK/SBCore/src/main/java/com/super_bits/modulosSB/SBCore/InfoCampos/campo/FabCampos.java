@@ -229,7 +229,7 @@ public enum FabCampos implements ItfFabrica {
         }
 
         if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
-            return FabCampos.MOEDA;
+            return FabCampos.MOEDA_REAL;
         }
 
         return FabCampos.TEXTO_SIMPLES;

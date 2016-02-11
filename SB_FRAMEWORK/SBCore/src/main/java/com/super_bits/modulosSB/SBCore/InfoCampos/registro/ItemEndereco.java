@@ -23,7 +23,7 @@ public class ItemEndereco extends ItemNormal implements ItfBeanEndereco {
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCLOGRADOURO, ""), true);
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.Telefone, ""), true);
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL, ""), true);
 
     }
 
