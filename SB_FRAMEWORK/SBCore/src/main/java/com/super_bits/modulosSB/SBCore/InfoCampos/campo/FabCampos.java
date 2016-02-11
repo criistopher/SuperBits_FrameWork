@@ -19,7 +19,6 @@ public enum FabCampos implements ItfFabrica {
     AAA_NOME_CURTO,
     AAA_NOME_LONGO,
     IMG_PEQUENA,
-    NOME_CURTO_COMPLETO,
     IMG_MEDIA,
     IMG_GRANDE,
     AAA_DESCRITIVO,
@@ -32,10 +31,7 @@ public enum FabCampos implements ItfFabrica {
     LCCidade,
     LCUnidadeFederativa,
     SENHA,
-    Telefone,
-    TelefoneComplementar,
-    TelefoneCelularComplementar,
-    TelefoneCelular,
+    SENHA_SEGURANCA_MAXIMA,
     LCComplemeto,
     LCCampoAberto,
     HTML,
@@ -46,7 +42,8 @@ public enum FabCampos implements ItfFabrica {
     TELEFONE_FIXO_NACIONAL,
     TELEFONE_FIXO_INTERNACIONAL,
     TELEFONE_CELULAR,
-    MOEDA,
+    MOEDA_REAL,
+    MOEDA_DOLAR,
     QUANTIDADE,
     PERCENTUAL,
     /**
@@ -59,11 +56,13 @@ public enum FabCampos implements ItfFabrica {
      */
     LOOKUPMULTIPLO,
     TEXTO_SIMPLES,
+    VERDADEIRO_FALSO,
     COR,
     EMAIL,
     SITE,
     URL,
     RESPONSAVEL,
+    NOME_COMPLETO,
     CNPJ,
     CPF,
     INSCRICAO_ESTADUAL,
@@ -102,14 +101,13 @@ public enum FabCampos implements ItfFabrica {
             case LCLOGRADOURO:
                 break;
             case LCCEP:
+                sbCampo.setMascara("999-9999");
                 break;
             case LCBairro:
                 break;
             case LCCidade:
                 break;
-            case Telefone:
-                sbCampo.setValorMaximo(10);
-                break;
+
             case LCComplemeto:
                 break;
             case HTML:
@@ -121,61 +119,88 @@ public enum FabCampos implements ItfFabrica {
             case CHART_CATEGORIA:
                 break;
             case CALENDARIO:
+                // tipo primitivo Data mascara data
                 break;
             case TELEFONE_FIXO_NACIONAL:
                 break;
-            case MOEDA:
+            case MOEDA_REAL:
+                // implementar: separadores, numero de casas decimais Sigla da moeda
                 break;
             case LOOKUP:
                 break;
             case LOOKUPMULTIPLO:
 
                 break;
-            case COR:
+            case COR: //regex
+
                 break;
             case EMAIL:
+                sbCampo.setValidacaoRegex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                 break;
             case SITE:
+                // REGEX
                 break;
             case URL:
+                // regex
                 break;
             case RESPONSAVEL:
+                //regex de nome completo
                 break;
             case CNPJ:
+                // mascara (tipo primitivo numeral)
                 break;
             case CPF:
+                //mascara(tipo primitivo numeral)
                 break;
             case INSCRICAO_ESTADUAL:
+                // mascara (tipo primitivo numeral)
                 break;
             case INSCRIACAO_MUNICIPAL:
+                // mascara (tipo primitivo numeral)
                 break;
-            case TelefoneComplementar:
-                break;
-            case TelefoneCelularComplementar:
-                break;
-            case TelefoneCelular:
-                break;
+
             case LCCampoAberto:
                 break;
             case QUANTIDADE:
+                // define tipo primitivo numerico
                 break;
             case SENHA:
+                // tamanho minimo 3
+
                 break;
             case PERCENTUAL:
                 break;
-            case NOME_CURTO_COMPLETO:
-                break;
+
             case TELEFONE_FIXO_INTERNACIONAL:
+                // MAscara e Regex
                 break;
             case TELEFONE_CELULAR:
+                // MAscara e Regex
                 break;
             case REG_DATAALTERACAO:
+                // tipo primitivo Data mascara data
                 break;
             case REG_DATAINSERCAO:
+                // tipo primitivo Data mascara data
                 break;
             case REG_USUARIO_ALTERACAL:
+
                 break;
             case REG_USUARIO_INSERCAO:
+                break;
+            case LCUnidadeFederativa:
+
+                break;
+            case MOEDA_DOLAR:
+                //implementar: separadores, numero de casas decimais Sigla da moeda
+                break;
+            case VERDADEIRO_FALSO:
+                break;
+            case SENHA_SEGURANCA_MAXIMA:
+                // minimo 8
+                break;
+            case NOME_COMPLETO:
+                // regex
                 break;
 
             default:

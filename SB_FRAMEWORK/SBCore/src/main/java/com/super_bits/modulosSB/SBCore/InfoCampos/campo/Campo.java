@@ -31,6 +31,8 @@ public class Campo implements Serializable, ItfCampo {
 
     private long valorMinimo;
 
+    private String validacaoRegex;
+
     public Campo(FabCampos pTipo) {
         tipoCampo = pTipo;
         tipoVisualizacao = pTipo.toString().toUpperCase();
@@ -156,6 +158,60 @@ public class Campo implements Serializable, ItfCampo {
 
     public void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
         listaDeOpcoes = pLista;
+    }
+
+    @Override
+    public String getValidacaoRegex() {
+        return validacaoRegex;
+    }
+
+    public void setValidacaoRegex(String validacaoRegex) {
+        this.validacaoRegex = validacaoRegex;
+    }
+
+    @Override
+    public boolean isTemValidacaoRegex() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isTemValidacaoMinimo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isTemValidacaoMaximo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isTemMascara() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isNumeral() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isMoeda() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public char getSeparadorDecimal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public char getSeparadorMilhar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNumeroDeCasasDecimais() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

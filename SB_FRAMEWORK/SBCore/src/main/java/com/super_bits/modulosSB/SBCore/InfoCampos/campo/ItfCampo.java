@@ -45,7 +45,7 @@ public interface ItfCampo {
      * @return Label do campo (para formulários de cadastro)
      */
     public String getLabel();
-    
+
     /**
      *
      * @return Retorna o Label, formatado sem espaço e caracteres especiais
@@ -54,7 +54,8 @@ public interface ItfCampo {
 
     /**
      *
-     * @return DEscrição do campo (para formulários de cadastro-> usado como dicas sobre o campo
+     * @return DEscrição do campo (para formulários de cadastro-> usado como
+     * dicas sobre o campo
      */
     public String getDescricao();
 
@@ -78,22 +79,103 @@ public interface ItfCampo {
 
     /**
      *
-     * @return Valor maximo do campo (numero de caracteres para letras, e valor para numeros)
+     * @return Valor maximo do campo (numero de caracteres para letras, e valor
+     * para numeros)
      */
     public long getValorMaximo();
 
     /**
      *
-     * @return Valor minino (numero de caracters para letras, e valor para números)
+     * @return Valor minino (numero de caracters para letras, e valor para
+     * números)
      */
     public long getValorMinimo();
-    
+
     /**
      *
      * Retorna uma lista de opções para o caso de ManyToOne
-     * 
+     *
      * @return Lista com opções de seleção
      */
     public List<ItfBeanSimples> getListaDeOpcoes();
+
+    /**
+     *
+     *
+     *
+     * @return Campo regex para validação de valores
+     */
+    public String getValidacaoRegex();
+
+    /**
+     *
+     * Verifica se o regex é diferente de nulo ou em branco e retorna true caso
+     * tenha alguma
+     *
+     * @return
+     */
+    public boolean isTemValidacaoRegex();
+
+    /**
+     *
+     * Verifica se o campo minimo
+     *
+     * @return
+     */
+    public boolean isTemValidacaoMinimo();
+
+    /**
+     * Verifica se o campo maximo possui valor maior que 0 e retorna true
+     *
+     * @return
+     */
+    public boolean isTemValidacaoMaximo();
+
+    /**
+     * Verifica se a mascara é nula ou isEmpy e retorna true no caso de possuir
+     * alguma mascara
+     *
+     * @return
+     */
+    public boolean isTemMascara();
+
+    /**
+     * retorna se é um numeral de acordo com o tipo primitivo
+     *
+     * @return
+     */
+    public boolean isNumeral();
+
+    /**
+     * Retorna se é moeda *
+     *
+     * @return
+     */
+    public boolean isMoeda();
+
+    /**
+     * Retorna o caracter com separador decimal *
+     *
+     *
+     * @return
+     */
+    public char getSeparadorDecimal();
+
+    /**
+     * REtornar o separador de milhar exemplo 1.000 Separador->'.' *
+     *
+     *
+     * @return
+     */
+    public char getSeparadorMilhar();
+
+    /**
+     *
+     * Retorna a quantidade de casas decimais (após a virgula) 10,000 ->3 casas
+     * *
+     *
+     * @return
+     */
+    public int getNumeroDeCasasDecimais();
 
 }
