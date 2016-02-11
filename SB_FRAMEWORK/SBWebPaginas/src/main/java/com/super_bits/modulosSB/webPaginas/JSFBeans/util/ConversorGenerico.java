@@ -68,7 +68,7 @@ public class ConversorGenerico implements Converter {
                     return (String) value;
                 }
             }
-            System.out.println("OBJETO IMPROPRIO PARA CONVERSÃO");
+            System.out.println("OBJETO IMPROPRIO PARA CONVERSÃO" + value);
             return "";
 
         } catch (Exception e) {

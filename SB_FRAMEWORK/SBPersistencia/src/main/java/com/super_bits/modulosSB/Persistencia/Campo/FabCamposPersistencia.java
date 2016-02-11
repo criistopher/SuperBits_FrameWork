@@ -81,13 +81,16 @@ public enum FabCamposPersistencia {
         }
 
         if (anotacaoInfoCampo != null) {
-
-            sbCampo.setMascara(anotacaoInfoCampo.Mask());
+            if (anotacaoInfoCampo.Mask().length() > 0) {
+                sbCampo.setMascara(anotacaoInfoCampo.Mask());
+            }
             if (anotacaoInfoCampo.label().length() > 0) {
                 sbCampo.setLabel(anotacaoInfoCampo.label());
             }
             sbCampo.setObrigatorio(anotacaoInfoCampo.obrigatorio());
-            anotacaoInfoCampo.valoresAceitos();
+            if (anotacaoInfoCampo.valoresAceitos().length > 0) {
+                anotacaoInfoCampo.valoresAceitos();
+            }
         }
 
         Annotation[] outrasAnotacoes = campo.getAnnotations();

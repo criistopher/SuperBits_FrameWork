@@ -66,6 +66,7 @@ public final class WebServiceCepRepublicaVirtual {
      */
     private enum Xml {
         CIDADE {
+
             @Override
             public void setCep(String text, WebServiceCepRepublicaVirtual webServiceCep) {
                 webServiceCep.setCidade(text);

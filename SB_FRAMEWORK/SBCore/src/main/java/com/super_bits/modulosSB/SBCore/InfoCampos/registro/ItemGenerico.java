@@ -336,8 +336,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
                     } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                    {
-                        if (campoReflecao.getType().getName().equals("int")) {
+                     if (campoReflecao.getType().getName().equals("int")) {
                             // System.out.println("TTTTIIIPOOOO int");
                             valor = (Integer) campoReflecao.get(this);
                         } else if (campoReflecao.getType().getName()
@@ -353,7 +352,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
                             valor = campoReflecao.get(this).toString();
                         }
-                    }
 
                     if (valor == null || valor.toString().equals("")) {
                         return campoPadrao.getValorPadrao();
@@ -482,6 +480,23 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando definir o ID para o item" + this.getClass().getName(), t);
 
         }
+    }
+
+    /**
+     *
+     *
+     *
+     * @return Todos os campos Instanciados do Objeto
+     */
+    public List<ItfCampoInstanciado> getTodosCamposInstanciados() {
+        List<ItfCampoInstanciado> camposInstanciados = new ArrayList<>();
+        for (ItfCampoInstanciado campo : getmapaCamposInstanciados().values()) {
+            if (!camposInstanciados.contains(campo)) {
+                camposInstanciados.add(campo);
+
+            }
+        }
+        return camposInstanciados;
     }
 
 }

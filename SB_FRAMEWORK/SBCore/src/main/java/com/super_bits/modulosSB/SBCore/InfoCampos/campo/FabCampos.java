@@ -293,10 +293,16 @@ public enum FabCampos implements ItfFabrica {
         sbCampo.setLabel(campo.getName());
         if (anotacaoInfoCampo != null) {
 
-            sbCampo.setMascara(anotacaoInfoCampo.Mask());
+            if (anotacaoInfoCampo.Mask() != null) {
+                if (!anotacaoInfoCampo.Mask().isEmpty()) {
+                    sbCampo.setMascara(anotacaoInfoCampo.Mask());
+                }
+            }
+
             if (anotacaoInfoCampo.label().length() > 0) {
                 sbCampo.setLabel(anotacaoInfoCampo.label());
             }
+
             sbCampo.setObrigatorio(anotacaoInfoCampo.obrigatorio());
             anotacaoInfoCampo.valoresAceitos();
         }

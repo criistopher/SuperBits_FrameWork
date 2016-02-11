@@ -186,4 +186,10 @@ public interface ItfCampo {
      */
     public String getMascaraJqueryMode();
 
+    /**
+     *
+     * @return O Tipo Campo no formato String
+     */
+    public String getTipoCampoSTR();
+
 }

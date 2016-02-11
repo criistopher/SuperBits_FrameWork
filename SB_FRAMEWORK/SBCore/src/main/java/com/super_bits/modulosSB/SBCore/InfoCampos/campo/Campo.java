@@ -178,10 +178,7 @@ public class Campo implements Serializable, ItfCampo {
         if (validacaoRegex == null) {
             return false;
         }
-        if (validacaoRegex.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !validacaoRegex.isEmpty();
     }
 
     @Override
@@ -259,6 +256,11 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getMascaraJqueryMode() {
         return UtilSBCoreStrings.getMascaraJavaMaskParaJQueryMask(mascara);
+    }
+
+    @Override
+    public String getTipoCampoSTR() {
+        return tipoCampo.toString();
     }
 
 }
