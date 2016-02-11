@@ -1,5 +1,7 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.Controller.anotacoes.InfoAcao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import java.io.BufferedReader;
@@ -577,10 +579,11 @@ public abstract class UtilSBCoreStrings {
      * @return string Contendo apenas as letras do numro
      */
     public static String getNumericosDaString(String pString) {
+
         return pString.replaceAll("\\D*", ""); //To numeric digits only
     }
 
     public static String getMascaraJavaMaskParaJQueryMask(String pMascara) {
-        return pMascara.replace('#', '0').replace('0', '?').replace('U', 'a').replace('?', 'a').replace('l', 'a');
+        return pMascara.replace('#', '0').replace('U', 'a').replace('?', 'a').replace('L', 'a');
     }
 }

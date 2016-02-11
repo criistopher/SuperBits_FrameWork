@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import javax.swing.text.MaskFormatter;
 import javax.validation.constraints.NotNull;
 
 /**
