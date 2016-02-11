@@ -14,7 +14,7 @@ public interface ItfUnidadeFederativa {
 
     public void setId(int pId);
 
-    public int getNome();
+    public String getNome();
 
     public void setNome(String pNome);
 

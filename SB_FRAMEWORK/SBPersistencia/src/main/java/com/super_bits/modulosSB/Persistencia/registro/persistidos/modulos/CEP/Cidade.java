@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 
 import java.io.Serializable;
@@ -66,8 +67,9 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
         this.nome = nome;
     }
 
-    public List<Bairro> getBairros() {
-        return this.bairros;
+    @Override
+    public List<ItfBairro> getBairros() {
+        return (List) this.bairros;
     }
 
     public void setBairros(List<Bairro> bairros) {
@@ -102,6 +104,13 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
 
     public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
         this.unidadeFederativa = unidadeFederativa;
+    }
+
+    @Override
+    public String getEstadoPontoNomeCidade() {
+
+        return getUnidadeFederativa() + getNome();
+
     }
 
 }

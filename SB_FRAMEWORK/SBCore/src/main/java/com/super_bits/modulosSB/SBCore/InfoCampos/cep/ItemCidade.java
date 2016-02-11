@@ -4,28 +4,67 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.cep;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-public class ItemCidade extends ItemSimples implements ItfUnidadeFederativa {
+public class ItemCidade extends ItemSimples implements ItfCidade {
+
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    private String nome;
+
+    private ItfUnidadeFederativa unidadeFederativa;
+
+    private List<ItfBairro> listaDeBairros = new ArrayList<>();
 
     @Override
     public void setId(int pId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.id = pId;
+
     }
 
     @Override
-    public int getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNome() {
+        return this.nome;
     }
 
     @Override
     public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.nome = pNome;
+
+    }
+
+    @Override
+    public ItfUnidadeFederativa getUnidadeFederativa() {
+
+        return this.unidadeFederativa;
+
+    }
+
+    @Override
+    public List<ItfBairro> getBairros() {
+
+        return this.listaDeBairros;
+
+    }
+
+    @Override
+    public String getEstadoPontoNomeCidade() {
+        return getUnidadeFederativa() + getNome();
     }
 
 }

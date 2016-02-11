@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.cep;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 
@@ -13,19 +15,27 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
  */
 public class ItemUnidadeFederativa extends ItemSimples implements ItfUnidadeFederativa {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    private String nome;
+
     @Override
     public void setId(int pId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.id = pId;
+
     }
 
     @Override
-    public int getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNome() {
+        return this.nome;
     }
 
     @Override
     public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.nome = pNome;
     }
 
 }

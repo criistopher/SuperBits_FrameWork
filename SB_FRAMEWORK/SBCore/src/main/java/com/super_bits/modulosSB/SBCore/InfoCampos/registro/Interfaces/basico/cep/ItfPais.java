@@ -17,7 +17,7 @@ public interface ItfPais {
 
     public void setId(int pID);
 
-    public int getNome();
+    public String getNome();
 
     public void setNome(String pNome);
 

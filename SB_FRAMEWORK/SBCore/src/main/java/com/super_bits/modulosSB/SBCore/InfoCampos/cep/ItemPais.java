@@ -4,9 +4,12 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.cep;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfPais;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,24 +18,40 @@ import java.util.List;
  */
 public class ItemPais extends ItemSimples implements ItfPais {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    private String nome;
+
+    private List<ItfUnidadeFederativa> unidadesFederativas = new ArrayList<>();
+
     @Override
     public void setId(int pID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.id = pID;
+
     }
 
     @Override
-    public int getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNome() {
+
+        return this.nome;
+
     }
 
     @Override
     public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.nome = pNome;
+
     }
 
     @Override
     public List<ItfUnidadeFederativa> getUnidadesFederativas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return this.unidadesFederativas;
+
     }
 
 }

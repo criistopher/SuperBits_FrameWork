@@ -22,34 +22,53 @@ public class ItemLocal extends ItemSimples implements ItfLocal {
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     private String nome;
 
+    private long longitude, latitude;
+
+    private ItfBairro bairro;
+
+    private String complemento;
+
     @Override
+
     public long getLongitude() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return this.longitude;
+
     }
 
     @Override
     public long getLatitude() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return this.latitude;
+
     }
 
     @Override
     public void setLatitude(long pLatitude) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.latitude = pLatitude;
+
     }
 
     @Override
     public void setLongitude(long pLongitude) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.longitude = pLongitude;
+
     }
 
     @Override
     public ItfBairro getBairro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return this.bairro;
+
     }
 
     @Override
-    public void setBairro(ItfBairro bairro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setBairro(ItfBairro pBairro) {
+
+        this.bairro = pBairro;
+
     }
 
     @Override
@@ -64,12 +83,16 @@ public class ItemLocal extends ItemSimples implements ItfLocal {
 
     @Override
     public String getComplemento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return this.complemento;
+
     }
 
     @Override
     public void setComplemento(String pComplemento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.complemento = pComplemento;
+
     }
 
 }

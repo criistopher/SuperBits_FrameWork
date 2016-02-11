@@ -8,6 +8,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +39,8 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @ManyToOne(targetEntity = Cidade.class)
     @JoinColumn(name = "id_Cidade")
     private Cidade cidade;
+
+    private List<Long> coordenadas = new ArrayList<>();
 
     public Bairro() {
     }
@@ -72,6 +76,13 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
 
     public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
         this.unidadeFederativa = unidadeFederativa;
+    }
+
+    @Override
+    public List<Long> getCordenadas() {
+
+        return this.coordenadas;
+
     }
 
 }

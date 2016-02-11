@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import java.util.List;
 import javax.persistence.Column;
@@ -20,12 +21,16 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     @Column(length = 150)
-    private String descricao;
+    private String nome;
     @ManyToOne(targetEntity = Bairro.class)
     private Bairro bairro;
 
     @Transient
     private static List<UnidadeFederativa> unidadesFederativas;
+
+    private long longitude, latitude;
+
+    private String complemento;
 
     public Localizacao() {
 
@@ -40,20 +45,9 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+    @Override
     public Bairro getBairro() {
         return bairro;
-    }
-
-    public void setBairro(Bairro bairro) {
-        this.bairro = bairro;
     }
 
     public List<UnidadeFederativa> getUnidadesFederativas() {
@@ -75,7 +69,70 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
         if (getBairro().getCidade() == null) {
             throw new UnsupportedOperationException("Não é possível listar as cidades disponíveis antes de selecionar um Estado");
         }
-        return getBairro().getCidade().getBairros();
+        return (List) getBairro().getCidade().getBairros();
+
+    }
+
+    @Override
+    public long getLongitude() {
+
+        return this.longitude;
+
+    }
+
+    @Override
+    public long getLatitude() {
+
+        return this.latitude;
+
+    }
+
+    @Override
+    public void setLatitude(long pLatitude) {
+
+        this.latitude = pLatitude;
+
+    }
+
+    @Override
+    public void setLongitude(long pLongitude) {
+
+        this.longitude = pLongitude;
+
+    }
+
+    @Override
+    public void setBairro(ItfBairro pBairro) {
+
+        this.bairro = (Bairro) pBairro;
+
+    }
+
+    @Override
+    public String getNome() {
+
+        return this.nome;
+
+    }
+
+    @Override
+    public void setNome(String pNome) {
+
+        this.nome = pNome;
+
+    }
+
+    @Override
+    public String getComplemento() {
+
+        return this.complemento;
+
+    }
+
+    @Override
+    public void setComplemento(String pComplemento) {
+
+        this.complemento = pComplemento;
 
     }
 
