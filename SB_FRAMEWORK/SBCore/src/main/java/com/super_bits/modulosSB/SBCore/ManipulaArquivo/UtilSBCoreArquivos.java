@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -170,5 +172,32 @@ public abstract class UtilSBCoreArquivos {
     public static boolean isArquivoExiste(String pString) {
         File f = new File(pString);
         return f.exists();
+    }
+
+    /**
+     *
+     * Retorna os arquivos de um diretorio
+     *
+     * @param pDiretorio
+     * @return
+     */
+    public static List<String> getArquivosDoDiretorio(String pDiretorio) {
+        List<String> arquivos = new ArrayList<>();
+        try {
+            File f = new File(pDiretorio);
+
+            if (!f.isDirectory()) {
+                throw new UnsupportedOperationException("A solicitação de arquivos do diretorio precisa receber um diretorio existente como parametro");
+            }
+            File[] listaCompleta = f.listFiles();
+            for (File arq : listaCompleta) {
+                if (arq.isFile()) {
+                    arquivos.add(arq.getName());
+                }
+            }
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro lendo arquivos do diretorio:" + pDiretorio, t);
+        }
+        return arquivos;
     }
 }

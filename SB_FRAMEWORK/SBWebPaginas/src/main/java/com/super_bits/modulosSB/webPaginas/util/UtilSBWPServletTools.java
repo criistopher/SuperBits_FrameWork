@@ -187,18 +187,47 @@ public class UtilSBWPServletTools {
 
     }
 
+    /**
+     *
+     * @return Retorna o caminho da pasta resources do WEBApp, em caso de não
+     * ser possível encontrar utiliza a pasta de desenvolvimento
+     */
+    public static String getCaminhoLocalServletsResource() {
+        return getCaminhoLocalServlet() + "/resources";
+    }
+
+    /**
+     *
+     * Coloca um objeto no request Scoped, utiliza FacesContext para obter o
+     * request
+     *
+     * @param pnome nome do Atributo
+     * @param pObjeto Objeto que será amazenado
+     */
     public static void putObjetoRequestScope(String pnome, Object pObjeto) {
         HttpServletRequest request = (HttpServletRequest) FacesContext
                 .getCurrentInstance().getExternalContext().getRequest();
         request.setAttribute(pnome, pObjeto);
     }
 
+    /**
+     *
+     * Coloca um objeto no Session Scoped, utiliza FaceContext para obter o
+     * request
+     *
+     * @param pnome nome do atributo
+     * @param pObjeto Objeto que será armazenado
+     */
     public static void putObjetoSessionScope(String pnome, Object pObjeto) {
         HttpServletRequest request = (HttpServletRequest) FacesContext
                 .getCurrentInstance().getExternalContext().getRequest();
         request.getSession().setAttribute(pnome, pObjeto);
     }
 
+    /**
+     *
+     * @return
+     */
     public static String listaMBView() {
 
         Map<String, Object> viewMap = FacesContext.getCurrentInstance()
@@ -210,6 +239,13 @@ public class UtilSBWPServletTools {
         return resposta;
     }
 
+    /**
+     *
+     * Busca um objeto armazenado no request scoped atravez do nome do atributo
+     *
+     * @param pNomeBean nome do Atributo
+     * @return Objeto armazenado
+     */
     public static Object getRequestBean(String pNomeBean) {
 
         try {
@@ -224,6 +260,14 @@ public class UtilSBWPServletTools {
         }
     }
 
+    /**
+     *
+     * Procura um parametro que foi enviado em uma requisição e retorna seu
+     * valor (Utiliza facesContext para obter a requisição)
+     *
+     * @param pNomeBean Nome do parametro
+     * @return valor do parametro
+     */
     public static String getRequestParametro(String pNomeBean) {
         Map<String, String> parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String resposta = parametros.get(pNomeBean);
@@ -233,6 +277,18 @@ public class UtilSBWPServletTools {
         return resposta;
     }
 
+    /**
+     *
+     * Retorna o valor de um atributo de evento
+     *
+     * Os atributos de eventos são configurados através do <f:attribute dentro
+     * de command Buttons
+     *
+     *
+     * @param event
+     * @param pNome
+     * @return
+     */
     public static ItfBeanSimples getActionBeanSimples(ActionEvent event, String pNome) {
         try {
             ItfBeanSimples resposta = (ItfBeanSimples) event.getComponent().getAttributes().get(pNome);
@@ -249,6 +305,7 @@ public class UtilSBWPServletTools {
     }
 
     @SuppressWarnings("rawtypes")
+    @Deprecated
     private static Object getBean(pathBean pathb, String pNomeBean) {
 
         ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -310,10 +367,24 @@ public class UtilSBWPServletTools {
 
     }
 
+    /**
+     *
+     * @param pNomeBean
+     * @return
+     * @deprecated Tenta obter um bean instanciado via CDI
+     */
+    @Deprecated
     public static Object getSessionBean(String pNomeBean) {
         return getBean(pathBean.SESSAO, pNomeBean);
     }
 
+    /**
+     *
+     * @param pNomeBean
+     * @return
+     * @deprecated Tenta obter um bean instanciado via CDI
+     */
+    @Deprecated
     public static Object getAppBean(String pNomeBean) {
         return getBean(pathBean.APLICACAO, pNomeBean);
 
@@ -325,13 +396,10 @@ public class UtilSBWPServletTools {
                 .getSessionMap().get(pNomeBean);
     }
 
-    public static String getScopodoBean() {
-        // HttpServletRequest request = (HttpServletRequest) FacesContext
-        // .getCurrentInstance().getExternalContext().getRequest();
-        return "indefinido";
-
-    }
-
+    /**
+     *
+     * @return a Url da requisição, utiliza FacesContext para obter a url
+     */
     public static String getUrlDigitada() {
         HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         origRequest.getRequestURL().toString();
@@ -339,11 +407,17 @@ public class UtilSBWPServletTools {
         return (String) SBWebPaginas.getSiteHost() + origRequest.getAttribute("javax.servlet.forward.request_uri");
     }
 
-    public static Object getObjetoIjetado() {
-
-        return null;
-    }
-
+    /**
+     *
+     * Através de reflexão lista todos objetos com a anotação Inject da classe
+     * que seja de determinado tipo
+     *
+     * +++++++> Este metodo instancia a classe onde os metodos serão localizados
+     *
+     * @param pTipo Tipo pesquizado
+     * @param pClasse Classe onde os objetos serão localizados
+     * @return
+     */
     public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Class<?> pClasse) {
 
         try {
@@ -356,12 +430,31 @@ public class UtilSBWPServletTools {
 
     }
 
+    /**
+     *
+     * * Através de reflexão lista todos objetos com a anotação Inject da do
+     * objeto instanciado que seja de determinado tipo
+     *
+     *
+     * @param pTipo Tipo de objeto que será pesquisado
+     * @param pInstancia Instancia onde os objetos instanciados serão
+     * localizados
+     * @return
+     */
     public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Object pInstancia) {
 
         return objetosInjetados(pTipo, pInstancia, true);
 
     }
 
+    /**
+     * Lista os objetos de determinado tipo injetados em determinada instancia
+     *
+     *
+     * @param pTipo Tipo de objeto sendo que será adicionado na lista
+     * @param pInstancia instancia onde os Objetos serão localizados
+     * @return um lista com os objetos instanciados
+     */
     public static List<? extends Object> getObjetosInjetados(Class<?> pTipo, Object pInstancia) {
         return objetosInjetados(pTipo, pInstancia, false);
     }
