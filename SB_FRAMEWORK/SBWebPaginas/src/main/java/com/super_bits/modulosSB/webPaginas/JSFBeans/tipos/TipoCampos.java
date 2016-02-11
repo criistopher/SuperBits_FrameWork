@@ -51,14 +51,7 @@ public class TipoCampos extends ConstantesWeb {
                 break;
             case LCCidade:
                 break;
-            case Telefone:
-                break;
-            case TelefoneComplementar:
-                break;
-            case TelefoneCelularComplementar:
-                break;
-            case TelefoneCelular:
-                break;
+
             case LCComplemeto:
                 break;
             case LCCampoAberto:
@@ -75,8 +68,7 @@ public class TipoCampos extends ConstantesWeb {
                 break;
             case TELEFONE_FIXO_NACIONAL:
                 break;
-            case MOEDA:
-                break;
+
             case LOOKUP:
                 break;
             case LOOKUPMULTIPLO:
@@ -110,6 +102,32 @@ public class TipoCampos extends ConstantesWeb {
             case QUANTIDADE:
                 break;
             case PERCENTUAL:
+                break;
+            case LCUnidadeFederativa:
+                break;
+            case SENHA:
+                break;
+            case SENHA_SEGURANCA_MAXIMA:
+                break;
+            case TELEFONE_FIXO_INTERNACIONAL:
+                break;
+            case TELEFONE_CELULAR:
+                break;
+            case MOEDA_REAL:
+                break;
+            case MOEDA_DOLAR:
+                break;
+            case VERDADEIRO_FALSO:
+                break;
+            case NOME_COMPLETO:
+                break;
+            case REG_DATAALTERACAO:
+                break;
+            case REG_DATAINSERCAO:
+                break;
+            case REG_USUARIO_ALTERACAL:
+                break;
+            case REG_USUARIO_INSERCAO:
                 break;
             default:
                 throw new AssertionError(campopadrao.name());
@@ -201,8 +219,8 @@ public class TipoCampos extends ConstantesWeb {
         return FabCampos.LCCidade.name();
     }
 
-    public String getTelefone() {
-        return FabCampos.Telefone.name();
+    public String getTelefoneFixoNacional() {
+        return FabCampos.TELEFONE_FIXO_NACIONAL.name();
     }
 
     public String getTelefoneComplementar() {
@@ -241,8 +259,8 @@ public class TipoCampos extends ConstantesWeb {
         return FabCampos.TELEFONE_FIXO_NACIONAL.toString();
     }
 
-    public String getMOEDA() {
-        return FabCampos.MOEDA.name();
+    public String getMOEDAReal() {
+        return FabCampos.MOEDA_REAL.name();
     }
 
     public String getLOOKUP() {

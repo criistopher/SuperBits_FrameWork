@@ -65,7 +65,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private String complemento;
     @InfoCampo(tipo = FabCampos.LCCEP)
     private String CEP;
-    @InfoCampo(tipo = FabCampos.Telefone, label = "Telefone")
+    @InfoCampo(tipo = FabCampos.TELEFONE_CELULAR, label = "Telefone")
     private String telefone;
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoUsuario;
@@ -205,11 +205,11 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
                 apelido = nome;
             }
         }
-        if (getGruposAdicionais()!=null &&  getGrupo()!=null){
-            
-        if (!getGruposAdicionais().contains(getGrupo())) {
-            getGruposAdicionais().add(grupo);
-        }
+        if (getGruposAdicionais() != null && getGrupo() != null) {
+
+            if (!getGruposAdicionais().contains(getGrupo())) {
+                getGruposAdicionais().add(grupo);
+            }
         }
 
     }

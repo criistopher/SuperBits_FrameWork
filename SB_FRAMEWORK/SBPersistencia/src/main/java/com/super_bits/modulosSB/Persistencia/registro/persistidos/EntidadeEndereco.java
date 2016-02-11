@@ -1,12 +1,10 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localizacao;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.UnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanEndereco;
-import java.util.List;
 
 public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBeanEndereco {
 
