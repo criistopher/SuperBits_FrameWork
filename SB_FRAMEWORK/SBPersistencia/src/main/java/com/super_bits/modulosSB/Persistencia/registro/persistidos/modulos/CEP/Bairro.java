@@ -40,7 +40,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @JoinColumn(name = "id_Cidade")
     private Cidade cidade;
 
-    private List<Long> coordenadas = new ArrayList<>();
+    private String coordenadas;
 
     public Bairro() {
     }
@@ -80,8 +80,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
 
     @Override
     public List<Long> getCordenadas() {
-
-        return this.coordenadas;
+        throw new UnsupportedOperationException("Ainda não foi implementado");
 
     }
 

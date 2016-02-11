@@ -256,4 +256,9 @@ public class Campo implements Serializable, ItfCampo {
         this.numCasasDecimais = pNumeroDeCasasDecimais;
     }
 
+    @Override
+    public String getMascaraJqueryMode() {
+        return UtilSBCoreStrings.getMascaraJavaMaskParaJQueryMask(mascara);
+    }
+
 }

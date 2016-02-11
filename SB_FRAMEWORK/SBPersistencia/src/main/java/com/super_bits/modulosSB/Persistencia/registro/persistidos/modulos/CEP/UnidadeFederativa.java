@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,12 +23,11 @@ public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFede
 
     @Id
     private int id;
-
     @InfoCampo(tipo = FabCampos.AAA_NOME_LONGO)
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     private String UF;
-
+    @OneToMany(targetEntity = Cidade.class)
     private List<Cidade> cidades;
 
     @Override

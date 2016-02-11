@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import java.util.List;
 
@@ -177,5 +178,12 @@ public interface ItfCampo {
      * @return
      */
     public int getNumeroDeCasasDecimais();
+
+    /**
+     *
+     * @return A mascara do campo substituindo # por 0, e '?' , 'u' e 'l' por a
+     *
+     */
+    public String getMascaraJqueryMode();
 
 }

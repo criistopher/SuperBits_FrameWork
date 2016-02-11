@@ -579,4 +579,8 @@ public abstract class UtilSBCoreStrings {
     public static String getNumericosDaString(String pString) {
         return pString.replaceAll("\\D*", ""); //To numeric digits only
     }
+
+    public static String getMascaraJavaMaskParaJQueryMask(String pMascara) {
+        return pMascara.replace('#', '0').replace('0', '?').replace('U', 'a').replace('?', 'a').replace('l', 'a');
+    }
 }
