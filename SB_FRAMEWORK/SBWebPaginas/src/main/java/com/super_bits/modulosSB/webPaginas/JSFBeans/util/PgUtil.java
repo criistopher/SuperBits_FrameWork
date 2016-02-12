@@ -17,6 +17,7 @@ import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -205,6 +206,8 @@ public class PgUtil implements Serializable {
     }
 
     public void preencherEndereco(String pcep, ItfLocal pLocal) {
+        System.out.println("CEP ENVIADO:" + pcep);
+
         UtilSBCoreCEP.configuraEndereco(pcep, pLocal);
     }
 
