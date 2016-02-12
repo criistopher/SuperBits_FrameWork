@@ -14,6 +14,11 @@ public class MenusDaSessao {
 
     private MenuSBFW menuAvancado;
 
+    /**
+     *
+     * @param menuPrincipal Menu com atalhos principais
+     * @param menuSecundario Menu avançado
+     */
     public MenusDaSessao(MenuSBFW menuPrincipal, MenuSBFW menuSecundario) {
 
         this.menuPrincipal = menuPrincipal;
