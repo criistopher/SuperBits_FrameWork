@@ -10,8 +10,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
-import java.util.List;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

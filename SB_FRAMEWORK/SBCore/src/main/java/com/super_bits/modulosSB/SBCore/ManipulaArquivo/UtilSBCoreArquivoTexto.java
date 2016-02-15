@@ -169,4 +169,8 @@ public abstract class UtilSBCoreArquivoTexto {
 
     }
 
+    public static boolean isTemPalavraNoArquivo(String pArquivo, String pPalavra) {
+        throw new UnsupportedOperationException("Procura de palavras em arquivo ainda não implementado");
+    }
+
 }

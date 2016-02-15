@@ -13,6 +13,8 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
@@ -284,6 +286,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             }
             if (!isAcaoPrincipal && acaoPrincipal == null) {
                 throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            if (iconeAcao == null) {
+                throw new UnsupportedOperationException("Falta definir um ícone para a ação" + fabrica.toString());
+            } else {
+
             }
 
             if (xhtmlAcao != null) {
