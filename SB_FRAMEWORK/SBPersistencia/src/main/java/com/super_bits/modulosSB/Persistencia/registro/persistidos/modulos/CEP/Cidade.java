@@ -37,6 +37,7 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     private String nome;
 
     @InfoCampo(tipo = FabCampos.LCUnidadeFederativa)
+    @ManyToOne(targetEntity = UnidadeFederativa.class)
     private UnidadeFederativa unidadeFederativa;
 
     //bi-directional many-to-one association to Bairro
