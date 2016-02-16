@@ -6,13 +6,17 @@
 package com.super_bits.modulosSB.SBCore.ManipulaArquivo;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -170,7 +174,24 @@ public abstract class UtilSBCoreArquivoTexto {
     }
 
     public static boolean isTemPalavraNoArquivo(String pArquivo, String pPalavra) {
-        throw new UnsupportedOperationException("Procura de palavras em arquivo ainda não implementado");
+        String linhaAtual;
+        File arquivo = new File(pArquivo);
+        try {
+            FileReader leitor = new FileReader(arquivo);
+            BufferedReader operador = new BufferedReader(leitor);
+            while (operador.ready()) {
+                linhaAtual = operador.readLine().toLowerCase();
+                if (linhaAtual.contains(pPalavra.toLowerCase())) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
 }
