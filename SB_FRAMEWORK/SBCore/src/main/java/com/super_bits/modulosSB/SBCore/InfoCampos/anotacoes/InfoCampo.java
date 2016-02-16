@@ -93,7 +93,7 @@ public @interface InfoCampo {
      *
      * @return True se o Campo for obrigatorio, falso para dispensável
      */
-    boolean obrigatorio() default true;
+    boolean obrigatorio() default false;
 
     int acesso() default 1;
 

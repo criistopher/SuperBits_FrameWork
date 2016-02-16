@@ -13,10 +13,12 @@ import java.util.List;
  *
  *
  *
+ * TODO: Analizar desacoblar BeanSimples E criar uma Entidade Campo com
+ * decorator
  *
  * @author sfurbino
  */
-public interface ItfCampo {
+public interface ItfCampo extends ItfBeanSimples {
 
     public static enum TIPOPRIMITIVO {
 

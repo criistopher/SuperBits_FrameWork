@@ -1,8 +1,11 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class Campo implements Serializable, ItfCampo {
@@ -261,6 +264,56 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getTipoCampoSTR() {
         return tipoCampo.toString();
+    }
+
+    @Override
+    public String getImgPequena() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNomeCurto() {
+        return tipoCampo.toString();
+    }
+
+    @Override
+    public int getId() {
+        return tipoCampo.toString().hashCode();
+    }
+
+    @Override
+    public String getNomeCampo(FabCampos pInfocampo) {
+        return tipoCampo.toString();
+    }
+
+    @Override
+    public Field getCampo(FabCampos pInfoCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CampoInvalido> getCamposInvalidos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void configIDFromNomeCurto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

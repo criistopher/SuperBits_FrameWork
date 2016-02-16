@@ -41,7 +41,6 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
 
     @Override
     public abstract boolean validarCampo();
-       
 
     @Override
     public boolean isVazio() {
