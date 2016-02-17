@@ -11,7 +11,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
  *
  * @author desenvolvedor
  */
-public enum FabTipoAcaoParao implements ItfFabrica {
+public enum FabTipoAcaoPadrao implements ItfFabrica {
 
     NOVO_ABRIR_FORMULARIO,
     EDITAR_ABRIR_FORMULARIO,
@@ -43,7 +43,7 @@ public enum FabTipoAcaoParao implements ItfFabrica {
             case VISUALIZAR_ABRIR_FORMULARIO:
                 acaoPadrao.setNomePadrao("Visualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de visualizacao de registro");
-                acaoPadrao.setIconePadrao("fa icon-expand");
+                acaoPadrao.setIconePadrao("fa fa-eye");
                 break;
             case SALVAR_EDICAO:
                 acaoPadrao.setNomePadrao("Salvar registro editado");
