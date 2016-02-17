@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
@@ -46,6 +47,8 @@ public class PgUtil implements Serializable {
 
     @Inject
     private SessaoAtualSBWP sessao;
+    @Inject
+    private InfoWebApp infoWeb;
 
     private BeanTodosSelecionados beanTodosSelecionados = new BeanTodosSelecionados();
 
@@ -217,6 +220,10 @@ public class PgUtil implements Serializable {
         ceps.add("30190030 - Rua Juca fontes ");
 
         return ceps;
+    }
+
+    public String navegar(ItfAcaoDoSistema pAcao) {
+        return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
     }
 
 }

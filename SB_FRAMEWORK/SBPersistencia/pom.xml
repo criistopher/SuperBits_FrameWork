@@ -90,10 +90,11 @@
 
 
 
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.11.Final</version>
+            <version>4.3.10.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -117,28 +118,6 @@
             <version>4.3.9.Final</version>
         </dependency>
 
-
-
-
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.mevenide</groupId>
-            <artifactId>netbeans-debugger-plugin</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-
-
-        <!-- WEBSERVICE  -->
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
-            <version>2.2.5</version>
-        </dependency>
 
     </dependencies>
 
