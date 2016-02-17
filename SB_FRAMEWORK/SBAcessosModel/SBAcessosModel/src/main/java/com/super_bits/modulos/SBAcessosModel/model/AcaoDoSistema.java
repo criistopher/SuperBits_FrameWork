@@ -294,13 +294,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
             }
 
-            if (xhtmlAcao != null) {
+            if (xhtmlAcao == null) {
                 if (SBCore.getConfiguradorDePermissao().getMetodoByAcao(this) == null) {
-
-                    throw new UnsupportedOperationException("esta ação não contem um formulário, "
-                            + "sendo assim é provavel que esta  seja uma ação da camada controoler, "
-                            + "porém não encontrei um metodo estatico anotado com esta ação no sistema  nas classes da camada controller"
-                            + "Ao nomear a ação, não esqueça de começar pelo nome do objeto, em seguida o nome da ação"
+                    throw new UnsupportedOperationException("esta ação não contem um formulário, portanto deve existir uma ação vinculada a ela na camada Controller "
+                            + "nehum método foi encontrado,"
+                            + "Dica: Ao nomear a ação, não esqueça de começar pelo nome do objeto em questão, em seguida o nome da ação"
                             + "" + nomeAcao); //To change body of generated methods, choose Tools | Templates.
                 }
             }

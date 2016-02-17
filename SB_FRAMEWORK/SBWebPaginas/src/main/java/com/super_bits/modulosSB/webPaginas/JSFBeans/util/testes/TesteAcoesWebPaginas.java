@@ -24,7 +24,10 @@ public abstract class TesteAcoesWebPaginas extends TesteAcoesDoSistema {
         for (ItfFabricaAcoes obj : pFabricaDeAcoes.getClass().getEnumConstants()) {
 
             String icone = obj.getAcaoDoSistema().getIconeAcao();
-            icone.startsWith("fa ");
+            if (!(icone.startsWith("fa ") || icone.startsWith("icon"))) {
+                throw new UnsupportedOperationException("O ícone " + icone + " deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)");
+            }
+
             if (!UtilSBCoreArquivoTexto.isTemPalavraNoArquivo(SBWebPaginas.getCaminhoWebResourcesDeveloper() + "/adamantium-layout/css/font-awesome.css", icone)) {
                 throw new UnsupportedOperationException("O ícone " + icone + " não foi encontrado no arquivo css do FontAswome");
             }
