@@ -4,6 +4,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import java.util.List;
 import javax.persistence.Column;
@@ -58,7 +59,7 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
         return unidadesFederativas;
     }
 
-    public List<Cidade> getCidadesDisponiveis() {
+    public List<ItfCidade> getCidadesDisponiveis() {
         if (getBairro().getCidade().getUnidadeFederativa() == null) {
             throw new UnsupportedOperationException("Não é possível listar as cidades disponíveis antes de selecionar um Estado");
         }

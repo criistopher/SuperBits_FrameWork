@@ -8,6 +8,7 @@ import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtua
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,11 @@ public class ItemBairro extends ItemSimples implements ItfBairro {
 
         return this.coordenadas;
 
+    }
+
+    @Override
+    public ItfCidade getCidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

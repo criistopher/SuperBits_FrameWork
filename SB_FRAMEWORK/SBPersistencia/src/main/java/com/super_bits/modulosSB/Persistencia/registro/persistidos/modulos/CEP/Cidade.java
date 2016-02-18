@@ -5,6 +5,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,12 +32,12 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Cidade")
     @NotNull
     @Column(nullable = false)
     private String nome;
 
-    @InfoCampo(tipo = FabCampos.LCUnidadeFederativa)
+    @InfoCampo(tipo = FabCampos.LOOKUP)
     @ManyToOne(targetEntity = UnidadeFederativa.class)
     private UnidadeFederativa unidadeFederativa;
 
@@ -50,6 +51,7 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     private Localidade localidade;
 
     public Cidade() {
+        unidadeFederativa = new UnidadeFederativa();
     }
 
     public int getId() {
@@ -91,12 +93,14 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
         return bairro;
     }
 
+    @Override
     public Localidade getLocalidade() {
         return this.localidade;
     }
 
-    public void setLocalidade(Localidade localidade) {
-        this.localidade = localidade;
+    @Override
+    public void setLocalidade(ItfLocalidade localidade) {
+        this.localidade = (Localidade) localidade;
     }
 
     public UnidadeFederativa getUnidadeFederativa() {

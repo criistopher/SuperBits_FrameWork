@@ -26,4 +26,8 @@ public interface ItfCidade {
 
     public String getEstadoPontoNomeCidade();
 
+    public ItfLocalidade getLocalidade();
+
+    public void setLocalidade(ItfLocalidade pLocalidade);
+
 }

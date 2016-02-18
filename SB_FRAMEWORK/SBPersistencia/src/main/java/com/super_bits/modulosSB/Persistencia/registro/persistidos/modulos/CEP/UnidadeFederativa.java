@@ -8,6 +8,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import java.util.List;
 import javax.persistence.Entity;
@@ -25,10 +26,14 @@ public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFede
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_LONGO)
     private String nome;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Estado")
     private String UF;
     @OneToMany(targetEntity = Cidade.class)
     private List<Cidade> cidades;
+
+    public UnidadeFederativa() {
+
+    }
 
     @Override
     public int getId() {
@@ -55,8 +60,9 @@ public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFede
         this.UF = UF;
     }
 
-    public List<Cidade> getCidades() {
-        return cidades;
+    @Override
+    public List<ItfCidade> getCidades() {
+        return (List) cidades;
     }
 
     public void setCidades(List<Cidade> cidades) {

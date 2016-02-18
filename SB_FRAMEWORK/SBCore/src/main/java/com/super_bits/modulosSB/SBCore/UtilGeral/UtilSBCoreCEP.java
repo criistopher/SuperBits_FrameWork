@@ -33,9 +33,15 @@ public abstract class UtilSBCoreCEP {
             //ItfBairro bairroEncontrao = new ItemBairro(republicaVirtual);
 
             pLocal.setNome(republicaVirtual.getLogradouroFull());
+            pLocal.getBairro().setNome(republicaVirtual.getBairro());
+            pLocal.getBairro().getCidade().setNome(republicaVirtual.getCidade());
+            pLocal.getBairro().getCidade().getUnidadeFederativa().setNome(republicaVirtual.getUf());
             pLocal.configIDFromNomeCurto();
 
             return true;
+        } else {
+            System.out.println("local:" + pLocal);
+            System.out.println("Cep não encontrado em republic virtual" + cep);
         }
 
         return false;

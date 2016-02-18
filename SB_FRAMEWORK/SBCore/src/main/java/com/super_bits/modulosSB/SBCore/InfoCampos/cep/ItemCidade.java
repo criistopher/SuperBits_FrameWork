@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.util.ArrayList;
@@ -65,6 +66,16 @@ public class ItemCidade extends ItemSimples implements ItfCidade {
     @Override
     public String getEstadoPontoNomeCidade() {
         return getUnidadeFederativa() + getNome();
+    }
+
+    @Override
+    public ItfLocalidade getLocalidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLocalidade(ItfLocalidade pLocalidade) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

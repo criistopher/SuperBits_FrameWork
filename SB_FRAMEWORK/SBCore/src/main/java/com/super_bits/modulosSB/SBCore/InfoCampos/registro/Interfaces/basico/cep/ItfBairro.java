@@ -22,4 +22,6 @@ public interface ItfBairro {
 
     public List<Long> getCordenadas();
 
+    public ItfCidade getCidade();
+
 }

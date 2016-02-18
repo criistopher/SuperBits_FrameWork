@@ -6,6 +6,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Bairro")
     private String nome;
 
     @ManyToOne(targetEntity = UnidadeFederativa.class)
@@ -43,6 +44,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     private String coordenadas;
 
     public Bairro() {
+        cidade = new Cidade();
     }
 
     public int getId() {
@@ -62,6 +64,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
         this.nome = nome;
     }
 
+    @Override
     public Cidade getCidade() {
         return this.cidade;
     }
