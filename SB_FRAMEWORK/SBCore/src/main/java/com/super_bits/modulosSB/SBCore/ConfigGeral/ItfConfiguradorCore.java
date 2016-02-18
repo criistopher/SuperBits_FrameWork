@@ -5,6 +5,8 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
+import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
@@ -36,6 +38,14 @@ public interface ItfConfiguradorCore {
      * @return Classe responsável pelo controle de sessões e autenticação
      */
     public Class<? extends ItfControleDeSessao> getControleDeSessao();
+
+    /**
+     * Classe responsável por configurar as permissões de acesso do sistema
+     *
+     * @return Classe responsável por configurar as permissões de acesso do
+     * sistema
+     */
+    public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes();
 
     /**
      * Classe responsável por registrar os logs de eventos do sistema.

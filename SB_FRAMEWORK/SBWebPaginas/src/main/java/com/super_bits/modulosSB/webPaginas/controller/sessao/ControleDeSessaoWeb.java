@@ -68,7 +68,7 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
         logarEmailESenha(usuarioLogar, senhaLogar);
         UtilSBWP_JSFTools.atualizaPorId("infoLoginSB");
         if (sessaoAtual.isIdentificado()) {
-            UtilSBWP_JSFTools.executarJavaScript("javascript:location.reload().;");
+            UtilSBWP_JSFTools.executarJavaScript("location.reload();");
         }
         SBCore.getConfiguradorDePermissao().configuraPermissoes();
         ItfGrupoUsuario grupoUsuarioLogado = sessaoAtual.getUsuario().getGrupo();
@@ -76,7 +76,8 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
     }
 
     public void esqueceuaSenha() {
-
+        System.out.println("Esqueceu senha" + usuarioLogar);
+        enviarSenhaParaEmail(usuarioLogar);
     }
 
     @Override

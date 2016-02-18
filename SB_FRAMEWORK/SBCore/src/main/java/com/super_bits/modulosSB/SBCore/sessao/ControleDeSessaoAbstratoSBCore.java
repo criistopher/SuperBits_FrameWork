@@ -52,7 +52,8 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
         UsuarioSistemaRoot userSystem = new UsuarioSistemaRoot();
         if (pEmail.equals(userSystem.getEmail()) & pSenha.equals(userSystem.getSenha())) {
             getSessaoAtual().setUsuario(userSystem);
-            SBCore.getCentralDeMensagens().enviaMensagem(FabMensagens.AVISO.getMsgUsuario("Você está logado como root" + usuarioEncontrado.getNome()));
+            SBCore.getCentralDeMensagens().enviaMensagem(FabMensagens.AVISO.getMsgUsuario("Você está logado como root"));
+            SBCore.enviarAvisoAoUsuario("Você está logado como root");
             return;
         }
 
@@ -65,7 +66,7 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
     }
 
-    public void enviarSenhaParaEmail(String pEmail) {
+    protected void enviarSenhaParaEmail(String pEmail) {
 
         ItfUsuario usuarioEncontrado = ControllerAppAbstratoSBCore.getUsuarioByEmail(pEmail);
 
@@ -74,12 +75,15 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
             return;
         }
         if (usuarioEncontrado != null) {
-            SBCore.enviarAvisoAoUsuario("Um e-mail com a senha foi enviado para " + pEmail);
-            UtilSBCoreEmail.enviaGmailporSSL("salviof@gmail.com", "123321@Aa", "Olá, conforme solicitação, segue a senha,<br/> mas antes, como esssa "
-                    + "é uma mensagem provisória não posso deixar de observar a completa falta de senso nexo e conformidade com a realidade, um ser humano viver esquecendo sua senha...  <br/>"
-                    + "Mas blz, dessa vez passa a senha é " + usuarioEncontrado.getSenha(), pEmail, "Recuperação de senha");
-        }
 
+            if (UtilSBCoreEmail.enviaGmailporSSL("guiasemktdigitalcontagem@gmail.com", "vidanova@2015", "Olá, conforme solicitação, segue a senha,<br/> mas antes, como esssa "
+                    + "é uma mensagem provisória não posso deixar de observar a completa falta de senso nexo e conformidade com a realidade, um ser humano viver esquecendo sua senha...  <br/>"
+                    + "Mas blz, dessa vez passa a senha é " + usuarioEncontrado.getSenha(), pEmail, "Recuperação de senha")) {
+                SBCore.enviarAvisoAoUsuario("Um e-mail com a senha foi enviado para " + pEmail);
+            } else {
+                SBCore.enviarAvisoAoUsuario("Um erro ocorreu ao tentar enviar o e-mail com a senha para: " + pEmail + " entre em contato conosco para recuperar a senha");
+            }
+        }
     }
 
 }

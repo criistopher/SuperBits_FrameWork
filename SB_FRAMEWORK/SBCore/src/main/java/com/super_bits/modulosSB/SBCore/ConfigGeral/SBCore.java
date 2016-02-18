@@ -61,6 +61,7 @@ public class SBCore {
     private static Class<? extends ItfCentralEventos> centralEventos;
     private static String diretorioBase;
     private static String nomeProjeto;
+    private static Class<? extends ItfCfgPermissoes> classeConfigPermissoes;
     private static ItfCfgPermissoes configuradorDePermissao;
     private static String cliente = "SuperBits";
     private static String grupoProjeto = "";
@@ -106,6 +107,7 @@ public class SBCore {
         cliente = configuracoes.getCliente();
         configurado = true;
         centralEventos = configuracoes.getCentralDeEventos();
+        classeConfigPermissoes = configuracoes.getConfigPermissoes();
 
         if (centralMensagens == null) {
             System.out.println("Central de mensagens não configurada");
@@ -130,9 +132,12 @@ public class SBCore {
 
         try {
             // Definindo configuração de acessos
-
-            Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
-            configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
+            if (classeConfigPermissoes == null) {
+                Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+                configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
+            } else {
+                configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+            }
 
         } catch (Throwable t) {
             if (pIgnorarClassePermissao) {
@@ -299,7 +304,7 @@ public class SBCore {
     public static ItfCentralMensagens getCentralDeMensagens() {
         try {
             return centralMensagens.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
+        } catch (Throwable ex) {
 
             FabErro.PARA_TUDO.paraSistema("ERRO CRIANDO CENTRAL DE MENSAGENS", ex);
         }
