@@ -71,7 +71,8 @@ public enum FabCampos implements ItfFabrica {
     REG_DATAALTERACAO,
     REG_DATAINSERCAO,
     REG_USUARIO_ALTERACAL,
-    REG_USUARIO_INSERCAO;
+    REG_USUARIO_INSERCAO,
+    CODIGO_DE_BARRAS;
 
     @Override
     public Campo getRegistro() {
@@ -242,6 +243,8 @@ public enum FabCampos implements ItfFabrica {
             case TELEFONE_GENERICO:
                 sbCampo.setValidacaoRegex("^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
                 sbCampo.setMascara("*##(##)#####-####");
+                break;
+            case CODIGO_DE_BARRAS:
                 break;
 
             default:
