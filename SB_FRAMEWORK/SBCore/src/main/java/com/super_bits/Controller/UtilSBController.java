@@ -5,14 +5,11 @@
 package com.super_bits.Controller;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  *
@@ -94,7 +91,7 @@ public class UtilSBController {
 
             return acaoSisTema;
         } catch (Throwable t) {
-            FabErro.PARA_TUDO.paraSistema("Erro PT obtendo ação pelo id do metodo", t);
+            FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
             return null;
         }
     }
@@ -114,16 +111,16 @@ public class UtilSBController {
                         return acao;
 
                     } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", ex);
+                        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo, certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada ", ex);
                     }
                 } catch (NoSuchMethodException | SecurityException ex) {
-                    FabErro.PARA_TUDO.paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA", ex);
+                    FabErro.PARA_TUDO.paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA: " + pMetodo.getName(), ex);
                 }
             }
 
         }
 
-        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", null);
+        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pMetodo.getName(), null);
         return null;
 
     }
