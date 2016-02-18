@@ -16,7 +16,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.Cam
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -336,7 +336,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
                     } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                     if (campoReflecao.getType().getName().equals("int")) {
+                    {
+                        if (campoReflecao.getType().getName().equals("int")) {
                             // System.out.println("TTTTIIIPOOOO int");
                             valor = (Integer) campoReflecao.get(this);
                         } else if (campoReflecao.getType().getName()
@@ -352,6 +353,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
                             valor = campoReflecao.get(this).toString();
                         }
+                    }
 
                     if (valor == null || valor.toString().equals("")) {
                         return campoPadrao.getValorPadrao();

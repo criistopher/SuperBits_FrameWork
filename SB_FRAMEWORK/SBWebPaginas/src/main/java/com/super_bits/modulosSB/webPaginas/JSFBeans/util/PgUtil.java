@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -49,6 +50,8 @@ public class PgUtil implements Serializable {
     private SessaoAtualSBWP sessao;
     @Inject
     private InfoWebApp infoWeb;
+
+    private final CampoNaoImplementado camponaoImplementado = new CampoNaoImplementado();
 
     private BeanTodosSelecionados beanTodosSelecionados = new BeanTodosSelecionados();
 
@@ -224,6 +227,10 @@ public class PgUtil implements Serializable {
 
     public String navegar(ItfAcaoDoSistema pAcao) {
         return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
+    }
+
+    public CampoNaoImplementado getCampoNaoImplementado() {
+        return camponaoImplementado;
     }
 
 }

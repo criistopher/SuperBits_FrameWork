@@ -10,7 +10,9 @@ import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreEmail;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -60,6 +62,23 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
     public void logarIDFacebook() {
         throw new UnsupportedOperationException("Não suportado ainda");
+
+    }
+
+    public void enviarSenhaParaEmail(String pEmail) {
+
+        ItfUsuario usuarioEncontrado = ControllerAppAbstratoSBCore.getUsuarioByEmail(pEmail);
+
+        if (usuarioEncontrado == null) {
+            SBCore.enviarMensagemUsuario("O email" + pEmail + " não foi encontrado no sistema", FabMensagens.AVISO);
+            return;
+        }
+        if (usuarioEncontrado != null) {
+            SBCore.enviarAvisoAoUsuario("Um e-mail com a senha foi enviado para " + pEmail);
+            UtilSBCoreEmail.enviaGmailporSSL("salviof@gmail.com", "123321@Aa", "Olá, conforme solicitação, segue a senha,<br/> mas antes, como esssa "
+                    + "é uma mensagem provisória não posso deixar de observar a completa falta de senso nexo e conformidade com a realidade, um ser humano viver esquecendo sua senha...  <br/>"
+                    + "Mas blz, dessa vez passa a senha é " + usuarioEncontrado.getSenha(), pEmail, "Recuperação de senha");
+        }
 
     }
 
