@@ -5,6 +5,8 @@ import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
@@ -13,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.validation.constraints.NotNull;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -87,6 +90,24 @@ public abstract class ConfigPermissoesAcessoModel extends ConfigPermissaoAbstrat
     public void atualizarInformacoesDePermissoesDoSistema() {
         ControllerAppAbstratoSBCore.reloadAcessos();
 
+    }
+
+    public static List<AcaoDoSistema> listarAcoesDoGrupo(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull ModuloAcaoSistema pModulo) {
+        List<AcaoDoSistema> resp = new ArrayList<>();
+
+        for (ItfAcaoDoSistema acao : pModulo.getAcoes()) {
+            PermissaoSB permissao = (PermissaoSB) ControllerAppAbstratoSBCore.getPermissaoPorAcao(acao);
+            //TODO sobrescrever metodo permissao no modulo SBPErmissao utilizando loadBY
+            //   permissao = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, permissao.getId(), em);
+            if (permissao != null) {
+                if (permissao.getGruposPermitidos().contains(pGrpUsuario)) {
+                    resp.add((AcaoDoSistema) acao);
+                }
+            }
+
+        }
+
+        return resp;
     }
 
 }

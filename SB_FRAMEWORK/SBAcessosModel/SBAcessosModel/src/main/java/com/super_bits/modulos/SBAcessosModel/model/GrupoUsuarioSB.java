@@ -45,9 +45,10 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Descrição")
     @NotNull
     private String descricao;
-    
-    private String XhtmlPaginaInicial="/site/homeAdministrador.xhtml";
-    
+
+    private boolean tipoGrupoNativo;
+
+    private String XhtmlPaginaInicial = "/site/homeAdministrador.xhtml";
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 
@@ -104,6 +105,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     public List<ItfUsuario> getUsuarios() {
         return (List) usuarios;
     }
+
     @Override
     public boolean isAtivo() {
         return ativo;
@@ -130,8 +132,12 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
         this.XhtmlPaginaInicial = XhtmlPaginaInicial;
     }
 
-    
-    
-    
+    public boolean isTipoGrupoNativo() {
+        return tipoGrupoNativo;
+    }
+
+    public void setTipoGrupoNativo(boolean tipoGrupoNativo) {
+        this.tipoGrupoNativo = tipoGrupoNativo;
+    }
 
 }

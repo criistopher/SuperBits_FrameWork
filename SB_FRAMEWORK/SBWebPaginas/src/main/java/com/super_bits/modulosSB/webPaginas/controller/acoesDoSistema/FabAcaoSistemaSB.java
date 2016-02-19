@@ -20,7 +20,9 @@ import java.util.List;
 @InfoModulo(nomeDoModulo = "Sistema", descricao = "Ações basicas do sistema")
 public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
-    ACESSOS_GERENCIAR, DEMONSTRACAO_COMPONENTE, DEMONSTRACAO_VALIDACAO;
+    ACESSOS_GERENCIAR,
+    DEMONSTRACAO_COMPONENTE,
+    DEMONSTRACAO_VALIDACAO;
 
     @Override
     public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {

@@ -59,7 +59,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return SBCore.getConfiguradorDePermissao().configuraPermissoes();
     }
 
-    protected static ItfPermissao getPermissaoPorAcao(ItfAcaoDoSistema pAcao) {
+    public static ItfPermissao getPermissaoPorAcao(ItfAcaoDoSistema pAcao) {
         return getPermissoes().get(pAcao.getId());
     }
 
