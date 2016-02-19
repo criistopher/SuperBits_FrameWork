@@ -90,6 +90,11 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
         }
         UtilSBPersistencia.iniciarTransacao(pEM);
         pGrpUsuario = (GrupoUsuarioSB) UtilSBPersistencia.mergeRegistro(pGrpUsuario, pEM);
+        if (!UtilSBPersistencia.finalizarTransacao(pEM)) {
+            return resp.addMensagemErroDisparaERetorna("Erro Atualizando informações do grupo");
+        }
+        ControllerAppAbstratoSBCore.reloadAcessos();
+        UtilSBPersistencia.iniciarTransacao(pEM);
         if (pGrpUsuario == null) {
             return resp.addMensagemErroDisparaERetorna("Erro ao salvar alterações basicas do grupo");
         }
@@ -149,31 +154,29 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
     }
 
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES, padraoBloqueado = false)
-    public static ItfResposta usuarioPersistirAlteracoes(@NotNull UsuarioSB pUsuario) {
+    public static ItfResposta usuarioPersistirAlteracoes(@NotNull UsuarioSB pUsuario, EntityManager pEM) {
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
         if (pUsuario.getGrupo() == null) {
             return resp.addMensagemErroDisparaERetorna("Selecione o grupo do usuário");
         }
-        EntityManager em = UtilSBPersistencia.getNovoEMIniciandoTransacao();
-        pUsuario.ajustaConfiguracoes();
 
-        pUsuario = (UsuarioSB) UtilSBPersistencia.mergeRegistro(pUsuario, em);
+        pUsuario.ajustaConfiguracoes();
+        UtilSBPersistencia.iniciarTransacao(pEM);
+        pUsuario = (UsuarioSB) UtilSBPersistencia.mergeRegistro(pUsuario, pEM);
 
         if (pUsuario == null) {
 
-            em.clear();
-            em.close();
             return resp.addMensagemErroDisparaERetorna("Erro Salvando usuário no sistema");
         }
 
-        GrupoUsuarioSB grupoUsuario = (GrupoUsuarioSB) UtilSBPersistencia.getRegistroByID(GrupoUsuarioSB.class, pUsuario.getGrupo().getId(), em);
+        GrupoUsuarioSB grupoUsuario = (GrupoUsuarioSB) UtilSBPersistencia.getRegistroByID(GrupoUsuarioSB.class, pUsuario.getGrupo().getId(), pEM);
         if (!grupoUsuario.getUsuarios().contains(pUsuario)) {
             grupoUsuario.getUsuarios().add(pUsuario);
         }
-        UtilSBPersistencia.mergeRegistro(grupoUsuario, em);
+        UtilSBPersistencia.mergeRegistro(grupoUsuario, pEM);
 
-        if (!UtilSBPersistencia.finzalizaTransacaoEFechaEM(em)) {
-            em.close();
+        if (!UtilSBPersistencia.finalizarTransacao(pEM)) {
+            pEM.close();
             return resp.addMensagemErroDisparaERetorna("não foi possível gravar no banco de dados");
 
         }

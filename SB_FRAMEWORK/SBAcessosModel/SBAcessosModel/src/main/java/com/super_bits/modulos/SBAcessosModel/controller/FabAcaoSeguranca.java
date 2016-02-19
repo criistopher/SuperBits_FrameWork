@@ -147,7 +147,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setIconeAcao("fa fa-users");
                 acao.setPrecisaPermissao(false);
                 acao.setIdDescritivoJira("UI030");
-
+                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_SALVAR_ALTERACOES:
                 acao.setIconeAcao("fa fa-save");
@@ -155,7 +155,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.SALVAR_MODO_MERGE);
                 acao.setIdDescritivoJira("UC013");
-
+                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_EDITAR:
                 acao.setIconeAcao("fa fa-edit");
@@ -163,8 +163,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setIsAcaoPrincipal(false);
                 acao.setNomeAcao("Editar Usuário");
                 acao.setPrecisaPermissao(false);
-                acao.configurarAcaoPadrao(FabTipoAcaoPadrao.EDITAR_ABRIR_FORMULARIO);
+
                 acao.setIdDescritivoJira("UI032.1");
+                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_VISUALIZAR:
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
@@ -175,12 +176,13 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setPrecisaPermissao(false);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.VISUALIZAR_ABRIR_FORMULARIO);
                 acao.setIdDescritivoJira("UI032.0");
+                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_ALTERAR_STATUS:
                 acao.setNomeAcao("Ativar/Desativar");
                 acao.setIconeAcao("fa fa-retweet ");
                 acao.setPrecisaPermissao(false);
-
+                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.ATIVAR_DESATIVAR);
                 acao.setIdDescritivoJira("UC013");
                 break;

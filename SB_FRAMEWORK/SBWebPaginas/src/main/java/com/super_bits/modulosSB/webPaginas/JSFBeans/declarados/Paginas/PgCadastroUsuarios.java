@@ -168,17 +168,13 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     public void salvarAlteracoes() {
 
-        ItfResposta resp = ModuloSeguranca.usuarioPersistirAlteracoes((UsuarioSB) getEntidadeSelecionada());
+        ItfResposta resp = ModuloSeguranca.usuarioPersistirAlteracoes((UsuarioSB) getEntidadeSelecionada(), getEMPagina());
 
         if (resp.isSucesso()) {
 
             xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
             atualizarDados();
-            if (novoRegistro == true) {
-                getEntidadesListadas().add((UsuarioSB) resp.getRetorno());
-            } else {
-                atualizarDados();
-            }
+
             pgUtil.atualizaTelaPorID("formulario");
         }
     }

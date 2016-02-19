@@ -4,15 +4,11 @@
  */
 package config;
 
-import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
-import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
-
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 
 /**

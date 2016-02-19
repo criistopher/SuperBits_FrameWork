@@ -29,6 +29,7 @@ import javax.validation.constraints.NotNull;
 public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissaoAbstratoSBCore {
 
     private static EntityManager emSistemaAcessos;
+    private static boolean acoesSistemaCriado = false;
 
     public ConfigPermissoesAcessoModelAbstrato(Class[] pClassesControllers) {
         super(pClassesControllers);
@@ -51,7 +52,10 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     protected void criaAcoesNoBancoDeDados() {
-
+        if (acoesSistemaCriado) {
+            return;
+        }
+        acoesSistemaCriado = true;
         for (ItfAcaoDoSistema acao : acoesByHashMetodo.values()) {
             AcaoDoSistema acaoPersist = (AcaoDoSistema) acao;
             if (!acaoPersist.isUmaAcaoPrincipal()) {

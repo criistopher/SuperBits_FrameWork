@@ -157,8 +157,9 @@ public class PgPermissoes extends MB_PaginaConversation {
             paginaUtil.atualizaTelaPorID("formulario");
             return;
         }
-
-        grupoSelecionado = pgrupoUsuario;
+        if (pgrupoUsuario != null) {
+            grupoSelecionado = pgrupoUsuario;
+        }
         // caso opção seja alterar Status
         if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_ALTERAR_STATUS.getRegistro().getId()) {
             ModuloSeguranca.grupoAlterarStatus(pgrupoUsuario);
