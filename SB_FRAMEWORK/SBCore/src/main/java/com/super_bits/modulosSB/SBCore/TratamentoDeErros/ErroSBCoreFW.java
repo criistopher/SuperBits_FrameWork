@@ -15,12 +15,15 @@ public class ErroSBCoreFW extends InfoErroSB {
 
     @Override
     protected void lancarPane() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Pane lançada no sistema");
+
     }
 
     @Override
     protected void registrarErro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        System.out.println("Este erro deveria ser persistido de alguma forma, mas não será poruqe o método registrar erro não foi implementado");
+
     }
 
 }

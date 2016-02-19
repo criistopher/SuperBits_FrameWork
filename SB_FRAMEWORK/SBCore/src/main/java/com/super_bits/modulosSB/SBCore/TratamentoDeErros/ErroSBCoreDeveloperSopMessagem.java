@@ -16,8 +16,9 @@ public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
 
     @Override
     protected void alertarResponsavel() {
-
-        UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Alertando Responsavel" + getMsgDesenvolvedorLancou())));
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Alertando Responsavel" + getMsgDesenvolvedorLancou())));
+        }
     }
 
     @Override
@@ -32,12 +33,16 @@ public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
 
     @Override
     protected void lancarPane() {
-        UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("VOCÊ GEROU UMA PANE NO SISTEMA!  (Parabéns irônico pra você)")));
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("VOCÊ GEROU UMA PANE NO SISTEMA! Parabéns ")));
+        }
     }
 
     @Override
     protected void registrarErro() {
-        UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Atenção um pedido de log foi gerado para este erro:")));
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Atenção um pedido de log foi gerado para este erro:")));
+        }
     }
 
 }

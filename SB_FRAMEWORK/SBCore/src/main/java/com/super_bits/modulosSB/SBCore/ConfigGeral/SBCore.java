@@ -336,6 +336,9 @@ public class SBCore {
     }
 
     public static ItfCfgPermissoes getConfiguradorDePermissao() {
+        if (configuradorDePermissao == null) {
+            FabErro.PARA_TUDO.paraSistema("Configurador de permissão não foi definido", null);
+        }
         return configuradorDePermissao;
     }
 

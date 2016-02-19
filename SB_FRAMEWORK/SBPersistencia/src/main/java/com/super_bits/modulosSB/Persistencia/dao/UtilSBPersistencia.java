@@ -599,13 +599,10 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             consulta = em.createNativeQuery(sql, pClasseRegisto);
                         }
 
+                    } else if (pClasseRegisto == null) {
+                        consulta = em.createQuery(sql);
                     } else {
-
-                        if (pClasseRegisto == null) {
-                            consulta = em.createQuery(sql);
-                        } else {
-                            consulta = em.createQuery(sql, pClasseRegisto);
-                        }
+                        consulta = em.createQuery(sql, pClasseRegisto);
                     }
                     consulta.setMaxResults(1);
 
