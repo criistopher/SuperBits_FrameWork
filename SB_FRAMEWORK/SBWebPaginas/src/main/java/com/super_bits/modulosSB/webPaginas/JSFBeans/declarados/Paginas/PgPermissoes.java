@@ -95,7 +95,7 @@ public class PgPermissoes extends MB_PaginaConversation {
     }
 
     private void atualizarDados() {
-
+        renovarEMPagina();
         modulos = UtilSBPersistencia.getListaTodos(ModuloAcaoSistema.class, getEMPagina());
         grupos = UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class, getEMPagina());
 
@@ -169,14 +169,14 @@ public class PgPermissoes extends MB_PaginaConversation {
         // caso opção seja Salvar REgistro
         if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES.getAcaoDoSistema().getId()) {
 
-            ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pgrupoUsuario, modulos);
+            ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pgrupoUsuario, modulos, getEMPagina());
             if (resp.isSucesso()) {
                 xhtmlAcaoAtual = acaoListarGrupos.getXHTMLAcao();
                 if (novogrupo) {
-                    grupos.add((GrupoUsuarioSB) resp.getRetorno());
                     atualizarDados();
-                } else {
 
+                } else {
+                    atualizarDados();
                 }
                 paginaUtil.atualizaTelaPorID("formulario");
             }

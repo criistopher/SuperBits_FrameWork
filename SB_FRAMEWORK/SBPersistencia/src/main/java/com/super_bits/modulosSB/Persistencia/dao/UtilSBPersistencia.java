@@ -195,6 +195,46 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     }
 
+    public static boolean iniciarTransacao(@NotNull EntityManager pEM) {
+
+        try {
+            if (pEM == null) {
+                throw new UnsupportedOperationException("O entity manager está nulo");
+
+            }
+            if (!pEM.isOpen()) {
+                throw new UnsupportedOperationException("O entity manager está fechado");
+            }
+            pEM.getTransaction().begin();
+
+            return true;
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+            return false;
+        }
+
+    }
+
+    public static boolean finalizarTransacao(@NotNull EntityManager em) {
+
+        try {
+            if (em == null) {
+                throw new UnsupportedOperationException("O entity manager está nulo");
+
+            }
+            if (!em.isOpen()) {
+                throw new UnsupportedOperationException("O entity manager está fechado");
+            }
+            em.getTransaction().commit();
+
+            return true;
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+            return false;
+        }
+
+    }
+
     public UtilSBPersistencia() {
 
         if (emFacturePadrao == null) {

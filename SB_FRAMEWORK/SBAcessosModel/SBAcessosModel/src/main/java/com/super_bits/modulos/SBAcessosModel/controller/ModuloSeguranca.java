@@ -77,9 +77,9 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
      * @return
      */
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES, padraoBloqueado = false)
-    public static ItfResposta grupoDeUsuariosSalvarAlteracoes(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull List<ModuloAcaoSistema> pModulos) {
+    public static ItfResposta grupoDeUsuariosSalvarAlteracoes(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull List<ModuloAcaoSistema> pModulos, EntityManager pEM) {
 
-        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(null);
+        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
         if (pGrpUsuario == null || pModulos == null) {
             return resp.addMensagemErroDisparaERetorna("Selecione o grupo de usuario e as ações do sistema");
         }
@@ -87,8 +87,8 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
         if (!resp.isSucesso()) {
             return resp.dispararMensagens();
         }
-        EntityManager em = UtilSBPersistencia.getNovoEMIniciandoTransacao();
-        pGrpUsuario = (GrupoUsuarioSB) UtilSBPersistencia.mergeRegistro(pGrpUsuario, em);
+        UtilSBPersistencia.iniciarTransacao(pEM);
+        pGrpUsuario = (GrupoUsuarioSB) UtilSBPersistencia.mergeRegistro(pGrpUsuario, pEM);
         if (pGrpUsuario == null) {
             return resp.addMensagemErroDisparaERetorna("Erro ao salvar alterações basicas do grupo");
         }
@@ -112,7 +112,7 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
                         permissao.getGruposPermitidos().remove(pGrpUsuario);
                     }
                     System.out.println("Adicionou" + pGrpUsuario + "a permissao" + permissao.getNomeCurto());
-                    if (UtilSBPersistencia.mergeRegistro(permissao, em) == null) {
+                    if (UtilSBPersistencia.mergeRegistro(permissao, pEM) == null) {
                         resp.addAlerta("Aconteceu um erro ao tentar salvar a ação do sistema" + acao.getNomeAcao());
                     }
                 }
@@ -120,7 +120,9 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
         }
 
-        UtilSBPersistencia.finzalizaTransacaoEFechaEM(em);
+        if (!UtilSBPersistencia.finzalizaTransacaoEFechaEM(pEM)) {
+            resp.addErro("Erro salvando registro no banco de dados");
+        }
         ControllerAppAbstratoSBCore.reloadAcessos();
         if (resp.isSucesso()) {
             resp.addAviso("As definições de segurança do grupo " + pGrpUsuario.getNome() + " foram atualizadas");
