@@ -14,6 +14,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -25,6 +26,7 @@ public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFede
     @Id
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_LONGO)
+    @NotNull
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Estado")
     private String UF;

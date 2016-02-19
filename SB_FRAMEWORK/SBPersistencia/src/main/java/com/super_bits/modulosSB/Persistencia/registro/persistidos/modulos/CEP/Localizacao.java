@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Localizacao extends EntidadeSimples implements ItfLocal {
@@ -23,6 +24,7 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome Logradouro")
     @Column(length = 150)
+    @NotNull
     private String nome;
     @ManyToOne(targetEntity = Bairro.class)
     private Bairro bairro;

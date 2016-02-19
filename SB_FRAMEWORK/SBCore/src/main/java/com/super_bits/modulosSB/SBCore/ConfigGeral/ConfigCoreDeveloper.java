@@ -8,6 +8,7 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgThread;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
@@ -27,7 +28,7 @@ public class ConfigCoreDeveloper implements ItfConfiguradorCore {
 
     @Override
     public Class<? extends InfoErroSB> getClasseErro() {
-        return ErroSBCoreFW.class;
+        return ErroSBCoreDeveloperSopMessagem.class;
     }
 
     @Override

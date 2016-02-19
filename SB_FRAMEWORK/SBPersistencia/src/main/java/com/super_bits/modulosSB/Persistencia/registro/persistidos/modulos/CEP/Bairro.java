@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the bairro database table.
@@ -31,6 +32,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     private int id;
 
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Bairro")
+    @NotNull
     private String nome;
 
     @ManyToOne(targetEntity = UnidadeFederativa.class)
