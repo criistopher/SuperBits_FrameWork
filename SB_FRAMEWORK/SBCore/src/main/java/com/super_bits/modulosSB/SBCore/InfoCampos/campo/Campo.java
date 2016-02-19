@@ -187,19 +187,12 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public boolean isTemValidacaoMinimo() {
 
-        if (valorMinimo <= 0) {
-            return false;
-        }
-
-        return true;
+        return valorMinimo > 0;
     }
 
     @Override
     public boolean isTemValidacaoMaximo() {
-        if (valorMaximo <= 0) {
-            return false;
-        }
-        return true;
+        return valorMaximo > 0;
     }
 
     @Override
@@ -207,26 +200,17 @@ public class Campo implements Serializable, ItfCampo {
         if (mascara == null) {
             return false;
         }
-        if (mascara.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !mascara.isEmpty();
     }
 
     @Override
     public boolean isNumeral() {
-        if (tipoValor != TIPOPRIMITIVO.NUMERO) {
-            return false;
-        }
-        return true;
+        return tipoValor == TIPOPRIMITIVO.NUMERO;
     }
 
     @Override
     public boolean isMoeda() {
-        if (tipoCampo != FabCampos.MOEDA_REAL && tipoCampo != FabCampos.MOEDA_DOLAR) {
-            return false;
-        }
-        return true;
+        return !(tipoCampo != FabCampos.MOEDA_REAL && tipoCampo != FabCampos.MOEDA_DOLAR);
     }
 
     @Override

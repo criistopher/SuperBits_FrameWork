@@ -34,7 +34,7 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
     private String complemento;
 
     public Localizacao() {
-
+        bairro = new Bairro();
     }
 
     @Override
