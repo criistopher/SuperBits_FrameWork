@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-@InfoModulo(nomeDoModulo = "Segurança", descricao = "Configurações de segurança do sistema")
+@InfoModulo(nomeDoModulo = "Seguranca", descricao = "Configurações de segurança do sistema")
 public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     GRUPOS_GERENCIAR,

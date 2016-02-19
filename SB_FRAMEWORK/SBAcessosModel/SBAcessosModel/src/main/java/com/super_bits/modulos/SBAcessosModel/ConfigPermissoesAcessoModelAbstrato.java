@@ -26,11 +26,11 @@ import javax.validation.constraints.NotNull;
  *
  * @author desenvolvedor
  */
-public abstract class ConfigPermissoesAcessoModel extends ConfigPermissaoAbstratoSBCore {
+public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissaoAbstratoSBCore {
 
     private static EntityManager emSistemaAcessos;
 
-    public ConfigPermissoesAcessoModel(Class[] pClassesControllers) {
+    public ConfigPermissoesAcessoModelAbstrato(Class[] pClassesControllers) {
         super(pClassesControllers);
     }
 
@@ -54,6 +54,11 @@ public abstract class ConfigPermissoesAcessoModel extends ConfigPermissaoAbstrat
 
         for (ItfAcaoDoSistema acao : acoesByHashMetodo.values()) {
             AcaoDoSistema acaoPersist = (AcaoDoSistema) acao;
+            if (!acaoPersist.isUmaAcaoPrincipal()) {
+                if (acao.getAcaoPrincipal() != null) {
+                    UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal(), getEmPermissoes());
+                }
+            }
             UtilSBPersistencia.mergeRegistro(acaoPersist, getEmPermissoes());
 
         }

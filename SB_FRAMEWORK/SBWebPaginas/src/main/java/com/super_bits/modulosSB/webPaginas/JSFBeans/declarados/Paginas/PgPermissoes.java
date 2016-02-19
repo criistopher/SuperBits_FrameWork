@@ -95,7 +95,7 @@ public class PgPermissoes extends MB_PaginaConversation {
     }
 
     private void atualizarDados() {
-        renovarEMPagina();
+
         modulos = UtilSBPersistencia.getListaTodos(ModuloAcaoSistema.class, getEMPagina());
         grupos = UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class, getEMPagina());
 

@@ -27,6 +27,7 @@ import javax.validation.constraints.NotNull;
  */
 public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_LISTAR)
     public static List<AcaoDoSistema> listarAcoesDoGrupo(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull ModuloAcaoSistema pModulo) {
         List<AcaoDoSistema> resp = new ArrayList<>();
 
@@ -120,7 +121,7 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
         }
 
-        if (!UtilSBPersistencia.finzalizaTransacaoEFechaEM(pEM)) {
+        if (!UtilSBPersistencia.finalizarTransacao(pEM)) {
             resp.addErro("Erro salvando registro no banco de dados");
         }
         ControllerAppAbstratoSBCore.reloadAcessos();
