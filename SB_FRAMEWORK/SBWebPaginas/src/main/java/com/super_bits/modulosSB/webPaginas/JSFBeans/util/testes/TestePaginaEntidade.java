@@ -89,6 +89,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             assertTrue("A entidade selecionada está nula após executar a ação Cadastrar novo registro, Verique o case do metodo executarAcao(), e set o registro selecionado com uma nova instancia utilizando setEntidadeSelecionad(new EntidadeVinculadaApagina)", pagina.getEntidadeSelecionada() != null);
             //FabAcaoCadastros.COMPRADOR_NOVO.getAcaoDoSistema().getXHTMLAcao();
             // Testa se o xhtml foi definido como xhtml da ação de novo registro
+            assertTrue("O XHRl para cadastro de novo registro está nulo", pagina.getXhtmlAcaoAtual() != null);
             assertTrue("O XHTML para cadastrar um novo registro não foi configurado ao executar a ação com um novo registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoNovoRegistro().getXHTMLAcao()));
             assertTrue(" entidade selecionada não foi instanciado", pagina.getEntidadeSelecionada() != null);
             assertTrue("O boolean is novo registro deve ser true ao executar a ação novo registro", pagina.isNovoRegistro());
