@@ -37,18 +37,18 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             lancarErroJUnit(t);
         }
         try {
-            //pesquisar();
+            pesquisar();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
         try {
-            //editarDados();
+            editarDados();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
 
         try {
-            //visualisarDados();
+            visualisarDados();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
