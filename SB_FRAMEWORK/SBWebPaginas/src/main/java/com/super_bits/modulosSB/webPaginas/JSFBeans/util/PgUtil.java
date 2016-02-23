@@ -226,7 +226,12 @@ public class PgUtil implements Serializable {
     }
 
     public String navegar(ItfAcaoDoSistema pAcao) {
-        return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
+
+        if (pAcao != null) {
+            return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
+        } else {
+            return null;
+        }
     }
 
     public CampoNaoImplementado getCampoNaoImplementado() {
