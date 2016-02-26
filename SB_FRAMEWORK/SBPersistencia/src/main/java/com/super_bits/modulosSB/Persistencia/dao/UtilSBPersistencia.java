@@ -1053,4 +1053,12 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return (Long) selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
     }
 
+    public static Object superMerge(ItfBeanSimples pEntidade, EntityManager em) {
+
+        for (pEntidade. ) {
+
+        }
+
+    }
+
 }

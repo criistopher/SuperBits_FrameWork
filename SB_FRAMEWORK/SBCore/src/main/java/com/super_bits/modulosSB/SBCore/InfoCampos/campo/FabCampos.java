@@ -16,36 +16,161 @@ import javax.validation.constraints.NotNull;
  */
 public enum FabCampos implements ItfFabrica {
 
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
     AAA_NOME_CURTO,
+    /**
+     * Indica um nome completo do Item
+     */
     AAA_NOME_LONGO,
+    /**
+     * Indica um campo que armazena um caminho local para uma imagem Pequena
+     */
     IMG_PEQUENA,
+    /**
+     * Indica um campo que armazena um caminho local para uma imagem média
+     */
     IMG_MEDIA,
+    /**
+     * Indica um campo que armazena um caminho local para uma imagem grande
+     */
     IMG_GRANDE,
+    /**
+     * Indica um Descritivo do Item (uma explicação mais detalhada do que ele
+     * signigica), para descritivo de uma ou duas palavras utiliza o AAA_NOME
+     */
     AAA_DESCRITIVO,
+    /**
+     * Indica o ID do Item, pode ser substituído pelo @Id do javax.persistence
+     */
     ID,
-    LAT,
-    LONG,
+    /**
+     * Indica a latitude para posicionamento geográfico no google maps.
+     */
+    LATITUDE,
+    /**
+     * Indica a longitude para posiscionamento geografico no google maps
+     */
+    Longitude,
+    /**
+     * Indica um local no mapa
+     */
     LCLOGRADOURO,
+    /**
+     * Indica um campo de CEP
+     */
     LCCEP,
+    /**
+     * Indica um Bairro
+     */
     LCBairro,
+    /**
+     * Indica uma cidade
+     */
     LCCidade,
+    /**
+     * Indica um estado, unidade Federativa (Item que extenda
+     * ItfUnidadeFederativa)
+     */
     LCUnidadeFederativa,
+    /**
+     * Indica um campo de senha
+     */
     SENHA,
+    /**
+     * Indica um campo de senha com segurança máxima
+     */
     SENHA_SEGURANCA_MAXIMA,
+    /**
+     * Indica um complemento de endereço
+     */
     LCComplemeto,
+    /**
+     *
+     */
+    @Deprecated
     LCCampoAberto,
+    /**
+     * Indica um Código HTML
+     */
     HTML,
+    /**
+     * Indica um valor para utilizar em gráficos
+     */
     CHART_VALOR,
+    /**
+     * Indica um Label para gráficos
+     */
     CHART_LABEL,
+    /**
+     * Indca uma categoria para gráficos
+     */
     CHART_CATEGORIA,
+    /**
+     * Indica a exibição de um calendário
+     */
+    @Deprecated
     CALENDARIO,
+    /**
+     * Indica um timeStamp (no caso de Entidades Persistidas, o @Temporal deve
+     * ser configurado)
+     */
+    DATAHORA,
+    /**
+     * Indica uma data (no caso de Entidades Persistidas, o @Temporal deve ser
+     * configurado)
+     */
+    DATA,
+    /**
+     * Indca uma Hora (no caso de Entidades Persistidas, o @Temporal deve ser
+     * configurado)
+     */
+    HORA,
+    /**
+     * Indica um telefone fixo nacional ex:(11 3224-0000)
+     */
     TELEFONE_FIXO_NACIONAL,
+    /**
+     * Indica um telefone fixo internacional ex: (55 11 3224-0000)
+     */
     TELEFONE_FIXO_INTERNACIONAL,
+    /**
+     * Indica um telefone celular, exemplo: 11 97777-7777
+     */
     TELEFONE_CELULAR,
+    /**
+     * Indica um telefone Generico (aceita qualquer numero)
+     */
     TELEFONE_GENERICO,
+    /**
+     * Indica uma moeda brasileira
+     */
     MOEDA_REAL,
+    /**
+     * Indica dollar
+     */
     MOEDA_DOLAR,
+    /**
+     * Indica uma quantidade
+     */
     QUANTIDADE,
+    /**
+     * Indica uma porcentagem
+     */
     PERCENTUAL,
     /**
      * Campo que apresenta um conjunto de Opçoes a serem selecionadas
@@ -56,22 +181,77 @@ public enum FabCampos implements ItfFabrica {
      * lista
      */
     LOOKUPMULTIPLO,
+    /**
+     * Texto simples
+     */
     TEXTO_SIMPLES,
+    /**
+     * Verdadeiro ou falso
+     */
     VERDADEIRO_FALSO,
+    /**
+     * Indica uma cor em hexadecimal
+     */
     COR,
+    /**
+     * Indica um e-mail
+     */
     EMAIL,
+    /**
+     * Indica um site
+     */
     SITE,
+    /**
+     * Indica uma url (Site com Http:// ou Https://)
+     */
     URL,
+    /**
+     * Indica um responsável por uma empresa
+     */
     RESPONSAVEL,
+    /**
+     * Indica um nome Completo
+     */
     NOME_COMPLETO,
+    /**
+     * Indica um Cadastro Nacional de Pessoa Juridica
+     */
     CNPJ,
+    /**
+     * Indica um cadastro de pessoa Física
+     */
     CPF,
+    /**
+     * Indica ainscrição estadual de uma empresa
+     */
     INSCRICAO_ESTADUAL,
+    /**
+     * Indica a inscrição municipal de uma empresa
+     */
     INSCRIACAO_MUNICIPAL,
+    /**
+     * Indica um registro de Timestamp com a data da ultima alteração (caso o
+     * registro seja persistido deve acompanhar a anotação @Persistence do
+     * javax.persistence)
+     */
     REG_DATAALTERACAO,
+    /**
+     * Indica um registro de Timestamp com a data de cadastro do registro
+     * registro seja persistido deve acompanhar a anotação @Persistence do
+     * javax.persistence)
+     */
     REG_DATAINSERCAO,
+    /**
+     * Indica o usuário que realizou a ultima alteração neste registro
+     */
     REG_USUARIO_ALTERACAL,
+    /**
+     * Indica o usuário que realizou o cadastro deste regsitro
+     */
     REG_USUARIO_INSERCAO,
+    /**
+     * Indica um código de barras
+     */
     CODIGO_DE_BARRAS;
 
     @Override
@@ -94,10 +274,10 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case ID:
                 break;
-            case LAT:
+            case LATITUDE:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
                 break;
-            case LONG:
+            case Longitude:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
                 break;
             case LCLOGRADOURO:

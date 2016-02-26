@@ -17,8 +17,8 @@ public class ItemEndereco extends ItemNormal implements ItfBeanEndereco {
 
         super(pClasseModelo);
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LAT.LAT, "-19.8225864"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LONG, "-43.926274"));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE.LATITUDE, "-19.8225864"));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCEP, ""), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));

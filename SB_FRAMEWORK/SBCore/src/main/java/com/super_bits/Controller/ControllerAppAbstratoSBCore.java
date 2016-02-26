@@ -12,7 +12,7 @@ import com.super_bits.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;

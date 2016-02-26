@@ -1,7 +1,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -134,7 +135,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
         Class<?> classeAnalizada = this.getClass();
         mapaCamposInstanciados = new HashMap<>();
 
-        while (!UtilSBCoreCampoReflexao.isClasseBasicaSB(classeAnalizada)) {
+        while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
 
             for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
                 campoEncontrado.getAnnotations(); // SE o campo não for estatico
@@ -233,7 +234,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
      */
     protected Field getCampoByAnotacao(FabCampos pNomedaAnotacao) {
 
-        return UtilSBCoreCampoReflexao.getSBCampobyTipoCampo(classeModelo, pNomedaAnotacao);
+        return UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(classeModelo, pNomedaAnotacao);
 
     }
 
@@ -336,8 +337,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     if (tipoDeValor.equals("java.lang.String")) {
                         valor = (String) campoReflecao.get(this);
                     } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                    {
-                        if (campoReflecao.getType().getName().equals("int")) {
+                     if (campoReflecao.getType().getName().equals("int")) {
                             // System.out.println("TTTTIIIPOOOO int");
                             valor = (Integer) campoReflecao.get(this);
                         } else if (campoReflecao.getType().getName()
@@ -353,7 +353,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
                             valor = campoReflecao.get(this).toString();
                         }
-                    }
 
                     if (valor == null || valor.toString().equals("")) {
                         return campoPadrao.getValorPadrao();
@@ -417,12 +416,12 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
     @Override
     public Field getCampo(FabCampos pInfoCampo) {
-        return UtilSBCoreCampoReflexao.getSBCampobyTipoCampo(this.getClass(), pInfoCampo);
+        return UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(this.getClass(), pInfoCampo);
     }
 
     @Override
     public String getNomeCampo(FabCampos pInfocampo) {
-        return UtilSBCoreCampoReflexao.getSBCampobyTipoCampo(this.getClass(), pInfocampo).getName();
+        return UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(this.getClass(), pInfocampo).getName();
     }
 
     @Override
@@ -499,6 +498,13 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
             }
         }
         return camposInstanciados;
+    }
+
+    @Override
+    public List<ItfBeanSimples> getEntidadesVinculadas() {
+
+        UtilSBCoreReflexao.instanciarListas();
+
     }
 
 }

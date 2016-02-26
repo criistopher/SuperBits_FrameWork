@@ -39,9 +39,9 @@ public class TipoCampos extends ConstantesWeb {
 
             case ID:
                 break;
-            case LAT:
+            case LATITUDE:
                 break;
-            case LONG:
+            case Longitude:
                 break;
             case LCLOGRADOURO:
                 break;
@@ -196,11 +196,11 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getLAT() {
-        return FabCampos.LAT.name();
+        return FabCampos.LATITUDE.name();
     }
 
     public String LONG() {
-        return FabCampos.LONG.name();
+        return FabCampos.Longitude.name();
     }
 
     public String getLCLOGRADOURO() {

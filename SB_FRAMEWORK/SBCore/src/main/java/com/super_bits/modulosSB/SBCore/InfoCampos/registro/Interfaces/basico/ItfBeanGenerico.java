@@ -69,4 +69,12 @@ public interface ItfBeanGenerico {
 
     public void configIDFromNomeCurto();
 
+    /**
+     *
+     * Retorna todas as entidades vinculadas ao bean para merg
+     *
+     * @return
+     */
+    public List<ItfBeanSimples> getEntidadesVinculadas();
+
 }

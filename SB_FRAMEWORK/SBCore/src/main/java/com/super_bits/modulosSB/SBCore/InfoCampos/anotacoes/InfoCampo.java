@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabModoExibicaoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampo;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -124,5 +125,11 @@ public @interface InfoCampo {
      * @return
      */
     ItfCampo.TIPOPRIMITIVO tipoPrimitivo() default ItfCampo.TIPOPRIMITIVO.LETRAS;
+
+    /**
+     *
+     * @return Os locais onde o campo será exibido
+     */
+    FabModoExibicaoCampo[] modosExibicao() default {FabModoExibicaoCampo.TODOS_MENOS_LISTA};
 
 }

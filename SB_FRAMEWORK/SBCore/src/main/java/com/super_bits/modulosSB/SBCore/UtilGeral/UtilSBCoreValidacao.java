@@ -35,9 +35,9 @@ public abstract class UtilSBCoreValidacao {
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case ID:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LAT:
+            case LATITUDE:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LONG:
+            case Longitude:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case LCLOGRADOURO:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
