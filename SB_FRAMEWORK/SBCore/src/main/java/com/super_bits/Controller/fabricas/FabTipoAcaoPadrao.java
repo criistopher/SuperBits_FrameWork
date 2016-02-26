@@ -53,12 +53,12 @@ public enum FabTipoAcaoPadrao implements ItfFabrica {
             case SALVAR_NOVO:
                 acaoPadrao.setNomePadrao("Salvar registro criado");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro criado");
-                acaoPadrao.setIconePadrao("fa-save (alias)");
+                acaoPadrao.setIconePadrao("fa fa-save (alias)");
                 break;
             case SALVAR_MODO_MERGE:
                 acaoPadrao.setNomePadrao("Atualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao");
-                acaoPadrao.setIconePadrao("fa fa-random");
+                acaoPadrao.setIconePadrao("fa fa-save");
                 break;
             case LISTAR_ABRIR_FORMULARIO:
                 acaoPadrao.setNomePadrao("Listar registro");
