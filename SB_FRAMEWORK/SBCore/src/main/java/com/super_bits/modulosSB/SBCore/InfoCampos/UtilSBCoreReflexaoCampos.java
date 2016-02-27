@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos;
 
 import com.google.common.collect.HashBiMap;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
@@ -29,7 +30,15 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
-    public static List<Field> getTodosItensSimplesDoItem(Class pClasse) {
+    /**
+     *
+     * Retorna os objtetos Filds do Reflectio de todos os Itens Simples da
+     * classe
+     *
+     * @param pClasse
+     * @return
+     */
+    public static List<Field> getTodosCamposTipoItensSimplesDoItem(Class pClasse) {
 
         List<Field> lista = new ArrayList<>();
 
@@ -58,59 +67,74 @@ public class UtilSBCoreReflexaoCampos {
 
     /**
      *
-     * Retorna os Fields que sejam compativeis com ItfItemSimples em ordem de
-     * Itens filho para pai
+     * Retorna os objtetos Filds do Reflectio de todos os Itens Simples da
+     * classe
      *
-     * @param pClasse classe que será analizada
-     * @return Fileds Do tipo item Simples
+     * @param pClasse
+     * @return
      */
-    public static List<Field> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
+    public static List<CaminhoCampoReflexao> getTodosCamposTipoItemSimplesDoItem(Class pClasse, String pCaminho) {
 
-        Map<Integer, List<Field>> itensEncontrados = new TreeMap<>();
+        List<CaminhoCampoReflexao> lista = new ArrayList<>();
 
         while (!isClasseBasicaSB(pClasse)) {
             List<Field> itensdoNivel = new ArrayList<>();
 
             Field[] fields = pClasse.getDeclaredFields();
 
-            for (Field field : fields) {
+            for (Field campo : fields) {
+                Class classeDoCampo = campo.getType();
+                if (classeDoCampo.isAssignableFrom(ItfBeanSimples.class)) {
 
-                if (field.getType().isAssignableFrom(ItfBeanSimples.class)) {
-
-                    boolean temMaisFilho = true;
-                    Class classeFilho = field.getClass();
-                    int nivelFilho = 0;
-                    while (temMaisFilho) {
-                        nivelFilho++;
-                        Field[] camposFilho = classeFilho.getDeclaredFields();
-                        for (Field campo : camposFilho) {
-                            boolean encontrouFilho;
-                            if (field.getType().isAssignableFrom(ItfBeanSimples.class)) {
-                                campo.get
-                            }
-                        }
-
-                    }
+                    lista.add(new CaminhoCampoReflexao(pCaminho, campo));
 
                 }
 
             }
 
             pClasse = pClasse.getSuperclass();
-            if (!itensdoNivel.isEmpty()) {
-                itensEncontrados.put(nivelAtual, itensdoNivel);
-
-            }
 
         }
-        ArrayList<Integer> keys = new ArrayList<Integer>(itensEncontrados.keySet());
-        List<Field> camposEncontrados = new ArrayList<>();
 
-        for (int i = keys.size() - 1; i >= 0; i--) {
-            for (Field cp : itensEncontrados.get(keys.get(i))) {
-                camposEncontrados.add(cp);
+        return lista;
+
+    }
+
+    private static List<CaminhoCampoReflexao> getCamposReflectionFilho(List<CaminhoCampoReflexao> listaAnterior, String pCaminhoAnterior) {
+
+        for (CaminhoCampoReflexao cm : listaAnterior) {
+            List<CaminhoCampoReflexao> camposEncontrados = getTodosCamposTipoItemSimplesDoItem(cm.getCampo().getType(), pCaminhoAnterior + "." + cm.getCampo().getName());
+            listaAnterior.add(cm);
+            if (!camposEncontrados.isEmpty()) {
+                listaAnterior = getCamposReflectionFilho(listaAnterior, pCaminhoAnterior + "." + cm.getCampo().getName());
             }
         }
+        return listaAnterior;
+
+    }
+
+    /**
+     *
+     * Retorna os Fields que sejam compativeis com ItfItemSimples em ordem de
+     * Itens filho para pai
+     *
+     * @param pClasse classe que será analizada
+     * @return Fileds Do tipo item Simples
+     */
+    public static List<CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
+
+        Map<Integer, List<CaminhoCampoReflexao>> itensEncontrados = new TreeMap<>();
+
+        int nivel = 0;
+        Class classe = pClasse;
+
+        List<CaminhoCampoReflexao> camposEncontrados = getTodosCamposTipoItemSimplesDoItem(pClasse, "");
+        // adiciona campos no nivel 0
+        if (!camposEncontrados.isEmpty()) {
+            camposEncontrados = getCamposReflectionFilho(camposEncontrados, pClasse.getSimpleName());
+        }
+        // para cada campo encontrado no nivel 0
+
         return camposEncontrados;
 
     }
@@ -124,7 +148,8 @@ public class UtilSBCoreReflexaoCampos {
             Field[] fields = classe.getDeclaredFields();
 
             for (Field field : fields) {
-                InfoCampo annotationField = field.getAnnotation(InfoCampo.class);
+                InfoCampo annotationField = field.getAnnotation(InfoCampo.class
+                );
 
                 if (annotationField != null) {
 

@@ -3,7 +3,8 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -24,9 +25,9 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
 
         Class classeDoCampo = this.getClass();
         Field campo;
-        campo = UtilSBCoreCampoReflexao.getSBCampobyTipoCampo(classeDoCampo, FabCampos.ID);
+        campo = UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(classeDoCampo, FabCampos.ID);
         if (campo == null) {
-            campo = UtilSBCoreCampoReflexao.getCampoByClasseAnotacao(classeDoCampo, Id.class);
+            campo = UtilSBCoreReflexaoCampos.getCampoByClasseAnotacao(classeDoCampo, Id.class);
         }
 
         return campo;

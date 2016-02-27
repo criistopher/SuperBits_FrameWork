@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -264,6 +265,23 @@ public abstract class UtilSBCoreReflexao {
         }
         return null;
 
+    }
+
+    public static boolean isInterfaceImplementadaNaClasse(Class pClass, Class pInterface) {
+        boolean temMaisClasse = true;
+        Class classe = pClass;
+        while (temMaisClasse) {
+
+            if (classe.isAssignableFrom(pInterface)) {
+                return true;
+            }
+            if (classe.getSimpleName().equals(ItemSimples.class.getSimpleName())
+                    || classe.getSimpleName().equals(Object.class.getSimpleName())) {
+                temMaisClasse = false;
+            }
+            classe = classe.getSuperclass();
+        }
+        return false;
     }
 
     public static List<Class> getClassesComEstaAnotacao(Class pAnotacao, String pCaminhoPacote) {

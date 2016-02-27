@@ -15,6 +15,7 @@ import java.util.List;
 public class CaminhoCampoReflexao {
 
     private List<String> caminho;
+    private String caminhoComleto;
     private Field campo;
 
     public CaminhoCampoReflexao() {
@@ -29,7 +30,8 @@ public class CaminhoCampoReflexao {
      */
     public CaminhoCampoReflexao(String pCaminho, Field campo) {
         this();
-        setCaminho(pCaminho);
+        //setCaminho(pCaminho);
+        caminhoComleto = pCaminho;
         this.campo = campo;
     }
 
@@ -74,11 +76,15 @@ public class CaminhoCampoReflexao {
      * usuario.localizacao.bairro
      */
     public String getCaminhoString() {
-        throw new UnsupportedOperationException("Ainda não implementado");
+        return caminhoComleto;
     }
 
     public List<String> getCaminho() {
         return caminho;
+    }
+
+    public Field getCampo() {
+        return campo;
     }
 
 }

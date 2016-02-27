@@ -1055,9 +1055,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static Object superMerge(ItfBeanSimples pEntidade, EntityManager em) {
 
-        for (pEntidade. ) {
-
-        }
+        throw new UnsupportedOperationException();
 
     }
 

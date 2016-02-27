@@ -19,8 +19,8 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
 
         super(pClasseModelo);
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LAT, "-19.8225864"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LONG, "-43.926274"));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE, "-19.8225864"));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCEP, ""));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));

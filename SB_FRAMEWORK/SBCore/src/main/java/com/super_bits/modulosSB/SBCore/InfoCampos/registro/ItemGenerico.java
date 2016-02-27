@@ -4,6 +4,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoGenerico;
@@ -501,9 +502,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     }
 
     @Override
-    public List<ItfBeanSimples> getEntidadesVinculadas() {
+    public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
 
-        UtilSBCoreReflexao.instanciarListas();
+        return UtilSBCoreReflexaoCampos.getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(this.getClass());
 
     }
 

@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
@@ -75,6 +76,6 @@ public interface ItfBeanGenerico {
      *
      * @return
      */
-    public List<ItfBeanSimples> getEntidadesVinculadas();
+    public List<CaminhoCampoReflexao> getEntidadesVinculadas();
 
 }
