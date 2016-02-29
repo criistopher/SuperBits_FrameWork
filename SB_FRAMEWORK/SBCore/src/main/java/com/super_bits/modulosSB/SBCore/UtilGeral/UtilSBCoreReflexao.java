@@ -267,6 +267,14 @@ public abstract class UtilSBCoreReflexao {
 
     }
 
+    /**
+     *
+     * Verifica se classe ou algum superType da classe implementa uma interface
+     *
+     * @param pClass Classe onde a interface é implementada
+     * @param pInterface Interface que está sendo procurada
+     * @return
+     */
     public static boolean isInterfaceImplementadaNaClasse(Class pClass, Class pInterface) {
         boolean temMaisClasse = true;
         Class classe = pClass;
@@ -280,6 +288,9 @@ public abstract class UtilSBCoreReflexao {
                 temMaisClasse = false;
             }
             classe = classe.getSuperclass();
+            if (classe == null) {
+                return false;
+            }
         }
         return false;
     }

@@ -1,16 +1,17 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class Campo extends ItemSimples implements Serializable, ItfCampo {
+public class Campo implements Serializable, ItfCampo {
 
+    @InfoCampo(tipo = FabCampos.ID)
     private FabCampos tipoCampo;
 
     private TIPOPRIMITIVO tipoValor;
@@ -21,6 +22,7 @@ public class Campo extends ItemSimples implements Serializable, ItfCampo {
 
     private String valorPadrao;
 
+    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
     private String label;
 
     private String descricao;
@@ -298,6 +300,11 @@ public class Campo extends ItemSimples implements Serializable, ItfCampo {
 
     @Override
     public void configIDFromNomeCurto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -27,8 +27,14 @@ public class ItemBairro extends ItemSimples implements ItfBairro {
 
     private List<Long> coordenadas = new ArrayList<Long>();
 
+    private ItemCidade cidade;
+
     public ItemBairro(WebServiceCepRepublicaVirtual cepEncontrado) {
 
+    }
+
+    public ItemBairro() {
+        cidade = new ItemCidade();
     }
 
     @Override
@@ -61,7 +67,7 @@ public class ItemBairro extends ItemSimples implements ItfBairro {
 
     @Override
     public ItfCidade getCidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cidade;
     }
 
 }

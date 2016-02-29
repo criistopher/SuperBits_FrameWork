@@ -28,8 +28,11 @@ public class ItemLocal extends ItemSimples implements ItfLocal {
 
     private String complemento;
 
-    @Override
+    public ItemLocal() {
+        bairro = new ItemBairro();
+    }
 
+    @Override
     public long getLongitude() {
 
         return this.longitude;

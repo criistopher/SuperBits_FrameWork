@@ -80,10 +80,20 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
 
         @Override
         public Object getValor() {
+            String infomensagemErro = "";
             try {
-                return campoReflection.get(getInstancia());
+                if (campoReflection == null) {
+                    throw new UnsupportedOperationException("O campo" + infoCampo + "não possui um Field configurado");
+                }
+                infomensagemErro = campoReflection.getName();
+                campoReflection.setAccessible(true);
+                Object instancia = getInstancia();
+                Field cp = campoReflection;
+                return cp.get(instancia);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                Logger.getLogger(ItemGenerico.class.getName()).log(Level.SEVERE, null, ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, ex.getMessage() + "Erro obtendo valor do item Generico Instanciado" + infomensagemErro + " ", ex);
+                System.out.println(ex.getCause());
+                System.out.println(ex.getLocalizedMessage());
             }
             return null;
         }

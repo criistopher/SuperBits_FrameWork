@@ -27,6 +27,9 @@ public class UtilSBCoreCEPTest extends TesteJunit {
         UtilSBCoreCEP.configuraEndereco("31110600", local);
 
         System.out.println("Loca=" + local.getNome());
+        System.out.println("Estado" + local.getBairro().getCidade().getUnidadeFederativa().getNome());
+        System.out.println("Bairro" + local.getBairro().getNome());
+        System.out.println("Cidade" + local.getBairro().getCidade().getNome());
 
     }
 

@@ -10,7 +10,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 /**
  *

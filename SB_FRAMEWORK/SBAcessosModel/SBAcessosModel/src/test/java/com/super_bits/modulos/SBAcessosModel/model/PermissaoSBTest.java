@@ -5,7 +5,6 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.ConfigGeral.ConfigPersistenciaExemplo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -14,7 +13,6 @@ import config.ConfigPersistenciaTestesAcesso;
 import config.FabConfiguracoesCoreAcessosModel;
 import java.util.List;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

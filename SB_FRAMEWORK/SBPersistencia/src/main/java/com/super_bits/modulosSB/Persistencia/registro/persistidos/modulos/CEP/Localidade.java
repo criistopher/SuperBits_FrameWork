@@ -38,6 +38,7 @@ public class Localidade extends EntidadeNormal implements ItfLocalidade {
 
     public Localidade() {
         super(Localidade.class);
+
     }
 
     public Localidade(int pID, String pNome, String pDescricao) {

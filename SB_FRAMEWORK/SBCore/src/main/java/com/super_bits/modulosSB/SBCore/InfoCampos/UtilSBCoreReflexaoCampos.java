@@ -7,12 +7,18 @@ package com.super_bits.modulosSB.SBCore.InfoCampos;
 
 import com.google.common.collect.HashBiMap;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,10 +90,8 @@ public class UtilSBCoreReflexaoCampos {
 
             for (Field campo : fields) {
                 Class classeDoCampo = campo.getType();
-                if (classeDoCampo.isAssignableFrom(ItfBeanSimples.class)) {
-
+                if (UtilSBCoreReflexao.isInterfaceImplementadaNaClasse(classeDoCampo, ItfBeanSimples.class)) {
                     lista.add(new CaminhoCampoReflexao(pCaminho, campo));
-
                 }
 
             }
@@ -187,6 +191,17 @@ public class UtilSBCoreReflexaoCampos {
 
         }
         return null;
+    }
+
+    /**
+     *
+     * Retorna o Valor da propriedade de acordo com a anotação
+     *
+     * @param tipoCampo Tipo do campo procurado
+     * @return Valor da propriedade pojo anotada com o campo procurado
+     */
+    protected Object getValorByTipoCampoEsperado(FabCampos tipoCampo, Object instancia) {
+        throw new UnsupportedOperationException();
     }
 
 }

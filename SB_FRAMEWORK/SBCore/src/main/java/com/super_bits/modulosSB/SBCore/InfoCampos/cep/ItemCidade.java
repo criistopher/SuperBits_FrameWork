@@ -30,6 +30,10 @@ public class ItemCidade extends ItemSimples implements ItfCidade {
 
     private List<ItfBairro> listaDeBairros = new ArrayList<>();
 
+    public ItemCidade() {
+        unidadeFederativa = new ItemUnidadeFederativa();
+    }
+
     @Override
     public void setId(int pId) {
 
