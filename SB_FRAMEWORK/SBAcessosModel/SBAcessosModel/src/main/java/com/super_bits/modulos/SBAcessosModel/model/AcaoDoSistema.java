@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.lang.reflect.Method;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -26,6 +27,23 @@ import javax.persistence.Transient;
  */
 @Entity
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
+
+    public static enum VARIAVEIS_ACAO_DO_SISTEMA {
+        VIEW_NAO_IMPLEMENTADA,;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case VIEW_NAO_IMPLEMENTADA:
+                    return "/resources/sistema/naoimplementado.xhtml";
+
+                default:
+                    return super.toString();
+
+            }
+
+        }
+    }
 
     @Id
     private int id;
@@ -277,13 +295,20 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public void validarAcao(boolean validarNaoConfigurado) {
 
-        if (acaoConfigurada || validarNaoConfigurado) {
+        if ((!acaoConfigurada || validarNaoConfigurado) || acaoConfigurada) {
 
             if (isAcaoPrincipal && acaoPrincipal != null) {
-                throw new UnsupportedOperationException("Por ser uma ação principal, eta ação não pode conter uma ação principal" + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+                throw new UnsupportedOperationException("Erro configurando a ação:" + fabrica.toString() + nomeAcao + ", Por ser uma ação principal, esta ação não pode conter uma ação principal "); //To change body of generated methods, choose Tools | Templates.
             }
-            if (!isAcaoPrincipal && acaoPrincipal == null) {
-                throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+
+            if (!isAcaoPrincipal) {
+                if (acaoPrincipal == null) {
+                    throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + fabrica.toString() + nomeAcao); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                if (!acaoPrincipal.isAcaoPrincipal) {
+                    throw new UnsupportedOperationException("A ação principal configurada para " + this.getNomeAcao() + " não é uma ação pricipal");
+                }
             }
 
             if (iconeAcao == null) {
@@ -292,8 +317,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
             }
 
-            if (xhtmlAcao == null) {
-                if (SBCore.getConfiguradorDePermissao().getMetodoByAcao(this) == null) {
+            if (xhtmlAcao == null || xhtmlAcao == "") {
+                Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(this);
+                if (metodo == null) {
+                    System.out.println("teste");
                     throw new UnsupportedOperationException("esta ação não contem um formulário, portanto deve existir uma ação vinculada a ela na camada Controller "
                             + "nehum método foi encontrado,"
                             + "Dica: Ao nomear a ação, não esqueça de começar pelo nome do objeto em questão, em seguida o nome da ação"
@@ -313,9 +340,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal
-    ) {
+    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
         isAcaoPrincipal = pisAcaoPrincipal;
+        tipoAcao = FabTipoAcaoPadrao.GERENCIAR;
         if (pisAcaoPrincipal) {
             acessoAPagina = true;
         }
@@ -323,7 +350,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
+
+        if (pAcaoPrincipal.getNomeUnico().equals(this.getNomeUnico())) {
+            throw new UnsupportedOperationException("Erro configurando ação principal de " + this.getAcaoPrincipal() + "A ação principal não pode ser ela mesma.");
+        }
         acaoPrincipal = (AcaoDoSistema) pAcaoPrincipal;
+
     }
 
     @Override

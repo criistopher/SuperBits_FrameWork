@@ -63,7 +63,7 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
         for (Map.Entry<Integer, Method> entry : metodosByHashMetodo.entrySet()) {
 
             ItfAcaoDoSistema acaoDoMetodo = UtilSBController.getAcaoByMetodo(entry.getValue(), true);
-            if (pAcao.getNomeAcao().equals(pAcao.getNomeAcao())) {
+            if (acaoDoMetodo.getNomeAcao().equals(pAcao.getNomeAcao())) {
                 return entry.getValue();
             }
         }

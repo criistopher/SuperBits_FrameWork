@@ -9,9 +9,9 @@ import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -21,7 +21,6 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
-import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,55 +95,69 @@ public class SBCore {
     }
 
     public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
-
-        estadoAplicativo = configuracoes.getEstadoApp();
-        centralMensagens = configuracoes.getCentralDeMensagens();
-        classeErro = configuracoes.getClasseErro();
-        diretorioBase = configuracoes.getDiretorioBase();
-        nomeProjeto = configuracoes.getNomeProjeto();
-        controleDeSessao = configuracoes.getControleDeSessao();
-        grupoProjeto = configuracoes.getGrupoProjeto();
-        cliente = configuracoes.getCliente();
-        configurado = true;
-        centralEventos = configuracoes.getCentralDeEventos();
-        classeConfigPermissoes = configuracoes.getConfigPermissoes();
-
-        if (centralMensagens == null) {
-            System.out.println("Central de mensagens não configurada");
-            configurado = false;
-        }
-        if (estadoAplicativo == null) {
-            System.out.println("Estado do aplicativo não configurado");
-            configurado = false;
-        }
-        if (classeErro == null) {
-            System.out.println("Classe Erro não configurada");
-            configurado = false;
-        }
-        if (diretorioBase == null) {
-            System.out.println("Diretorio base não configurado");
-            configurado = false;
-        }
-        if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
-            File pastaTemp = new File("/home/developer/temp/servlet");
-            pastaTemp.mkdirs();
-        }
-
         try {
-            // Definindo configuração de acessos
-            if (classeConfigPermissoes == null) {
-                Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
-                configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
-            } else {
-                configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+            estadoAplicativo = configuracoes.getEstadoApp();
+            centralMensagens = configuracoes.getCentralDeMensagens();
+            classeErro = configuracoes.getClasseErro();
+            diretorioBase = configuracoes.getDiretorioBase();
+            nomeProjeto = configuracoes.getNomeProjeto();
+            controleDeSessao = configuracoes.getControleDeSessao();
+            grupoProjeto = configuracoes.getGrupoProjeto();
+            cliente = configuracoes.getCliente();
+            // central de eventos e config de permissao podem ser definidos logo após a chamada do configurar
+            configurado = true;
+
+            centralEventos = configuracoes.getCentralDeEventos();
+            classeConfigPermissoes = configuracoes.getConfigPermissoes();
+
+            if (centralMensagens == null) {
+                System.out.println("Central de mensagens não configurada");
+                configurado = false;
+            }
+            if (estadoAplicativo == null) {
+                System.out.println("Estado do aplicativo não configurado");
+                configurado = false;
+            }
+            if (classeErro == null) {
+                System.out.println("Classe Erro não configurada");
+                configurado = false;
+            }
+            if (diretorioBase == null) {
+                System.out.println("Diretorio base não configurado");
+                configurado = false;
+            }
+            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
+                File pastaTemp = new File("/home/developer/temp/servlet");
+                pastaTemp.mkdirs();
             }
 
-        } catch (Throwable t) {
-            if (pIgnorarClassePermissao) {
-                System.out.println("A Classe de permissões não foi definida");
-            } else {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema ", t);
+            try {
+                // Definindo configuração de acessos
+                if (classeConfigPermissoes == null) {
+                    Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+                    configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
+                } else {
+                    configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+                }
+
+            } catch (Throwable t) {
+                if (pIgnorarClassePermissao) {
+                    System.out.println("A Classe de permissões não foi definida");
+                } else {
+                    configurado = false;
+                    throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
+                }
+
             }
+
+            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
+                if (UtilSBCoreArquivos.isArquivoExiste(SBCore.getCaminhoDesenvolvimento() + "/pom.xml")) {
+                    throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
+                }
+            }
+        } catch (Throwable t) {
+            configurado = false;
+            FabErro.PARA_TUDO.paraSistema("Erro configurando o Core", t);
         }
     }
 

@@ -22,7 +22,8 @@ public enum FabTipoAcaoPadrao implements ItfFabrica {
     ATIVAR,
     DESATIVAR,
     VISUALIZAR_ABRIR_FORMULARIO,
-    LISTAR_ABRIR_FORMULARIO;
+    LISTAR_ABRIR_FORMULARIO,
+    GERENCIAR;
 
     @Override
     public TipoAcaoPadrao getRegistro() {

@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
@@ -39,13 +40,20 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
 
     @Test
     public void testUsuarioAlterarStatus() {
+
         ItfControleDeSessao controleDeSessao = SBCore.getControleDeSessao();
         ItfSessao sessao = controleDeSessao.getSessaoAtual();
         ItfUsuario usuario = sessao.getUsuario();
+
         controleDeSessao.logarEmailESenha("root@superBits.com", "senh@Screta");
         System.out.println("Usuário logado=" + usuario.getNome());
 
-        ModuloSeguranca.grupoAlterarStatus(FabSegurancaGruposPadrao.GRUPO_ADMINISTRADOR.getRegistro());
+        ItfResposta resp = ModuloSeguranca.grupoAlterarStatus(FabSegurancaGruposPadrao.GRUPO_ADMINISTRADOR.getRegistro());
+
+        System.out.println("Sucessso:" + resp.isSucesso());
+        assertFalse("O sistema permitiu que o status do grupo fosse alterado com um susuário anomimo, isto é um absurdo", resp.isSucesso());
+        resp.getRetorno();
+        assertTrue("Mesmo o usuario sendo Root, a ação não foi executada", resp.isSucesso());
 
     }
 

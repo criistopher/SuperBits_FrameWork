@@ -59,6 +59,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Column(unique = true)
     @InfoCampo(label = "Usuário")
     private String apelido;
+
     @InfoCampo(tipo = FabCampos.SENHA, label = "Senha")
     @NotNull
     private String senha;
