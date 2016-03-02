@@ -11,8 +11,8 @@ import com.super_bits.Controller.Interfaces.ItfPermissao;
 import com.super_bits.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -47,6 +48,11 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     public static ItfResposta getNovaResposta(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
 
+        return resp;
+    }
+
+    protected static ItfResposta getNovaRespostaComAutorizacao(Class pTipoRetorno) {
+        Resposta resp = new Resposta(pTipoRetorno, null);
         return resp;
     }
 
@@ -95,27 +101,38 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return nomeClasse + "." + nomeMetodo;
     }
 
-    private static Method getMetodoChamado() {
+    protected static Method getMetodoChamado() {
+
+        int inicioPesquisaMetodo = 3;
+
         final Thread t = Thread.currentThread();
-        final StackTraceElement[] stackTrace = t.getStackTrace();
-        final StackTraceElement ste = stackTrace[3];
-        final String methodName = ste.getMethodName();
-        final String className = ste.getClassName();
-        Class<?> kls;
-        try {
-            kls = Class.forName(className);
+        final StackTraceElement[] stackTraceTodosMetodos = t.getStackTrace();
+        int idfinalStacktrace = stackTraceTodosMetodos.length - 1;
 
-            do {
-                for (final Method candidate : kls.getDeclaredMethods()) {
-                    if (candidate.getName().equals(methodName)) {
-                        return candidate;
+        for (int i = inicioPesquisaMetodo; (i <= idfinalStacktrace); i++) {
+            final StackTraceElement stackTrhaceMetodoAtual = stackTraceTodosMetodos[i];
+            final String methodName = stackTrhaceMetodoAtual.getMethodName();
+            final String className = stackTrhaceMetodoAtual.getClassName();
+
+            Class<?> classedoMetodo;
+            try {
+                classedoMetodo = Class.forName(className);
+
+                do {
+                    for (final Method candidate : classedoMetodo.getDeclaredMethods()) {
+                        if (candidate.getName().equals(methodName)) {
+
+                            if (UtilSBController.possuiMetodoDeAcao(candidate)) {
+                                return candidate;
+                            }
+
+                        }
                     }
-                }
-                kls = kls.getSuperclass();
-            } while (kls != null);
-
-        } catch (ClassNotFoundException ex) {
-            return null;
+                    classedoMetodo = classedoMetodo.getSuperclass();
+                } while (classedoMetodo != null);
+            } catch (Throwable tt) {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando obter Método vinculado", tt);
+            }
 
         }
 
@@ -134,7 +151,8 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
             for (ItfUsuario novousuario : usuariosAtualizados) {
                 usuarios.put(novousuario.getEmail(), novousuario);
             }
-            List<ItfPermissao> permissoesAtualizadas = SBCore.getConfiguradorDePermissao().configuraPermissoes();
+            ItfCfgPermissoes classeResponsavelPermissao = SBCore.getConfiguradorDePermissao();
+            List<ItfPermissao> permissoesAtualizadas = classeResponsavelPermissao.configuraPermissoes();
 
             if (permissoesAtualizadas != null) {
                 for (ItfPermissao ac : permissoesAtualizadas) {
@@ -156,57 +174,46 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return resp.addMensagemErroDisparaERetorna("Acesso negado, solicite acesso a este recurso.");
     }
 
-    /**
-     *
-     * Retorna a resposta verificando as permissões e adicionando mensagens de
-     * erro para parametros não enviados (AINDA NÂO IMPLEMENTADO)
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     *
-     * @param pTipoRetorno
-     * @return
-     */
-    @Deprecated
-    protected static ItfResposta getNovaRespostaAutorizaChecaNulo(Class pTipoRetorno) {
-        ItfResposta resposta = getNovaRespostaComAutorizacao(pTipoRetorno);
-        Method metodo = getMetodoChamado();
+    @SuppressWarnings("null")
+    protected static void addMensagemDeAutorizacao(@NotNull ItfResposta pResp) {
+        try {
+            if (pResp == null) {
+                throw new UnsupportedOperationException("Tentativa de adicionar uma mensgem de autorização em uma resposta nula");
+            }
 
-        return resposta;
-    }
+            ItfUsuario usuario = SBCore.getControleDeSessao().getSessaoAtual().getUsuario();
 
-    protected static ItfResposta getNovaRespostaComAutorizacao(Class pTipoRetorno) {
-        Resposta resp = new Resposta(pTipoRetorno, null);
-        return resp;
-    }
+            if (usuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
+                return;
+            }
 
-    protected static ItfResposta addMensagemDeAutorizacao(ItfResposta pResp) {
+            Method metodo = getMetodoChamado();
 
-        ItfUsuario usuario = SBCore.getControleDeSessao().getSessaoAtual().getUsuario();
+            ItfPermissao permissao = null;
 
-        if (usuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
-            return pResp;
-        }
+            ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo, true);
+            if (acao == null) {
+                FabErro.PARA_TUDO.paraSistema("A ANOTAÇÃO DE AÇÃO NÃO FOI ENCONTRADA NO METODO DE AÇÃO DO SISTEMA", null);
+            }
+            if (!acao.isPrecisaPermissao()) {
+                return;
+            }
 
-        Method metodo = getMetodoChamado();
+            permissao = getPermissoes().get(acao.getId());
 
-        ItfPermissao permissao = null;
+            if (permissao == null) {
+                FabErro.PARA_TUDO.paraSistema("O sistema não encontrou o registro de permissao da ação" + acao.getNomeAcao(), null);
+            }
 
-        ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo, true);
-        if (acao == null) {
-            FabErro.PARA_TUDO.paraSistema("A ANOTAÇÃO DE AÇÃO NÃO FOI ENCONTRADA NO METODO DE AÇÃO DO SISTEMA", null);
-        }
+            if (isPermitido(permissao, usuario)) {
+                return;
 
-        permissao = getPermissoes().get(acao.getId());
-
-        if (permissao == null) {
-            FabErro.PARA_TUDO.paraSistema("O sistema não encontrou o registro de permissao da ação" + acao.getNomeAcao(), null);
-        }
-
-        if (isPermitido(permissao, usuario)) {
-            return pResp;
-
-        } else {
-            pResp.addErro(usuario.getNome() + ",parece que o acesso a esta ação do sistema ainda não foi liberada para você, entre em contato com o responsável e tente novamente");
-            return pResp;
+            } else {
+                pResp.addErro(usuario.getNome() + ",parece que o acesso a esta ação do sistema ainda não foi liberada para você, entre em contato com o responsável e tente novamente");
+                return;
+            }
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando verificar permissao a ação do sistema", t);
         }
     }
 

@@ -22,11 +22,11 @@ public class Resposta implements ItfResposta {
 
     private List<ItfMensagem> mensagens;
 
-    private final Class tipoRetorno;
+    private Class tipoRetorno;
 
     private Object retorno;
 
-    private ItfAcaoDoSistema acaoDosistema;
+    private final ItfAcaoDoSistema acaoDosistema;
 
     private void calculaResultados() {
         resultado = Resultado.SUCESSO;
@@ -52,6 +52,7 @@ public class Resposta implements ItfResposta {
         }
     }
 
+    @SuppressWarnings("LeakingThisInConstructor")
     public Resposta(Class pTipoRetorno, ItfAcaoDoSistema pAcaoDoSistema) {
         UtilSBCoreReflexao.instanciarListas(this);
         tipoRetorno = pTipoRetorno;
@@ -87,8 +88,9 @@ public class Resposta implements ItfResposta {
     }
 
     @Override
-    public void addMensagem(ItfMensagem pMensagem) {
+    public ItfResposta addMensagem(ItfMensagem pMensagem) {
         mensagens.add(pMensagem);
+        return this;
     }
 
     @Override
@@ -152,26 +154,33 @@ public class Resposta implements ItfResposta {
     }
 
     @Override
-    public void addAlerta(String pMensagem) {
+    public ItfResposta addAlerta(String pMensagem) {
         ItfMensagem msg = FabMensagens.ALERTA.getMsgUsuario(pMensagem);
         mensagens.add(msg);
+        return this;
     }
 
     @Override
-    public void addAviso(String pMensagem) {
+    public ItfResposta addAviso(String pMensagem) {
         ItfMensagem msg = FabMensagens.AVISO.getMsgUsuario(pMensagem);
         mensagens.add(msg);
+        return this;
     }
 
     @Override
-    public void addErro(String pMensagem) {
+    public ItfResposta addErro(String pMensagem) {
         ItfMensagem msg = FabMensagens.ERRO.getMsgUsuario(pMensagem);
         mensagens.add(msg);
+        return this;
     }
 
     @Override
     public boolean isSucesso() {
         return resultado == Resultado.SUCESSO;
+    }
+
+    public void setTipoRetorno(Class tipoRetorno) {
+        this.tipoRetorno = tipoRetorno;
     }
 
 }

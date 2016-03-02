@@ -58,7 +58,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_ADICIONAR:
                 acao.setIconeAcao("fa fa-plus");
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
-                acao.setIsAcaoPrincipal(false);
+                acao.setPrecisaPermissao(true);
                 acao.setNomeAcao("Criar novo Grupo");
                 acao.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");
                 acao.setPrecisaPermissao(false);
@@ -72,7 +72,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setIsAcaoPrincipal(false);
                 acao.setXHTMLAcao("/sistema/seguranca/listarGrupos.xhtml");
                 acao.setIconeAcao("fa fa-users");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.LISTAR_ABRIR_FORMULARIO);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
                 acao.setIdDescritivoJira("UI026");
@@ -82,7 +82,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setNomeAcao("Editar Grupo");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.EDITAR_ABRIR_FORMULARIO);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
                 acao.setIdDescritivoJira("UC021");
@@ -93,7 +93,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setNomeAcao("Ver Detalhe do Grupo");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.VISUALIZAR_ABRIR_FORMULARIO);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
                 acao.setIdDescritivoJira("UI028");
@@ -101,7 +101,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_ALTERAR_STATUS:
                 acao.setNomeAcao("Ativar/Desativar");
                 acao.setIconeAcao("fa fa-retweet");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.ATIVAR_DESATIVAR);
                 acao.setIdDescritivoJira("UC021");
@@ -115,7 +115,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.SALVAR_MODO_MERGE);
                 acao.setIdDescritivoJira("UC021");
 
@@ -135,7 +135,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setIconeAcao("fa fa-plus");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.NOVO_ABRIR_FORMULARIO);
                 acao.setIdDescritivoJira("UI031");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
@@ -145,7 +145,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/listarUsuario.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setIconeAcao("fa fa-users");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.setIdDescritivoJira("UI030");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
@@ -162,7 +162,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
                 acao.setIsAcaoPrincipal(false);
                 acao.setNomeAcao("Editar Usuário");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
 
                 acao.setIdDescritivoJira("UI032.1");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
@@ -173,7 +173,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setIsAcaoPrincipal(false);
                 acao.setNomeAcao("Visualizar Usuário");
                 acao.setDescricao("Mostra os detalhes do cadastro de usuario");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.VISUALIZAR_ABRIR_FORMULARIO);
                 acao.setIdDescritivoJira("UI032.0");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
@@ -181,7 +181,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_ALTERAR_STATUS:
                 acao.setNomeAcao("Ativar/Desativar");
                 acao.setIconeAcao("fa fa-retweet ");
-                acao.setPrecisaPermissao(false);
+                acao.setPrecisaPermissao(true);
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoPadrao.ATIVAR_DESATIVAR);
                 acao.setIdDescritivoJira("UC013");

@@ -4,9 +4,11 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemNormal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +18,21 @@ import java.util.List;
  *
  * @author Salvio
  */
-public class UsuarioSistemaRoot extends ItemGenerico implements ItfUsuario, Serializable {
+public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serializable {
+
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    private Date dataHoraAlteracao;
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    private Date dataHoraInsersao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    private ItfUsuario usuarioInsercao;
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    private ItfUsuario usuarioAlteracao;
+
+    public UsuarioSistemaRoot() {
+        super(UsuarioSistemaRoot.class);
+    }
 
     @Override
     public String getEmail() {

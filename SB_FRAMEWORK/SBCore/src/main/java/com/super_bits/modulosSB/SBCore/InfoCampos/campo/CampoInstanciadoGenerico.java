@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import java.lang.reflect.Field;
 
 /**
@@ -49,6 +50,11 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         } else {
             return !getValor().toString().isEmpty();
         }
+    }
+
+    @Override
+    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -78,4 +78,8 @@ public interface ItfBeanGenerico {
      */
     public List<CaminhoCampoReflexao> getEntidadesVinculadas();
 
+    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo);
+
+    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho);
+
 }

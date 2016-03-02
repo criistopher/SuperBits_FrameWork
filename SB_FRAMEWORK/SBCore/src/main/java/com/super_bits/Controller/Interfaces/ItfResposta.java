@@ -38,13 +38,13 @@ public interface ItfResposta {
 
     public ItfResposta dispararMensagens();
 
-    public void addMensagem(ItfMensagem pMensagem);
+    public ItfResposta addMensagem(ItfMensagem pMensagem);
 
-    public void addAlerta(String Pmensagem);
+    public ItfResposta addAlerta(String Pmensagem);
 
-    public void addAviso(String Pmensagem);
+    public ItfResposta addAviso(String Pmensagem);
 
-    public void addErro(String Pmensagem);
+    public ItfResposta addErro(String Pmensagem);
 
     public boolean isSucesso();
 

@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -13,6 +14,7 @@ import config.ConfigPersistenciaTestesAcesso;
 import config.FabConfiguracoesCoreAcessosModel;
 import java.util.List;
 import org.junit.Test;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getTodosCamposAnotadosComManyToOne;
 
 /**
  *
@@ -24,13 +26,22 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
     }
 
     @Test
-    public void testGetId() {
+    public void testgetEntidadesVinvuladas() {
 
-        PermissaoSB pm = new PermissaoSB();
-        List<CaminhoCampoReflexao> teste = pm.getEntidadesVinculadas();
+        AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_ADICIONAR.getAcaoDoSistema();
+        List<CaminhoCampoReflexao> cps = getTodosCamposAnotadosComManyToOne(PermissaoSB.class, "PermissaoSB.class");
+        List<CaminhoCampoReflexao> teste = acaoDoSistema.getEntidadesVinculadas();
+        System.out.println("Inicio print Entidades Vinculadas");
         for (CaminhoCampoReflexao cm : teste) {
             System.out.println(cm.getCaminhoString());
+
+            for (String parteCaminho : cm.getPartesCaminho()) {
+                System.out.println("ParteCaminho:" + parteCaminho);
+            }
+            System.out.println("Valor do campo=" + acaoDoSistema.getItemPorCaminhoCampo(cm).getNomeCurto());
         }
+        System.out.println("Fim print Entidades Vinculadas");
+
     }
 
     @Override

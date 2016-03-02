@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,12 +15,44 @@ import java.util.List;
  */
 public class CaminhoCampoReflexao {
 
-    private List<String> caminho;
+    private List<String> partesCaminho;
     private String caminhoComleto;
-    private Field campo;
+    private Field campoFieldReflection;
 
     public CaminhoCampoReflexao() {
-        caminho = new ArrayList<>();
+        partesCaminho = new ArrayList<>();
+    }
+
+    private void makePartesCaminho() {
+
+        if (caminhoComleto == null) {
+            throw new UnsupportedOperationException("Impossivel criar o caminho, antes de definir as partes do caminho");
+        }
+        if (caminhoComleto.isEmpty()) {
+            throw new UnsupportedOperationException("Impossivel criar o caminho, antes de definir as partes do caminho");
+
+        }
+
+        String[] partes = caminhoComleto.split("\\.");
+        partesCaminho.clear();
+        partesCaminho.addAll(Arrays.asList(partes));
+
+    }
+
+    private void makeCaminhoCompleto() {
+
+        if (caminhoComleto == null) {
+            throw new UnsupportedOperationException("Impossivel criar as partes do caminho, antes de definir o caminho completo");
+        }
+        if (caminhoComleto.isEmpty()) {
+            throw new UnsupportedOperationException("Impossivel criar as partes do caminho, antes de definir o caminho completo");
+
+        }
+
+        String[] partes = caminhoComleto.split("\\.");
+        partesCaminho.clear();
+        partesCaminho.addAll(Arrays.asList(partes));
+
     }
 
     /**
@@ -32,19 +65,16 @@ public class CaminhoCampoReflexao {
         this();
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
-        this.campo = campo;
+        this.campoFieldReflection = campo;
+        makePartesCaminho();
     }
 
-    /**
-     *
-     *
-     * Executa um Split a partir dos pontos e adciona na lista do caminho
-     *
-     *
-     * @param caminho
-     */
-    public final void setCaminho(String caminho) {
-        throw new UnsupportedOperationException("Ainda não implementado");
+    public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
+        this();
+        //setCaminho(pCaminho);
+        partesCaminho = pPartesCaminho;
+        this.campoFieldReflection = campo;
+        makeCaminhoCompleto();
     }
 
     /**
@@ -54,20 +84,7 @@ public class CaminhoCampoReflexao {
      * @param pParteCaminho
      */
     public void addParteCaminho(String pParteCaminho) {
-        throw new UnsupportedOperationException("Ainda não implementado");
-
-    }
-
-    /**
-     *
-     * Retorna o Campo do java Reflection, exexuta um throw caso o field seja
-     * nulo
-     *
-     * @return
-     */
-    public String getCaminhoField() {
-        throw new UnsupportedOperationException("Ainda não implementado");
-
+        partesCaminho.add(pParteCaminho);
     }
 
     /**
@@ -79,12 +96,17 @@ public class CaminhoCampoReflexao {
         return caminhoComleto;
     }
 
-    public List<String> getCaminho() {
-        return caminho;
+    public List<String> getPartesCaminho() {
+        return partesCaminho;
     }
 
-    public Field getCampo() {
-        return campo;
+    public Field getCampoFieldReflection() {
+        return campoFieldReflection;
+    }
+
+    @Override
+    public String toString() {
+        return getCaminhoString();
     }
 
 }

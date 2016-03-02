@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Transient;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -275,7 +276,9 @@ public abstract class UtilSBCoreReflexao {
      * @param pInterface Interface que está sendo procurada
      * @return
      */
+    @Transient
     public static boolean isInterfaceImplementadaNaClasse(Class pClass, Class pInterface) {
+        /// NÃO FUNCIONA, PRECISA DE MELHORIAS
         boolean temMaisClasse = true;
         Class classe = pClass;
         while (temMaisClasse) {
@@ -303,7 +306,7 @@ public abstract class UtilSBCoreReflexao {
 
         Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(pAnotacao);
 
-//exibe a lista classes
+        //exibe a lista classes
         for (Class<?> c : annotated) {
             lista.add(c);
         }

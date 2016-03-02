@@ -114,7 +114,7 @@ public class InjetorDeValores {
             return;
         }
 
-        String value = mapFields.getValorPadrao(fieldAnnotation.tipo());
+        String value = mapFields.getValorPadrao(fieldAnnotation.tipo()).toString();
 
         for (ValorAceito wPatternValue : fieldAnnotation.valoresAceitos()) {
             if (wPatternValue.valor().equalsIgnoreCase(value)) {

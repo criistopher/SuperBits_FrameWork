@@ -52,7 +52,6 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
         UsuarioSistemaRoot userSystem = new UsuarioSistemaRoot();
         if (pEmail.equals(userSystem.getEmail()) & pSenha.equals(userSystem.getSenha())) {
             getSessaoAtual().setUsuario(userSystem);
-            SBCore.getCentralDeMensagens().enviaMensagem(FabMensagens.AVISO.getMsgUsuario("Você está logado como root"));
             SBCore.enviarAvisoAoUsuario("Você está logado como root");
             return;
         }

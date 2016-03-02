@@ -3,35 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.modulos.SBAcessosModel.controller;
+package com.super_bits.modulos.SBAcessosModel;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
+import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.testesFW.TesteAcoesDoSistema;
 import config.ConfigPersistenciaTestesAcesso;
 import config.FabConfiguracoesCoreAcessosModel;
-import org.junit.Test;
 
 /**
  *
  * @author desenvolvedor
  */
-public class FabAcaoSegurancaTest extends TesteAcoesDoSistema {
-
-    public FabAcaoSegurancaTest() {
-        super(false);
-    }
-
-    @Test
-    public void testGetRegistro() {
-        testesBasicosDeAcoes(FabAcaoSeguranca.class);
-    }
+public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
         SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
-
     }
 
 }

@@ -14,6 +14,7 @@ import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author desenvolvedor
  */
-public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
+public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
 
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_LISTAR)
     public static List<AcaoDoSistema> listarAcoesDoGrupo(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull ModuloAcaoSistema pModulo) {
@@ -48,8 +49,10 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_ALTERAR_STATUS, padraoBloqueado = false)
     public static ItfResposta grupoAlterarStatus(@NotNull GrupoUsuarioSB pGrupo) {
-        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
-
+        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrupo);
+        if (!resp.isSucesso()) {
+            return resp.dispararMensagens();
+        }
         EntityManager em = UtilSBPersistencia.getNovoEMIniciandoTransacao();
         if (pGrupo.isAtivo()) {
             if (pGrupo.isTipoGrupoNativo()) {
@@ -80,7 +83,7 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES, padraoBloqueado = false)
     public static ItfResposta grupoDeUsuariosSalvarAlteracoes(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull List<ModuloAcaoSistema> pModulos, EntityManager pEM) {
 
-        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
+        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrpUsuario);
         if (pGrpUsuario == null || pModulos == null) {
             return resp.addMensagemErroDisparaERetorna("Selecione o grupo de usuario e as ações do sistema");
         }
@@ -139,7 +142,7 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_ALTERAR_STATUS, padraoBloqueado = false)
     public static ItfResposta usuarioAlterarStatus(@NotNull UsuarioSB pUsuario) {
-        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
+        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pUsuario);
 
         EntityManager em = UtilSBPersistencia.getNovoEMIniciandoTransacao();
         if (pUsuario.isAtivo()) {
@@ -155,7 +158,7 @@ public class ModuloSeguranca extends ControllerAppAbstratoSBCore {
 
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES, padraoBloqueado = false)
     public static ItfResposta usuarioPersistirAlteracoes(@NotNull UsuarioSB pUsuario, EntityManager pEM) {
-        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(GrupoUsuarioSB.class);
+        ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pUsuario);
         if (pUsuario.getGrupo() == null) {
             return resp.addMensagemErroDisparaERetorna("Selecione o grupo do usuário");
         }

@@ -125,7 +125,7 @@ public class TipoCampos extends ConstantesWeb {
                 break;
             case REG_DATAINSERCAO:
                 break;
-            case REG_USUARIO_ALTERACAL:
+            case REG_USUARIO_ALTERACAO:
                 break;
             case REG_USUARIO_INSERCAO:
                 break;

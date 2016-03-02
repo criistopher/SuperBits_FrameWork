@@ -60,9 +60,11 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             AcaoDoSistema acaoPersist = (AcaoDoSistema) acao;
             if (!acaoPersist.isUmaAcaoPrincipal()) {
                 if (acao.getAcaoPrincipal() != null) {
+                    UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal().getModulo(), getEmPermissoes());
                     UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal(), getEmPermissoes());
                 }
             }
+            UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal().getModulo());
             UtilSBPersistencia.mergeRegistro(acaoPersist, getEmPermissoes());
 
         }

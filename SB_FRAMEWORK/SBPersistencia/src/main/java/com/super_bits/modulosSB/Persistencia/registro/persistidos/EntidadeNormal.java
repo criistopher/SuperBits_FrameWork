@@ -4,10 +4,13 @@ import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEn
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import java.util.Date;
 import java.util.List;
 
 public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal {
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public EntidadeNormal(Class<?> pClasseModelo) {
         super();
 
@@ -50,6 +53,36 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Date getDataHoraAlteracao() {
+        return (Date) getValorByTipoCampoEsperado(FabCampos.REG_DATAALTERACAO);
+    }
+
+    @Override
+    public Date getDataHoraInsercao() {
+        return (Date) getValorByTipoCampoEsperado(FabCampos.REG_DATAINSERCAO);
+    }
+
+    @Override
+    public ItfUsuario getUsuarioInsersao() {
+        return (ItfUsuario) getValorByTipoCampoEsperado(FabCampos.REG_USUARIO_INSERCAO);
+    }
+
+    @Override
+    public ItfUsuario getUsuarioAlteracao() {
+        return (ItfUsuario) getValorByTipoCampoEsperado(FabCampos.REG_USUARIO_ALTERACAO);
+    }
+
+    @Override
+    public void setAtivo(boolean pAtivo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isAtivo() {
+        return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
     }
 
 }

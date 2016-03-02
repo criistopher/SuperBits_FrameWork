@@ -81,6 +81,16 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuarios")
     private List<GrupoUsuarioSB> gruposAdicionais;
 
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    private Date dataHoraAlteracao;
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    private Date dataHoraInsersao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    private UsuarioSB usuarioInsercao;
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    private UsuarioSB usuarioAlteracao;
+
     public UsuarioSB() {
         super(UsuarioSB.class);
     }

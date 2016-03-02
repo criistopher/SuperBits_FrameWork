@@ -5,6 +5,7 @@
 package config;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
@@ -29,6 +30,7 @@ public enum FabConfiguracoesCoreAcessosModel {
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+        cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
         cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
 
         switch (this) {

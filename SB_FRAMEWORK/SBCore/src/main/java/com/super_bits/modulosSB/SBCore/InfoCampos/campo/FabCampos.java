@@ -31,6 +31,21 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
+     *//**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
      */
     AAA_NOME_CURTO,
     /**
@@ -244,11 +259,15 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o usuário que realizou a ultima alteração neste registro
      */
-    REG_USUARIO_ALTERACAL,
+    REG_USUARIO_ALTERACAO,
     /**
      * Indica o usuário que realizou o cadastro deste regsitro
      */
     REG_USUARIO_INSERCAO,
+    /**
+     * Boolean indicando se a Entidade está ativa ou desativada
+     */
+    RET_ATIVO_INATIVO,
     /**
      * Indica um código de barras
      */
@@ -395,7 +414,7 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
                 sbCampo.setMascara("##/##/####");
                 break;
-            case REG_USUARIO_ALTERACAL:
+            case REG_USUARIO_ALTERACAO:
 
                 break;
             case REG_USUARIO_INSERCAO:

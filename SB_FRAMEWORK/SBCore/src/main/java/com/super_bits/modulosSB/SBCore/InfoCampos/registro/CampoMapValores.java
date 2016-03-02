@@ -19,7 +19,7 @@ public class CampoMapValores implements Serializable {
 
     public void AdcionaCampo(CampoEsperado pCampo) {
 
-        if ((pCampo.getTipoCampo() == null) || (pCampo.getValorPadrao() == null)) {
+        if ((pCampo.getTipoCampo() == null)) {
             try {
                 throw new ErroDeMapaDeCampos(String.format(ErrorMessages.FIELD_CAN_NOT_BE_NULL, pCampo.getTipoCampo(), pCampo.getValorPadrao()));
             } catch (ErroDeMapaDeCampos e) {
@@ -47,23 +47,23 @@ public class CampoMapValores implements Serializable {
         return campo;
     }
 
-    public String getValorPadrao(FabCampos name) throws ErroDeMapaDeCampos {
+    public Object getValorPadrao(FabCampos name) throws ErroDeMapaDeCampos {
         CampoEsperado campo = getCampo(name);
         return campo.getValorPadrao();
     }
 
     public Integer getIntValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        Object value = getValorPadrao(name);
 
         try {
-            return Integer.parseInt(value);
+            return Integer.parseInt(value.toString());
         } catch (NumberFormatException e) {
             throw new ErroDeFormatoDoCampo(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name), e);
         }
     }
 
     public Long getLongValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         try {
             return Long.parseLong(value);
@@ -73,7 +73,7 @@ public class CampoMapValores implements Serializable {
     }
 
     public Double getDoubleValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         try {
             return Double.parseDouble(value);
@@ -83,7 +83,7 @@ public class CampoMapValores implements Serializable {
     }
 
     public Float getFloatValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         try {
             return Float.parseFloat(value);
@@ -93,7 +93,7 @@ public class CampoMapValores implements Serializable {
     }
 
     public Boolean getBooleanValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         try {
             return Boolean.parseBoolean(value);
@@ -103,7 +103,7 @@ public class CampoMapValores implements Serializable {
     }
 
     public Character getCharacterValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         if (value.length() != 1) {
             throw new ErroDeFormatoDoCampo(String.format(ErrorMessages.FIELD_INVALID_FORMAT, value, name));
@@ -117,7 +117,7 @@ public class CampoMapValores implements Serializable {
     }
 
     public Date getDateValue(FabCampos name) throws ErroDeMapaDeCampos, ErroDeFormatoDoCampo {
-        String value = getValorPadrao(name);
+        String value = getValorPadrao(name).toString();
 
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 

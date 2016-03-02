@@ -96,7 +96,8 @@ public class UtilSBController {
         }
     }
 
-    public static ItfFabricaAcoes getFabricaAcaoByMetodo(Method pMetodo) {
+    @SuppressWarnings("UseSpecificCatch")
+    public static boolean possuiMetodoDeAcao(Method pMetodo) {
 
         Annotation[] anotacoes = pMetodo.getAnnotations();
         if (anotacoes != null) {
@@ -105,22 +106,48 @@ public class UtilSBController {
                 try {
 
                     Method metodo = a.getClass().getMethod("acao");
-                    try {
+                    return true;
 
-                        ItfFabricaAcoes acao = (ItfFabricaAcoes) metodo.invoke(a);
-                        return acao;
+                } catch (Throwable t) {
 
-                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo, certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada ", ex);
-                    }
-                } catch (NoSuchMethodException | SecurityException ex) {
-                    FabErro.PARA_TUDO.paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA: " + pMetodo.getName(), ex);
                 }
-            }
 
+            }
         }
 
-        FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pMetodo.getName(), null);
+        return false;
+    }
+
+    public static ItfFabricaAcoes getFabricaAcaoByMetodo(Method pMetodo) {
+
+        Annotation[] anotacoes = pMetodo.getAnnotations();
+        try {
+            if (anotacoes != null) {
+
+                for (Annotation a : anotacoes) {
+
+                    try {
+
+                        Method metodo = a.getClass().getMethod("acao");
+                        try {
+
+                            ItfFabricaAcoes acao = (ItfFabricaAcoes) metodo.invoke(a);
+                            return acao;
+
+                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+
+                        }
+                    } catch (NoSuchMethodException | SecurityException ex) {
+
+                    }
+                }
+
+                throw new UnsupportedOperationException("Anotação de ação não foi encontrada no método" + pMetodo.getName());
+
+            }
+        } catch (Throwable t) {
+            FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pMetodo.getName(), null);
+        }
         return null;
 
     }

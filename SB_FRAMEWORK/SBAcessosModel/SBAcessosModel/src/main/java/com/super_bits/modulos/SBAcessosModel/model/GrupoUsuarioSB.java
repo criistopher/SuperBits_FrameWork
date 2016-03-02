@@ -49,9 +49,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     private boolean tipoGrupoNativo;
 
     private String XhtmlPaginaInicial = "/site/homeAdministrador.xhtml";
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-
     @JoinTable(name = "usuario_grupo",
             uniqueConstraints = @UniqueConstraint(name = "usuarioDuplicado", columnNames = {"usuario_id", "grupo_id"}),
             joinColumns = {
@@ -62,6 +60,17 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     )
     private List<UsuarioSB> usuarios;
 
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    private Date dataHoraAlteracao;
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    private Date dataHoraInsersao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    private UsuarioSB usuarioInsercao;
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    private UsuarioSB usuarioAlteracao;
+
+    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO)
     private boolean ativo = true;
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;

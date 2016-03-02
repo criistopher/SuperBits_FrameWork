@@ -8,7 +8,7 @@ public class CampoEsperado implements Serializable {
     private Boolean foiAnotado;
     private Boolean anotacaoObrigatoria = false;
     private FabCampos tipoCampo;
-    private String valorPadrao;
+    private Object valorPadrao;
     private Field campoReflex;
     private int acessoPadrao;
 
@@ -46,11 +46,11 @@ public class CampoEsperado implements Serializable {
         this.tipoCampo = tipoCampo;
     }
 
-    public String getValorPadrao() {
+    public Object getValorPadrao() {
         return valorPadrao;
     }
 
-    public void setValorPadrao(String valorPadrao) {
+    public void setValorPadrao(Object valorPadrao) {
         this.valorPadrao = valorPadrao;
     }
 

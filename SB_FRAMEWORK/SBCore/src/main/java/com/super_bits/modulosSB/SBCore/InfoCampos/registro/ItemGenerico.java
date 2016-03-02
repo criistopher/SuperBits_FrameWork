@@ -278,7 +278,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
      * @param pObrigatorio (Especifica que a anotação de um campo deste tipo é
      * obrigatória na classe).
      */
-    protected void adcionaCampoEsperado(CampoEsperado pCampo, boolean pObrigatorio) {
+    protected final void adcionaCampoEsperado(CampoEsperado pCampo, boolean pObrigatorio) {
 
         try {
             Field campo;
@@ -515,6 +515,36 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
     public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
 
         return UtilSBCoreReflexaoCampos.getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(this.getClass());
+
+    }
+
+    @Override
+    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+        int i = 0;
+        ItfBeanSimples entidade = (ItfBeanSimples) this;
+        for (String caminho : pCaminho.getPartesCaminho()) {
+            if (i > 0) {
+                entidade = entidade.getBeanSimplesPorNomeCampo(caminho);
+            }
+            i++;
+        }
+        return entidade;
+
+    }
+
+    @Override
+    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
+        ItfBeanSimples ret = null;
+
+        try {
+
+            Field cp = getClass().getDeclaredField(pNomeCampo);
+            cp.setAccessible(true);
+            ret = (ItfBeanSimples) cp.get(this);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pNomeCampo, ex);
+        }
+        return ret;
 
     }
 
