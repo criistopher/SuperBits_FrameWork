@@ -46,6 +46,7 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
         System.out.println("Usuário logado=" + usuario.getNome());
 
         ModuloSeguranca.grupoAlterarStatus(FabSegurancaGruposPadrao.GRUPO_ADMINISTRADOR.getRegistro());
+
     }
 
     @Test

@@ -12,14 +12,14 @@
     </properties>
 
     <dependencies>
-    
-        
-        <dependency> 
+
+
+        <dependency>
             <groupId>com.super_bits</groupId>
             <artifactId>SBWebPaginas</artifactId>
             <version>1.5.2-SNAPSHOT</version>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -27,19 +27,10 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.0</version>
-        </dependency>
+
     </dependencies>
     <name>superBitsWPDemo</name>
     <repositories>
-        <repository>
-            <url>http://repository.primefaces.org/</url>
-            <id>PrimeFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library PrimeFaces-maven-lib</name>
-        </repository>
+        
     </repositories>
 </project>
