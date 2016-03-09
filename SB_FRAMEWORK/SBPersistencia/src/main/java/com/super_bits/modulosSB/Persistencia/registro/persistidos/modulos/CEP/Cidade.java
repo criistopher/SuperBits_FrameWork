@@ -50,6 +50,10 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     @JoinColumn(name = "id_Localidade")
     private Localidade localidade;
 
+    @NotNull
+    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status")
+    private boolean ativo;
+
     public Cidade() {
         unidadeFederativa = new UnidadeFederativa();
     }
@@ -116,6 +120,14 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
 
         return getUnidadeFederativa() + getNome();
 
+    }
+
+    public boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 }
