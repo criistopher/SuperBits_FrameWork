@@ -1,5 +1,5 @@
-/* 
- *  Super-Bits.com CODE CNPJ 20.019.971/0001-90 
+/*
+ *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
 
  */
 package com.super_bits.modulosSB.SBCore.sessao.Interfaces;
@@ -22,5 +22,9 @@ public interface ItfControleDeSessao {
     public abstract void registrarAcao(ItfPermissao pAcesso);
 
     public abstract void logarEmailESenha(String usuario, String senha);
+
+    public abstract void logarComoRoot();
+
+    public abstract void logarComoAnonimo();
 
 }

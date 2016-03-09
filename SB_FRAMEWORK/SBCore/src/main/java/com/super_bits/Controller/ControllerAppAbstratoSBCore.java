@@ -53,6 +53,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
     protected static ItfResposta getNovaRespostaComAutorizacao(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, null);
+        addMensagemDeAutorizacao(resp);
         return resp;
     }
 
@@ -174,6 +175,29 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return resp.addMensagemErroDisparaERetorna("Acesso negado, solicite acesso a este recurso.");
     }
 
+    /**
+     *
+     * Verifica se o parametro é nulo e adiciona uma mensagem de erro na
+     * resposta caso seja.
+     *
+     * @param pParametro o parametro que será verificado
+     * @param nomeParametro o nome que será apresentado na mensagem de erro
+     * @param pResp O objeto de resposta onde a mensagem de erro será adicionada
+     */
+    protected static void addMensagemNulo(Object pParametro, String nomeParametro, ItfResposta pResp) {
+
+        if (pParametro == null) {
+            pResp.addErro("o parametro " + nomeParametro + " não pode ser núlo");
+        }
+
+    }
+
+    /**
+     *
+     * Verifica se o usuário logado possui autorização para executar este método
+     *
+     * @param pResp O objeto de resposta onde a mensagem de erro será adicionada
+     */
     @SuppressWarnings("null")
     protected static void addMensagemDeAutorizacao(@NotNull ItfResposta pResp) {
         try {

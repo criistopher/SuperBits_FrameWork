@@ -970,7 +970,22 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     }
 
     public static List getEmpresas(Class pClasse, String pParametro, EntityManager pEM) {
-        throw new UnsupportedOperationException("Ainda não implementado");
+        boolean isNumerico = false;
+        try {
+            Integer.parseInt(pParametro);
+        } catch (Throwable t) {
+            isNumerico = false;
+        }
+        if (isNumerico) {
+            List resposta = new ArrayList();
+            Object empresa = UtilSBPersistencia.getRegistroByID(pClasse, Integer.parseInt(pParametro), pEM);
+            if (empresa != null) {
+                resposta.add(empresa);
+            }
+            return resposta;
+        } else {
+            return UtilSBPersistencia.getListaRegistrosLikeNomeCurto(pParametro, pClasse, pEM);
+        }
 
     }
 

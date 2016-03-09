@@ -6,7 +6,9 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.SessaoOffline;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.sessao.ControleDeSessaoAbstratoSBCore;
 
 /**
@@ -32,6 +34,20 @@ public class ControleDeSessaoPadrao extends ControleDeSessaoAbstratoSBCore {
     @Override
     public void efetuarLogOut() {
         sessao.setUsuario(new UsuarioAnonimo());
+    }
+
+    @Override
+    public void logarComoRoot() {
+        if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)) {
+            sessao.setUsuario(new UsuarioSistemaRoot());
+        } else {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("a função logar como root só é permitida no modo Desenvolvimento", null);
+        }
+    }
+
+    @Override
+    public void logarComoAnonimo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

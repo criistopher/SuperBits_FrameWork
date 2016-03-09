@@ -42,7 +42,7 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
         return resp;
     }
 
-    private static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
+    protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
         UtilSBPersistencia.iniciarTransacao(pEM);
 
         for (CaminhoCampoReflexao cm : pEntidade.getEntidadesVinculadas()) {

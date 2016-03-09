@@ -114,4 +114,14 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
         }
     }
 
+    @Override
+    public void logarComoRoot() {
+        throw new UnsupportedOperationException("O método logar como Root não é suportado no ambiente web, por questões de segurança"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void logarComoAnonimo() {
+        efetuarLogOut();
+    }
+
 }

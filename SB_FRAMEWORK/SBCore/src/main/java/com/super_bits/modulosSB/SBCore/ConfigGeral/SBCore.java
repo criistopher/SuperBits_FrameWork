@@ -91,6 +91,13 @@ public class SBCore {
     }
 
     public static void configurar(ItfConfiguradorCore configuracoes) {
+
+        if (configurado) {
+            System.out.println("Ocorreu uma tentativa de reconfigurar o core");
+            return;
+            //throw new UnsupportedOperationException("A configuração do core só pode ser executada uma única vez");
+        }
+
         configurar(configuracoes, false);
     }
 
@@ -151,7 +158,8 @@ public class SBCore {
             }
 
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
-                if (UtilSBCoreArquivos.isArquivoExiste(SBCore.getCaminhoDesenvolvimento() + "/pom.xml")) {
+                String arquivoPomDoProjeto = SBCore.getCaminhoDesenvolvimento() + "/pom.xml";
+                if (!UtilSBCoreArquivos.isArquivoExiste(arquivoPomDoProjeto)) {
                     throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
                 }
             }
