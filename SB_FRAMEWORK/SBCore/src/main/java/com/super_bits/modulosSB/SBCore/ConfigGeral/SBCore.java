@@ -165,7 +165,7 @@ public class SBCore {
             }
         } catch (Throwable t) {
             configurado = false;
-            FabErro.PARA_TUDO.paraSistema("Erro configurando o Core", t);
+            FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }
     }
 
