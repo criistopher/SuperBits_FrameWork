@@ -46,9 +46,14 @@ public class UtilSBAcessosModel {
 
                     AcaoDoSistema acao = (AcaoDoSistema) novoAcesso.getAcao();
                     UtilSBPersistencia.mergeRegistro(acao.getModulo(), em);
+                    if (!acao.isUmaAcaoPrincipal()) {
+                        if (acao.getAcaoPrincipal() != null) {
+                            UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal(), em);
+                        }
 
-                    if (acao.isPrecisaPermissao()) {
-                        acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
+                        if (acao.isPrecisaPermissao()) {
+                            acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
+                        }
                         PermissaoSB acessoEncontrado = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novoAcesso.getId(), em);
                         if (acessoEncontrado == null) {
 
@@ -82,11 +87,11 @@ public class UtilSBAcessosModel {
      * @return
      */
     public static boolean acessoAcaoPermitido(ItfUsuario pUsuario, AcaoDoSistema pAcao) {
-        
-      if (pUsuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
+
+        if (pUsuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
             return true;
         }
-        
+
         Class[] classesControllers = SBCore.getConfiguradorDePermissao().getClassesController();
         if (classesControllers == null) {
             return false;
@@ -103,6 +108,7 @@ public class UtilSBAcessosModel {
 
         }
         return false;
+
     }
 
     private static void criaNovasPermissaoParaPaginas(EntityManager em) {
@@ -116,6 +122,7 @@ public class UtilSBAcessosModel {
                     AcaoDoSistema acao = (AcaoDoSistema) fabricaAcao.getAcaoDoSistema();
                     UtilSBPersistencia.mergeRegistro(acao, em);
                     PermissaoSB novaPermissao = new PermissaoSB(fabricaAcao);
+
                     if (acao.isPrecisaPermissao()) {
                         PermissaoSB permissãoEncontrada = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novaPermissao.getId(), em);
                         if (permissãoEncontrada != null) {
