@@ -5,12 +5,15 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -35,6 +38,10 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @ManyToMany
     private List<Bairro> bairros;
 
+    @NotNull
+    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status")
+    private boolean ativo;
+
     public String getNomeRegiao() {
         return nomeRegiao;
     }
@@ -57,6 +64,22 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     public void setBairros(List<Bairro> bairros) {
         this.bairros = bairros;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 }
