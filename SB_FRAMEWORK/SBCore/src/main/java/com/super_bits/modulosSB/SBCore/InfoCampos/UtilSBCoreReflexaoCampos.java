@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.ManyToOne;
 
@@ -136,6 +137,8 @@ public class UtilSBCoreReflexaoCampos {
 
         }
         // para cada campo encontrado no nivel 0
+
+        Collections.reverse(camposEncontrados);
 
         return camposEncontrados;
 
