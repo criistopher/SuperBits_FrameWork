@@ -46,10 +46,14 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
         UtilSBPersistencia.iniciarTransacao(pEM);
 
         for (CaminhoCampoReflexao cm : pEntidade.getEntidadesVinculadas()) {
-            if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm)) == null) {
-                pResp.addErro("Ocorreu um erro ao Atualizar as informações de " + cm.getCampoFieldReflection().getType().getSimpleName());
+            if (pEntidade.getItemPorCaminhoCampo(cm) != null) {
+                if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm)) == null) {
+                    pResp.addErro("Ocorreu um erro ao Atualizar as informações de " + cm.getCampoFieldReflection().getType().getSimpleName());
+                }
             }
+
         }
+
         if (UtilSBPersistencia.mergeRegistro(pEntidade) == null) {
             pResp.addErro("Não foi possível salvar o registro " + pEntidade.getClass());
         }
