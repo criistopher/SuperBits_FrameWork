@@ -160,11 +160,12 @@ public class SBCore {
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
                 String arquivoPomDoProjeto = SBCore.getCaminhoDesenvolvimento() + "/pom.xml";
                 if (!UtilSBCoreArquivos.isArquivoExiste(arquivoPomDoProjeto)) {
+
                     throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
                 }
             }
         } catch (Throwable t) {
-            configurado = false;
+            configurado = true;
             FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }
     }
