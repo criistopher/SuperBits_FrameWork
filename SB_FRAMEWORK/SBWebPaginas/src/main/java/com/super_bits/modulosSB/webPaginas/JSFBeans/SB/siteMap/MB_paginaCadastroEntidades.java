@@ -203,7 +203,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                 }
             }
         }
-        throw new UnsupportedOperationException("a ação de editar ão foi encontrada");
+        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoPadrao.EDITAR_ABRIR_FORMULARIO + " nas ações de registro configuradas no constructor da pagina");
     }
 
     @Override

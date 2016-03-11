@@ -8,6 +8,7 @@ import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import org.junit.Before;
@@ -61,7 +62,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         }
 
         try {
-            //          alterarStatus();
+            alterarStatus();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
@@ -109,6 +110,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             pagina.setAcaoSelecionada(pagina.getAcaoSalvarAlteracoes());
             pagina.executarAcao(pagina.getEntidadeSelecionada());
 
+            assertTrue("O boolean is novo registro deve ser falso  apos salvar um novo registo", !pagina.isNovoRegistro());
+            assertTrue("O boolean  que permite edição deve ser Falsee ao salvar um novo registro", !pagina.isPodeEditar());
+
             T entidadeCadastrada = pagina.getEntidadeSelecionada();
             int quantidadePosterior = pagina.getEntidadesListadas().size();
             assertTrue("A entidade selecionada não foi cadastrada", entidadeCadastrada != null);
@@ -139,8 +143,13 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     public void editarDados() {
         try {
+            // Usuario clieca no botao editar dentro do primeiro registro que é o entidadesListadas.get(0)
             pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoEditar());
+
+            ItfBeanSimples entidadeQueOUsuarioIraSelecionar = (ItfBeanSimples) pagina.getEntidadesListadas().get(0);
             pagina.executarAcao(pagina.getEntidadesListadas().get(0));
+
+            // espera-se que o registro selecionado agora seja o primeiro registro da lista
             assertTrue("O boolean is novo registro deve ser igual a false", !pagina.isNovoRegistro());
             assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
 
@@ -148,6 +157,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
             assertTrue("O comprador Selecionado está nulo para edição!", pagina.getEntidadeSelecionada() != null);
             assertTrue("O comprador Selecionado não parece ser o que foi configurado ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
+            ItfBeanSimples entidadeSelecionada = (ItfBeanSimples) pagina.getEntidadeSelecionada();
 
             String nomeAntigo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
             String nomenovo = " [EDIT]" + ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
@@ -170,7 +180,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             }
 
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
-            assertTrue("Comprador selecionado não foi cadastrado", entidadeAlterada != null);
+            assertTrue("Comprador selecionado não foi encontrado na lista de entidades", entidadeAlterada != null);
             assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));
             assertTrue("O dado alterado do regsitro 0 da lista  de entidades não parece ser o mesmo da alteração realizada", entidadeAlterada.getNomeCurto().equals(nomenovo));
 
@@ -181,6 +191,14 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
     }
 
     public void alterarStatus() {
+
+        // Usuario clieca no botao Alterar status dentro do primeiro registro que é o entidadesListadas.get(0)
+        ItfBeanNormal entidadeQueOUsuarioIraSelecionar = (ItfBeanNormal) pagina.getEntidadesListadas().get(0);
+        boolean statusAnterior = entidadeQueOUsuarioIraSelecionar.isAtivo();
+
+        pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoAlterarStatus());
+        pagina.executarAcao(pagina.getEntidadesListadas().get(0));
+        assertTrue("O status não foi alterado", entidadeQueOUsuarioIraSelecionar.isAtivo() != statusAnterior);
 
     }
 

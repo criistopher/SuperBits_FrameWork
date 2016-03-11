@@ -242,6 +242,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         return ativo;
     }
 
+    @Override
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
