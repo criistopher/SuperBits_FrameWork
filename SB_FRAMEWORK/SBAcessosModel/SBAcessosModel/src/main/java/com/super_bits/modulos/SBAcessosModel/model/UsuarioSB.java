@@ -122,6 +122,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.complemento = complemento;
     }
 
+    @Override
     public String getCEP() {
         return CEP;
     }
@@ -130,6 +131,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.CEP = CEP;
     }
 
+    @Override
     public String getTelefone() {
         return telefone;
     }
@@ -138,6 +140,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.telefone = telefone;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
