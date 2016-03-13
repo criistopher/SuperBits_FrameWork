@@ -49,6 +49,9 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     public Campo(Campo pCampo) {
+        if (pCampo == null) {
+            throw new UnsupportedOperationException("Era esperado um Atributo campo no constructor");
+        }
         setDescricao(pCampo.getDescricao());
         setLabel(pCampo.getLabel());
         setMascara(pCampo.getMascara());
@@ -64,6 +67,7 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     public final void setTipoCampo(FabCampos tipoCampo) {
+
         this.tipoCampo = tipoCampo;
     }
 

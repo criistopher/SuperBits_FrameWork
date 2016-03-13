@@ -327,4 +327,8 @@ public class TipoCampos extends ConstantesWeb {
         return FabCampos.SENHA.name();
     }
 
+    public String getVerdadeiroFalso() {
+        return FabCampos.VERDADEIRO_FALSO.name();
+    }
+
 }

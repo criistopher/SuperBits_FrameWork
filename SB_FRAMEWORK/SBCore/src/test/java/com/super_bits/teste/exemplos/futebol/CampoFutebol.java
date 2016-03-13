@@ -8,6 +8,6 @@ package com.super_bits.teste.exemplos.futebol;
  *
  * @author sfurbino
  */
-public class Campo {
+public class CampoFutebol {
 
 }
