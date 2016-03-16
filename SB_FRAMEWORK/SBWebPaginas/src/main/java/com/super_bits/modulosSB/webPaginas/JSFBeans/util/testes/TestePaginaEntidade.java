@@ -171,7 +171,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
                     entidadeAlterada = (ItfBeanSimples) entidade;
                 }
             }
-
+            assertFalse(" O Xhtml de listar dados deveria ser definido apos o registro ser cadastrado com sucesso, e o valor esta nulo", pagina.getXhtmlAcaoAtual() == null);
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
             assertTrue("Comprador selecionado não foi encontrado na lista de entidades", entidadeAlterada != null);
             assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));
