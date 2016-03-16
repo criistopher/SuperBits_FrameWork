@@ -31,7 +31,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     @Test
     public void testeFluxo() {
-
+        configurarPesquisa();
         try {
             criarNovaEntidade();
         } catch (Throwable t) {
@@ -140,7 +140,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoEditar());
 
             ItfBeanSimples entidadeQueOUsuarioIraSelecionar = (ItfBeanSimples) pagina.getEntidadesListadas().get(0);
-            pagina.executarAcao(pagina.getEntidadesListadas().get(0));
+            pagina.executarAcao((T) entidadeQueOUsuarioIraSelecionar);
 
             // espera-se que o registro selecionado agora seja o primeiro registro da lista
             assertTrue("O boolean is novo registro deve ser igual a false", !pagina.isNovoRegistro());
