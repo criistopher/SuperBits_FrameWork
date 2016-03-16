@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 /**
  *
  * @author cristopher
+ * @param <T> informa a entidade a ser trabalhada no teste
  */
 public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
@@ -90,7 +91,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             assertTrue("A entidade selecionada está nula após executar a ação Cadastrar novo registro, Verique o case do metodo executarAcao(), e set o registro selecionado com uma nova instancia utilizando setEntidadeSelecionad(new EntidadeVinculadaApagina)", pagina.getEntidadeSelecionada() != null);
             //FabAcaoCadastros.COMPRADOR_NOVO.getAcaoDoSistema().getXHTMLAcao();
             // Testa se o xhtml foi definido como xhtml da ação de novo registro
-            assertTrue("O XHRl para cadastro de novo registro está nulo", pagina.getXhtmlAcaoAtual() != null);
+            assertTrue("O XHTML para cadastro de novo registro está nulo", pagina.getXhtmlAcaoAtual() != null);
             assertTrue("O XHTML para cadastrar um novo registro não foi configurado ao executar a ação com um novo registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoNovoRegistro().getXHTMLAcao()));
             assertTrue(" entidade selecionada não foi instanciado", pagina.getEntidadeSelecionada() != null);
             assertTrue("O boolean is novo registro deve ser true ao executar a ação novo registro", pagina.isNovoRegistro());
@@ -149,11 +150,12 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoEditar().getXHTMLAcao()));
 
             assertTrue("O comprador Selecionado está nulo para edição!", pagina.getEntidadeSelecionada() != null);
-            assertTrue("O comprador Selecionado não parece ser o que foi configurado ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
+            assertTrue(" A entidade Selecionada não parece ser a que foi configurada ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
+
             ItfBeanSimples entidadeSelecionada = (ItfBeanSimples) pagina.getEntidadeSelecionada();
 
             String nomeAntigo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
-            String nomenovo = " [EDIT]" + ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+            String nomenovo = "[EDIT]" + nomeAntigo;
             int idEntidadeSelecionada = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getId();
             try {
                 ((EntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabCampos.AAA_NOME_CURTO.toString()).setValor(nomenovo);
@@ -173,8 +175,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             }
             assertFalse(" O Xhtml de listar dados deveria ser definido apos o registro ser cadastrado com sucesso, e o valor esta nulo", pagina.getXhtmlAcaoAtual() == null);
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
-            assertTrue("Comprador selecionado não foi encontrado na lista de entidades", entidadeAlterada != null);
-            assertTrue("Os dados alterado do registro 0 da lista de entidades permanece o mesmo", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));
+            assertTrue("A entidade selecionada não foi encontrada na lista de entidades", entidadeAlterada != null);
+            assertFalse(" O nome da entidade alterada está nulo", entidadeAlterada.getNomeCurto() == null);
+            assertTrue("Os dados do registro 0 da lista de entidades não foram alterados", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));
             assertTrue("O dado alterado do regsitro 0 da lista  de entidades não parece ser o mesmo da alteração realizada", entidadeAlterada.getNomeCurto().equals(nomenovo));
 
         } catch (Throwable t) {
