@@ -54,7 +54,7 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
 
         }
 
-        if (UtilSBPersistencia.mergeRegistro(pEntidade) == null) {
+        if (UtilSBPersistencia.mergeRegistro(pEntidade, pEM) == null) {
             pResp.addErro("Não foi possível salvar o registro " + pEntidade.getClass());
         }
 
