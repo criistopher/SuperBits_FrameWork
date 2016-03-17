@@ -47,7 +47,7 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
 
         for (CaminhoCampoReflexao cm : pEntidade.getEntidadesVinculadas()) {
             if (pEntidade.getItemPorCaminhoCampo(cm) != null) {
-                if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm)) == null) {
+                if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm), pEM) == null) {
                     pResp.addErro("Ocorreu um erro ao Atualizar as informações de " + cm.getCampoFieldReflection().getType().getSimpleName());
                 }
             }
