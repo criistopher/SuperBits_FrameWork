@@ -119,7 +119,7 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
+    public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

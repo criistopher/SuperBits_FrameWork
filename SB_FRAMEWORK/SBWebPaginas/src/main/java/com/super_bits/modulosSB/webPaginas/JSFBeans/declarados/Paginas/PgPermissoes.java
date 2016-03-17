@@ -7,10 +7,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
-import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.BP_AutoComplete;
@@ -23,6 +20,10 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
+import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 
 import java.util.ArrayList;

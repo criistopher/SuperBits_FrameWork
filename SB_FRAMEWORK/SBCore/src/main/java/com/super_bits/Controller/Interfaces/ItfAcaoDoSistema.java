@@ -164,7 +164,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @param pisAcaoPrincipal
      * @return
      */
-    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal);
+    public void setIsAcaoPrincipal(boolean pisAcaoPrincipal);
 
     /**
      *

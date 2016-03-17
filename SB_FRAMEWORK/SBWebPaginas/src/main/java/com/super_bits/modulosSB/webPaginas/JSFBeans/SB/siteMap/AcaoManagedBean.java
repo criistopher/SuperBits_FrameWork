@@ -136,7 +136,7 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setIsAcaoPrincipal(Boolean pisAcaoPrincipal) {
+    public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
         acaoOriginal.setAcaoPrincipal(acaoOriginal);
     }
 
