@@ -29,7 +29,6 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Cidade")
@@ -58,18 +57,22 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
         unidadeFederativa = new UnidadeFederativa();
     }
 
+    @Override
     public int getId() {
         return this.id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
 
+    @Override
     public String getNome() {
         return this.nome;
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
