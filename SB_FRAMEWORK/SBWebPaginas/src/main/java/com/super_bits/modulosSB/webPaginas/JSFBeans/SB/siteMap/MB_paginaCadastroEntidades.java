@@ -44,7 +44,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
 
-    public abstract void executarAcao(T pEntidadeSelecionada);
+    @Override
+    public void executarAcao(T pEntidadeSelecionada) {
+
+    }
 
     /**
      *
@@ -80,21 +83,6 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     }
 
-    private void iniciaNovoRegistro() {
-        novoRegistro = true;
-        podeEditar = true;
-    }
-
-    private void iniciaEdicao() {
-        novoRegistro = false;
-        podeEditar = true;
-    }
-
-    protected void iniciaVisualizacao() {
-        novoRegistro = false;
-        podeEditar = false;
-    }
-
     /**
      * Configura as propriedades pode editar, e novo registro, de acordo com a
      * opção selecionada
@@ -105,15 +93,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         switch (pEstadoEdicao) {
             case ALTERAR:
-                iniciaEdicao();
-
+                novoRegistro = false;
+                podeEditar = true;
                 break;
             case CRIAR:
-                iniciaNovoRegistro();
+                novoRegistro = true;
+                podeEditar = true;
                 break;
             case VISUALIZAR:
-                podeEditar = false;
                 novoRegistro = false;
+                podeEditar = false;
                 break;
             default:
                 throw new AssertionError(pEstadoEdicao.name());
