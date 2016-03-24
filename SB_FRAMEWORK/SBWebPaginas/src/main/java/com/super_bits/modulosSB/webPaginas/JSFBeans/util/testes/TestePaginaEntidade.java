@@ -34,7 +34,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
     public void testeFluxo() {
         configurarPesquisa();
         try {
-            // criarNovaEntidade();
+            criarNovaEntidade();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
