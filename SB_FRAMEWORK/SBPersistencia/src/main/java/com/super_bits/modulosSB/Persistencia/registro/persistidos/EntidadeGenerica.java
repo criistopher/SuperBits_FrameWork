@@ -44,7 +44,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     @Override
-    protected Campo getCampoByAnotacoes(Field pCampo) {
+    protected Campo getCampoByFieldReflexao(Field pCampo) {
         return FabCamposPersistencia.getCampoByAnotacoes(pCampo);
     }
 

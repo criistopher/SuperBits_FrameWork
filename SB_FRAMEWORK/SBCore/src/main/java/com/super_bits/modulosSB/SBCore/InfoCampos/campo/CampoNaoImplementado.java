@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class CampoNaoImplementado extends CampoInstanciadoGenerico implements ItfCampoInstanciado {
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Não Implementado")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Não Implementado")
     public final String campoNaoImplementado = "TODO - CampoNão implementado";
     private Field fld;
 

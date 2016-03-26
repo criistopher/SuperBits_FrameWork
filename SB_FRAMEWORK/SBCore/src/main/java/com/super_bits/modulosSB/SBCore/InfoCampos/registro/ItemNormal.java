@@ -17,7 +17,7 @@ public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal {
     public ItemNormal(Class<?> pClasseModelo) {
         super();
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_CURTO, getNomeCurto()));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME, getNomeCurto()));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.IMG_GRANDE, getNomeCurto()));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_LONGO, getNomeCurto()));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_DATAINSERCAO, null));

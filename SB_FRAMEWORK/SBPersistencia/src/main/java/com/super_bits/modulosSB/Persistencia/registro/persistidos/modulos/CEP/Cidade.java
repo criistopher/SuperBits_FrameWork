@@ -32,7 +32,7 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Cidade")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Cidade")
     @NotNull
     @Column(nullable = false)
     private String nome;

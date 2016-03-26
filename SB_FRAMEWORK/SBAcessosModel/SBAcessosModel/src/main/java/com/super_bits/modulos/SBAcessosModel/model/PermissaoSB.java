@@ -42,7 +42,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Id
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeAcesso;
 
     @ManyToOne()

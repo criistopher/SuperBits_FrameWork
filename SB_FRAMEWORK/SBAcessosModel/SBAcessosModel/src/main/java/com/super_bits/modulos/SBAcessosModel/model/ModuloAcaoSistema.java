@@ -35,7 +35,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
 
     @Id
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;

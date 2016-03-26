@@ -14,6 +14,21 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerencia
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -158,7 +173,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             String nomenovo = "[EDIT]" + nomeAntigo;
             int idEntidadeSelecionada = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getId();
             try {
-                ((EntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabCampos.AAA_NOME_CURTO.toString()).setValor(nomenovo);
+                ((EntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabCampos.AAA_NOME.toString()).setValor(nomenovo);
                 nomenovo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
             } catch (Throwable t) {
                 fail("Ocorreu um erro ao tentar configurar um novo valor para o nome curto da entidade");

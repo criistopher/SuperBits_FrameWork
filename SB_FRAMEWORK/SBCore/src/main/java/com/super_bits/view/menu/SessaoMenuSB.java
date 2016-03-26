@@ -6,7 +6,7 @@ package com.super_bits.view.menu;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
@@ -125,8 +125,8 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public Field getCampo(FabCampos pInfoCampo) {
-        return getCampo(pInfoCampo);
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo) {
+        return getCampoReflexaoByAnotacao(pInfoCampo);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public FabTipoAcaoPadrao getTipoAcao() {
+    public FabTipoAcaoSistemaGenerica getTipoAcaoSistema() {
         return null;
     }
 

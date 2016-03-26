@@ -31,7 +31,7 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Bairro")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Bairro")
     @NotNull
     private String nome;
 

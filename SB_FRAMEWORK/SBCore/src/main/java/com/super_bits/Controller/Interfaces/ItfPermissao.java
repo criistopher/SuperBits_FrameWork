@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.Controller.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface ItfPermissao {
         SOLICITAR_EMAIL, USUARIO_SENHA_SEM_CRIPTOGRAFIA
     }
 
-    public ItfAcaoDoSistema getAcao();
+    public ItfAcaoController getAcao();
 
     public String getDescricaoAcesso();
 

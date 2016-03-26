@@ -49,7 +49,7 @@ public abstract class ItemSimples extends ItemGenerico implements
     }
 
     public String getCampoSQLNomeCurto() {
-        Field campo = getCampoByAnotacao(FabCampos.AAA_NOME_CURTO);
+        Field campo = getCampoByAnotacao(FabCampos.AAA_NOME);
         if (campo == null) {
 
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Nome curto não foi encontrado para obter o nome SQL do campo", null);

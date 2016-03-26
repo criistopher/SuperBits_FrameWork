@@ -44,7 +44,7 @@ public class BeanNaoSelecionado extends ItemGenerico implements ItfBeanSimples {
     }
 
     @Override
-    public Field getCampo(FabCampos pInfoCampo) {
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

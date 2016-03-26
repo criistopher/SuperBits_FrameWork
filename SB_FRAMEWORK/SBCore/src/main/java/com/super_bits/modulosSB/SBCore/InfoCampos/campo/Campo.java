@@ -22,7 +22,7 @@ public class Campo implements Serializable, ItfCampo {
 
     private String valorPadrao;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String label;
 
     private String descricao;
@@ -278,7 +278,7 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     @Override
-    public Field getCampo(FabCampos pInfoCampo) {
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

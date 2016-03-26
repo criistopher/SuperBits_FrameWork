@@ -27,7 +27,7 @@ public abstract class UtilSBCoreValidacao {
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case IMG_GRANDE:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case AAA_NOME_CURTO:
+            case AAA_NOME:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
             case AAA_NOME_LONGO:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");

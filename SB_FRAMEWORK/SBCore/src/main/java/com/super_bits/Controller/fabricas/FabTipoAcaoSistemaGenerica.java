@@ -11,18 +11,20 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
  *
  * @author desenvolvedor
  */
-public enum FabTipoAcaoPadrao implements ItfFabrica {
+public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
-    NOVO_ABRIR_FORMULARIO,
-    EDITAR_ABRIR_FORMULARIO,
+    FORMULARIO_NOVO_REGISTRO,
+    FORMULARIO_EDITAR,
+    FORMULARIO_LISTAR,
+    FORMULARIO_MODAL,
+    ACAO_GESTAO_DE_ENTIDADE,
     SALVAR_EDICAO,
     SALVAR_NOVO,
     SALVAR_MODO_MERGE,
     ATIVAR_DESATIVAR,
     ATIVAR,
     DESATIVAR,
-    VISUALIZAR_ABRIR_FORMULARIO,
-    LISTAR_ABRIR_FORMULARIO,
+    FORMULARIO_VISUALIZAR,
     GERENCIAR;
 
     @Override
@@ -31,17 +33,17 @@ public enum FabTipoAcaoPadrao implements ItfFabrica {
         TipoAcaoPadrao acaoPadrao = new TipoAcaoPadrao();
 
         switch (this) {
-            case NOVO_ABRIR_FORMULARIO:
+            case FORMULARIO_NOVO_REGISTRO:
                 acaoPadrao.setNomePadrao("Criar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de novo registro");
                 acaoPadrao.setIconePadrao("fa fa-plus");
                 break;
-            case EDITAR_ABRIR_FORMULARIO:
+            case FORMULARIO_EDITAR:
                 acaoPadrao.setNomePadrao("Editar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de edicao de registro existente");
                 acaoPadrao.setIconePadrao("fa fa-pencil");
                 break;
-            case VISUALIZAR_ABRIR_FORMULARIO:
+            case FORMULARIO_VISUALIZAR:
                 acaoPadrao.setNomePadrao("Visualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de visualizacao de registro");
                 acaoPadrao.setIconePadrao("fa fa-eye");
@@ -61,7 +63,7 @@ public enum FabTipoAcaoPadrao implements ItfFabrica {
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao");
                 acaoPadrao.setIconePadrao("fa fa-save");
                 break;
-            case LISTAR_ABRIR_FORMULARIO:
+            case FORMULARIO_LISTAR:
                 acaoPadrao.setNomePadrao("Listar registro");
                 acaoPadrao.setDescricaoPadrao("Exibe os registros existentes");
                 acaoPadrao.setIconePadrao("fa fa-list-alt");

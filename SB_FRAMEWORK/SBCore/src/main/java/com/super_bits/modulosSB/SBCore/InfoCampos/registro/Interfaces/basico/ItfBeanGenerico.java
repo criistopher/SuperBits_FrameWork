@@ -31,7 +31,7 @@ public interface ItfBeanGenerico {
 
     public String getNomeCampo(FabCampos pInfocampo);
 
-    public Field getCampo(FabCampos pInfoCampo);
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo);
 
     /**
      * Método utilizado para fazer uploads de arquivos vinculado a este registro
