@@ -176,7 +176,8 @@ public class Resposta implements ItfResposta {
 
     @Override
     public boolean isSucesso() {
-        return resultado == Resultado.SUCESSO;
+        calculaResultados();
+        return (!resultado.equals(resultado.FALHOU));
     }
 
     public void setTipoRetorno(Class tipoRetorno) {

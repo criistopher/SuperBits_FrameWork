@@ -5,10 +5,21 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+<<<<<<< HEAD
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+=======
+import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+>>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.inject.Inject;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -26,6 +37,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     private T entidadeSelecionada;
     private List<T> entidadesListadas;
+    private Class classeDaEntidade;
 
     private boolean temPesquisa;
 
@@ -43,8 +55,57 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
+    @Inject
+    protected PgUtil paginaUtil;
 
-    public abstract void executarAcao(T pEntidadeSelecionada);
+    @Override
+    public void executarAcao(T pEntidadeSelecionada) {
+
+        if (acaoSelecionada.getXHTMLAcao() != null) {
+            xhtmlAcaoAtual = acaoSelecionada.getXHTMLAcao();
+        }
+
+        if (pEntidadeSelecionada != null) {
+            setEntidadeSelecionada(pEntidadeSelecionada);
+        }
+
+        if (acaoSelecionada.equals(acaoListarRegistros)) {
+            listarDados();
+            paginaUtil.atualizaTelaPorID("formulario");
+        }
+
+        if (acaoSelecionada.equals(acaoNovoRegistro)) {
+
+            try {
+                // define que a nova classe será do tipo Newsletter
+                setEntidadeSelecionada((T) classeDaEntidade.newInstance());
+            } catch (InstantiationException | IllegalAccessException ex) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
+            }
+
+            // define o estado de edição como estado de criação
+            atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
+
+            // define que a atualização das informações aconteceram no formulario
+            paginaUtil.atualizaTelaPorID("formulario");
+
+        }
+
+        if (acaoSelecionada.equals(getAcaoEditar())) {
+
+            atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
+            paginaUtil.atualizaTelaPorID("formulario");
+
+        }
+
+        if (acaoSelecionada.equals(getAcaoVisualisar())) {
+
+            atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
+            paginaUtil.atualizaTelaPorID("formulario");
+
+        }
+
+    }
 
     /**
      *
@@ -57,10 +118,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
      * gerenciamento
      *
      */
-    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro,
+    public MB_paginaCadastroEntidades(
+            AcaoDoSistema[] pAcoesRegistro,
             AcaoDoSistema pAcaoNovoRegistro,
             AcaoDoSistema pAcaoListar,
             AcaoDoSistema pAcaoSalvar,
+            Class pClasseDaEntidade,
             boolean pTempesquisa
     ) {
         super();
@@ -73,26 +136,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-
+        classeDaEntidade = pClasseDaEntidade;
         entidadesListadas = new ArrayList<>();
-
+        paginaUtil = new PgUtil();
         temPesquisa = pTempesquisa;
 
-    }
-
-    private void iniciaNovoRegistro() {
-        novoRegistro = true;
-        podeEditar = true;
-    }
-
-    private void iniciaEdicao() {
-        novoRegistro = false;
-        podeEditar = true;
-    }
-
-    protected void iniciaVisualizacao() {
-        novoRegistro = false;
-        podeEditar = false;
     }
 
     /**
@@ -105,15 +153,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         switch (pEstadoEdicao) {
             case ALTERAR:
-                iniciaEdicao();
-
+                novoRegistro = false;
+                podeEditar = true;
                 break;
             case CRIAR:
-                iniciaNovoRegistro();
+                novoRegistro = true;
+                podeEditar = true;
                 break;
             case VISUALIZAR:
-                podeEditar = false;
                 novoRegistro = false;
+                podeEditar = false;
                 break;
             default:
                 throw new AssertionError(pEstadoEdicao.name());

@@ -48,7 +48,8 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
             FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema()
         }, FabAcaoSeguranca.USUARIO_NOVO_USUARIO.getAcaoDoSistema(),
                 FabAcaoSeguranca.USUARIO_LISTAR.getAcaoDoSistema(),
-                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoDoSistema(), true
+                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoDoSistema(),
+                UsuarioSB.class, true
         );
 
     }

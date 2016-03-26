@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -24,12 +25,11 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
+public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Cidade")
@@ -55,21 +55,26 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
     private boolean ativo;
 
     public Cidade() {
+        super(Cidade.class);
         unidadeFederativa = new UnidadeFederativa();
     }
 
+    @Override
     public int getId() {
         return this.id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
 
+    @Override
     public String getNome() {
         return this.nome;
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -122,7 +127,7 @@ public class Cidade extends EntidadeSimples implements Serializable, ItfCidade {
 
     }
 
-    public boolean getAtivo() {
+    public boolean isAtivo() {
         return ativo;
     }
 

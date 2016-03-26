@@ -342,9 +342,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
         isAcaoPrincipal = pisAcaoPrincipal;
+<<<<<<< HEAD
         tipoAcao = FabTipoAcaoSistemaGenerica.GERENCIAR;
+=======
+>>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
         if (pisAcaoPrincipal) {
             acessoAPagina = true;
+            tipoAcao = FabTipoAcaoPadrao.GERENCIAR;
+
         }
     }
 

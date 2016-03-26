@@ -49,6 +49,8 @@ public enum FabCidades implements ItfFabrica {
     public Cidade getRegistro() {
         Cidade novaCidade = new Cidade();
         novaCidade.setUnidadeFederativa(FabUnidadesFederativas.MG.getRegistro());
+        novaCidade.setNome(this.toString());
+        novaCidade.setId(this.ordinal());
         switch (this) {
 
         }
