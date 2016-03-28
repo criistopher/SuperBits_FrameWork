@@ -2,9 +2,9 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.acoes.acaoDeEntidade;
+package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.view.InfoPagina;
 
@@ -12,7 +12,7 @@ import com.super_bits.view.InfoPagina;
  *
  * @author desenvolvedor
  */
-public class AcaoGestaoEntidade extends AcaoFormularioDeEntidade {
+public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
 
     private InfoPagina infoPagina;
 
@@ -21,4 +21,5 @@ public class AcaoGestaoEntidade extends AcaoFormularioDeEntidade {
         acaoGenerica = FabTipoAcaoSistemaGenerica.ACAO_GESTAO_DE_ENTIDADE;
 
     }
+
 }

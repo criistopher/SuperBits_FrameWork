@@ -5,9 +5,9 @@
 package com.super_bits.Controller;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;

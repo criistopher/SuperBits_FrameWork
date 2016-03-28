@@ -2,9 +2,10 @@
  *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.Interfaces;
+package com.super_bits.Controller.Interfaces.permissoes;
 
-import com.super_bits.Controller.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.List;

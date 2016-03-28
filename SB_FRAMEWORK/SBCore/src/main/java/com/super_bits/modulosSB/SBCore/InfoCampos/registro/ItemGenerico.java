@@ -409,8 +409,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                {
-                    if (pCampoReflexao.getType().getName().equals("int")) {
+                 if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -424,7 +423,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                     } else {
                         valor = pCampoReflexao.get(this).toString();
                     }
-                }
 
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo", e);
@@ -465,7 +463,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
                 }
 
             } catch (ErroObtendoValorDoCampoPorReflexao ex) {
-                Logger.getLogger(ItemGenerico.class.getName()).log(Level.SEVERE, null, ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "O infoCampo  " + tipoCampo + " pesquisado não foi encontrado na classe" + this.getClass().getName(), ex);
             }
 
             if (campoEsperadoEncontrado.getAnotacaoObrigatoria()) {
@@ -483,6 +481,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, Se
             return campoEsperadoEncontrado.getValorPadrao();
 
         }
+        return null;
     }
 
     /**

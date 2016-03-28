@@ -4,10 +4,10 @@
  */
 package com.super_bits.Controller.anotacoes;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -21,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
  * @version 1.0
  *
  */
-public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema {
+public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
 
     @Override
     public String getNomeAcao() {
@@ -64,12 +64,7 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public String getNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getId() {
+    public boolean isConfigurado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -84,17 +79,17 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public FabTipoAcaoSistemaGenerica getTipoAcaoSistema() {
+    public FabTipoAcaoSistema getTipoAcaoSistema() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isConfigurado() {
+    public boolean isTemAcaoPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getImgPequena() {
+    public ItfModuloAcaoSistema getModulo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

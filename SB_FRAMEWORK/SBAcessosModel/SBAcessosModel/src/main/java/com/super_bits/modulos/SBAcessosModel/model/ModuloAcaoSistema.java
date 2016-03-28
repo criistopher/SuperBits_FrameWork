@@ -5,7 +5,8 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;

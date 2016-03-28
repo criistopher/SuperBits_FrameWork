@@ -6,7 +6,7 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
+import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;

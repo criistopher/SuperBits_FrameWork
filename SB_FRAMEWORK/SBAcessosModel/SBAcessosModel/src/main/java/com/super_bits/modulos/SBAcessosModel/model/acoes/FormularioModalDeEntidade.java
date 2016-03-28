@@ -2,16 +2,16 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.acoes;
+package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.acoes.acaoDeEntidade.AcaoFormularioDeEntidade;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 
 /**
  *
  * @author desenvolvedor
  */
-public class FormularioModalDeEntidade extends AcaoFormularioDeEntidade {
+public class FormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";
 

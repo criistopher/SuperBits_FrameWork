@@ -2,8 +2,10 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.Interfaces;
+package com.super_bits.Controller.Interfaces.acoes;
 
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
@@ -72,6 +74,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo);
 
+    public ItfModuloAcaoSistema getModulo();
+
     /**
      *
      * Indica se a ação foi criada apenas com constructor ou configurada com
@@ -98,6 +102,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      *
      * @return
      */
-    public FabTipoAcaoSistemaGenerica getTipoAcaoSistema();
+    public FabTipoAcaoSistema getTipoAcaoSistema();
+
+    public boolean isTemAcaoPrincipal();
 
 }

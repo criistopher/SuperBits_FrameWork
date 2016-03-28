@@ -2,8 +2,10 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.acoes;
+package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 
@@ -23,12 +25,22 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
  *
  * @author desenvolvedor
  */
-public abstract class AcaoDeEntidade extends AcaoDoSistema {
+public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
-    private final Class classeRelacionada;
+    private Class classeRelacionada;
 
     public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao) {
         super(pTipoAcao);
+        this.classeRelacionada = classeRelacionada;
+    }
+
+    @Override
+    public Class getClasseRelacionada() {
+        return classeRelacionada;
+    }
+
+    @Override
+    public void setClasseRelacionada(Class classeRelacionada) {
         this.classeRelacionada = classeRelacionada;
     }
 

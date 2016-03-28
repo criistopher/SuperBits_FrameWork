@@ -2,9 +2,9 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.acoes.acaoDeEntidade;
+package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
-import com.super_bits.Controller.acoes.AcaoDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 
@@ -12,10 +12,11 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
  *
  * @author desenvolvedor
  */
-public class AcaoDeEntidadeDesativar extends AcaoDeEntidade {
+public class AcaoDeEntidadeAtivar extends AcaoDeEntidade {
 
-    public AcaoDeEntidadeDesativar(Class pClasse) {
+    public AcaoDeEntidadeAtivar(Class pClasse) {
         super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.DESATIVAR;
+        acaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR;
     }
+
 }

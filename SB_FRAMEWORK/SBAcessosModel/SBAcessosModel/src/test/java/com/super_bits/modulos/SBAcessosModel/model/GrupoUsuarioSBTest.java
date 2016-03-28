@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;

@@ -4,10 +4,11 @@
  */
 package com.super_bits.Controller.anotacoes;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.acoes.AcaoDeEntidade;
-import com.super_bits.Controller.acoes.AcaoDeEntidadeController;
-import com.super_bits.Controller.acoes.acaoDeEntidade.AcaoFormularioDeEntidade;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -43,17 +44,18 @@ public enum FabAcaoGenerica implements ItfFabricaAcoes {
     }
 
     @Override
-    public AcaoDeEntidade getAcaoDeEntidade() {
+    public ItfAcaoEntidade getAcaoDeEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AcaoFormularioDeEntidade getAcaoEntidadeFormulario() {
+    public ItfAcaoFormulario getAcaoEntidadeFormulario(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AcaoDeEntidadeController getAcaoEntidadeController() {
+    public ItfAcaoController getAcaoEntidadeController() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

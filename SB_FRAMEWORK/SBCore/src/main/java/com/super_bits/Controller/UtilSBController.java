@@ -4,7 +4,8 @@
  */
 package com.super_bits.Controller;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.annotation.Annotation;
@@ -86,8 +87,8 @@ public class UtilSBController {
     public static ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo, boolean pararSistemaCasoNaoEncontre) {
         try {
             ItfFabricaAcoes acao = getFabricaAcaoByMetodo(pMetodo);
-            ItfAcaoDoSistema acaoSisTema = (ItfAcaoDoSistema) acao.getRegistro();
-            acaoSisTema.setIdMetodo(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo));
+            ItfAcaoController acaoSisTema = (ItfAcaoController) acao.getAcaoEntidadeController();
+            acaoSisTema.setIdMetodo(pMetodo);
 
             return acaoSisTema;
         } catch (Throwable t) {

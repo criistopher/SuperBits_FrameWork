@@ -4,7 +4,7 @@
  */
 package com.super_bits.Controller.comunicacao;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
@@ -50,6 +50,7 @@ public class Resposta implements ItfResposta {
 
             }
         }
+
     }
 
     @SuppressWarnings("LeakingThisInConstructor")
@@ -177,7 +178,17 @@ public class Resposta implements ItfResposta {
     @Override
     public boolean isSucesso() {
         calculaResultados();
-        return (!resultado.equals(resultado.FALHOU));
+        // Verificando se tem Retorno esperado, e se um retorno foi Configurado
+        if (tipoRetorno != null) {
+            if (!resultado.equals(Resultado.FALHOU)) {
+                if (retorno == null) {
+                    resultado = Resultado.FALHOU;
+
+                }
+            }
+        }
+
+        return (!resultado.equals(Resultado.FALHOU));
     }
 
     public void setTipoRetorno(Class tipoRetorno) {

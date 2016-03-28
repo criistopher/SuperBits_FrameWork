@@ -2,11 +2,13 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.acoes;
+package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -42,6 +44,16 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
     @Override
     public int getIdMetodo() {
         return idMetodo;
+    }
+
+    @Override
+    public void setIdMetodo(Method pMetodo) {
+        idMetodo = UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo);
+    }
+
+    @Override
+    public List<ParametroDeAcaoController> getParametros() {
+        return parametrosAdicionais;
     }
 
 }

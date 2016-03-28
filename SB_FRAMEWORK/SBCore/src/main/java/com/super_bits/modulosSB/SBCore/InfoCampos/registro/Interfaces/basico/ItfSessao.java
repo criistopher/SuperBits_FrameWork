@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
 import java.util.Date;
 import java.util.List;
