@@ -7,6 +7,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.PreUpdate;
 
 public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal {
 
@@ -24,6 +25,11 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     public String getNomeLongo() {
         camposEsperados.getCampo(FabCampos.AAA_NOME_LONGO).setValorPadrao(getNomeCurto());
         return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_LONGO);
+
+    }
+
+    @PreUpdate
+    public void antesDeSalvar() {
 
     }
 

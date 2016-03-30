@@ -4,7 +4,7 @@
  */
 package com.super_bits.Controller.Interfaces;
 
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 /**
@@ -191,7 +191,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      *
      * @return
      */
-    public FabTipoAcaoPadrao getTipoAcao();
+    public FabTipoAcaoSistemaGenerica getTipoAcao();
 
     /**
      *

@@ -8,7 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
@@ -83,7 +83,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private String nomeOriginalEnum;
 
-    private FabTipoAcaoPadrao tipoAcao;
+    private FabTipoAcaoSistemaGenerica tipoAcao;
 
     /**
      *
@@ -344,7 +344,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         isAcaoPrincipal = pisAcaoPrincipal;
         if (pisAcaoPrincipal) {
             acessoAPagina = true;
-            tipoAcao = FabTipoAcaoPadrao.GERENCIAR;
+            tipoAcao = FabTipoAcaoSistemaGenerica.GERENCIAR;
 
         }
     }
@@ -370,11 +370,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public FabTipoAcaoPadrao getTipoAcao() {
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
         return tipoAcao;
     }
 
-    public void configurarAcaoPadrao(FabTipoAcaoPadrao pTipoAcao) {
+    public void configurarAcaoPadrao(FabTipoAcaoSistemaGenerica pTipoAcao) {
 
         TipoAcaoPadrao tipoAcaoConfiguracao = (TipoAcaoPadrao) pTipoAcao.getRegistro();
         nomeAcao = tipoAcaoConfiguracao.getNomePadrao();
