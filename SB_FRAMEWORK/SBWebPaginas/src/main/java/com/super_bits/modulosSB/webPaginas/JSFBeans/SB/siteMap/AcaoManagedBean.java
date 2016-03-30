@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -166,8 +166,8 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public Field getCampo(FabCampos pInfoCampo) {
-        return acaoOriginal.getCampo(pInfoCampo);
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo) {
+        return acaoOriginal.getCampoReflexaoByAnotacao(pInfoCampo);
     }
 
     @Override
@@ -194,7 +194,15 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
+<<<<<<< HEAD
     public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+<<<<<<< HEAD
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+    public FabTipoAcaoSistemaGenerica getTipoAcaoSistema() {
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+>>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
         return null;
     }
 

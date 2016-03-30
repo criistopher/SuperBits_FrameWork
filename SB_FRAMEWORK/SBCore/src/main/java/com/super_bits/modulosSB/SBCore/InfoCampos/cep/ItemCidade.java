@@ -23,7 +23,7 @@ public class ItemCidade extends ItemSimples implements ItfCidade {
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     private ItfUnidadeFederativa unidadeFederativa;

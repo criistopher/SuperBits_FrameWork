@@ -2,9 +2,10 @@ package com.super_bits.modulos.SBAcessosModel;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfPermissao;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
@@ -58,13 +59,14 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
         acoesSistemaCriado = true;
         for (ItfAcaoDoSistema acao : acoesByHashMetodo.values()) {
             AcaoDoSistema acaoPersist = (AcaoDoSistema) acao;
-            if (!acaoPersist.isUmaAcaoPrincipal()) {
-                if (acao.getAcaoPrincipal() != null) {
-                    UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal().getModulo(), getEmPermissoes());
-                    UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal(), getEmPermissoes());
-                }
+
+            if (acaoPersist.isTemAcaoPrincipal()) {
+                ItfAcaoSecundaria acaosecundaria = (ItfAcaoSecundaria) acao;
+                UtilSBPersistencia.mergeRegistro(acaosecundaria.getAcaoPrincipal().getModulo(), getEmPermissoes());
+                UtilSBPersistencia.mergeRegistro(acaosecundaria.getAcaoPrincipal(), getEmPermissoes());
+
             }
-            UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal().getModulo());
+            UtilSBPersistencia.mergeRegistro(acao.getModulo());
             UtilSBPersistencia.mergeRegistro(acaoPersist, getEmPermissoes());
 
         }

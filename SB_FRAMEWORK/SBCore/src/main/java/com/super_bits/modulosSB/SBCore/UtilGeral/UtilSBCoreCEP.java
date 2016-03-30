@@ -33,7 +33,7 @@ public abstract class UtilSBCoreCEP {
             pLocal.getBairro().setNome(republicaVirtual.getBairro());
             pLocal.getBairro().getCidade().setNome(republicaVirtual.getCidade());
             pLocal.getBairro().getCidade().getUnidadeFederativa().setNome(republicaVirtual.getUf());
-            pLocal.configIDFromNomeCurto();
+            pLocal.configIDPeloNome();
 
             return true;
         } else {

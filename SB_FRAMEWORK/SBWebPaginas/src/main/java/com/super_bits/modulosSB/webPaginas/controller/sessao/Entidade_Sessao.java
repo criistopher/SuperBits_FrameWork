@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;

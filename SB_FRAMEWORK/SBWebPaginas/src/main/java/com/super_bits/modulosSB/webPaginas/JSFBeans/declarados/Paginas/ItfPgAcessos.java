@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;

@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import java.util.List;
 
 /**
@@ -14,16 +14,16 @@ import java.util.List;
  */
 public interface ItfPaginaGerenciarEntidade<T> {
 
-    AcaoDoSistema getAcaoListarRegistros();
+    ItfAcaoDoSistema getAcaoListarRegistros();
 
     // Retorna ação de novo registro
-    AcaoDoSistema getAcaoNovoRegistro();
+    ItfAcaoDoSistema getAcaoNovoRegistro();
 
-    AcaoDoSistema getAcaoSalvarAlteracoes();
+    ItfAcaoDoSistema getAcaoSalvarAlteracoes();
 
-    AcaoDoSistema getAcaoSelecionada();
+    ItfAcaoDoSistema getAcaoSelecionada();
 
-    List<AcaoDoSistema> getAcoesRegistros();
+    List<ItfAcaoDoSistema> getAcoesRegistros();
 
     T getEntidadeSelecionada();
 
@@ -36,7 +36,7 @@ public interface ItfPaginaGerenciarEntidade<T> {
     boolean isPodeEditar();
 
     // Define a ação selecionada
-    void setAcaoSelecionada(AcaoDoSistema acaoSelecionada);
+    void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
 
     void setEntidadeSelecionada(T entidadeSelecionada);
 

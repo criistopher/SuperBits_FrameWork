@@ -4,10 +4,18 @@
  */
 package com.super_bits.Controller.anotacoes;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+=======
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+>>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+=======
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -21,7 +29,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
  * @version 1.0
  *
  */
-public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema {
+public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
 
     @Override
     public String getNomeAcao() {
@@ -44,21 +52,6 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public String getXHTMLAcao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfModuloAcaoSistema getModulo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getIdMetodo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean isPrecisaPermissao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -74,72 +67,12 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public void setIdMetodo(int pID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isTipoAcaoDireta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isTipoAcao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isTipoSessaoMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean isConfigurado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfAcaoDoSistema getAcaoPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void validarAcao(boolean pValidarSeNaoConfigurado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isUmaAcaoPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getImgPequena() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -154,12 +87,35 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+    public FabTipoAcaoSistema getTipoAcaoSistema() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isCaminhoAutomaticoXHTML() {
+    public boolean isTemAcaoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfModuloAcaoSistema getModulo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+    public String getNome() {
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
+>>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNome(String pNome) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

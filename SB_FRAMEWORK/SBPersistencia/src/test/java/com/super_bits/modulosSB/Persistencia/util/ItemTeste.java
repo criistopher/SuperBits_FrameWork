@@ -16,7 +16,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 public class ItemTeste extends ItemSimples {
 
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     public ItemTeste(String pNome) {

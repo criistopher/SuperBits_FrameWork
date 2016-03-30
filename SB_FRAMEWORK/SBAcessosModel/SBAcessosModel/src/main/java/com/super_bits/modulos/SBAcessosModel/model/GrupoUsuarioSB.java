@@ -38,7 +38,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome")
     @NotNull
     @Column(unique = true)
     private String nome;

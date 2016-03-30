@@ -6,6 +6,7 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.Controller.anotacoes.AcaoGenerica;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ConfigPersistenciaExemplo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
@@ -36,10 +37,10 @@ public class AcaoDoSistemaTest extends TesteJunitSBPersistencia {
     @Test
     public void testGetNomeAcao() {
 
-        List<AcaoDoSistema> acoes = UtilSBPersistencia.getListaTodos(AcaoDoSistema.class, getEmTeste());
+        List<AcaoGenerica> acoes = UtilSBPersistencia.getListaTodos(AcaoGenerica.class, getEmTeste());
         ControllerAppAbstratoSBCore.reloadAcessos();
         System.out.println("Acoes encontradas=" + acoes.size());
-        for (AcaoDoSistema ac : acoes) {
+        for (AcaoGenerica ac : acoes) {
             System.out.println(ac.getNomeAcao());
         }
     }

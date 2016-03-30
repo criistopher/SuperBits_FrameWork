@@ -6,14 +6,14 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.testesFW.TesteAcoesDoSistema;
+import com.super_bits.modulosSB.SBCore.testesFW.TesteAcaoDoSistema;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 
 /**
  *
  * @author desenvolvedor
  */
-public abstract class TesteAcoesWebPaginas extends TesteAcoesDoSistema {
+public abstract class TesteAcoesWebPaginas extends TesteAcaoDoSistema {
 
     public TesteAcoesWebPaginas(boolean pValidarAcoesNaoCOnfiguradas) {
         super(pValidarAcoesNaoCOnfiguradas);

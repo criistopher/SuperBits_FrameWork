@@ -5,7 +5,8 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
@@ -35,7 +36,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
 
     @Id
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
@@ -44,8 +45,6 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
 
-    
-    
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
 
@@ -54,18 +53,15 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     public ModuloAcaoSistema() {
-    super();
+        super();
     }
 
-    
-    
-    
-    
-    
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -94,6 +90,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
      *
      * @return
      */
+    @Override
     public List<ItfAcaoDoSistema> getAcoes() {
         return (List) acoes;
     }

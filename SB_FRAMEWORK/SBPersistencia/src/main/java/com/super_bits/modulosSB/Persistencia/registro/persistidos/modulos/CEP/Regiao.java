@@ -36,7 +36,7 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome regiao")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao")
     private String nomeRegiao;
 
     @ManyToMany
