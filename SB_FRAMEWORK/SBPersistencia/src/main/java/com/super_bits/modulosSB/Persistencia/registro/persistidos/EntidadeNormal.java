@@ -4,11 +4,12 @@ import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEn
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanPermisionado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.Date;
 import java.util.List;
 
-public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal {
+public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal, ItfBeanPermisionado {
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public EntidadeNormal(Class<?> pClasseModelo) {
@@ -83,6 +84,16 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     @Override
     public boolean isAtivo() {
         return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+    }
+
+    @Override
+    public void setNomeLongo(String pnomeLongo) {
+        setValorByTipoCampoEsperado(FabCampos.NOME_COMPLETO, this);
+    }
+
+    @Override
+    public void setDescritivo(String pDescritivo) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_DESCRITIVO, this);
     }
 
 }

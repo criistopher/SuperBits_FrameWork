@@ -5,6 +5,8 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 
 /**
@@ -18,7 +20,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
  * @since 12/02/2015
  * @version 1.0
  */
-public class BeanTodosSelecionados extends ItemGenerico implements ItfBeanSimples {
+public class BeanTodosSelecionados implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public String getImgPequena() {
@@ -33,6 +35,21 @@ public class BeanTodosSelecionados extends ItemGenerico implements ItfBeanSimple
     @Override
     public int getId() {
         return -2;
+    }
+
+    @Override
+    public String getNome() {
+        return "Todos";
+    }
+
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void configIDPeloNome() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

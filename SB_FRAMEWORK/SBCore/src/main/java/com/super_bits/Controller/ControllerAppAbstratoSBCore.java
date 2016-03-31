@@ -32,15 +32,15 @@ import javax.validation.constraints.NotNull;
  */
 public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
-    private static final Map<Integer, ItfPermissao> permissoesPorAcaoID = new HashMap<>();
-    private static final Map<Integer, Integer> idPermissaoPorMetodoID = new HashMap<>();
-    private static final Map<String, ItfUsuario> usuarios = new HashMap<>();
+    private static final Map<Integer, ItfPermissao> PERMISSAO_POR_ACAO_ID = new HashMap<>();
+    private static final Map<Integer, Integer> IDPERMISSAO_POR_METODOID = new HashMap<>();
+    private static final Map<String, ItfUsuario> USUARIOS = new HashMap<>();
 
     public static ItfUsuario getUsuarioByEmail(String pEmail) {
-        if (usuarios == null) {
+        if (USUARIOS == null) {
             reloadAcessos();
         }
-        return usuarios.get(pEmail);
+        return USUARIOS.get(pEmail);
     }
 
     public static ItfResposta getNovaResposta(Class pTipoRetorno) {
@@ -69,17 +69,17 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     }
 
     protected static Map<Integer, ItfPermissao> getPermissoes() {
-        if (permissoesPorAcaoID == null || permissoesPorAcaoID.isEmpty()) {
+        if (PERMISSAO_POR_ACAO_ID == null || PERMISSAO_POR_ACAO_ID.isEmpty()) {
             reloadAcessos();
         }
-        return permissoesPorAcaoID;
+        return PERMISSAO_POR_ACAO_ID;
     }
 
     protected static ItfPermissao getPermissaoByMethodID(Integer pMethodID) {
-        if (idPermissaoPorMetodoID == null || idPermissaoPorMetodoID.isEmpty()) {
+        if (IDPERMISSAO_POR_METODOID == null || IDPERMISSAO_POR_METODOID.isEmpty()) {
             reloadAcessos();
         }
-        Integer idPermissao = idPermissaoPorMetodoID.get(pMethodID);
+        Integer idPermissao = IDPERMISSAO_POR_METODOID.get(pMethodID);
         if (idPermissao != null) {
             return getPermissoes().get(idPermissao);
         } else {
@@ -141,14 +141,14 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     public static void reloadAcessos() {
         try {
 
-            usuarios.clear();
-            permissoesPorAcaoID.clear();
+            USUARIOS.clear();
+            PERMISSAO_POR_ACAO_ID.clear();
 
             ItfCfgPermissoes configPermissoes = SBCore.getConfiguradorDePermissao();
             List<ItfUsuario> usuariosAtualizados = configPermissoes.configuraUsuarios();
 
             for (ItfUsuario novousuario : usuariosAtualizados) {
-                usuarios.put(novousuario.getEmail(), novousuario);
+                USUARIOS.put(novousuario.getEmail(), novousuario);
             }
             ItfCfgPermissoes classeResponsavelPermissao = SBCore.getConfiguradorDePermissao();
             List<ItfPermissao> permissoesAtualizadas = classeResponsavelPermissao.configuraPermissoes();
@@ -157,8 +157,8 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
                 for (ItfPermissao ac : permissoesAtualizadas) {
 
                     if (ac.getAcao() != null) {
-                        permissoesPorAcaoID.put(ac.getAcao().getId(), ac);
-                        idPermissaoPorMetodoID.put(ac.getAcao().getIdMetodo(), ac.getAcao().getId());
+                        PERMISSAO_POR_ACAO_ID.put(ac.getAcao().getId(), ac);
+                        IDPERMISSAO_POR_METODOID.put(ac.getAcao().getIdMetodo(), ac.getAcao().getId());
                     }
                 }
             }
@@ -301,11 +301,11 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
      */
     @Override
     public boolean isAcessoPermitido(ItfUsuario pUsuario, ItfAcaoDoSistema pAcao) {
-        return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), pUsuario);
+        return isPermitido(PERMISSAO_POR_ACAO_ID.get(pAcao.getId()), pUsuario);
     }
 
     public static boolean isAcessoPermitido(ItfAcaoDoSistema pAcao) {
-        return isPermitido(permissoesPorAcaoID.get(pAcao.getId()), SBCore.getUsuarioLogado());
+        return isPermitido(PERMISSAO_POR_ACAO_ID.get(pAcao.getId()), SBCore.getUsuarioLogado());
     }
 
     /**

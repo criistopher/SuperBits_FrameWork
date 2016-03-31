@@ -154,4 +154,9 @@ public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serial
         return true;
     }
 
+    @Override
+    public String getTipoUsuario() {
+        return "UsuarioDoSistema";
+    }
+
 }

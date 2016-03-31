@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -29,8 +30,8 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     private Class classeRelacionada;
 
-    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao) {
-        super(pTipoAcao);
+    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao) {
+        super(pTipoAcao, pFabricaAcao);
         this.classeRelacionada = classeRelacionada;
     }
 

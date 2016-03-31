@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanPermisionado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal {
+public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal, ItfBeanPermisionado {
 
     public ItemNormal(Class<?> pClasseModelo) {
         super();
@@ -92,6 +93,16 @@ public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal {
     @Override
     public boolean isAtivo() {
         return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+    }
+
+    @Override
+    public void setNomeLongo(String pnomeLongo) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, pnomeLongo);
+    }
+
+    @Override
+    public void setDescritivo(String pDescritivo) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_DESCRITIVO, pDescritivo);
     }
 
 }

@@ -188,15 +188,23 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     public void configUsuarioAlteriou() {
         System.out.println("EXECUTOU PRE PERSIST!!!!" + this.getClass().getSimpleName());
     }
-    
-    
-    public  Long getQuantidadeRegistros(){
+
+    public Long getQuantidadeRegistros() {
         return UtilSBPersistencia.getQuantidadeRegistrosNaTabela(this.getClass());
     }
-    
- 
-    
-    
-    
 
+    @Override
+    public String getNome() {
+        return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, this);
+    }
+
+    @Override
+    public void setId(int pID) {
+        setValorByTipoCampoEsperado(FabCampos.ID, this);
+    }
 }

@@ -160,4 +160,9 @@ public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializab
         return true;
     }
 
+    @Override
+    public String getTipoUsuario() {
+        return "UsuarioDoSistema";
+    }
+
 }

@@ -27,7 +27,7 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
     private List<ParametroDeAcaoController> parametrosAdicionais;
     private int idMetodo;
 
-    public AcaoDeEntidadeController() {
+    public AcaoDeEntidadeController(Class pClasseRelacionada) {
         super(null, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
 
     }

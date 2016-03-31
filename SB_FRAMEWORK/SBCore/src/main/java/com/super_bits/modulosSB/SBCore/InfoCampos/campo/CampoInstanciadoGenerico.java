@@ -52,9 +52,4 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         }
     }
 
-    @Override
-    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

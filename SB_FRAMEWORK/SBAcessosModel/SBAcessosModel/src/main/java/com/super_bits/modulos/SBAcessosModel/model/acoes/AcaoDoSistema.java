@@ -11,15 +11,20 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
-    private final FabTipoAcaoSistema tipoAcao;
+    private FabTipoAcaoSistema tipoAcao;
     protected FabTipoAcaoSistemaGenerica acaoGenerica;
+    @Id
     private int id;
     private String nomeAcao;
     private String iconeAcao;
@@ -27,6 +32,19 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String descricao;
     private boolean precisaPermissao;
     private ModuloAcaoSistema modulo;
+    private String idDescritivoJira;
+
+    public AcaoDoSistema() {
+        System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
+    }
+
+    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
+
+        tipoAcao = ptipoAcao;
+        nomeAcao = pAcao.toString();
+        descricao = "Descrição não documentada";
+
+    }
 
     public void copiarDadosDaAcao(ItfAcaoDoSistema pAcaoOriginal) {
 
@@ -34,10 +52,6 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public boolean isUmaAcaoGenerica() {
         return acaoGenerica != null;
-    }
-
-    public AcaoDoSistema(FabTipoAcaoSistema pTipoAcao) {
-        tipoAcao = pTipoAcao;
     }
 
     public FabTipoAcaoSistema getTipoAcao() {
@@ -116,6 +130,42 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public void setModulo(ModuloAcaoSistema modulo) {
         this.modulo = modulo;
+    }
+
+    public void setTipoAcao(FabTipoAcaoSistema tipoAcao) {
+        this.tipoAcao = tipoAcao;
+    }
+
+    public void setAcaoGenerica(FabTipoAcaoSistemaGenerica acaoGenerica) {
+        this.acaoGenerica = acaoGenerica;
+    }
+
+    public void setNomeAcao(String nomeAcao) {
+        this.nomeAcao = nomeAcao;
+    }
+
+    public void setIconeAcao(String iconeAcao) {
+        this.iconeAcao = iconeAcao;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPrecisaPermissao(boolean precisaPermissao) {
+        this.precisaPermissao = precisaPermissao;
+    }
+
+    public String getIdDescritivoJira() {
+        return idDescritivoJira;
+    }
+
+    public void setIdDescritivoJira(String idDescritivoJira) {
+        this.idDescritivoJira = idDescritivoJira;
     }
 
 }

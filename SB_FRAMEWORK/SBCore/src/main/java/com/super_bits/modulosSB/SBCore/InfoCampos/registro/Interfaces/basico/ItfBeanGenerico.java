@@ -4,13 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
-import java.lang.reflect.Field;
-import java.util.List;
-
 /**
  *
  *
@@ -29,10 +22,6 @@ import java.util.List;
  */
 public interface ItfBeanGenerico {
 
-    public String getNomeCampo(FabCampos pInfocampo);
-
-    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo);
-
     /**
      * Método utilizado para fazer uploads de arquivos vinculado a este registro
      *
@@ -41,45 +30,18 @@ public interface ItfBeanGenerico {
      */
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso);
 
-    /**
-     *
-     * Cria mensagens de campos inválidos para utilização em validação
-     *
-     *
-     * @return Uma lista de Mensagens de inconformidades com a validação
-     */
-    public List<CampoInvalido> getCamposInvalidos();
+    public String getImgPequena();
 
     /**
      *
-     * Retorna os campos instanciados que foram invalidados
+     * Configura o Id da entidade apartir do nome.
      *
-     * @return campos instanciados que não foram validadados
+     * Utilizado para integrar registros de APIS diferentes, como Apis de CEPS
+     *
+     * O método retira os espaços e caracteres especiais, coloca tudo minusculo,
+     * e cria um hash correspontende ao id
+     *
      */
-    public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos();
-
-    /**
-     *
-     * @param pNome nome do campo declarado, ou nome Da anotação do tipo
-     * InfoCampo que
-     * @return O Objeto campo instanciado, contendo get e set para obter os
-     * valores, Label, Tipo do campo, Validação e outras informaçoes importantes
-     * sobre o campo
-     */
-    public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome);
-
-    public void configIDFromNomeCurto();
-
-    /**
-     *
-     * Retorna todas as entidades vinculadas ao bean para merg
-     *
-     * @return
-     */
-    public List<CaminhoCampoReflexao> getEntidadesVinculadas();
-
-    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo);
-
-    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho);
+    public void configIDPeloNome();
 
 }

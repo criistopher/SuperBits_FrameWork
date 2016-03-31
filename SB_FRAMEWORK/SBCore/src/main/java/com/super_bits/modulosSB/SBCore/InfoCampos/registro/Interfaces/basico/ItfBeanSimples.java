@@ -1,11 +1,12 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
-public interface ItfBeanSimples extends ItfBeanGenerico {
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 
-    public String getImgPequena();
+public interface ItfBeanSimples extends ItfBeanSimplesSomenteLeitura,
+        ItfBeanIDUnico,
+        ItfBeanSimplesSemReflexao,
+        ItfBeanReflexoes {
 
-    public String getNomeCurto();
-
-    public int getId();
+    public String getNomeCampo(FabCampos pInfocampo);
 
 }

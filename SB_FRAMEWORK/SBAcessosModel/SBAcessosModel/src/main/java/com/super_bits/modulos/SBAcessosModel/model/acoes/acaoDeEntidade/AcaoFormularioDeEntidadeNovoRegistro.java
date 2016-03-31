@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 
 /**
@@ -14,8 +15,8 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
  */
 public class AcaoFormularioDeEntidadeNovoRegistro extends AcaoFormularioEntidade implements ItfAcaoSecundaria {
 
-    public AcaoFormularioDeEntidadeNovoRegistro(ItfAcaoDoSistema pAcaoPrincipal, Class pClasseRelacionada, String pXhtml) {
-        super(pAcaoPrincipal, pClasseRelacionada, pXhtml);
+    public AcaoFormularioDeEntidadeNovoRegistro(ItfAcaoEntidade pAcaoPrincipal, String pXhtml) {
+        super(pAcaoPrincipal, pAcaoPrincipal.getClasseRelacionada(), pXhtml);
         acaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 

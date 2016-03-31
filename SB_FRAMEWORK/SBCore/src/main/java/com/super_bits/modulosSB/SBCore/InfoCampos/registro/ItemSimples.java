@@ -5,8 +5,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 
-@SuppressWarnings("serial")
-public abstract class ItemSimples extends ItemGenerico implements
+public class ItemSimples extends ItemGenerico implements
         ItfBeanSimples {
 
     public ItemSimples() {
@@ -94,6 +93,21 @@ public abstract class ItemSimples extends ItemGenerico implements
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String getNome() {
+        return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, pNome);
+    }
+
+    @Override
+    public void setId(int pID) {
+        setValorByTipoCampoEsperado(FabCampos.ID, pID);
     }
 
 }

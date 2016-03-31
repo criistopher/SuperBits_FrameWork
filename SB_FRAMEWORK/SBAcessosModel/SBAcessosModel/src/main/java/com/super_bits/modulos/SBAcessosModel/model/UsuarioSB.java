@@ -159,6 +159,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.grupo = (GrupoUsuarioSB) grupo;
     }
 
+    @Override
     public String getTipoUsuario() {
         return tipoUsuario;
     }
