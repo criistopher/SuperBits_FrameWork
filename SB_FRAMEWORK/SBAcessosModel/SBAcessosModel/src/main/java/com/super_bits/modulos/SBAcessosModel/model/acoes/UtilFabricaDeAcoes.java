@@ -72,10 +72,6 @@ public abstract class UtilFabricaDeAcoes {
             case FORMULARIO_LISTAR:
                 AcaoFormularioEntidadeListar
                 break;
-            case FORMULARIO_MODAL:
-                AcaoFormularioModalDeEntidade
-
-                break;
 
             case SALVAR_EDICAO:
                 novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
