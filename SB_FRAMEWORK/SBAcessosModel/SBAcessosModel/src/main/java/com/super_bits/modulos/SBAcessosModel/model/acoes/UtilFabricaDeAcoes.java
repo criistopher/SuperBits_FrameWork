@@ -54,49 +54,100 @@ public abstract class UtilFabricaDeAcoes {
         ItfAcaoDoSistema novaAcao;
         String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
         String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
+        ItfAcaoFormulario novaAcaoRefForm = new AcaoFormulario();
+        ItfAcaoController novaAcaoRefController = new AcaoController();
         switch (pTipoAcao) {
             case FORMULARIO_NOVO_REGISTRO:
                 novaAcao = new AcaoFormularioEntidadeNovoRegistro(pAcaoPrincipal);
-                ItfAcaoFormulario novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
-                /// configura o icone da ação
+                novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
+                novaAcao.setIcone("fa fa-plus");
                 novaAcao.configurarPropriedadesBasicas(acaoBase);
                 novaAcao.setNome("Novo " + nomeDoObjeto);
                 novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
                 novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
-
                 break;
             case FORMULARIO_EDITAR:
-                AcaoFormularioEntidadeEditar;
-
+                novaAcao = new AcaoFormularioEntidadeEditar(pAcaoPrincipal);
+                novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
+                novaAcao.configurarPropriedadesBasicas(acaoBase);
+                novaAcao.setNome("Editar " + nomeDoObjeto);
+                novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
+                novaAcao.setIcone("fa fa-edit");
                 break;
             case FORMULARIO_LISTAR:
-                AcaoFormularioEntidadeListar
+                novaAcao = new AcaoFormularioEntidadeListar(pAcaoPrincipal);
+                novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
+                novaAcao.configurarPropriedadesBasicas(acaoBase);
+                novaAcao.setNome("Listar " + nomeDoObjeto);
+                novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
+                novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
+                novaAcao.setIcone("fa fa-list-alt");
                 break;
 
             case SALVAR_EDICAO:
                 novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
-                ItfAcaoController novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-save (alias)");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
-
                 break;
             case SALVAR_NOVO:
-                AcaoDeEntidadeController
-
+                novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-save (alias)");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case SALVAR_MODO_MERGE:
-                AcaoDeEntidadeController
+                novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-save (alias)");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case ATIVAR_DESATIVAR:
-                AcaoDeEntidadeController
+                novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Alterar status " + nomeDoObjeto);
+                novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-retweet");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case ATIVAR:
-                AcaoDeEntidadeController
+                novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Ativar " + nomeDoObjeto);
+                novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-check");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case DESATIVAR:
-                AcaoDeEntidadeController
+                novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal);
+                novaAcao.configurarPropriedadesBasicas(novaAcao);
+                novaAcao.setNome("Desativar " + nomeDoObjeto);
+                novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
+                novaAcao.setIcone("fa fa-close");
+                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case FORMULARIO_VISUALIZAR:
-                AcaoFormularioEntidade
+
+                novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal);
+                novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
+                novaAcao.configurarPropriedadesBasicas(acaoBase);
+                novaAcao.setNome("Visualizar " + nomeDoObjeto);
+                novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
+                novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
+                novaAcao.setIcone("fa fa-eye");
                 break;
 
             default:
@@ -104,7 +155,7 @@ public abstract class UtilFabricaDeAcoes {
 
         }
 
-        return novaAcao;
+        return (ItfAcaoSecundaria) novaAcao;
 
     }
 

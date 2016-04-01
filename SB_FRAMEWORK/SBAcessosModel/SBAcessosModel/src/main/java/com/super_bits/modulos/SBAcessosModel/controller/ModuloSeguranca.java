@@ -77,6 +77,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
      *
      * @param pGrpUsuario GRupo de usuarios onde a permissão será adicionada
      * @param pModulos
+     * @param pEM
      *
      * @return
      */

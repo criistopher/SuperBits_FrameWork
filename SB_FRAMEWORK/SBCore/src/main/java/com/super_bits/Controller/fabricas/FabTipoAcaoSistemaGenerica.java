@@ -92,7 +92,6 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
      *
      */
     FORMULARIO_VISUALIZAR,
-    FORMULARIO_LISTAR,
     GERENCIAR;
 
     @Override
@@ -100,8 +99,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
         TipoAcaoPadrao acaoPadrao = new TipoAcaoPadrao();
 
-        return novaAcao;
-
+//        return novaAcao;
         switch (this) {
             case FORMULARIO_NOVO_REGISTRO:
                 acaoPadrao.setNomePadrao("Criar registro");

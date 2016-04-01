@@ -45,8 +45,6 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
 
-    
-    
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
 
@@ -55,18 +53,15 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     public ModuloAcaoSistema() {
-    super();
+        super();
     }
 
-    
-    
-    
-    
-    
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -95,6 +90,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
      *
      * @return
      */
+    @Override
     public List<ItfAcaoDoSistema> getAcoes() {
         return (List) acoes;
     }
