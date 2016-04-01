@@ -110,4 +110,6 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema);
 
+    public boolean isAcaoFormulario();
+
 }
