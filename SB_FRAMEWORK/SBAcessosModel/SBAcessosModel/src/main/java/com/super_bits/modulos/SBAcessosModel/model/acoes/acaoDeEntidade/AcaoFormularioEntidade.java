@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +33,15 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
      *
      */
     public AcaoFormularioEntidade(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
-        super(classeRelacionada, FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO);
+        super(classeRelacionada, FabTipoAcaoSistema.ACAO_FORMULARIO, null);
         this.acaoPrincipal = acaoPrincipal;
         xhtml = pXhtml;
         camposDoFormulario = new ArrayList<>();
 
+    }
+
+    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoGerenciar) {
+        super(null, null, null);
     }
 
     public ItfAcaoDoSistema getAcaoPrincipal() {

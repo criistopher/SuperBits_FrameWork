@@ -7,18 +7,15 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
-import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoEntidadeAlterarStatus;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeEditar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeListar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
@@ -55,15 +52,16 @@ public abstract class UtilFabricaDeAcoes {
     public static ItfAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal) {
         AcaoDoSistema acaoBase = getAcaoDoSistema(pTipoAcao);
         ItfAcaoDoSistema novaAcao;
-        String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName() + "/";
+        String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
         String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
         switch (pTipoAcao) {
             case FORMULARIO_NOVO_REGISTRO:
-                novaAcao = new AcaoFormularioEntidadeNovoRegistro(pAcaoPrincipal, diretorioBaseEntidade + "/novoRegistro.xhtml");
-
+                novaAcao = new AcaoFormularioEntidadeNovoRegistro(pAcaoPrincipal);
+                ItfAcaoFormulario novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
                 /// configura o icone da ação
                 novaAcao.configurarPropriedadesBasicas(acaoBase);
                 novaAcao.setNome("Novo " + nomeDoObjeto);
+                novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
                 novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
 
                 break;

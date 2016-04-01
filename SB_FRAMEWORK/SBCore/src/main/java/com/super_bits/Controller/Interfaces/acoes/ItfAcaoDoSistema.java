@@ -104,7 +104,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      *
      * @return
      */
-    public FabTipoAcaoSistemaGenerica getTipoAcaoSistema();
+    public FabTipoAcaoSistema getTipoAcaoSistema();
 
     public boolean isTemAcaoPrincipal();
 

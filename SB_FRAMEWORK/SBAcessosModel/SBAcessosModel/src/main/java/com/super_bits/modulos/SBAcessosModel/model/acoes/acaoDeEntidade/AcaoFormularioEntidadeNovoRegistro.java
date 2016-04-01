@@ -16,7 +16,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 public class AcaoFormularioEntidadeNovoRegistro extends AcaoFormularioEntidade implements ItfAcaoSecundaria {
 
     public AcaoFormularioEntidadeNovoRegistro(ItfAcaoEntidade pAcaoPrincipal) {
-        super(pAcaoPrincipal, classeRelacionada, pXhtml);
+        super(pAcaoPrincipal, null, null);
     }
 
     public AcaoFormularioEntidadeNovoRegistro(ItfAcaoEntidade pAcaoPrincipal, String pXhtml) {

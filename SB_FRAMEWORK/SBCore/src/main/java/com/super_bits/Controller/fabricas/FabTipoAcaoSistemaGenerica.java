@@ -11,6 +11,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import static com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
 
 /**
  *
@@ -163,12 +164,14 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
         ItfAcaoEntidade novaAcao;
         switch (this) {
             case FORMULARIO_NOVO_REGISTRO:
-                novaAcao = new AcaoFormularioEntidadeNovoRegistro(this, "/novoRegistro.xhtml");
+                novaAcao = new AcaoFormularioEntidadeNovoRegistro(pEntidade);
                 novaAcao.configurarPropriedadesBasicas(this.getRegistro());
 
                 novaAcao.setNome("Novo " + nomeDoObjeto);
                 novaAcao.setDescricao("Cria um novo " + nomeDoObjeto);
                 break;
+
+                UtilFabri
             case FORMULARIO_EDITAR:
                 novaAcao = new AcaoFormularioEntidadeEditar(this, this.getClasseRelacionada(), diretorioFormulariosEntidade + "/editarRegistro.xhtml");
                 novaAcao.setNome("Editar " + nomeDoObjeto);
