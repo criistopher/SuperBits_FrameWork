@@ -7,7 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.testesFW.TesteAcoesDoSistema;
+import com.super_bits.modulosSB.SBCore.testesFW.TesteAcaoDoSistema;
 import config.ConfigPersistenciaTestesAcesso;
 import config.FabConfiguracoesCoreAcessosModel;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.junit.Test;
  *
  * @author desenvolvedor
  */
-public class FabAcaoSegurancaTest extends TesteAcoesDoSistema {
+public class FabAcaoSegurancaTest extends TesteAcaoDoSistema {
 
     public FabAcaoSegurancaTest() {
         super(false);

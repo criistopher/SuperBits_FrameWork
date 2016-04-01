@@ -31,9 +31,6 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
-     *//**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
      */
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
@@ -47,7 +44,11 @@ public enum FabCampos implements ItfFabrica {
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
-    AAA_NOME_CURTO,
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    AAA_NOME,
     /**
      * Indica um nome completo do Item
      */
@@ -271,7 +272,9 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica um código de barras
      */
-    CODIGO_DE_BARRAS;
+    CODIGO_DE_BARRAS,
+    ICONE,
+    SEGURANCA_ATIVA,;
 
     @Override
     public Campo getRegistro() {
@@ -285,7 +288,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case IMG_GRANDE:
                 break;
-            case AAA_NOME_CURTO:
+            case AAA_NOME:
                 break;
             case AAA_NOME_LONGO:
                 break;
@@ -444,6 +447,16 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setMascara("*##(##)#####-####");
                 break;
             case CODIGO_DE_BARRAS:
+                break;
+            case DATAHORA:
+                break;
+            case DATA:
+                break;
+            case HORA:
+                break;
+            case RET_ATIVO_INATIVO:
+                break;
+            case ICONE:
                 break;
 
             default:

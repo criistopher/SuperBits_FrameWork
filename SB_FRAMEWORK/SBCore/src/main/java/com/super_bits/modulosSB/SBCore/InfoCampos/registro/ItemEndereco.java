@@ -13,11 +13,12 @@ public class ItemEndereco extends ItemNormal implements ItfBeanEndereco {
     private Double longitude;
     //private LatLng localizacao;
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public ItemEndereco(Class<?> pClasseModelo) {
 
         super(pClasseModelo);
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE.LATITUDE, "-19.8225864"));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE, "-19.8225864"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCEP, ""), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"), true);

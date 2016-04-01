@@ -48,7 +48,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Generated(GenerationTime.NEVER)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Nome")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome")
 
     @NotNull
     private String nome;
@@ -160,6 +160,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.grupo = (GrupoUsuarioSB) grupo;
     }
 
+    @Override
     public String getTipoUsuario() {
         return tipoUsuario;
     }

@@ -24,7 +24,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
         //adcionaCampoEsperado(new CampoEsperado(TC.IMG_PEQUENA, CInfo.SITE_URL
         //CInfo.pastaImagens + "/SBPequeno.jpg"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_CURTO), true);
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.ID), true);
 
     }
@@ -38,7 +38,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
     @Override
     public String getNomeCurto() {
-        String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_CURTO);
+        String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
         String nomeCurto = "";
         nome = nome.replace("-", " ");
         nome = nome.replace(".", " ");
@@ -86,7 +86,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
      */
     public String getCampoSQL(FabCampos pCAmpo) {
         try {
-            Field campo = getCampoByAnotacao(FabCampos.AAA_NOME_CURTO);
+            Field campo = getCampoByAnotacao(FabCampos.AAA_NOME);
             if (campo == null) {
 
                 throw new UnexpectedException("nome_curto_nao_encontrado_na_classe");
@@ -114,7 +114,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
         List<String> lista = new ArrayList<>();
         try {
 
-            Field campo = getCampoByAnotacao(FabCampos.AAA_NOME_CURTO);
+            Field campo = getCampoByAnotacao(FabCampos.AAA_NOME);
             if (campo == null) {
 
                 throw new UnexpectedException("nome_curto_nao_encontrado_na_classe");
@@ -139,7 +139,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
      */
     @Deprecated
     public String getCampoSQLNomeCurto() {
-        return getCampoSQL(FabCampos.AAA_NOME_CURTO);
+        return getCampoSQL(FabCampos.AAA_NOME);
     }
 
     public void uploadFoto(Object event) {
@@ -188,15 +188,23 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     public void configUsuarioAlteriou() {
         System.out.println("EXECUTOU PRE PERSIST!!!!" + this.getClass().getSimpleName());
     }
-    
-    
-    public  Long getQuantidadeRegistros(){
+
+    public Long getQuantidadeRegistros() {
         return UtilSBPersistencia.getQuantidadeRegistrosNaTabela(this.getClass());
     }
-    
- 
-    
-    
-    
 
+    @Override
+    public String getNome() {
+        return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, this);
+    }
+
+    @Override
+    public void setId(int pID) {
+        setValorByTipoCampoEsperado(FabCampos.ID, this);
+    }
 }

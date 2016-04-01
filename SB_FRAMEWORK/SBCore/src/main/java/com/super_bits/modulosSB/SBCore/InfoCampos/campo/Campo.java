@@ -3,10 +3,8 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class Campo implements Serializable, ItfCampo {
@@ -22,7 +20,7 @@ public class Campo implements Serializable, ItfCampo {
 
     private String valorPadrao;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String label;
 
     private String descricao;
@@ -273,13 +271,8 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     @Override
-    public String getNomeCampo(FabCampos pInfocampo) {
-        return tipoCampo.toString();
-    }
-
-    @Override
-    public Field getCampo(FabCampos pInfoCampo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNome() {
+        return label;
     }
 
     @Override
@@ -288,37 +281,7 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     @Override
-    public List<CampoInvalido> getCamposInvalidos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void configIDFromNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+    public void configIDPeloNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

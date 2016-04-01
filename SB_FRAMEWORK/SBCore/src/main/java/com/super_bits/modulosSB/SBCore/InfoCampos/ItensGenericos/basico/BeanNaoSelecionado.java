@@ -4,10 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import java.lang.reflect.Field;
 
 /**
  *
@@ -20,7 +19,7 @@ import java.lang.reflect.Field;
  * @since 12/02/2015
  * @version 1.0
  */
-public class BeanNaoSelecionado extends ItemGenerico implements ItfBeanSimples {
+public class BeanNaoSelecionado implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public String getImgPequena() {
@@ -38,13 +37,17 @@ public class BeanNaoSelecionado extends ItemGenerico implements ItfBeanSimples {
     }
 
     @Override
-    public String getNomeCampo(FabCampos pInfocampo) {
+    public String getNome() {
+        return "Não Selecionado";
+    }
 
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Field getCampo(FabCampos pInfoCampo) {
+    public void configIDPeloNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

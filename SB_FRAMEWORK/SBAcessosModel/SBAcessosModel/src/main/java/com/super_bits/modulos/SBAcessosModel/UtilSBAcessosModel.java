@@ -6,8 +6,9 @@
 package com.super_bits.modulos.SBAcessosModel;
 
 import com.super_bits.Controller.Interfaces.ItfControlerAPP;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.UtilSBController;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
@@ -46,10 +47,10 @@ public class UtilSBAcessosModel {
 
                     AcaoDoSistema acao = (AcaoDoSistema) novoAcesso.getAcao();
                     UtilSBPersistencia.mergeRegistro(acao.getModulo(), em);
-                    if (!acao.isUmaAcaoPrincipal()) {
-                        if (acao.getAcaoPrincipal() != null) {
-                            UtilSBPersistencia.mergeRegistro(acao.getAcaoPrincipal(), em);
-                        }
+                    if (acao.isTemAcaoPrincipal()) {
+
+                        UtilSBPersistencia.mergeRegistro(((ItfAcaoSecundaria) acao).getAcaoPrincipal(), em
+                        );
 
                         if (acao.isPrecisaPermissao()) {
                             acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);

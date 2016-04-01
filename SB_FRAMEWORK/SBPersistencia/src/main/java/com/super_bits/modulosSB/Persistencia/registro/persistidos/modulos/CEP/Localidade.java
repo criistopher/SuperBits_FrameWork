@@ -30,7 +30,7 @@ public class Localidade extends EntidadeNormal implements ItfLocalidade {
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     //bi-directional many-to-one association to Cidade

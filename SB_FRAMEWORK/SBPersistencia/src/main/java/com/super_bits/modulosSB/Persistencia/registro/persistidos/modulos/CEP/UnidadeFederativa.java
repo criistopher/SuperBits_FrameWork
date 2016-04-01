@@ -29,7 +29,7 @@ public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFede
     @InfoCampo(tipo = FabCampos.AAA_NOME_LONGO, label = "Estado")
     @NotNull
     private String nome;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO, label = "Estado")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Estado")
     private String UF;
     @OneToMany(targetEntity = Cidade.class)
     private List<Cidade> cidades;

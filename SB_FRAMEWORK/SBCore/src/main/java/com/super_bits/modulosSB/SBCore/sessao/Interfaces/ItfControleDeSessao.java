@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.sessao.Interfaces;
 
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 
 /**

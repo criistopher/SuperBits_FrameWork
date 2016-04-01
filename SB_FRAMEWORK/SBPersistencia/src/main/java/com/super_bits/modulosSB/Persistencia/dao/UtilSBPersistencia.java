@@ -349,9 +349,11 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             case DELETE:
 
                                 em.remove(em.getReference(entidade.getClass(), ((ItfBeanSimples) entidade).getId()));
+
                                 sucesso = true;
                                 break;
                             case INSERT:
+
                                 em.persist(entidade);
                                 sucesso = true;
                                 break;
@@ -475,7 +477,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                         case LIKENOMECURTO:
 
                             ItfBeanSimples registro = (ItfBeanSimples) tipoRegisto.newInstance();
-                            String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME_CURTO);
+                            String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME);
                             String parametro = (String) parametros[0];
                             sql = "from " + tipoRegisto.getSimpleName() + " where "
                                     + campoNomeCurto + " like '%" + parametro + "%'";
@@ -494,6 +496,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             break;
                     }
                     Query consulta = null;
+
                     if (pTipoSelecao == TIPO_SELECAO_REGISTROS.SQL) {
                         consulta = em.createNativeQuery(sql);
                     } else {
@@ -581,7 +584,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
                         case NOMECURTO:
                             ItfBeanSimples registroNC = (ItfBeanSimples) pClasseRegisto.newInstance();
-                            String campoNomeCurtoNC = registroNC.getNomeCampo(FabCampos.AAA_NOME_CURTO);
+                            String campoNomeCurtoNC = registroNC.getNomeCampo(FabCampos.AAA_NOME);
                             String parametroNC = (String) parametros[0];
                             sql = "from " + pClasseRegisto.getSimpleName() + " where "
                                     + campoNomeCurtoNC + " = '" + parametroNC + "'";
@@ -589,7 +592,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             break;
                         case LIKENOMECURTO:
                             ItfBeanSimples registro = (ItfBeanSimples) pClasseRegisto.newInstance();
-                            String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME_CURTO);
+                            String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME);
                             String parametro = (String) parametros[0];
                             sql = "from " + pClasseRegisto.getSimpleName() + " where "
                                     + campoNomeCurto + " like '" + parametro + "'";

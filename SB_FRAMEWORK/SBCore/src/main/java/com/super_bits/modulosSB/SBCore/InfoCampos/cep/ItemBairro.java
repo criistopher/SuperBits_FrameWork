@@ -22,7 +22,7 @@ public class ItemBairro extends ItemSimples implements ItfBairro {
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     private List<Long> coordenadas = new ArrayList<Long>();
