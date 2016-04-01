@@ -5,123 +5,16 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
-=======
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
+
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistemaNaoPersistido;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistemaBase;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistemaNaoPersistido;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;<<<<<<< HEAD
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-=======
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
->>>>>>> 15f0d855306b5cee1cf03415060c449702bb6646
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 
 /**
@@ -144,7 +37,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     private boolean temPesquisa;
 
-    private final List<AcaoDoSistema> acoesRegistros;
+    private final List<ItfAcaoDoSistema> acoesRegistros;
     protected final AcaoDoSistema acaoListarRegistros;
     protected final AcaoDoSistema acaoNovoRegistro;
     protected final AcaoDoSistema acaoSalvarAlteracoes;
@@ -154,7 +47,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         ALTERAR, CRIAR, VISUALIZAR
     }
 
-    protected AcaoDoSistema acaoSelecionada;
+    protected ItfAcaoDoSistema acaoSelecionada;
     protected boolean podeEditar;
     protected boolean novoRegistro;
     protected String xhtmlAcaoAtual;
@@ -232,7 +125,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         super();
         acoesRegistros = new ArrayList<>();
         for (AcaoDoSistema acao : pAcoesRegistro) {
-            acoesRegistros.add(acao);
+            acoesRegistros.add((ItfAcaoDoSistema) acao);
         }
         acaoNovoRegistro = pAcaoNovoRegistro;
         acaoListarRegistros = pAcaoListar;
@@ -275,19 +168,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public List<AcaoDoSistema> getAcoesRegistros() {
+    public List<ItfAcaoDoSistema> getAcoesRegistros() {
         return acoesRegistros;
     }
 
     // Retorna ação de novo registro
     @Override
-    public AcaoDoSistema getAcaoNovoRegistro() {
-        return acaoNovoRegistro;
+    public ItfAcaoDoSistema getAcaoNovoRegistro() {
+        return (ItfAcaoDoSistema) acaoNovoRegistro;
     }
 
     @Override
-    public AcaoDoSistema getAcaoListarRegistros() {
-        return acaoListarRegistros;
+    public ItfAcaoDoSistema getAcaoListarRegistros() {
+        return (ItfAcaoDoSistema) acaoListarRegistros;
     }
 
     @Override
@@ -301,13 +194,13 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public AcaoDoSistema getAcaoSelecionada() {
-        return acaoSelecionada;
+    public ItfAcaoDoSistema getAcaoSelecionada() {
+        return (ItfAcaoDoSistema) acaoSelecionada;
     }
 
     // Define a ação selecionada
     @Override
-    public void setAcaoSelecionada(AcaoDoSistema acaoSelecionada) {
+    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada) {
         this.acaoSelecionada = acaoSelecionada;
     }
 
@@ -317,8 +210,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public AcaoDoSistema getAcaoSalvarAlteracoes() {
-        return acaoSalvarAlteracoes;
+    public ItfAcaoDoSistema getAcaoSalvarAlteracoes() {
+        return (ItfAcaoDoSistema) acaoSalvarAlteracoes;
     }
 
     @Override
@@ -349,13 +242,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
-=======
+
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+
                     return acao;
                 }
             }
@@ -366,13 +256,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
-=======
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+
                     return acao;
                 }
             }
@@ -384,13 +270,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
-=======
+
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+
                     return acao;
                 }
             }
