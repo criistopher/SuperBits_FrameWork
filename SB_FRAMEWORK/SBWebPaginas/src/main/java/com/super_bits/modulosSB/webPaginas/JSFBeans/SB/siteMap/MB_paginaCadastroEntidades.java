@@ -6,7 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -243,19 +243,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoDoSistema getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
             if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoPadrao.EDITAR_ABRIR_FORMULARIO)) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
                     return acao;
                 }
             }
         }
-        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoPadrao.EDITAR_ABRIR_FORMULARIO + " nas ações de registro configuradas no constructor da pagina");
+        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
     }
 
     @Override
     public ItfAcaoDoSistema getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
             if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoPadrao.ATIVAR_DESATIVAR)) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
                     return acao;
                 }
             }
@@ -268,7 +268,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoDoSistema getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
             if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoPadrao.VISUALIZAR_ABRIR_FORMULARIO)) {
+                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
                     return acao;
                 }
             }

@@ -6,7 +6,7 @@ package com.super_bits.Controller.anotacoes;
 
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 
 /**
@@ -154,7 +154,7 @@ public class AcaoNaoPersistida extends ItemGenerico implements ItfAcaoDoSistema 
     }
 
     @Override
-    public FabTipoAcaoPadrao getTipoAcao() {
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
