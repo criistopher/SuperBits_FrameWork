@@ -13,11 +13,13 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
  *
  * @author desenvolvedor
  */
-public class AcaoFormularioDeEntidadeNovoRegistro extends AcaoFormularioEntidade implements ItfAcaoSecundaria {
+public class AcaoFormularioEntidadeListar extends AcaoFormularioEntidade implements ItfAcaoSecundaria {
 
-    public AcaoFormularioDeEntidadeNovoRegistro(ItfAcaoEntidade pAcaoPrincipal, String pXhtml) {
+    private String tituloForm;
+
+    public AcaoFormularioEntidadeListar(ItfAcaoEntidade pAcaoPrincipal, String pXhtml) {
         super(pAcaoPrincipal, pAcaoPrincipal.getClasseRelacionada(), pXhtml);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 
 }

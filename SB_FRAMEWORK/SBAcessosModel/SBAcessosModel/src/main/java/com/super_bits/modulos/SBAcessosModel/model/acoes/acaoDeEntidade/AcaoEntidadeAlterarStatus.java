@@ -21,7 +21,7 @@ public class AcaoEntidadeAlterarStatus extends AcaoDeEntidade implements ItfAcao
 
     public AcaoEntidadeAlterarStatus(Class pClasse) {
         super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR;
         icone = icone;
     }
 

@@ -13,7 +13,7 @@ import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioDeEntidadeNovoRegistro;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -64,8 +64,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_ADICIONAR:
 
-                AcaoFormularioDeEntidadeNovoRegistro acaoAdicionarGrupo
-                        = new AcaoFormularioDeEntidadeNovoRegistro(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDeEntidade(), "/sistema/seguranca/editarGrupo.xhtml");
+                AcaoFormularioEntidadeNovoRegistro acaoAdicionarGrupo
+                        = new AcaoFormularioEntidadeNovoRegistro(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDeEntidade(), "/sistema/seguranca/editarGrupo.xhtml");
 
                 acaoAdicionarGrupo.setIconeAcao("fa fa-plus");
                 acaoAdicionarGrupo.setPrecisaPermissao(true);

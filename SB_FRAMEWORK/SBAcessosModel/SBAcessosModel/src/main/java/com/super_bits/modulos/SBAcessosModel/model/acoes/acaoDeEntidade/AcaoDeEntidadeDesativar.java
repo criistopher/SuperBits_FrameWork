@@ -20,7 +20,7 @@ public class AcaoDeEntidadeDesativar extends AcaoDeEntidade implements ItfAcaoSe
 
     public AcaoDeEntidadeDesativar(Class pClasse) {
         super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.DESATIVAR;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.DESATIVAR;
     }
 
     @Override

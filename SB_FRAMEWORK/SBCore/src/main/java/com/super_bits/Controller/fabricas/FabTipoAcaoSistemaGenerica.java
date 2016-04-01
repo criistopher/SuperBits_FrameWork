@@ -4,6 +4,10 @@
  */
 package com.super_bits.Controller.fabricas;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 
@@ -13,24 +17,86 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
  */
 public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
+    /**
+     * Formulários para criação de novo Registro
+     */
     FORMULARIO_NOVO_REGISTRO,
+    /**
+     * Formulário para editar um REgistro
+     */
     FORMULARIO_EDITAR,
+    /**
+     * Formulário para listar os registros com as ações
+     */
     FORMULARIO_LISTAR,
+    /**
+     * Abre um formulário modal com campos para Coletar
+     */
     FORMULARIO_MODAL,
-    ACAO_GESTAO_DE_ENTIDADE,
+    /**
+     * Abre uma tela para Gestão de ações da Entidade: exemplo: Listar, Editar,
+     * Novo, Formulários modais Etc.
+     *
+     * Em geral esta ação está vinculada a um Managed Bean
+     *
+     */
+    GESTAO_DE_ENTIDADE,
+    /**
+     * Botão normalmente localizado dentro de um formulário de edição, com a
+     * função de salvar as alterações de um registro existente, atenção, na
+     * maioria dos casos o Salvar Modo Merge substitui a nescessidade deste
+     * botão
+     */
     SALVAR_EDICAO,
+    /**
+     * Botão normalmente localizado dentro de um formulário de edição, com a
+     * função de salvar as alterações de um registro existente, atenção, na
+     * maioria dos casos o Salvar Modo Merge substitui a nescessidade deste
+     * botão
+     */
     SALVAR_NOVO,
+    /**
+     * Botão normalmente localizado dentro de um formulário de edição e
+     * Inserção, com a função de salvar as alterações de um registro existente,
+     * ou salvar um novo registro, dependendo se o ID do objeto já exista
+     *
+     * Substitui SalvarEdicção e Salvar Novo
+     *
+     */
     SALVAR_MODO_MERGE,
+    /**
+     *
+     * Botão para alterar o atributo ativo do registro, se tiver ativo, fica
+     * false, se tiver false fica ativo, normalmente a criação desta Ação
+     * substitui a criação de um botão para ativar, e outro para desativar
+     *
+     *
+     */
     ATIVAR_DESATIVAR,
+    /**
+     *
+     * Botão para Ativar um um registro que não esteja ativo *
+     */
     ATIVAR,
+    /**
+     * Botão para desativar um registro caso ele esteja ativo
+     *
+     */
     DESATIVAR,
-    FORMULARIO_VISUALIZAR,
-    GERENCIAR;
+    /**
+     *
+     * Abre um formulário, e exibe os campos configurados caso existam
+     *
+     *
+     */
+    FORMULARIO_VISUALIZAR;
 
     @Override
     public TipoAcaoPadrao getRegistro() {
 
         TipoAcaoPadrao acaoPadrao = new TipoAcaoPadrao();
+
+        return novaAcao;
 
         switch (this) {
             case FORMULARIO_NOVO_REGISTRO:
@@ -89,4 +155,95 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
         }
         return acaoPadrao;
     }
+
+    public ItfAcaoDoSistema getAcaoByTipo() {
+
+        ItfAcaoDoSistema acao = new AcaoDoSistema();
+        acao.
+
+    }
+
+    public ItfAcaoSecundaria getAcaoSecundaria(ItfAcaoGerenciarEntidade pEntidade) {
+        ItfAcaoEntidade novaAcao;
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+                novaAcao = new AcaoFormularioEntidadeNovoRegistro(this, "/novoRegistro.xhtml");
+                novaAcao.configurarPropriedadesBasicas(this.getRegistro());
+
+                novaAcao.setNome("Novo " + nomeDoObjeto);
+                novaAcao.setDescricao("Cria um novo " + nomeDoObjeto);
+                break;
+            case FORMULARIO_EDITAR:
+                novaAcao = new AcaoFormularioEntidadeEditar(this, this.getClasseRelacionada(), diretorioFormulariosEntidade + "/editarRegistro.xhtml");
+                novaAcao.setNome("Editar " + nomeDoObjeto);
+                novaAcao.setDescricao("Exibe a tela de edição para " + nomeDoObjeto);
+                break;
+            case FORMULARIO_LISTAR:
+                novaAcao = new AcaoFormularioEntidadeNovoRegistro(this, nomeDoObjeto);
+                novaAcao.setNome("Listar " + nomeDoObjeto);
+                novaAcao.setDescricao("Exibe uma lista de " + nomeDoObjeto + " com suas respectivas ações");
+
+                break;
+            case FORMULARIO_MODAL:
+
+                break;
+            case ACAO_GESTAO_DE_ENTIDADE:
+                break;
+            case SALVAR_EDICAO:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Atualiza um " + nomeDoObjeto + " no sistema.");
+
+                break;
+            case SALVAR_NOVO:
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Cria um " + nomeDoObjeto + " no sistema.");
+
+                break;
+            case SALVAR_MODO_MERGE:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Salvar " + nomeDoObjeto);
+                novaAcao.setDescricao("Atualiza um " + nomeDoObjeto + " no sistema.");
+                break;
+            case ATIVAR_DESATIVAR:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Alterar Status " + nomeDoObjeto);
+                novaAcao.setDescricao("Ativa, ou desativa um" + nomeDoObjeto + " dependendo do status atual.");
+
+                break;
+            case ATIVAR:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Ativar " + nomeDoObjeto);
+                novaAcao.setDescricao("Ativa ou desativa um" + nomeDoObjeto + " desativado.");
+
+                break;
+            case DESATIVAR:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Ativar " + nomeDoObjeto);
+                novaAcao.setDescricao("Ativa ou desativa um" + nomeDoObjeto + " desativado.");
+
+                break;
+            case FORMULARIO_VISUALIZAR:
+
+                novaAcao = new AcaoController();
+                novaAcao.setNome("Ativar " + nomeDoObjeto);
+                novaAcao.setDescricao("Ativa ou desativa um" + nomeDoObjeto + " desativado.");
+
+                break;
+            case GERENCIAR:
+                break;
+            default:
+                throw new AssertionError(pAcaoGenerica.name());
+
+        }
+        return novaAcao;
+
+    }
+
 }

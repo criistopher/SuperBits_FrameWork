@@ -16,7 +16,7 @@ public class AcaoFormularioEntidadeEditar extends AcaoFormularioEntidade impleme
 
     public AcaoFormularioEntidadeEditar(ItfAcaoDoSistema pAcaoPrincipal, Class pClasseRelacionada, String pXhtml) {
         super(pAcaoPrincipal, pClasseRelacionada, pXhtml);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR;
     }
 
 }

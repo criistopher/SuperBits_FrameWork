@@ -11,15 +11,15 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
  *
  * @author desenvolvedor
  */
-public class FormularioModalDeEntidade extends AcaoFormularioEntidade {
+public class AcaoFormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";
 
-    public FormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse) {
+    public AcaoFormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse) {
         super(pAcao, pClasse, formularioPadrao);
     }
 
-    public FormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse, String pFormulario) {
+    public AcaoFormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse, String pFormulario) {
         super(pAcao, pClasse, pFormulario);
     }
 
