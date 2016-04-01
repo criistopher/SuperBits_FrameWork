@@ -5,9 +5,14 @@
 package com.super_bits.Controller.anotacoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+=======
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -94,7 +99,11 @@ public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
     }
 
     @Override
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoNaoPersistida.java
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
     public String getNome() {
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/anotacoes/AcaoGenerica.java
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

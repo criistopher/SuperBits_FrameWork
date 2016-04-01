@@ -78,12 +78,12 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
 
     @Override
     public void setAtivo(boolean pAtivo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO, pAtivo);
     }
 
     @Override
     public boolean isAtivo() {
-        return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+        return (boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
     }
 
     @Override

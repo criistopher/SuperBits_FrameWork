@@ -25,14 +25,20 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
      * Formulário para editar um REgistro
      */
     FORMULARIO_EDITAR,
+<<<<<<< HEAD
     /**
      * Formulário para listar os registros com as ações
      */
+=======
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
+=======
+>>>>>>> d3db8acdbb7bc10c2ca647e7ffa225e78bea0951
     FORMULARIO_LISTAR,
     /**
      * Abre um formulário modal com campos para Coletar
      */
     FORMULARIO_MODAL,
+<<<<<<< HEAD
     /**
      * Abre uma tela para Gestão de ações da Entidade: exemplo: Listar, Editar,
      * Novo, Formulários modais Etc.
@@ -47,6 +53,10 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
      * maioria dos casos o Salvar Modo Merge substitui a nescessidade deste
      * botão
      */
+=======
+    ACAO_GESTAO_DE_ENTIDADE,
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
+>>>>>>> d3db8acdbb7bc10c2ca647e7ffa225e78bea0951
     SALVAR_EDICAO,
     /**
      * Botão normalmente localizado dentro de um formulário de edição, com a
@@ -83,6 +93,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
      *
      */
     DESATIVAR,
+<<<<<<< HEAD
     /**
      *
      * Abre um formulário, e exibe os campos configurados caso existam
@@ -90,6 +101,14 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
      *
      */
     FORMULARIO_VISUALIZAR;
+=======
+    FORMULARIO_VISUALIZAR,
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
+    FORMULARIO_LISTAR,
+=======
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
+    GERENCIAR;
+>>>>>>> d3db8acdbb7bc10c2ca647e7ffa225e78bea0951
 
     @Override
     public TipoAcaoPadrao getRegistro() {
