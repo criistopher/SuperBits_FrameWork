@@ -17,6 +17,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -228,4 +229,5 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     public ItfAcaoDoSistema getAcao() {
         return acaoDoSistema;
     }
+
 }

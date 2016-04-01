@@ -8,6 +8,7 @@ package com.super_bits.modulosSB.Persistencia.util;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import java.lang.reflect.Field;
 
 /**
  *

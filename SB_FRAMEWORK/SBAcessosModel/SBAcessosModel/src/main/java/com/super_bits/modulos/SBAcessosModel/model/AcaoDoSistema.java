@@ -8,13 +8,15 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
-import com.super_bits.Controller.fabricas.FabTipoAcaoPadrao;
+
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -83,7 +85,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private String nomeOriginalEnum;
 
-    private FabTipoAcaoPadrao tipoAcao;
+    private FabTipoAcaoSistemaGenerica tipoAcao;
 
     /**
      *
@@ -344,7 +346,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         isAcaoPrincipal = pisAcaoPrincipal;
         if (pisAcaoPrincipal) {
             acessoAPagina = true;
-            tipoAcao = FabTipoAcaoPadrao.GERENCIAR;
+            tipoAcao = FabTipoAcaoSistemaGenerica.GERENCIAR;
 
         }
     }
@@ -370,11 +372,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public FabTipoAcaoPadrao getTipoAcao() {
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
         return tipoAcao;
     }
 
-    public void configurarAcaoPadrao(FabTipoAcaoPadrao pTipoAcao) {
+    public void configurarAcaoPadrao(FabTipoAcaoSistemaGenerica pTipoAcao) {
 
         TipoAcaoPadrao tipoAcaoConfiguracao = (TipoAcaoPadrao) pTipoAcao.getRegistro();
         nomeAcao = tipoAcaoConfiguracao.getNomePadrao();

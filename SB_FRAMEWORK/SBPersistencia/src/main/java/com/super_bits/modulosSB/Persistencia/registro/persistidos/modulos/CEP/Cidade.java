@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
