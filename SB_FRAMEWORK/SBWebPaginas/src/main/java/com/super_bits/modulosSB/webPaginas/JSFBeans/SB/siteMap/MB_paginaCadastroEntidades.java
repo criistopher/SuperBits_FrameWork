@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
 
@@ -57,8 +58,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
-        if (acaoSelecionada.getXHTMLAcao() != null) {
-            xhtmlAcaoAtual = acaoSelecionada.getXHTMLAcao();
+        if (acaoSelecionada.isAcaoFormulario()) {
+            xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
         }
 
         if (pEntidadeSelecionada != null) {
@@ -130,7 +131,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoNovoRegistro = pAcaoNovoRegistro;
         acaoListarRegistros = pAcaoListar;
         acaoSalvarAlteracoes = pAcaoSalvar;
-        acaoSelecionada = acaoListarRegistros;
+        acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
         classeDaEntidade = pClasseDaEntidade;
         entidadesListadas = new ArrayList<>();
