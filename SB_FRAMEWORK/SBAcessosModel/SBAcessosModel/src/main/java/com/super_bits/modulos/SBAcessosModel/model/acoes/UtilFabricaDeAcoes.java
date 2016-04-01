@@ -16,6 +16,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeEditar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeListar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
@@ -40,6 +41,14 @@ public abstract class UtilFabricaDeAcoes {
         TipoAcaoPadrao tipoAcao = new TipoAcaoPadrao();
         acao.setTipoAcaoGenerica(tipoDeAcao);
         return acao;
+
+    }
+
+    public static ItfAcaoGerenciarEntidade getAcaoEntidade(ItfAcaoDoSistema pAcao, Class pClasseRelacionada, String pXhtml) {
+
+        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade(pAcao, pClasseRelacionada, pXhtml);
+
+        return (ItfAcaoGerenciarEntidade) acaoGestaoEntidade;
 
     }
 

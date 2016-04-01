@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import java.util.List;
 
@@ -41,5 +42,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
     public ItfAcaoFormulario getAcaoEntidadeFormulario(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml);
 
     public ItfAcaoController getAcaoEntidadeController();
+
+    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade();
 
 }
