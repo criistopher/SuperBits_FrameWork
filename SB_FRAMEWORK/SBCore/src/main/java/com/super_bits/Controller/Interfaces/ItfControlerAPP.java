@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 
 /**

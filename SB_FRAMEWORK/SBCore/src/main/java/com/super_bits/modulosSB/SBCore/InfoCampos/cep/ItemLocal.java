@@ -19,7 +19,7 @@ public class ItemLocal extends ItemSimples implements ItfLocal {
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     private long longitude, latitude;

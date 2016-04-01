@@ -11,7 +11,7 @@ public class OpcaoFiltro extends EntidadeSimples implements Serializable {
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     private SBNQ qrySelecao;

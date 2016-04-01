@@ -15,6 +15,12 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
     FORMULARIO_NOVO_REGISTRO,
     FORMULARIO_EDITAR,
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
+=======
+    FORMULARIO_LISTAR,
+    FORMULARIO_MODAL,
+    ACAO_GESTAO_DE_ENTIDADE,
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
     SALVAR_EDICAO,
     SALVAR_NOVO,
     SALVAR_MODO_MERGE,
@@ -22,7 +28,10 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     ATIVAR,
     DESATIVAR,
     FORMULARIO_VISUALIZAR,
+<<<<<<< HEAD:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
     FORMULARIO_LISTAR,
+=======
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d:SB_FRAMEWORK/SBCore/src/main/java/com/super_bits/Controller/fabricas/FabTipoAcaoSistemaGenerica.java
     GERENCIAR;
 
     @Override

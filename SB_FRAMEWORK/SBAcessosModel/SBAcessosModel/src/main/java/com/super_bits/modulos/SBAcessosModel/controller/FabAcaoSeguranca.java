@@ -4,9 +4,22 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+=======
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioDeEntidadeNovoRegistro;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -43,19 +56,20 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-        AcaoDoSistema acao = new AcaoDoSistema(this, this.name(), "", "", "Descrição não documentada");
+
         switch (this) {
             case GRUPOS_GERENCIAR:
-                acao.setNomeAcao("Gerenciar Grupos ");
-                acao.setDescricao("Gerenciar grupos de usuários");
-                acao.setIsAcaoPrincipal(true);
-                acao.setXHTMLAcao("/sistema/seguranca/permissao.xhtml");
-                acao.setIconeAcao("fa fa-users");
-                acao.setAcessoAPagina(true);
-                acao.setPrecisaPermissao(true);
-                acao.setIdDescritivoJira("UI026");
+                AcaoDoSistema acaoGerenciarGrupos = new AcaoDeEntidadeController(GrupoUsuarioSB.class);
+
+                acaoGerenciarGrupos.setNomeAcao("Gerenciar Grupos ");
+                acaoGerenciarGrupos.setDescricao("Gerenciar grupos de usuários");
+                acaoGerenciarGrupos.setIconeAcao("fa fa-users");
+                acaoGerenciarGrupos.setPrecisaPermissao(true);
+                acaoGerenciarGrupos.setIdDescritivoJira("UI026");
+
                 break;
             case GRUPO_ADICIONAR:
+<<<<<<< HEAD
                 acao.setIconeAcao("fa fa-plus");
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
                 acao.setPrecisaPermissao(true);
@@ -105,11 +119,64 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
                 acao.setIdDescritivoJira("UC021");
+=======
+
+                AcaoFormularioDeEntidadeNovoRegistro acaoAdicionarGrupo
+                        = new AcaoFormularioDeEntidadeNovoRegistro(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDeEntidade(), "/sistema/seguranca/editarGrupo.xhtml");
+
+                acaoAdicionarGrupo.setIconeAcao("fa fa-plus");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setNomeAcao("Criar novo Grupo");
+                acaoAdicionarGrupo.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");
+                acaoAdicionarGrupo.setPrecisaPermissao(false);
+                acaoAdicionarGrupo.setIdDescritivoJira("UI027");
+                break;
+            case GRUPO_LISTAR:
+                acaoAdicionarGrupo.setNomeAcao("Listar Grupos ");
+                acaoAdicionarGrupo.setDescricao("Listar grupos de usuários");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/listarGrupos.xhtml");
+                acaoAdicionarGrupo.setIconeAcao("fa fa-users");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setIdDescritivoJira("UI026");
+                break;
+            case GRUPO_EDITAR:
+                acaoAdicionarGrupo.setIconeAcao("fa fa-edit");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setNomeAcao("Editar Grupo");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
+
+                break;
+            case GRUPO_VISUALIZAR:
+                acaoAdicionarGrupo.setIconeAcao("fa fa-search-plus");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setNomeAcao("Ver Detalhe do Grupo");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setIdDescritivoJira("UI028");
+                break;
+            case GRUPO_ALTERAR_STATUS:
+                acaoAdicionarGrupo.setNomeAcao("Ativar/Desativar");
+                acaoAdicionarGrupo.setIconeAcao("fa fa-retweet");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
+                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
                 break;
             case GRUPO_LISTAR_USUARIOS:
 
                 break;
             case GRUPO_SALVAR_ALTERACOES:
+<<<<<<< HEAD
                 acao.setIconeAcao("fa fa-save");
                 acao.setNomeAcao("Salvar Alterações");
                 acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
@@ -118,19 +185,30 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setPrecisaPermissao(true);
                 acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
                 acao.setIdDescritivoJira("UC021");
+=======
+                acaoAdicionarGrupo.setIconeAcao("fa fa-save");
+                acaoAdicionarGrupo.setNomeAcao("Salvar Alterações");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
+                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
 
                 break;
             case USUARIO_GERENCIAR:
-                acao.setNomeAcao("Usuários");
-                acao.setIconeAcao("fa fa-user");
-                acao.setIsAcaoPrincipal(true);
-                acao.setDescricao("Gerenciar Usuários");
-                acao.setXHTMLAcao("/sistema/seguranca/cadastroUsuario.xhtml");
-                acao.setAcessoAPagina(true);
-                acao.setPrecisaPermissao(true);
-                acao.setIdDescritivoJira("UI030");
+                acaoAdicionarGrupo.setNomeAcao("Usuários");
+                acaoAdicionarGrupo.setIconeAcao("fa fa-user");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(true);
+                acaoAdicionarGrupo.setDescricao("Gerenciar Usuários");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/cadastroUsuario.xhtml");
+                acaoAdicionarGrupo.setAcessoAPagina(true);
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setIdDescritivoJira("UI030");
                 break;
             case USUARIO_NOVO_USUARIO:
+<<<<<<< HEAD
                 acao.setNomeAcao("Criar Novo Usuário");
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
                 acao.setIsAcaoPrincipal(false);
@@ -139,35 +217,55 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
                 acao.setIdDescritivoJira("UI031");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+=======
+                acaoAdicionarGrupo.setNomeAcao("Criar Novo Usuário");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setIconeAcao("fa fa-plus");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
+                acaoAdicionarGrupo.setIdDescritivoJira("UI031");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
                 break;
             case USUARIO_LISTAR:
-                acao.setNomeAcao("Listar Usuários");
-                acao.setXHTMLAcao("/sistema/seguranca/usuario/listarUsuario.xhtml");
-                acao.setIsAcaoPrincipal(false);
-                acao.setIconeAcao("fa fa-users");
-                acao.setPrecisaPermissao(true);
-                acao.setIdDescritivoJira("UI030");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setNomeAcao("Listar Usuários");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/listarUsuario.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setIconeAcao("fa fa-users");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setIdDescritivoJira("UI030");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_SALVAR_ALTERACOES:
+<<<<<<< HEAD
                 acao.setIconeAcao("fa fa-save");
                 acao.setNomeAcao("Salvar Alterações");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
                 acao.setIdDescritivoJira("UC013");
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+=======
+                acaoAdicionarGrupo.setIconeAcao("fa fa-save");
+                acaoAdicionarGrupo.setNomeAcao("Salvar Alterações");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
+                acaoAdicionarGrupo.setIdDescritivoJira("UC013");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
                 break;
             case USUARIO_EDITAR:
-                acao.setIconeAcao("fa fa-edit");
-                acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acao.setIsAcaoPrincipal(false);
-                acao.setNomeAcao("Editar Usuário");
-                acao.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setIconeAcao("fa fa-edit");
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setNomeAcao("Editar Usuário");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
 
-                acao.setIdDescritivoJira("UI032.1");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.setIdDescritivoJira("UI032.1");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 break;
             case USUARIO_VISUALIZAR:
+<<<<<<< HEAD
                 acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
                 acao.setIconeAcao("fa fa-search-plus");
                 acao.setIsAcaoPrincipal(false);
@@ -185,6 +283,25 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
                 acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
                 acao.setIdDescritivoJira("UC013");
+=======
+                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
+                acaoAdicionarGrupo.setIconeAcao("fa fa-search-plus");
+                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
+                acaoAdicionarGrupo.setNomeAcao("Visualizar Usuário");
+                acaoAdicionarGrupo.setDescricao("Mostra os detalhes do cadastro de usuario");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
+                acaoAdicionarGrupo.setIdDescritivoJira("UI032.0");
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                break;
+            case USUARIO_ALTERAR_STATUS:
+                acaoAdicionarGrupo.setNomeAcao("Ativar/Desativar");
+                acaoAdicionarGrupo.setIconeAcao("fa fa-retweet ");
+                acaoAdicionarGrupo.setPrecisaPermissao(true);
+                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
+                acaoAdicionarGrupo.setIdDescritivoJira("UC013");
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
                 break;
             case USUARIO_LISTARGRUPOS:
                 break;
@@ -198,5 +315,20 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     @Override
     public ItfAcaoDoSistema getRegistro() {
         return getAcaoDoSistema();
+    }
+
+    @Override
+    public ItfAcaoEntidade getAcaoDeEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoFormulario getAcaoEntidadeFormulario(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoController getAcaoEntidadeController() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

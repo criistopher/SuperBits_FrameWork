@@ -7,8 +7,8 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfCfgPermissoes;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;

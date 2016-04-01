@@ -7,9 +7,9 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import static com.super_bits.Controller.ControllerAppAbstratoSBCore.getPermissaoPorAcao;
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;

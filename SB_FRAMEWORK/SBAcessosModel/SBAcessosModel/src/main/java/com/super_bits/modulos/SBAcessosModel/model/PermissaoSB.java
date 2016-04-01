@@ -5,10 +5,12 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfPermissao;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -42,7 +44,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Id
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeAcesso;
 
     @ManyToOne()
@@ -225,7 +227,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     @Override
-    public ItfAcaoDoSistema getAcao() {
-        return acaoDoSistema;
+    public ItfAcaoController getAcao() {
+        return (ItfAcaoController) acaoDoSistema;
     }
 }

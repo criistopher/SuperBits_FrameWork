@@ -4,7 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.fabrica;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import java.util.List;
 
@@ -32,4 +35,11 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      * @return
      */
     public ItfAcaoDoSistema getAcaoDoSistema();
+
+    public ItfAcaoEntidade getAcaoDeEntidade();
+
+    public ItfAcaoFormulario getAcaoEntidadeFormulario(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml);
+
+    public ItfAcaoController getAcaoEntidadeController();
+
 }

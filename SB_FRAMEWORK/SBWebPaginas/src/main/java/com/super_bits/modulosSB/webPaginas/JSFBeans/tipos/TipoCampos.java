@@ -93,7 +93,7 @@ public class TipoCampos extends ConstantesWeb {
                 break;
             case INSCRIACAO_MUNICIPAL:
                 break;
-            case AAA_NOME_CURTO:
+            case AAA_NOME:
                 break;
             case AAA_NOME_LONGO:
                 break;
@@ -138,11 +138,11 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getNomeCurto() {
-        return FabCampos.AAA_NOME_CURTO.toString();
+        return FabCampos.AAA_NOME.toString();
     }
 
     public String getNomeLongo() {
-        return FabCampos.AAA_NOME_CURTO.toString();
+        return FabCampos.AAA_NOME.toString();
     }
 
     public String getLC_CEP() {
@@ -162,7 +162,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getNOME_CURTO() {
-        return FabCampos.AAA_NOME_CURTO.toString();
+        return FabCampos.AAA_NOME.toString();
     }
 
     public String getNOME_CURTO_LONGO() {
@@ -304,7 +304,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getAAA_NOME_CURTO() {
-        return FabCampos.AAA_NOME_CURTO.name();
+        return FabCampos.AAA_NOME.name();
     }
 
     public String getAAA_NOME_LONGO() {

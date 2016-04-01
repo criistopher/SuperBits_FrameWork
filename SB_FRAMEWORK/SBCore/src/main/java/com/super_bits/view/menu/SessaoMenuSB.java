@@ -4,13 +4,18 @@
  */
 package com.super_bits.view.menu;
 
+<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+=======
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
+import com.super_bits.Controller.anotacoes.AcaoGenerica;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,7 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
+public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria {
 
     private ItfAcaoDoSistema acaoSessao;
     private List<ItfAcaoDoSistema> acoes;
@@ -50,6 +55,7 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
+<<<<<<< HEAD
     public String getNomeAcao() {
         return acaoSessao.getNomeAcao();
     }
@@ -218,6 +224,10 @@ public class SessaoMenuSB extends ItemGenerico implements ItfAcaoDoSistema {
     @Override
     public boolean isCaminhoAutomaticoXHTML() {
         return false;
+=======
+    public List<ItfAcaoSessaoCategoria> getSessoes() {
+        return (List) sessoes;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
     }
 
 }

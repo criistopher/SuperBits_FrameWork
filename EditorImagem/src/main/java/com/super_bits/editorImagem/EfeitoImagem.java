@@ -6,6 +6,7 @@ package com.super_bits.editorImagem;
 
 import com.super_bits.editorImagem.util.UtilSBImagemEdicao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -23,11 +24,16 @@ import java.util.Map;
  * @since 02/03/2015
  * @version 1.0
  */
-public class EfeitoImagem extends ItemGenerico implements ItfBeanSimples {
+public class EfeitoImagem extends ItemGenerico implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public String getImgPequena() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNome() {
+        return getNomeCurto();
     }
 
     @Override
