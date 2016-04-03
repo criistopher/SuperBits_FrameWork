@@ -1,13 +1,16 @@
-wget http://ftp.unicamp.br/pub/apache/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
-tar xzf apache-maven-3.3.3-bin.tar.gz -C /usr/local
-cd /usr/local
-rm maven 
-mv apache-maven-3.3.3/ maven
-ln -s apache-maven-3.0.5 maven
-export M2_HOME=/usr/local/maven
-export PATH=${M2_HOME}/bin:${PATH}
-echo 'export M2_HOME=/usr/local/maven' >> etc/profile.d/maven.sh
-echo 'export PATH=${M2_HOME}/bin:${PATH}' >> etc/profile.d/maven.sh
 
+mkdir -p /home/superBits/developer
+cd       /home/superBits/developer
+yum install maven
+wget http://download.netbeans.org/netbeans/8.1/final/bundles/netbeans-8.1-linux.sh
 
+./netbeans-8.1-linux.sh
+
+#export M2_HOME=/usr/local/maven
+#export PATH=${M2_HOME}/bin:${PATH}
+#echo 'export M2_HOME=/usr/local/maven' >> etc/profile.d/maven.sh
+#echo 'export PATH=${M2_HOME}/bin:${PATH}' >> etc/profile.d/maven.sh
+
+#export JAVA_HOME=/usr/java/jdk1.7.0_79/
+#PATH=$PATH:$JAVA_HOME/bin
 

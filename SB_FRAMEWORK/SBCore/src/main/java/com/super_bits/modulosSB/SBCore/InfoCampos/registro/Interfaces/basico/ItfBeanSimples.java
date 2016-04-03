@@ -7,6 +7,6 @@ public interface ItfBeanSimples extends ItfBeanSimplesSomenteLeitura,
         ItfBeanSimplesSemReflexao,
         ItfBeanReflexoes {
 
-    public String getNomeCampo(FabCampos pInfocampo);
+    
 
 }

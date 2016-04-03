@@ -14,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroObtendoValorDoCampoPorReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroSetandoValorDeCampoPorReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanReflexoes;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
@@ -44,7 +45,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author sfurbino
  */
-public abstract class ItemGenerico extends Object implements ItfBeanGenerico, ItfBeanSimples, Serializable {
+public abstract class ItemGenerico extends Object implements ItfBeanGenerico, ItfBeanReflexoes,Serializable {
 
     protected CampoMapValores camposEsperados;
 

@@ -59,4 +59,7 @@ public interface ItfBeanReflexoes {
     public List<CampoInvalido> getCamposInvalidos();
 
     public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo);
+    
+    
+    public String getNomeCampo(FabCampos pInfocampo);
 }

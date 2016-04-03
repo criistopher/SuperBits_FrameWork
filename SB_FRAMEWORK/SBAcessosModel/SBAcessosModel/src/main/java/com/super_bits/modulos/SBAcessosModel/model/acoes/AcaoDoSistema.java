@@ -119,7 +119,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isTemAcaoPrincipal() {
-        return this.getClass().isAssignableFrom(ItfAcaoSecundaria.class);
+    return     this.getClass().isAssignableFrom(ItfAcaoSecundaria.class);
 
     }
 
@@ -168,4 +168,23 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.idDescritivoJira = idDescritivoJira;
     }
 
+    @Override
+    public String getNomeUnico() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNome() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    
+    
 }

@@ -10,6 +10,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +26,26 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     private ItfAcaoDoSistema acaoExectarFormulario;
     private List<CaminhoCampoReflexao> campos;
 
+    public AcaoFormularioEntidade() {
+        super(null, null, null);
+    }
+
+    public AcaoFormularioEntidade(ItfAcaoDoSistema acaoPrincipal) {
+        super(null, null, null);
+        
+    }
+
+    
+    
+    
+    
+    
     /**
      *
      * @param acaoPrincipal Ação que corresponde ao botão executar formulário
      * @param classeRelacionada Classe Relacionada
      *
-     */
-    public AcaoFormularioEntidade(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
-        super(classeRelacionada, FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO);
-        this.acaoPrincipal = acaoPrincipal;
-        xhtml = pXhtml;
-        camposDoFormulario = new ArrayList<>();
-
-    }
-
+     */     
     public ItfAcaoDoSistema getAcaoPrincipal() {
         return acaoPrincipal;
     }
