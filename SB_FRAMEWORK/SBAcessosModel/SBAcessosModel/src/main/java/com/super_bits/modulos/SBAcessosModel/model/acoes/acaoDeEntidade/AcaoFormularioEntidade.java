@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
@@ -45,7 +46,23 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
      * @param acaoPrincipal Ação que corresponde ao botão executar formulário
      * @param classeRelacionada Classe Relacionada
      *
+<<<<<<< HEAD
      */     
+=======
+     */
+    public AcaoFormularioEntidade(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
+        super(classeRelacionada, FabTipoAcaoSistema.ACAO_FORMULARIO, null);
+        this.acaoPrincipal = acaoPrincipal;
+        xhtml = pXhtml;
+        camposDoFormulario = new ArrayList<>();
+
+    }
+
+    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoGerenciar) {
+        super(null, null, null);
+    }
+
+>>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
     public ItfAcaoDoSistema getAcaoPrincipal() {
         return acaoPrincipal;
     }

@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;

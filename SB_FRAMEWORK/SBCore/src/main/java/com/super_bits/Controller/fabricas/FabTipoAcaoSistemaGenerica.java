@@ -15,9 +15,6 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
     FORMULARIO_NOVO_REGISTRO,
     FORMULARIO_EDITAR,
-    FORMULARIO_LISTAR,
-    FORMULARIO_MODAL,
-    ACAO_GESTAO_DE_ENTIDADE,
     SALVAR_EDICAO,
     SALVAR_NOVO,
     SALVAR_MODO_MERGE,
@@ -25,6 +22,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     ATIVAR,
     DESATIVAR,
     FORMULARIO_VISUALIZAR,
+    FORMULARIO_LISTAR,
     GERENCIAR;
 
     @Override

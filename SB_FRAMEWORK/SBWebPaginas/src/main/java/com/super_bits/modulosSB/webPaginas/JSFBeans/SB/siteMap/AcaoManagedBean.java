@@ -194,7 +194,19 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
+<<<<<<< HEAD
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+<<<<<<< HEAD
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
+<<<<<<< HEAD
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+=======
     public FabTipoAcaoSistemaGenerica getTipoAcaoSistema() {
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+>>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
+>>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
         return null;
     }
 

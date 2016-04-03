@@ -44,4 +44,6 @@ public interface ItfBeanGenerico {
      */
     public void configIDPeloNome();
 
+    public String getNomeDoObjeto();
+
 }

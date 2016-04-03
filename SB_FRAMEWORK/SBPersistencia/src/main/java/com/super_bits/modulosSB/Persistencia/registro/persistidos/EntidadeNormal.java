@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.PreUpdate;
 
 public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal, ItfBeanPermisionado {
 
@@ -25,6 +26,11 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     public String getNomeLongo() {
         camposEsperados.getCampo(FabCampos.AAA_NOME_LONGO).setValorPadrao(getNomeCurto());
         return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_LONGO);
+
+    }
+
+    @PreUpdate
+    public void antesDeSalvar() {
 
     }
 
@@ -78,12 +84,12 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
 
     @Override
     public void setAtivo(boolean pAtivo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO, pAtivo);
     }
 
     @Override
     public boolean isAtivo() {
-        return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+        return (boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
     }
 
     @Override

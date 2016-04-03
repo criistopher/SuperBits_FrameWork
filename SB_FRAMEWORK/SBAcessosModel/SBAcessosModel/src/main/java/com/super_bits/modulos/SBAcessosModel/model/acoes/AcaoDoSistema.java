@@ -7,10 +7,12 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,10 +22,11 @@ import javax.persistence.Id;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = {"Ação do Sistema"}, description = "Implementa a ação do Sistema")
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private FabTipoAcaoSistema tipoAcao;
-    protected FabTipoAcaoSistemaGenerica acaoGenerica;
+    protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
     @Id
     private int id;
     private String nomeAcao;
@@ -51,7 +54,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     public boolean isUmaAcaoGenerica() {
-        return acaoGenerica != null;
+        return tipoAcaoGenerica != null;
     }
 
     public FabTipoAcaoSistema getTipoAcao() {
@@ -136,8 +139,19 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.tipoAcao = tipoAcao;
     }
 
-    public void setAcaoGenerica(FabTipoAcaoSistemaGenerica acaoGenerica) {
-        this.acaoGenerica = acaoGenerica;
+    public void setTipoAcaoGenerica(FabTipoAcaoSistemaGenerica tipoAcaoGenerica) {
+        this.tipoAcaoGenerica = tipoAcaoGenerica;
+        TipoAcaoPadrao tipoAcaoGen = tipoAcaoGenerica.getRegistro();
+        if (nomeAcao == null) {
+            nomeAcao = tipoAcaoGen.getNomePadrao();
+        }
+        if (descricao == null) {
+            nomeAcao = tipoAcaoGen.getDescricaoPadrao();
+        }
+        if (iconeAcao == null) {
+            iconeAcao = tipoAcaoGen.getIconePadrao();
+        }
+
     }
 
     public void setNomeAcao(String nomeAcao) {
@@ -169,11 +183,16 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
+<<<<<<< HEAD
     public String getNomeUnico() {
+=======
+    public String getNomeDoObjeto() {
+>>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+<<<<<<< HEAD
     public String getNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -187,4 +206,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     
     
     
+=======
+    public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
+
+        copiaDados(pAcaoDoSistema);
+
+    }
+
+>>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
 }

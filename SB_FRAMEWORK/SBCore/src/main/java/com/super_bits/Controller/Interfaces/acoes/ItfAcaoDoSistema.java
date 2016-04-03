@@ -42,6 +42,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public String getDescricao();
 
+    public void setDescricao(String pDescricao);
+
     /**
      *
      * Indica se para executar esta ação é nescessário o administrador do
@@ -105,5 +107,9 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
     public FabTipoAcaoSistema getTipoAcaoSistema();
 
     public boolean isTemAcaoPrincipal();
+
+    public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema);
+
+    public boolean isAcaoFormulario();
 
 }

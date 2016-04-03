@@ -11,7 +11,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface InfoClasse {
 
-	String description() default "";
-	String[] tags();
+    String description() default "";
+
+    String[] tags();
+
+    String icone() default "";
 
 }

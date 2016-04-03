@@ -16,7 +16,7 @@ public class AcaoDeEntidadeAtivar extends AcaoDeEntidade {
 
     public AcaoDeEntidadeAtivar(Class pClasse) {
         super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        acaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR;
     }
 
 }

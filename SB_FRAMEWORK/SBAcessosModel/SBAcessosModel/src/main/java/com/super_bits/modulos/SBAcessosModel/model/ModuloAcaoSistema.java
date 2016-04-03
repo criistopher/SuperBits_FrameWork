@@ -11,6 +11,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -45,8 +46,6 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
 
-    
-    
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
 
@@ -55,18 +54,18 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     public ModuloAcaoSistema() {
-    super();
+        super();
     }
 
-    
-    
-    
-    
-    
+<<<<<<< HEAD
+=======
+    @Override
+>>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -95,6 +94,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
      *
      * @return
      */
+    @Override
     public List<ItfAcaoDoSistema> getAcoes() {
         return (List) acoes;
     }

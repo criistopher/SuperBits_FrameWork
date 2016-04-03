@@ -349,9 +349,11 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             case DELETE:
 
                                 em.remove(em.getReference(entidade.getClass(), ((ItfBeanSimples) entidade).getId()));
+
                                 sucesso = true;
                                 break;
                             case INSERT:
+
                                 em.persist(entidade);
                                 sucesso = true;
                                 break;
@@ -494,6 +496,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             break;
                     }
                     Query consulta = null;
+
                     if (pTipoSelecao == TIPO_SELECAO_REGISTROS.SQL) {
                         consulta = em.createNativeQuery(sql);
                     } else {

@@ -4,9 +4,17 @@
  */
 package com.super_bits.view.menu;
 
+<<<<<<< HEAD
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+=======
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
 import com.super_bits.Controller.anotacoes.AcaoGenerica;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +55,179 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     }
 
     @Override
+<<<<<<< HEAD
+    public String getNomeAcao() {
+        return acaoSessao.getNomeAcao();
+    }
+
+    @Override
+    public String getIconeAcao() {
+        return acaoSessao.getIconeAcao();
+    }
+
+    @Override
+    public String getCor() {
+        return acaoSessao.getCor();
+    }
+
+    @Override
+    public String getDescricao() {
+        return acaoSessao.getDescricao();
+    }
+
+    @Override
+    public String getXHTMLAcao() {
+        return acaoSessao.getXHTMLAcao();
+    }
+
+    @Override
+    public ItfModuloAcaoSistema getModulo() {
+        return acaoSessao.getModulo();
+    }
+
+    @Override
+    public int getIdMetodo() {
+        return acaoSessao.getIdMetodo();
+    }
+
+    @Override
+    public boolean isPrecisaPermissao() {
+        return acaoSessao.isPrecisaPermissao();
+    }
+
+    @Override
+    public void setId(int pId) {
+        acaoSessao.setId(pId);
+    }
+
+    @Override
+    public void setIdMetodo(int pID) {
+        acaoSessao.setId(pID);
+    }
+
+    @Override
+    public void setModuloAcaoSistema(ItfModuloAcaoSistema pmodulo) {
+        acaoSessao.setModuloAcaoSistema(pmodulo);
+    }
+
+    @Override
+    public String getImgPequena() {
+        return acaoSessao.getImgPequena();
+    }
+
+    @Override
+    public String getNomeCurto() {
+        return acaoSessao.getNomeCurto();
+    }
+
+    @Override
+    public int getId() {
+        return acaoSessao.getId();
+    }
+
+    @Override
+    public String getNomeCampo(FabCampos pInfocampo) {
+        return getNomeCampo(pInfocampo);
+    }
+
+    @Override
+    public Field getCampo(FabCampos pInfoCampo) {
+        return getCampo(pInfoCampo);
+    }
+
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
+        acaoSessao.uploadFoto(pTipo, pRecurso);
+    }
+
+    @Override
+    public void setIcone(String pIcone) {
+        acaoSessao.setIcone(pIcone);
+    }
+
+    @Override
+    public boolean isTipoAcaoDireta() {
+        return getXHTMLAcao() == null;
+    }
+
+    @Override
+    public boolean isTipoAcao() {
+        return false;
+    }
+
+    @Override
+    public boolean isTipoSessaoMenu() {
+        return true;
+    }
+
+    @Override
+    public boolean isConfigurado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void validarAcao(boolean pValidarSeNaoConfigurado) {
+        boolean resultado = true;
+    }
+
+    @Override
+    public boolean isUmaAcaoPrincipal() {
+        return false;
+    }
+
+    @Override
+    public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
+        System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
+    }
+
+    @Override
+    public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
+        System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
+    }
+
+    public ItfAcaoDoSistema getAcaoSessao() {
+        return acaoSessao;
+    }
+
+    public void setAcaoSessao(ItfAcaoDoSistema acaoSessao) {
+        this.acaoSessao = acaoSessao;
+    }
+
+    public List<SessaoMenuSB> getSessoes() {
+        return sessoes;
+    }
+
+    public void setSessoes(List<SessaoMenuSB> sessoes) {
+        this.sessoes = sessoes;
+    }
+
+    @Override
+    public String getNomeUnico() {
+        return acaoSessao.getNomeUnico();
+    }
+
+    @Override
+    public String getNomeEnumOriginal() {
+        return acaoSessao.getNomeEnumOriginal();
+    }
+
+    @Override
+    public FabTipoAcaoSistemaGenerica getTipoAcao() {
+        return null;
+    }
+
+    @Override
+    public boolean isCaminhoAutomaticoXHTML() {
+        return false;
+=======
     public List<ItfAcaoSessaoCategoria> getSessoes() {
         return (List) sessoes;
+>>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
     }
 
 }

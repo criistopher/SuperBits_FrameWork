@@ -4,8 +4,11 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -311,6 +314,16 @@ public abstract class UtilSBCoreReflexao {
             lista.add(c);
         }
         return lista;
+    }
+
+    public static Method getMetodoByAcao(ItfAcaoController pAcaoDoSistema) {
+        ItfAcaoController acaocontroller = (ItfAcaoController) pAcaoDoSistema;
+        Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(pAcaoDoSistema);
+        return metodo;
+    }
+
+    public static String getNomeDoObjeto(Class pClasse) {
+        throw new UnsupportedOperationException("Nome do Objeto por Reflexão não foi implementado");
     }
 
 }
