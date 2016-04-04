@@ -43,7 +43,7 @@ public abstract class UtilFabricaDeAcoes {
 
     public static ItfAcaoGerenciarEntidade getAcaoEntidade(ItfAcaoDoSistema pAcao, Class pClasseRelacionada, String pXhtml) {
 
-        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade(pAcao, pClasseRelacionada, pXhtml);
+        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade((ItfFabricaAcoes) pAcao, pClasseRelacionada, pXhtml);
 
         return (ItfAcaoGerenciarEntidade) acaoGestaoEntidade;
 

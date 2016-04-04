@@ -80,7 +80,7 @@ public class PgPermissoes extends MB_PaginaConversation {
     //private final AcaoDoSistema acaoAdicionarUsuarioNoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_ADD.getAcaoDoSistema();
     private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_LISTARGRUPOS.getAcaoDoSistema();
 
-    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema().getXHTMLAcao();
+    private String xhtmlAcaoAtual = getXhtmlAcaoAtual(); //FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema().getXHTMLAcao();
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {
@@ -154,7 +154,7 @@ public class PgPermissoes extends MB_PaginaConversation {
             limparSelecaoDeAcoes();
             bloquearEdicao = false;
             novogrupo = true;
-            xhtmlAcaoAtual = acaoselecionada.getXHTMLAcao();
+            xhtmlAcaoAtual = getXhtmlAcaoAtual();
             paginaUtil.atualizaTelaPorID("formulario");
             return;
         }
@@ -173,7 +173,7 @@ public class PgPermissoes extends MB_PaginaConversation {
 
             ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pgrupoUsuario, modulos, getEMPagina());
             if (resp.isSucesso()) {
-                xhtmlAcaoAtual = acaoListarGrupos.getXHTMLAcao();
+                xhtmlAcaoAtual = getXhtmlAcaoAtual();
                 if (novogrupo) {
                     atualizarDados();
 
@@ -199,7 +199,7 @@ public class PgPermissoes extends MB_PaginaConversation {
 
         }
 
-        xhtmlAcaoAtual = acaoselecionada.getXHTMLAcao();
+        xhtmlAcaoAtual = getXhtmlAcaoAtual();
 
         paginaUtil.atualizaTelaPorID("formulario");
 
