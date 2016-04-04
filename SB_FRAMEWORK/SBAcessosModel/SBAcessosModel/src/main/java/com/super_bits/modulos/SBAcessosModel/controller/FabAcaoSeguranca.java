@@ -4,7 +4,9 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -50,38 +52,40 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-ItfAcaoDoSistema acao;
+        ItfAcaoDoSistema acao = null;
         switch (this) {
             case GRUPOS_GERENCIAR:
 
                 break;
             case GRUPO_ADICIONAR:
-                
-                       
-                
-                acao=UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO,
-                        GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
-                 AcaoFormularioEntidadeNovoRegistro acaoNovoRegistro=(AcaoFormularioEntidadeNovoRegistro)acao;
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeNovoRegistro acaoNovoRegistro = (AcaoFormularioEntidadeNovoRegistro) acao;
 
                 acaoNovoRegistro.setXhtml("/sistema/seguranca/editarGrupo.xhtml");
                 acaoNovoRegistro.setPrecisaPermissao(true);
                 acaoNovoRegistro.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");
-                acaoNovoRegistro.setPrecisaPermissao(false);                    
+                acaoNovoRegistro.setPrecisaPermissao(false);
                 acaoNovoRegistro.setIdDescritivoJira("UI027");
+
                 break;
             case GRUPO_LISTAR:
-                acao= UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR,GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
-                AcaoFormularioEntidadeListar acaoListarGrupo= (AcaoFormularioEntidadeListar)acao;
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeListar acaoListarGrupo = (AcaoFormularioEntidadeListar) acao;
+
                 acaoListarGrupo.setDescricao("Listar grupos de usuários");
                 acaoListarGrupo.setXhtml("/sistema/seguranca/listarGrupos.xhtml");
                 acaoListarGrupo.setIconeAcao("fa fa-users");
                 acaoListarGrupo.setPrecisaPermissao(true);
                 acaoListarGrupo.setIdDescritivoJira("UI026");
+
                 break;
             case GRUPO_EDITAR:
-            
-                acao=UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
-                AcaoFormularioEntidadeEditar acaoEditar= (AcaoFormularioEntidadeEditar)acao;
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar acaoEditar = (AcaoFormularioEntidadeEditar) acao;
+
                 acaoEditar.setIconeAcao("fa fa-edit");
                 acaoEditar.setXhtml("/sistema/seguranca/editarGrupo.xhtml");
                 acaoEditar.setPrecisaPermissao(true);
@@ -89,229 +93,137 @@ ItfAcaoDoSistema acao;
 
                 break;
             case GRUPO_VISUALIZAR:
-                
-                acao=UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
-                AcaoFormularioEntidadeVisualizar grpVisualizar=(AcaoFormularioEntidadeVisualizar) acao;
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeVisualizar grpVisualizar = (AcaoFormularioEntidadeVisualizar) acao;
+
                 grpVisualizar.setIconeAcao("fa fa-search-plus");
                 grpVisualizar.setXhtml("/sistema/seguranca/editarGrupo.xhtml");
-                
                 grpVisualizar.setNomeAcao("Ver Detalhe do Grupo");
                 grpVisualizar.setPrecisaPermissao(true);
-                
-              
                 grpVisualizar.setIdDescritivoJira("UI028");
+
                 break;
             case GRUPO_ALTERAR_STATUS:
-                acao.setNomeAcao("Ativar/Desativar");
-                acao.setIconeAcao("fa fa-retweet");
-                acao.setPrecisaPermissao(true);
-                acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
 
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar grpAlterarStatus = (AcaoFormularioEntidadeEditar) acao;
 
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR);
-
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
-
-                acao.setIdDescritivoJira("UC021");
-
-
-                AcaoFormularioEntidadeNovoRegistro acaoAdicionarGrupo
-                        = new AcaoFormularioEntidadeNovoRegistro(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDeEntidade(), "/sistema/seguranca/editarGrupo.xhtml");
-
-                acaoAdicionarGrupo.setIconeAcao("fa fa-plus");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.setNomeAcao("Criar novo Grupo");
-                acaoAdicionarGrupo.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");
-                acaoAdicionarGrupo.setPrecisaPermissao(false);
-                acaoAdicionarGrupo.setIdDescritivoJira("UI027");
-                break;
-            case GRUPO_LISTAR:
-                acaoAdicionarGrupo.setNomeAcao("Listar Grupos ");
-                acaoAdicionarGrupo.setDescricao("Listar grupos de usuários");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/listarGrupos.xhtml");
-                acaoAdicionarGrupo.setIconeAcao("fa fa-users");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.setIdDescritivoJira("UI026");
-                break;
-            case GRUPO_EDITAR:
-                acaoAdicionarGrupo.setIconeAcao("fa fa-edit");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setNomeAcao("Editar Grupo");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
+                grpAlterarStatus.setNomeAcao("Ativar/Desativar");
+                grpAlterarStatus.setIconeAcao("fa fa-retweet");
+                grpAlterarStatus.setPrecisaPermissao(true);
+                grpAlterarStatus.setIdDescritivoJira("UC021");
 
                 break;
-            case GRUPO_VISUALIZAR:
-                acaoAdicionarGrupo.setIconeAcao("fa fa-search-plus");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setNomeAcao("Ver Detalhe do Grupo");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.setIdDescritivoJira("UI028");
-                break;
-            case GRUPO_ALTERAR_STATUS:
-                acaoAdicionarGrupo.setNomeAcao("Ativar/Desativar");
-                acaoAdicionarGrupo.setIconeAcao("fa fa-retweet");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
-                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
 
-                break;
             case GRUPO_LISTAR_USUARIOS:
 
                 break;
             case GRUPO_SALVAR_ALTERACOES:
 
-                acao.setIconeAcao("fa fa-save");
-                acao.setNomeAcao("Salvar Alterações");
-                acao.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
-                acao.setIsAcaoPrincipal(false);
-                acao.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acao.setPrecisaPermissao(true);
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
-                acao.setIdDescritivoJira("UC021");
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar grpSalvarAlteracoes = (AcaoFormularioEntidadeEditar) acao;
 
-                acaoAdicionarGrupo.setIconeAcao("fa fa-save");
-                acaoAdicionarGrupo.setNomeAcao("Salvar Alterações");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/editarGrupo.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.GRUPOS_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
-                acaoAdicionarGrupo.setIdDescritivoJira("UC021");
-
+                grpSalvarAlteracoes.setIconeAcao("fa fa-save");
+                grpSalvarAlteracoes.setNomeAcao("Salvar Alterações");
+                grpSalvarAlteracoes.setPrecisaPermissao(true);
+                grpSalvarAlteracoes.setIdDescritivoJira("UC021");
 
                 break;
             case USUARIO_GERENCIAR:
-                acaoAdicionarGrupo.setNomeAcao("Usuários");
-                acaoAdicionarGrupo.setIconeAcao("fa fa-user");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(true);
-                acaoAdicionarGrupo.setDescricao("Gerenciar Usuários");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/cadastroUsuario.xhtml");
-                acaoAdicionarGrupo.setAcessoAPagina(true);
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.setIdDescritivoJira("UI030");
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.GERENCIAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoDoSistema usuarioGerenciar = (AcaoDoSistema) acao;
+
+                usuarioGerenciar.setNomeAcao("Usuários");
+                usuarioGerenciar.setIconeAcao("fa fa-user");
+                usuarioGerenciar.setDescricao("Gerenciar Usuários");
+                usuarioGerenciar.setPrecisaPermissao(true);
+                usuarioGerenciar.setIdDescritivoJira("UI030");
+
                 break;
             case USUARIO_NOVO_USUARIO:
 
-                acao.setNomeAcao("Criar Novo Usuário");
-                acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acao.setIsAcaoPrincipal(false);
-                acao.setIconeAcao("fa fa-plus");
-                acao.setPrecisaPermissao(true);
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
-                acao.setIdDescritivoJira("UI031");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_NOVO, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeNovoRegistro usuarioNovo = (AcaoFormularioEntidadeNovoRegistro) acao;
 
-                acaoAdicionarGrupo.setNomeAcao("Criar Novo Usuário");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setIconeAcao("fa fa-plus");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
-                acaoAdicionarGrupo.setIdDescritivoJira("UI031");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                usuarioNovo.setNomeAcao("Criar Novo Usuário");
+                usuarioNovo.setIconeAcao("fa fa-plus");
+                usuarioNovo.setPrecisaPermissao(true);
+                usuarioNovo.setIdDescritivoJira("UI031");
 
                 break;
             case USUARIO_LISTAR:
-                acaoAdicionarGrupo.setNomeAcao("Listar Usuários");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/listarUsuario.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setIconeAcao("fa fa-users");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.setIdDescritivoJira("UI030");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeListar usuarioListar = (AcaoFormularioEntidadeListar) acao;
+
+                usuarioListar.setNomeAcao("Listar Usuários");
+                usuarioListar.setIconeAcao("fa fa-users");
+                usuarioListar.setPrecisaPermissao(true);
+                usuarioListar.setIdDescritivoJira("UI030");
+
                 break;
             case USUARIO_SALVAR_ALTERACOES:
 
-                acao.setIconeAcao("fa fa-save");
-                acao.setNomeAcao("Salvar Alterações");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
-                acao.setIdDescritivoJira("UC013");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar usuarioSalvar = (AcaoFormularioEntidadeEditar) acao;
 
-                acaoAdicionarGrupo.setIconeAcao("fa fa-save");
-                acaoAdicionarGrupo.setNomeAcao("Salvar Alterações");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE);
-                acaoAdicionarGrupo.setIdDescritivoJira("UC013");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                usuarioSalvar.setIconeAcao("fa fa-save");
+                usuarioSalvar.setNomeAcao("Salvar Alterações");
+                usuarioSalvar.setIdDescritivoJira("UC013");
 
                 break;
             case USUARIO_EDITAR:
-                acaoAdicionarGrupo.setIconeAcao("fa fa-edit");
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setNomeAcao("Editar Usuário");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
 
-                acaoAdicionarGrupo.setIdDescritivoJira("UI032.1");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar usuarioEditar = (AcaoFormularioEntidadeEditar) acao;
+
+                usuarioEditar.setIconeAcao("fa fa-edit");
+                usuarioEditar.setNomeAcao("Editar Usuário");
+                usuarioEditar.setPrecisaPermissao(true);
+                usuarioEditar.setIdDescritivoJira("UI032.1");
+
                 break;
             case USUARIO_VISUALIZAR:
 
-                acao.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acao.setIconeAcao("fa fa-search-plus");
-                acao.setIsAcaoPrincipal(false);
-                acao.setNomeAcao("Visualizar Usuário");
-                acao.setDescricao("Mostra os detalhes do cadastro de usuario");
-                acao.setPrecisaPermissao(true);
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
-                acao.setIdDescritivoJira("UI032.0");
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                break;
-            case USUARIO_ALTERAR_STATUS:
-                acao.setNomeAcao("Ativar/Desativar");
-                acao.setIconeAcao("fa fa-retweet ");
-                acao.setPrecisaPermissao(true);
-                acao.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                acao.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
-                acao.setIdDescritivoJira("UC013");
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeVisualizar usuarioVisualizar = (AcaoFormularioEntidadeVisualizar) acao;
 
-                acaoAdicionarGrupo.setXHTMLAcao("/sistema/seguranca/usuario/editarUsuario.xhtml");
-                acaoAdicionarGrupo.setIconeAcao("fa fa-search-plus");
-                acaoAdicionarGrupo.setIsAcaoPrincipal(false);
-                acaoAdicionarGrupo.setNomeAcao("Visualizar Usuário");
-                acaoAdicionarGrupo.setDescricao("Mostra os detalhes do cadastro de usuario");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
-                acaoAdicionarGrupo.setIdDescritivoJira("UI032.0");
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                break;
-            case USUARIO_ALTERAR_STATUS:
-                acaoAdicionarGrupo.setNomeAcao("Ativar/Desativar");
-                acaoAdicionarGrupo.setIconeAcao("fa fa-retweet ");
-                acaoAdicionarGrupo.setPrecisaPermissao(true);
-                acaoAdicionarGrupo.setAcaoPrincipal(FabAcaoSeguranca.USUARIO_GERENCIAR.getAcaoDoSistema());
-                acaoAdicionarGrupo.configurarAcaoPadrao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
-                acaoAdicionarGrupo.setIdDescritivoJira("UC013");
+                usuarioVisualizar.setIconeAcao("fa fa-search-plus");
+                usuarioVisualizar.setNomeAcao("Visualizar Usuário");
+                usuarioVisualizar.setDescricao("Mostra os detalhes do cadastro de usuario");
+                usuarioVisualizar.setPrecisaPermissao(true);
+                usuarioVisualizar.setIdDescritivoJira("UI032.0");
 
                 break;
+            case USUARIO_ALTERAR_STATUS:
+
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                AcaoFormularioEntidadeEditar usuarioAlterarStatus = (AcaoFormularioEntidadeEditar) acao;
+
+                usuarioAlterarStatus.setNomeAcao("Ativar/Desativar");
+                usuarioAlterarStatus.setIconeAcao("fa fa-retweet ");
+                usuarioAlterarStatus.setPrecisaPermissao(true);
+                usuarioAlterarStatus.setIdDescritivoJira("UC013");
+                usuarioAlterarStatus.setDescricao("Mostra os detalhes do cadastro de usuario");
+
+                break;
+
             case USUARIO_LISTARGRUPOS:
+
                 break;
             default:
                 throw new AssertionError(this.name());
 
         }
-        return acao;
+        return (AcaoDoSistema) acao;
     }
 
     @Override
     public ItfAcaoDoSistema getRegistro() {
         return getAcaoDoSistema();
     }
-
 
     @Override
     public ItfAcaoFormulario getAcaoEntidadeFormulario(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
@@ -323,7 +235,14 @@ ItfAcaoDoSistema acao;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ItfAcaoEntidade getAcaoDeEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-
+    @Override
+    public ItfAcaoController getAcaoEntidadeController() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

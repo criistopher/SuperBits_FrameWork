@@ -308,7 +308,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 if (acao == null) {
                     throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
                 }
-                acaoVinculada = new AcaoManagedBean(acao, this);
+                acaoVinculada = new AcaoManagedBean((com.super_bits.Controller.Interfaces.ItfAcaoDoSistema) acao, this);
 
             } catch (Throwable t) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);

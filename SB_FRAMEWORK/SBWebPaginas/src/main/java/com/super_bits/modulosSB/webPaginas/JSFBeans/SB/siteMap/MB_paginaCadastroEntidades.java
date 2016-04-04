@@ -4,21 +4,11 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-<<<<<<< HEAD
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-<<<<<<< HEAD
-=======
-=======
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 
->>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
-import com.super_bits.modulos.SBAcessosModel.model.AcaoDoSistema;
-
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -67,7 +57,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
-        if (acaoSelecionada.isAcaoFormulario()) {
+        if (!acaoSelecionada.isAcaoFormulario()) {
             xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
         }
 
@@ -141,7 +131,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoListarRegistros = pAcaoListar;
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
-        xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+        //xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
         classeDaEntidade = pClasseDaEntidade;
         entidadesListadas = new ArrayList<>();
         paginaUtil = new PgUtil();
@@ -209,7 +199,6 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     // Define a ação selecionada
-    @Override
     public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada) {
         this.acaoSelecionada = acaoSelecionada;
     }
@@ -252,68 +241,66 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public ItfAcaoDoSistema getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
-<<<<<<< HEAD
-=======
-=======
 
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
 
->>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
-                    return acao;
+                    if (acao.getTipoAcaoSistema() != null) {
+                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
+
+                            return acao;
+                        }
+                    }
                 }
+                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
+
         }
-        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+        return null;
     }
 
     @Override
     public ItfAcaoDoSistema getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
-<<<<<<< HEAD
-=======
-=======
+
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
 
->>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
-                    return acao;
+                    if (acao.getTipoAcaoSistema() != null) {
+                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
+
+                            return acao;
+                        }
+                    }
+
                 }
+                throw new UnsupportedOperationException("a ação de AticarEDesativar não foi encontrada");
             }
 
         }
-        throw new UnsupportedOperationException("a ação de AticarEDesativar não foi encontrada");
+        return null;
     }
 
     @Override
     public ItfAcaoDoSistema getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
-<<<<<<< HEAD
-            if (acao.getTipoAcao() != null) {
-                if (acao.getTipoAcao().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
-<<<<<<< HEAD
-=======
-=======
 
             if (acao.getTipoAcaoSistema() != null) {
                 if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
 
->>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
-                    return acao;
+                    if (acao.getTipoAcaoSistema() != null) {
+                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
+
+                            return acao;
+                        }
+                    }
+
                 }
+                throw new UnsupportedOperationException("a ação de Visualizar não foi encontrada");
             }
 
         }
-        throw new UnsupportedOperationException("a ação de Visualizar não foi encontrada");
-    }
+        return null;
 
+    }
 }

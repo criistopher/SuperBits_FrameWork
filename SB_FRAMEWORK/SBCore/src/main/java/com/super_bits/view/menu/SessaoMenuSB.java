@@ -4,18 +4,16 @@
  */
 package com.super_bits.view.menu;
 
-<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
-=======
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
 import com.super_bits.Controller.anotacoes.AcaoGenerica;
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +32,8 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     private List<ItfAcaoDoSistema> acoes;
     private List<SessaoMenuSB> sessoes;
 
-    public List<ItfAcaoDoSistema> getAcoes() {
-        return acoes;
+    public List<com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema> getAcoes() {
+        return (List) acoes;
     }
 
     public void addAcao(ItfAcaoDoSistema pAcao) {
@@ -55,7 +53,7 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     }
 
     @Override
-<<<<<<< HEAD
+
     public String getNomeAcao() {
         return acaoSessao.getNomeAcao();
     }
@@ -75,7 +73,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return acaoSessao.getDescricao();
     }
 
-    @Override
     public String getXHTMLAcao() {
         return acaoSessao.getXHTMLAcao();
     }
@@ -85,7 +82,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return acaoSessao.getModulo();
     }
 
-    @Override
     public int getIdMetodo() {
         return acaoSessao.getIdMetodo();
     }
@@ -100,7 +96,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         acaoSessao.setId(pId);
     }
 
-    @Override
     public void setIdMetodo(int pID) {
         acaoSessao.setId(pID);
     }
@@ -130,7 +125,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return getNomeCampo(pInfocampo);
     }
 
-    @Override
     public Field getCampo(FabCampos pInfoCampo) {
         return getCampo(pInfoCampo);
     }
@@ -145,17 +139,14 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         acaoSessao.setIcone(pIcone);
     }
 
-    @Override
     public boolean isTipoAcaoDireta() {
         return getXHTMLAcao() == null;
     }
 
-    @Override
     public boolean isTipoAcao() {
         return false;
     }
 
-    @Override
     public boolean isTipoSessaoMenu() {
         return true;
     }
@@ -165,27 +156,22 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoDoSistema getAcaoPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void validarAcao(boolean pValidarSeNaoConfigurado) {
         boolean resultado = true;
     }
 
-    @Override
     public boolean isUmaAcaoPrincipal() {
         return false;
     }
 
-    @Override
     public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
         System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
     }
 
-    @Override
     public void setAcaoPrincipal(ItfAcaoDoSistema pAcaoPrincipal) {
         System.out.println("Nada a fazer, tentativa de setar ação pricipal em uma sessao");
     }
@@ -196,10 +182,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
 
     public void setAcaoSessao(ItfAcaoDoSistema acaoSessao) {
         this.acaoSessao = acaoSessao;
-    }
-
-    public List<SessaoMenuSB> getSessoes() {
-        return sessoes;
     }
 
     public void setSessoes(List<SessaoMenuSB> sessoes) {
@@ -221,13 +203,34 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return null;
     }
 
-    @Override
     public boolean isCaminhoAutomaticoXHTML() {
         return false;
-=======
+
+    }
+
+    @Override
     public List<ItfAcaoSessaoCategoria> getSessoes() {
         return (List) sessoes;
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
+
+    }
+
+    @Override
+    public void setDescricao(String pDescricao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isAcaoFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void configurarPropriedadesBasicas(com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema pAcaoDoSistema) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
