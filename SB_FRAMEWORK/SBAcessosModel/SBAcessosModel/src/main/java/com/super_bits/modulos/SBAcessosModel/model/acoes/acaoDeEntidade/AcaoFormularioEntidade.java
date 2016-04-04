@@ -27,7 +27,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     private ItfAcaoDoSistema acaoExectarFormulario;
     private List<CaminhoCampoReflexao> campos;
 
-    public AcaoFormularioEntidade() {
+    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
         super(null, null, null);
     }
 
@@ -45,11 +45,8 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
      *
      * @param acaoPrincipal Ação que corresponde ao botão executar formulário
      * @param classeRelacionada Classe Relacionada
-     *
-<<<<<<< HEAD
-     */     
-=======
      */
+
     public AcaoFormularioEntidade(ItfAcaoDoSistema acaoPrincipal, Class classeRelacionada, String pXhtml) {
         super(classeRelacionada, FabTipoAcaoSistema.ACAO_FORMULARIO, null);
         this.acaoPrincipal = acaoPrincipal;
@@ -58,11 +55,8 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
 
     }
 
-    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoGerenciar) {
-        super(null, null, null);
-    }
 
->>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
+
     public ItfAcaoDoSistema getAcaoPrincipal() {
         return acaoPrincipal;
     }

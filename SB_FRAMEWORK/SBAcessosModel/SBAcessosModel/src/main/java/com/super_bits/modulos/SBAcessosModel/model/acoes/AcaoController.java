@@ -27,7 +27,7 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     private List<ParametroDeAcaoController> parametros;
 
     public AcaoController() {
-        super(FabTipoAcaoSistema.ACAO_CONTROLLER);
+        super(FabTipoAcaoSistema.ACAO_CONTROLLER, null);
     }
 
     @Override

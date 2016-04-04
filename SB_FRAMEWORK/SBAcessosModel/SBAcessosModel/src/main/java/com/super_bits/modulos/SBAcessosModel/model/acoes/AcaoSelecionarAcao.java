@@ -7,7 +7,6 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecion
     private List<ItfAcaoDoSistema> acoes;
 
     public AcaoSelecionarAcao(List<ItfAcaoDoSistema> acoes) {
-        super(FabTipoAcaoSistema.ACAO_SELECAO_DE_ACAO);
+        super(FabTipoAcaoSistema.ACAO_SELECAO_DE_ACAO,);
         this.acoes = acoes;
     }
 

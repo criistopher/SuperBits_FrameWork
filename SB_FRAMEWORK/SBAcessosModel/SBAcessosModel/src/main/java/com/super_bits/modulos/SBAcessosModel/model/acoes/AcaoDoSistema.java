@@ -183,16 +183,17 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-<<<<<<< HEAD
+
     public String getNomeUnico() {
-=======
+   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public String getNomeDoObjeto() {
->>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-<<<<<<< HEAD
+
     public String getNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -206,12 +207,21 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     
     
     
-=======
+    
+    
+    
+    
+
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
 
         copiaDados(pAcaoDoSistema);
 
     }
 
->>>>>>> 1ab07e791cffe32fdac8a6ccaf20c859260dbcfe
+
+
+    @Override
+    public boolean isAcaoFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

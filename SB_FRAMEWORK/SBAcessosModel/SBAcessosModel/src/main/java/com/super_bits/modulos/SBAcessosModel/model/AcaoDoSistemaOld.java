@@ -8,10 +8,6 @@ import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
-<<<<<<< HEAD
-
-=======
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -30,8 +26,8 @@ import javax.persistence.Transient;
  *
  * @author sfurbino
  */
-@Entity
-public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
+
+public class AcaoDoSistemaOld extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public static enum VARIAVEIS_ACAO_DO_SISTEMA {
         VIEW_NAO_IMPLEMENTADA,;
@@ -53,7 +49,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Id
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeAcao;
 
     private String iconeAcao;
@@ -83,8 +79,8 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @ManyToOne(targetEntity = ModuloAcaoSistema.class)
     private ModuloAcaoSistema modulo;
 
-    @ManyToOne(targetEntity = AcaoDoSistema.class)
-    private AcaoDoSistema acaoPrincipal;
+    @ManyToOne(targetEntity = AcaoDoSistemaOld.class)
+    private AcaoDoSistemaOld acaoPrincipal;
 
     private String nomeOriginalEnum;
 
@@ -107,7 +103,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         caminhoAutomaticoXHTML = true;
     }
 
-    public AcaoDoSistema() {
+    public AcaoDoSistemaOld() {
         super();
     }
 
@@ -124,7 +120,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      * @param cor cor
      * @param descricao descricao
      */
-    public AcaoDoSistema(ItfFabricaAcoes pAcaoDoSistema, String nomeAcao, String iconeAcao, String cor, String descricao) {
+    public AcaoDoSistemaOld(ItfFabricaAcoes pAcaoDoSistema, String nomeAcao, String iconeAcao, String cor, String descricao) {
         this.id = UtilSBController.gerarIDAcaoDoSistema(pAcaoDoSistema);
         this.nomeAcao = nomeAcao;
         this.iconeAcao = iconeAcao;
@@ -323,7 +319,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             }
 
             if (xhtmlAcao == null || xhtmlAcao == "") {
-                Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(this);
+                Method metodo = null;//SBCore.getConfiguradorDePermissao().getMetodoByAcao(this);
                 if (metodo == null) {
                     System.out.println("teste");
                     throw new UnsupportedOperationException("esta ação não contem um formulário, portanto deve existir uma ação vinculada a ela na camada Controller "
@@ -360,7 +356,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         if (pAcaoPrincipal.getNomeUnico().equals(this.getNomeUnico())) {
             throw new UnsupportedOperationException("Erro configurando ação principal de " + this.getAcaoPrincipal() + "A ação principal não pode ser ela mesma.");
         }
-        acaoPrincipal = (AcaoDoSistema) pAcaoPrincipal;
+        acaoPrincipal = (AcaoDoSistemaOld) pAcaoPrincipal;
 
     }
 

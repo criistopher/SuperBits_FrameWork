@@ -6,9 +6,8 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 
 /**
  *
@@ -18,11 +17,11 @@ public class AcaoDeEntidadeDesativar extends AcaoDeEntidade implements ItfAcaoSe
 
     private ItfAcaoSecundaria acaoPrincipal;
 
-    public AcaoDeEntidadeDesativar(Class pClasse) {
-        super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.DESATIVAR;
+    public AcaoDeEntidadeDesativar(ItfAcaoGerenciarEntidade pGerenciar) {
+        super(null, null, null);
     }
 
+    
     @Override
     public ItfAcaoDoSistema getAcaoPrincipal() {
         return acaoPrincipal;

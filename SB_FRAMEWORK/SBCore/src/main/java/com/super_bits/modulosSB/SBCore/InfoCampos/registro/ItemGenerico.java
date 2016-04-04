@@ -640,4 +640,11 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     }
 
+    @Override
+    public String getNomeDoObjeto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+
 }

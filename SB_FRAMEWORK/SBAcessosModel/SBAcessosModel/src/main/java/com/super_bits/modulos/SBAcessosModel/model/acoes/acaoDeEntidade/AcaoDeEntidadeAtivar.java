@@ -4,9 +4,8 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 
 /**
  *
@@ -14,9 +13,11 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
  */
 public class AcaoDeEntidadeAtivar extends AcaoDeEntidade {
 
-    public AcaoDeEntidadeAtivar(Class pClasse) {
-        super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
-        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR;
+    public AcaoDeEntidadeAtivar(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
+        super(null, null, null);
     }
+
+  
+    
 
 }
