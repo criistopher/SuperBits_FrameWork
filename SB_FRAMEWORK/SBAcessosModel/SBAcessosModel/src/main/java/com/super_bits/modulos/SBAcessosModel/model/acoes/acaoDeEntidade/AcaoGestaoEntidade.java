@@ -5,11 +5,9 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.anotacoes.FabAcaoGenerica;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.view.InfoPagina;
 
 /**
@@ -20,8 +18,8 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
 
     private InfoPagina infoPagina;
 
-    public AcaoGestaoEntidade(ItfAcaoDoSistema pAcaoPrincipal, Class pClasseRelacionada, String pXhtml) {
-        super(pAcaoPrincipal, pClasseRelacionada, pXhtml);
+    public AcaoGestaoEntidade(ItfFabricaAcoes pAcaoVinculada, Class pClasseRelacionada, String pXhtml) {
+        super(null, pClasseRelacionada, pXhtml);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR;
 
     }

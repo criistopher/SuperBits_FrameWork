@@ -10,12 +10,14 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeEditar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeListar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeVisualizar;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -61,7 +63,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
                 AcaoFormularioEntidadeNovoRegistro acaoNovoRegistro = (AcaoFormularioEntidadeNovoRegistro) acao;
-
+               
+                       
                 acaoNovoRegistro.setXhtml("/sistema/seguranca/editarGrupo.xhtml");
                 acaoNovoRegistro.setPrecisaPermissao(true);
                 acaoNovoRegistro.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");
@@ -131,15 +134,16 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
             case USUARIO_GERENCIAR:
+                
+                
+               acao =new AcaoGestaoEntidade(USUARIO_GERENCIAR, UsuarioSB.class, "/site/seguranca/usuario.xhtml");
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.GERENCIAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
-                AcaoDoSistema usuarioGerenciar = (AcaoDoSistema) acao;
-
-                usuarioGerenciar.setNomeAcao("Usuários");
-                usuarioGerenciar.setIconeAcao("fa fa-user");
-                usuarioGerenciar.setDescricao("Gerenciar Usuários");
-                usuarioGerenciar.setPrecisaPermissao(true);
-                usuarioGerenciar.setIdDescritivoJira("UI030");
+                AcaoGestaoEntidade acaoGestao=(AcaoGestaoEntidade)acao;         
+                acaoGestao.setNomeAcao("Usuários");
+                acaoGestao.setIconeAcao("fa fa-user");
+                acaoGestao.setDescricao("Gerenciar Usuários");
+                acaoGestao.setPrecisaPermissao(true);
+                acaoGestao.setIdDescritivoJira("UI030");
 
                 break;
             case USUARIO_NOVO_USUARIO:
