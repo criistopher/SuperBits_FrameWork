@@ -18,7 +18,7 @@ public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecion
     private List<ItfAcaoDoSistema> acoes;
 
     public AcaoSelecionarAcao(List<ItfAcaoDoSistema> acoes) {
-        super(FabTipoAcaoSistema.ACAO_SELECAO_DE_ACAO,);
+       super();
         this.acoes = acoes;
     }
 

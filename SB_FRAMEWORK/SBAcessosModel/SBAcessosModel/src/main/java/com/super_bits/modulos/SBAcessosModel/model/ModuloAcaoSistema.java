@@ -57,10 +57,6 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
         super();
     }
 
-<<<<<<< HEAD
-=======
-    @Override
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
     public int getId() {
         return id;
     }

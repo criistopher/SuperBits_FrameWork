@@ -33,7 +33,7 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
     }
 
     public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pClasseRelacionada) {
-        super(null, FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER);
+        super(null, FabTipoAcaoSistema.ACAO_FORMULARIO,null);
 
     }
 
