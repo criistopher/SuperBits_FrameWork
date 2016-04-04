@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -166,6 +167,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.cor = cor;
     }
 
+    @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -187,13 +189,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     public String getNomeUnico() {
    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public String getNomeDoObjeto() {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
 
     @Override
-
     public String getNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -222,6 +221,6 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isAcaoFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.getClass().isAssignableFrom(ItfAcaoFormulario.class);
     }
 }
