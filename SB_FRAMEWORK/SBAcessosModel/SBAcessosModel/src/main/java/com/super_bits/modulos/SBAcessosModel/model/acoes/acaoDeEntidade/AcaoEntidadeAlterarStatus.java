@@ -22,10 +22,7 @@ public class AcaoEntidadeAlterarStatus extends AcaoDeEntidade implements ItfAcao
     public AcaoEntidadeAlterarStatus(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
         super(null, null, null);
     }
-
-    
-    
-    
+   
     public AcaoEntidadeAlterarStatus() {
         super(null, null, null);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR;
