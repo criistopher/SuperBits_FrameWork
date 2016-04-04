@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -193,26 +193,28 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return acaoOriginal.getNomeEnumOriginal();
     }
 
-    @Override
-<<<<<<< HEAD
     public FabTipoAcaoSistemaGenerica getTipoAcao() {
-=======
-<<<<<<< HEAD
-    public FabTipoAcaoSistemaGenerica getTipoAcao() {
-=======
-<<<<<<< HEAD
-    public FabTipoAcaoSistemaGenerica getTipoAcao() {
-=======
+        return null;
+    }
+
     public FabTipoAcaoSistemaGenerica getTipoAcaoSistema() {
->>>>>>> b32f69250be78a0874d4b266ac51f6912c9c671d
->>>>>>> 4e493a3b613f438b5eb83bcc8979df701d2a86c7
->>>>>>> ddf4fd60c66dadade3668eb59b436b224306d51a
+
         return null;
     }
 
     @Override
     public boolean isCaminhoAutomaticoXHTML() {
         return false;
+    }
+
+    @Override
+    public String getNome() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

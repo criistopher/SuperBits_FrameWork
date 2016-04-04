@@ -6,7 +6,6 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 
 /**
  *
@@ -48,6 +47,11 @@ public class BeanNaoSelecionado implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public void configIDPeloNome() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNomeDoObjeto() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
