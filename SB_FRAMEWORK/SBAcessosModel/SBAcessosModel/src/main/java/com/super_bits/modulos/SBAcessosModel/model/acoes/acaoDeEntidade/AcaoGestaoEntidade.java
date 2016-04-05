@@ -18,10 +18,9 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
 
     private InfoPagina infoPagina;
 
-    public AcaoGestaoEntidade(ItfFabricaAcoes pAcaoVinculada, Class pClasseRelacionada, String pXhtml) {
-        super(null, pClasseRelacionada, pXhtml);
-        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR;
-
+    public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica,Class pClasse ,String pXhtml) {
+        super(pClasse, pFabrica, pXhtml);
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 
     public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {

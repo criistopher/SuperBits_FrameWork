@@ -11,72 +11,9 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -137,7 +74,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoVisualisar());
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
 
-        assertTrue("O XHTML para visualizar um registro não foi configurado ao executar a ação visualizar", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoVisualisar().getXHTMLAcao()));
+        assertTrue("O XHTML para visualizar um registro não foi configurado ao executar a ação visualizar", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoVisualisar().getXhtml()));
         assertTrue(" entidade selecionada está nula, durante a solicitação de visualização", pagina.getEntidadeSelecionada() != null);
         assertTrue("O boolean is novo registro precisa estar falso durante a visualização", !pagina.isNovoRegistro());
         assertTrue("O boolean  que permite a edição deve ser falso durante a visualização", !pagina.isPodeEditar());
@@ -155,7 +92,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             //FabAcaoCadastros.COMPRADOR_NOVO.getAcaoDoSistema().getXHTMLAcao();
             // Testa se o xhtml foi definido como xhtml da ação de novo registro
             assertTrue("O XHTML para cadastro de novo registro está nulo", pagina.getXhtmlAcaoAtual() != null);
-            assertTrue("O XHTML para cadastrar um novo registro não foi configurado ao executar a ação com um novo registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoNovoRegistro().getXHTMLAcao()));
+            assertTrue("O XHTML para cadastrar um novo registro não foi configurado ao executar a ação com um novo registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoNovoRegistro().getXhtml()));
             assertTrue(" entidade selecionada não foi instanciado", pagina.getEntidadeSelecionada() != null);
             assertTrue("O boolean is novo registro deve ser true ao executar a ação novo registro", pagina.isNovoRegistro());
             assertTrue("O boolean  que permite edição deve ser true ao executação a ação novo registro", pagina.isPodeEditar());
@@ -210,7 +147,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             assertTrue("O boolean is novo registro deve ser igual a false", !pagina.isNovoRegistro());
             assertTrue("O boolean  que permite edição não foi modificado", pagina.isPodeEditar());
 
-            assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoEditar().getXHTMLAcao()));
+            assertTrue("O XHTML para Alterar um registro não foi configurado ao executar a ação Alterar Registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoEditar().getXhtml()));
 
             assertTrue("O comprador Selecionado está nulo para edição!", pagina.getEntidadeSelecionada() != null);
             assertTrue(" A entidade Selecionada não parece ser a que foi configurada ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
@@ -237,7 +174,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
                 }
             }
             assertFalse(" O Xhtml de listar dados deveria ser definido apos o registro ser cadastrado com sucesso, e o valor esta nulo", pagina.getXhtmlAcaoAtual() == null);
-            assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXHTMLAcao()));
+            assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXhtml()));
             assertTrue("A entidade selecionada não foi encontrada na lista de entidades", entidadeAlterada != null);
             assertFalse(" O nome da entidade alterada está nulo", entidadeAlterada.getNomeCurto() == null);
             assertTrue("Os dados do registro 0 da lista de entidades não foram alterados", !entidadeAlterada.getNomeCurto().equals(nomeAntigo));

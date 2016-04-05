@@ -6,17 +6,18 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_paginaCadastroEntidades;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -46,10 +47,10 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
             FabAcaoSeguranca.USUARIO_EDITAR.getAcaoDoSistema(),
             FabAcaoSeguranca.USUARIO_ALTERAR_STATUS.getAcaoDoSistema(),
             FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema()
-        }, FabAcaoSeguranca.USUARIO_NOVO_USUARIO.getAcaoDoSistema(),
-                FabAcaoSeguranca.USUARIO_LISTAR.getAcaoDoSistema(),
-                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoDoSistema(),
-                UsuarioSB.class, true
+        }, FabAcaoSeguranca.USUARIO_NOVO_USUARIO.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.USUARIO_LISTAR.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoEntidadeController(),
+                true
         );
 
     }
@@ -62,7 +63,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
     @PostConstruct
     public void inicio() {
         atualizarDados();
-        xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+        xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
 
     }
 
@@ -91,8 +92,9 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
         }
 
-        if (acaoSelecionada.getXHTMLAcao() != null) {
-            xhtmlAcaoAtual = acaoSelecionada.getXHTMLAcao();
+        if (acaoSelecionada.isAcaoFormulario()) {
+
+            xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
         }
 
         pgUtil.atualizaTelaPorID("formulario");
@@ -151,7 +153,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
         this.acoesDisponiveis = acoesDisponiveis;
     }
 
-    public AcaoDoSistema getAcaoSelecionada() {
+    public ItfAcaoDoSistema getAcaoSelecionada() {
         return acaoSelecionada;
     }
 
@@ -173,7 +175,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
         if (resp.isSucesso()) {
 
-            xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+            xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
             atualizarDados();
 
             pgUtil.atualizaTelaPorID("formulario");

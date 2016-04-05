@@ -5,9 +5,15 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
-
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.BP_AutoComplete;
@@ -17,15 +23,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.I
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_IdWidget;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
-import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
-import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
-import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +78,7 @@ public class PgPermissoes extends MB_PaginaConversation {
     //private final AcaoDoSistema acaoAdicionarUsuarioNoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_ADD.getAcaoDoSistema();
     private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_LISTARGRUPOS.getAcaoDoSistema();
 
-    private String xhtmlAcaoAtual = getXhtmlAcaoAtual(); //FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema().getXHTMLAcao();
+    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_LISTAR.getAcaoEntidadeFormulario().getXhtml();
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {

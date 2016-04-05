@@ -4,12 +4,12 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
@@ -38,9 +38,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     private boolean temPesquisa;
 
     private final List<ItfAcaoDoSistema> acoesRegistros;
-    protected final AcaoDoSistema acaoListarRegistros;
-    protected final AcaoDoSistema acaoNovoRegistro;
-    protected final AcaoDoSistema acaoSalvarAlteracoes;
+    protected final ItfAcaoFormularioEntidade acaoListarRegistros;
+    protected final ItfAcaoFormularioEntidade acaoNovoRegistro;
+    protected final ItfAcaoControllerEntidade acaoSalvarAlteracoes;
 
     public enum estadoEdicao {
 
@@ -53,6 +53,41 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected String xhtmlAcaoAtual;
     @Inject
     protected PgUtil paginaUtil;
+
+    /**
+     *
+     * @param pAcoesRegistro Array de ações para cada registro ex.(new
+     * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
+     * @param pAcaoNovoRegistro Ação para um novo registro
+     * @param pAcaoListar Ação para listar os registros
+     * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pTempesquisa Informa se vai haver pesquisa na tela de
+     * gerenciamento
+     *
+     */
+    public MB_paginaCadastroEntidades(
+            AcaoDoSistema[] pAcoesRegistro,
+            ItfAcaoFormularioEntidade pAcaoNovoRegistro,
+            ItfAcaoFormularioEntidade pAcaoListar,
+            ItfAcaoControllerEntidade pAcaoSalvar,
+            boolean pTempesquisa
+    ) {
+        super();
+        acoesRegistros = new ArrayList<>();
+        for (AcaoDoSistema acao : pAcoesRegistro) {
+            acoesRegistros.add((ItfAcaoDoSistema) acao);
+        }
+        acaoNovoRegistro = pAcaoNovoRegistro;
+        acaoListarRegistros = pAcaoListar;
+        acaoSalvarAlteracoes = pAcaoSalvar;
+        acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
+        //xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+        classeDaEntidade = getAcaoVinculada().getClasseRelacionada();
+        entidadesListadas = new ArrayList<>();
+        paginaUtil = new PgUtil();
+        temPesquisa = pTempesquisa;
+
+    }
 
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
@@ -100,42 +135,6 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             paginaUtil.atualizaTelaPorID("formulario");
 
         }
-
-    }
-
-    /**
-     *
-     * @param pAcoesRegistro Array de ações para cada registro ex.(new
-     * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
-     * @param pAcaoNovoRegistro Ação para um novo registro
-     * @param pAcaoListar Ação para listar os registros
-     * @param pAcaoSalvar Ação para Salvar alterações
-     * @param pTempesquisa Informa se vai haver pesquisa na tela de
-     * gerenciamento
-     *
-     */
-    public MB_paginaCadastroEntidades(
-            AcaoDoSistema[] pAcoesRegistro,
-            AcaoDoSistema pAcaoNovoRegistro,
-            AcaoDoSistema pAcaoListar,
-            AcaoDoSistema pAcaoSalvar,
-            Class pClasseDaEntidade,
-            boolean pTempesquisa
-    ) {
-        super();
-        acoesRegistros = new ArrayList<>();
-        for (AcaoDoSistema acao : pAcoesRegistro) {
-            acoesRegistros.add((ItfAcaoDoSistema) acao);
-        }
-        acaoNovoRegistro = pAcaoNovoRegistro;
-        acaoListarRegistros = pAcaoListar;
-        acaoSalvarAlteracoes = pAcaoSalvar;
-        acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
-        //xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-        classeDaEntidade = pClasseDaEntidade;
-        entidadesListadas = new ArrayList<>();
-        paginaUtil = new PgUtil();
-        temPesquisa = pTempesquisa;
 
     }
 

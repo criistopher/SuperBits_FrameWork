@@ -1,7 +1,9 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
@@ -49,7 +51,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean parametrosDeUrlPreenchido = false;
     protected boolean foiInjetado = false;
     private boolean anotacoesConfiguradas = false;
-    private AcaoManagedBean acaoVinculada;
+    private ItfAcaoGerenciarEntidade acaoVinculada;
 
     protected abstract String defineTitulo();
 
@@ -64,7 +66,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private String titulo;
     private String linkRotulo;
     private String descricao;
-    public static List<AcaoManagedBean> acoesMB;
+    public static List<AcaoGestaoEntidade> acoesMB;
     private String nomeMB;
     private final Map<String, String> infoIds = new HashMap<>();
     private final Map<String, String> infoWidget = new HashMap<>();
@@ -87,7 +89,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     @Override
-    public AcaoManagedBean getAcaoVinculada() {
+    public ItfAcaoGerenciarEntidade getAcaoVinculada() {
 
         if (this.getClass().toString().equals(PaginaSimples.class.toString())) {
             return null;
@@ -308,7 +310,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 if (acao == null) {
                     throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
                 }
-                acaoVinculada = new AcaoManagedBean((com.super_bits.Controller.Interfaces.ItfAcaoDoSistema) acao, this);
+                acaoVinculada = (ItfAcaoGerenciarEntidade) acao;
 
             } catch (Throwable t) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);

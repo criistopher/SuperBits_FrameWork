@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import java.util.List;
 
 /**
@@ -14,10 +14,10 @@ import java.util.List;
  */
 public interface ItfPaginaGerenciarEntidade<T> {
 
-    ItfAcaoDoSistema getAcaoListarRegistros();
+    ItfAcaoFormularioEntidade getAcaoListarRegistros();
 
     // Retorna ação de novo registro
-    ItfAcaoDoSistema getAcaoNovoRegistro();
+    ItfAcaoFormularioEntidade getAcaoNovoRegistro();
 
     ItfAcaoDoSistema getAcaoSalvarAlteracoes();
 
@@ -48,10 +48,10 @@ public interface ItfPaginaGerenciarEntidade<T> {
 
     public boolean isTemPesquisa();
 
-    public ItfAcaoDoSistema getAcaoVisualisar();
+    public ItfAcaoFormularioEntidade getAcaoVisualisar();
 
-    public ItfAcaoDoSistema getAcaoAlterarStatus();
+    public ItfAcaoFormularioEntidade getAcaoAlterarStatus();
 
-    public ItfAcaoDoSistema getAcaoEditar();
+    public ItfAcaoFormularioEntidade getAcaoEditar();
 
 }

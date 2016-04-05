@@ -4,9 +4,10 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -16,16 +17,12 @@ public class AcaoFormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";
 
-    public AcaoFormularioModalDeEntidade(ItfAcaoGerenciarEntidade pAcaoGerenciar) {
-        super(null);
+    public AcaoFormularioModalDeEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, Class pClasseRelacionada, String pXhtml,ItfFabricaAcoes enumAcao) {
+        super(pAcaoPrincipal, enumAcao, pXhtml);
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
+    
     }
 
-    public AcaoFormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse) {
-        super(pAcao, pClasse, formularioPadrao);
-    }
-
-    public AcaoFormularioModalDeEntidade(ItfAcaoDoSistema pAcao, Class pClasse, String pFormulario) {
-        super(pAcao, pClasse, pFormulario);
-    }
+ 
 
 }

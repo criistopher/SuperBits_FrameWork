@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,13 +23,13 @@ import javax.inject.Named;
 @Named
 public class InfoWebApp implements Serializable {
 
-    private final Map<String, AcaoManagedBean> acoesManagedBens;
+    private final Map<String, AcaoGestaoEntidade> acoesManagedBens;
 
     public InfoWebApp() {
         acoesManagedBens = new HashMap<>();
     }
 
-    public void putNovoManagedBen(ItfAcaoDoSistema pAcao, AcaoManagedBean pMBmanagedBen) {
+    public void putNovoManagedBen(ItfAcaoDoSistema pAcao, AcaoGestaoEntidade pMBmanagedBen) {
         acoesManagedBens.put(pAcao.getNomeUnico(), pMBmanagedBen);
     }
 
@@ -37,7 +38,7 @@ public class InfoWebApp implements Serializable {
      * @param pAcao
      * @return Ação managed Ben contendo a URL para acesso
      */
-    public AcaoManagedBean getAcaoManagedBean(String pAcao) {
+    public AcaoGestaoEntidade getAcaoManagedBean(String pAcao) {
         return acoesManagedBens.get(pAcao);
     }
 
@@ -45,9 +46,9 @@ public class InfoWebApp implements Serializable {
         return !acoesManagedBens.isEmpty();
     }
 
-    public List<AcaoManagedBean> getAcoesMB() {
-        List<AcaoManagedBean> acoes = new ArrayList<>();
-        for (AcaoManagedBean acao : acoesManagedBens.values()) {
+    public List<AcaoGestaoEntidade> getAcoesMB() {
+        List<AcaoGestaoEntidade> acoes = new ArrayList<>();
+        for (AcaoGestaoEntidade acao : acoesManagedBens.values()) {
             acoes.add(acao);
         }
         return acoes;

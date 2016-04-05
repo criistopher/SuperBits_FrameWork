@@ -4,7 +4,11 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
@@ -36,7 +40,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoDoSistema getRegistro() {
-        AcaoDoSistema acao = new AcaoDoSistema(this, this.toString(), null, null, this.toString());
+        AcaoDoSistema acao = new AcaoDoSistema();
         switch (this) {
             case ACESSOS_GERENCIAR:
                 break;
@@ -49,6 +53,26 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
                 throw new AssertionError(this.name());
         }
         return acao;
+    }
+
+    @Override
+    public ItfAcaoEntidade getAcaoDeEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoControllerEntidade getAcaoEntidadeController() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
