@@ -132,8 +132,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_GERENCIAR:
 
                 acao = new AcaoGestaoEntidade(USUARIO_GERENCIAR, UsuarioSB.class, "/site/seguranca/usuario.xhtml");
-
                 AcaoGestaoEntidade acaoGestao = (AcaoGestaoEntidade) acao;
+
                 acaoGestao.setNomeAcao("Usuários");
                 acaoGestao.setIconeAcao("fa fa-user");
                 acaoGestao.setDescricao("Gerenciar Usuários");
