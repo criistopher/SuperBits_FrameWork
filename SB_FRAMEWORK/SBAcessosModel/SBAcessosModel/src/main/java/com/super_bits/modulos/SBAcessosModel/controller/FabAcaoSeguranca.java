@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
@@ -54,6 +55,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
         ItfAcaoDoSistema acao = null;
         switch (this) {
             case GRUPOS_GERENCIAR:
+                AcaoGestaoEntidade grupoGerenciar = new AcaoGestaoEntidade(this, GrupoUsuarioSB.class, "/resources/SBComp/seguranca/grupo.xhtml");
+                grupoGerenciar.setNome("Gerenciar grupos");
 
                 break;
             case GRUPO_ADICIONAR:
@@ -70,7 +73,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_LISTAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao
+                        = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
                 AcaoFormularioEntidade acaoListarGrupo = (AcaoFormularioEntidade) acao;
 
                 acaoListarGrupo.setDescricao("Listar grupos de usuários");
@@ -226,22 +230,22 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (ItfAcaoGerenciarEntidade) getRegistro();
     }
 
     @Override
     public ItfAcaoEntidade getAcaoDeEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (ItfAcaoEntidade) getRegistro();
     }
 
     @Override
     public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (ItfAcaoControllerEntidade) getRegistro();
     }
 
     @Override
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (ItfAcaoFormularioEntidade) getRegistro();
     }
 
 }

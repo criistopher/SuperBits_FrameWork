@@ -12,6 +12,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import java.lang.reflect.Method;
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  *
@@ -24,6 +25,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController {
 
     private List<ParametroDeAcaoController> parametrosAdicionais;

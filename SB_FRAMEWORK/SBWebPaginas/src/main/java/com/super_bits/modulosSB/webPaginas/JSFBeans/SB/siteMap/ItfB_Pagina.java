@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import java.util.List;
 import javax.enterprise.context.Conversation;
 
@@ -67,6 +66,6 @@ public interface ItfB_Pagina {
     @Deprecated
     public boolean isAcessoLivre();
 
-    public ItfAcaoGerenciarEntidade getAcaoVinculada();
+    public AcaoManagedBean getAcaoVinculada();
 
 }

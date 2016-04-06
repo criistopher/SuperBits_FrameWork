@@ -4,15 +4,13 @@
  */
 package com.super_bits.view.menu;
 
-import com.super_bits.Controller.Interfaces.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
+import com.super_bits.Controller.anotacoes.AcaoGenerica;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
-
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
-import com.super_bits.Controller.anotacoes.AcaoGenerica;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,17 +71,9 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return acaoSessao.getDescricao();
     }
 
-    public String getXHTMLAcao() {
-        return acaoSessao.getXHTMLAcao();
-    }
-
     @Override
     public ItfModuloAcaoSistema getModulo() {
         return acaoSessao.getModulo();
-    }
-
-    public int getIdMetodo() {
-        return acaoSessao.getIdMetodo();
     }
 
     @Override
@@ -137,10 +127,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     @Override
     public void setIcone(String pIcone) {
         acaoSessao.setIcone(pIcone);
-    }
-
-    public boolean isTipoAcaoDireta() {
-        return getXHTMLAcao() == null;
     }
 
     public boolean isTipoAcao() {
@@ -225,11 +211,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
 
     @Override
     public boolean isAcaoFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void configurarPropriedadesBasicas(com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema pAcaoDoSistema) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

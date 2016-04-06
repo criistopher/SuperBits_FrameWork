@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -82,7 +83,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
         //xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-        classeDaEntidade = getAcaoVinculada().getClasseRelacionada();
+        classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
         entidadesListadas = new ArrayList<>();
         paginaUtil = new PgUtil();
         temPesquisa = pTempesquisa;
@@ -173,13 +174,13 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     // Retorna ação de novo registro
     @Override
-    public ItfAcaoDoSistema getAcaoNovoRegistro() {
-        return (ItfAcaoDoSistema) acaoNovoRegistro;
+    public ItfAcaoFormularioEntidade getAcaoNovoRegistro() {
+        return acaoNovoRegistro;
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoListarRegistros() {
-        return (ItfAcaoDoSistema) acaoListarRegistros;
+    public ItfAcaoFormularioEntidade getAcaoListarRegistros() {
+        return acaoListarRegistros;
     }
 
     @Override
@@ -238,7 +239,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoEditar() {
+    public ItfAcaoFormularioEntidade getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
             if (acao.getTipoAcaoSistema() != null) {
@@ -247,7 +248,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     if (acao.getTipoAcaoSistema() != null) {
                         if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
 
-                            return acao;
+                            return (ItfAcaoFormularioEntidade) acao;
                         }
                     }
                 }
@@ -259,7 +260,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoAlterarStatus() {
+    public ItfAcaoControllerEntidade getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
             if (acao.getTipoAcaoSistema() != null) {
@@ -268,7 +269,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     if (acao.getTipoAcaoSistema() != null) {
                         if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
 
-                            return acao;
+                            return (ItfAcaoControllerEntidade) acao;
                         }
                     }
 
@@ -281,7 +282,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoVisualisar() {
+    public ItfAcaoFormularioEntidade getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
             if (acao.getTipoAcaoSistema() != null) {
@@ -290,7 +291,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     if (acao.getTipoAcaoSistema() != null) {
                         if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
 
-                            return acao;
+                            return (ItfAcaoFormularioEntidade) acao;
                         }
                     }
 

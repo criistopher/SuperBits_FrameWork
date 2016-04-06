@@ -4,11 +4,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import javax.persistence.Entity;
 
 /**
  *
@@ -26,6 +26,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     private Class classeRelacionada;

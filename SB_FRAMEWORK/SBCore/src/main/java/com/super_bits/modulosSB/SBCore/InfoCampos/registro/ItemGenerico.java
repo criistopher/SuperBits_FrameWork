@@ -16,13 +16,11 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroSetandoValorDeCamp
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanReflexoes;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -45,7 +43,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author sfurbino
  */
-public abstract class ItemGenerico extends Object implements ItfBeanGenerico, ItfBeanReflexoes,Serializable {
+public abstract class ItemGenerico extends Object implements ItfBeanGenerico, ItfBeanReflexoes, Serializable {
 
     protected CampoMapValores camposEsperados;
 
@@ -376,10 +374,13 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     private void setValorByFieldReflexao(Field pCampoReflexao, Object valor) throws ErroSetandoValorDeCampoPorReflexao {
         pCampoReflexao.setAccessible(true);
         try {
+            if (pCampoReflexao == null) {
+                throw new UnsupportedOperationException("Chamada de SetValorByFieldReflexao, com Fileld nulo em " + this);
+            }
             pCampoReflexao.set(this, valor);
             return;
         } catch (IllegalArgumentException | IllegalAccessException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando setar novo valor via reflection", ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando setar novo valor para o campo " + pCampoReflexao.getName() + " na classe " + this.getClass().getSimpleName() + " via reflection", ex);
         }
 
         throw new ErroSetandoValorDeCampoPorReflexao();
@@ -410,8 +411,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                {
-                    if (pCampoReflexao.getType().getName().equals("int")) {
+                 if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -425,7 +425,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         valor = pCampoReflexao.get(this).toString();
                     }
-                }
 
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo", e);
@@ -644,7 +643,5 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     public String getNomeDoObjeto() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
 }

@@ -4,21 +4,22 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecionarAcao {
 
     private List<ItfAcaoDoSistema> acoes;
 
     public AcaoSelecionarAcao(List<ItfAcaoDoSistema> acoes) {
-       super();
+        super();
         this.acoes = acoes;
     }
 

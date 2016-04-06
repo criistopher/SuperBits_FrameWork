@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import java.util.List;
@@ -14,33 +15,33 @@ import java.util.List;
  */
 public interface ItfPaginaGerenciarEntidade<T> {
 
-    ItfAcaoFormularioEntidade getAcaoListarRegistros();
+    public ItfAcaoFormularioEntidade getAcaoListarRegistros();
 
     // Retorna ação de novo registro
-    ItfAcaoFormularioEntidade getAcaoNovoRegistro();
+    public ItfAcaoFormularioEntidade getAcaoNovoRegistro();
 
-    ItfAcaoDoSistema getAcaoSalvarAlteracoes();
+    public ItfAcaoDoSistema getAcaoSalvarAlteracoes();
 
-    ItfAcaoDoSistema getAcaoSelecionada();
+    public ItfAcaoDoSistema getAcaoSelecionada();
 
-    List<ItfAcaoDoSistema> getAcoesRegistros();
+    public List<ItfAcaoDoSistema> getAcoesRegistros();
 
-    T getEntidadeSelecionada();
+    public T getEntidadeSelecionada();
 
-    List<T> getEntidadesListadas();
+    public List<T> getEntidadesListadas();
 
-    String getXhtmlAcaoAtual();
+    public String getXhtmlAcaoAtual();
 
-    boolean isNovoRegistro();
+    public boolean isNovoRegistro();
 
-    boolean isPodeEditar();
+    public boolean isPodeEditar();
 
     // Define a ação selecionada
-    void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
+    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
 
-    void setEntidadeSelecionada(T entidadeSelecionada);
+    public void setEntidadeSelecionada(T entidadeSelecionada);
 
-    void setEntidadesListadas(List<T> entidadesListadas);
+    public void setEntidadesListadas(List<T> entidadesListadas);
 
     public void executarAcao(T pCompradorSelecionado);
 
@@ -50,7 +51,7 @@ public interface ItfPaginaGerenciarEntidade<T> {
 
     public ItfAcaoFormularioEntidade getAcaoVisualisar();
 
-    public ItfAcaoFormularioEntidade getAcaoAlterarStatus();
+    public ItfAcaoControllerEntidade getAcaoAlterarStatus();
 
     public ItfAcaoFormularioEntidade getAcaoEditar();
 

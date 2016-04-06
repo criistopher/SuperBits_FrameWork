@@ -10,6 +10,8 @@ import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;
 import config.FabConfiguracoesCoreAcessosModel;
+import javax.persistence.EntityManager;
+import org.junit.Test;
 
 /**
  *
@@ -21,6 +23,12 @@ public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {
     protected void configAmbienteDesevolvimento() {
         SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
+    }
+
+    @Test
+    public void teste() {
+        EntityManager em = getEmTeste();
+        //  UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(FabAcaoSeguranca.class, getEmTeste(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
     }
 
 }

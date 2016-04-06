@@ -247,7 +247,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
             texto = "";
         }
         if (mensagemDoDesenvolvedor.getMenssagem() != null) {
-            texto += (cabecalho).toUpperCase() + "\n";
+            texto = (cabecalho).toUpperCase() + "\n";
         }
         if (erroJavaGerado == null) {
             return "ocorreu um erro, a exception não foi gerada para realizar o StackTrace, e a mensagem enviada foi " + mensagemDoDesenvolvedor.getMenssagem();
@@ -255,7 +255,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
 
         String mensagem = "";
         String causa = "";
-        if (erroJavaGerado.getMessage() != null) {
+        if (erroJavaGerado.getMessage() == null) {
             mensagem = "MENSAGEM: \n" + getMsgDesenvolvedorLancou();
         } else {
             mensagem = "MENSAGEM: \n" + getErroGerado().getMessage();
@@ -264,7 +264,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
             causa = "CAUSA_FINAL: \n" + getErroGerado().getCause();
 
         }
-        texto += "\n\n" + mensagem + "\n\n" + causa;
+        texto += "\n" + mensagem + "\n" + causa;
 
         texto += "\n CAUSA_INICIAL \n" + getCausaInicial();
 

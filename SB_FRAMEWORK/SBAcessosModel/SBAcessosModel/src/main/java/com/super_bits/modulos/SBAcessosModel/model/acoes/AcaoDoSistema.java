@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.TipoAcaoPadrao;
@@ -13,8 +13,11 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -24,19 +27,23 @@ import javax.persistence.Id;
  */
 @Entity
 @InfoClasse(tags = {"Ação do Sistema"}, description = "Implementa a ação do Sistema")
+@DiscriminatorColumn(name = "tipoAcaoDB")
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     private FabTipoAcaoSistema tipoAcao;
     protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
     @Id
-    private int id;
-    private String nomeAcao;
+    protected int id;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    protected String nomeAcao;
     private String iconeAcao;
     private String cor;
     private String descricao;
     private boolean precisaPermissao;
     private ModuloAcaoSistema modulo;
     private String idDescritivoJira;
+
+    private String tipoAcaoDB;
 
     public AcaoDoSistema() {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
@@ -123,7 +130,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isTemAcaoPrincipal() {
-    return     this.getClass().isAssignableFrom(ItfAcaoSecundaria.class);
+        return this.getClass().isAssignableFrom(ItfAcaoSecundaria.class);
 
     }
 
@@ -187,29 +194,13 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
 
     public String getNomeUnico() {
-   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     @Override
     public String getNome() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
-    
-    
-    
-    
-    
-    
 
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
 
@@ -217,10 +208,13 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-
-
     @Override
     public boolean isAcaoFormulario() {
-       return this.getClass().isAssignableFrom(ItfAcaoFormulario.class);
+        return this.getClass().isAssignableFrom(ItfAcaoFormulario.class);
     }
+
+    public String getTipoAcaoDB() {
+        return tipoAcaoDB;
+    }
+
 }

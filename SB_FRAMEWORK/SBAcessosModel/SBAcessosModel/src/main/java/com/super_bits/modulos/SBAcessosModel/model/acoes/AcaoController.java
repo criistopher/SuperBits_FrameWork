@@ -10,6 +10,7 @@ import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import java.lang.reflect.Method;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
@@ -20,6 +21,7 @@ import javax.persistence.Transient;
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
     private int idMetodo;

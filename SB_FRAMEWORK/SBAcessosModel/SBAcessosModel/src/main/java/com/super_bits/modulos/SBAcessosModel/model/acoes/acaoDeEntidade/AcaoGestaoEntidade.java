@@ -18,25 +18,24 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
 
     private InfoPagina infoPagina;
 
-    public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica,Class pClasse ,String pXhtml) {
+    public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
         super(pClasse, pFabrica, pXhtml);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 
     public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
-       
-        if (true){
-            throw  new UnsupportedOperationException("Aind não implementado");
+
+        if (true) {
+            throw new UnsupportedOperationException("Aind não implementado");
         }
-        ItfAcaoDoSistema novaAcao=null;
+        ItfAcaoDoSistema novaAcao = null;
         String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(this.getClasseRelacionada());
         String diretorioFormulariosEntidade = "/site/" + this.getClass().getSimpleName();
-        
-    
-        switch (pAcaoGenerica){
-            
+
+        switch (pAcaoGenerica) {
+
         }
-        
+
         return (ItfAcaoDoSistema) novaAcao;
     }
 
