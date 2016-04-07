@@ -23,10 +23,10 @@ public enum FabConfiguracoesCoreAcessosModel {
     public ItfConfiguradorCore getConfigurador() {
 
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
-        cfg.setCliente("vip");
-        cfg.setGrupoProjeto("superkompras");
-        cfg.setNomeProjeto("SB_FRAMEWORK");
-        cfg.setDiretorioBase("/SuperBits_FrameWork");
+        cfg.setCliente("Super_Bits");
+        cfg.setGrupoProjeto("SuperBits_FrameWork");
+        cfg.setNomeProjeto("SBAcessosModel");
+        cfg.setDiretorioBase("SB_FRAMEWORK/SBAcessosModel");
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);

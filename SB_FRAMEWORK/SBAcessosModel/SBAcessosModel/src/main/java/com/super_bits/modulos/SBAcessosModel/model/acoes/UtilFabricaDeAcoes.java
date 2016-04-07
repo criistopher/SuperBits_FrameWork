@@ -97,7 +97,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case SALVAR_NOVO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.SALVAR_NOVO, pAcao);
@@ -106,7 +106,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case SALVAR_MODO_MERGE:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
@@ -115,7 +115,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case ATIVAR_DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
@@ -124,7 +124,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-retweet");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case ATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
@@ -133,7 +133,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-check");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
@@ -142,7 +142,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
                     novaAcao.setIcone("fa fa-close");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
-                    novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
+
                     break;
                 case FORMULARIO_VISUALIZAR:
 

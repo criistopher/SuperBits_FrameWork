@@ -18,6 +18,7 @@ import com.super_bits.view.InfoPagina;
 public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAcaoGerenciarEntidade {
 
     private InfoPagina infoPagina;
+    private boolean utilizarMesmoFormEditarInserir = true;
 
     public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
         super(pClasse, pFabrica, pXhtml);
@@ -38,6 +39,14 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         }
 
         return (ItfAcaoDoSistema) novaAcao;
+    }
+
+    public boolean isUtilizarMesmoFormEditarInserir() {
+        return utilizarMesmoFormEditarInserir;
+    }
+
+    public void setUtilizarMesmoFormEditarInserir(boolean utilizarMesmoFormEditarInserir) {
+        this.utilizarMesmoFormEditarInserir = utilizarMesmoFormEditarInserir;
     }
 
 }

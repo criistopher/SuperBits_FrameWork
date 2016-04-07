@@ -8,7 +8,6 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

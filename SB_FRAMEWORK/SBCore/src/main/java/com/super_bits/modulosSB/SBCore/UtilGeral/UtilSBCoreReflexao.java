@@ -319,9 +319,16 @@ public abstract class UtilSBCoreReflexao {
     }
 
     public static Method getMetodoByAcao(ItfAcaoController pAcaoDoSistema) {
-        ItfAcaoController acaocontroller = (ItfAcaoController) pAcaoDoSistema;
-        Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(pAcaoDoSistema);
-        return metodo;
+
+        try {
+            ItfAcaoController acaocontroller = (ItfAcaoController) pAcaoDoSistema;
+            Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(pAcaoDoSistema);
+            return metodo;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obterMetodo por ação", t);
+        }
+        return null;
+
     }
 
     public static String getNomeDoObjeto(Class pClasse) {

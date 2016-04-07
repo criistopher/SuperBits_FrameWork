@@ -14,6 +14,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
@@ -124,7 +125,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_ALTERAR_STATUS:
 
                 acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
-                AcaoFormularioEntidade grpAlterarStatus = (AcaoFormularioEntidade) acao;
+                AcaoDeEntidadeController grpAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 grpAlterarStatus.setNomeAcao("Ativar/Desativar");
                 grpAlterarStatus.setIconeAcao("fa fa-retweet");
@@ -139,7 +140,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_SALVAR_ALTERACOES:
 
                 acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
-                AcaoFormularioEntidade grpSalvarAlteracoes = (AcaoFormularioEntidade) acao;
+                AcaoDeEntidadeController grpSalvarAlteracoes = (AcaoDeEntidadeController) acao;
 
                 grpSalvarAlteracoes.setIconeAcao("fa fa-save");
                 grpSalvarAlteracoes.setNomeAcao("Salvar Alterações");
@@ -184,7 +185,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_SALVAR_ALTERACOES:
 
                 acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
-                AcaoFormularioEntidade usuarioSalvar = (AcaoFormularioEntidade) acao;
+                AcaoDeEntidadeController usuarioSalvar = (AcaoDeEntidadeController) acao;
 
                 usuarioSalvar.setIconeAcao("fa fa-save");
                 usuarioSalvar.setNomeAcao("Salvar Alterações");
@@ -216,8 +217,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
-                AcaoFormularioEntidade usuarioAlterarStatus = (AcaoFormularioEntidade) acao;
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                AcaoDeEntidadeController usuarioAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 usuarioAlterarStatus.setNomeAcao("Ativar/Desativar");
                 usuarioAlterarStatus.setIconeAcao("fa fa-retweet ");
@@ -290,7 +291,14 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoController getAcaoController() {
-        return (ItfAcaoController) getRegistro();
+        try {
+            return (ItfAcaoController) getRegistro();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
+        }
+
+        return null;
+
     }
 
 }

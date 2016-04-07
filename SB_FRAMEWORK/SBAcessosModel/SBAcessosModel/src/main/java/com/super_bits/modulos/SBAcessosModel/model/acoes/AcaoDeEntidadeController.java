@@ -6,10 +6,13 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -27,18 +30,13 @@ import javax.persistence.Entity;
  * @author desenvolvedor
  */
 @Entity
-public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController {
+public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController, ItfAcaoSecundaria {
 
     private List<ParametroDeAcaoController> parametrosAdicionais;
     private int idMetodo;
 
     public AcaoDeEntidadeController() {
         super(null, null, null);
-    }
-
-    public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pClasseRelacionada) {
-        super(null, FabTipoAcaoSistema.ACAO_FORMULARIO, null);
-
     }
 
     public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal, FabTipoAcaoSistemaGenerica pTipoAcao, ItfFabricaAcoes pFabAcao) {
@@ -57,6 +55,10 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
 
     @Override
     public int getIdMetodo() {
+        if (idMetodo == 0) {
+            idMetodo = UtilSBController.gerarIDMetodoAcaoDoSistema(UtilSBCoreReflexao.getMetodoByAcao(this));
+        }
+
         return idMetodo;
     }
 
@@ -68,6 +70,11 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
     @Override
     public List<ParametroDeAcaoController> getParametros() {
         return parametrosAdicionais;
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
