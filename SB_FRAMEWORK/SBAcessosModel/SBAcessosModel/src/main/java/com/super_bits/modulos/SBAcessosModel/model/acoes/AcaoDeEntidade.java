@@ -31,6 +31,10 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     private Class classeRelacionada;
 
+    public AcaoDeEntidade() {
+
+    }
+
     public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao) {
         super(pTipoAcao, pFabricaAcao);
         this.classeRelacionada = classeRelacionada;

@@ -6,6 +6,7 @@ package com.super_bits.Controller;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.annotation.Annotation;
@@ -86,12 +87,22 @@ public class UtilSBController {
      */
     public static ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo, boolean pararSistemaCasoNaoEncontre) {
         try {
+
+            if (pMetodo == null) {
+                throw new UnsupportedOperationException("Envio de metodo nulo para ação GetAcaoByMetodo");
+            }
             ItfFabricaAcoes acao = getFabricaAcaoByMetodo(pMetodo);
-            ItfAcaoController acaoSisTema = (ItfAcaoController) acao.getAcaoEntidadeController();
+
+            if (acao == null) {
+                throw new UnsupportedOperationException("En GetAcaoByMetodo");
+            }
+
+            ItfAcaoController acaoSisTema = (ItfAcaoController) acao.getAcaoController();
             acaoSisTema.setIdMetodo(pMetodo);
 
             return acaoSisTema;
         } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação por Método", t);
             FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
             return null;
         }

@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -72,6 +73,11 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoController getAcaoController() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

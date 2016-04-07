@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.Entity;
@@ -29,7 +30,11 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     private List<ParametroDeAcaoController> parametros;
 
     public AcaoController() {
-        super(FabTipoAcaoSistema.ACAO_CONTROLLER, null);
+        System.out.println("Uma ação só deve ser iniciada sem constructor apartir do hibernate");
+    }
+
+    public AcaoController(ItfFabricaAcoes pAcao) {
+        super(FabTipoAcaoSistema.ACAO_CONTROLLER, pAcao);
     }
 
     @Override
@@ -39,6 +44,7 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
     @Override
     public void setIdMetodo(Method pMetodo) {
+
         idMetodo = UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo);
     }
 

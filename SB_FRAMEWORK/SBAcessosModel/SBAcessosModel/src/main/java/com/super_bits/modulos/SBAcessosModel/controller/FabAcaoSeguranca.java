@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -12,11 +13,14 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.List;
@@ -43,7 +47,8 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_EDITAR,
     USUARIO_VISUALIZAR,
     USUARIO_ALTERAR_STATUS,
-    USUARIO_LISTARGRUPOS;
+    USUARIO_LISTARGRUPOS,
+    ACAO_INTERNA_DO_SISTEMA;
 
     @Override
     public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
@@ -57,11 +62,14 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPOS_GERENCIAR:
                 AcaoGestaoEntidade grupoGerenciar = new AcaoGestaoEntidade(this, GrupoUsuarioSB.class, "/resources/SBComp/seguranca/grupo.xhtml");
                 grupoGerenciar.setNome("Gerenciar grupos");
+                return grupoGerenciar;
 
-                break;
             case GRUPO_ADICIONAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(
+                        FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO,
+                        GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
+                        this);
                 AcaoFormularioEntidade acaoNovoRegistro = (AcaoFormularioEntidade) acao;
 
                 acaoNovoRegistro.setXhtml("/sistema/seguranca/editarGrupo.xhtml");
@@ -73,8 +81,11 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_LISTAR:
 
-                acao
-                        = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(
+                        FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR,
+                        GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
+                        this);
+
                 AcaoFormularioEntidade acaoListarGrupo = (AcaoFormularioEntidade) acao;
 
                 acaoListarGrupo.setDescricao("Listar grupos de usuários");
@@ -86,7 +97,10 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao
+                        = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR,
+                                GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
+                                this);
                 AcaoFormularioEntidade acaoEditar = (AcaoFormularioEntidade) acao;
 
                 acaoEditar.setIconeAcao("fa fa-edit");
@@ -216,6 +230,10 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_LISTARGRUPOS:
 
                 break;
+            case ACAO_INTERNA_DO_SISTEMA:
+                acao = new AcaoController(this);
+
+                break;
             default:
                 throw new AssertionError(this.name());
 
@@ -230,22 +248,49 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        return (ItfAcaoGerenciarEntidade) getRegistro();
+        try {
+            return (ItfAcaoGerenciarEntidade) getRegistro();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
+        }
+
+        return null;
+
     }
 
     @Override
     public ItfAcaoEntidade getAcaoDeEntidade() {
-        return (ItfAcaoEntidade) getRegistro();
+        try {
+            return (ItfAcaoEntidade) getRegistro();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
+        }
+
+        return null;
     }
 
     @Override
     public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-        return (ItfAcaoControllerEntidade) getRegistro();
+
+        try {
+            return (ItfAcaoControllerEntidade) getRegistro();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
+        }
+
+        return null;
+
     }
 
     @Override
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
+
         return (ItfAcaoFormularioEntidade) getRegistro();
+    }
+
+    @Override
+    public ItfAcaoController getAcaoController() {
+        return (ItfAcaoController) getRegistro();
     }
 
 }

@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.Entity;
@@ -40,8 +41,8 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
 
     }
 
-    public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pClasseRelacionada, FabTipoAcaoSistemaGenerica pTipoAcao) {
-        super(null, FabTipoAcaoSistema.ACAO_FORMULARIO, null);
+    public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal, FabTipoAcaoSistemaGenerica pTipoAcao, ItfFabricaAcoes pFabAcao) {
+        super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER, pFabAcao);
 
     }
 

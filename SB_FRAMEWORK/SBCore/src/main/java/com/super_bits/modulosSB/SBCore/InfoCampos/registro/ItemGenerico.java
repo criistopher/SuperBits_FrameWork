@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -85,7 +83,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             try {
                 campoReflection.set(getInstancia(), pValor);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                Logger.getLogger(ItemGenerico.class.getName()).log(Level.SEVERE, null, ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro setando valor via CampoGenericoInstanciado", ex);
             }
         }
 
@@ -372,12 +370,14 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     private void setValorByFieldReflexao(Field pCampoReflexao, Object valor) throws ErroSetandoValorDeCampoPorReflexao {
-        pCampoReflexao.setAccessible(true);
+
         try {
             if (pCampoReflexao == null) {
                 throw new UnsupportedOperationException("Chamada de SetValorByFieldReflexao, com Fileld nulo em " + this);
             }
-            pCampoReflexao.set(this, valor);
+            pCampoReflexao.setAccessible(true);
+
+            pCampoReflexao.set(getInstancia(), valor);
             return;
         } catch (IllegalArgumentException | IllegalAccessException ex) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando setar novo valor para o campo " + pCampoReflexao.getName() + " na classe " + this.getClass().getSimpleName() + " via reflection", ex);

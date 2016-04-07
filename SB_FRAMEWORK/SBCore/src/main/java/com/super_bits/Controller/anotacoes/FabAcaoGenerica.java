@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.anotacoes;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -26,7 +27,7 @@ import java.util.List;
 @InfoModulo(nomeDoModulo = "Ações genericas no sistema", descricao = "Ações genericas do sistema")
 public enum FabAcaoGenerica implements ItfFabricaAcoes {
 
-    INCLUIR, ALTERAR, SALVAR, EXCLUIR;
+    INCLUIR, ALTERAR, SALVAR, EXCLUIR, ACAO_INTERNA_DO_SISTEMA;
 
     @Override
     public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
@@ -60,6 +61,11 @@ public enum FabAcaoGenerica implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoControllerEntidade getAcaoEntidadeController() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoController getAcaoController() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -7,13 +7,13 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import static com.super_bits.Controller.ControllerAppAbstratoSBCore.getPermissaoPorAcao;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
  */
 public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
 
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_LISTAR)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.ACAO_INTERNA_DO_SISTEMA)
     public static List<AcaoDoSistema> listarAcoesDoGrupo(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull ModuloAcaoSistema pModulo) {
         List<AcaoDoSistema> resp = new ArrayList<>();
 

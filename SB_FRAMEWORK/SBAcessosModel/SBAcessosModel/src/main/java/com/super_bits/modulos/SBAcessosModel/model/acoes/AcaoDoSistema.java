@@ -13,9 +13,11 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -50,11 +52,17 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
+        try {
+            if (ptipoAcao == null || pAcao == null) {
+                throw new UnsupportedOperationException("O tipo de ação e a fabrica que originou a acao são obrigatórios");
+            }
 
-        tipoAcao = ptipoAcao;
-        nomeAcao = pAcao.toString();
-        descricao = "Descrição não documentada";
-
+            tipoAcao = ptipoAcao;
+            nomeAcao = pAcao.toString();
+            descricao = "Descrição não documentada";
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
+        }
     }
 
     public void copiarDadosDaAcao(ItfAcaoDoSistema pAcaoOriginal) {

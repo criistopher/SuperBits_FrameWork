@@ -91,7 +91,7 @@ public abstract class UtilFabricaDeAcoes {
                     break;
 
                 case SALVAR_EDICAO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.SALVAR_EDICAO);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.SALVAR_EDICAO, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
@@ -100,7 +100,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                     break;
                 case SALVAR_NOVO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.SALVAR_NOVO);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.SALVAR_NOVO, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
@@ -109,7 +109,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                     break;
                 case SALVAR_MODO_MERGE:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
@@ -118,7 +118,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                     break;
                 case ATIVAR_DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
@@ -127,7 +127,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                     break;
                 case ATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
@@ -136,7 +136,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                     break;
                 case DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");

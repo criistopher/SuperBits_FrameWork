@@ -2,14 +2,12 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 //import com.super_bits.modulosSB.webPaginas.ConfigGeral.CInfo;
 //Simport com.super_bits.modulosSB.webPaginas.JSFBeans.util.OrganizadorDeArquivos;
-
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.rmi.UnexpectedException;
@@ -201,11 +199,11 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
     @Override
     public void setNome(String pNome) {
-        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, this);
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, pNome);
     }
 
     @Override
     public void setId(int pID) {
-        setValorByTipoCampoEsperado(FabCampos.ID, this);
+        setValorByTipoCampoEsperado(FabCampos.ID, pID);
     }
 }

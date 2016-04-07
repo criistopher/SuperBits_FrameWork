@@ -6,11 +6,11 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -34,6 +34,7 @@ import javax.validation.constraints.NotNull;
  * @author Salvio
  */
 @Entity
+@InfoClasse(tags = {"Grupos de Usuário"})
 public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
 
     @Id

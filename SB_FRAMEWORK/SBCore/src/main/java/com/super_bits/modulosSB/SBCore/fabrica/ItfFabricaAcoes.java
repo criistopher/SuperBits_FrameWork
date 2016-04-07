@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.fabrica;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -42,6 +43,8 @@ public interface ItfFabricaAcoes extends ItfFabrica {
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario();
 
     public ItfAcaoControllerEntidade getAcaoEntidadeController();
+
+    public ItfAcaoController getAcaoController();
 
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade();
 

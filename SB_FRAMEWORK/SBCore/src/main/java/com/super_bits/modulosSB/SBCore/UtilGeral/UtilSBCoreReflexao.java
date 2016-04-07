@@ -6,7 +6,9 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -323,7 +325,19 @@ public abstract class UtilSBCoreReflexao {
     }
 
     public static String getNomeDoObjeto(Class pClasse) {
-        throw new UnsupportedOperationException("Nome do Objeto por Reflexão não foi implementado");
+
+        try {
+            if (!pClasse.isAnnotationPresent(InfoClasse.class)) {
+                throw new UnsupportedOperationException("A classe " + pClasse + " não foi anotada com InfoClasse");
+            }
+
+            InfoClasse info = (InfoClasse) pClasse.getAnnotation(InfoClasse.class);
+            return info.tags()[0];
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "", t);
+            return null;
+        }
+
     }
 
 }
