@@ -6,7 +6,9 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -27,6 +29,10 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     public AcaoFormulario() {
         super();
+    }
+
+    public AcaoFormulario(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
+        super(ptipoAcao, pAcao);
     }
 
     public static enum VARIAVEIS_ACAO_DO_SISTEMA {

@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -31,7 +32,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController, ItfAcaoSecundaria {
+public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController, ItfAcaoSecundaria, ItfAcaoControllerEntidade {
 
     @Transient
     private List<ParametroDeAcaoController> parametrosAdicionais;

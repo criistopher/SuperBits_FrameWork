@@ -285,8 +285,15 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
+        try {
+            return (ItfAcaoFormularioEntidade) getRegistro();
 
-        return (ItfAcaoFormularioEntidade) getRegistro();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
+        }
+
+        return null;
+
     }
 
     @Override
