@@ -15,6 +15,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
     FORMULARIO_NOVO_REGISTRO,
     FORMULARIO_EDITAR,
+    FORMULARIO_PERSONALIZADO,
     SALVAR_EDICAO,
     SALVAR_NOVO,
     SALVAR_MODO_MERGE,
