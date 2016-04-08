@@ -50,7 +50,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean parametrosDeUrlPreenchido = false;
     protected boolean foiInjetado = false;
     private boolean anotacoesConfiguradas = false;
-    private AcaoManagedBean acaoVinculada;
+    private AcaoGestaoEntidade acaoVinculada;
 
     protected abstract String defineTitulo();
 
@@ -88,7 +88,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     @Override
-    public AcaoManagedBean getAcaoVinculada() {
+    public AcaoGestaoEntidade getAcaoVinculada() {
 
         if (this.getClass().toString().equals(PaginaSimples.class.toString())) {
             return null;
@@ -309,7 +309,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 if (acao == null) {
                     throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
                 }
-                acaoVinculada = (AcaoManagedBean) acao;
+                acaoVinculada = (AcaoGestaoEntidade) acao;
 
             } catch (Throwable t) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);

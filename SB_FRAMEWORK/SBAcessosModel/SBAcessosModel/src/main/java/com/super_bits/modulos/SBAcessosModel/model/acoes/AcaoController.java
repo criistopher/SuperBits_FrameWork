@@ -16,8 +16,14 @@ import javax.persistence.Transient;
 
 /**
  *
- * Uma ação de controller é uma ação do sistema que pode ou não conter
- * parametros, e deve retornar algo.
+ * Uma ação de controller é uma ação do sistema, que executa alguma alteração
+ * definitiva no banco de dados,
+ *
+ * Toda ação controller deve ter um método estatico de execução, vinculado a ela
+ * via anotaçaõ
+ *
+ *
+ * ela pode ou não conter parametros, e deve retornar algo.
  *
  *
  * @author desenvolvedor
