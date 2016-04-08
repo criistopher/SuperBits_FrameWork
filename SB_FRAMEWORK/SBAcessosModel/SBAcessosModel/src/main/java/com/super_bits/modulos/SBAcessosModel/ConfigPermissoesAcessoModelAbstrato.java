@@ -66,7 +66,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 UtilSBPersistencia.mergeRegistro(acaosecundaria.getAcaoPrincipal(), getEmPermissoes());
 
             }
-            UtilSBPersistencia.mergeRegistro(acao.getModulo());
+            UtilSBPersistencia.mergeRegistro(acao.getModulo(), getEmPermissoes());
             UtilSBPersistencia.mergeRegistro(acaoPersist, getEmPermissoes());
 
         }

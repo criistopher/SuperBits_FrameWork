@@ -5,6 +5,7 @@
 package com.super_bits.Controller.Interfaces.acoes;
 
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 
 /**
  *
@@ -12,6 +13,8 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
  */
 public interface ItfAcaoSecundaria extends ItfAcaoDoSistema, ItfAcaoEntidade {
 
-    public ItfAcaoDoSistema getAcaoPrincipal();
+    public ItfAcaoGerenciarEntidade getAcaoPrincipal();
+
+    public void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal);
 
 }

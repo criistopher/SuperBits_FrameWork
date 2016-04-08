@@ -25,7 +25,7 @@ import javax.persistence.Transient;
 public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFormulario, ItfAcaoSecundaria {
 
     @Transient
-    private ItfAcaoDoSistema acaoPrincipal;
+    private ItfAcaoGerenciarEntidade acaoPrincipal;
     @Transient
     private List<CaminhoCampoReflexao> camposDoFormulario;
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
@@ -53,6 +53,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
 
         camposDoFormulario = new ArrayList<>();
+        setAcaoPrincipal(pAcaoPrincipal);
     }
 
     /**
@@ -77,7 +78,8 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
         camposDoFormulario = new ArrayList<>();
     }
 
-    public ItfAcaoDoSistema getAcaoPrincipal() {
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoPrincipal() {
         return acaoPrincipal;
     }
 
@@ -113,6 +115,11 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     @Override
     public void setXhtml(String pXhtml) {
         xhtml = pXhtml;
+    }
+
+    @Override
+    public final void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
+        acaoPrincipal = pAcaoPrincipal;
     }
 
 }

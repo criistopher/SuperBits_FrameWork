@@ -4,10 +4,12 @@
  */
 package com.super_bits.Controller.Interfaces.permissoes;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+
 /**
  *
  * @author salvioF
  */
-public interface ItfAcaoFormularioEntidade extends ItfAcaoFormulario, ItfAcaoEntidade {
+public interface ItfAcaoFormularioEntidade extends ItfAcaoFormulario, ItfAcaoEntidade, ItfAcaoSecundaria {
 
 }

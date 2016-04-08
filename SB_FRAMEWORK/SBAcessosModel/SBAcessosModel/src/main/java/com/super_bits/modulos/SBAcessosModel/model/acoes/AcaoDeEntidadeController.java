@@ -35,10 +35,14 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
 
     @Transient
     private List<ParametroDeAcaoController> parametrosAdicionais;
+
+    @Transient
+    private ItfAcaoGerenciarEntidade acaoPrincipal;
+
     private int idMetodo;
 
     public AcaoDeEntidadeController() {
-        super(null, null, null);
+        super();
     }
 
     public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal, FabTipoAcaoSistemaGenerica pTipoAcao, ItfFabricaAcoes pFabAcao) {
@@ -75,8 +79,13 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ItfAcaoGerenciarEntidade getAcaoPrincipal() {
+        return acaoPrincipal;
+    }
+
+    @Override
+    public void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
+        acaoPrincipal = pAcaoPrincipal;
     }
 
 }

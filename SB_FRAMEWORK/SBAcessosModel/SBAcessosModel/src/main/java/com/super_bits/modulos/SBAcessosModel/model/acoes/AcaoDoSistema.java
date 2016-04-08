@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.TipoAcaoPadrao;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
@@ -64,12 +65,13 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             tipoAcao = ptipoAcao;
             nomeAcao = pAcao.toString();
             descricao = "Descrição não documentada";
+            id = UtilSBController.gerarIDAcaoDoSistema(pAcao);
 
-            InfoModulo modulo = pAcao.getClass().getAnnotation(InfoModulo.class);
+            InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
             ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
-            moduloDaAcao.setNome(modulo.nomeDoModulo());
+            moduloDaAcao.setNome(moduloanotacao.nomeDoModulo());
             moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
-            moduloDaAcao.setDescricao(modulo.descricao());
+            moduloDaAcao.setDescricao(moduloanotacao.descricao());
             setModulo(moduloDaAcao);
 
         } catch (Throwable t) {
