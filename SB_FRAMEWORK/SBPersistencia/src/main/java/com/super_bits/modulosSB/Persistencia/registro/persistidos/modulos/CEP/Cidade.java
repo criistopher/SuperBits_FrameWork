@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
@@ -26,6 +27,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@InfoClasse(tags = {"Cidade"})
 public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
 
     private static final long serialVersionUID = 1L;
