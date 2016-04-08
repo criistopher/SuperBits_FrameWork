@@ -117,4 +117,6 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void setIdDescritivoJira(String pIdJira);
 
+    public void setPrecisaPermissao(boolean pPermissao);
+
 }
