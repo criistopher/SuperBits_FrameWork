@@ -6,7 +6,6 @@
 package com.super_bits.modulos.SBAcessosModel;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class UtilSBAcessosModelTest {
     @Test
     public void testCriaAcessoWebPaginas() {
         System.out.println("criaAcessoWebPaginas");
-   //     List<AcessoSBWebPaginas> pRecursoPagina = null;
+        //     List<AcessoSBWebPaginas> pRecursoPagina = null;
         //    UtilSBAcessosModel.criaAcessoWebPaginas(pRecursoPagina);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

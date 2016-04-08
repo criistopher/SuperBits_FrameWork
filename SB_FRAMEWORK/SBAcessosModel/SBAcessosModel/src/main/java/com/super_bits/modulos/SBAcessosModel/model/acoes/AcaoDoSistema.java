@@ -18,6 +18,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -63,6 +64,14 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             tipoAcao = ptipoAcao;
             nomeAcao = pAcao.toString();
             descricao = "Descrição não documentada";
+
+            InfoModulo modulo = pAcao.getClass().getAnnotation(InfoModulo.class);
+            ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
+            moduloDaAcao.setNome(modulo.nomeDoModulo());
+            moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
+            moduloDaAcao.setDescricao(modulo.descricao());
+            setModulo(moduloDaAcao);
+
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
         }
@@ -150,7 +159,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return modulo;
     }
 
-    public void setModulo(ModuloAcaoSistema modulo) {
+    public final void setModulo(ModuloAcaoSistema modulo) {
         this.modulo = modulo;
     }
 
