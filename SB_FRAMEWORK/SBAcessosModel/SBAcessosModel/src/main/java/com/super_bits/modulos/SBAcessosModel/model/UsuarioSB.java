@@ -50,7 +50,6 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome")
-
     @NotNull
     private String nome;
     @Column(nullable = false, unique = true)

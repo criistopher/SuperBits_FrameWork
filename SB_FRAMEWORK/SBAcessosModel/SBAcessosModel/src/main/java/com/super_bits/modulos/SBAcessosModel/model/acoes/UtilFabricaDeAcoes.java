@@ -58,8 +58,8 @@ public abstract class UtilFabricaDeAcoes {
             ItfAcaoDoSistema novaAcao;
             String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
-            ItfAcaoFormulario novaAcaoRefForm = new AcaoFormulario();
-            ItfAcaoController novaAcaoRefController = new AcaoController();
+            ItfAcaoFormulario novaAcaoRefForm = null;
+            ItfAcaoController novaAcaoRefController = null;
             switch (pTipoAcao) {
                 case FORMULARIO_NOVO_REGISTRO:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);

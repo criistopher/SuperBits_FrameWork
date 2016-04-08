@@ -193,4 +193,9 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         acaoOriginal.setIdDescritivoJira(pIdJira);
     }
 
+    @Override
+    public void setPrecisaPermissao(boolean pPermissao) {
+        acaoOriginal.setPrecisaPermissao(pPermissao);
+    }
+
 }

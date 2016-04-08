@@ -16,6 +16,7 @@ import org.junit.Test;
 
 /**
  *
+ *
  * @author desenvolvedor
  */
 public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {

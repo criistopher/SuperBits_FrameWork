@@ -422,12 +422,15 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else if (pCampoReflexao.getType().getSimpleName()
                             .equals("Date")) {
                         valor = ((Date) pCampoReflexao.get(this)).toString();
-                    } else {
+                    } else if (pCampoReflexao.get(this) != null) {
                         valor = pCampoReflexao.get(this).toString();
+                        return valor;
+                    } else {
+                        return null;
                     }
-
+                return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo", e);
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
             }
 
         } catch (SecurityException e) {
