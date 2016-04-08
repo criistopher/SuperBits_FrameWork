@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.B_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
@@ -90,7 +91,8 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     try {
                         for (ItfB_Pagina pagina : mapaPaginas.values()) {
                             if (pagina.getAcaoVinculada() != null) {
-                                infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada().getAcaoOriginal(), pagina.getAcaoVinculada());
+
+                                infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoManagedBean(pagina.getAcaoVinculada(), pagina));
                             }
                         }
 
@@ -132,7 +134,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
                     if (pagina.getAcaoVinculada() != null) {
                         if (pagina.getAcaoVinculada().isPrecisaPermissao()) {
-                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada().getAcaoOriginal())) {
+                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada())) {
                                 RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
                                 wp.forward(req, resp);
                                 return;
