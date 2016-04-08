@@ -45,7 +45,7 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     public SessaoMenuSB(ItfAcaoDoSistema pAcaoSessao) {
         acaoSessao = pAcaoSessao;
         if (acaoSessao.getIconeAcao() == null) {
-            acaoSessao.setIcone("fa fa-list-alt");
+            acaoSessao.setIconeAcao("fa fa-list-alt");
         }
         acoes = new ArrayList<>();
     }
@@ -125,8 +125,8 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
     }
 
     @Override
-    public void setIcone(String pIcone) {
-        acaoSessao.setIcone(pIcone);
+    public void setIconeAcao(String pIcone) {
+        acaoSessao.setIconeAcao(pIcone);
     }
 
     public boolean isTipoAcao() {

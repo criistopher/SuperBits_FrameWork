@@ -77,8 +77,8 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setIcone(String pIcone) {
-        acaoOriginal.setIcone(pIcone);
+    public void setIconeAcao(String pIcone) {
+        acaoOriginal.setIconeAcao(pIcone);
     }
 
     @Override

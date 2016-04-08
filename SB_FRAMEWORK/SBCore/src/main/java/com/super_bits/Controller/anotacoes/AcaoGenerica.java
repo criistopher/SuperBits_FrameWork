@@ -57,7 +57,7 @@ public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setIcone(String pIcone) {
+    public void setIconeAcao(String pIcone) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

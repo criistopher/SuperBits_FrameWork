@@ -112,7 +112,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setIcone(String pIcone) {
+    public void setIconeAcao(String pIcone) {
         iconeAcao = pIcone;
     }
 
@@ -173,12 +173,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
+    @Override
     public void setNomeAcao(String nomeAcao) {
         this.nomeAcao = nomeAcao;
-    }
-
-    public void setIconeAcao(String iconeAcao) {
-        this.iconeAcao = iconeAcao;
     }
 
     public void setCor(String cor) {
@@ -194,10 +191,16 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.precisaPermissao = precisaPermissao;
     }
 
+    @Override
     public String getIdDescritivoJira() {
         return idDescritivoJira;
     }
 
+    /**
+     *
+     * @param idDescritivoJira
+     */
+    @Override
     public void setIdDescritivoJira(String idDescritivoJira) {
         this.idDescritivoJira = idDescritivoJira;
     }
@@ -212,6 +215,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
         copiaDados(pAcaoDoSistema);
     }

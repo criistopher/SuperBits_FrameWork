@@ -6,7 +6,6 @@ package com.super_bits.Controller.Interfaces.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 /**
@@ -14,6 +13,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
  * @author sfurbino
  */
 public interface ItfAcaoDoSistema extends ItfBeanSimples {
+
+    public void setNomeAcao(String pNome);
 
     public String getNomeAcao();
 
@@ -62,7 +63,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      *
      * @param pIcone
      */
-    public void setIcone(String pIcone);
+    public void setIconeAcao(String pIcone);
 
     /**
      *
@@ -111,5 +112,9 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema);
 
     public boolean isAcaoFormulario();
+
+    public String getIdDescritivoJira();
+
+    public void setIdDescritivoJira(String pIdJira);
 
 }

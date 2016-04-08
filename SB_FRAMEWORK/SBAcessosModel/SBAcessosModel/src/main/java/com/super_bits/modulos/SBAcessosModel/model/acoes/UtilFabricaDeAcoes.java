@@ -64,7 +64,7 @@ public abstract class UtilFabricaDeAcoes {
                 case FORMULARIO_NOVO_REGISTRO:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
                     novaAcaoRefForm = (ItfAcaoFormulario) novaAcao;
-                    novaAcao.setIcone("fa fa-plus");
+                    novaAcao.setIconeAcao("fa fa-plus");
                     novaAcao.configurarPropriedadesBasicas(acaoBase);
                     novaAcao.setNome("Novo " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
@@ -78,7 +78,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setNome("Editar " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
                     novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
-                    novaAcao.setIcone("fa fa-edit");
+                    novaAcao.setIconeAcao("fa fa-edit");
                     break;
                 case FORMULARIO_LISTAR:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR);
@@ -87,7 +87,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setNome("Listar " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
                     novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
-                    novaAcao.setIcone("fa fa-list-alt");
+                    novaAcao.setIconeAcao("fa fa-list-alt");
                     break;
 
                 case SALVAR_EDICAO:
@@ -95,7 +95,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -104,7 +104,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -113,7 +113,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save (alias)");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -122,7 +122,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-retweet");
+                    novaAcao.setIconeAcao("fa fa-retweet");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -131,7 +131,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-check");
+                    novaAcao.setIconeAcao("fa fa-check");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -140,7 +140,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIcone("fa fa-close");
+                    novaAcao.setIconeAcao("fa fa-close");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -152,7 +152,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setNome("Visualizar " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
                     novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
-                    novaAcao.setIcone("fa fa-eye");
+                    novaAcao.setIconeAcao("fa fa-eye");
                     break;
 
                 default:
