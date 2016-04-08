@@ -52,11 +52,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     ACAO_INTERNA_DO_SISTEMA;
 
     @Override
-    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public AcaoDoSistema getAcaoDoSistema() {
         ItfAcaoDoSistema acao = null;
         switch (this) {
@@ -240,6 +235,11 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
         }
         return (AcaoDoSistema) acao;
+    }
+
+    @Override
+    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
