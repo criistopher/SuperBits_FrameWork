@@ -150,47 +150,47 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Override
     public FabTipoAcaoSistema getTipoAcaoSistema() {
-        acaoOriginal.getTipoAcaoSistema();
+        return acaoOriginal.getTipoAcaoSistema();
     }
 
     @Override
     public boolean isTemAcaoPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.isTemAcaoPrincipal();
     }
 
     @Override
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoOriginal.configurarPropriedadesBasicas(pAcaoDoSistema);
     }
 
     @Override
     public boolean isAcaoFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.isAcaoFormulario();
     }
 
     @Override
     public String getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.getNome();
     }
 
     @Override
     public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoOriginal.setNome(pNome);
     }
 
     @Override
     public void setNomeAcao(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoOriginal.setNomeAcao(pNome);
     }
 
     @Override
     public String getIdDescritivoJira() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.getIdDescritivoJira();
     }
 
     @Override
     public void setIdDescritivoJira(String pIdJira) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoOriginal.setIdDescritivoJira(pIdJira);
     }
 
 }
