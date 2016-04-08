@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
@@ -17,6 +17,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
@@ -32,6 +33,7 @@ import javax.persistence.Entity;
 @Entity
 public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoController, ItfAcaoSecundaria {
 
+    @Transient
     private List<ParametroDeAcaoController> parametrosAdicionais;
     private int idMetodo;
 

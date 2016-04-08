@@ -4,7 +4,6 @@
  */
 package com.super_bits.Controller.Interfaces.acoes;
 
-import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
 import java.lang.reflect.Method;
 import java.util.List;
 

@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.ParametroDeAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
@@ -26,6 +26,7 @@ import javax.persistence.Transient;
 public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
     private int idMetodo;
+
     @Transient
     private List<ParametroDeAcaoController> parametros;
 

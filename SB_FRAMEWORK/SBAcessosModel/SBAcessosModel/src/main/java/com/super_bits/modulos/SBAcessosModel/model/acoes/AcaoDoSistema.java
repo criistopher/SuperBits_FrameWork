@@ -19,9 +19,11 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -42,9 +44,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String cor;
     private String descricao;
     private boolean precisaPermissao;
+    @ManyToOne
     private ModuloAcaoSistema modulo;
     private String idDescritivoJira;
-
+    @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
 
     public AcaoDoSistema() {
@@ -200,7 +203,6 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-
     public String getNomeUnico() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -211,9 +213,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
-
         copiaDados(pAcaoDoSistema);
-
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
@@ -18,6 +19,11 @@ import javax.persistence.Entity;
 public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     private String xhtml;
+    @Transient
+
+    private ItfAcaoDoSistema acaoExectarFormulario;
+    @Transient
+    private List<CaminhoCampoReflexao> campos;
 
     public AcaoFormulario() {
         super();
@@ -39,9 +45,6 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
         }
     }
-
-    private ItfAcaoDoSistema acaoExectarFormulario;
-    private List<CaminhoCampoReflexao> campos;
 
     @Override
     public ItfAcaoDoSistema getAcaoExectarFormulario() {

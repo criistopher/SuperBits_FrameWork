@@ -19,6 +19,10 @@ public class AcaoFormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";
 
+    public AcaoFormularioModalDeEntidade() {
+        super();
+    }
+
     public AcaoFormularioModalDeEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, Class pClasseRelacionada, String pXhtml, ItfFabricaAcoes enumAcao) {
         super(pAcaoPrincipal, enumAcao, pXhtml);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;

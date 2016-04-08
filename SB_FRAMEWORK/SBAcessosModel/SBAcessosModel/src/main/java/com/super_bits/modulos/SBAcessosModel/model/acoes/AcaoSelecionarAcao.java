@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.Entity;
 @Entity
 public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecionarAcao {
 
+    @Transient
     private List<ItfAcaoDoSistema> acoes;
 
     public AcaoSelecionarAcao(List<ItfAcaoDoSistema> acoes) {

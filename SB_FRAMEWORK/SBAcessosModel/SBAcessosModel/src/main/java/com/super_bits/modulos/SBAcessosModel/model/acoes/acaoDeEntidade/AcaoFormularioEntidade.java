@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Transient;
 
 /**
  *
@@ -23,16 +24,23 @@ import java.util.List;
  */
 public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFormulario, ItfAcaoSecundaria {
 
+    @Transient
     private ItfAcaoDoSistema acaoPrincipal;
+    @Transient
     private List<CaminhoCampoReflexao> camposDoFormulario;
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
+    @Transient
     private ItfAcaoDoSistema acaoExectarFormulario;
+    @Transient
     private List<CaminhoCampoReflexao> campos;
 
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao, String pXhtml) {
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
         xhtml = pXhtml;
         camposDoFormulario = new ArrayList<>();
+    }
+
+    public AcaoFormularioEntidade() {
     }
 
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao) {
