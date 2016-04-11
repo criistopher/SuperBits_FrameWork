@@ -6,6 +6,7 @@ package com.super_bits.Controller.Interfaces.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 
 /**
@@ -119,4 +120,9 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
 
     public void setPrecisaPermissao(boolean pPermissao);
 
+    public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica();
+
+    public boolean isUmaAcaoGenerica();
+
+    public boolean isAcaoGestaoDominio();
 }

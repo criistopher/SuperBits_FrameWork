@@ -7,7 +7,6 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
@@ -41,22 +40,33 @@ public abstract class UtilFabricaDeAcoes {
 
     }
 
-    public static ItfAcaoGerenciarEntidade getAcaoEntidade(ItfAcaoDoSistema pAcao, Class pClasseRelacionada, String pXhtml) {
+    private static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
 
-        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade((ItfFabricaAcoes) pAcao, pClasseRelacionada, pXhtml);
+        String nome = pFabrica.toString();
 
-        return (ItfAcaoGerenciarEntidade) acaoGestaoEntidade;
+        for (FabTipoAcaoSistemaGenerica tipoAcap : FabTipoAcaoSistemaGenerica.values()) {
+
+            TipoAcaoPadrao acaoPadrao = tipoAcap.getRegistro();
+            if (acaoPadrao.getNomePadrao().equals(nome)) {
+                return tipoAcap;
+            }
+        }
+        throw new UnsupportedOperationException("O tipo da ação não pode ser determinado pelo prefixo padrão determinado no nome");
 
     }
 
-    public static ItfAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pAcao) {
+    public static ItfAcaoSecundaria getNovaAcao(
+            ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pAcao) {
+
+        FabTipoAcaoSistemaGenerica pTipoAcao = getTipoAcaoByNome(pAcao);
+
         try {
             if (pAcaoPrincipal == null) {
                 throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
             }
 
             AcaoDoSistema acaoBase = getAcaoDoSistema(pTipoAcao);
-            ItfAcaoDoSistema novaAcao;
+            ItfAcaoDoSistema novaAcao = null;
             String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
@@ -158,6 +168,15 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
                     novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
                     novaAcao.setIconeAcao("fa fa-eye");
+                    break;
+                case FORMULARIO_PERSONALIZADO:
+                    break;
+                case SELECAO_DE_ACAO:
+                    break;
+                case FORMULARIO_MODAL:
+                    break;
+                case GERENCIAR:
+                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getClass(), nomeDoObjeto);
                     break;
 
                 default:

@@ -5,11 +5,9 @@
 package com.super_bits.Controller.anotacoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 
 /**
@@ -142,6 +140,16 @@ public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
 
     @Override
     public void setPrecisaPermissao(boolean pPermissao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isUmaAcaoGenerica() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

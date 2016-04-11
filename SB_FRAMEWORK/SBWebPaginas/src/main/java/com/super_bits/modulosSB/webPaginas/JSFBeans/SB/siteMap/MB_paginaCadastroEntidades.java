@@ -93,7 +93,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
-        if (!acaoSelecionada.isAcaoFormulario()) {
+        if (acaoSelecionada.isAcaoFormulario()) {
             xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
         }
 
@@ -120,11 +120,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             // define que a atualização das informações aconteceram no formulario
             paginaUtil.atualizaTelaPorID("formulario");
-
         }
 
         if (acaoSelecionada.equals(getAcaoEditar())) {
-
             atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
             paginaUtil.atualizaTelaPorID("formulario");
 
@@ -242,15 +240,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoFormularioEntidade getAcaoEditar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
-            if (acao.getTipoAcaoSistema() != null) {
-                if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
+            if (acao.isUmaAcaoGenerica()) {
+                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
+                    return (ItfAcaoFormularioEntidade) acao;
 
-                    if (acao.getTipoAcaoSistema() != null) {
-                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
-
-                            return (ItfAcaoFormularioEntidade) acao;
-                        }
-                    }
                 }
                 throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
@@ -263,18 +256,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoControllerEntidade getAcaoAlterarStatus() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
-            if (acao.getTipoAcaoSistema() != null) {
-                if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
-
-                    if (acao.getTipoAcaoSistema() != null) {
-                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
-
-                            return (ItfAcaoControllerEntidade) acao;
-                        }
-                    }
+            if (acao.isUmaAcaoGenerica()) {
+                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
+                    return (ItfAcaoControllerEntidade) acao;
 
                 }
-                throw new UnsupportedOperationException("a ação de AticarEDesativar não foi encontrada");
+                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
         }
@@ -285,22 +272,15 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoFormularioEntidade getAcaoVisualisar() {
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
-            if (acao.getTipoAcaoSistema() != null) {
-                if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
-
-                    if (acao.getTipoAcaoSistema() != null) {
-                        if (acao.getTipoAcaoSistema().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
-
-                            return (ItfAcaoFormularioEntidade) acao;
-                        }
-                    }
+            if (acao.isUmaAcaoGenerica()) {
+                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
+                    return (ItfAcaoFormularioEntidade) acao;
 
                 }
-                throw new UnsupportedOperationException("a ação de Visualizar não foi encontrada");
+                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
         }
         return null;
-
     }
 }

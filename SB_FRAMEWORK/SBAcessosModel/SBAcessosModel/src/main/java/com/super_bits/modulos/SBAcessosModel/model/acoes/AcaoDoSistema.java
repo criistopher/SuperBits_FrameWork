@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
@@ -51,6 +52,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String idDescritivoJira;
     @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
+    private ItfFabricaAcoes enumAcao;
 
     public AcaoDoSistema() {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
@@ -66,6 +68,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             nomeAcao = pAcao.toString();
             descricao = "Descrição não documentada";
             id = UtilSBController.gerarIDAcaoDoSistema(pAcao);
+            enumAcao = pAcao;
 
             InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
             ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
@@ -83,6 +86,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
+    @Override
     public boolean isUmaAcaoGenerica() {
         return tipoAcaoGenerica != null;
     }
@@ -218,12 +222,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public String getNomeUnico() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilSBController.gerarNomeUnicoAcaoDoSistema(enumAcao);
     }
 
     @Override
     public String getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeAcao;
     }
 
     @Override
@@ -238,6 +242,15 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public String getTipoAcaoDB() {
         return tipoAcaoDB;
+    }
+
+    @Override
+    public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
+        return tipoAcaoGenerica;
+    }
+
+    public boolean isAcaoGestaoDominio() {
+        return this.getClass().isAssignableFrom(ItfAcaoGerenciarEntidade.class);
     }
 
 }

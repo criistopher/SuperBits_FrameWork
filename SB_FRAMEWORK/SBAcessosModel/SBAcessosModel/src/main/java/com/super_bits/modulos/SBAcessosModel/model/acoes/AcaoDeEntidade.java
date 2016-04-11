@@ -50,11 +50,6 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
         this.classeRelacionada = classeRelacionada;
     }
 
-    @Override
-    public boolean isAcaoFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
         return tipoAcaoGenerica;
     }

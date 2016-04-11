@@ -198,4 +198,14 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         acaoOriginal.setPrecisaPermissao(pPermissao);
     }
 
+    @Override
+    public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
+        return FabTipoAcaoSistemaGenerica.GERENCIAR;
+    }
+
+    @Override
+    public boolean isUmaAcaoGenerica() {
+        return true;
+    }
+
 }

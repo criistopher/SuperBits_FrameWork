@@ -66,9 +66,14 @@ public class UtilSBController {
     }
 
     public static Integer gerarIDAcaoDoSistema(ItfFabricaAcoes pAcao) {
+
+        return gerarNomeUnicoAcaoDoSistema(pAcao).hashCode();
+    }
+
+    public static String gerarNomeUnicoAcaoDoSistema(ItfFabricaAcoes pAcao) {
         String nomeModulo = pAcao.getClass().getSimpleName();
         String nomeAcao = pAcao.toString();
-        return (nomeModulo + nomeAcao).hashCode();
+        return nomeModulo + "." + nomeAcao;
     }
 
     /**
@@ -85,7 +90,7 @@ public class UtilSBController {
      * @param pararSistemaCasoNaoEncontre :P
      * @return A ação vinculada ao método estático
      */
-    public static ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo, boolean pararSistemaCasoNaoEncontre) {
+    public static ItfAcaoController getAcaoByMetodo(Method pMetodo, boolean pararSistemaCasoNaoEncontre) {
         try {
 
             if (pMetodo == null) {
@@ -103,6 +108,7 @@ public class UtilSBController {
             return acaoSisTema;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação por Método", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação para o  Método" + pMetodo.getName() + " em " + pMetodo.getDeclaringClass().getSimpleName(), t);
             FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
             return null;
         }

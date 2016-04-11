@@ -4,9 +4,10 @@
  */
 package com.super_bits.Controller;
 
+import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
-import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -98,21 +99,31 @@ public abstract class ConfigPermissaoAbstratoSBCore implements ItfCfgPermissoes 
      * @param pClassesControllers
      */
     public ConfigPermissaoAbstratoSBCore(Class[] pClassesControllers) {
+
         classesControllers = pClassesControllers;
-        System.out.println("iniciando config Acessos");
-        if (pClassesControllers == null) {
-            return;
-        }
-        for (Class classe : pClassesControllers) {
-            Method[] metodos
-                    = classe.getDeclaredMethods();
-            acoesByHashMetodo.clear();
-            for (Method metodo : metodos) {
-
-                acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), UtilSBController.getAcaoByMetodo(metodo, true));
-
-                metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+        try {
+            System.out.println("iniciando config Acessos");
+            if (pClassesControllers == null) {
+                return;
             }
+            for (Class classe : pClassesControllers) {
+                Method[] metodos
+                        = classe.getDeclaredMethods();
+                acoesByHashMetodo.clear();
+                for (Method metodo : metodos) {
+                    ItfAcaoController acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
+                    Class classeAcao = acaovinculoMetodo.getClass();
+
+                    //   if (classeAcao.isAssignableFrom(ItfAcaoController.class) == false) {
+                    //       throw new UnsupportedOperationException("A ação " + acaovinculoMetodo.getNomeAcao() + " não é do tipo controller e foi vinculada ao método:" + metodo.getName() + " Na classe " + metodo.getDeclaringClass().getSimpleName());
+                    // }
+                    acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo);
+
+                    metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+                }
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, t.getMessage(), t);
         }
 
     }
