@@ -22,6 +22,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     SALVAR_MODO_MERGE,
     ATIVAR_DESATIVAR,
     ATIVAR,
+    REMOVER,
     DESATIVAR,
     FORMULARIO_VISUALIZAR,
     FORMULARIO_LISTAR,
@@ -91,6 +92,8 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
             case FORMULARIO_MODAL:
                 break;
             case GERENCIAR:
+                break;
+            case REMOVER:
                 break;
             default:
                 throw new AssertionError(this.name());

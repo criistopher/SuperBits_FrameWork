@@ -79,6 +79,11 @@ public abstract class UtilFabricaDeAcoes {
             if (lista.contains("CTR") && lista.contains("ATIVAR")) {
                 return FabTipoAcaoSistemaGenerica.ATIVAR;
             }
+
+            if (lista.contains("CTR") && lista.contains("REMOVER")) {
+                return FabTipoAcaoSistemaGenerica.REMOVER;
+            }
+
             if (lista.contains("CTR") && lista.contains("DESATIVAR")) {
                 return FabTipoAcaoSistemaGenerica.ATIVAR;
             }
@@ -116,21 +121,28 @@ public abstract class UtilFabricaDeAcoes {
     }
 
     public static ItfFabricaAcoes getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
-
-        Class classeDominioDaAcao = pAcao.getDominio();
-        for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
-            // verifica se a classe de dominio é a mesma da ação enviada
-            if (acao.getDominio().getName().equals(classeDominioDaAcao.getName())) {
-                // verifica se alem de ser o mesmo dominio possui o MB
-                if (acao.toString().contains("_MB_")) {
-                    if (acao.equals(pAcao)) {
-                        return null;
+        try {
+            Class classeDominioDaAcao = pAcao.getDominio();
+            for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
+                // verifica se a classe de dominio é a mesma da ação enviada
+                Class dominioDaAcaoAtual = acao.getDominio();
+                if (dominioDaAcaoAtual != null) {
+                    if (dominioDaAcaoAtual.getName().equals(classeDominioDaAcao.getName())) {
+                        // verifica se alem de ser o mesmo dominio possui o MB
+                        if (acao.toString().contains("_MB_")) {
+                            if (acao.equals(pAcao)) {
+                                return null;
+                            }
+                            return acao;
+                        }
                     }
-                    return acao;
                 }
             }
+            throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando a ação principal da ação" + pAcao, t);
+            throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
         }
-        throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
 
     }
 
@@ -218,8 +230,6 @@ public abstract class UtilFabricaDeAcoes {
 
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, pAcao);
 
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
-
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
@@ -265,13 +275,16 @@ public abstract class UtilFabricaDeAcoes {
                 case GERENCIAR:
                     novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
                     break;
+                case REMOVER:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
+                    break;
 
                 default:
                     throw new AssertionError("Este tipo de ação não parece ser uma ação secundária" + pTipoAcao.name());
 
             }
 
-            return (ItfAcaoSecundaria) novaAcao;
+            return novaAcao;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);
         }
