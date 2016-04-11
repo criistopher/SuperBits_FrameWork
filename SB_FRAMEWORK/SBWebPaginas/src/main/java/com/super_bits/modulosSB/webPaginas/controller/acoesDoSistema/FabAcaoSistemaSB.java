@@ -30,7 +30,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
     DEMONSTRACAO_VALIDACAO;
 
     @Override
-    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
+    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

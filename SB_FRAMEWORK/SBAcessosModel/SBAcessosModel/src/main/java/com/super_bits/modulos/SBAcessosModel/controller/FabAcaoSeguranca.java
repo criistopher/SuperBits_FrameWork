@@ -233,7 +233,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     }
 
     @Override
-    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
+    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -30,7 +30,7 @@ public enum FabAcaoGenerica implements ItfFabricaAcoes {
     INCLUIR, ALTERAR, SALVAR, EXCLUIR, ACAO_INTERNA_DO_SISTEMA;
 
     @Override
-    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao() {
+    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
         throw new UnsupportedOperationException("O METODO AINDA n\u00e3o FOI IMPLEMENTADO.");
     }
 

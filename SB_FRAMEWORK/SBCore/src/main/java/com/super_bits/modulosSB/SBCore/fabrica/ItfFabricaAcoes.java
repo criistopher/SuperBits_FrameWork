@@ -28,7 +28,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * @return
      */
-    public List<ItfGrupoUsuario> getAcessoGruposLiberadosPadrao();
+    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo();
 
     /**
      *
