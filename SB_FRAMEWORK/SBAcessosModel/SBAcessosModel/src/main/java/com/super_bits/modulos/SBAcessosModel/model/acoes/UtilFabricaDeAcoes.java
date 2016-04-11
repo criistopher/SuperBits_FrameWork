@@ -120,7 +120,7 @@ public abstract class UtilFabricaDeAcoes {
         Class classeDominioDaAcao = pAcao.getDominio();
         for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
             // verifica se a classe de dominio é a mesma da ação enviada
-            if (acao.getDominio().equals(classeDominioDaAcao.getClass())) {
+            if (acao.getDominio().getName().equals(classeDominioDaAcao.getName())) {
                 // verifica se alem de ser o mesmo dominio possui o MB
                 if (acao.toString().contains("_MB_")) {
                     return (AcaoGestaoEntidade) acao.geAcaoGerenciarEntidade();
