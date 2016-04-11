@@ -58,6 +58,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
     }
 
+    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao, FabTipoAcaoSistemaGenerica pAcaoGenerica) {
+        this(ptipoAcao, pAcao);
+        tipoAcaoGenerica = pAcaoGenerica;
+    }
+
     public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
         try {
             if (ptipoAcao == null || pAcao == null) {
