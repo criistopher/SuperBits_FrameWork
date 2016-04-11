@@ -208,4 +208,9 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return true;
     }
 
+    @Override
+    public boolean isAcaoGestaoDominio() {
+        return true;
+    }
+
 }

@@ -153,4 +153,9 @@ public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public boolean isAcaoGestaoDominio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

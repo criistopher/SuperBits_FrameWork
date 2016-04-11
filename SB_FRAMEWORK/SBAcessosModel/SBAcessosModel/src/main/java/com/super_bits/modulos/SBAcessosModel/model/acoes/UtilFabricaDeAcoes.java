@@ -24,48 +24,67 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
  */
 public abstract class UtilFabricaDeAcoes {
 
-    public static AcaoFormularioEntidade getAcaoEntidadeFormulario(ItfAcaoDoSistema acao, ItfFabricaAcoes pAcaoPrincipal, ItfFabricaAcoes pAcaoConcluirFormulario, String pXhtml) {
-        //AcaoFormularioEntidade acaoEntidadeForm = new AcaoFormularioEntidade(acao, pAcaoPrincipal.getAcaoDeEntidade().getClass(), pXhtml);
-        // acaoEntidadeForm.copiarDadosDaAcao(acao);
-        return null;
-    }
-
-    public static AcaoDoSistema getAcaoDoSistema(FabTipoAcaoSistemaGenerica tipoDeAcao) {
-
-        AcaoDoSistema acao = new AcaoDoSistema();
-
-        TipoAcaoPadrao tipoAcao = new TipoAcaoPadrao();
-        acao.setTipoAcaoGenerica(tipoDeAcao);
-        return acao;
-
-    }
-
-    private static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
+    /**
+     *
+     * Retorna o tipo de ação generica de acordo com a nomeclatura * MB Ação
+     * managed Bean >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FRM
+     * AÇÃO DE FORMULARIO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * FRM_NOVO
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * FRM_EDITAR
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * FRM_VISUALIZAR
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR AÇÃO
+     * CAMADA CONTROLLER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * CTR_ALTERAR_STATUS
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR_SALVAR_MERGE
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     *
+     * @param pFabrica
+     * @return
+     */
+    public static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
 
         String nome = pFabrica.toString();
 
-        for (FabTipoAcaoSistemaGenerica tipoAcap : FabTipoAcaoSistemaGenerica.values()) {
+        String[] divisoes = nome.split("_");
+        String teste = divisoes[0];
 
-            TipoAcaoPadrao acaoPadrao = tipoAcap.getRegistro();
-            if (acaoPadrao.getNomePadrao().equals(nome)) {
-                return tipoAcap;
-            }
+        for (String parte : divisoes) {
+            return FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
+
         }
-        throw new UnsupportedOperationException("O tipo da ação não pode ser determinado pelo prefixo padrão determinado no nome");
+        throw new UnsupportedOperationException("Não foi possivel determinar o tipo de ação para " + pFabrica.toString() + "Verifique a nomeclatura de acordo com as instruções ");
 
     }
 
-    public static ItfAcaoSecundaria getNovaAcao(
-            ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pAcao) {
+    public static AcaoGestaoEntidade getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
+
+        Class classeDominioDaAcao = pAcao.getDominio();
+        for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
+            // verifica se a classe de dominio é a mesma da ação enviada
+            if (acao.getDominio().equals(classeDominioDaAcao.getClass())) {
+                // verifica se alem de ser o mesmo dominio possui o MB
+                if (acao.toString().contains("_MB_")) {
+                    return (AcaoGestaoEntidade) acao.geAcaoGerenciarEntidade();
+                }
+            }
+        }
+        return null;
+
+    }
+
+    public static ItfAcaoDoSistema getNovaAcao(
+            ItfFabricaAcoes pAcao) {
 
         FabTipoAcaoSistemaGenerica pTipoAcao = getTipoAcaoByNome(pAcao);
-
+        ItfAcaoGerenciarEntidade pAcaoPrincipal = getAcaoPrincipalDoDominio(pAcao);
         try {
             if (pAcaoPrincipal == null) {
                 throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
             }
 
-            AcaoDoSistema acaoBase = getAcaoDoSistema(pTipoAcao);
+            AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcao);
             ItfAcaoDoSistema novaAcao = null;
             String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
@@ -176,7 +195,7 @@ public abstract class UtilFabricaDeAcoes {
                 case FORMULARIO_MODAL:
                     break;
                 case GERENCIAR:
-                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getClass(), nomeDoObjeto);
+                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
                     break;
 
                 default:
@@ -189,6 +208,16 @@ public abstract class UtilFabricaDeAcoes {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);
         }
         return null;
+    }
+
+    public static AcaoDoSistema criaAcaodoSistemaPorTipoAcao(FabTipoAcaoSistemaGenerica tipoDeAcao) {
+
+        AcaoDoSistema acao = new AcaoDoSistema();
+
+        TipoAcaoPadrao tipoAcao = new TipoAcaoPadrao();
+        acao.setTipoAcaoGenerica(tipoDeAcao);
+        return acao;
+
     }
 
 }

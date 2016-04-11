@@ -48,4 +48,6 @@ public interface ItfFabricaAcoes extends ItfFabrica {
 
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade();
 
+    public Class getDominio();
+
 }

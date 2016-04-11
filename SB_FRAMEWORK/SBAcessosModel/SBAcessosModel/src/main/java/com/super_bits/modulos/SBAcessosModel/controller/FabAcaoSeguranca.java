@@ -63,8 +63,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_ADICIONAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(
-                        FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO,
-                        GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
                         this);
                 AcaoFormularioEntidade acaoNovoRegistro = (AcaoFormularioEntidade) acao;
 
@@ -78,8 +76,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_LISTAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(
-                        FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR,
-                        GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
                         this);
 
                 AcaoFormularioEntidade acaoListarGrupo = (AcaoFormularioEntidade) acao;
@@ -94,8 +90,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_EDITAR:
 
                 acao
-                        = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR,
-                                GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),
+                        = UtilFabricaDeAcoes.getNovaAcao(
                                 this);
                 AcaoFormularioEntidade acaoEditar = (AcaoFormularioEntidade) acao;
 
@@ -107,7 +102,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade grpVisualizar = (AcaoFormularioEntidade) acao;
 
                 grpVisualizar.setIconeAcao("fa fa-search-plus");
@@ -119,7 +114,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController grpAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 grpAlterarStatus.setNomeAcao("Ativar/Desativar");
@@ -134,7 +129,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_SALVAR_ALTERACOES:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController grpSalvarAlteracoes = (AcaoDeEntidadeController) acao;
 
                 grpSalvarAlteracoes.setIconeAcao("fa fa-save");
@@ -157,7 +152,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_NOVO_USUARIO:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.SALVAR_NOVO, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioNovo = (AcaoFormularioEntidade) acao;
 
                 usuarioNovo.setNomeAcao("Criar Novo Usuário");
@@ -168,7 +163,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_LISTAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioListar = (AcaoFormularioEntidade) acao;
 
                 usuarioListar.setNomeAcao("Listar Usuários");
@@ -179,7 +174,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_SALVAR_ALTERACOES:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioSalvar = (AcaoDeEntidadeController) acao;
 
                 usuarioSalvar.setIconeAcao("fa fa-save");
@@ -189,7 +184,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioEditar = (AcaoFormularioEntidade) acao;
 
                 usuarioEditar.setIconeAcao("fa fa-edit");
@@ -200,7 +195,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioVisualizar = (AcaoFormularioEntidade) acao;
 
                 usuarioVisualizar.setIconeAcao("fa fa-search-plus");
@@ -212,7 +207,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(), this);
+                acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 usuarioAlterarStatus.setNomeAcao("Ativar/Desativar");
@@ -306,6 +301,11 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
         return null;
 
+    }
+
+    @Override
+    public Class getDominio() {
+        return null;
     }
 
 }

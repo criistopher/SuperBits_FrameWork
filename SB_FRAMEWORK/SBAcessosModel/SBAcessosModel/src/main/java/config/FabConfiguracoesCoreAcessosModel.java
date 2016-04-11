@@ -31,7 +31,7 @@ public enum FabConfiguracoesCoreAcessosModel {
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
-        cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
+        //      cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
 
         switch (this) {
             case DESENVOLVIMENTO:
