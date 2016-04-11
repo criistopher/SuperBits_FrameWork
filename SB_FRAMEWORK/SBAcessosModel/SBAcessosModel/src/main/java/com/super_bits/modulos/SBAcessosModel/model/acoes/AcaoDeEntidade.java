@@ -55,6 +55,7 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
         this.classeRelacionada = classeRelacionada;
     }
 
+    @Override
     public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
         return tipoAcaoGenerica;
     }

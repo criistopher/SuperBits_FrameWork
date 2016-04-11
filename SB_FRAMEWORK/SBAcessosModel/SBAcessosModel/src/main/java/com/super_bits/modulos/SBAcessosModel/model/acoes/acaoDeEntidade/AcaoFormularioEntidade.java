@@ -51,8 +51,8 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     }
 
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica acaoGenerica) {
-        super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
-
+        super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao, acaoGenerica);
+        
         camposDoFormulario = new ArrayList<>();
         setAcaoPrincipal(pAcaoPrincipal);
     }

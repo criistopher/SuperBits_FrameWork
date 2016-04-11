@@ -22,7 +22,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
 
     public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
         super(pClasse, pFabrica, pXhtml);
-        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
+        tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR;
     }
 
     public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
