@@ -115,7 +115,7 @@ public abstract class UtilFabricaDeAcoes {
 
     }
 
-    public static AcaoGestaoEntidade getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
+    public static ItfFabricaAcoes getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
 
         Class classeDominioDaAcao = pAcao.getDominio();
         for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
@@ -123,11 +123,14 @@ public abstract class UtilFabricaDeAcoes {
             if (acao.getDominio().getName().equals(classeDominioDaAcao.getName())) {
                 // verifica se alem de ser o mesmo dominio possui o MB
                 if (acao.toString().contains("_MB_")) {
-                    return (AcaoGestaoEntidade) acao.geAcaoGerenciarEntidade();
+                    if (acao.equals(pAcao)) {
+                        return null;
+                    }
+                    return acao;
                 }
             }
         }
-        return null;
+        throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
 
     }
 
@@ -135,16 +138,19 @@ public abstract class UtilFabricaDeAcoes {
             ItfFabricaAcoes pAcao) {
 
         FabTipoAcaoSistemaGenerica pTipoAcao = getTipoAcaoByNome(pAcao);
-        ItfAcaoGerenciarEntidade pAcaoPrincipal = getAcaoPrincipalDoDominio(pAcao);
+
+        ItfFabricaAcoes fabricaDadoPrincipal = getAcaoPrincipalDoDominio(pAcao);
+        ItfAcaoGerenciarEntidade pAcaoPrincipal = null;
         try {
-            if (pAcaoPrincipal == null) {
-                throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
+            if (fabricaDadoPrincipal != null) {
+
+                pAcaoPrincipal = fabricaDadoPrincipal.geAcaoGerenciarEntidade();
             }
 
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcao);
             ItfAcaoDoSistema novaAcao = null;
-            String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
-            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
+            String diretorioBaseEntidade = "/site/" + pAcao.getDominio().getSimpleName().toLowerCase() + "/";
+            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
             switch (pTipoAcao) {
@@ -209,8 +215,10 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case ATIVAR_DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, pAcao)
+
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
+
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
                     novaAcao.setIconeAcao("fa fa-retweet");

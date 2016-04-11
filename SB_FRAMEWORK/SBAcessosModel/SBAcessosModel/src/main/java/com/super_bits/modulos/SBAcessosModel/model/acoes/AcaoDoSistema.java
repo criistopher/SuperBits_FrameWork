@@ -72,6 +72,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
             InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
             ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
+
+            if (moduloDaAcao == null) {
+                throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
+            }
+
             moduloDaAcao.setNome(moduloanotacao.nomeDoModulo());
             moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
             moduloDaAcao.setDescricao(moduloanotacao.descricao());

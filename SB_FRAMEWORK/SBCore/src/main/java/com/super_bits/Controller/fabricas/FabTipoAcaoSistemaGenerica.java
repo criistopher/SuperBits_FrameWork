@@ -84,6 +84,14 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 acaoPadrao.setDescricaoPadrao("Define status como desativado");
                 acaoPadrao.setIconePadrao("fa-close (alias)");
                 break;
+            case FORMULARIO_PERSONALIZADO:
+                break;
+            case SELECAO_DE_ACAO:
+                break;
+            case FORMULARIO_MODAL:
+                break;
+            case GERENCIAR:
+                break;
             default:
                 throw new AssertionError(this.name());
 

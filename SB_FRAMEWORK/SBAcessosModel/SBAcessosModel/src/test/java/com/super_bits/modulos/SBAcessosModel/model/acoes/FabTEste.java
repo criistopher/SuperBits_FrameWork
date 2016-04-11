@@ -11,8 +11,11 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.List;
 
@@ -20,6 +23,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
+@InfoModulo(descricao = "Modulo teste", nomeDoModulo = "Nome do modulo")
 public enum FabTEste implements ItfFabricaAcoes {
 
     OBJETO_FRM_NOVO,
@@ -71,11 +75,11 @@ public enum FabTEste implements ItfFabricaAcoes {
             case OBJETO_FRM_NOVO:
             case OBJETO_MB_GERENCIAR:
             case OBJETO_CTR_ALTERAR_STATUS:
-                return Object.class;
+                return GrupoUsuarioSB.class;
             case USUARIO_TESTE_MB_GERENCIAR:
             case USUARIO_TESTE_FRM_NOVO:
             case USUARIO_TESTE_FRM_EDITAR:
-                return ItfUsuario.class;
+                return UsuarioSB.class;
             default:
                 throw new AssertionError(this.name());
 
@@ -99,7 +103,7 @@ public enum FabTEste implements ItfFabricaAcoes {
                 break;
             case OBJETO_CTR_ALTERAR_STATUS:
 
-                acaoform.setXhtml("asdfasdf");
+//                acaoform.setXhtml("asdfasdf");
                 break;
             case USUARIO_TESTE_MB_GERENCIAR:
                 break;

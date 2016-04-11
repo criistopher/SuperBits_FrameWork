@@ -11,6 +11,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import config.FabConfiguracoesCoreAcessosModel;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,20 +32,20 @@ public class UtilFabricaDeAcoesTest {
     @Test
     public void testGetAcaoPrincipalDoDominio() {
 
-        AcaoGestaoEntidade acaoRetronada = null;
+        ItfFabricaAcoes acaoRetronada = null;
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_CTR_ALTERAR_STATUS);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_FRM_NOVO);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_MB_GERENCIAR);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", null, acaoRetronada);
 
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_EDITAR);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_NOVO);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_MB_GERENCIAR);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR.getRegistro(), acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", null, acaoRetronada);
 
     }
 
@@ -52,7 +53,8 @@ public class UtilFabricaDeAcoesTest {
     public void testGetNovaAcao() {
 
         ItfAcaoDoSistema acaoGerada = (ItfAcaoDoSistema) FabTEste.OBJETO_CTR_ALTERAR_STATUS.getRegistro();
-        assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
+        assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura",
+                acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
         assertEquals(acaoGerada.getClass().getName(), AcaoDeEntidadeController.class.getName());
 
         acaoGerada = (ItfAcaoDoSistema) FabTEste.USUARIO_TESTE_FRM_EDITAR.getRegistro();
