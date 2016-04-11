@@ -17,6 +17,9 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -48,10 +51,64 @@ public abstract class UtilFabricaDeAcoes {
         String nome = pFabrica.toString();
 
         String[] divisoes = nome.split("_");
-        String teste = divisoes[0];
+
+        List<String> lista = Arrays.asList(divisoes);
 
         for (String parte : divisoes) {
-            return FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
+
+            if (lista.contains("FRM") && lista.contains("NOVO")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
+            }
+
+            if (lista.contains("FRM") && lista.contains("EDITAR")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR;
+            }
+
+            if (lista.contains("FRM") && lista.contains("VISUALIZAR")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR;
+            }
+
+            if (lista.contains("CTR") && lista.contains("ALTERAR") && lista.contains("STATUS")) {
+                return FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR;
+            }
+
+            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("MERGE")) {
+                return FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE;
+            }
+
+            if (lista.contains("CTR") && lista.contains("ATIVAR")) {
+                return FabTipoAcaoSistemaGenerica.ATIVAR;
+            }
+            if (lista.contains("CTR") && lista.contains("DESATIVAR")) {
+                return FabTipoAcaoSistemaGenerica.ATIVAR;
+            }
+
+            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("NOVO")) {
+                return FabTipoAcaoSistemaGenerica.SALVAR_NOVO;
+            }
+
+            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("EDICAO")) {
+                return FabTipoAcaoSistemaGenerica.SALVAR_EDICAO;
+            }
+
+            if (lista.contains("FRM") && lista.contains("MODAL")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
+            }
+
+            if (lista.contains("FRM") && lista.contains("PERSONALIZADO")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
+            }
+            if (lista.contains("FRM") && lista.contains("MODAL")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
+            }
+
+            if (lista.contains("FRM") && lista.contains("SELECAO") && lista.contains("ACAO")) {
+                return FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
+            }
+
+            if (lista.contains("MB")) {
+                return FabTipoAcaoSistemaGenerica.GERENCIAR;
+            }
 
         }
         throw new UnsupportedOperationException("Não foi possivel determinar o tipo de ação para " + pFabrica.toString() + "Verifique a nomeclatura de acordo com as instruções ");
