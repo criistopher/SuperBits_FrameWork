@@ -53,6 +53,9 @@ public class UtilFabricaDeAcoesTest {
     public void testGetNovaAcao() {
 
         ItfAcaoDoSistema acaoGerada = (ItfAcaoDoSistema) FabTEste.OBJETO_CTR_ALTERAR_STATUS.getRegistro();
+
+        assertNotNull("Gerou ação com Ação generica nula", acaoGerada.getTipoAcaoGenerica());
+
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura",
                 acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR);
         assertEquals(acaoGerada.getClass().getName(), AcaoDeEntidadeController.class.getName());

@@ -51,8 +51,9 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
 
     }
 
-    public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal, FabTipoAcaoSistemaGenerica pAcaoGenerica, ItfFabricaAcoes pFabAcao) {
-        super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER, pFabAcao);
+    public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal,
+            FabTipoAcaoSistemaGenerica pAcaoGenerica, ItfFabricaAcoes pFabAcao) {
+        super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER, pFabAcao, pAcaoGenerica);
 
     }
 
