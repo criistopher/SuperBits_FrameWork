@@ -45,7 +45,7 @@ public class UtilFabricaDeAcoesTest {
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_NOVO);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_MB_GERENCIAR);
-        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", null, acaoRetronada);
+        assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_CTR_ALTERAR_STATUS, acaoRetronada);
 
     }
 

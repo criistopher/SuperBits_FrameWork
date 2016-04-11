@@ -215,7 +215,7 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case ATIVAR_DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, pAcao)
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, pAcao);
 
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
