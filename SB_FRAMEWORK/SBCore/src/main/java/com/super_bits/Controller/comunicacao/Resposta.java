@@ -178,17 +178,23 @@ public class Resposta implements ItfResposta {
     @Override
     public boolean isSucesso() {
         calculaResultados();
-        // Verificando se tem Retorno esperado, e se um retorno foi Configurado
-        if (tipoRetorno != null) {
-            if (!resultado.equals(Resultado.FALHOU)) {
-                if (retorno == null) {
-                    resultado = Resultado.FALHOU;
-
-                }
-            }
+        if (resultado.equals(Resultado.FALHOU)) {
+            return false;
+        } else {
+            return true;
         }
 
-        return (!resultado.equals(Resultado.FALHOU));
+        /**
+         * Verificando se tem Retorno esperado, e se um retorno foi Configurado
+         * if (tipoRetorno != null) { if (!resultado.equals(Resultado.FALHOU)) {
+         * if (retorno == null) { resultado = Resultado.FALHOU;
+         *
+         * }
+         * }
+         * }
+         *
+         * return (!resultado.equals(Resultado.FALHOU));
+         */
     }
 
     public void setTipoRetorno(Class tipoRetorno) {
