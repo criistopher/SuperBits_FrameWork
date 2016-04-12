@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
  */
 public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
 
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.ACAO_INTERNA_DO_SISTEMA)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.ACAO_CTR_INTERNA_DO_SISTEMA)
     public static List<AcaoDoSistema> listarAcoesDoGrupo(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull ModuloAcaoSistema pModulo) {
         List<AcaoDoSistema> resp = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
         return resp;
     }
 
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_ALTERAR_STATUS, padraoBloqueado = false)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS, padraoBloqueado = false)
     public static ItfResposta grupoAlterarStatus(@NotNull GrupoUsuarioSB pGrupo) {
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrupo);
         if (!resp.isSucesso()) {
@@ -81,7 +81,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
      *
      * @return
      */
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES, padraoBloqueado = false)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE, padraoBloqueado = false)
     public static ItfResposta grupoDeUsuariosSalvarAlteracoes(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull List<ModuloAcaoSistema> pModulos, EntityManager pEM) {
 
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrpUsuario);
@@ -141,7 +141,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
         return resp.setRetornoDisparaERetorna(pGrpUsuario);
     }
 
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_ALTERAR_STATUS, padraoBloqueado = false)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS, padraoBloqueado = false)
     public static ItfResposta usuarioAlterarStatus(@NotNull UsuarioSB pUsuario) {
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pUsuario);
 
@@ -157,7 +157,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
 
     }
 
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES, padraoBloqueado = false)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE, padraoBloqueado = false)
     public static ItfResposta usuarioPersistirAlteracoes(@NotNull UsuarioSB pUsuario, EntityManager pEM) {
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pUsuario);
         if (pUsuario.getGrupo() == null) {

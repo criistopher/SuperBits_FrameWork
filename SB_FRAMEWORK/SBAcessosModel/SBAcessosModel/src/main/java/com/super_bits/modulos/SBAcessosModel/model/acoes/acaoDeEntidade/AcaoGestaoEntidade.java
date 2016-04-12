@@ -49,4 +49,9 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         this.utilizarMesmoFormEditarInserir = utilizarMesmoFormEditarInserir;
     }
 
+    @Override
+    public boolean isAcaoGestaoDominio() {
+        return true;
+    }
+
 }

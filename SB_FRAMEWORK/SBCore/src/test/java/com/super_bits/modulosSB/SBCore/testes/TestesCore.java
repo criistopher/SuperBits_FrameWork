@@ -28,8 +28,29 @@ public class TestesCore {
     @Test
     public void testeToString() {
         //    InfoErroSB.FabErro tipo = InfoErroSB.FabErro.ARQUIVAR_LOG;
+//        TransparenciaClient client = new TransparenciaClient("3BnvXAL7Mly6");
 
-        // System.out.println(tipo);
+        //Busca candidato por ID, 'true' popula automaticamente os campos 'bens', 'candidaturas', 'doadores' e 'estatisticas'
+        //Candidato candidato = client.get
+        /**
+         * try {
+         *
+         * List<Candidato> candidatos = client.getCandidatosByCargo("MG",
+         * "Vereador"); // Candidato teste = client.getCandidatoById("1000",
+         * true); // System.out.println(teste.getNome()); for (Candidato
+         * candidato : candidatos) { System.out.println(candidato.getNome());
+         * System.out.println(candidato.getCargo());
+         * System.out.println(candidato.getProcessos());
+         * System.out.println(candidato.getTitulo());
+         *
+         * }
+         * //List<Candidato> candidado=client.get; List<Partido> partidos =
+         * client.getPartidos(); for (Partido p : partidos) {
+         * System.out.println(p.getSigla()); } // System.out.println(tipo); }
+         * catch (RestException ex) {
+         * Logger.getLogger(TestesCore.class.getName()).log(Level.SEVERE, null,
+         * ex); }
+         */
     }
 
 }

@@ -33,7 +33,7 @@ import javax.inject.Named;
 @InfoPagina(nomeCurto = "US", recurso = "/sistema/seguranca/cadastroUsuario.xhtml", tags = {"cadastro de usuarios"}, acessoLivre = false)
 @Named
 @ViewScoped
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_MB_GERENCIAR)
 public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     private List<GrupoUsuarioSB> grupoDeUsuarios;
@@ -44,12 +44,12 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     public PgCadastroUsuarios() {
         super(new AcaoDoSistema[]{
-            FabAcaoSeguranca.USUARIO_EDITAR.getAcaoDoSistema(),
-            FabAcaoSeguranca.USUARIO_ALTERAR_STATUS.getAcaoDoSistema(),
-            FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema()
-        }, FabAcaoSeguranca.USUARIO_NOVO_USUARIO.getAcaoEntidadeFormulario(),
-                FabAcaoSeguranca.USUARIO_LISTAR.getAcaoEntidadeFormulario(),
-                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoEntidadeController(),
+            FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema(),
+            FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema(),
+            FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema()
+        }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoEntidadeController(),
                 true
         );
 
@@ -73,7 +73,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
             setEntidadeSelecionada(pUsuarioSelecionado);
 
         }
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_ALTERAR_STATUS.getAcaoDoSistema())) {
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema())) {
             ModuloSeguranca.usuarioAlterarStatus(pUsuarioSelecionado);
 
         }
@@ -84,10 +84,10 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
         }
 
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_EDITAR.getAcaoDoSistema())) {
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema())) {
             atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
         }
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema())) {
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema())) {
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
 
         }

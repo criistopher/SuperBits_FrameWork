@@ -6,7 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
@@ -17,7 +17,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +25,16 @@ import java.util.List;
  * @author desenvolvedor
  */
 public abstract class UtilFabricaDeAcoes {
+
+    public static void configFormulario(ItfAcaoDoSistema acao, String formulario) {
+        try {
+            ItfAcaoFormulario acaoformulario = (ItfAcaoFormulario) acao;
+            acaoformulario.setXhtml(formulario);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro setando formulario para ação generica" + acao, t);
+        }
+
+    }
 
     /**
      *
@@ -41,7 +50,7 @@ public abstract class UtilFabricaDeAcoes {
      * CAMADA CONTROLLER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
      * CTR_ALTERAR_STATUS
      * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR_SALVAR_MERGE
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR_REMOVER
      *
      * @param pFabrica
      * @return
@@ -96,6 +105,10 @@ public abstract class UtilFabricaDeAcoes {
                 return FabTipoAcaoSistemaGenerica.SALVAR_EDICAO;
             }
 
+            if (lista.contains("CTR")) {
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_PERSONALIZADO;
+            }
+
             if (lista.contains("FRM") && lista.contains("MODAL")) {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
             }
@@ -109,6 +122,10 @@ public abstract class UtilFabricaDeAcoes {
 
             if (lista.contains("FRM") && lista.contains("SELECAO") && lista.contains("ACAO")) {
                 return FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
+            }
+
+            if (lista.contains("FRM")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
             }
 
             if (lista.contains("MB")) {
@@ -138,18 +155,20 @@ public abstract class UtilFabricaDeAcoes {
                     }
                 }
             }
-            throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
+            return null;
+
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando a ação principal da ação" + pAcao, t);
-            throw new UnsupportedOperationException("Erro criando a ação secundária, A acao principal não foi setada criando:" + pAcao);
+
         }
+        return null;
 
     }
 
     public static ItfAcaoDoSistema getNovaAcao(
             ItfFabricaAcoes pAcao) {
 
-        FabTipoAcaoSistemaGenerica pTipoAcao = getTipoAcaoByNome(pAcao);
+        FabTipoAcaoSistemaGenerica pTipoAcaoGenerica = getTipoAcaoByNome(pAcao);
 
         ItfFabricaAcoes fabricaDadoPrincipal = getAcaoPrincipalDoDominio(pAcao);
         ItfAcaoGerenciarEntidade pAcaoPrincipal = null;
@@ -159,15 +178,29 @@ public abstract class UtilFabricaDeAcoes {
                 pAcaoPrincipal = fabricaDadoPrincipal.geAcaoGerenciarEntidade();
             }
 
-            AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcao);
+            if (pAcaoPrincipal == null) {
+                switch (pTipoAcaoGenerica) {
+                    case FORMULARIO_NOVO_REGISTRO:
+                    case FORMULARIO_EDITAR:
+                    case FORMULARIO_PERSONALIZADO:
+                    case FORMULARIO_VISUALIZAR:
+                    case FORMULARIO_LISTAR:
+                    case FORMULARIO_MODAL:
+                        throw new UnsupportedOperationException("A ação " + pAcao + " deveria ter uma ação principal vinculada, por ser do tipo " + pTipoAcaoGenerica);
+
+                }
+
+            }
+
+            AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
             String diretorioBaseEntidade = "/site/" + pAcao.getDominio().getSimpleName().toLowerCase() + "/";
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
-            switch (pTipoAcao) {
+            switch (pTipoAcaoGenerica) {
                 case FORMULARIO_NOVO_REGISTRO:
-                    novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
+                    novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcaoRefForm.setIconeAcao("fa fa-plus");
@@ -177,7 +210,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
                     break;
                 case FORMULARIO_EDITAR:
-                    novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR);
+                    novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
                     novaAcao.configurarPropriedadesBasicas(acaoBase);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
@@ -198,7 +231,7 @@ public abstract class UtilFabricaDeAcoes {
                     break;
 
                 case SALVAR_EDICAO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
@@ -208,7 +241,7 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case SALVAR_NOVO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
@@ -218,7 +251,7 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case SALVAR_MODO_MERGE:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
@@ -228,7 +261,7 @@ public abstract class UtilFabricaDeAcoes {
                     break;
                 case ATIVAR_DESATIVAR:
 
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
 
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
@@ -239,7 +272,7 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case ATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
@@ -248,7 +281,7 @@ public abstract class UtilFabricaDeAcoes {
 
                     break;
                 case DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
@@ -267,6 +300,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setIconeAcao("fa fa-eye");
                     break;
                 case FORMULARIO_PERSONALIZADO:
+                    novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     break;
                 case SELECAO_DE_ACAO:
                     break;
@@ -276,14 +310,19 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
                     break;
                 case REMOVER:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcao, pAcao);
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    break;
+                case CONTROLLER_PERSONALIZADO:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     break;
 
                 default:
-                    throw new AssertionError("Este tipo de ação não parece ser uma ação secundária" + pTipoAcao.name());
+                    throw new AssertionError("Este tipo de ação não parece ser uma ação secundária" + pTipoAcaoGenerica.name());
 
             }
-
+            if (novaAcao == null) {
+                throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao" + pAcao + " verifique a nomeclatura de acordo com a documentação e tente novamente");
+            }
             return novaAcao;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);

@@ -29,7 +29,7 @@ public class FabAcaoSegurancaTest extends TesteAcaoDoSistema {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
 
     }

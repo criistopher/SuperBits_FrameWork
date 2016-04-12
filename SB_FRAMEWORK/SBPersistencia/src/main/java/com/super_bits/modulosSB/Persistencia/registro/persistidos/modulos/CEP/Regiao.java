@@ -36,7 +36,7 @@ import javax.validation.constraints.NotNull;
 public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao")

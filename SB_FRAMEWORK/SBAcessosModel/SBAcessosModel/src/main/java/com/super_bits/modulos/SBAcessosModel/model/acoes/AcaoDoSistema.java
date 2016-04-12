@@ -27,18 +27,23 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  *
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação do Sistema"}, description = "Implementa a ação do Sistema")
 @DiscriminatorColumn(name = "tipoAcaoDB")
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
+    @Transient
     private FabTipoAcaoSistema tipoAcao;
+    @Transient
     protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
+    @Transient
+    private ItfFabricaAcoes enumAcao;
+
     @Id
     protected int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
@@ -52,7 +57,6 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String idDescritivoJira;
     @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
-    private ItfFabricaAcoes enumAcao;
 
     public AcaoDoSistema() {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");

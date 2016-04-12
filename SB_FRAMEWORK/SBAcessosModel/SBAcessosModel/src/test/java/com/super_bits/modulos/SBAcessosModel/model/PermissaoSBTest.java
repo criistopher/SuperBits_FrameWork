@@ -30,7 +30,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
     @Test
     public void testgetEntidadesVinvuladas() {
 
-        AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_ADICIONAR.getAcaoDoSistema();
+        AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
         List<CaminhoCampoReflexao> cps = getTodosCamposAnotadosComManyToOne(PermissaoSB.class, "PermissaoSB.class");
         List<CaminhoCampoReflexao> teste = acaoDoSistema.getEntidadesVinculadas();
         System.out.println("Inicio print Entidades Vinculadas");

@@ -20,6 +20,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     SALVAR_EDICAO,
     SALVAR_NOVO,
     SALVAR_MODO_MERGE,
+    CONTROLLER_PERSONALIZADO,
     ATIVAR_DESATIVAR,
     ATIVAR,
     REMOVER,
@@ -81,19 +82,27 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 acaoPadrao.setIconePadrao("fa fa-check");
                 break;
             case DESATIVAR:
-                acaoPadrao.setNomePadrao("Desativador");
+                acaoPadrao.setNomePadrao("Desativar");
                 acaoPadrao.setDescricaoPadrao("Define status como desativado");
                 acaoPadrao.setIconePadrao("fa-close (alias)");
                 break;
             case FORMULARIO_PERSONALIZADO:
                 break;
             case SELECAO_DE_ACAO:
+                acaoPadrao.setNomePadrao("Selecione uma direção");
+                acaoPadrao.setDescricaoPadrao("Ação para seleção de ação a ser executada");
                 break;
             case FORMULARIO_MODAL:
                 break;
             case GERENCIAR:
+
                 break;
             case REMOVER:
+                acaoPadrao.setNomePadrao("Excluir");
+                acaoPadrao.setDescricaoPadrao("Exlui o registro do banco de dados");
+                acaoPadrao.setIconePadrao("fa-close (alias)");
+                break;
+            case CONTROLLER_PERSONALIZADO:
                 break;
             default:
                 throw new AssertionError(this.name());

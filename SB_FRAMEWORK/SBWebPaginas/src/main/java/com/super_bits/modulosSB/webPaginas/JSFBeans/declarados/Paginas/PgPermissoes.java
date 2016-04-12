@@ -46,7 +46,7 @@ import org.primefaces.context.RequestContext;
 @InfoPagina(nomeCurto = "PM", recurso = "/sistema/seguranca/permissao.xhtml", tags = {"Permissoes"})
 @Named
 @ViewScoped
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
 public class PgPermissoes extends MB_PaginaConversation {
 
     @Inject
@@ -70,15 +70,15 @@ public class PgPermissoes extends MB_PaginaConversation {
 
     private BP_AutoComplete<UsuarioSB> autocompleteUsuario;
 
-    private final AcaoDoSistema acaoListarGrupos = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema();
-    private final AcaoDoSistema acaoListarUsuarios = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_LISTAR_USUARIOS.getAcaoDoSistema();
-    private final AcaoDoSistema acaoSalvarPermissoes = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES.getAcaoDoSistema();
-    private final AcaoDoSistema acaoNovoGrupo = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_ADICIONAR.getAcaoDoSistema();
+    private final AcaoDoSistema acaoListarGrupos = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema();
+    private final AcaoDoSistema acaoListarUsuarios = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_LIST_USUARIOS.getAcaoDoSistema();
+    private final AcaoDoSistema acaoSalvarPermissoes = (AcaoDoSistema) FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema();
+    private final AcaoDoSistema acaoNovoGrupo = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
     //private final AcaoDoSistema acaoRemoverUsuarioDoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_REMOVE.getAcaoDoSistema();
     //private final AcaoDoSistema acaoAdicionarUsuarioNoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_ADD.getAcaoDoSistema();
-    private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_LISTARGRUPOS.getAcaoDoSistema();
+    private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_FRM_LISTARGRUPOS.getAcaoDoSistema();
 
-    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_LISTAR.getAcaoEntidadeFormulario().getXhtml();
+    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoEntidadeFormulario().getXhtml();
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {
@@ -147,7 +147,7 @@ public class PgPermissoes extends MB_PaginaConversation {
             return;
         }
 
-        if (acaoselecionada.equals(FabAcaoSeguranca.GRUPO_ADICIONAR.getAcaoDoSistema())) {
+        if (acaoselecionada.equals(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema())) {
             grupoSelecionado = new GrupoUsuarioSB();
             limparSelecaoDeAcoes();
             bloquearEdicao = false;
@@ -160,14 +160,14 @@ public class PgPermissoes extends MB_PaginaConversation {
             grupoSelecionado = pgrupoUsuario;
         }
         // caso opção seja alterar Status
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_ALTERAR_STATUS.getRegistro().getId()) {
+        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getRegistro().getId()) {
             ModuloSeguranca.grupoAlterarStatus(pgrupoUsuario);
             paginaUtil.atualizaTelaPorID("formulario");
             return;
         }
 
         // caso opção seja Salvar REgistro
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_SALVAR_ALTERACOES.getAcaoDoSistema().getId()) {
+        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema().getId()) {
 
             ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pgrupoUsuario, modulos, getEMPagina());
             if (resp.isSucesso()) {
@@ -184,13 +184,13 @@ public class PgPermissoes extends MB_PaginaConversation {
             return;
 
         }
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_EDITAR.getAcaoDoSistema().getId()) {
+        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getId()) {
             configurarSelecaoDeAcoes();
             bloquearEdicao = false;
             novogrupo = false;
         }
 
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_VISUALIZAR.getAcaoDoSistema().getId()) {
+        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema().getId()) {
             configurarSelecaoDeAcoes();
             novogrupo = false;
             bloquearEdicao = true;
@@ -212,9 +212,9 @@ public class PgPermissoes extends MB_PaginaConversation {
         System.out.println("PostConstruct Permissoes");
         atualizarDados();
         acoesListarGrupos = new ArrayList<>();
-        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_EDITAR.getAcaoDoSistema());
-        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_ALTERAR_STATUS.getAcaoDoSistema());
-        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_VISUALIZAR.getAcaoDoSistema());
+        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
+        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
+        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
 
         autocompleteUsuario = new BP_AutoComplete<>(getEMPagina(), UsuarioSB.class);
 

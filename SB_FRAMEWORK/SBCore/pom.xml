@@ -22,6 +22,13 @@
 
     <dependencies>
 
+        <!--
+        <dependency>
+            <groupId>com.sensedia</groupId>
+            <artifactId>transparencia-java-sdk</artifactId>
+            <version>1.0</version>
+        </dependency> -->
+
 
         <dependency>
             <groupId>org.hibernate</groupId>

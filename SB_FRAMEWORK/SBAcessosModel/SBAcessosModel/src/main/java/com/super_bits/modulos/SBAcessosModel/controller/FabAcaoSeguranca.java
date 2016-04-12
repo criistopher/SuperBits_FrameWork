@@ -33,34 +33,34 @@ import java.util.List;
 @InfoModulo(nomeDoModulo = "Seguranca", descricao = "Configurações de segurança do sistema")
 public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
-    GRUPOS_GERENCIAR,
-    GRUPO_ADICIONAR,
-    GRUPO_LISTAR,
-    GRUPO_EDITAR,
-    GRUPO_VISUALIZAR,
-    GRUPO_ALTERAR_STATUS,
-    GRUPO_LISTAR_USUARIOS,
-    GRUPO_SALVAR_ALTERACOES,
-    USUARIO_GERENCIAR,
-    USUARIO_NOVO_USUARIO,
-    USUARIO_LISTAR,
-    USUARIO_SALVAR_ALTERACOES,
-    USUARIO_EDITAR,
-    USUARIO_VISUALIZAR,
-    USUARIO_ALTERAR_STATUS,
-    USUARIO_LISTARGRUPOS,
-    ACAO_INTERNA_DO_SISTEMA;
+    GRUPOS_MB_GERENCIAR,
+    GRUPO_FRM_NOVO,
+    GRUPO_FRM_LISTAR,
+    GRUPO_FRM_VISUALIZAR,
+    GRUPO_CTR_ALTERAR_STATUS,
+    GRUPO_FRM_LIST_USUARIOS,
+    GRUPO__CTR_SALVAR_MERGE,
+    USUARIO_MB_GERENCIAR,
+    USUARIO_FRM_NOVO,
+    USUARIO_FRM_LISTAR,
+    USUARIO_CTR_SALVAR_MERGE,
+    USUARIO_FRM_EDITAR,
+    USUARIO_FRM_VISUALIZAR,
+    USUARIO_FRM_LISTAR_GRUPOS,
+    USUARIO_CTR_ALTERAR_STATUS,
+    USUARIO_FRM_LISTARGRUPOS,
+    ACAO_CTR_INTERNA_DO_SISTEMA;
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-        ItfAcaoDoSistema acao = null;
+        ItfAcaoDoSistema acao = UtilFabricaDeAcoes.getNovaAcao(this);
         switch (this) {
-            case GRUPOS_GERENCIAR:
+            case GRUPOS_MB_GERENCIAR:
                 AcaoGestaoEntidade grupoGerenciar = new AcaoGestaoEntidade(this, GrupoUsuarioSB.class, "/resources/SBComp/seguranca/grupo.xhtml");
                 grupoGerenciar.setNome("Gerenciar grupos");
                 return grupoGerenciar;
 
-            case GRUPO_ADICIONAR:
+            case GRUPO_FRM_NOVO:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(
                         this);
@@ -73,7 +73,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acaoNovoRegistro.setIdDescritivoJira("UI027");
 
                 break;
-            case GRUPO_LISTAR:
+            case USUARIO_FRM_LISTAR_GRUPOS:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(
                         this);
@@ -87,7 +87,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acaoListarGrupo.setIdDescritivoJira("UI026");
 
                 break;
-            case GRUPO_EDITAR:
+            case GRUPO_FRM_LISTAR:
 
                 acao
                         = UtilFabricaDeAcoes.getNovaAcao(
@@ -100,7 +100,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acaoEditar.setIdDescritivoJira("UC021");
 
                 break;
-            case GRUPO_VISUALIZAR:
+            case GRUPO_FRM_VISUALIZAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade grpVisualizar = (AcaoFormularioEntidade) acao;
@@ -112,7 +112,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 grpVisualizar.setIdDescritivoJira("UI028");
 
                 break;
-            case GRUPO_ALTERAR_STATUS:
+            case GRUPO_CTR_ALTERAR_STATUS:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController grpAlterarStatus = (AcaoDeEntidadeController) acao;
@@ -124,10 +124,10 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case GRUPO_LISTAR_USUARIOS:
+            case GRUPO_FRM_LIST_USUARIOS:
 
                 break;
-            case GRUPO_SALVAR_ALTERACOES:
+            case GRUPO__CTR_SALVAR_MERGE:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController grpSalvarAlteracoes = (AcaoDeEntidadeController) acao;
@@ -138,9 +138,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 grpSalvarAlteracoes.setIdDescritivoJira("UC021");
 
                 break;
-            case USUARIO_GERENCIAR:
+            case USUARIO_MB_GERENCIAR:
 
-                acao = new AcaoGestaoEntidade(USUARIO_GERENCIAR, UsuarioSB.class, "/site/seguranca/usuario.xhtml");
+                acao = new AcaoGestaoEntidade(USUARIO_MB_GERENCIAR, UsuarioSB.class, "/site/seguranca/usuario.xhtml");
                 AcaoGestaoEntidade acaoGestao = (AcaoGestaoEntidade) acao;
 
                 acaoGestao.setNomeAcao("Usuários");
@@ -150,7 +150,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acaoGestao.setIdDescritivoJira("UI030");
 
                 break;
-            case USUARIO_NOVO_USUARIO:
+            case USUARIO_FRM_NOVO:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioNovo = (AcaoFormularioEntidade) acao;
@@ -161,7 +161,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 usuarioNovo.setIdDescritivoJira("UI031");
 
                 break;
-            case USUARIO_LISTAR:
+            case USUARIO_FRM_LISTAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioListar = (AcaoFormularioEntidade) acao;
@@ -172,7 +172,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 usuarioListar.setIdDescritivoJira("UI030");
 
                 break;
-            case USUARIO_SALVAR_ALTERACOES:
+            case USUARIO_CTR_SALVAR_MERGE:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioSalvar = (AcaoDeEntidadeController) acao;
@@ -182,7 +182,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 usuarioSalvar.setIdDescritivoJira("UC013");
 
                 break;
-            case USUARIO_EDITAR:
+            case USUARIO_FRM_EDITAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioEditar = (AcaoFormularioEntidade) acao;
@@ -193,7 +193,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 usuarioEditar.setIdDescritivoJira("UI032.1");
 
                 break;
-            case USUARIO_VISUALIZAR:
+            case USUARIO_FRM_VISUALIZAR:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioVisualizar = (AcaoFormularioEntidade) acao;
@@ -205,7 +205,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 usuarioVisualizar.setIdDescritivoJira("UI032.0");
 
                 break;
-            case USUARIO_ALTERAR_STATUS:
+            case USUARIO_CTR_ALTERAR_STATUS:
 
                 acao = UtilFabricaDeAcoes.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioAlterarStatus = (AcaoDeEntidadeController) acao;
@@ -218,10 +218,10 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case USUARIO_LISTARGRUPOS:
+            case USUARIO_FRM_LISTARGRUPOS:
 
                 break;
-            case ACAO_INTERNA_DO_SISTEMA:
+            case ACAO_CTR_INTERNA_DO_SISTEMA:
                 acao = new AcaoController(this);
 
                 break;
@@ -305,7 +305,34 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public Class getDominio() {
-        return null;
+        switch (this) {
+            case GRUPOS_MB_GERENCIAR:
+            case GRUPO_FRM_NOVO:
+            case GRUPO_FRM_LISTAR:
+            case GRUPO_FRM_VISUALIZAR:
+            case GRUPO_CTR_ALTERAR_STATUS:
+            case GRUPO_FRM_LIST_USUARIOS:
+            case GRUPO__CTR_SALVAR_MERGE:
+                return GrupoUsuarioSB.class;
+
+            case USUARIO_MB_GERENCIAR:
+            case USUARIO_FRM_NOVO:
+            case USUARIO_FRM_LISTAR:
+            case USUARIO_CTR_SALVAR_MERGE:
+            case USUARIO_FRM_EDITAR:
+            case USUARIO_FRM_VISUALIZAR:
+            case USUARIO_FRM_LISTAR_GRUPOS:
+            case USUARIO_CTR_ALTERAR_STATUS:
+            case USUARIO_FRM_LISTARGRUPOS:
+                return UsuarioSB.class;
+
+            case ACAO_CTR_INTERNA_DO_SISTEMA:
+                return UsuarioSB.class;
+
+            default:
+                throw new AssertionError(this.name());
+
+        }
     }
 
 }

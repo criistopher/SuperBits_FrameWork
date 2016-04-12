@@ -241,15 +241,17 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         for (ItfAcaoDoSistema acao : acoesRegistros) {
 
             if (acao.isUmaAcaoGenerica()) {
+
                 if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
                     return (ItfAcaoFormularioEntidade) acao;
 
                 }
-                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+
             }
 
         }
-        return null;
+        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+        //return null;
     }
 
     @Override
@@ -277,10 +279,10 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     return (ItfAcaoFormularioEntidade) acao;
 
                 }
-                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+
             }
 
         }
-        return null;
+        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
     }
 }
