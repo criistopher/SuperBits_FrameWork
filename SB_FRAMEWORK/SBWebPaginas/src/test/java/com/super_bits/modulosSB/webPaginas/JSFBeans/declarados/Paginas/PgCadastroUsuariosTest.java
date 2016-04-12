@@ -25,17 +25,17 @@ public class PgCadastroUsuariosTest extends TestePaginaEntidade<UsuarioSB> {
 
     @Override
     public void configurarDAdosInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void configurarDadosEditar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void configurarPesquisa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Config Pesquisa");
     }
 
     @Override

@@ -302,6 +302,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina", e);
 
         }
+
+        //Verificando se é uma pagina simples que não precisa de ação ManagedBean Vinculada
         if (!this.getClass().toString().equals(PaginaSimples.class.toString())) {
             ItfAcaoDoSistema acao = UtilSBController.getAcaoByClasse(this.getClass());
 
