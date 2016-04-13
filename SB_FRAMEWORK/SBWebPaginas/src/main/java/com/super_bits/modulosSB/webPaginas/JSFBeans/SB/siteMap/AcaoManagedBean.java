@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import java.lang.reflect.Field;
+import javax.persistence.Transient;
 
 /**
  *
@@ -32,8 +33,9 @@ import java.lang.reflect.Field;
  */
 public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
+    @Transient
     private final ItfAcaoDoSistema acaoOriginal;
-
+    @Transient
     private final String urlDeAcesso;
 
     public AcaoManagedBean(ItfAcaoDoSistema pAcaoDoSistema, ItfB_Pagina pagina) {

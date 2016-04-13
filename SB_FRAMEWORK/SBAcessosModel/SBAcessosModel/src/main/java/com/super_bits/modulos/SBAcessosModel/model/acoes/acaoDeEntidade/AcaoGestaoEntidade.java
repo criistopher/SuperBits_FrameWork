@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.view.InfoPagina;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
@@ -19,7 +20,9 @@ import javax.persistence.Entity;
 @Entity
 public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAcaoGerenciarEntidade {
 
+    @Transient
     private InfoPagina infoPagina;
+    @Transient
     private boolean utilizarMesmoFormEditarInserir = true;
 
     public AcaoGestaoEntidade() {
