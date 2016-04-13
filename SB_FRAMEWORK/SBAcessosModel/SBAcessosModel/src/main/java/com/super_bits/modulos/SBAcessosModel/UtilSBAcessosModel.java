@@ -47,15 +47,17 @@ public class UtilSBAcessosModel {
 
                     AcaoDoSistema acao = (AcaoDoSistema) novoAcesso.getAcao();
                     UtilSBPersistencia.mergeRegistro(acao.getModulo(), em);
+                    // vERIFICA SE TEM AÇÃO PRINCIPAL, E EXECUTA O MERGE DA AÇÃO  PRINCIPAL PRIMEIRO
                     if (acao.isTemAcaoPrincipal()) {
 
                         UtilSBPersistencia.mergeRegistro(((ItfAcaoSecundaria) acao).getAcaoPrincipal(), em
                         );
+                    }
+                    if (acao.isPrecisaPermissao()) {
+                        acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
 
-                        if (acao.isPrecisaPermissao()) {
-                            acao = (AcaoDoSistema) UtilSBPersistencia.mergeRegistro(acao, em);
-                        }
                         PermissaoSB acessoEncontrado = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novoAcesso.getId(), em);
+                        // Verifica se esta permissão não existe no banco de dados, se já existe não faz nada para não perder a permissão
                         if (acessoEncontrado == null) {
 
                             UtilSBPersistencia.mergeRegistro(acao, em);
@@ -63,6 +65,7 @@ public class UtilSBAcessosModel {
 
                         }
                     }
+
                 }
                 em.getTransaction().commit();
 

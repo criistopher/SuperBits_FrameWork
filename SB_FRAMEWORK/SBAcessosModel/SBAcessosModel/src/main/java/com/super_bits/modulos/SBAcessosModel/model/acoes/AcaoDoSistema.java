@@ -5,6 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
@@ -170,7 +171,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isTemAcaoPrincipal() {
-        return this.getClass().isAssignableFrom(ItfAcaoSecundaria.class);
+        try {
+            return ((ItfAcaoSecundaria) this).getAcaoPrincipal() != null;
+
+        } catch (Throwable t) {
+            return false;
+        }
 
     }
 
