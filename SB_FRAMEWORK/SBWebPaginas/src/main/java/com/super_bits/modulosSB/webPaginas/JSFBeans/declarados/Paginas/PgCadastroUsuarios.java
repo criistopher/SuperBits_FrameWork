@@ -69,35 +69,22 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     @Override
     public void executarAcao(UsuarioSB pUsuarioSelecionado) {
-        if (pUsuarioSelecionado != null) {
-            setEntidadeSelecionada(pUsuarioSelecionado);
 
-        }
+        super.executarAcao(pUsuarioSelecionado);
+
         if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema())) {
             ModuloSeguranca.usuarioAlterarStatus(pUsuarioSelecionado);
 
         }
 
-        if (acaoSelecionada.equals(acaoNovoRegistro)) {
-            setEntidadeSelecionada(new UsuarioSB());
-            atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
-
-        }
-
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema())) {
-            atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
-        }
         if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema())) {
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
 
         }
 
-        if (acaoSelecionada.isAcaoFormulario()) {
-
-            xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoDoSistema())) {
+            salvarAlteracoes();
         }
-
-        pgUtil.atualizaTelaPorID("formulario");
 
     }
 
@@ -180,6 +167,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
             pgUtil.atualizaTelaPorID("formulario");
         }
+        atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
     }
 
     @Override

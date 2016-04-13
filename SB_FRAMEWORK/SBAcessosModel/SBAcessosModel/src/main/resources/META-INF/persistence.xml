@@ -12,6 +12,11 @@
     <class>com.super_bits.modulos.SBAcessosModel.model.Permitido_Grupos</class>
     <class>com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema</class>
     <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema</class>
+    <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController</class>
+    <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario</class>
+    <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormularioModalDeEntidade</class>
+    <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSelecionarAcao</class>
+    <class>com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
