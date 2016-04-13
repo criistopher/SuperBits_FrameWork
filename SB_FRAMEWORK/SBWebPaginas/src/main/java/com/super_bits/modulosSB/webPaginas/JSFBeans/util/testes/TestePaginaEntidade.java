@@ -7,9 +7,11 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -32,6 +34,8 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     @Test
     public void testeFluxo() {
+        SBCore.getControleDeSessao().logarComoRoot();
+
         configurarPesquisa();
         try {
             criarNovaEntidade();
