@@ -163,7 +163,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
         if (resp.isSucesso()) {
 
             xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
-            atualizarDados();
+            listarDados();
 
             pgUtil.atualizaTelaPorID("formulario");
         }
@@ -172,7 +172,12 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     @Override
     public void listarDados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isNovoRegistro()) {
+            getEntidadesListadas().clear();
+            getEntidadesListadas().add(getEntidadeSelecionada());
+        } else {
+            atualizarDados();
+        }
     }
 
 }

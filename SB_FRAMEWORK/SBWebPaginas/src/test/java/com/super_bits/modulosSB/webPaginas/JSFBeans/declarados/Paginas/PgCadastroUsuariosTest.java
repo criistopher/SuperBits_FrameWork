@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
+import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -26,6 +27,13 @@ public class PgCadastroUsuariosTest extends TestePaginaEntidade<UsuarioSB> {
     @Override
     public void configurarDAdosInsert() {
 
+        GrupoUsuarioSB novogrupo = new GrupoUsuarioSB();
+
+        novogrupo.setAtivo(true);
+        novogrupo.setNome("teste");
+        novogrupo.setId(1);
+
+        pagina.getEntidadeSelecionada().setGrupo(novogrupo);
     }
 
     @Override
