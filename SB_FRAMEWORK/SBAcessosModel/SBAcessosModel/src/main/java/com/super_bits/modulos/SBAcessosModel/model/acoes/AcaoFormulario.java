@@ -86,4 +86,9 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
         this.xhtml = xhtml;
     }
 
+    @Override
+    public boolean isAcaoFormulario() {
+        return true;
+    }
+
 }

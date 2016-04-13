@@ -216,6 +216,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         this.descricao = descricao;
     }
 
+    @Override
     public void setPrecisaPermissao(boolean precisaPermissao) {
         this.precisaPermissao = precisaPermissao;
     }
@@ -251,7 +252,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isAcaoFormulario() {
-        return this.getClass().isAssignableFrom(ItfAcaoFormulario.class);
+        return false;
     }
 
     public String getTipoAcaoDB() {
