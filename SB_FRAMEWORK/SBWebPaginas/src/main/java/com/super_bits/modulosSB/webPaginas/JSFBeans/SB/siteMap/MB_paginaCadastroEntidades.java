@@ -252,7 +252,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
         }
-        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+        throw new UnsupportedOperationException("a ação de editar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
         //return null;
     }
 
@@ -265,11 +265,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     return (ItfAcaoControllerEntidade) acao;
 
                 }
-                throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
-
         }
-        return null;
+        throw new UnsupportedOperationException("a ação de ativar/desativar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
     }
 
     @Override
@@ -285,6 +283,6 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
         }
-        throw new UnsupportedOperationException("a ação de editar ão foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+        throw new UnsupportedOperationException("a ação de visualizar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
     }
 }
