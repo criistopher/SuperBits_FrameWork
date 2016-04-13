@@ -304,7 +304,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
 
         //Verificando se é uma pagina simples que não precisa de ação ManagedBean Vinculada
-        if (!this.getClass().toString().equals(PaginaSimples.class.toString())) {
+        if (!this.getClass().toString().equals(PaginaSimples.class.toString())
+                & !getClass().getName().contains("$Proxy$")) {
             ItfAcaoDoSistema acao = UtilSBController.getAcaoByClasse(this.getClass());
 
             try {

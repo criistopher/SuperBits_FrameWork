@@ -83,9 +83,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
         //xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-        classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
+
+        if (getAcaoVinculada() != null) {
+            classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
+        }
         entidadesListadas = new ArrayList<>();
-        paginaUtil = new PgUtil();
+
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            paginaUtil = new PgUtil();
+        }
+
         temPesquisa = pTempesquisa;
 
     }

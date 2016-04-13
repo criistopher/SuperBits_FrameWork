@@ -10,15 +10,21 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.view.InfoPagina;
+import javax.persistence.Entity;
 
 /**
  *
  * @author desenvolvedor
  */
+@Entity
 public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAcaoGerenciarEntidade {
 
     private InfoPagina infoPagina;
     private boolean utilizarMesmoFormEditarInserir = true;
+
+    public AcaoGestaoEntidade() {
+        super();
+    }
 
     public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
         super(pClasse, pFabrica, pXhtml);

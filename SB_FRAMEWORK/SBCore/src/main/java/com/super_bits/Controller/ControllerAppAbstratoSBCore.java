@@ -37,7 +37,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     private static final Map<String, ItfUsuario> USUARIOS = new HashMap<>();
 
     public static ItfUsuario getUsuarioByEmail(String pEmail) {
-        if (USUARIOS == null) {
+        if (USUARIOS == null || USUARIOS.isEmpty()) {
             reloadAcessos();
         }
         return USUARIOS.get(pEmail);
