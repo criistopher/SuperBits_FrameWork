@@ -38,7 +38,7 @@ import com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema.InfoAcaoDoS
  * @author Salvio
  */
 @InfoAcaoDoSistemaSB(acao = FabAcaoSistemaSB.ACESSOS_MB_GERENCIAR)
-@InfoPagina(nomeCurto = "AC", recurso = "/resources/SBComp/SBSystemPages/acessos.xhtml", tags = {"acessos"}, acessoLivre = false)
+@InfoPagina(nomeCurto = "AC", tags = {"acessos"}, acessoLivre = false)
 @ViewScoped
 @Named
 public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
