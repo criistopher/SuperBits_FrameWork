@@ -9,6 +9,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -155,6 +156,11 @@ public class AcaoGenerica extends ItemSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isAcaoGestaoDominio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfFabricaAcoes getEnumAcaoDoSistema() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
