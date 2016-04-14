@@ -22,7 +22,6 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     private String xhtml;
     @Transient
-
     private ItfAcaoDoSistema acaoExectarFormulario;
     @Transient
     private List<CaminhoCampoReflexao> campos;
@@ -42,7 +41,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
         public String toString() {
             switch (this) {
                 case VIEW_NAO_IMPLEMENTADA:
-                    return "/resources/sistema/naoimplementado.xhtml";
+                    return "/resources/SBComp/SBSystemPages/naoimplementado.xhtml";
 
                 default:
                     return super.toString();
