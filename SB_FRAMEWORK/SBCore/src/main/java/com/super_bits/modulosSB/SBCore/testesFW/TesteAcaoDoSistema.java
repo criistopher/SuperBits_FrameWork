@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 
@@ -25,11 +26,27 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
     private boolean validatAcao(ItfAcaoDoSistema pAcaoDoSistema) {
 
-        if (pAcaoDoSistema.isConfigurado()) {
+        if (pAcaoDoSistema.getEnumAcaoDoSistema() == null) {
+            throw new UnsupportedOperationException("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido");
+        }
 
-            if (pAcaoDoSistema.getIconeAcao() == null) {
-                throw new UnsupportedOperationException("Falta definir um ícone para a ação");
-            }
+        assertNotNull("O domínio da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getDominio());
+
+        if (pAcaoDoSistema.isAcaoFormulario()) {
+
+            assertNotNull("O Xhtml da ação de formulario" + pAcaoDoSistema.getNomeUnico() + " está nula", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
+            assertNotEquals("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco", "", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
+            assertNotEquals("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco", A, ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
+
+        }
+
+        if (pAcaoDoSistema.isTemAcaoPrincipal()) {
+            assertNotNull("A ação principal não foi definida em " + pAcaoDoSistema.getNomeUnico(), ((ItfAcaoSecundaria) pAcaoDoSistema).getAcaoPrincipal());
+        }
+
+        assertNotNull("O icone da ação " + pAcaoDoSistema.getIconeAcao() + " não foi definido", pAcaoDoSistema.getIconeAcao());
+
+        if (pAcaoDoSistema.isConfigurado()) {
 
             // Verificando Configuração de XHTML
             switch (pAcaoDoSistema.getTipoAcaoSistema()) {
@@ -113,15 +130,16 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
                 return false;
             }
         }
-
     }
 
-    /**
-     *
-     * @param pValidarAcoesNaoCOnfiguradas True para validar todas as ações,
-     * False para validar apenas aquelas que foram configuradas
-     */
-    public TesteAcaoDoSistema(boolean pValidarAcoesNaoCOnfiguradas) {
+}
+
+/**
+ *
+ * @param pValidarAcoesNaoCOnfiguradas True para validar todas as ações, False
+ * para validar apenas aquelas que foram configuradas
+ */
+public TesteAcaoDoSistema(boolean pValidarAcoesNaoCOnfiguradas) {
         validarAcoesNaoConfiguradas = pValidarAcoesNaoCOnfiguradas;
     }
 

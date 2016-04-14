@@ -274,4 +274,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return this.getClass().isAssignableFrom(ItfAcaoGerenciarEntidade.class);
     }
 
+    @Override
+    public ItfFabricaAcoes getEnumAcaoDoSistema() {
+        return enumAcao;
+    }
+
 }
