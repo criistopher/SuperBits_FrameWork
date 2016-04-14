@@ -293,7 +293,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             //TODO tratar duplicidade de TAGS e Existencia do recurso
 
             setNomeCurto(anotacaoInfopagina.nomeCurto());
-            setRecursoXHTML(anotacaoInfopagina.recurso());
+
             acessoLivre = anotacaoInfopagina.acessoLivre();
             for (String tg : anotacaoInfopagina.tags()) {
                 addTag(tg);
@@ -313,7 +313,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                     throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
                 }
                 acaoVinculada = (AcaoGestaoEntidade) acao;
-
+                setRecursoXHTML(acaoVinculada.getXhtml());
             } catch (Throwable t) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);
                 FabErro.PARA_TUDO.paraSistema("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString(), t);
