@@ -37,6 +37,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     private Class classeDaEntidade;
 
     private boolean temPesquisa;
+    private boolean temEditar = true;
+    private boolean temNovo = true;
+    private boolean temAlterarStatus = true;
 
     private final List<ItfAcaoDoSistema> acoesRegistros;
     protected final ItfAcaoFormularioEntidade acaoListarRegistros;
@@ -71,6 +74,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,
             ItfAcaoControllerEntidade pAcaoSalvar,
+            Class pclasseDaEntidade,
             boolean pTempesquisa
     ) {
         super();
@@ -97,6 +101,24 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
     }
 
+    public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro,
+            ItfAcaoFormularioEntidade pAcaoNovoRegistro,
+            ItfAcaoFormularioEntidade pAcaoListar,
+            ItfAcaoControllerEntidade pAcaoSalvar,
+            Class pclasseDaEntidade,
+            boolean pTempesquisa,
+            boolean pTemEditar,
+            boolean pTemNovo,
+            boolean pTemAlterarStatus) {
+
+        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pclasseDaEntidade, pTempesquisa);
+
+        temEditar = pTemEditar;
+        temAlterarStatus = pTemAlterarStatus;
+        temNovo = pTemNovo;
+
+    }
+
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
@@ -113,27 +135,32 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             paginaUtil.atualizaTelaPorID("formulario");
         }
 
-        if (acaoSelecionada.equals(acaoNovoRegistro)) {
+        if (isTemNovo()) {
 
-            try {
-                // define que a nova classe será do tipo Newsletter
-                setEntidadeSelecionada((T) classeDaEntidade.newInstance());
+            if (acaoSelecionada.equals(acaoNovoRegistro)) {
 
-            } catch (InstantiationException | IllegalAccessException ex) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
+                try {
+                    // define que a nova classe será do tipo Newsletter
+                    setEntidadeSelecionada((T) classeDaEntidade.newInstance());
+
+                } catch (InstantiationException | IllegalAccessException ex) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
+                }
+
+                // define o estado de edição como estado de criação
+                atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
+
+                // define que a atualização das informações aconteceram no formulario
+                paginaUtil.atualizaTelaPorID("formulario");
             }
-
-            // define o estado de edição como estado de criação
-            atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
-
-            // define que a atualização das informações aconteceram no formulario
-            paginaUtil.atualizaTelaPorID("formulario");
         }
 
-        if (acaoSelecionada.equals(getAcaoEditar())) {
-            atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
-            paginaUtil.atualizaTelaPorID("formulario");
+        if (isTemEditar()) {
+            if (acaoSelecionada.equals(getAcaoEditar())) {
+                atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
+                paginaUtil.atualizaTelaPorID("formulario");
 
+            }
         }
 
         if (acaoSelecionada.equals(getAcaoVisualisar())) {
@@ -171,6 +198,21 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         }
 
+    }
+
+    @Override
+    public boolean isTemEditar() {
+        return temEditar;
+    }
+
+    @Override
+    public boolean isTemNovo() {
+        return temNovo;
+    }
+
+    @Override
+    public boolean isTemAlterarStatus() {
+        return temAlterarStatus;
     }
 
     @Override

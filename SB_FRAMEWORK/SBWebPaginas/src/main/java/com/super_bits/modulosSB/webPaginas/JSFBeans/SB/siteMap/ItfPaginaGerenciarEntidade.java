@@ -36,7 +36,12 @@ public interface ItfPaginaGerenciarEntidade<T> {
 
     public boolean isPodeEditar();
 
-    // Define a ação selecionada
+    public boolean isTemNovo();
+
+    public boolean isTemEditar();
+
+    public boolean isTemAlterarStatus();
+
     public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
 
     public void setEntidadeSelecionada(T entidadeSelecionada);

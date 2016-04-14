@@ -38,7 +38,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
         configurarPesquisa();
         try {
-            criarNovaEntidade();
+            if (pagina.isTemNovo()) {
+                criarNovaEntidade();
+            }
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
@@ -48,7 +50,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             lancarErroJUnit(t);
         }
         try {
-            //editarDados();
+            if (pagina.isTemEditar()) {
+                editarDados();
+            }
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
@@ -60,7 +64,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         }
 
         try {
-            alterarStatus();
+            if (pagina.isTemAlterarStatus()) {
+                alterarStatus();
+            }
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
