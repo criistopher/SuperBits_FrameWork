@@ -4,6 +4,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
+import com.mysql.jdbc.Util;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
@@ -39,6 +42,13 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             UtilTestePagina.testaAcaoFormulario(pagina.getAcaoVinculada());
             UtilTestePagina.testaconfigIcone(pagina.getAcaoVinculada().getEnumAcaoDoSistema());
             configurarPesquisa();
+
+            for (ItfAcaoDoSistema acao : pagina.getAcoesRegistros()) {
+                if (acao.isAcaoFormulario()) {
+                    UtilTestePagina.testaAcaoFormulario((ItfAcaoFormulario) acao);
+                }
+                UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());
+            }
 
             if (pagina.isTemNovo()) {
                 criarNovaEntidade();
