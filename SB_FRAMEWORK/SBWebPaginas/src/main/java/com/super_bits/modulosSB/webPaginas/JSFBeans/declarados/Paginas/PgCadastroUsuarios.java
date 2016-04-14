@@ -7,7 +7,6 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;

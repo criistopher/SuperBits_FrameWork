@@ -27,13 +27,6 @@ public @interface InfoPagina {
     public String nomeCurto();
 
     /**
-     * Caminho do recurso xhtml
-     *
-     * @return Caminho do recurso xhtml
-     */
-    public String recurso();
-
-    /**
      * Tags de acesso a Pagina
      *
      * @return tags de Aceso a Pagina

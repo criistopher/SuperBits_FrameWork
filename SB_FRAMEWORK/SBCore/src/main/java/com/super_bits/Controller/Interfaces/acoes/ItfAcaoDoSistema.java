@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -107,6 +108,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return
      */
     public FabTipoAcaoSistema getTipoAcaoSistema();
+
+    public ItfFabricaAcoes getEnumAcaoDoSistema();
 
     public boolean isTemAcaoPrincipal();
 
