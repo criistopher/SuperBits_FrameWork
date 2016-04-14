@@ -22,7 +22,6 @@ import org.hibernate.validator.internal.util.Contracts;
 public abstract class UtilTestePagina {
 
     public static void testaAcaoFormulario(ItfAcaoFormulario pAcao) {
-        SBCore.enviarAvisoAoUsuario(SBWebPaginas.getCaminhoWebAppDeveloper());
 
         Contracts.assertNotNull(pAcao, "A ação não foi definida, impossivel testar ação de formulario");
         Contracts.assertNotEmpty(pAcao.getXhtml(), "O formulário não foi definido para" + pAcao.getNomeUnico());
