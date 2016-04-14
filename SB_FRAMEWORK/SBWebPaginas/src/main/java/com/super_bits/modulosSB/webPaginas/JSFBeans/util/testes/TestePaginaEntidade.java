@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -34,24 +33,31 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     @Test
     public void testeFluxo() {
-        SBCore.getControleDeSessao().logarComoRoot();
 
-        configurarPesquisa();
         try {
+            SBCore.getControleDeSessao().logarComoRoot();
+            UtilTestePagina.testaAcaoFormulario(pagina.getAcaoVinculada());
+            UtilTestePagina.testaconfigIcone(pagina.getAcaoVinculada().getEnumAcaoDoSistema());
+            configurarPesquisa();
+
             if (pagina.isTemNovo()) {
                 criarNovaEntidade();
-
+                UtilTestePagina.testaAcaoFormulario(pagina.getAcaoNovoRegistro());
+                UtilTestePagina.testaconfigIcone(pagina.getAcaoNovoRegistro().getEnumAcaoDoSistema());
             }
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
         try {
             pesquisar();
+
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
         try {
             if (pagina.isTemEditar()) {
+                UtilTestePagina.testaAcaoFormulario(pagina.getAcaoEditar());
+                UtilTestePagina.testaconfigIcone(pagina.getAcaoEditar().getEnumAcaoDoSistema());
                 editarDados();
             }
         } catch (Throwable t) {
@@ -67,6 +73,8 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         try {
             if (pagina.isTemAlterarStatus()) {
                 alterarStatus();
+
+                UtilTestePagina.testaconfigIcone(pagina.getAcaoAlterarStatus().getEnumAcaoDoSistema());
             }
         } catch (Throwable t) {
             lancarErroJUnit(t);

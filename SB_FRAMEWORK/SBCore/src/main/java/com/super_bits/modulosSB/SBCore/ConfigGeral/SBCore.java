@@ -366,15 +366,20 @@ public class SBCore {
 
     public static String getCaminhoDesenvolvimento() {
         String caminhoDiretorioBase = "";
+        String separadorCaminhodiretorioBase = "";
         if (diretorioBase != null) {
             if (!diretorioBase.isEmpty()) {
                 caminhoDiretorioBase = "/" + diretorioBase;
+                separadorCaminhodiretorioBase = "/";
             }
         }
         if (getGrupoProjeto().isEmpty()) {
             return "/home/superBits/projetos/" + getCliente() + "/source/" + nomeProjeto;
         } else {
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + getGrupoProjeto() + caminhoDiretorioBase + "/" + nomeProjeto;
+
+            return "/home/superBits/projetos/" + getCliente() + "/source/" + getGrupoProjeto()
+                    + caminhoDiretorioBase
+                    + separadorCaminhodiretorioBase + "/" + nomeProjeto;
         }
     }
 

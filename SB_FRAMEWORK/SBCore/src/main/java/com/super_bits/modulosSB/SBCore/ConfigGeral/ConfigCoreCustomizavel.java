@@ -29,7 +29,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     private SBCore.ESTADO_APP estadoAPP;
     private String cliente;
     private String grupoProjeto;
-    private String diretorioBase = "/";
+    private String diretorioBase = "";
 
     @Override
     public Class<? extends ItfCentralMensagens> getCentralDeMensagens() {

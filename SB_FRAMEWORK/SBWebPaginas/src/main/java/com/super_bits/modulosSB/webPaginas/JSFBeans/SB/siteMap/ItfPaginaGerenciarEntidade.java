@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author cristopher
  */
-public interface ItfPaginaGerenciarEntidade<T> {
+public interface ItfPaginaGerenciarEntidade<T> extends ItfB_Pagina {
 
     public ItfAcaoFormularioEntidade getAcaoListarRegistros();
 
