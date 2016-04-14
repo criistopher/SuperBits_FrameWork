@@ -40,6 +40,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         try {
             if (pagina.isTemNovo()) {
                 criarNovaEntidade();
+
             }
         } catch (Throwable t) {
             lancarErroJUnit(t);

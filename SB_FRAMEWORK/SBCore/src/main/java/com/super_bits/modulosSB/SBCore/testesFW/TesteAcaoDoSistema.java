@@ -26,9 +26,8 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
     private boolean validatAcao(ItfAcaoDoSistema pAcaoDoSistema) {
         try {
-            if (pAcaoDoSistema.getEnumAcaoDoSistema() == null) {
-                throw new UnsupportedOperationException("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido");
-            }
+
+            assertNotNull("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema());
 
             assertNotNull("O domínio da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getDominio());
 
