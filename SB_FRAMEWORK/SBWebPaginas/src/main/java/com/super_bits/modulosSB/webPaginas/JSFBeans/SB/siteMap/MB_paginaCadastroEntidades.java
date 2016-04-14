@@ -83,7 +83,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
-
+        System.out.println("xhtml Ação atual=" + xhtmlAcaoAtual);
         if (getAcaoVinculada() != null) {
             classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
         }
