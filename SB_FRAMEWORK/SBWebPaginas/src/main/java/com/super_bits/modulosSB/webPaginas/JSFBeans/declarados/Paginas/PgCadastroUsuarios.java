@@ -29,7 +29,7 @@ import javax.inject.Named;
  *
  * @author rjesus
  */
-@InfoPagina(nomeCurto = "US", recurso = "/sistema/seguranca/cadastroUsuario.xhtml", tags = {"cadastro de usuarios"}, acessoLivre = false)
+@InfoPagina(nomeCurto = "US", tags = {"cadastro de usuarios"}, acessoLivre = false)
 @Named
 @ViewScoped
 @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_MB_GERENCIAR)
@@ -46,9 +46,11 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
             FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema(),
             FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema(),
             FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema()
+
         }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoEntidadeFormulario(),
                 FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoEntidadeFormulario(),
                 FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoEntidadeController(),
+                UsuarioSB.class,
                 true
         );
 

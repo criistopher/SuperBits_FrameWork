@@ -11,6 +11,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Field;
 import javax.persistence.Transient;
 
@@ -213,6 +214,11 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     @Override
     public boolean isAcaoGestaoDominio() {
         return true;
+    }
+
+    @Override
+    public ItfFabricaAcoes getEnumAcaoDoSistema() {
+        return acaoOriginal.getEnumAcaoDoSistema();
     }
 
 }

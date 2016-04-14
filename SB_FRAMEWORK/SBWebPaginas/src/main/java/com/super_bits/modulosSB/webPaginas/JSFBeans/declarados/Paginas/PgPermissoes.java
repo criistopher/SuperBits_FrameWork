@@ -43,7 +43,7 @@ import org.primefaces.context.RequestContext;
  * @version 1.0
  *
  */
-@InfoPagina(nomeCurto = "PM", recurso = "/sistema/seguranca/permissao.xhtml", tags = {"Permissoes"})
+@InfoPagina(nomeCurto = "PM", tags = {"Permissoes"})
 @Named
 @ViewScoped
 @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
