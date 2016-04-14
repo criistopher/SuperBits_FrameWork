@@ -8,6 +8,6 @@ package com.super_bits.Controller.Interfaces.permissoes;
  *
  * @author desenvolvedor
  */
-public interface ItfAcaoGerenciarEntidade extends ItfAcaoEntidade {
+public interface ItfAcaoGerenciarEntidade extends ItfAcaoEntidade, ItfAcaoFormulario {
 
 }
