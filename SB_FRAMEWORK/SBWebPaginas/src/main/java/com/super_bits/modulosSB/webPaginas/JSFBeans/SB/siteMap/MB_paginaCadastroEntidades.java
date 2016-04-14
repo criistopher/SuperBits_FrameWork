@@ -74,7 +74,6 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,
             ItfAcaoControllerEntidade pAcaoSalvar,
-            Class pclasseDaEntidade,
             boolean pTempesquisa
     ) {
         super();
@@ -105,13 +104,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,
             ItfAcaoControllerEntidade pAcaoSalvar,
-            Class pclasseDaEntidade,
             boolean pTempesquisa,
             boolean pTemEditar,
             boolean pTemNovo,
             boolean pTemAlterarStatus) {
 
-        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pclasseDaEntidade, pTempesquisa);
+        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa);
 
         temEditar = pTemEditar;
         temAlterarStatus = pTemAlterarStatus;

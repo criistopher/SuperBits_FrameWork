@@ -50,7 +50,6 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
         }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoEntidadeFormulario(),
                 FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoEntidadeFormulario(),
                 FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoEntidadeController(),
-                UsuarioSB.class,
                 true
         );
 
