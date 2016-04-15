@@ -130,7 +130,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         if (acaoSelecionada.equals(acaoListarRegistros)) {
             listarDados();
-            paginaUtil.atualizaTelaPorID("formulario");
+
         }
 
         if (isTemNovo()) {
@@ -166,6 +166,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
             paginaUtil.atualizaTelaPorID("formulario");
 
+        }
+
+        if (acaoSelecionada.isAcaoFormulario()) {
+
+            paginaUtil.atualizaTelaPorID("formulario");
         }
 
     }
