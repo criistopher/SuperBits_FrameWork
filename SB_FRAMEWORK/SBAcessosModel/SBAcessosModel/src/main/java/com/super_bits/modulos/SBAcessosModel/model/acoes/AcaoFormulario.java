@@ -86,7 +86,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     }
 
     @Override
-    public boolean isAcaoFormulario() {
+    public boolean isUmaAcaoFormulario() {
         return true;
     }
 

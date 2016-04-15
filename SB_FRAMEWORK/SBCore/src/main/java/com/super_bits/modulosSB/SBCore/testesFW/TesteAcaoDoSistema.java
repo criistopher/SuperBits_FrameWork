@@ -31,7 +31,7 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
             assertNotNull("O domínio da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getDominio());
 
-            if (pAcaoDoSistema.isAcaoFormulario()) {
+            if (pAcaoDoSistema.isUmaAcaoFormulario()) {
 
                 assertNotNull("O Xhtml da ação de formulario" + pAcaoDoSistema.getNomeUnico() + " está nula", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
                 assertNotEquals("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco", "", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());

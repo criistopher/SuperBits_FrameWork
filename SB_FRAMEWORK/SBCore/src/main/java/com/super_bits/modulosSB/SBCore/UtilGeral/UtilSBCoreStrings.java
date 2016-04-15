@@ -1,7 +1,5 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.Controller.anotacoes.InfoAcao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import java.io.BufferedReader;

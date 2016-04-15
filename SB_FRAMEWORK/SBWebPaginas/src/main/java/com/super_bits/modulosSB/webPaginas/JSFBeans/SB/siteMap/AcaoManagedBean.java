@@ -167,8 +167,8 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoFormulario() {
-        return acaoOriginal.isAcaoFormulario();
+    public boolean isUmaAcaoFormulario() {
+        return acaoOriginal.isUmaAcaoFormulario();
     }
 
     @Override
@@ -212,13 +212,18 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoGestaoDominio() {
+    public boolean isUmaAcaoGestaoDominio() {
         return true;
     }
 
     @Override
     public ItfFabricaAcoes getEnumAcaoDoSistema() {
         return acaoOriginal.getEnumAcaoDoSistema();
+    }
+
+    @Override
+    public boolean isUmaAcaoSessaoMenu() {
+        return false;
     }
 
 }

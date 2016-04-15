@@ -120,7 +120,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
-        if (acaoSelecionada.isAcaoFormulario()) {
+        if (acaoSelecionada.isUmaAcaoFormulario()) {
             xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
         }
 
@@ -168,7 +168,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         }
 
-        if (acaoSelecionada.isAcaoFormulario()) {
+        if (acaoSelecionada.isUmaAcaoFormulario()) {
 
             paginaUtil.atualizaTelaPorID("formulario");
         }

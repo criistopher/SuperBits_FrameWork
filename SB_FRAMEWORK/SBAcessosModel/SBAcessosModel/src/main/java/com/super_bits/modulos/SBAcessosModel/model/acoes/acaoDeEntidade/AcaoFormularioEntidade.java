@@ -124,7 +124,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     }
 
     @Override
-    public boolean isAcaoFormulario() {
+    public boolean isUmaAcaoFormulario() {
         return true;
     }
 

@@ -91,7 +91,7 @@ public enum FabTEste implements ItfFabricaAcoes {
     public Object getRegistro() {
         ItfAcaoDoSistema acao = UtilFabricaDeAcoes.getNovaAcao(this);
         ItfAcaoFormularioEntidade acaoform = null;
-        if (acao.isAcaoFormulario()) {
+        if (acao.isUmaAcaoFormulario()) {
             acaoform = (ItfAcaoFormularioEntidade) acao;
         }
 

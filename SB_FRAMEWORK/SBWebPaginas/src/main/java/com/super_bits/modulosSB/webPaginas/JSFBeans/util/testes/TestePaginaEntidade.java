@@ -18,6 +18,13 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerencia
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -48,7 +55,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             configurarPesquisa();
 
             for (ItfAcaoDoSistema acao : pagina.getAcoesRegistros()) {
-                if (acao.isAcaoFormulario()) {
+                if (acao.isUmaAcaoFormulario()) {
                     UtilTestePagina.testaAcaoFormulario((ItfAcaoFormulario) acao);
                 }
                 UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());

@@ -59,7 +59,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public boolean isAcaoGestaoDominio() {
+    public boolean isUmaAcaoGestaoDominio() {
         return true;
     }
 

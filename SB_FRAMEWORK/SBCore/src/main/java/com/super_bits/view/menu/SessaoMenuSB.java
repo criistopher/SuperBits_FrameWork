@@ -7,10 +7,15 @@ package com.super_bits.view.menu;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
-import com.super_bits.Controller.anotacoes.AcaoGenerica;
+import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +29,13 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria {
+public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
 
     private ItfAcaoDoSistema acaoSessao;
-    private List<ItfAcaoDoSistema> acoes;
+    private final List<ItfAcaoDoSistema> acoes;
     private List<SessaoMenuSB> sessoes;
 
-    public List<com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema> getAcoes() {
+    public List<ItfAcaoDoSistema> getAcoes() {
         return (List) acoes;
     }
 
@@ -129,17 +134,9 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         acaoSessao.setIconeAcao(pIcone);
     }
 
-    public boolean isTipoAcao() {
-        return false;
-    }
-
-    public boolean isTipoSessaoMenu() {
-        return true;
-    }
-
     @Override
     public boolean isConfigurado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.isConfigurado();
     }
 
     public ItfAcaoDoSistema getAcaoPrincipal() {
@@ -148,10 +145,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
 
     public void validarAcao(boolean pValidarSeNaoConfigurado) {
         boolean resultado = true;
-    }
-
-    public boolean isUmaAcaoPrincipal() {
-        return false;
     }
 
     public void setIsAcaoPrincipal(boolean pisAcaoPrincipal) {
@@ -184,11 +177,6 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
         return acaoSessao.getNomeEnumOriginal();
     }
 
-    @Override
-    public FabTipoAcaoSistemaGenerica getTipoAcao() {
-        return null;
-    }
-
     public boolean isCaminhoAutomaticoXHTML() {
         return false;
 
@@ -202,16 +190,126 @@ public class SessaoMenuSB extends AcaoGenerica implements ItfAcaoSessaoCategoria
 
     @Override
     public void setDescricao(String pDescricao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoSessao.setDescricao(pDescricao);
     }
 
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        acaoSessao.configurarPropriedadesBasicas(pAcaoDoSistema);
     }
 
     @Override
-    public boolean isAcaoFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isUmaAcaoFormulario() {
+        return acaoSessao.isUmaAcaoFormulario();
+    }
+
+    @Override
+    public void setNomeAcao(String pNome) {
+        acaoSessao.setNomeAcao(pNome);
+    }
+
+    @Override
+    public FabTipoAcaoSistema getTipoAcaoSistema() {
+        return acaoSessao.getTipoAcaoSistema();
+    }
+
+    @Override
+    public ItfFabricaAcoes getEnumAcaoDoSistema() {
+        return acaoSessao.getEnumAcaoDoSistema();
+    }
+
+    @Override
+    public boolean isTemAcaoPrincipal() {
+        return acaoSessao.isTemAcaoPrincipal();
+    }
+
+    @Override
+    public String getIdDescritivoJira() {
+        return acaoSessao.getIdDescritivoJira();
+    }
+
+    @Override
+    public void setIdDescritivoJira(String pIdJira) {
+        acaoSessao.setIdDescritivoJira(pIdJira);
+    }
+
+    @Override
+    public void setPrecisaPermissao(boolean pPermissao) {
+        acaoSessao.setPrecisaPermissao(pPermissao);
+    }
+
+    @Override
+    public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
+        return acaoSessao.getTipoAcaoGenerica();
+    }
+
+    @Override
+    public boolean isUmaAcaoGenerica() {
+        return acaoSessao.isUmaAcaoGenerica();
+    }
+
+    @Override
+    public boolean isUmaAcaoGestaoDominio() {
+        return acaoSessao.isUmaAcaoGestaoDominio();
+    }
+
+    @Override
+    public String getNome() {
+        return acaoSessao.getNome();
+    }
+
+    @Override
+    public void configIDPeloNome() {
+        acaoSessao.configIDPeloNome();
+    }
+
+    @Override
+    public String getNomeDoObjeto() {
+        return acaoSessao.getNomeDoObjeto();
+    }
+
+    @Override
+    public void setNome(String pNome) {
+        acaoSessao.setNome(pNome);
+    }
+
+    @Override
+    public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
+        return acaoSessao.getCamposInstaciadosInvalidos();
+    }
+
+    @Override
+    public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome) {
+        return acaoSessao.getCampoByNomeOuAnotacao(pNome);
+    }
+
+    @Override
+    public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
+        return acaoSessao.getEntidadesVinculadas();
+    }
+
+    @Override
+    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
+        return acaoSessao.getBeanSimplesPorNomeCampo(pNomeCampo);
+    }
+
+    @Override
+    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+        return acaoSessao.getItemPorCaminhoCampo(pCaminho);
+    }
+
+    @Override
+    public List<CampoInvalido> getCamposInvalidos() {
+        return acaoSessao.getCamposInvalidos();
+    }
+
+    @Override
+    public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo) {
+        return acaoSessao.getCampoReflexaoByAnotacao(pInfoCampo);
+    }
+
+    @Override
+    public boolean isUmaAcaoSessaoMenu() {
+        return true;
     }
 
 }

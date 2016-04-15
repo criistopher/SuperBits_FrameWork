@@ -18,7 +18,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -246,7 +245,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public boolean isAcaoFormulario() {
+    public boolean isUmaAcaoFormulario() {
         return false;
     }
 
@@ -259,13 +258,19 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return tipoAcaoGenerica;
     }
 
-    public boolean isAcaoGestaoDominio() {
+    @Override
+    public boolean isUmaAcaoGestaoDominio() {
         return this.getClass().isAssignableFrom(ItfAcaoGerenciarEntidade.class);
     }
 
     @Override
     public ItfFabricaAcoes getEnumAcaoDoSistema() {
         return enumAcao;
+    }
+
+    @Override
+    public boolean isUmaAcaoSessaoMenu() {
+        return false;
     }
 
 }

@@ -109,23 +109,83 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public FabTipoAcaoSistema getTipoAcaoSistema();
 
+    /**
+     *
+     * @return O Enum do Tipo ItfFabricaAcoes que gerou a ação
+     */
     public ItfFabricaAcoes getEnumAcaoDoSistema();
 
-    public boolean isTemAcaoPrincipal();
-
+    /**
+     * Configura campos como icone e nome da ação, igual a outra ação enviada
+     * como parametro.
+     *
+     * @param pAcaoDoSistema A ação que os dados como nome e icone serão
+     * copiados
+     */
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema);
 
-    public boolean isAcaoFormulario();
-
+    /**
+     *
+     * Obtem o ID do descritivo Jira
+     *
+     * @return
+     */
     public String getIdDescritivoJira();
 
+    /**
+     *
+     * Configura o ID do descritivo Jira
+     *
+     * @param pIdJira
+     */
     public void setIdDescritivoJira(String pIdJira);
 
+    /**
+     *
+     * Configura se esta ação é uma ação que precisa de permissão para ser
+     * executada
+     *
+     * @param pPermissao
+     */
     public void setPrecisaPermissao(boolean pPermissao);
 
+    /**
+     *
+     * Uma ação generica pode ser @see FabTipoAcaoSistemaGenerica
+     *
+     * @return A ação generica desta ação
+     */
     public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica();
 
+    /**
+     *
+     * @return Boolean informando se a ação tem um formulário vinculado
+     */
+    public boolean isUmaAcaoFormulario();
+
+    /**
+     *
+     * @return Boolean informando se esta ação possui uma ação principal
+     * configurada, normalmente uma ação principal refere-se a ação de gestão de
+     * dominio da ação
+     */
+    public boolean isTemAcaoPrincipal();
+
+    /**
+     *
+     * @return Boolean, informando se é uma ação Generica conhecida do sistema
+     */
     public boolean isUmaAcaoGenerica();
 
-    public boolean isAcaoGestaoDominio();
+    /**
+     *
+     * @return Informa se a ação é uma ação de gestão de dominio
+     */
+    public boolean isUmaAcaoGestaoDominio();
+
+    /**
+     *
+     * @return Informa um boolean, se a ação é uma ação do tipo sessão
+     */
+    public boolean isUmaAcaoSessaoMenu();
 }
