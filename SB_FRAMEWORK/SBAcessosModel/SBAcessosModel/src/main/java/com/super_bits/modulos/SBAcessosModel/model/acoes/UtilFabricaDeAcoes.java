@@ -194,19 +194,27 @@ public abstract class UtilFabricaDeAcoes {
 
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
-            String diretorioBaseEntidade = "/site/" + pAcao.getDominio().getSimpleName().toLowerCase() + "/";
+            String diretorioBaseEntidade = "/site/" + pAcao.getDominio().getSimpleName().toLowerCase();
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
+            AcaoGestaoEntidade acaoPrincipal = null;
+
             switch (pTipoAcaoGenerica) {
                 case FORMULARIO_NOVO_REGISTRO:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
+                    acaoPrincipal = (AcaoGestaoEntidade) novaAcaoRefForm.getAcaoPrincipal();
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcaoRefForm.setIconeAcao("fa fa-plus");
                     novaAcao.configurarPropriedadesBasicas(acaoBase);
                     novaAcao.setNome("Novo " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
+                    if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
+                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                    } else {
+
+                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
+                    }
                     novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
                     break;
                 case FORMULARIO_EDITAR:
@@ -293,9 +301,15 @@ public abstract class UtilFabricaDeAcoes {
 
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
+                    acaoPrincipal = (AcaoGestaoEntidade) novaAcaoRefForm.getAcaoPrincipal();
                     novaAcao.configurarPropriedadesBasicas(acaoBase);
                     novaAcao.setNome("Visualizar " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
+                    if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
+                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                    } else {
+
+                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/visualizar.xhtml");
+                    }
                     novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
                     novaAcao.setIconeAcao("fa fa-eye");
                     break;
