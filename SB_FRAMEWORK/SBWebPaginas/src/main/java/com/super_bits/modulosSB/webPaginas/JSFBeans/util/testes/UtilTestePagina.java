@@ -24,9 +24,9 @@ public abstract class UtilTestePagina {
     public static void testaAcaoFormulario(ItfAcaoFormulario pAcao) {
         SBCore.enviarAvisoAoUsuario(SBWebPaginas.getCaminhoWebAppDeveloper());
 
-        Contracts.assertNotNull(pAcao, "A ação não foi definida, impossivel testar ação de formulario");
-        Contracts.assertNotEmpty(pAcao.getXhtml(), "O formulário não foi definido para" + pAcao.getNomeUnico());
-        Contracts.assertNotNull(pAcao.getXhtml(), "O formulário não foi definido" + pAcao.getNomeUnico());
+        Contracts.assertNotNull(pAcao, " A ação não foi definida, impossivel testar ação de formulario ");
+        Contracts.assertNotEmpty(pAcao.getXhtml(), " O xhtml do formulário não foi definido para " + pAcao.getNomeUnico());
+        Contracts.assertNotNull(pAcao.getXhtml(), " O xhtml do formulário não foi definido " + pAcao.getNomeUnico());
         Contracts.assertTrue(UtilSBCoreArquivos.isArquivoExiste(SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml()),
                 "O arquivo xhtml da ação " + pAcao.getNomeUnico() + " não foi encontrado em " + SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml());
 
