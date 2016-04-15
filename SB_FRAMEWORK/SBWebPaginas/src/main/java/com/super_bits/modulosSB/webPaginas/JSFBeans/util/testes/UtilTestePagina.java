@@ -35,6 +35,9 @@ public abstract class UtilTestePagina {
     public static void testaconfigIcone(ItfFabricaAcoes pAcaoDoSistema) {
 
         String icone = pAcaoDoSistema.getAcaoDoSistema().getIconeAcao();
+
+        Contracts.assertNotNull("O Icone da acao " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " esta nulo", icone);
+
         if (!(icone.startsWith("fa ") || icone.startsWith("icon"))) {
             throw new UnsupportedOperationException("O ícone " + icone + " deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)");
         }
