@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import org.hibernate.validator.internal.util.Contracts;
+import org.junit.Assert;
 
 /**
  *
@@ -36,7 +37,8 @@ public abstract class UtilTestePagina {
 
         String icone = pAcaoDoSistema.getAcaoDoSistema().getIconeAcao();
 
-        Contracts.assertNotNull("O Icone da acao " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " esta nulo", icone);
+        Assert.assertNotNull("O Icone da acao " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " esta nulo", icone);
+        Assert.assertNotSame("O Icone da acao " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " esta nulo", "");
 
         if (!(icone.startsWith("fa ") || icone.startsWith("icon"))) {
             throw new UnsupportedOperationException("O ícone " + icone + " deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)");
