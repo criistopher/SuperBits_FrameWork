@@ -335,4 +335,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
         }
     }
 
+    @Override
+    public String getNomeModulo() {
+        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+    }
+
 }

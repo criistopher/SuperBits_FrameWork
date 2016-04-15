@@ -50,4 +50,6 @@ public interface ItfFabricaAcoes extends ItfFabrica {
 
     public Class getDominio();
 
+    public String getNomeModulo();
+
 }

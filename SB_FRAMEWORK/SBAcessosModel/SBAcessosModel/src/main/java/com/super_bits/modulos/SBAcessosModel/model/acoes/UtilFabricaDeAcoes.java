@@ -11,11 +11,13 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +35,29 @@ public abstract class UtilFabricaDeAcoes {
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro setando formulario para ação generica" + acao, t);
         }
+
+    }
+
+    /**
+     *
+     * Cria o modulo da ação apartir da anotação Info Modulo
+     *
+     * @param pAcao
+     * @return
+     */
+    public static ModuloAcaoSistema getModuloByFabrica(ItfFabricaAcoes pAcao) {
+        InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
+        ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
+
+        if (moduloDaAcao == null) {
+            throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
+        }
+
+        moduloDaAcao.setNome(moduloanotacao.nomeDoModulo());
+        moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
+        moduloDaAcao.setDescricao(moduloanotacao.descricao());
+
+        return moduloDaAcao;
 
     }
 
@@ -194,7 +219,7 @@ public abstract class UtilFabricaDeAcoes {
 
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
-            String diretorioBaseEntidade = "/site/" + pAcao.get + pAcao.getDominio().getSimpleName().toLowerCase();
+            String diretorioBaseEntidade = "/site/" + pAcao.getNomeModulo() + "/" + pAcao.getDominio().getSimpleName().toLowerCase();
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;

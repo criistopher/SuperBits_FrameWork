@@ -29,6 +29,8 @@ import javax.persistence.Transient;
 
 /**
  *
+ *
+ *
  * @author desenvolvedor
  */
 @Entity
@@ -77,17 +79,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             id = UtilSBController.gerarIDAcaoDoSistema(pAcao);
             enumAcao = pAcao;
 
-            InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
-            ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
-
-            if (moduloDaAcao == null) {
-                throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
-            }
-
-            moduloDaAcao.setNome(moduloanotacao.nomeDoModulo());
-            moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
-            moduloDaAcao.setDescricao(moduloanotacao.descricao());
-            setModulo(moduloDaAcao);
+            setModulo(UtilFabricaDeAcoes.getModuloByFabrica(pAcao));
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);

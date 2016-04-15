@@ -100,4 +100,9 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
         return UsuarioSB.class;
     }
 
+    @Override
+    public String getNomeModulo() {
+        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+    }
+
 }

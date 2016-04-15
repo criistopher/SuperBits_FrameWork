@@ -118,4 +118,9 @@ public enum FabTEste implements ItfFabricaAcoes {
         return acao;
     }
 
+    @Override
+    public String getNomeModulo() {
+        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+    }
+
 }
