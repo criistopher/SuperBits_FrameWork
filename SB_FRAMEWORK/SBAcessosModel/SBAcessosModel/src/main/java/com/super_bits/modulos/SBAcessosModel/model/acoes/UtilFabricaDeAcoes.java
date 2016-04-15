@@ -113,8 +113,8 @@ public abstract class UtilFabricaDeAcoes {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
             }
 
-            if (lista.contains("FRM") && lista.contains("PERSONALIZADO")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
+            if (lista.contains("FRM") && lista.contains("LISTAR")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR;
             }
             if (lista.contains("FRM") && lista.contains("MODAL")) {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
