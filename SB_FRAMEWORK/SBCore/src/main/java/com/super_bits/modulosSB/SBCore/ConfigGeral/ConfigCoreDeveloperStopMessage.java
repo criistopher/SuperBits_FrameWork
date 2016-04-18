@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgSt
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
@@ -73,6 +74,11 @@ public class ConfigCoreDeveloperStopMessage implements ItfConfiguradorCore {
     @Override
     public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
         return null;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return new Class[]{};
     }
 
 }

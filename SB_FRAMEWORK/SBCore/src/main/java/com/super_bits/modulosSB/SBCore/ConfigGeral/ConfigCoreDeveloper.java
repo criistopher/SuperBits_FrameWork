@@ -9,8 +9,8 @@ import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgThread;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
@@ -69,6 +69,11 @@ public class ConfigCoreDeveloper implements ItfConfiguradorCore {
     @Override
     public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
         return null;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return new Class[]{};
     }
 
 }

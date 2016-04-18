@@ -7,6 +7,8 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
@@ -15,9 +17,8 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.BP_AutoComplete;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_paginaCadastroEntidades;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
@@ -47,7 +48,7 @@ import org.primefaces.context.RequestContext;
 @Named
 @ViewScoped
 @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
-public class PgPermissoes extends MB_PaginaConversation {
+public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
     @Inject
     private PgUtil paginaUtil;
@@ -55,42 +56,38 @@ public class PgPermissoes extends MB_PaginaConversation {
     private List<ModuloAcaoSistema> modulos;
     @InfoMB_Bean(descricao = "Lista todos os grupos")
     private List<GrupoUsuarioSB> grupos;
-    @InfoMB_Bean(descricao = "Armazena o grupo selecionado")
-    private GrupoUsuarioSB grupoSelecionado;
 
     @InfoMB_IdWidget(descricao = "Area onde as definições de segurança serão exibidas")
     private final String idDefinicoesDeSeguranca = "definiçãoDeSeguranca";
 
     private List<ItfAcaoDoSistema> acoesListarGrupos;
 
-    private AcaoDoSistema acaoselecionada;
     private boolean novogrupo;
     private boolean bloquearEdicao;
     private UsuarioSB usuarioSelecionado;
 
     private BP_AutoComplete<UsuarioSB> autocompleteUsuario;
 
-    private final AcaoDoSistema acaoListarGrupos = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema();
-    private final AcaoDoSistema acaoListarUsuarios = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_LIST_USUARIOS.getAcaoDoSistema();
-    private final AcaoDoSistema acaoSalvarPermissoes = (AcaoDoSistema) FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema();
-    private final AcaoDoSistema acaoNovoGrupo = (AcaoDoSistema) FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
-    //private final AcaoDoSistema acaoRemoverUsuarioDoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_REMOVE.getAcaoDoSistema();
-    //private final AcaoDoSistema acaoAdicionarUsuarioNoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_ADD.getAcaoDoSistema();
-    private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_FRM_LISTARGRUPOS.getAcaoDoSistema();
+    public PgPermissoes() {
+        super(new AcaoDoSistema[]{
+            FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema(),
+            FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema(),
+            FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema()
+        }, FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoEntidadeFormulario(),
+                FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoEntidadeController(),
+                false
+        );
 
-    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoEntidadeFormulario().getXhtml();
+    }
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {
             modulo.getSelecaoAcoes().clear();
-            for (AcaoDoSistema acao : ModuloSeguranca.listarAcoesDoGrupo(grupoSelecionado, modulo)) {
+            for (AcaoDoSistema acao : ModuloSeguranca.listarAcoesDoGrupo(getEntidadeSelecionada(), modulo)) {
                 modulo.getSelecaoAcoes().add(acao);
             }
         }
-    }
-
-    public PgPermissoes() {
-        super();
     }
 
     private void atualizarDados() {
@@ -120,56 +117,13 @@ public class PgPermissoes extends MB_PaginaConversation {
         }
     }
 
-    /**
-     *
-     *
-     *
-     *
-     *
-     * Executa uma ação determinada do grupo
-     *
-     * @param pgrupoUsuario
-     */
-    @InfoMB_Acao(descricao = "Atualiza a visualização de ação e Seta o grupo selecionado")
-    public void executarAcaoListaGrupo(GrupoUsuarioSB pgrupoUsuario) {
+    @Override
+    public void executarAcao(GrupoUsuarioSB pEntidadeSelecionada) {
+        super.executarAcao(pEntidadeSelecionada);
 
-        if (acaoselecionada == null) {
-            UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("Ação não enviada" + pgrupoUsuario + acaoselecionada));
-            return;
-        } else {
-            //  UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("Ação=" + acaoListarGrupoSelecionada.getNomeAcao() + acaoListarGrupoSelecionada.getUrlAction()));
-            //  UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("ID=" + acaoListarGrupoSelecionada.getId() + "--" + acaoListarGrupos.getId()));
+        if (acaoSelecionada.getId() == FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema().getId()) {
 
-        }
-
-        if (!acaoselecionada.equals(acaoNovoGrupo) & pgrupoUsuario == null) {
-            UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("Grupo não enviado" + pgrupoUsuario + acaoselecionada));
-            return;
-        }
-
-        if (acaoselecionada.equals(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema())) {
-            grupoSelecionado = new GrupoUsuarioSB();
-            limparSelecaoDeAcoes();
-            bloquearEdicao = false;
-            novogrupo = true;
-            xhtmlAcaoAtual = getXhtmlAcaoAtual();
-            paginaUtil.atualizaTelaPorID("formulario");
-            return;
-        }
-        if (pgrupoUsuario != null) {
-            grupoSelecionado = pgrupoUsuario;
-        }
-        // caso opção seja alterar Status
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getRegistro().getId()) {
-            ModuloSeguranca.grupoAlterarStatus(pgrupoUsuario);
-            paginaUtil.atualizaTelaPorID("formulario");
-            return;
-        }
-
-        // caso opção seja Salvar REgistro
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema().getId()) {
-
-            ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pgrupoUsuario, modulos, getEMPagina());
+            ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pEntidadeSelecionada, modulos, getEMPagina());
             if (resp.isSucesso()) {
                 xhtmlAcaoAtual = getXhtmlAcaoAtual();
                 if (novogrupo) {
@@ -181,30 +135,27 @@ public class PgPermissoes extends MB_PaginaConversation {
                 paginaUtil.atualizaTelaPorID("formulario");
             }
 
-            return;
-
-        }
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getId()) {
-            configurarSelecaoDeAcoes();
-            bloquearEdicao = false;
-            novogrupo = false;
         }
 
-        if (acaoselecionada.getId() == FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema().getId()) {
-            configurarSelecaoDeAcoes();
-            novogrupo = false;
-            bloquearEdicao = true;
-
+        if (acaoSelecionada.equals(getAcaoAlterarStatus())) {
+            ModuloSeguranca.grupoAlterarStatus(pEntidadeSelecionada);
         }
-
-        xhtmlAcaoAtual = getXhtmlAcaoAtual();
-
-        paginaUtil.atualizaTelaPorID("formulario");
 
     }
 
-    private void atualizarAcoesSelecionadas() {
-        //ModuloCadastros.grupoDeUsuarios(grupoSelecionado, acoesSelecionadas);
+    /**
+     *
+     *
+     *
+     *
+     *
+     * Executa uma ação determinada do grupo
+     *
+     * @param pGrupoSelecionado
+     */
+    @InfoMB_Acao(descricao = "Atualiza a visualização de ação e Seta o grupo selecionado")
+    public void executarAcaoListaGrupo(GrupoUsuarioSB pGrupoSelecionado) {
+        this.executarAcao(pGrupoSelecionado);
     }
 
     @PostConstruct
@@ -212,7 +163,7 @@ public class PgPermissoes extends MB_PaginaConversation {
         System.out.println("PostConstruct Permissoes");
         atualizarDados();
         acoesListarGrupos = new ArrayList<>();
-        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
+        acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema());
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
 
@@ -261,11 +212,11 @@ public class PgPermissoes extends MB_PaginaConversation {
     }
 
     public GrupoUsuarioSB getGrupoSelecionado() {
-        return grupoSelecionado;
+        return getEntidadeSelecionada();
     }
 
     public void setGrupoSelecionado(GrupoUsuarioSB grupoSelecionado) {
-        this.grupoSelecionado = grupoSelecionado;
+        setEntidadeSelecionada(grupoSelecionado);
     }
 
     public PgUtil getPaginaUtil() {
@@ -284,14 +235,6 @@ public class PgPermissoes extends MB_PaginaConversation {
         this.acoesListarGrupos = acoesListarGrupos;
     }
 
-    public AcaoDoSistema getAcaoselecionada() {
-        return acaoselecionada;
-    }
-
-    public void setAcaoselecionada(AcaoDoSistema acaoselecionada) {
-        this.acaoselecionada = acaoselecionada;
-    }
-
     public String getXhtmlAcaoAtual() {
         return xhtmlAcaoAtual;
     }
@@ -300,16 +243,16 @@ public class PgPermissoes extends MB_PaginaConversation {
         this.xhtmlAcaoAtual = xhtmlAcaoAtual;
     }
 
-    public AcaoDoSistema getAcaoListarGrupos() {
-        return acaoListarGrupos;
+    public ItfAcaoFormularioEntidade getAcaoListarGrupos() {
+        return getAcaoListarRegistros();
     }
 
     public AcaoDoSistema getAcaoListarUsuarios() {
-        return acaoListarUsuarios;
+        return FabAcaoSeguranca.GRUPO_FRM_LISTARUSUARIOS.getAcaoDoSistema();
     }
 
-    public AcaoDoSistema getAcaoSalvarPermissoes() {
-        return acaoSalvarPermissoes;
+    public ItfAcaoDoSistema getAcaoSalvarPermissoes() {
+        return getAcaoSalvarAlteracoes();
     }
 
     public boolean isNovogrupo() {
@@ -336,8 +279,8 @@ public class PgPermissoes extends MB_PaginaConversation {
         this.idsGerenciaveis = idsGerenciaveis;
     }
 
-    public AcaoDoSistema getAcaoNovoGrupo() {
-        return acaoNovoGrupo;
+    public ItfAcaoFormulario getAcaoNovoGrupo() {
+        return getAcaoNovoRegistro();
     }
 
     public UsuarioSB getUsuarioSelecionado() {
@@ -357,11 +300,24 @@ public class PgPermissoes extends MB_PaginaConversation {
     }
 
     public AcaoDoSistema getAcaoListarGruposDoUsuario() {
-        return acaoListarGruposDoUsuario;
+        return null;
     }
 
     public BP_AutoComplete<UsuarioSB> getAutocompleteUsuario() {
         return autocompleteUsuario;
+    }
+
+    @Override
+    public void listarDados() {
+        atualizarDados();
+    }
+
+    public ItfAcaoDoSistema getAcaoselecionada() {
+        return acaoSelecionada;
+    }
+
+    public void setAcaoselecionada(ItfAcaoDoSistema pAcao) {
+        acaoSelecionada = pAcao;
     }
 
 }

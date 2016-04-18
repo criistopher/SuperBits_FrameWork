@@ -22,6 +22,8 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
@@ -36,9 +38,9 @@ import javax.persistence.Transient;
 @DiscriminatorColumn(name = "tipoAcaoDB")
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
-    @Transient
+    @Enumerated(EnumType.STRING)
     private FabTipoAcaoSistema tipoAcao;
-    @Transient
+    @Enumerated(EnumType.STRING)
     protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
     @Transient
     private ItfFabricaAcoes enumAcao;
@@ -56,6 +58,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String idDescritivoJira;
     @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
+    private String nomeUnico;
 
     public AcaoDoSistema() {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
@@ -77,6 +80,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             descricao = "Descrição não documentada";
             id = UtilSBController.gerarIDAcaoDoSistema(pAcao);
             enumAcao = pAcao;
+            nomeUnico = UtilSBController.gerarNomeUnicoAcaoDoSistema(pAcao);
 
             setModulo(UtilFabricaDeAcoes.getModuloByFabrica(pAcao));
 
@@ -231,7 +235,8 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public String getNomeUnico() {
-        return UtilSBController.gerarNomeUnicoAcaoDoSistema(enumAcao);
+
+        return nomeUnico;
     }
 
     @Override
@@ -265,6 +270,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public ItfFabricaAcoes getEnumAcaoDoSistema() {
+        if (enumAcao == null) {
+            enumAcao = SBCore.getFabricaByNOME_UNICO(nomeUnico);
+        }
+
         return enumAcao;
     }
 

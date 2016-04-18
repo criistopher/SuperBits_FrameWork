@@ -5,9 +5,9 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 
@@ -30,6 +30,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     private String cliente;
     private String grupoProjeto;
     private String diretorioBase = "";
+    private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
 
     @Override
     public Class<? extends ItfCentralMensagens> getCentralDeMensagens() {
@@ -122,6 +123,15 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     @Override
     public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
         return classeConfigPermissao;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return acoesDoSistema;
+    }
+
+    public void setFabricaDeAcoes(Class<? extends ItfFabricaAcoes>[] pAcoes) {
+        acoesDoSistema = pAcoes;
     }
 
 }

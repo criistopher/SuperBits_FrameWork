@@ -12,8 +12,10 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -40,11 +42,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     private boolean temEditar = true;
     private boolean temNovo = true;
     private boolean temAlterarStatus = true;
+    private boolean temVisualizar = true;
 
     private final List<ItfAcaoDoSistema> acoesRegistros;
     protected final ItfAcaoFormularioEntidade acaoListarRegistros;
     protected final ItfAcaoFormularioEntidade acaoNovoRegistro;
     protected final ItfAcaoControllerEntidade acaoSalvarAlteracoes;
+
+    private ItfAcaoFormularioEntidade acaoEntidadeEditar;
+    private ItfAcaoControllerEntidade acaoEntidadeAlterarStatus;
+    private ItfAcaoFormularioEntidade acaoEntidadeVisualizar;
 
     public enum estadoEdicao {
 
@@ -59,6 +66,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected PgUtil paginaUtil;
 
     /**
+     * Constructor simples para pagina de Entidades
      *
      * @param pAcoesRegistro Array de ações para cada registro ex.(new
      * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
@@ -67,6 +75,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
      * @param pAcaoSalvar Ação para Salvar alterações
      * @param pTempesquisa Informa se vai haver pesquisa na tela de
      * gerenciamento
+     * @param pSubChamadaDeConstructor Informa se o constructor é uma subchamada
+     * de outro constructor
      *
      */
     public MB_paginaCadastroEntidades(
@@ -74,13 +84,15 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,
             ItfAcaoControllerEntidade pAcaoSalvar,
-            boolean pTempesquisa
+            boolean pTempesquisa,
+            boolean pSubChamadaDeConstructor
     ) {
         super();
         acoesRegistros = new ArrayList<>();
         for (AcaoDoSistema acao : pAcoesRegistro) {
             acoesRegistros.add((ItfAcaoDoSistema) acao);
         }
+
         acaoNovoRegistro = pAcaoNovoRegistro;
         acaoListarRegistros = pAcaoListar;
         acaoSalvarAlteracoes = pAcaoSalvar;
@@ -98,27 +110,90 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         temPesquisa = pTempesquisa;
 
+        // se for uma subchamada deixa para configurar as ações depois
+        //  TODO verificar possibilidade de lançar uma exceção caso constate via
+        // reflection que este constructor seja chamado direto
+        if (!pSubChamadaDeConstructor) {
+            configuraAcoes();
+        }
     }
 
+    /**
+     * Constructor simples para pagina de Entidades
+     *
+     * @param pAcoesRegistro Array de ações para cada registro ex.(new
+     * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
+     * @param pAcaoNovoRegistro Ação para um novo registro
+     * @param pAcaoListar Ação para listar os registros
+     * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pTempesquisa Informa se vai haver pesquisa na tela de
+     * gerenciamento
+     *
+     */
+    public MB_paginaCadastroEntidades(
+            AcaoDoSistema[] pAcoesRegistro,
+            ItfAcaoFormularioEntidade pAcaoNovoRegistro,
+            ItfAcaoFormularioEntidade pAcaoListar,
+            ItfAcaoControllerEntidade pAcaoSalvar,
+            boolean pTempesquisa
+    ) {
+        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa, false);
+    }
+
+    /**
+     *
+     * @param pAcoesRegistro Array de ações para cada registro ex.(new
+     * AcaoDoSistema[]{Fabrica.acao.getAcaoDoSistema,Fabrica.acao2.getacaoDoSistema})
+     * @param pAcaoNovoRegistro Ação para um novo registro
+     * @param pAcaoListar Ação para listar os registros
+     * @param pAcaoSalvar Ação para Salvar alterações
+     * @param pTempesquisa Informa se vai haver pesquisa na tela de
+     * @param pTemVisualizar
+     * @param pTemEditar Informa se o formulario tem opção de edição
+     * @param pTemNovo Informa se o formulario tem opção de novo registro
+     * @param pTemAlterarStatus Informa se o formulario tem opções de Alterar
+     * Status
+     */
     public MB_paginaCadastroEntidades(AcaoDoSistema[] pAcoesRegistro,
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,
             ItfAcaoControllerEntidade pAcaoSalvar,
             boolean pTempesquisa,
+            boolean pTemVisualizar,
             boolean pTemEditar,
             boolean pTemNovo,
             boolean pTemAlterarStatus) {
 
-        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa);
+        this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa, true);
 
         temEditar = pTemEditar;
         temAlterarStatus = pTemAlterarStatus;
         temNovo = pTemNovo;
-
+        temVisualizar = pTemVisualizar;
+        configuraAcoes();
     }
 
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
+
+        if (acaoSelecionada == null) {
+            try {
+                UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("Nenhuma  ação foi selecionada"));
+                throw new UnsupportedOperationException("A ação selecionada estava nula ao executar ação na pagina" + this.getClass().getSimpleName());
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Uma ação nula foi selecionada em executar ação", t);
+            }
+
+            return;
+        }
+
+        if ((acaoSelecionada.equals(acaoEntidadeEditar)
+                || acaoSelecionada.equals(acaoEntidadeAlterarStatus)
+                || acaoSelecionada.equals(acaoEntidadeVisualizar))
+                & (pEntidadeSelecionada == null)) {
+            SBCore.enviarAvisoAoUsuario("Entidade não selecionada para" + acaoSelecionada.getNomeAcao());
+
+        }
 
         if (acaoSelecionada.isUmaAcaoFormulario()) {
             xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
@@ -290,51 +365,79 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         return temPesquisa;
     }
 
-    @Override
-    public ItfAcaoFormularioEntidade getAcaoEditar() {
-        for (ItfAcaoDoSistema acao : acoesRegistros) {
+    private void configuraAcoes() {
+        try {
 
-            if (acao.isUmaAcaoGenerica()) {
+            for (ItfAcaoDoSistema acao : acoesRegistros) {
 
-                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
-                    return (ItfAcaoFormularioEntidade) acao;
+                if (acao.isUmaAcaoGenerica()) {
+
+                    if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR)) {
+
+                        if (!temEditar) {
+                            throw new UnsupportedOperationException("A opção TemEditar está false, mas uma ação do tipo formulário editar foi encontrada entre as ações dos registros de entidade, a ação é " + acao.getNomeAcao());
+                        } else {
+                            acaoEntidadeEditar = (ItfAcaoFormularioEntidade) acao;
+                        }
+
+                    }
+                    if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR)) {
+
+                        if (!temAlterarStatus) {
+                            throw new UnsupportedOperationException("A opção TemAlterarStatus está false, mas uma ação do tipo controller Ativa_desativar foi encontrada entre as ações dos registros de entidade, verifique o constructor, ou a  config da ação" + acao.getNomeAcao());
+                        } else {
+                            acaoEntidadeAlterarStatus = (ItfAcaoControllerEntidade) acao;
+                        }
+
+                    }
+                    if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
+
+                        if (!temVisualizar) {
+                            throw new UnsupportedOperationException("A opção TemVisualizar está false, mas uma ação do tipo formulário visualisar foi encontrada entre as ações dos registros de entidade, verifique o constructor ou a config da ação " + acao.getNomeAcao());
+                        } else {
+                            acaoEntidadeVisualizar = (ItfAcaoFormularioEntidade) acao;
+                        }
+
+                    }
 
                 }
 
             }
 
+            if (temEditar & acaoEntidadeEditar == null) {
+                throw new UnsupportedOperationException("uma ação esperada  foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+            }
+
+            if (temVisualizar & acaoEntidadeVisualizar == null) {
+                throw new UnsupportedOperationException("uma ação  esperada  não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
+            }
+
+            if (temAlterarStatus & acaoEntidadeAlterarStatus == null) {
+                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
+            }
+
+            if (temNovo & acaoNovoRegistro == null) {
+                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO + " nas ações de registro configuradas no constructor da pagina");
+            }
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ouve um erro configurando as ações da pagina de gestão de entidade: " + this.getClass().toString(), t);
         }
-        throw new UnsupportedOperationException("a ação de editar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
-        //return null;
+    }
+
+    @Override
+    public ItfAcaoFormularioEntidade getAcaoEditar() {
+        return acaoEntidadeEditar;
+
     }
 
     @Override
     public ItfAcaoControllerEntidade getAcaoAlterarStatus() {
-        for (ItfAcaoDoSistema acao : acoesRegistros) {
-
-            if (acao.isUmaAcaoGenerica()) {
-                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR)) {
-                    return (ItfAcaoControllerEntidade) acao;
-
-                }
-            }
-        }
-        throw new UnsupportedOperationException("a ação de ativar/desativar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
+        return acaoEntidadeAlterarStatus;
     }
 
     @Override
     public ItfAcaoFormularioEntidade getAcaoVisualisar() {
-        for (ItfAcaoDoSistema acao : acoesRegistros) {
-
-            if (acao.isUmaAcaoGenerica()) {
-                if (acao.getTipoAcaoGenerica().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR)) {
-                    return (ItfAcaoFormularioEntidade) acao;
-
-                }
-
-            }
-
-        }
-        throw new UnsupportedOperationException("a ação de visualizar não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
+        return acaoEntidadeVisualizar;
     }
 }

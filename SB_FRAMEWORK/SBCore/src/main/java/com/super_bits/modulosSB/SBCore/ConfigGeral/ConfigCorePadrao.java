@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.CentralMensagemArqTexto;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.ControleDeSessaoAbstratoSBCore;
@@ -86,6 +87,11 @@ public class ConfigCorePadrao implements ItfConfiguradorCore {
     @Override
     public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
         return null;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return new Class[]{};
     }
 
 }

@@ -203,7 +203,7 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Override
     public FabTipoAcaoSistemaGenerica getTipoAcaoGenerica() {
-        return FabTipoAcaoSistemaGenerica.GERENCIAR;
+        return FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
     }
 
     @Override

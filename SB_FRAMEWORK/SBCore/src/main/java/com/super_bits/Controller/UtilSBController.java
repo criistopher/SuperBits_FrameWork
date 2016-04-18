@@ -71,6 +71,10 @@ public class UtilSBController {
     }
 
     public static String gerarNomeUnicoAcaoDoSistema(ItfFabricaAcoes pAcao) {
+        if (pAcao == null) {
+            throw new UnsupportedOperationException("Erro tentando obter nome único de ação nula");
+        }
+
         String nomeModulo = pAcao.getClass().getSimpleName();
         String nomeAcao = pAcao.toString();
         return nomeModulo + "." + nomeAcao;

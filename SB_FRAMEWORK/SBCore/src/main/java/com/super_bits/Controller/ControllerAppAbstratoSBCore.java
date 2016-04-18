@@ -4,13 +4,13 @@
  */
 package com.super_bits.Controller;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.Controller.Interfaces.ItfControlerAPP;
+import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
-import com.super_bits.Controller.Interfaces.ItfControlerAPP;
-import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.comunicacao.Resposta;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
@@ -43,7 +43,7 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return USUARIOS.get(pEmail);
     }
 
-    public static ItfResposta getNovaResposta(Class pTipoRetorno) {
+    protected static ItfResposta getNovaResposta(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
 
         return resp;

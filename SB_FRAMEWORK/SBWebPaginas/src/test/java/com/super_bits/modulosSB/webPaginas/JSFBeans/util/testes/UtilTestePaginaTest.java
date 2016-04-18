@@ -23,7 +23,7 @@ public class UtilTestePaginaTest extends TesteJunit {
     @Test
     public void testTestaAcaoFormulario() {
         try {
-            UtilTestePagina.testaAcaoFormulario(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoEntidadeFormulario());
+            UtilTestePagina.testaAcaoFormulario(FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoEntidadeFormulario());
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }

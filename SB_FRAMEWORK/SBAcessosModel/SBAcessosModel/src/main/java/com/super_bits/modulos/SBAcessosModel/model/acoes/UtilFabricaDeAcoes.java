@@ -103,7 +103,7 @@ public abstract class UtilFabricaDeAcoes {
             }
 
             if (lista.contains("CTR") && lista.contains("ALTERAR") && lista.contains("STATUS")) {
-                return FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR;
             }
 
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("MERGE")) {
@@ -111,23 +111,23 @@ public abstract class UtilFabricaDeAcoes {
             }
 
             if (lista.contains("CTR") && lista.contains("ATIVAR")) {
-                return FabTipoAcaoSistemaGenerica.ATIVAR;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR;
             }
 
             if (lista.contains("CTR") && lista.contains("REMOVER")) {
-                return FabTipoAcaoSistemaGenerica.REMOVER;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_REMOVER;
             }
 
             if (lista.contains("CTR") && lista.contains("DESATIVAR")) {
-                return FabTipoAcaoSistemaGenerica.ATIVAR;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR;
             }
 
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("NOVO")) {
-                return FabTipoAcaoSistemaGenerica.SALVAR_NOVO;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_NOVO;
             }
 
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("EDICAO")) {
-                return FabTipoAcaoSistemaGenerica.SALVAR_EDICAO;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_EDICAO;
             }
 
             if (lista.contains("CTR")) {
@@ -154,7 +154,7 @@ public abstract class UtilFabricaDeAcoes {
             }
 
             if (lista.contains("MB")) {
-                return FabTipoAcaoSistemaGenerica.GERENCIAR;
+                return FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
             }
 
         }
@@ -263,7 +263,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcao.setIconeAcao("fa fa-list-alt");
                     break;
 
-                case SALVAR_EDICAO:
+                case CONTROLLER_SALVAR_EDICAO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
@@ -273,7 +273,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
-                case SALVAR_NOVO:
+                case CONTROLLER_SALVAR_NOVO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
 
@@ -292,7 +292,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
-                case ATIVAR_DESATIVAR:
+                case CONTROLLER_ATIVAR_DESATIVAR:
 
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
 
@@ -304,7 +304,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
-                case ATIVAR:
+                case CONTROLLER_ATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
@@ -313,7 +313,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
-                case DESATIVAR:
+                case CONTROLLER_DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
@@ -345,10 +345,10 @@ public abstract class UtilFabricaDeAcoes {
                     break;
                 case FORMULARIO_MODAL:
                     break;
-                case GERENCIAR:
+                case GERENCIAR_DOMINIO:
                     novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
                     break;
-                case REMOVER:
+                case CONTROLLER_REMOVER:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     break;
                 case CONTROLLER_PERSONALIZADO:

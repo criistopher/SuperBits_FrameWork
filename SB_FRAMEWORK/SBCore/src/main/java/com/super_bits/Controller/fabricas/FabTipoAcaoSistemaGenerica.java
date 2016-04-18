@@ -17,18 +17,18 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     FORMULARIO_EDITAR,
     FORMULARIO_PERSONALIZADO,
     SELECAO_DE_ACAO,
-    SALVAR_EDICAO,
-    SALVAR_NOVO,
+    CONTROLLER_SALVAR_EDICAO,
+    CONTROLLER_SALVAR_NOVO,
     SALVAR_MODO_MERGE,
     CONTROLLER_PERSONALIZADO,
-    ATIVAR_DESATIVAR,
-    ATIVAR,
-    REMOVER,
-    DESATIVAR,
+    CONTROLLER_ATIVAR_DESATIVAR,
+    CONTROLLER_ATIVAR,
+    CONTROLLER_REMOVER,
+    CONTROLLER_DESATIVAR,
     FORMULARIO_VISUALIZAR,
     FORMULARIO_LISTAR,
     FORMULARIO_MODAL,
-    GERENCIAR;
+    GERENCIAR_DOMINIO;
 
     @Override
     public TipoAcaoPadrao getRegistro() {
@@ -51,12 +51,12 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 acaoPadrao.setDescricaoPadrao("Inicia formulario de visualizacao de registro");
                 acaoPadrao.setIconePadrao("fa fa-eye");
                 break;
-            case SALVAR_EDICAO:
+            case CONTROLLER_SALVAR_EDICAO:
                 acaoPadrao.setNomePadrao("Salvar registro editado");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro editado ");
                 acaoPadrao.setIconePadrao("fa fa-edit (alias)");
                 break;
-            case SALVAR_NOVO:
+            case CONTROLLER_SALVAR_NOVO:
                 acaoPadrao.setNomePadrao("Salvar registro criado");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro criado");
                 acaoPadrao.setIconePadrao("fa fa-save (alias)");
@@ -71,17 +71,17 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 acaoPadrao.setDescricaoPadrao("Exibe os registros existentes");
                 acaoPadrao.setIconePadrao("fa fa-list-alt");
                 break;
-            case ATIVAR_DESATIVAR:
+            case CONTROLLER_ATIVAR_DESATIVAR:
                 acaoPadrao.setNomePadrao("Alterador de status");
                 acaoPadrao.setDescricaoPadrao("Ativa ou desativa conforme o status atual");
                 acaoPadrao.setIconePadrao("fa fa-retweet");
                 break;
-            case ATIVAR:
+            case CONTROLLER_ATIVAR:
                 acaoPadrao.setNomePadrao("Ativador");
                 acaoPadrao.setDescricaoPadrao("Define status como ativo");
                 acaoPadrao.setIconePadrao("fa fa-check");
                 break;
-            case DESATIVAR:
+            case CONTROLLER_DESATIVAR:
                 acaoPadrao.setNomePadrao("Desativar");
                 acaoPadrao.setDescricaoPadrao("Define status como desativado");
                 acaoPadrao.setIconePadrao("fa-close (alias)");
@@ -94,10 +94,10 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 break;
             case FORMULARIO_MODAL:
                 break;
-            case GERENCIAR:
+            case GERENCIAR_DOMINIO:
 
                 break;
-            case REMOVER:
+            case CONTROLLER_REMOVER:
                 acaoPadrao.setNomePadrao("Excluir");
                 acaoPadrao.setDescricaoPadrao("Exlui o registro do banco de dados");
                 acaoPadrao.setIconePadrao("fa-close (alias)");

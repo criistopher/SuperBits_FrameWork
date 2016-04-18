@@ -9,6 +9,7 @@ import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
@@ -18,6 +19,7 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
@@ -65,6 +67,8 @@ public class SBCore {
     private static String cliente = "SuperBits";
     private static String grupoProjeto = "";
     private static boolean controleDeAcessosDefinido;
+    private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
+    private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
 
     private static void ValidaConfigurado() {
         if (configurado) {
@@ -113,7 +117,7 @@ public class SBCore {
             cliente = configuracoes.getCliente();
             // central de eventos e config de permissao podem ser definidos logo após a chamada do configurar
             configurado = true;
-
+            acoesDoSistema = configuracoes.getFabricaDeAcoes();
             centralEventos = configuracoes.getCentralDeEventos();
             classeConfigPermissoes = configuracoes.getConfigPermissoes();
 
@@ -400,6 +404,46 @@ public class SBCore {
 
     public static ItfUsuario getUsuarioLogado() {
         return getControleDeSessao().getSessaoAtual().getUsuario();
+    }
+
+    private static void makeEnumByNomeUnico() {
+
+        ENUMACAO_BY_NOMEUNICO.clear();
+
+        for (Class fabrica : acoesDoSistema) {
+
+            for (Object objAcao : fabrica.getEnumConstants()) {
+                ItfFabricaAcoes acao = (ItfFabricaAcoes) objAcao;
+                ENUMACAO_BY_NOMEUNICO.put(UtilSBController.gerarNomeUnicoAcaoDoSistema(acao), acao);
+            }
+
+        }
+
+    }
+
+    public static ItfFabricaAcoes getFabricaByNOME_UNICO(String pNomeUnico) {
+        try {
+            if (pNomeUnico == null) {
+                throw new UnsupportedOperationException("Tebtativa de obter a fabrica de ação com parametro nulo");
+            }
+            if ("".equals(pNomeUnico)) {
+                throw new UnsupportedOperationException("Tebtativa de obter a fabrica de ação com parametro nulo");
+            }
+
+            if (ENUMACAO_BY_NOMEUNICO.isEmpty()) {
+                makeEnumByNomeUnico();
+            }
+
+            ItfFabricaAcoes acao = ENUMACAO_BY_NOMEUNICO.get(pNomeUnico);
+            if (acao == null) {
+                throw new UnsupportedOperationException("A ação do sistema não foi encontrada pelo nome único " + pNomeUnico);
+            }
+            return acao;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo fabrica por nome único", t);
+        }
+        return null;
+
     }
 
 }
