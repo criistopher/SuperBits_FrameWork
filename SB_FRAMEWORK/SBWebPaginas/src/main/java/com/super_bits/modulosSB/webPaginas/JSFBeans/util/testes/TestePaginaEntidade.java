@@ -230,7 +230,13 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
         // Usuario clieca no botao Alterar status dentro do primeiro registro que é o entidadesListadas.get(0)
         ItfBeanNormal entidadeQueOUsuarioIraSelecionar = (ItfBeanNormal) pagina.getEntidadesListadas().get(0);
-        boolean statusAnterior = entidadeQueOUsuarioIraSelecionar.isAtivo();
+        boolean statusAnterior;
+        if (entidadeQueOUsuarioIraSelecionar.isAtivo()) {
+            statusAnterior = true;
+
+        } else {
+            statusAnterior = false;
+        }
 
         pagina.setAcaoSelecionada((AcaoDoSistema) pagina.getAcaoAlterarStatus());
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
