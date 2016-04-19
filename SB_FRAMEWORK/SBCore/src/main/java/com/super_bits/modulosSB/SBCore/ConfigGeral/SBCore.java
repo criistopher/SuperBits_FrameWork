@@ -402,6 +402,12 @@ public class SBCore {
         getCentralDeMensagens().enviaMensagem(FabMensagens.AVISO.getMsgUsuario(pMensagem));
     }
 
+    /**
+     *
+     * Atalho para SBCore.getControleDeSessao.getsessaoAtual.getusuarioLogado;
+     *
+     * @return
+     */
     public static ItfUsuario getUsuarioLogado() {
         return getControleDeSessao().getSessaoAtual().getUsuario();
     }

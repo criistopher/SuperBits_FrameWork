@@ -612,34 +612,52 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     @Override
     public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
-        int i = 0;
+        try {
 
-        ItfBeanSimples entidade = (ItfBeanSimples) this;
-        for (String caminho : pCaminho.getPartesCaminho()) {
-            if (i > 0) {
-                entidade = ((ItfBeanSimples) entidade).getBeanSimplesPorNomeCampo(caminho);
+            int i = 0;
+
+            ItfBeanSimples entidade = (ItfBeanSimples) this;
+            for (String caminho : pCaminho.getPartesCaminho()) {
+
+                // pulando a primeira parte do caminho que refere a ele mesmo
+                if (i > 0) {
+                    entidade = ((ItfBeanSimples) entidade).getBeanSimplesPorNomeCampo(caminho);
+                    if (entidade == null) {
+                        return null;
+                    }
+                }
+
             }
-            i++;
+
+            return entidade;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo", t);
         }
-
-        return entidade;
-
+        return null;
     }
 
     @Override
     public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
-        ItfBeanSimples ret = null;
 
         try {
+            ItfBeanSimples ret = null;
+            if (pNomeCampo == null) {
+                throw new UnsupportedOperationException("String nula enviada para obter um bean simples por nome campo");
+            }
+            try {
 
-            Field cp = getClass().getDeclaredField(pNomeCampo);
-            cp.setAccessible(true);
-            ret = (ItfBeanSimples) cp.get(this);
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pNomeCampo, ex);
+                Field cp = getClass().getDeclaredField(pNomeCampo);
+                cp.setAccessible(true);
+                ret = (ItfBeanSimples) cp.get(this);
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pNomeCampo, ex);
+            }
+            return ret;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter campo BenSimples pelo nome" + pNomeCampo, t
+            );
         }
-        return ret;
-
+        return null;
     }
 
     @Override
