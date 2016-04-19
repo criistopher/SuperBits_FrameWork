@@ -107,7 +107,7 @@ public abstract class UtilFabricaDeAcoes {
             }
 
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("MERGE")) {
-                return FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE;
+                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_MODO_MERGE;
             }
 
             if (lista.contains("CTR") && lista.contains("ATIVAR")) {
@@ -283,7 +283,7 @@ public abstract class UtilFabricaDeAcoes {
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
-                case SALVAR_MODO_MERGE:
+                case CONTROLLER_SALVAR_MODO_MERGE:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);

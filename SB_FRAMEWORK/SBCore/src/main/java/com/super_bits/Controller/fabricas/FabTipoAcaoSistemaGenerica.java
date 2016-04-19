@@ -16,18 +16,18 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     FORMULARIO_NOVO_REGISTRO,
     FORMULARIO_EDITAR,
     FORMULARIO_PERSONALIZADO,
+    FORMULARIO_VISUALIZAR,
+    FORMULARIO_LISTAR,
+    FORMULARIO_MODAL,
     SELECAO_DE_ACAO,
     CONTROLLER_SALVAR_EDICAO,
     CONTROLLER_SALVAR_NOVO,
-    SALVAR_MODO_MERGE,
+    CONTROLLER_SALVAR_MODO_MERGE,
     CONTROLLER_PERSONALIZADO,
     CONTROLLER_ATIVAR_DESATIVAR,
     CONTROLLER_ATIVAR,
     CONTROLLER_REMOVER,
     CONTROLLER_DESATIVAR,
-    FORMULARIO_VISUALIZAR,
-    FORMULARIO_LISTAR,
-    FORMULARIO_MODAL,
     GERENCIAR_DOMINIO;
 
     @Override
@@ -61,7 +61,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro criado");
                 acaoPadrao.setIconePadrao("fa fa-save (alias)");
                 break;
-            case SALVAR_MODO_MERGE:
+            case CONTROLLER_SALVAR_MODO_MERGE:
                 acaoPadrao.setNomePadrao("Atualizar registro");
                 acaoPadrao.setDescricaoPadrao("Inicia gravacao");
                 acaoPadrao.setIconePadrao("fa fa-save");

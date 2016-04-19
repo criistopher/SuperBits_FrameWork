@@ -46,6 +46,7 @@ public abstract class SBPersistencia {
         if (configurado) {
             return;
         }
+
         System.out.println("CONFIG DO SBPERSISTENCIA NAO DEFINIDO");
         System.exit(0);
         //    configCoreNaoDefinido.Alerta(ErroSB.TIPO_ERRO.PARA_TUDO, "CONFIG DO CORE NAO DEFINIDO");
