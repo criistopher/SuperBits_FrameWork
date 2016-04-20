@@ -6,6 +6,7 @@ package com.super_bits.view.menu;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -140,7 +141,10 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     }
 
     public ItfAcaoDoSistema getAcaoPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (acaoSessao.isTemAcaoPrincipal()) {
+            return ((ItfAcaoSecundaria) acaoSessao).getAcaoPrincipal();
+        }
+        return null;
     }
 
     public void validarAcao(boolean pValidarSeNaoConfigurado) {

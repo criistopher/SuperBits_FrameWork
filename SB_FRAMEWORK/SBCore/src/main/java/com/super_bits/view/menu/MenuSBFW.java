@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  *
  */
-public class MenuSBFW {
+public class MenuSBFW implements ItfMenuSB {
 
     private final List<SessaoMenuSB> sessoes;
 
@@ -27,15 +27,18 @@ public class MenuSBFW {
         sessoes = new ArrayList<>();
     }
 
+    @Override
     public void addSessao(SessaoMenuSB pSessao) {
         sessoes.add(pSessao);
 
     }
 
+    @Override
     public List<SessaoMenuSB> getSessoes() {
         return sessoes;
     }
 
+    @Override
     public boolean isTemMenu() {
         return getSessoes().size() > 0;
     }
