@@ -4,15 +4,12 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
-import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.view.InfoPagina;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
@@ -27,27 +24,16 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     private InfoPagina infoPagina;
     @Transient
     private boolean utilizarMesmoFormEditarInserir = true;
-    private final List<ItfParametroTela> parametros;
 
     public AcaoGestaoEntidade() {
         super();
-        parametros = new ArrayList<>();
-    }
 
-    /**
-     *
-     * Adiciona um parametro para abertura desta tela de gestão
-     *
-     * @param pParametro
-     */
-    public void addParametro(ItfParametroTela pParametro) {
-        parametros.add(pParametro);
     }
 
     public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
 
         super(pClasse, pFabrica, pXhtml);
-        parametros = new ArrayList<>();
+
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
     }
 

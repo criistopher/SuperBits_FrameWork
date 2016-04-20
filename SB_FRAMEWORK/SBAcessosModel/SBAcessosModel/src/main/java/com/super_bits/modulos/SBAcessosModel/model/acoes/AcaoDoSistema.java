@@ -5,6 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -19,6 +20,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -42,8 +45,6 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private FabTipoAcaoSistema tipoAcao;
     @Enumerated(EnumType.STRING)
     protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
-    @Transient
-    private ItfFabricaAcoes enumAcao;
 
     @Id
     protected int id;
@@ -59,6 +60,33 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
     private String nomeUnico;
+
+    // Objetos não persistiveis
+    @Transient
+    private final List<ItfParametroTela> parametroTela = new ArrayList<>();
+    @Transient
+    private ItfFabricaAcoes enumAcao;
+
+    /**
+     *
+     * Adiciona um parametro para abertura desta tela de gestão
+     *
+     * @param pParametro
+     */
+    public void addParametro(ItfParametroTela pParametro) {
+        parametroTela.add(pParametro);
+    }
+
+    /**
+     *
+     * Caso a execução desta ação modifique algum parametro de tela de exibição,
+     * a lista dos parametros são adicionadas aqui
+     *
+     * @return a lista dos parametros que devem ser modificados pela ação
+     */
+    public List<ItfParametroTela> getParametrosTela() {
+        return parametroTela;
+    }
 
     public AcaoDoSistema() {
         System.out.println("ATENÇÃO UMA AÇÃO DO SISTEMA SEM PARAMETROS NO CONSTRUTOR SÓ DEVE SER INSTANCIADA PELO HIBERNATE");
