@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import java.io.Serializable;
@@ -8,16 +9,12 @@ import java.io.Serializable;
  *
  * @author Salvio
  */
-public class ParametroURL implements Serializable {
+public class ParametroURL implements ItfParametroTela {
 
-    public static enum tipoPrURL {
-
-        TEXTO, ENTIDADE, OBJETO_COM_CONSTRUCTOR
-    }
     private Object valor;
     private Object valorPadrao;
     private String nome;
-    private tipoPrURL tipoParametro;
+    private TIPOURL tipoParametro;
     private Class tipoEntidade;
 
     /**
@@ -27,7 +24,7 @@ public class ParametroURL implements Serializable {
      * @param ptipo TIPO: Entidade, STring simples e Outros
      * @param pEntidade Classe que representa a Entidade
      */
-    public ParametroURL(String pNome, Object pValorPadrao, tipoPrURL ptipo, Class pEntidade) {
+    public ParametroURL(String pNome, Object pValorPadrao, TIPOURL ptipo, Class pEntidade) {
         setNome(pNome);
         setValor(pValorPadrao);
         setValorPadrao(pValorPadrao);
@@ -41,12 +38,12 @@ public class ParametroURL implements Serializable {
      * @param pValorPadrao Valor Padrão
      * @param ptipo Tipo de parametro (string ou Entidade)
      */
-    public ParametroURL(String pNome, Object pValorPadrao, tipoPrURL ptipo) {
+    public ParametroURL(String pNome, Object pValorPadrao, TIPOURL ptipo) {
         setNome(pNome);
         setValor(pValorPadrao);
         setValorPadrao(pValorPadrao);
         setTipoParametro(ptipo);
-        if (ptipo == tipoPrURL.ENTIDADE) {
+        if (ptipo == TIPOURL.ENTIDADE) {
 
             try {
                 throw new ErroSBCriticoWeb("Criação de parametro de URL do tipo entidade sem especificar a Classe");
@@ -58,42 +55,52 @@ public class ParametroURL implements Serializable {
 
     }
 
+    @Override
     public Object getValor() {
         return valor;
     }
 
+    @Override
     public void setValor(Object valor) {
         this.valor = valor;
     }
 
+    @Override
     public Object getValorPadrao() {
         return valorPadrao;
     }
 
+    @Override
     public void setValorPadrao(Object valorPadrao) {
         this.valorPadrao = valorPadrao;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public tipoPrURL getTipoParametro() {
+    @Override
+    public TIPOURL getTipoParametro() {
         return tipoParametro;
     }
 
-    public void setTipoParametro(tipoPrURL tipoParametro) {
+    @Override
+    public void setTipoParametro(TIPOURL tipoParametro) {
         this.tipoParametro = tipoParametro;
     }
 
+    @Override
     public Class getTipoEntidade() {
         return tipoEntidade;
     }
 
+    @Override
     public void setTipoEntidade(Class<?> tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
     }

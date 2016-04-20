@@ -1,8 +1,9 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL.tipoPrURL;
+
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -49,7 +50,7 @@ public abstract class MB_SiteMapa implements Serializable {
                 "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
         erroCritico.addTag("erroCritico");
         erroCritico.addParametro(new ParametroURL("mensagem",
-                "Ocorreu um erro Crítico de sistema", tipoPrURL.TEXTO));
+                "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPOURL.TEXTO));
         systemPages.put(erroCritico.getNomeCurto(), erroCritico);
 
         String[] tagsErroSQL = {"erro-SQL"};
@@ -58,7 +59,7 @@ public abstract class MB_SiteMapa implements Serializable {
         erroSQL.addTag("erroSQLInfo");
 
         erroSQL.addParametro(new ParametroURL("mensagem",
-                "ocorreu um erro de informações de SQL", tipoPrURL.TEXTO));
+                "ocorreu um erro de informações de SQL", ItfParametroTela.TIPOURL.TEXTO));
         systemPages.put(erroSQL.getNomeCurto(), erroSQL);
 
         String[] tagsPrime = {"teste-prime"};
