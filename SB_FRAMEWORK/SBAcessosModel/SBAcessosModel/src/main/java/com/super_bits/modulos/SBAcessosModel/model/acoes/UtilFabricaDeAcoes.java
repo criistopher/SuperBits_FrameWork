@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.modulo.ItfFabricaModulo;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -19,6 +20,8 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,16 +49,16 @@ public abstract class UtilFabricaDeAcoes {
      * @return
      */
     public static ModuloAcaoSistema getModuloByFabrica(ItfFabricaAcoes pAcao) {
-        InfoModulo moduloanotacao = pAcao.getClass().getAnnotation(InfoModulo.class);
-        ModuloAcaoSistema moduloDaAcao = new ModuloAcaoSistema();
+
+        ItfFabricaModulo fabModulo = (ItfFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
+
+        ModuloAcaoSistema moduloDaAcao = (ModuloAcaoSistema) fabModulo.getModulo();
 
         if (moduloDaAcao == null) {
             throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
         }
 
-        moduloDaAcao.setNome(moduloanotacao.nomeDoModulo());
         moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
-        moduloDaAcao.setDescricao(moduloanotacao.descricao());
 
         return moduloDaAcao;
 

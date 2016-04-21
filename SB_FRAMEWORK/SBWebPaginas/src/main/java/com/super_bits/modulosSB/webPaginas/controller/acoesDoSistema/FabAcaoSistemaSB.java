@@ -13,10 +13,8 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.util.List;
 
 /**
  *
@@ -30,11 +28,6 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
     ACESSOS_MB_GERENCIAR,
     DEMONSTRACAO_MB_COMPONENTE,
     DEMONSTRACAO_MB_VALIDACAO;
-
-    @Override
-    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {

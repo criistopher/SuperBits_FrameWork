@@ -34,11 +34,6 @@ public enum FabTEste implements ItfFabricaAcoes {
     USUARIO_TESTE_FRM_EDITAR;
 
     @Override
-    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {
         return (ItfAcaoDoSistema) getRegistro();
     }

@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -48,6 +49,12 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @NotNull
     private String descricao;
 
+    @ManyToMany()
+    @JoinTable(name = "modulos_grupo",
+            joinColumns = @JoinColumn(name = "grupo_id"),
+            inverseJoinColumns = @JoinColumn(name = "modulo_id"))
+    private final List<ModuloAcaoSistema> modulos;
+
     private boolean tipoGrupoNativo;
 
     private String XhtmlPaginaInicial = "/site/homeAdministrador.xhtml";
@@ -79,6 +86,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
 
     public GrupoUsuarioSB() {
         super();
+        modulos = new ArrayList<>();
     }
 
     public void adcionaUsuario(ItfUsuario pUsuario) {
@@ -149,6 +157,16 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
 
     public void setTipoGrupoNativo(boolean tipoGrupoNativo) {
         this.tipoGrupoNativo = tipoGrupoNativo;
+    }
+
+    public List<ModuloAcaoSistema> getModulos() {
+        return modulos;
+    }
+
+    public void adicionarModulo(ModuloAcaoSistema modulo) {
+        if (!modulos.contains(modulo)) {
+            modulos.add(modulo);
+        }
     }
 
 }

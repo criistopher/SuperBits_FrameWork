@@ -24,13 +24,6 @@ import java.util.List;
 public interface ItfFabricaAcoes extends ItfFabrica {
 
     /**
-     * Não implementado ainda;
-     *
-     * @return
-     */
-    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo();
-
-    /**
      *
      * Retorna o mesmo que o getRegistro
      *

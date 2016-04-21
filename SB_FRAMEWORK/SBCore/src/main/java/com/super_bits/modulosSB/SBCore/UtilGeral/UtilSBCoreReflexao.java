@@ -5,11 +5,16 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import static com.super_bits.Controller.UtilSBController.getFabricaAcaoByMetodo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -361,6 +366,128 @@ public abstract class UtilSBCoreReflexao {
             return null;
         }
 
+    }
+
+    /**
+     *
+     *
+     *
+     * Retorna uma fabrica, de acordo com o nome do parametro da anotação.
+     *
+     * Exemplo: uma classe anotada com
+     *
+     * @InfoModulo(modulo=MinhaFabricaDeModulos.moduloPrincipal)
+     *
+     * Retornaria o fabrica do moduloPrincipal, quando pesquisado
+     * pNomemetodoAnotacao=modulo
+     *
+     *
+     * @param pClasse A classe onde a anotação será pesquisada
+     * @param pNomeMetodoAnotacao O nome do atributo que será pesquisado
+     * @param pararSistemaCasoNaoEncontre boolean informando se um paratudo deve
+     * ser gerado em caso de erro
+     * @return
+     */
+    public static ItfFabrica getFabricaDaClasseByAnotacao(Class pClasse, String pNomeMetodoAnotacao, boolean pararSistemaCasoNaoEncontre) {
+        try {
+
+            Annotation[] anotacoes = pClasse.getAnnotations();
+            try {
+                if (anotacoes != null) {
+
+                    for (Annotation a : anotacoes) {
+
+                        try {
+
+                            Method metodo = a.getClass().getMethod(pNomeMetodoAnotacao);
+                            try {
+
+                                ItfFabrica fabrica = (ItfFabricaAcoes) metodo.invoke(a);
+                                return fabrica;
+
+                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+
+                            }
+                        } catch (NoSuchMethodException | SecurityException ex) {
+
+                        }
+                    }
+
+                    throw new UnsupportedOperationException("Anotação de ação não foi encontrada no método" + pClasse.getName());
+
+                }
+            } catch (Throwable t) {
+                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pClasse.getName(), null);
+            }
+            return null;
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação por Método", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação para o  Método" + pClasse.getName() + " em " + pClasse.getDeclaringClass().getSimpleName(), t);
+            FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pClasse.getName(), t);
+            return null;
+        }
+    }
+
+    /**
+     *
+     *
+     *
+     * Retorna uma fabrica, de acordo com o nome do parametro da anotação.
+     *
+     * Exemplo: um metodo anotado com
+     *
+     * @InfoModulo(modulo=MinhaFabricaDeModulos.moduloPrincipal)
+     *
+     * Retornaria o fabrica do moduloPrincipal, quando pesquisado
+     * pNomemetodoAnotacao=modulo
+     *
+     *
+     * @param pMetodo O Método onde a anotação será pesquisada
+     * @param pNomeMetodoAnotacao O nome do atributo que será pesquisado
+     * @param pararSistemaCasoNaoEncontre boolean informando se um paratudo deve
+     * ser gerado em caso de erro
+     * @return
+     */
+    public static ItfFabrica getFabricaDoMetodoByAnotacao(Method pMetodo, String pNomeMetodoAnotacao, boolean pararSistemaCasoNaoEncontre) {
+        try {
+
+            Annotation[] anotacoes = pMetodo.getAnnotations();
+            try {
+                if (anotacoes != null) {
+
+                    for (Annotation a : anotacoes) {
+
+                        try {
+
+                            Method metodo = a.getClass().getMethod(pNomeMetodoAnotacao);
+                            try {
+
+                                ItfFabrica fabrica = (ItfFabricaAcoes) metodo.invoke(a);
+                                return fabrica;
+
+                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+
+                            }
+                        } catch (NoSuchMethodException | SecurityException ex) {
+
+                        }
+                    }
+
+                    throw new UnsupportedOperationException("Anotação de ação não foi encontrada no método" + pMetodo.getName());
+
+                }
+            } catch (Throwable t) {
+                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pMetodo.getName(), null);
+            }
+            return null;
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação por Método", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação para o  Método" + pMetodo.getName() + " em " + pMetodo.getDeclaringClass().getSimpleName(), t);
+            FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
+            return null;
+        }
     }
 
 }

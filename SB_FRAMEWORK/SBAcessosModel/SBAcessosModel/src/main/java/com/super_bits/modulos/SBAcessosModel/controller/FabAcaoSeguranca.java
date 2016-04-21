@@ -238,11 +238,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     }
 
     @Override
-    public List<ItfGrupoUsuario> getGruposVinculadosAoModulo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ItfAcaoDoSistema getRegistro() {
         return getAcaoDoSistema();
     }
