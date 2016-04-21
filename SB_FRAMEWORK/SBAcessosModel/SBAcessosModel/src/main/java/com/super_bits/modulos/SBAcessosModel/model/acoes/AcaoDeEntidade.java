@@ -9,6 +9,7 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
@@ -29,6 +30,7 @@ import javax.persistence.Entity;
 @Entity
 public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
+    @Transient
     private Class classeRelacionada;
 
     public AcaoDeEntidade() {

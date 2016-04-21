@@ -4,15 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.testesFW;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.lang.reflect.Method;
 
 /**
  *
@@ -24,17 +19,18 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
     private boolean validarAcoesNaoConfiguradas = false;
 
-    private boolean validatAcao(ItfAcaoDoSistema pAcaoDoSistema) {
+    private boolean validarAcao(ItfAcaoDoSistema pAcaoDoSistema) {
         try {
 
             assertNotNull("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema());
 
-            assertNotNull("O domínio da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getDominio());
+            assertNotNull("O domínio da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio());
 
             if (pAcaoDoSistema.isUmaAcaoFormulario()) {
 
                 assertNotNull("O Xhtml da ação de formulario" + pAcaoDoSistema.getNomeUnico() + " está nula", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
-                assertNotEquals("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco", "", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
+                assertFalse("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco",
+                        "".equals(((ItfAcaoFormulario) pAcaoDoSistema).getXhtml()));
 
             }
 
@@ -42,7 +38,7 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
                 assertNotNull("A ação principal não foi definida em " + pAcaoDoSistema.getNomeUnico(), ((ItfAcaoSecundaria) pAcaoDoSistema).getAcaoPrincipal());
             }
 
-            assertNotNull("O icone da ação " + pAcaoDoSistema.getIconeAcao() + " não foi definido", pAcaoDoSistema.getIconeAcao());
+            assertNotNull("O icone da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getIconeAcao());
 
             return true;
         } catch (Throwable t) {
@@ -65,8 +61,22 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
         for (Object obj : pFabricaDeAcoes.getEnumConstants()) {
             try {
-                ItfAcaoDoSistema novaAcao = ((ItfFabricaAcoes) obj).getAcaoDoSistema();
-                validatAcao(novaAcao);
+
+                ItfFabricaAcoes fabrica = (ItfFabricaAcoes) obj;
+                ItfAcaoDoSistema novaAcao = fabrica.getAcaoDoSistema();
+
+                if (novaAcao == null) {
+                    throw new UnsupportedOperationException("Ação " + pFabricaDeAcoes.toString() + " retornou nulo a partir da fábrica");
+                }
+
+                if (fabrica.getEntidadeDominio() == null) {
+                    throw new UnsupportedOperationException("Entidade da ação " + pFabricaDeAcoes.toString() + " não foi definido");
+                }
+                if (fabrica.getNomeModulo() == null) {
+                    throw new UnsupportedOperationException("O módulo da ação " + pFabricaDeAcoes.toString() + " não foi definido");
+                }
+
+                validarAcao(novaAcao);
 
             } catch (Throwable t) {
                 proseguiuSemErro = false;

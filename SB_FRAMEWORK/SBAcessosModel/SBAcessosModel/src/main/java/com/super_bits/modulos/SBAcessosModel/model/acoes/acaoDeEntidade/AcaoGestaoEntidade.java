@@ -7,10 +7,14 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.view.InfoPagina;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 /**
@@ -24,6 +28,12 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     private InfoPagina infoPagina;
     @Transient
     private boolean utilizarMesmoFormEditarInserir = true;
+
+    @OneToMany(mappedBy = "acaoPrincipal")
+    private List<AcaoSecundaria> acoesVinculadas;
+
+    @Transient
+    private List<ItfFabricaAcoes> enumAcoesVinculadas;
 
     public AcaoGestaoEntidade() {
         super();
@@ -64,6 +74,23 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     @Override
     public boolean isUmaAcaoGestaoDominio() {
         return true;
+    }
+
+    public List<AcaoSecundaria> getAcoesVinculadas() {
+
+        return acoesVinculadas;
+    }
+
+    public void setAcoesVinculadas(List<AcaoSecundaria> acoesVinculadas) {
+        this.acoesVinculadas = acoesVinculadas;
+    }
+
+    public List<ItfFabricaAcoes> getEnumAcoesVinculadas() {
+        return enumAcoesVinculadas;
+    }
+
+    public void setEnumAcoesVinculadas(List<ItfFabricaAcoes> enumAcoesVinculadas) {
+        this.enumAcoesVinculadas = enumAcoesVinculadas;
     }
 
 }

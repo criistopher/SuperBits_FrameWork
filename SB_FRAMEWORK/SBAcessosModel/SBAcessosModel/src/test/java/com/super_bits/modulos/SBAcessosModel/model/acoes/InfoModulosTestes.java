@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.fabrica;
+package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -25,10 +25,8 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface InfoModulo {
+public @interface InfoModulosTestes {
 
-    public String nomeDoModulo();
-
-    public String descricao();
+    public FabModulosTestes modulo();
 
 }

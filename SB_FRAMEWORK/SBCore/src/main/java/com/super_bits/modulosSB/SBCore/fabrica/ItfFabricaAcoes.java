@@ -27,22 +27,57 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * Retorna o mesmo que o getRegistro
      *
-     * @return
+     * @return Uma ação do sistema
      */
     public ItfAcaoDoSistema getAcaoDoSistema();
 
+    /**
+     *
+     * @return Uma ação vinculada a uma classe de Entidade específica
+     */
     public ItfAcaoEntidade getAcaoDeEntidade();
 
+    /**
+     *
+     * @return Uma ação referente a coleta de dados (ação de formulário)
+     */
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario();
 
+    /**
+     *
+     * Atenção: retorna erro caso a ação não seja deste tipo
+     *
+     * @return Uma ação do tipo Controller (que gera alteração no sistema)
+     * Contendo a Entidade Vinculada a ação
+     *
+     *
+     */
     public ItfAcaoControllerEntidade getAcaoEntidadeController();
 
+    /**
+     * Atenção: retorna erro caso a ação não seja deste tipo
+     *
+     * @return Uma ação do tipo Controller (que gera alteração no sistema)
+     */
     public ItfAcaoController getAcaoController();
 
+    /**
+     * Atenção: retorna erro caso a ação não seja deste tipo
+     *
+     * @return A ação de gestão de entidade,
+     */
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade();
 
-    public Class getDominio();
+    /**
+     *
+     * @return A Classe referente a Entidade principal do Domínio
+     */
+    public Class getEntidadeDominio();
 
+    /**
+     *
+     * @return Nome do módulo vinculado a ação
+     */
     public String getNomeModulo();
 
 }

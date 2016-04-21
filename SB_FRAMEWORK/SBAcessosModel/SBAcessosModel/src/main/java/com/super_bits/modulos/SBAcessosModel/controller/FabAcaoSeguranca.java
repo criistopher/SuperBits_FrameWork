@@ -19,17 +19,14 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-@InfoModulo(nomeDoModulo = "Seguranca", descricao = "Configurações de segurança do sistema")
+@InfoModulosSistemaSB(modulo = FabModulosSistemaSB.SEGURANCA)
 public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     GRUPOS_MB_GERENCIAR,
@@ -304,7 +301,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     }
 
     @Override
-    public Class getDominio() {
+    public Class getEntidadeDominio() {
         switch (this) {
             case GRUPOS_MB_GERENCIAR:
             case GRUPO_FRM_NOVO:

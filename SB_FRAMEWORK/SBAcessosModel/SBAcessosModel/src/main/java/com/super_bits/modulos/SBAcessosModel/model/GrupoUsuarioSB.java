@@ -50,9 +50,10 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     private String descricao;
 
     @ManyToMany()
-    @JoinTable(name = "modulos_grupo",
+    @JoinTable(name = "modulos_grupo", uniqueConstraints = @UniqueConstraint(columnNames = {"grupo_id", "modulo_id"}),
             joinColumns = @JoinColumn(name = "grupo_id"),
-            inverseJoinColumns = @JoinColumn(name = "modulo_id"))
+            inverseJoinColumns = @JoinColumn(name = "modulo_id")
+    )
     private final List<ModuloAcaoSistema> modulos;
 
     private boolean tipoGrupoNativo;
@@ -98,6 +99,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }

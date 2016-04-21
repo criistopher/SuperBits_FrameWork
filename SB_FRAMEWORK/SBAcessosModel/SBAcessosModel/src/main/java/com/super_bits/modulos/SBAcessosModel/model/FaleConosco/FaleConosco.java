@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class FaleConosco extends EntidadeNormal {
 
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String remetente;
-
+    @Column(nullable = false, updatable = false, insertable = false)
     private String tipoFaleConosco;
 
     @InfoCampo(tipo = FabCampos.EMAIL)

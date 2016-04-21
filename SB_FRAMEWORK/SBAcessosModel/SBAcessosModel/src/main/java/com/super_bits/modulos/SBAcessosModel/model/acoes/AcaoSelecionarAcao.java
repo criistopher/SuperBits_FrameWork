@@ -20,6 +20,10 @@ public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecion
     @Transient
     private List<ItfAcaoDoSistema> acoes;
 
+    public AcaoSelecionarAcao() {
+        super();
+    }
+
     public AcaoSelecionarAcao(List<ItfAcaoDoSistema> acoes) {
         super();
         this.acoes = acoes;

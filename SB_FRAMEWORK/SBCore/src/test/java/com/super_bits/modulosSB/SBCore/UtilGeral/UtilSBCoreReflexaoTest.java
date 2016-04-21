@@ -6,7 +6,8 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.List;
 import org.junit.Before;
@@ -34,7 +35,7 @@ public class UtilSBCoreReflexaoTest extends TesteJunit {
 
         try {
 
-            List<Class> classes = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoModulo.class, "com.super_bits");
+            List<Class> classes = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoClasse.class, "com.super_bits");
             assertTrue("nenhuma classe foi encontrada", classes.size() > 0);
 
         } catch (Throwable t) {

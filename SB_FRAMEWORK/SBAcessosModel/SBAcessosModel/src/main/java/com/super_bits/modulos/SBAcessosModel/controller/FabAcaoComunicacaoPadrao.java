@@ -11,16 +11,13 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-@InfoModulo(descricao = "Comunicação do sistema", nomeDoModulo = "Módulo Comunicação")
+@InfoModulosSistemaSB(modulo = FabModulosSistemaSB.COMUNICACAO)
 public enum FabAcaoComunicacaoPadrao implements ItfFabricaAcoes {
 
     FALE_CONOSCO_MB_GERENCIAR,
@@ -73,7 +70,7 @@ public enum FabAcaoComunicacaoPadrao implements ItfFabricaAcoes {
     }
 
     @Override
-    public Class getDominio() {
+    public Class getEntidadeDominio() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -402,7 +402,7 @@ public abstract class UtilSBCoreReflexao {
                             Method metodo = a.getClass().getMethod(pNomeMetodoAnotacao);
                             try {
 
-                                ItfFabrica fabrica = (ItfFabricaAcoes) metodo.invoke(a);
+                                ItfFabrica fabrica = (ItfFabrica) metodo.invoke(a);
                                 return fabrica;
 
                             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
@@ -417,7 +417,7 @@ public abstract class UtilSBCoreReflexao {
 
                 }
             } catch (Throwable t) {
-                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pClasse.getName(), null);
+                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica a partir da classe certifique que a classe tenha uma anotação informando o parametro " + pNomeMetodoAnotacao + " vinculado a" + pClasse.getName(), t);
             }
             return null;
 
@@ -463,7 +463,7 @@ public abstract class UtilSBCoreReflexao {
                             Method metodo = a.getClass().getMethod(pNomeMetodoAnotacao);
                             try {
 
-                                ItfFabrica fabrica = (ItfFabricaAcoes) metodo.invoke(a);
+                                ItfFabrica fabrica = (ItfFabrica) metodo.invoke(a);
                                 return fabrica;
 
                             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
@@ -478,7 +478,7 @@ public abstract class UtilSBCoreReflexao {
 
                 }
             } catch (Throwable t) {
-                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando a ação vinculada" + pMetodo.getName(), null);
+                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando o parametro " + pNomeMetodoAnotacao + " no metodo " + pMetodo.getName(), null);
             }
             return null;
 

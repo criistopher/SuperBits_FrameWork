@@ -13,20 +13,21 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 /**
  *
  * @author desenvolvedor
  */
-public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFormulario, ItfAcaoSecundaria, ItfAcaoFormularioEntidade {
+@Entity
+public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFormulario, ItfAcaoSecundaria, ItfAcaoFormularioEntidade {
 
-    @Transient
-    private ItfAcaoGerenciarEntidade acaoPrincipal;
     @Transient
     private List<CaminhoCampoReflexao> camposDoFormulario;
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
@@ -79,11 +80,6 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
         camposDoFormulario = new ArrayList<>();
     }
 
-    @Override
-    public ItfAcaoGerenciarEntidade getAcaoPrincipal() {
-        return acaoPrincipal;
-    }
-
     public List<CaminhoCampoReflexao> getCamposDoFormulario() {
         return camposDoFormulario;
     }
@@ -116,11 +112,6 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     @Override
     public void setXhtml(String pXhtml) {
         xhtml = pXhtml;
-    }
-
-    @Override
-    public final void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
-        acaoPrincipal = pAcaoPrincipal;
     }
 
     @Override

@@ -10,10 +10,12 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
+import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
@@ -22,7 +24,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
  *
  * @author desenvolvedor
  */
-@InfoModulo(nomeDoModulo = "Sistema", descricao = "Ações basicas do sistema")
+@InfoModulosSistemaSB(modulo = FabModulosSistemaSB.COMUNICACAO)
 public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
     ACESSOS_MB_GERENCIAR,
@@ -78,7 +80,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
     }
 
     @Override
-    public Class getDominio() {
+    public Class getEntidadeDominio() {
         switch (this) {
             case ACESSOS_MB_GERENCIAR:
                 break;

@@ -18,10 +18,8 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGest
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,6 +59,32 @@ public abstract class UtilFabricaDeAcoes {
         moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
 
         return moduloDaAcao;
+
+    }
+
+    public static String getNomeDominio(ItfFabricaAcoes pAcao) {
+
+        String nomeAcao = pAcao.toString();
+        String dominio = nomeAcao.split("_")[0];
+        return dominio;
+    }
+
+    public static List<ItfFabricaAcoes> getSubAcoesDaAcaoPrincipal(ItfFabricaAcoes pAcaoPrincipal) {
+        List<ItfFabricaAcoes> acoes = new ArrayList<>();
+        String nomeDominio = getNomeDominio(pAcaoPrincipal);
+        for (ItfFabricaAcoes acao : pAcaoPrincipal.getClass().getEnumConstants()) {
+
+            // Verificando se a ação inicia igual
+            if (nomeDominio.equals(getNomeDominio(acao))) {
+                //verificando se os dois possuem a mesma classe
+                if (acao.getEntidadeDominio().equals(pAcaoPrincipal.getEntidadeDominio())) {
+                    if (acao != pAcaoPrincipal) {
+                        acoes.add(acao);
+                    }
+                }
+            }
+        }
+        return acoes;
 
     }
 
@@ -167,10 +191,10 @@ public abstract class UtilFabricaDeAcoes {
 
     public static ItfFabricaAcoes getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
         try {
-            Class classeDominioDaAcao = pAcao.getDominio();
+            Class classeDominioDaAcao = pAcao.getEntidadeDominio();
             for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
                 // verifica se a classe de dominio é a mesma da ação enviada
-                Class dominioDaAcaoAtual = acao.getDominio();
+                Class dominioDaAcaoAtual = acao.getEntidadeDominio();
                 if (dominioDaAcaoAtual != null) {
                     if (dominioDaAcaoAtual.getName().equals(classeDominioDaAcao.getName())) {
                         // verifica se alem de ser o mesmo dominio possui o MB
@@ -222,8 +246,8 @@ public abstract class UtilFabricaDeAcoes {
 
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
-            String diretorioBaseEntidade = "/site/" + pAcao.getNomeModulo().toLowerCase() + "/" + pAcao.getDominio().getSimpleName().toLowerCase();
-            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getDominio());
+            String diretorioBaseEntidade = "/site/" + pAcao.getNomeModulo().toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getEntidadeDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
             AcaoGestaoEntidade acaoPrincipal = null;
@@ -244,6 +268,7 @@ public abstract class UtilFabricaDeAcoes {
                         novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
                     }
                     novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
+
                     break;
                 case FORMULARIO_EDITAR:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
@@ -349,8 +374,9 @@ public abstract class UtilFabricaDeAcoes {
                 case FORMULARIO_MODAL:
                     break;
                 case GERENCIAR_DOMINIO:
-                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
-                    break;
+                    AcaoGestaoEntidade novaAcaoGestao = new AcaoGestaoEntidade(pAcao, pAcao.getEntidadeDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
+                    novaAcaoGestao.setEnumAcoesVinculadas(getSubAcoesDaAcaoPrincipal(pAcao));
+                    return novaAcaoGestao;
                 case CONTROLLER_REMOVER:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     break;
@@ -365,6 +391,7 @@ public abstract class UtilFabricaDeAcoes {
             if (novaAcao == null) {
                 throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao" + pAcao + " verifique a nomeclatura de acordo com a documentação e tente novamente");
             }
+
             return novaAcao;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);

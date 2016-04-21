@@ -13,17 +13,14 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-@InfoModulo(descricao = "Modulo teste", nomeDoModulo = "Nome do modulo")
+@InfoModulosTestes(modulo = FabModulosTestes.MODULO_TESTE)
 public enum FabTEste implements ItfFabricaAcoes {
 
     OBJETO_FRM_NOVO,
@@ -64,7 +61,7 @@ public enum FabTEste implements ItfFabricaAcoes {
     }
 
     @Override
-    public Class getDominio() {
+    public Class getEntidadeDominio() {
 
         switch (this) {
             case OBJETO_FRM_NOVO:
