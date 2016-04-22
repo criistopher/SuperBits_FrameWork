@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -47,6 +49,16 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @ManyToMany
     private List<Bairro> bairros;
 
+    private String sigla;
+
+    private int quantidadeCidades;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date criadoEm;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date alteradoEM;
+
     @NotNull
     @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status")
     private boolean ativo;
@@ -75,10 +87,12 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
         this.bairros = bairros;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -89,6 +103,38 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    public int getQuantidadeCidades() {
+        return quantidadeCidades;
+    }
+
+    public void setQuantidadeCidades(int quantidadeCidades) {
+        this.quantidadeCidades = quantidadeCidades;
+    }
+
+    public Date getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(Date criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public Date getAlteradoEM() {
+        return alteradoEM;
+    }
+
+    public void setAlteradoEM(Date alteradoEM) {
+        this.alteradoEM = alteradoEM;
     }
 
 }
