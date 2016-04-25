@@ -9,10 +9,12 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -32,8 +34,17 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     @NotNull
     @Column(length = 200, nullable = false)
-    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String assunto;
+
+    @NotNull
+    @Column(length = 200, nullable = false)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    private String remetente;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    private Date dataInclusao;
 
     @NotNull
     @Column(length = 100, nullable = false)
@@ -50,8 +61,17 @@ public class AssuntoFaleConosco extends EntidadeNormal {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getRemetente() {
+        return remetente;
+    }
+
+    public void setRemetente(String remetente) {
+        this.remetente = remetente;
     }
 
     @Override
@@ -98,6 +118,14 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getDataInclusao() {
+        return dataInclusao;
+    }
+
+    public void setDataInclusao(Date dataInclusao) {
+        this.dataInclusao = dataInclusao;
     }
 
 }
