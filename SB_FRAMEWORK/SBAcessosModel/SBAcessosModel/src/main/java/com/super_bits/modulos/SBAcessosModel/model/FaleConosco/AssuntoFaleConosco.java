@@ -34,7 +34,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     @NotNull
     @Column(length = 200, nullable = false)
-    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "assunto")
     private String assunto;
 
     @NotNull
@@ -54,6 +54,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
     private String email;
 
     @NotNull
+    @InfoCampo(tipo = FabCampos.QUANTIDADE)
     private Integer tempoResposta;
 
     @Override

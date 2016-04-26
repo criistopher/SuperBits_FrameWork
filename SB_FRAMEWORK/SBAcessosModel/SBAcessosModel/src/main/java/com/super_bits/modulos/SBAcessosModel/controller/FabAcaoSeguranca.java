@@ -11,6 +11,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.Ips.Ips;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
@@ -46,7 +47,13 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_FRM_LISTAR_GRUPOS,
     USUARIO_CTR_ALTERAR_STATUS,
     USUARIO_FRM_LISTARGRUPOS,
-    ACAO_CTR_INTERNA_DO_SISTEMA;
+    ACAO_CTR_INTERNA_DO_SISTEMA,
+    IP_FRM_NOVO,
+    IP_CTR_SALVAR_MERGE,
+    IP_MB_GERENCIAR,
+    IP_FRM_LISTAR,
+    IP_FRM_EDITAR,
+    IP_CTR_REMOVER;
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
@@ -227,6 +234,69 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 acao.setIconeAcao("fa fa-align-justify");
                 acaoFormularioListar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/grupo/listarGrupos.xhtml");
                 break;
+
+            case IP_MB_GERENCIAR:
+
+                AcaoGestaoEntidade acaoGestaoEntidade = (AcaoGestaoEntidade) acao;
+
+                acaoGestaoEntidade.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/gerenciar.xhtml");
+                acaoGestaoEntidade.setDescricao("Gerenciamento de IP's");
+                acaoGestaoEntidade.setIconeAcao("fa fa-gears");
+                acaoGestaoEntidade.setPrecisaPermissao(true);
+                acaoGestaoEntidade.setIdDescritivoJira("");
+
+                break;
+
+            case IP_FRM_NOVO:
+
+                AcaoFormularioEntidade ipNovo = (AcaoFormularioEntidade) acao;
+
+                ipNovo.setNomeAcao("Cadastrar um IP");
+                ipNovo.setDescricao("Cadastra um novo IP com autorizacao");
+                ipNovo.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/editar.xhtml");
+                ipNovo.setPrecisaPermissao(true);
+
+                break;
+            case IP_CTR_SALVAR_MERGE:
+
+                AcaoDeEntidadeController ipSalvar = (AcaoDeEntidadeController) acao;
+
+                ipSalvar.setNomeAcao("Salvar IP");
+                ipSalvar.setDescricao("Salva um novo IP cadastrado");
+                ipSalvar.setPrecisaPermissao(true);
+
+                break;
+            case IP_FRM_LISTAR:
+
+                AcaoFormularioEntidade ipListar = (AcaoFormularioEntidade) acao;
+
+                ipListar.setNomeAcao("Listar IP");
+                ipListar.setDescricao("Exibe lista de IP já autorizados");
+                ipListar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/listar.xhtml");
+                ipListar.setPrecisaPermissao(true);
+
+                break;
+            case IP_FRM_EDITAR:
+
+                AcaoFormularioEntidade ipEditar = (AcaoFormularioEntidade) acao;
+
+                ipEditar.setNomeAcao("Alterar IP autorizado");
+                ipEditar.setDescricao("Altera os dados de um IP autorizado");
+                ipEditar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/editar.xhtml");
+                ipEditar.setPrecisaPermissao(true);
+
+                break;
+            case IP_CTR_REMOVER:
+
+                AcaoDeEntidadeController ipRemover = (AcaoDeEntidadeController) acao;
+
+                ipRemover.setNomeAcao("Remover IP");
+                ipRemover.setDescricao("Remove um IP já autorizado");
+                ipRemover.setPrecisaPermissao(true);
+                ipRemover.setIconeAcao("fa fa-minus");
+
+                break;
+
             default:
                 throw new AssertionError(this.name());
 
@@ -326,6 +396,14 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
             case ACAO_CTR_INTERNA_DO_SISTEMA:
                 return UsuarioSB.class;
+
+            case IP_CTR_REMOVER:
+            case IP_CTR_SALVAR_MERGE:
+            case IP_FRM_EDITAR:
+            case IP_FRM_LISTAR:
+            case IP_FRM_NOVO:
+            case IP_MB_GERENCIAR:
+                return Ips.class;
 
             default:
                 throw new AssertionError(this.name());

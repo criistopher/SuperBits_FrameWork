@@ -36,6 +36,8 @@ public interface ItfPaginaGerenciarEntidade<T> extends ItfB_Pagina {
 
     public boolean isPodeEditar();
 
+    public boolean isTemVisualizar();
+
     public boolean isTemNovo();
 
     public boolean isTemEditar();

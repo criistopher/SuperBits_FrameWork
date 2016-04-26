@@ -86,7 +86,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         }
 
         try {
-            visualisarDados();
+            if (pagina.isTemVisualizar()) {
+                visualisarDados();
+            }
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }

@@ -166,10 +166,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa, true);
 
+        temVisualizar = pTemVisualizar;
+        temNovo = pTemNovo;
         temEditar = pTemEditar;
         temAlterarStatus = pTemAlterarStatus;
-        temNovo = pTemNovo;
-        temVisualizar = pTemVisualizar;
+
         configuraAcoes();
     }
 
@@ -289,6 +290,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public boolean isTemNovo() {
         return temNovo;
+    }
+
+    @Override
+    public boolean isTemVisualizar() {
+        return temVisualizar;
     }
 
     @Override
@@ -443,4 +449,5 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     public ItfAcaoFormularioEntidade getAcaoVisualisar() {
         return acaoEntidadeVisualizar;
     }
+
 }
