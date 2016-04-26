@@ -393,7 +393,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             }
 
-            if (pr.getTipoParametro() == ItfParametroTela.TIPOURL.ENTIDADE) {
+            if (pr.getTipoParametro() == ItfParametroTela.TIPO_URL.ENTIDADE) {
                 try {
                     camada = ((ItfBeanSimples) valorParametro).getNomeCurto();
                     camada = UtilSBCoreStrings.makeStrUrlAmigavel(camada);
@@ -491,7 +491,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         getTags().add(pTag);
     }
 
-    public void addParametro(String pNome, String pValorPadrao, ItfParametroTela.TIPOURL ptipo) {
+    public void addParametro(String pNome, String pValorPadrao, ItfParametroTela.TIPO_URL ptipo) {
         getMapaParametros().put(pNome,
                 new ParametroURL(pNome, pValorPadrao, ptipo));
     }

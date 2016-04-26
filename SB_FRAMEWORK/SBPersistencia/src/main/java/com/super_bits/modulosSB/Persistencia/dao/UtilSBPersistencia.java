@@ -945,6 +945,31 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     /**
      *
+     * Carrega uma entidade apartir de um Bean Simples
+     *
+     * -> Um objeto que ainda não foi carregado pelo hibernate possui as funções
+     * referentes a lista limitadas, para casos onde o Objeto é construido fora
+     * do banco de dados
+     *
+     * @param pBeanSimples O bean que será carregado
+     * @param pEM Entity manager utlizado
+     * @return
+     */
+    public static Object loadEntidade(ItfBeanSimples pBeanSimples, EntityManager pEM) {
+        try {
+            if (pBeanSimples == null) {
+                throw new UnsupportedOperationException("Tentativa de carregar o Registro JPA enviando o valor nulo");
+            }
+            return selecaoRegistro(pEM, null, null, pBeanSimples.getClass(), UtilSBPersistencia.TipoSelecaoRegistro.ID, pBeanSimples.getId());
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Tentativa de carregar entidade apartide de um bean nulo", t);
+        }
+        return null;
+
+    }
+
+    /**
+     *
      * Retorna o primeiro registro da tabela
      *
      * @param pClasse Classe Entity que representa a tabela

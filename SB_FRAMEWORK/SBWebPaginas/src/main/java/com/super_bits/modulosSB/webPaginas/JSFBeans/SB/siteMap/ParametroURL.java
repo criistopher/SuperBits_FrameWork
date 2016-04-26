@@ -9,12 +9,12 @@ import java.io.Serializable;
  *
  * @author Salvio
  */
-public class ParametroURL implements ItfParametroTela {
+public final class ParametroURL implements ItfParametroTela {
 
     private Object valor;
     private Object valorPadrao;
     private String nome;
-    private TIPOURL tipoParametro;
+    private TIPO_URL tipoParametro;
     private Class tipoEntidade;
 
     /**
@@ -24,7 +24,7 @@ public class ParametroURL implements ItfParametroTela {
      * @param ptipo TIPO: Entidade, STring simples e Outros
      * @param pEntidade Classe que representa a Entidade
      */
-    public ParametroURL(String pNome, Object pValorPadrao, TIPOURL ptipo, Class pEntidade) {
+    public ParametroURL(String pNome, Object pValorPadrao, TIPO_URL ptipo, Class pEntidade) {
         setNome(pNome);
         setValor(pValorPadrao);
         setValorPadrao(pValorPadrao);
@@ -38,12 +38,12 @@ public class ParametroURL implements ItfParametroTela {
      * @param pValorPadrao Valor Padrão
      * @param ptipo Tipo de parametro (string ou Entidade)
      */
-    public ParametroURL(String pNome, Object pValorPadrao, TIPOURL ptipo) {
+    public ParametroURL(String pNome, Object pValorPadrao, TIPO_URL ptipo) {
         setNome(pNome);
         setValor(pValorPadrao);
         setValorPadrao(pValorPadrao);
         setTipoParametro(ptipo);
-        if (ptipo == TIPOURL.ENTIDADE) {
+        if (ptipo == TIPO_URL.ENTIDADE) {
 
             try {
                 throw new ErroSBCriticoWeb("Criação de parametro de URL do tipo entidade sem especificar a Classe");
@@ -86,12 +86,12 @@ public class ParametroURL implements ItfParametroTela {
     }
 
     @Override
-    public TIPOURL getTipoParametro() {
+    public TIPO_URL getTipoParametro() {
         return tipoParametro;
     }
 
     @Override
-    public void setTipoParametro(TIPOURL tipoParametro) {
+    public void setTipoParametro(TIPO_URL tipoParametro) {
         this.tipoParametro = tipoParametro;
     }
 

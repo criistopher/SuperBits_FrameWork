@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public interface ItfParametroTela extends Serializable {
 
-    public static enum TIPOURL {
+    public static enum TIPO_URL {
 
         TEXTO, ENTIDADE, OBJETO_COM_CONSTRUCTOR
     }
@@ -21,7 +21,7 @@ public interface ItfParametroTela extends Serializable {
 
     Class getTipoEntidade();
 
-    TIPOURL getTipoParametro();
+    TIPO_URL getTipoParametro();
 
     Object getValor();
 
@@ -31,7 +31,7 @@ public interface ItfParametroTela extends Serializable {
 
     void setTipoEntidade(Class<?> tipoEntidade);
 
-    void setTipoParametro(TIPOURL tipoParametro);
+    void setTipoParametro(TIPO_URL tipoParametro);
 
     void setValor(Object valor);
 
