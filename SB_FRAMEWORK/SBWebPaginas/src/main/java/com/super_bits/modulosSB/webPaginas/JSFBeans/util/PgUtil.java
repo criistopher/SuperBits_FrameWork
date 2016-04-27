@@ -112,7 +112,11 @@ public class PgUtil implements Serializable {
     public void atualizaTelaPorID(String idAtualizacao) {
 
         String id = idAtualizacao;
-        System.out.println("Atualizando o id" + id);
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+            System.out.println("Atualizando a exibição dos componentes nomeados com: " + id);
+
+        }
+
         if (id == null) {
             UtilSBWP_JSFTools.mensagens().erroSistema("o atributo idAtualizacao não foi encontrado, é necessário criar o atributo no componente" + idAtualizacao);
         }

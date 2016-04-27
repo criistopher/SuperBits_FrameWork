@@ -98,7 +98,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
         xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
-        System.out.println("xhtml Ação atual=" + xhtmlAcaoAtual);
+
         if (getAcaoVinculada() != null) {
             classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
         }
@@ -177,6 +177,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public void executarAcao(T pEntidadeSelecionada) {
 
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+            System.out.println("Executando Acao" + acaoSelecionada.getNomeAcao());
+
+        }
+
         if (acaoSelecionada == null) {
             try {
                 UtilSBWP_JSFTools.mensagens().enviaMensagem(FabMensagens.ALERTA.getMsgUsuario("Nenhuma  ação foi selecionada"));
@@ -198,15 +203,34 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         if (acaoSelecionada.isUmaAcaoFormulario()) {
             xhtmlAcaoAtual = ((ItfAcaoFormulario) acaoSelecionada).getXhtml();
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+                System.out.println("O xhtml da ação foi alterado para o XTML:" + xhtmlAcaoAtual + " da açao " + acaoSelecionada.getNomeAcao());
+
+            }
+
         }
 
         if (pEntidadeSelecionada != null) {
+
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+                System.out.println("Uma nova Entidade foi enviada no método, a entidade é " + getEntidadeSelecionada().toString());
+
+            }
+
             setEntidadeSelecionada(pEntidadeSelecionada);
         }
 
         if (acaoSelecionada.equals(acaoListarRegistros)) {
+
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
+
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+                System.out.println("Definindo modo somente leitura e Atualizando os dados da lista");
+
+            }
+
             listarDados();
+
             paginaUtil.atualizaTelaPorID("formulario");
 
         }
