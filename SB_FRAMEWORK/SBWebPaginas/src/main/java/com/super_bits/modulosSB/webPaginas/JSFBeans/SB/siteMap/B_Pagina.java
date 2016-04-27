@@ -308,7 +308,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 addTag(tg);
             }
         } catch (Exception e) {
-            FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina", e);
+            FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina da pagina" + this.getClass().getSimpleName(), e);
 
         }
 
@@ -325,7 +325,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 setRecursoXHTML(acaoVinculada.getXhtml());
 
             } catch (Throwable t) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN", t);
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN " + this.getClass().getSimpleName(), t);
                 FabErro.PARA_TUDO.paraSistema("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString(), t);
             }
         }
@@ -370,7 +370,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 try {
                     field.set(this, field.getName());
                 } catch (IllegalArgumentException | IllegalAccessException ex) {
-                    FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando anotações de InfoBean", ex);
+                    FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando anotações de InfoBean de " + this.getClass().getSimpleName(), ex);
                 }
             }
 
@@ -407,7 +407,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                     camada = UtilSBCoreStrings.makeStrUrlAmigavel(camada);
                 } catch (Exception e) {
 
-                    FabErro.PARA_TUDO.paraSistema("IMPOSSÍVEL OBTER O VALOR DO PARAMETRO DE URL DA ENTIDADE " + pr.getNome(), e);
+                    FabErro.PARA_TUDO.paraSistema("IMPOSSÍVEL OBTER O VALOR DO PARAMETRO DE URL DA ENTIDADE " + pr.getNome() + "em " + this.getClass().getSimpleName(), e);
                 }
             } else {
                 camada = UtilSBCoreStrings.makeStrUrlAmigavel((String) valorParametro);
