@@ -167,32 +167,40 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     protected void configParametros() {
-        System.out.println("Configurando paramentros:: ");
-        List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
-        System.out.println(lista.size() + "parametos encontrados" + lista);
-        parametrosURL = new HashMap<>();
-        for (ParametroURL pr : lista) {
-            parametrosURL.put(pr.getNome(), pr);
-            // System.out.println("add"+pr.getNome());
+        try {
+            System.out.println("Configurando paramentros:: ");
+            List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
+            System.out.println(lista.size() + "parametos encontrados" + lista);
+            parametrosURL = new HashMap<>();
+            for (ParametroURL pr : lista) {
+                parametrosURL.put(pr.getNome(), pr);
+                // System.out.println("add"+pr.getNome());
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando parametros da pagina" + this.getClass().getSimpleName(), t);
         }
 
     }
 
     private void aplicarAnotacoes() {
-        if (anotacoesConfiguradas) {
-            return;
+        try {
+            if (anotacoesConfiguradas) {
+                return;
+            }
+            anotacoesConfiguradas = true;
+            configAnotacoesClasse();
+            System.out.println("Configurando Anotações de Bean");
+            configAnotacoesBeans();
+            System.out.println("Configurando Anotações de Parametros");
+
+            System.out.println("Aplicando valores");
+            nomeMB = "#{" + this.getClass().getSimpleName() + "}";
+            System.out.println("Configurando Anotações de Pagnia");
+
+            System.out.println("Constructor da pagina " + this.getClass().getName() + " finalizado");
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro aplicando anotações da pagina" + this.getClass().getName(), t);
         }
-        anotacoesConfiguradas = true;
-        configAnotacoesClasse();
-        System.out.println("Configurando Anotações de Bean");
-        configAnotacoesBeans();
-        System.out.println("Configurando Anotações de Parametros");
-
-        System.out.println("Aplicando valores");
-        nomeMB = "#{" + this.getClass().getSimpleName() + "}";
-        System.out.println("Configurando Anotações de Pagnia");
-
-        System.out.println("Constructor da pagina " + this.getClass().getName() + " finalizado");
     }
 
     protected void aplicaValoresURLEmParametros(Boolean forcarAtualizacao) {
@@ -261,7 +269,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
             parametrosDeUrlPreenchido = tudoPreenchido;
         } catch (Exception e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro aplicando Valores de parametros da pagina pela URL", e);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro aplicando Valores de parametros da pagina" + this.getClass() + " pela URL", e);
         }
 
     }
