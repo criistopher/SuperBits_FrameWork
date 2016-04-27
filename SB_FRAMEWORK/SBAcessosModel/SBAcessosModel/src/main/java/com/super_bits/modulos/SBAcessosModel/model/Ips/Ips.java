@@ -38,6 +38,9 @@ public class Ips extends EntidadeNormal {
     @NotNull
     private String finalFaixa;
 
+    @NotNull
+    private String dns;
+
     @ManyToOne(targetEntity = TipoIp.class)
     private TipoIp tipo;
 
@@ -78,6 +81,14 @@ public class Ips extends EntidadeNormal {
 
     public void setTipo(TipoIp tipo) {
         this.tipo = tipo;
+    }
+
+    public String getDns() {
+        return dns;
+    }
+
+    public void setDns(String dns) {
+        this.dns = dns;
     }
 
 }
