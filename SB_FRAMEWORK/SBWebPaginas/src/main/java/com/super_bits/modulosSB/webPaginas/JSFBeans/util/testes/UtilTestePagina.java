@@ -41,7 +41,7 @@ public abstract class UtilTestePagina {
         Assert.assertNotSame("O Icone da acao " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " esta nulo", "");
 
         if (!(icone.startsWith("fa ") || icone.startsWith("icon"))) {
-            throw new UnsupportedOperationException("O ícone " + icone + " deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)");
+            throw new UnsupportedOperationException("O ícone  da ação " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + icone + " deveria começar com [fa ] (Para os fontawsome) ou [icon] (para os icones nativos)");
         }
         if (icone.startsWith("fa ")) {
 
