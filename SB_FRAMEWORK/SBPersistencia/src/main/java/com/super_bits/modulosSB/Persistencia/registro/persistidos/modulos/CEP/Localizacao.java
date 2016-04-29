@@ -6,7 +6,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
-import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;

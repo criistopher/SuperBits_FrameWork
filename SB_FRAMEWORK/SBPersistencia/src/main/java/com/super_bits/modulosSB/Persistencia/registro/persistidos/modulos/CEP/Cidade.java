@@ -1,21 +1,16 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
-
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;

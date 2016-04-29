@@ -6,7 +6,6 @@
 package com.super_bits.modulosSB.Persistencia.dao;
 
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
-import java.util.List;
 
 /**
  *
