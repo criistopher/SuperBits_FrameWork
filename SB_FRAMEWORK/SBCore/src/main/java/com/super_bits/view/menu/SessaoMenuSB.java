@@ -316,4 +316,9 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         return true;
     }
 
+    @Override
+    public String getNomeUnicoSlug() {
+        return getNomeCurto() + "-" + getId();
+    }
+
 }

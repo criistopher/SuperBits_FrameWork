@@ -206,4 +206,10 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     public void setId(int pID) {
         setValorByTipoCampoEsperado(FabCampos.ID, pID);
     }
+
+    @Override
+    public String getNomeUnicoSlug() {
+        return getNomeCurto() + "-" + getId();
+    }
+
 }

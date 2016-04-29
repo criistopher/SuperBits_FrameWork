@@ -110,4 +110,9 @@ public class ItemSimples extends ItemGenerico implements
         setValorByTipoCampoEsperado(FabCampos.ID, pID);
     }
 
+    @Override
+    public String getNomeUnicoSlug() {
+        return getNomeCurto() + "-" + getId();
+    }
+
 }

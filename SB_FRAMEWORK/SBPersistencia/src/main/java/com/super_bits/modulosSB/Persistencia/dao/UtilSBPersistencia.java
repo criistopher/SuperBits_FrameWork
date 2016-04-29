@@ -5,13 +5,14 @@
 package com.super_bits.modulosSB.Persistencia.dao;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoPessoa;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

@@ -84,13 +84,17 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private List<GrupoUsuarioSB> gruposAdicionais;
 
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraAlteracao;
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraInsersao;
 
     @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    @ManyToOne
     private UsuarioSB usuarioInsercao;
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    @ManyToOne
     private UsuarioSB usuarioAlteracao;
 
     public UsuarioSB() {

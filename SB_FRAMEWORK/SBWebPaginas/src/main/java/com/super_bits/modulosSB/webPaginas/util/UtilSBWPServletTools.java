@@ -108,6 +108,13 @@ public class UtilSBWPServletTools {
         return null;
     }
 
+    /**
+     *
+     * Retorna uma lista de Strings com os parametros enviados na url
+     *
+     * @param pURL
+     * @return
+     */
     public static List<String> getParametrosDaPagina(String pURL) {
         int inicioParametros = 0;
 

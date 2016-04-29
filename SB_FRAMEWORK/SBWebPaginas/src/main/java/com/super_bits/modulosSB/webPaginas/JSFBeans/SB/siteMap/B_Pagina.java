@@ -47,7 +47,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private int id;
     private Boolean abriuPagina = false;
     private final List<String> tags = new ArrayList<>();
-    private Map<String, ParametroURL> parametrosURL = new HashMap<String, ParametroURL>();
+    private final Map<String, ParametroURL> parametrosURL = new HashMap<>();
     private boolean parametrosDeUrlPreenchido = false;
     protected boolean foiInjetado = false;
     private boolean anotacoesConfiguradas = false;
@@ -171,7 +171,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             System.out.println("Configurando paramentros:: ");
             List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
             System.out.println(lista.size() + "parametos encontrados" + lista);
-            parametrosURL = new HashMap<>();
+            parametrosURL.clear();
             for (ParametroURL pr : lista) {
                 parametrosURL.put(pr.getNome(), pr);
                 // System.out.println("add"+pr.getNome());
@@ -203,11 +203,21 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
     }
 
-    protected void aplicaValoresURLEmParametros(Boolean forcarAtualizacao) {
+    @Override
+    public void aplicaValoresDeParametrosModoDesenvolvimento(Map<String, String> valorStringPorParametro) {
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            throw new UnsupportedOperationException("O metodo aplicaValores de parametros modo DESENVOLVIMENTO só pode ser chamado com a aplicação no modo desenvolvimento");
+        }
+        aplicaValoresURLEmParametros(valorStringPorParametro);
+
+    }
+
+    protected void aplicaValoresURLEmParametros(Map<String, String> valorStringPorParametro) {
         // if (forcarAtualizacao)
 
         try {
-            Boolean tudoPreenchido = true;
+
+            /// Definindo Tag utilizada para abertura da pagina
             if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
                 tagUsada = (String) UtilSBWPServletTools.getRequestBean("tagUsada");
             } else {
@@ -220,54 +230,47 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 tagUsada = getTags().get(0);
 
             }
+
             for (String pr : getMapaParametros().keySet()) {
-                Object valorStringURL = UtilSBWPServletTools.getRequestBean(pr);
+                String valorStringURL = valorStringPorParametro.get(pr);
 
-                if (valorStringURL == null) {
-                    tudoPreenchido = false;
-                    System.out.println("parametro" + pr + "não encontrado na URL");
-                    parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
-                } else {
+                switch (parametrosURL.get(pr).getTipoParametro()) {
 
-                    switch (parametrosURL.get(pr).getTipoParametro()) {
+                    case ENTIDADE:
+                        ItfBeanSimples registroByURL = null;
+                        try {
+                            registroByURL = (ItfBeanSimples) UtilSBPersistencia.getRegistroByLikeNomeCurto(parametrosURL.get(pr).getTipoEntidade(), (String) valorStringURL, getEMPagina());
 
-                        case ENTIDADE:
-                            ItfBeanSimples registroByURL = null;
-                            try {
-                                registroByURL = (ItfBeanSimples) UtilSBPersistencia.getRegistroByLikeNomeCurto(parametrosURL.get(pr).getTipoEntidade(), (String) valorStringURL, getEMPagina());
+                        } catch (Exception e) {
+                            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo registro de parametroURL de entidade pela URL", e);
 
-                            } catch (Exception e) {
-                                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo registro de parametroURL de entidade pela URL", e);
+                        }
 
-                            }
-
-                            if (registroByURL == null) {
-                                // Se o Parametro não foi setado ainda Utiliza o valor Padrão
-                                if (parametrosURL.get(pr).getValor() == null) {
-                                    FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Não encontrado Registro" + parametrosURL.get(pr).getValor() + " do tipo" + parametrosURL.get(pr).getTipoEntidade().getSimpleName(), null);
-                                    parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
-                                    // caso contrario renova o Objeto
-                                } else {
-                                    ItfBeanSimples registroRenovado = (ItfBeanSimples) UtilSBPersistencia.getRegistroByID(parametrosURL.get(pr).getValor().getClass(), ((ItfBeanSimples) parametrosURL.get(pr).getValor()).getId(), getEMPagina());
-                                    parametrosURL.get(pr).setValor(registroRenovado);
-                                }
-
+                        if (registroByURL == null) {
+                            // Se o Parametro não foi setado ainda Utiliza o valor Padrão
+                            if (parametrosURL.get(pr).getValor() == null) {
+                                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Não encontrado Registro" + parametrosURL.get(pr).getValor() + " do tipo" + parametrosURL.get(pr).getTipoEntidade().getSimpleName(), null);
+                                parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
+                                // caso contrario renova o Objeto
                             } else {
-                                parametrosURL.get(pr).setValor(registroByURL);
+                                ItfBeanSimples registroRenovado = (ItfBeanSimples) UtilSBPersistencia.getRegistroByID(parametrosURL.get(pr).getValor().getClass(), ((ItfBeanSimples) parametrosURL.get(pr).getValor()).getId(), getEMPagina());
+                                parametrosURL.get(pr).setValor(registroRenovado);
                             }
-                            break;
-                        case TEXTO:
-                            parametrosURL.get(pr).setValor(valorStringURL);
 
-                            break;
-                        case OBJETO_COM_CONSTRUCTOR:
-                            throw new UnsupportedOperationException("Objeto com constructor ainda não foi implementado");
-                    }
+                        } else {
+                            parametrosURL.get(pr).setValor(registroByURL);
+                        }
+                        break;
+                    case TEXTO:
+                        parametrosURL.get(pr).setValor(valorStringURL);
 
+                        break;
+                    case OBJETO_COM_CONSTRUCTOR:
+                        throw new UnsupportedOperationException("Objeto com constructor ainda não foi implementado");
                 }
 
             }
-            parametrosDeUrlPreenchido = tudoPreenchido;
+
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro aplicando Valores de parametros da pagina" + this.getClass() + " pela URL", e);
         }
@@ -444,14 +447,30 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             // carregarAnotacoes();
             configParametros();
         }
+        Boolean tudoPreenchido = true;
+        // DEFININDO OS VALORES DE PARAMETROS POR URL
+        Map<String, String> valoresStrPorParametro = new HashMap<>();
+        for (String pr : getMapaParametros().keySet()) {
+            Object valorStringURL = UtilSBWPServletTools.getRequestBean(pr);
 
-        aplicaValoresURLEmParametros(true);
+            /// SE O PARAMETRO NÃO FOI DEFINIDO NO REQUEST MARCA COMO NÃO PREENCHIDO, E REDIRECIONA PARA PAGINA PADRÃO
+            if (valorStringURL == null) {
+                tudoPreenchido = false;
+                System.out.println("parametro" + pr + "não encontrado na URL");
+                parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
+            } else {
+                valoresStrPorParametro.put(pr, valorStringURL.toString());
+            }
+        }
+        parametrosDeUrlPreenchido = tudoPreenchido;
 
         if (!isParametrosDeUrlPreenchido()) {
             System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
 
             UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
         }
+
+        aplicaValoresURLEmParametros(valoresStrPorParametro);
 
     }
 

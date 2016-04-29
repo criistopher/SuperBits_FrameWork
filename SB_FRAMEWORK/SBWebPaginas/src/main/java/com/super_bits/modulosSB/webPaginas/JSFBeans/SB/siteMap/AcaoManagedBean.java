@@ -226,4 +226,9 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return false;
     }
 
+    @Override
+    public String getNomeUnicoSlug() {
+        return getNomeCurto() + "-" + getId();
+    }
+
 }

@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.Conversation;
 
 /**
@@ -68,5 +69,13 @@ public interface ItfB_Pagina {
     public boolean isAcessoLivre();
 
     public AcaoGestaoEntidade getAcaoVinculada();
+
+    /**
+     *
+     * Aplica valores de parametros passados por url no MB_pagina
+     *
+     * @param valorStringPorParametro
+     */
+    public void aplicaValoresDeParametrosModoDesenvolvimento(Map<String, String> valorStringPorParametro);
 
 }

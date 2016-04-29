@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,7 +92,6 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     try {
                         for (ItfB_Pagina pagina : mapaPaginas.values()) {
                             if (pagina.getAcaoVinculada() != null) {
-
                                 infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoManagedBean(pagina.getAcaoVinculada(), pagina));
                             }
                         }
