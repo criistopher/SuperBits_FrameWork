@@ -452,4 +452,8 @@ public class SBCore {
 
     }
 
+    public static Class<? extends ItfFabricaAcoes>[] getFabricasDeAcaoDoSistema() {
+        return acoesDoSistema;
+    }
+
 }

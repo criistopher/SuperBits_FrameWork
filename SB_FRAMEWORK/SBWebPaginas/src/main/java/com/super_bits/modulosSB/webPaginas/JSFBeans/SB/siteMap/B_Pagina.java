@@ -239,7 +239,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                     case ENTIDADE:
                         ItfBeanSimples registroByURL = null;
                         try {
-                            registroByURL = (ItfBeanSimples) UtilSBPersistencia.getRegistroByLikeNomeCurto(parametrosURL.get(pr).getTipoEntidade(), (String) valorStringURL, getEMPagina());
+                            registroByURL = (ItfBeanSimples) UtilSBPersistencia.getRegistroByNomeSlug(parametrosURL.get(pr).getTipoEntidade(), (String) valorStringURL, getEMPagina());
 
                         } catch (Exception e) {
                             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo registro de parametroURL de entidade pela URL", e);
@@ -402,11 +402,9 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             if (valorParametro == null) {
                 FabErro.PARA_TUDO.paraSistema("Parametro da pagina  setado como nulo,em " + this.getClass().getName() + "- " + pr.getNome() + "  o Valor padrão é obrigatório ", null);
 
-            }
-
-            if (pr.getTipoParametro() == ItfParametroTela.TIPO_URL.ENTIDADE) {
+            } else if (pr.getTipoParametro() == ItfParametroTela.TIPO_URL.ENTIDADE) {
                 try {
-                    camada = ((ItfBeanSimples) valorParametro).getNomeCurto();
+                    camada = ((ItfBeanSimples) valorParametro).getNomeUnicoSlug();
                     camada = UtilSBCoreStrings.makeStrUrlAmigavel(camada);
                 } catch (Exception e) {
 
@@ -415,6 +413,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             } else {
                 camada = UtilSBCoreStrings.makeStrUrlAmigavel((String) valorParametro);
             }
+
             System.out.println("camada adcionada=" + camada);
             url = url + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(camada);
         }
@@ -468,10 +467,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
 
             UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
+        } else {
+
+            aplicaValoresURLEmParametros(valoresStrPorParametro);
         }
-
-        aplicaValoresURLEmParametros(valoresStrPorParametro);
-
     }
 
     @Override

@@ -5,13 +5,11 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import static com.super_bits.Controller.UtilSBController.getFabricaAcaoByMetodo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

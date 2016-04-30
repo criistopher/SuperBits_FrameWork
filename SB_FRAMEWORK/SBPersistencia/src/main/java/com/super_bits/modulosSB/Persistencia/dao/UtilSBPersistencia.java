@@ -873,7 +873,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
-    public static Object getRegistroByLikeNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
+    public static Object getRegistroByNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
+
         return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
