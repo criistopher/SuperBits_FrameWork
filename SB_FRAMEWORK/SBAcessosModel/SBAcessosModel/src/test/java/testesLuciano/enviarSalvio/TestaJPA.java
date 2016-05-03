@@ -16,6 +16,16 @@ public class TestaJPA extends TesteJunitSBPersistencia {
         CidadeLuciano cidade = new CidadeLuciano();
         cidade.setDescricao("orlandia");
         UtilSBPersistencia.persistirRegistro(cidade);
+
+        EnderecoLuciano enderecoPrincipal = new EnderecoLuciano();
+        //  enderecoPrincipal.setCidadeEndereco(cidade);
+        enderecoPrincipal.setLogradouro2("teste");
+        //  enderecoPrincipal.setNro("Numerooo");
+        enderecoPrincipal.setLogradouro2("eNDEREÇO TESTE");
+        PessoaLuciano pessoa = new PessoaLuciano();
+        pessoa.setEnderecoPrincipal(enderecoPrincipal);
+        UtilSBPersistencia.persistirRegistro(pessoa);
+
     }
 
     @Override

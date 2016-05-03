@@ -9,16 +9,16 @@ import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity()
+@Entity
 public class CidadeLuciano implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank
+    @Column(length = 60)
     private String descricao;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -27,8 +27,6 @@ public class CidadeLuciano implements Serializable {
         this.id = id;
     }
 
-    @NotBlank
-    @Column(length = 60)
     public String getDescricao() {
         return descricao;
     }

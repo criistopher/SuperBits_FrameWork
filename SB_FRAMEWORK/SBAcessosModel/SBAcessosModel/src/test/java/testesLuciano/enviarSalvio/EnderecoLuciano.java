@@ -3,39 +3,22 @@ package testesLuciano.enviarSalvio;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Embeddable
 public class EnderecoLuciano implements Serializable {
 
-    @Column(insertable = false, updatable = false)
-    private CidadeLuciano cidadeEndereco;
-    private String logradouro;
-    private String nro;
+    @Column(name = "LOGRADOURO_TESTE")
+    private String logradouro222;
 
-    @OneToOne
-    public CidadeLuciano getCidadeEndereco() {
-        return cidadeEndereco;
+    @Column(name = "LOGRADOURO_TESTE")
+    public String getLogradouro2() {
+        return logradouro222;
     }
 
-    public void setCidadeEndereco(CidadeLuciano cidadeEndereco) {
-        this.cidadeEndereco = cidadeEndereco;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getNro() {
-        return nro;
-    }
-
-    public void setNro(String nro) {
-        this.nro = nro;
+    public void setLogradouro2(String logradouro) {
+        this.logradouro222 = logradouro;
     }
 
 }
