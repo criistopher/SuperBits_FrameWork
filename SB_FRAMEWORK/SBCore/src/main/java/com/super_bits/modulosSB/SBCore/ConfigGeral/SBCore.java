@@ -120,26 +120,30 @@ public class SBCore {
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
             centralEventos = configuracoes.getCentralDeEventos();
             classeConfigPermissoes = configuracoes.getConfigPermissoes();
+            acoesDoSistema = configuracoes.getFabricaDeAcoes();
 
             if (centralMensagens == null) {
-                System.out.println("Central de mensagens não configurada");
-                configurado = false;
+                throw new UnsupportedOperationException("Central de mensagens não configurada");
+
             }
             if (estadoAplicativo == null) {
-                System.out.println("Estado do aplicativo não configurado");
-                configurado = false;
+                throw new UnsupportedOperationException("Estado do aplicativo não configurado");
+
             }
             if (classeErro == null) {
-                System.out.println("Classe Erro não configurada");
-                configurado = false;
+                throw new UnsupportedOperationException("Classe Erro não configurada");
+
             }
             if (diretorioBase == null) {
-                System.out.println("Diretorio base não configurado");
-                configurado = false;
+                throw new UnsupportedOperationException("Diretorio base não configurado");
+
             }
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
                 File pastaTemp = new File("/home/developer/temp/servlet");
                 pastaTemp.mkdirs();
+            }
+            if (acoesDoSistema == null) {
+                //         throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
             }
 
             try {
@@ -155,7 +159,6 @@ public class SBCore {
                 if (pIgnorarClassePermissao) {
                     System.out.println("A Classe de permissões não foi definida");
                 } else {
-                    configurado = false;
                     throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
                 }
 
@@ -170,6 +173,7 @@ public class SBCore {
             }
         } catch (Throwable t) {
             configurado = true;
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
             FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }
     }
