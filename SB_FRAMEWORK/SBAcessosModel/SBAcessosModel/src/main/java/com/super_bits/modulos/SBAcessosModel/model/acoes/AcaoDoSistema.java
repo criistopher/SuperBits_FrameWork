@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
@@ -293,7 +294,23 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isUmaAcaoGestaoDominio() {
-        return this.getClass().isAssignableFrom(ItfAcaoGerenciarEntidade.class);
+        try {
+            ItfAcaoEntidade teste = (ItfAcaoGerenciarEntidade) this;
+        } catch (Throwable t) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean isUmaAcaoDeEntidade() {
+        try {
+            ItfAcaoEntidade teste = (ItfAcaoEntidade) this;
+        } catch (Throwable t) {
+            return false;
+        }
+        return true;
     }
 
     @Override

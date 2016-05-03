@@ -14,6 +14,8 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,87 +23,99 @@ import java.util.Map;
  *
  * @author desenvolvedor
  */
-public abstract class MapaAcoesSistema implements ItfFabricaAcoes {
+public abstract class MapaAcoesSistema {
 
-    private Map<String, ItfAcaoDoSistema> acaoBynomeUnico;
-    private Map<Class, List<ItfAcaoDoSistema>> acoesByClasse;
-    private Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> acoesByModulo;
+    private static final Map<String, ItfAcaoDoSistema> ACAO_BY_NOME_UNICO = new HashMap<>();
+    private static final Map<Class, List<ItfAcaoDoSistema>> ACOES_BY_CLASSE = new HashMap<>();
+    private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_BY_MODULO = new HashMap<>();
 
-    public void makeMapaAcoesSistema() {
+    public static void makeMapaAcoesSistema() {
 
         for (Class fabrica : SBCore.getFabricasDeAcaoDoSistema()) {
 
             for (Object objAcao : fabrica.getEnumConstants()) {
                 ItfFabricaAcoes fabricaAcao = (ItfFabricaAcoes) objAcao;
                 ItfAcaoDoSistema acao = fabricaAcao.getAcaoDoSistema();
-                acaoBynomeUnico.put(acao.getNomeUnico(), acao);
+
+                List<ItfAcaoDoSistema> acoesDoModulo = ACOES_BY_MODULO.get(acao.getModulo());
+                if (acoesDoModulo == null) {
+                    acoesDoModulo = new ArrayList();
+                }
+                acoesDoModulo.add(acao);
+                ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
+                System.out.println("Adicionando" + acao + " do modulo" + acao.getModulo());
+                ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
+                if (acao.isUmaAcaoDeEntidade()) {
+                    ItfAcaoEntidade acaodeEntidade = (ItfAcaoEntidade) acao;
+                    Class classeRelacionada = acaodeEntidade.getClasseRelacionada();
+                    List<ItfAcaoDoSistema> acoesDaEntidade = ACOES_BY_CLASSE.get(classeRelacionada);
+                    if (acoesDaEntidade == null) {
+                        acoesDaEntidade = new ArrayList<>();
+                        ACOES_BY_CLASSE.put(classeRelacionada, acoesDaEntidade);
+
+                    }
+                    acoesDaEntidade.add(acao);
+                    System.out.println("Acao" + acao + "Adicionada em ações de entidade");
+                }
+
             }
 
         }
 
     }
 
-    public List<ItfAcaoDoSistema> getAcoesByEntidade() {
+    public static List<ItfAcaoDoSistema> getAcoesByEntidade(Class pEntidade) {
         throw new UnsupportedOperationException("Ainda não implementado");
     }
 
-    public List<ItfAcaoDoSistema> getAcoesByDominioEModulo() {
+    public static List<ItfAcaoDoSistema> getAcoesByDominioEModulo() {
         throw new UnsupportedOperationException("Ainda não implementado");
     }
 
-    public List<ItfAcaoController> getAcoesControllersByEntidade() {
+    public static List<ItfAcaoController> getAcoesControllersByEntidade() {
         throw new UnsupportedOperationException("Ainda não implementado");
     }
 
-    public List<ItfAcaoController> getAcoesControllerByEntidadeEModulo() {
+    public static List<ItfAcaoController> getAcoesControllerByEntidadeEModulo() {
         throw new UnsupportedOperationException("Ainda não implementado");
     }
 
-    public List<ItfAcaoController> getAcoesListagemByEntidadeEModulo() {
+    public static List<ItfAcaoController> getAcoesListagemByEntidadeEModulo() {
         throw new UnsupportedOperationException("Ainda não implementado");
     }
 
-    @Override
-    public ItfAcaoDoSistema getAcaoDoSistema() {
+    public static ItfAcaoDoSistema getAcaoDoSistema(ItfFabricaAcoes pAcao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoEntidade getAcaoDeEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoControllerEntidade getAcaoEntidadeController() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoController getAcaoController() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Class getEntidadeDominio() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public String getNomeModulo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Object getRegistro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

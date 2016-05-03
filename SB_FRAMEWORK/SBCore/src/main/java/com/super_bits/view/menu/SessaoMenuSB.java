@@ -312,6 +312,11 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     }
 
     @Override
+    public boolean isUmaAcaoDeEntidade() {
+        return acaoSessao.isUmaAcaoDeEntidade();
+    }
+
+    @Override
     public boolean isUmaAcaoSessaoMenu() {
         return true;
     }

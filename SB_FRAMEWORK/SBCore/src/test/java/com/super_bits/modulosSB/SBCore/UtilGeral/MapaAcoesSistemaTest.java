@@ -18,6 +18,8 @@ public class MapaAcoesSistemaTest {
 
     @Test
     public void testMakeMapaAcoesSistema() {
+        MapaAcoesSistema.makeMapaAcoesSistema();
+
     }
 
     @Test

@@ -188,4 +188,6 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return Informa um boolean, se a ação é uma ação do tipo sessão
      */
     public boolean isUmaAcaoSessaoMenu();
+
+    public boolean isUmaAcaoDeEntidade();
 }
