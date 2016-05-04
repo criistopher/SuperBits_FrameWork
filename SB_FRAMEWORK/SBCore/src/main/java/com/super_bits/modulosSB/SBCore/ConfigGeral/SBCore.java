@@ -143,7 +143,7 @@ public class SBCore {
                 pastaTemp.mkdirs();
             }
             if (acoesDoSistema == null) {
-                //         throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
+                throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
             }
 
             try {

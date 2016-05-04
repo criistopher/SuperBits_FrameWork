@@ -14,7 +14,7 @@ import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
@@ -38,7 +38,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
     @Override
     public ItfAcaoDoSistema getRegistro() {
-        AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoes.getNovaAcao(this);
+        AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
             case ACESSOS_MB_GERENCIAR:
                 break;
@@ -97,7 +97,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
 
     @Override
     public String getNomeModulo() {
-        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();
     }
 
 }

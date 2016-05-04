@@ -29,8 +29,14 @@ public abstract class MapaAcoesSistema {
     private static final Map<Class, List<ItfAcaoDoSistema>> ACOES_BY_CLASSE = new HashMap<>();
     private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_BY_MODULO = new HashMap<>();
 
-    public static void makeMapaAcoesSistema() {
+    private static boolean mapaCriado;
 
+    public static void makeMapaAcoesSistema() {
+        if (mapaCriado) {
+            return;
+        }
+
+        mapaCriado = true;
         for (Class fabrica : SBCore.getFabricasDeAcaoDoSistema()) {
 
             for (Object objAcao : fabrica.getEnumConstants()) {
@@ -55,7 +61,7 @@ public abstract class MapaAcoesSistema {
 
                     }
                     acoesDaEntidade.add(acao);
-                    System.out.println("Acao" + acao + "Adicionada em ações de entidade");
+
                 }
 
             }

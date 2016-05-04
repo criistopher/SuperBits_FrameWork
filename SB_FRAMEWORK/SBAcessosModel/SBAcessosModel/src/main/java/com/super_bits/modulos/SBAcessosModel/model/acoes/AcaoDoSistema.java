@@ -111,7 +111,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             enumAcao = pAcao;
             nomeUnico = UtilSBController.gerarNomeUnicoAcaoDoSistema(pAcao);
 
-            setModulo(UtilFabricaDeAcoes.getModuloByFabrica(pAcao));
+            setModulo(UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao));
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);

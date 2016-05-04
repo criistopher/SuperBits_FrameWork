@@ -231,4 +231,9 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return getNomeCurto() + "-" + getId();
     }
 
+    @Override
+    public boolean isUmaAcaoDeEntidade() {
+        return acaoOriginal.isUmaAcaoDeEntidade();
+    }
+
 }

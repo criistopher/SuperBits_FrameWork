@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public abstract class UtilFabricaDeAcoes {
+public abstract class UtilFabricaDeAcoesAcessosModel {
 
     public static void configFormulario(ItfAcaoDoSistema acao, String formulario) {
         try {

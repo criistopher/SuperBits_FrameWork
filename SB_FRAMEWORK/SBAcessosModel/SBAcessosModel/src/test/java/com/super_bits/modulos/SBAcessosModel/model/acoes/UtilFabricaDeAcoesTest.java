@@ -33,18 +33,18 @@ public class UtilFabricaDeAcoesTest {
     public void testGetAcaoPrincipalDoDominio() {
 
         ItfFabricaAcoes acaoRetronada = null;
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_CTR_ALTERAR_STATUS);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.OBJETO_CTR_ALTERAR_STATUS);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR, acaoRetronada);
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_FRM_NOVO);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.OBJETO_FRM_NOVO);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR, acaoRetronada);
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.OBJETO_MB_GERENCIAR);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.OBJETO_MB_GERENCIAR);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", null, acaoRetronada);
 
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_EDITAR);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_EDITAR);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR, acaoRetronada);
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_NOVO);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_FRM_NOVO);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.USUARIO_TESTE_MB_GERENCIAR, acaoRetronada);
-        acaoRetronada = UtilFabricaDeAcoes.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_MB_GERENCIAR);
+        acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.USUARIO_TESTE_MB_GERENCIAR);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", null, acaoRetronada);
 
     }

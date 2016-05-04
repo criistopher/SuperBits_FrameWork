@@ -55,4 +55,9 @@ public class Mensagem implements ItfMensagem {
 
     }
 
+    @Override
+    public String toString() {
+        return getMenssagem() + super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
