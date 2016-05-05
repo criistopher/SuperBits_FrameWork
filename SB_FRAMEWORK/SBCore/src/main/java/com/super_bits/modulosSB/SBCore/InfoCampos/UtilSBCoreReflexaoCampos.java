@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -61,8 +62,9 @@ public class UtilSBCoreReflexaoCampos {
 
                 Class classeAtual = CLASSE_POR_CAMINHO.get(caminho.getCaminhoString());
 
-                Field[] camposDaClasse = classeAtual.getFields();
+                Field[] camposDaClasse = classeAtual.getDeclaredFields();
                 System.out.println("Add entidade da classe:" + caminho.getCaminhoString());
+
                 for (Field campo : camposDaClasse) {
                     String caminhostr = inicio + "." + campo.getName();
                     CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campo);
