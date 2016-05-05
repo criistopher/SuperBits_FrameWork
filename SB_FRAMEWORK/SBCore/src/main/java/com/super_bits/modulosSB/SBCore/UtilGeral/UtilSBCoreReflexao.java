@@ -180,10 +180,11 @@ public abstract class UtilSBCoreReflexao {
 
     /**
      * Retorna todas as classes do Pacote Utilizando a Biblioteca
-     * org.Reflections. #######################################################
-     * !!! Alerta !!!!!!!!!!!!! cuidado ao Utilizar este comando pois a
+     * org.Reflections. <br>
+     * !!! Alerta !!!!!!!!!!!!! cuidado ao Utilizar este comando pois a <br>
      * performance não é imediata, Utilize intefaces com services para carregar
-     * classes dinamicas de nameira rápida, o ideal é utilizar este código
+     * <br>
+     * classes dinamicas de nameira rápida, o ideal é utilizar este código<br>
      * apenas em inicializações de sistemas
      *
      * @param CaminhoPacote

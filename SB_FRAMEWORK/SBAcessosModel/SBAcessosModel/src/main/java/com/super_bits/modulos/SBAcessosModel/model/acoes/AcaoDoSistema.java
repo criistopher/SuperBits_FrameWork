@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -67,6 +68,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private final List<ItfParametroTela> parametroTela = new ArrayList<>();
     @Transient
     private ItfFabricaAcoes enumAcao;
+    private String nomeDominio;
 
     /**
      *
@@ -314,6 +316,16 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
+    public boolean isUmaAcaoController() {
+        try {
+            ItfAcaoController teste = (ItfAcaoController) this;
+        } catch (Throwable t) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public ItfFabricaAcoes getEnumAcaoDoSistema() {
         if (enumAcao == null) {
             enumAcao = SBCore.getFabricaByNOME_UNICO(nomeUnico);
@@ -325,6 +337,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public boolean isUmaAcaoSessaoMenu() {
         return false;
+    }
+
+    @Override
+    public String getNomeDominio() {
+        return nomeDominio;
     }
 
 }

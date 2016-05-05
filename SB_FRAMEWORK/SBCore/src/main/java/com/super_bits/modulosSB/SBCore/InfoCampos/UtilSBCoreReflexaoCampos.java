@@ -5,15 +5,21 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
 
 /**
@@ -22,10 +28,66 @@ import javax.persistence.ManyToOne;
  */
 public class UtilSBCoreReflexaoCampos {
 
+    public static final Map<Class, List<CaminhoCampoReflexao>> CAMPOS_DA_CLASSE = new HashMap<>();
+    public static final Map<String, CaminhoCampoReflexao> CAMINHO_CAMPO_POR_NOME = new HashMap<>();
+    public static final Map<Class, List<CaminhoCampoReflexao>> ENTIDADES_DA_CLASSE = new HashMap<>();//ok
+    public static final Map<String, Class> CLASSE_POR_CAMINHO = new HashMap<>();//ok
+    public static final Map<Class, Boolean> CLASSE_CONFIGURADA = new HashMap<>();//ok
+
+    private static List<CaminhoCampoReflexao> buildEntidadesDaClasse() {
+        throw new UnsupportedOperationException("");
+    }
+
+    private static void buildCamposDaClasse() {
+        throw new UnsupportedOperationException("");
+    }
+
+    private static void buildCamposDaClasse(Class pClasse) {
+
+        try {
+            if (CLASSE_CONFIGURADA.get(pClasse)) {
+                return;
+            }
+            List<CaminhoCampoReflexao> lista = getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(pClasse);
+            ENTIDADES_DA_CLASSE.put(pClasse, lista);
+            for (CaminhoCampoReflexao cp : lista) {
+                CLASSE_POR_CAMINHO.put(cp.getCaminhoString(), pClasse);
+            }
+            for (CaminhoCampoReflexao caminho : lista) {
+                //         List<CaminhoCampoReflexao> //List<CaminhoCampoReflexao> camposDaClasse = new ArrayList<>();
+
+            }
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo ", t);
+        }
+    }
+
+    private static void getCamposDeEntidadeDaClasse(Class pClasse) {
+
+        if (ENTIDADES_DA_CLASSE.get(pClasse) == null) {
+            List<CaminhoCampoReflexao> lista = getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(pClasse);
+
+        }
+
+    }
+
     public static boolean isClasseBasicaSB(Class pClasse) {
         // todo Tratar EntidadeGenerica gerar trhow se Chegar no Object
         return (pClasse == ItemGenerico.class || pClasse == Object.class);
 
+    }
+
+    public static String getCaminhoSemNomeClasse(String pCaminho) {
+        throw new UnsupportedOperationException("Ainda não implementado");
+    }
+
+    public static List<CaminhoCampoReflexao> getTodosCamposDaEntidade(Class pclasse) {
+        throw new UnsupportedOperationException("Ainda não implementado");
+    }
+
+    public static CaminhoCampoReflexao getCaminhoCampoByString(Class pClasse, String caminho) throws InstantiationException, IllegalAccessException {
+        throw new UnsupportedOperationException("Ainda não implementado");
     }
 
     /**
@@ -37,30 +99,19 @@ public class UtilSBCoreReflexaoCampos {
      * @return
      */
     public static List<Field> getTodosCamposTipoItensSimplesDoItem(Class pClasse) {
-
         List<Field> lista = new ArrayList<>();
-
         while (!isClasseBasicaSB(pClasse)) {
             List<Field> itensdoNivel = new ArrayList<>();
-
             Field[] fields = pClasse.getDeclaredFields();
-
             for (Field field : fields) {
-
                 if (field.getClass().isAssignableFrom(ItfBeanSimples.class)) {
-
                     lista.add(field);
 
                 }
-
             }
-
             pClasse = pClasse.getSuperclass();
-
         }
-
         return lista;
-
     }
 
     /**
@@ -73,28 +124,24 @@ public class UtilSBCoreReflexaoCampos {
      * @return
      */
     public static List<CaminhoCampoReflexao> getTodosCamposAnotadosComManyToOne(Class pClasse, String pCaminho) {
-
         List<CaminhoCampoReflexao> lista = new ArrayList<>();
-
         while (!isClasseBasicaSB(pClasse)) {
             List<Field> itensdoNivel = new ArrayList<>();
-
             Field[] fields = pClasse.getDeclaredFields();
-
             for (Field campo : fields) {
-
                 if (campo.isAnnotationPresent(ManyToOne.class)) {
-                    lista.add(new CaminhoCampoReflexao(pCaminho + "." + campo.getName(), campo));
-                }
+                    String caminhocampo = pCaminho + "." + campo.getName();
+                    CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo, campo);
+                    lista.add(caminhoCR);
+                    CLASSE_POR_CAMINHO.put(caminhocampo, campo.getType());
 
+                }
             }
 
             pClasse = pClasse.getSuperclass();
-
         }
 
         return lista;
-
     }
 
     private static List<CaminhoCampoReflexao> getCamposReflectionFilho(List<CaminhoCampoReflexao> pListaAtualizada, List<CaminhoCampoReflexao> pListaNova, String pCaminhoAnterior) {
@@ -124,20 +171,12 @@ public class UtilSBCoreReflexaoCampos {
      * @return Fileds Do tipo item Simples
      */
     public static List<CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
-
-        List<CaminhoCampoReflexao> itensEncontrados = new ArrayList<>();
-
-        Class classe = pClasse;
-
         List<CaminhoCampoReflexao> camposEncontrados = getTodosCamposAnotadosComManyToOne(pClasse, pClasse.getSimpleName());
         // adiciona campos no nivel 0
         if (!camposEncontrados.isEmpty()) {
-
             camposEncontrados = getCamposReflectionFilho(null, camposEncontrados, pClasse.getSimpleName());
-
         }
         // para cada campo encontrado no nivel 0
-
         Collections.reverse(camposEncontrados);
 
         return camposEncontrados;
@@ -151,22 +190,16 @@ public class UtilSBCoreReflexaoCampos {
         while (!isClasseBasicaSB(classe)) {
 
             Field[] fields = classe.getDeclaredFields();
-
             for (Field field : fields) {
                 InfoCampo annotationField = field.getAnnotation(InfoCampo.class
                 );
-
                 if (annotationField != null) {
-
                     if (annotationField.tipo().equals(pTipoCampo)) {
                         return field;
                     }
-
                 }
             }
-
             classe = classe.getSuperclass();
-
         }
         return null;
     }
@@ -175,21 +208,14 @@ public class UtilSBCoreReflexaoCampos {
         Class classe = pClasse;
 
         while (!isClasseBasicaSB(classe)) {
-
             Field[] fields = classe.getDeclaredFields();
-
             for (Field field : fields) {
                 Object campoAnotado = field.getAnnotation(anotacao);
-
                 if (campoAnotado != null) {
-
                     return field;
-
                 }
             }
-
             classe = classe.getSuperclass();
-
         }
         return null;
     }

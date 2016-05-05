@@ -18,6 +18,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
@@ -171,11 +172,13 @@ public class SBCore {
                     throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
                 }
             }
+            MapaAcoesSistema.makeMapaAcoesSistema();
         } catch (Throwable t) {
             configurado = true;
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
             FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }
+
     }
 
     public static ESTADO_APP getEstadoAPP() {

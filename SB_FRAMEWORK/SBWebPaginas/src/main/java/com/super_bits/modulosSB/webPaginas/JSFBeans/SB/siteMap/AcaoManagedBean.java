@@ -236,4 +236,14 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return acaoOriginal.isUmaAcaoDeEntidade();
     }
 
+    @Override
+    public boolean isUmaAcaoController() {
+        return acaoOriginal.isUmaAcaoController();
+    }
+
+    @Override
+    public String getNomeDominio() {
+        return acaoOriginal.getNomeDominio();
+    }
+
 }

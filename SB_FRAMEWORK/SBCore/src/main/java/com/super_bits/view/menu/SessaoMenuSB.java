@@ -326,4 +326,14 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         return getNomeCurto() + "-" + getId();
     }
 
+    @Override
+    public boolean isUmaAcaoController() {
+        return acaoSessao.isUmaAcaoController();
+    }
+
+    @Override
+    public String getNomeDominio() {
+        return acaoSessao.getNomeDominio();
+    }
+
 }

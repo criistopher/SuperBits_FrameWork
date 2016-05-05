@@ -44,21 +44,59 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     private static final int MAXIMO_REGISTROS = 2000;
 
     /**
-     * Tipo de aviso de resultado, pode ser: SOLICITAR_REPARO USUARIO
-     * ARQUIVAR_LOG -> O SOLICITAR_REPARO SÓ VAI EMITIR AVISO QUANDO ESTIVER NO
-     * MODO DESENVOLVIMENTO -> O USUARIO SEMPRE MOSTRARÁ O RESULTADO AO USUARIO
-     * -> O ARQUIVAR_LOG GRAVARA UM LOG QUANDO EM HOMOLOGAÇÃO OU PRODUÇÃO, E
-     * EXIBIRA MENSAGEM QUANDO EM DESENVOLVIMENTO
+     *
      */
     public static enum AVISAR {
 
-        PROGRAMADOR, USUARIO, SISTEMA
+        /**
+         * Uma mensagem para o programador só acontece no modo de
+         * desenvolvimento e homologação
+         */
+        PROGRAMADOR,
+        /**
+         * Uma mensagem para o usuário
+         */
+        USUARIO,
+        /**
+         * Uma mensagem do sistema é uma mensagem que deve ser arquivada em logs
+         * do sistema
+         */
+        SISTEMA
     };
 
-    //* TIPOS DE SELEÇÃO DE LISTAS MAIS COMUNS */
+    /**
+     *
+     * Tipos de selação conhecidos do sistema
+     *
+     */
     public static enum TIPO_SELECAO_REGISTROS {
 
-        JPQL, SQL, LIKENOMECURTO, TODOS, NAMED_QUERY, SBNQ;
+        /**
+         * Selação por JPQL (Java persistence query language) (O SQL do JPA)
+         */
+        JPQL,
+        /**
+         * Seleção por SQL nativo, atenção usar este método deixa o sistema
+         * incompativel com outros tipos de banco de dados
+         */
+        SQL,
+        /**
+         * Seleção de registro Like nome
+         */
+        LIKENOME,
+        /**
+         * Seleciona todos os registros
+         */
+        TODOS,
+        /**
+         * Seleciona registros por Named Querys
+         */
+        NAMED_QUERY,
+        /**
+         * Seleciona registro por Super Bits Named Querys
+         */
+        @Deprecated
+        SBNQ;
     }
 
     //* TIPOS DE SELEÇÃO DE ITEM MAIS COMUNS */
@@ -474,7 +512,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 try {
                     String sql = "";
                     switch (pTipoSelecao) {
-                        case LIKENOMECURTO:
+                        case LIKENOME:
 
                             ItfBeanSimples registro = (ItfBeanSimples) tipoRegisto.newInstance();
                             String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME);
@@ -780,7 +818,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return Lista com registros like nomecurto
      */
     public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class classe) {
-        return selecaoRegistros(null, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
+        return selecaoRegistros(null, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOME, pNomeCurto);
     }
 
     /**
@@ -795,7 +833,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class pClasse, EntityManager pEM) {
-        return selecaoRegistros(pEM, null, null, null, pClasse, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
+        return selecaoRegistros(pEM, null, null, null, pClasse, TIPO_SELECAO_REGISTROS.LIKENOME, pNomeCurto);
     }
 
     public static List getListaTodos(Class pClasse) {

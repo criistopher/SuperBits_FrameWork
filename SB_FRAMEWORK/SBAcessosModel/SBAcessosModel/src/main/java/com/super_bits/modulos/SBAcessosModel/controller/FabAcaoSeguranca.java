@@ -36,7 +36,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     GRUPO_FRM_LISTAR,
     GRUPO_FRM_VISUALIZAR,
     GRUPO_CTR_ALTERAR_STATUS,
-    GRUPO_FRM_LISTARUSUARIOS,
+    GRUPO_FRM_LISTAR_USUARIOS,
     GRUPO__CTR_SALVAR_MERGE,
     USUARIO_MB_GERENCIAR,
     USUARIO_FRM_NOVO,
@@ -46,7 +46,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_FRM_VISUALIZAR,
     USUARIO_FRM_LISTAR_GRUPOS,
     USUARIO_CTR_ALTERAR_STATUS,
-    USUARIO_FRM_LISTARGRUPOS,
     ACAO_CTR_INTERNA_DO_SISTEMA,
     IP_FRM_NOVO,
     IP_CTR_SALVAR_MERGE,
@@ -127,7 +126,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case GRUPO_FRM_LISTARUSUARIOS:
+            case GRUPO_FRM_LISTAR_USUARIOS:
 
                 break;
             case GRUPO__CTR_SALVAR_MERGE:
@@ -222,12 +221,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case USUARIO_FRM_LISTARGRUPOS:
-
-                break;
             case ACAO_CTR_INTERNA_DO_SISTEMA:
                 acao = new AcaoController(this);
-
+                acao.setIconeAcao("fa fa-edit");
                 break;
             case GRUPO_FRM_LISTAR:
                 ItfAcaoFormularioEntidade acaoFormularioListar = (ItfAcaoFormularioEntidade) acao;
@@ -378,7 +374,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_FRM_EDITAR:
             case GRUPO_FRM_VISUALIZAR:
             case GRUPO_CTR_ALTERAR_STATUS:
-            case GRUPO_FRM_LISTARUSUARIOS:
+            case GRUPO_FRM_LISTAR_USUARIOS:
             case GRUPO__CTR_SALVAR_MERGE:
             case GRUPO_FRM_LISTAR:
                 return GrupoUsuarioSB.class;
@@ -391,7 +387,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_FRM_VISUALIZAR:
             case USUARIO_FRM_LISTAR_GRUPOS:
             case USUARIO_CTR_ALTERAR_STATUS:
-            case USUARIO_FRM_LISTARGRUPOS:
+
                 return UsuarioSB.class;
 
             case ACAO_CTR_INTERNA_DO_SISTEMA:
