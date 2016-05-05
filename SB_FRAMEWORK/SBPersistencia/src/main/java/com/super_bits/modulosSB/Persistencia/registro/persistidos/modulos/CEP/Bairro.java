@@ -29,9 +29,6 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @NotNull
     private String nome;
 
-    @ManyToOne(targetEntity = UnidadeFederativa.class)
-    private UnidadeFederativa unidadeFederativa;
-
     @InfoCampo(tipo = FabCampos.LCCidade)
     @ManyToOne(targetEntity = Cidade.class)
     @JoinColumn(name = "id_Cidade")
@@ -67,14 +64,6 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    public UnidadeFederativa getUnidadeFederativa() {
-        return unidadeFederativa;
-    }
-
-    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
-        this.unidadeFederativa = unidadeFederativa;
     }
 
     @Override

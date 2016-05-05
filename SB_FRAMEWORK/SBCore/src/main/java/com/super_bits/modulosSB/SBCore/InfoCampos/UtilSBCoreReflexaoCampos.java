@@ -8,11 +8,9 @@ package com.super_bits.modulosSB.SBCore.InfoCampos;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.EntityManager;
+import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
 /**
@@ -50,7 +48,7 @@ public class UtilSBCoreReflexaoCampos {
             List<CaminhoCampoReflexao> lista = getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(pClasse);
             ENTIDADES_DA_CLASSE.put(pClasse, lista);
             for (CaminhoCampoReflexao cp : lista) {
-                CLASSE_POR_CAMINHO.put(cp.getCaminhoString(), pClasse);
+                //CLASSE_POR_CAMINHO.put(cp.getCaminhoString(), pClasse);
             }
             for (CaminhoCampoReflexao caminho : lista) {
                 //         List<CaminhoCampoReflexao> //List<CaminhoCampoReflexao> camposDaClasse = new ArrayList<>();
@@ -59,17 +57,31 @@ public class UtilSBCoreReflexaoCampos {
                 if (!inicio.contains(".")) {
                     raiz = true;
                 }
-
                 Class classeAtual = CLASSE_POR_CAMINHO.get(caminho.getCaminhoString());
-
-                Field[] camposDaClasse = classeAtual.getDeclaredFields();
                 System.out.println("Add entidade da classe:" + caminho.getCaminhoString());
+                List<Class> classesComCampos = new ArrayList<>();
+                boolean chegouAoFim = false;
+                Class classeatualiza = classeAtual;
+                while (!chegouAoFim) {
+                    classesComCampos.add(classeatualiza);
+                    if (isClasseBasicaSB(pClasse)) {
+                        chegouAoFim = true;
+                    }
+                    if (classeatualiza.getAnnotation(javax.persistence.Entity.class) == null
+                            && (classeatualiza.getAnnotation(Embeddable.class) == null)) {
+                        chegouAoFim = true;
+                    }
+                    classeatualiza = classeatualiza.getSuperclass();
+                }
 
-                for (Field campo : camposDaClasse) {
-                    String caminhostr = inicio + "." + campo.getName();
-                    CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campo);
-                    CAMINHO_CAMPO_POR_NOME.put(caminhostr, caminho);
-                    System.out.println("Add Campo da classe:" + caminhostr);
+                for (Class classeCampos : classesComCampos) {
+                    Field[] camposDaClasse = classeCampos.getDeclaredFields();
+                    for (Field campo : camposDaClasse) {
+                        String caminhostr = inicio + "." + campo.getName();
+                        CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campo);
+                        CAMINHO_CAMPO_POR_NOME.put(caminhostr, caminho);
+                        System.out.println("Add Campo da classe:" + caminhostr);
+                    }
                 }
                 CLASSE_CONFIGURADA.put(pClasse, true);
             }
