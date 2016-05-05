@@ -48,7 +48,7 @@ public class UtilSBCoreReflexaoCampos {
             List<CaminhoCampoReflexao> lista = getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(pClasse);
             ENTIDADES_DA_CLASSE.put(pClasse, lista);
             for (CaminhoCampoReflexao cp : lista) {
-                //CLASSE_POR_CAMINHO.put(cp.getCaminhoString(), pClasse);
+                System.out.println("Entidade" + cp.getCaminhoString());
             }
             for (CaminhoCampoReflexao caminho : lista) {
                 //         List<CaminhoCampoReflexao> //List<CaminhoCampoReflexao> camposDaClasse = new ArrayList<>();
@@ -152,6 +152,11 @@ public class UtilSBCoreReflexaoCampos {
      * @return
      */
     public static List<CaminhoCampoReflexao> getTodosCamposAnotadosComManyToOne(Class pClasse, String pCaminho) {
+
+        if (pClasse.getSimpleName().equals("DocumentoFornecedor")) {
+            System.out.println("DocumentoFornecedor");
+        }
+
         List<CaminhoCampoReflexao> lista = new ArrayList<>();
         while (!isClasseBasicaSB(pClasse)) {
             List<Field> itensdoNivel = new ArrayList<>();
@@ -172,7 +177,7 @@ public class UtilSBCoreReflexaoCampos {
         return lista;
     }
 
-    private static List<CaminhoCampoReflexao> getCamposReflectionFilho(List<CaminhoCampoReflexao> pListaAtualizada, List<CaminhoCampoReflexao> pListaNova, String pCaminhoAnterior) {
+    private static List<CaminhoCampoReflexao> getCamposReflectionFilho(List<CaminhoCampoReflexao> pListaAtualizada, List<CaminhoCampoReflexao> pListaNova, String pCaminhoAnterior, Class pClasePrincipal) {
         if (pListaAtualizada == null) {
             pListaAtualizada = new ArrayList<>();
         }
@@ -183,8 +188,11 @@ public class UtilSBCoreReflexaoCampos {
 
         for (CaminhoCampoReflexao cm : pListaNova) {
             Class classe = cm.getCampoFieldReflection().getType();
-            List<CaminhoCampoReflexao> novosCamposEncontrados = getTodosCamposAnotadosComManyToOne(classe, pCaminhoAnterior + "." + cm.getCampoFieldReflection().getName());
-            return getCamposReflectionFilho(pListaAtualizada, novosCamposEncontrados, pCaminhoAnterior + "." + cm.getCampoFieldReflection().getName());
+            if (!classe.getSimpleName().equals(pClasePrincipal.getSimpleName())) {
+                List<CaminhoCampoReflexao> novosCamposEncontrados = getTodosCamposAnotadosComManyToOne(classe, pCaminhoAnterior + "." + cm.getCampoFieldReflection().getName());
+                return getCamposReflectionFilho(pListaAtualizada, novosCamposEncontrados, pCaminhoAnterior + "." + cm.getCampoFieldReflection().getName(), pClasePrincipal);
+            }
+
         }
         return pListaAtualizada;
 
@@ -199,13 +207,19 @@ public class UtilSBCoreReflexaoCampos {
      * @return Fileds Do tipo item Simples
      */
     public static List<CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
-        List<CaminhoCampoReflexao> camposEncontrados = getTodosCamposAnotadosComManyToOne(pClasse, pClasse.getSimpleName());
-        // adiciona campos no nivel 0
-        if (!camposEncontrados.isEmpty()) {
-            camposEncontrados = getCamposReflectionFilho(null, camposEncontrados, pClasse.getSimpleName());
+        List<CaminhoCampoReflexao> camposEncontradosNivel0 = getTodosCamposAnotadosComManyToOne(pClasse, pClasse.getSimpleName());
+
+        List<CaminhoCampoReflexao> camposEncontrados = new ArrayList<>(); // adiciona campos no nivel 0
+        List<CaminhoCampoReflexao> camposDonivel = camposEncontradosNivel0;
+        if (!camposEncontradosNivel0.isEmpty()) {
+
+            for (CaminhoCampoReflexao camposFilho : camposEncontradosNivel0) {
+                camposDonivel = getCamposReflectionFilho(null, camposDonivel, pClasse.getSimpleName(), pClasse);
+                camposEncontrados.addAll(camposDonivel);
+            }
         }
         // para cada campo encontrado no nivel 0
-        Collections.reverse(camposEncontrados);
+        Collections.reverse(camposEncontradosNivel0);
 
         return camposEncontrados;
 
