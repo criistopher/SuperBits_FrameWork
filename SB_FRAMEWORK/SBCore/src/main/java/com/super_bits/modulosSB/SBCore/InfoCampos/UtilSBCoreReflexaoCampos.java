@@ -38,15 +38,13 @@ public class UtilSBCoreReflexaoCampos {
         throw new UnsupportedOperationException("");
     }
 
-    private static void buildCamposDaClasse() {
-        throw new UnsupportedOperationException("");
-    }
-
-    private static void buildCamposDaClasse(Class pClasse) {
+    public static void buildCamposDaClasse(Class pClasse) {
 
         try {
-            if (CLASSE_CONFIGURADA.get(pClasse)) {
-                return;
+            if (CLASSE_CONFIGURADA.get(pClasse) != null) {
+                if (CLASSE_CONFIGURADA.get(pClasse)) {
+                    return;
+                }
             }
             List<CaminhoCampoReflexao> lista = getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(pClasse);
             ENTIDADES_DA_CLASSE.put(pClasse, lista);
@@ -55,7 +53,23 @@ public class UtilSBCoreReflexaoCampos {
             }
             for (CaminhoCampoReflexao caminho : lista) {
                 //         List<CaminhoCampoReflexao> //List<CaminhoCampoReflexao> camposDaClasse = new ArrayList<>();
+                String inicio = caminho.getCaminhoString();
+                boolean raiz = false;
+                if (!inicio.contains(".")) {
+                    raiz = true;
+                }
 
+                Class classeAtual = CLASSE_POR_CAMINHO.get(caminho.getCaminhoString());
+
+                Field[] camposDaClasse = classeAtual.getFields();
+                System.out.println("Add entidade da classe:" + caminho.getCaminhoString());
+                for (Field campo : camposDaClasse) {
+                    String caminhostr = inicio + "." + campo.getName();
+                    CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campo);
+                    CAMINHO_CAMPO_POR_NOME.put(caminhostr, caminho);
+                    System.out.println("Add Campo da classe:" + caminhostr);
+                }
+                CLASSE_CONFIGURADA.put(pClasse, true);
             }
 
         } catch (Throwable t) {
