@@ -8,7 +8,7 @@ package com.super_bits.config.webPaginas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;

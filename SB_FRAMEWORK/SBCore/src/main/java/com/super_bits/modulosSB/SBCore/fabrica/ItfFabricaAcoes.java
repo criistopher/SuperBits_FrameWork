@@ -68,8 +68,14 @@ public interface ItfFabricaAcoes extends ItfFabrica {
 
     /**
      *
+     * Retorna a Claase de entidade que a ação está vinculada,Depreciado, pois
+     * será substituido por Anotacoes @InfoAcao
+     *
+     *
+     *
      * @return A Classe referente a Entidade principal do Domínio
      */
+    @Deprecated
     public Class getEntidadeDominio();
 
     /**

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.InomeClienteI.InomeProjetoI.configAppp;
+package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito;
 
 /**
  *
- * @author sfurbino
+ *
+ *
+ * @author desenvolvedor
  */
-public class ParametrosInomeProjetoI {
+public class ModuloAcessoRestritoExemplo {
 
 }

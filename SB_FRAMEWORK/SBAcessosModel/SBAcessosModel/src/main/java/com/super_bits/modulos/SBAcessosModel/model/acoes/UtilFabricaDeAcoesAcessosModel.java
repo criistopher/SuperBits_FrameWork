@@ -7,7 +7,6 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.modulo.ItfFabricaModulo;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -95,15 +94,16 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     /**
      *
-     * Retorna o tipo de ação generica de acordo com a nomeclatura * MB Ação
-     * managed Bean FRMAÇÃO DE FORMULARIO <br>
+     * Retorna o tipo de ação generica de acordo com a nomeclatura <br>
+     * Ex: <br>
+     * MB Ação managed Bean FRMAÇÃO DE FORMULARIO <br>
      * FRM_NOVO <br>
      * FRM_EDITAR <br>
      * FRM_VISUALIZAR <br>
      * CTR AÇÃO CAMADA CONTROLLER <br>
      * CTR_ALTERAR_STATUS <br>
      * CTR_SALVAR_MERGE  <br>
-     * CTR_REMOVER<br>
+     * CTR_REMOVER <br>
      *
      * @param pFabrica Fabrica de ação referencia
      * @return o Tipo de ação generica de acordo com a fabrica referenia enviada

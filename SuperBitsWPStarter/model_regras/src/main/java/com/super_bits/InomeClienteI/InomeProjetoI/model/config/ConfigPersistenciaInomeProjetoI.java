@@ -2,7 +2,7 @@
  *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.InomeClienteI.InomeProjetoI.configAppp;
+package com.super_bits.InomeClienteI.InomeProjetoI.model.config;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 
