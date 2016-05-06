@@ -2,7 +2,7 @@
  *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema;
+package com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -23,5 +23,5 @@ public @interface InfoAcaoDoSistemaSB {
 
     public boolean padraoBloqueado() default true;
 
-    public FabAcaoSistemaSB acao();
+    public FabAcaoDemonstracaoSB acao();
 }

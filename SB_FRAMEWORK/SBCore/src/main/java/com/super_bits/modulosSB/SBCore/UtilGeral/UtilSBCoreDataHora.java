@@ -270,6 +270,26 @@ public class UtilSBCoreDataHora {
 
     /**
      *
+     * Decrementa a partir de uma Data obtida, o número de dias enviado,
+     * preservando os minutos, e segundos
+     *
+     * @param pData Data de Referencia
+     * @param pDias Número de dias que será decrementado
+     * @return A data decrementada
+     */
+    public static Date decrementarDias(Date pData, int pDias) {
+        if (pDias == 0) {
+            return pData;
+        }
+        long novadata;
+
+        novadata = novadata = pData.getTime() - pDias * 24 * 60 * 60 * 1000;
+        return new Date(novadata);
+
+    }
+
+    /**
+     *
      * @param pData Data de referência
      * @param pNumeroDias numero de dias para incrementar
      * @return

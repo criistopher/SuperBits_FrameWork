@@ -2,9 +2,8 @@
  *  Super-Bits.com CODE CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.anotacoes;
+package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito;
 
-import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.fabricasDeAcao.FabAcaoAcessoRestritoExemplo;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -7,6 +7,7 @@ package com.super_bits.configSBFW.acessos;
 
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.ModuloAcessoRestritoExemplo;
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
+import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.view.menu.MenusDaSessao;
 
@@ -26,10 +27,14 @@ import com.super_bits.view.menu.MenusDaSessao;
 public class ConfigAcessos extends ConfigPermissoesAcessoModelAbstrato {
 
     private static Class[] getClasses() {
-        Class[] classes = {ModuloAcessoRestritoExemplo.class};
+        Class[] classes = {ModuloAcessoRestritoExemplo.class, ModuloSeguranca.class};
         return classes;
     }
 
+    /**
+     * No contructor do acessso as classes da camada controller (que geram
+     * alteração no banco devem ser especificadas)
+     */
     public ConfigAcessos() {
         super(getClasses());
     }

@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema;
+package com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
@@ -15,6 +15,7 @@ import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
@@ -25,9 +26,8 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.COMUNICACAO)
-public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
+public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
-    ACESSOS_MB_GERENCIAR,
     DEMONSTRACAO_MB_COMPONENTE,
     DEMONSTRACAO_MB_VALIDACAO;
 
@@ -40,17 +40,27 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
     public ItfAcaoDoSistema getRegistro() {
         AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
-            case ACESSOS_MB_GERENCIAR:
-                break;
+
             case DEMONSTRACAO_MB_COMPONENTE:
+                ItfAcaoGerenciarEntidade acaoDemoComponent = (ItfAcaoGerenciarEntidade) acao;
+                acaoDemoComponent.setXhtml("/home/superBits/projetos/vip/source/superkompras/webApp/src/main/webapp/resources/SBComp/SBSystemPages/exemplosAdamantium/demonstracaoLayout.xhtml");
                 acao.setPrecisaPermissao(false);
+
                 break;
             case DEMONSTRACAO_MB_VALIDACAO:
+                ItfAcaoGerenciarEntidade acaoDemoValidacao = (ItfAcaoGerenciarEntidade) acao;
+                acaoDemoValidacao.setXhtml("/home/superBits/projetos/vip/source/superkompras/webApp/src/main/webapp/resources/SBComp/SBSystemPages/exemplosAdamantium/validacao.xhtml");
+                acao.setPrecisaPermissao(false);
                 break;
             default:
                 throw new AssertionError(this.name());
         }
+
         return acao;
+        // Dica: è possivel que este código pareça estranho para voce.
+        // afinal estamos alterando a acaoDemoComponent, e retornando ação,
+        // mas acredite, isso funciona,  devido a  um dos motivos do Java ser especial,
+        // A passagem de valor no java é por referencia(Pequise sobre isso), exceto em tipos primitivos e String (A passagem por referencia é bem popular em  linguagens que valorizam a programação orientadas a objeto)
     }
 
     @Override
@@ -82,8 +92,7 @@ public enum FabAcaoSistemaSB implements ItfFabricaAcoes {
     @Override
     public Class getEntidadeDominio() {
         switch (this) {
-            case ACESSOS_MB_GERENCIAR:
-                break;
+
             case DEMONSTRACAO_MB_COMPONENTE:
                 break;
             case DEMONSTRACAO_MB_VALIDACAO:

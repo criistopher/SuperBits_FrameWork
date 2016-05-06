@@ -4,6 +4,8 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
@@ -19,7 +21,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversa
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-import com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema.FabAcaoSistemaSB;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,7 +28,6 @@ import javax.enterprise.context.Conversation;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema.InfoAcaoDoSistemaSB;
 
 /**
  *
@@ -35,7 +35,7 @@ import com.super_bits.modulosSB.webPaginas.controller.acoesDoSistema.InfoAcaoDoS
  *
  * @author Salvio
  */
-@InfoAcaoDoSistemaSB(acao = FabAcaoSistemaSB.ACESSOS_MB_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
 @InfoPagina(nomeCurto = "AC", tags = {"acessos"}, acessoLivre = false)
 @ViewScoped
 @Named
