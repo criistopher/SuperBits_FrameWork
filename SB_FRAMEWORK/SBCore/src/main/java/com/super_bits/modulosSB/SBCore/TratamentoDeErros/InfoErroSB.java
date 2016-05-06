@@ -191,7 +191,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
                     pIsto = "@#$#$$%#$$$$$$$$$$$$$!@#!@#/_)))";
                 }
                 if (etapa.getClassName().contains(pIsto)) {
-                    stackTraceResumido.add(etapa.getClassName() + "->" + etapa.getMethodName() + "-Linha" + etapa.getLineNumber());
+                    stackTraceResumido.add(UtilSBCoreErros.getSimpleName(etapa.getClassName()) + "->" + etapa.getMethodName() + "-Linha" + etapa.getLineNumber());
                 }
             }
         }

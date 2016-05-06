@@ -271,6 +271,7 @@ public class UtilSBCoreReflexaoCampos {
             if (caminho == null) {
                 throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho " + pCaminho + " na classe " + pClase.getSimpleName());
             }
+            return caminho;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir de caminho relativo:" + pCaminho + " na classe" + pClase.getSimpleName(), t);
 
@@ -412,7 +413,7 @@ public class UtilSBCoreReflexaoCampos {
      * @param anotacao Anotação Referenciada
      * @return O primeiro Field( pacote Reflection) encontrado com esta anotação
      */
-    public static Field getCampoByClasseAnotacao(Class pClasse, Class anotacao) {
+    public static Field getFieldByClasseAnotacao(Class pClasse, Class anotacao) {
         Class classe = pClasse;
 
         while (!isClasseBasicaSB(classe)) {

@@ -19,6 +19,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -207,26 +208,34 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
-    public static void configurarAnotacoesAcao(AcaoDoSistema pAcao) throws NoSuchFieldException {
+    private static void configurarAnotacoesAcao(AcaoDoSistema pAcao) throws NoSuchFieldException {
         System.out.println("CONFIGURAR AÇÃO ANOTACAO");
         Field campo = pAcao.getEnumAcaoDoSistema().getClass().getField(pAcao.getEnumAcaoDoSistema().toString());
 
         FabTipoAcaoSistemaGenerica tipoAcao = getTipoAcaoByNome(pAcao.getEnumAcaoDoSistema());
-
+        Class entidadeDaAcao = pAcao.getEnumAcaoDoSistema().getEntidadeDominio();
         if (tipoAcao.toString().contains("FORMULARIO")) {
             InfoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoAcaoFormulario.class);
             if (anotacaoFormulario != null) {
-                //        UtilSBCoreReflexaoCampos.get
-            }
-            //alcyrnascimento@hotmail.com
-            //dep.acarantes@elmg.gov.br
+                for (String cp : anotacaoFormulario.campos()) {
 
+                    UtilSBCoreReflexaoCampos.buildCamposDaClasse(entidadeDaAcao);
+                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                    if (caminhoCampo == null) {
+                        throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                    }
+                    ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
+                }
+            }
         }
+        //alcyrnascimento@hotmail.com
+        //dep.acarantes@elmg.gov.br
 
         if (tipoAcao.toString().contains("CONTROLLER")) {
 
         }
-        if (tipoAcao.toString().contains("GEREMCIAR")) {
+        if (tipoAcao.toString()
+                .contains("GEREMCIAR")) {
 
         }
 
@@ -414,7 +423,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             if (novaAcao == null) {
                 throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao" + pAcao + " verifique a nomeclatura de acordo com a documentação e tente novamente");
             }
-//            configurarAnotacoesAcao(pAcao);
+            configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);
