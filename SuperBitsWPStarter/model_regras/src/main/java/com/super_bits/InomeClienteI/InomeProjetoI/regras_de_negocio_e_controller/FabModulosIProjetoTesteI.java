@@ -5,6 +5,10 @@
  */
 package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller;
 
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
+
 /**
  *
  *
@@ -15,8 +19,33 @@ package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controlle
  *
  * @author Salvio Furbino
  */
-public enum FabModulosIProjetoTesteI {
+public enum FabModulosIProjetoTesteI implements ItfFabricaModulo {
 
-    DEMONSTRACAO_BASICA, DEMONSTRACAO_ACESSO_RESTRITO
+    DEMONSTRACAO_BASICA, DEMONSTRACAO_ACESSO_RESTRITO;
 
+    @Override
+    public ItfModuloAcaoSistema getModulo() {
+        ModuloAcaoSistema modulo = new ModuloAcaoSistema();
+        switch (this) {
+            case DEMONSTRACAO_BASICA:
+                modulo.setId(1);
+                modulo.setNome("Modulo demonstração");
+                modulo.setDescricao("Modulo demonstração Teste");
+                break;
+            case DEMONSTRACAO_ACESSO_RESTRITO:
+                modulo.setId(2);
+                modulo.setNome("Modulo Acesso Restrito");
+                modulo.setDescricao("");
+                break;
+            default:
+                throw new AssertionError(this.name());
+
+        }
+        return modulo;
+    }
+
+    @Override
+    public Object getRegistro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

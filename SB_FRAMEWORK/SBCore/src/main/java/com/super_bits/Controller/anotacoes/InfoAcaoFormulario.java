@@ -16,7 +16,7 @@ public @interface InfoAcaoFormulario {
 
     public String icone() default "";
 
-    public Class entidade();
+    public Class entidade() default Object.class;
 
     public boolean precisaPermissao() default false;
 

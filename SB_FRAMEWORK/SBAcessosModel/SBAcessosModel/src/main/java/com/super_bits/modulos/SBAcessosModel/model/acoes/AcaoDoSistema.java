@@ -19,6 +19,7 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -41,6 +42,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @DiscriminatorColumn(name = "tipoAcaoDB")
+@InfoClasse(tags = {"Ação do Sistema"})
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Enumerated(EnumType.STRING)

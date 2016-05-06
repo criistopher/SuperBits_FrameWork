@@ -11,7 +11,9 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
+import com.super_bits.Controller.anotacoes.InfoAcaoController;
 import com.super_bits.Controller.anotacoes.InfoAcaoFormulario;
+import com.super_bits.Controller.anotacoes.InfoAcaoGestaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
@@ -51,19 +53,23 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      * @return
      */
     public static ModuloAcaoSistema getModuloByFabrica(ItfFabricaAcoes pAcao) {
+        try {
+            ItfFabricaModulo fabModulo = (ItfFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
 
-        ItfFabricaModulo fabModulo = (ItfFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
+            ModuloAcaoSistema moduloDaAcao = (ModuloAcaoSistema) fabModulo.getModulo();
 
-        ModuloAcaoSistema moduloDaAcao = (ModuloAcaoSistema) fabModulo.getModulo();
+            if (moduloDaAcao == null) {
+                throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
+            }
 
-        if (moduloDaAcao == null) {
-            throw new UnsupportedOperationException("A Fabrica de ações não foi anodada com InfoModulo" + pAcao.getClass().getSimpleName());
+            moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
+
+            return moduloDaAcao;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo modulo da Ação pela anotação infomodulo, você anotou o nome do modulo na fabrica de ações?", t);
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro Obtendo modulo da Ação pela anotação infomodulo, você anotou o nome do modulo na fabrica de ações?", t);
         }
-
-        moduloDaAcao.setId(pAcao.getClass().getSimpleName().hashCode());
-
-        return moduloDaAcao;
-
+        return null;
     }
 
     public static String getNomeDominio(ItfFabricaAcoes pAcao) {
@@ -226,21 +232,59 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     }
                     ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
                 }
+                if (anotacaoFormulario.icone().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoFormulario.icone());
+                }
+                if (anotacaoFormulario.nomeAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoFormulario.nomeAcao());
+                }
+                if (anotacaoFormulario.xhtmlDaAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoFormulario.xhtmlDaAcao());
+                }
+                pAcao.setPrecisaPermissao(anotacaoFormulario.precisaPermissao());
             }
+
         }
         //alcyrnascimento@hotmail.com
         //dep.acarantes@elmg.gov.br
 
         if (tipoAcao.toString().contains("CONTROLLER")) {
 
+            InfoAcaoController anotacaocontroller = campo.getAnnotation(InfoAcaoController.class);
+            if (anotacaocontroller != null) {
+                if (anotacaocontroller.icone().length() > 2) {
+                    pAcao.setIconeAcao(anotacaocontroller.icone());
+                }
+                if (anotacaocontroller.nomeAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaocontroller.nomeAcao());
+                }
+                if (anotacaocontroller.xhtmlDaAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaocontroller.xhtmlDaAcao());
+                }
+                pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
+
+            }
+
         }
-        if (tipoAcao.toString()
-                .contains("GEREMCIAR")) {
+        if (tipoAcao.toString().contains("GERENCIAR")) {
+
+            InfoAcaoGestaoEntidade anotacaoGerenciar = campo.getAnnotation(InfoAcaoGestaoEntidade.class);
+            if (anotacaoGerenciar != null) {
+                if (anotacaoGerenciar.icone().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoGerenciar.icone());
+                }
+                if (anotacaoGerenciar.nomeAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoGerenciar.nomeAcao());
+                }
+                if (anotacaoGerenciar.xhtmlDaAcao().length() > 2) {
+                    pAcao.setIconeAcao(anotacaoGerenciar.xhtmlDaAcao());
+                }
+                pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
+
+            }
 
         }
 
-        campo.getAnnotation(InfoAcaoFormulario.class
-        );
     }
 
     /**
@@ -406,9 +450,10 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 case FORMULARIO_MODAL:
                     break;
                 case GERENCIAR_DOMINIO:
-                    AcaoGestaoEntidade novaAcaoGestao = new AcaoGestaoEntidade(pAcao, pAcao.getEntidadeDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
+                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getEntidadeDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
+                    AcaoGestaoEntidade novaAcaoGestao = (AcaoGestaoEntidade) novaAcao;
                     novaAcaoGestao.setEnumAcoesVinculadas(getSubAcoesDaAcaoPrincipal(pAcao));
-                    return novaAcaoGestao;
+                    break;
                 case CONTROLLER_REMOVER:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     break;
@@ -421,7 +466,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             }
             if (novaAcao == null) {
-                throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao" + pAcao + " verifique a nomeclatura de acordo com a documentação e tente novamente");
+                throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao " + pAcao.getNomeModulo() + " verifique a nomeclatura de acordo com a documentação e tente novamente");
             }
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;

@@ -5,11 +5,10 @@
  */
 package com.super_bits.InomeClienteI.InomeProjetoI.configAppp;
 
+import com.super_bits.configSBFW.FabConfiguracoesDeAmbienteModelExemplo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -24,7 +23,9 @@ import org.junit.Test;
  * Uma é TesteJunitPersistencia, que possui um entityManager único do tipo
  * Estático para ser chamado por todos os métodos @Test
  *
- * O Outro é o TesteJunit, que obriga criar um método para configurar o ambiente
+ * O Outro é o TesteJunit, que obriga criar um método para configurar o
+ * ambiente, e possui o metodo lancar exececao, para exibição de relatório de
+ * erro mantendo a compatibilidade com o Junit
  *
  * e A TesteAcoes, para testar ações do Sistema
  *
@@ -36,6 +37,18 @@ public class TesteProjetoExemplo extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
+        SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao());
+        SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracaoPersistencia());
+    }
+
+    @Test
+    public void teste() {
+
+        try {
+            System.out.println("Veja um exeplo de teste");
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
 
     }
 

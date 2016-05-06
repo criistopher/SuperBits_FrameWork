@@ -14,7 +14,7 @@ public class ConfigPersistenciaInomeProjetoI implements ItfConfigSBPersistencia 
 
     @Override
     public String bancoPrincipal() {
-        return "|nomeProjeto|";
+        return "InomeProjetoI";
     }
 
     @Override

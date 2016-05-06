@@ -5,6 +5,8 @@
  */
 package com.super_bits.configSBFW.acessos;
 
+import com.super_bits.InomeClienteI.InomeProjetoI.model.usuariosExemplo.FabGrupoUsuario;
+import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.ModuloAcessoRestritoExemplo;
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
@@ -39,9 +41,21 @@ public class ConfigAcessos extends ConfigPermissoesAcessoModelAbstrato {
         super(getClasses());
     }
 
+    /**
+     *
+     * Define o Menu de acorod com o grupo de usuario
+     *
+     * @param pGrupo
+     * @return
+     */
     @Override
     public MenusDaSessao definirMenu(ItfGrupoUsuario pGrupo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (pGrupo.equals(FabGrupoUsuario.USUARIO_ADMINISTRADOR.getRegistro())) {
+            return new MenusDaSessao(FabMenuExemplo.MENU_RESTRITO.getRegistro());
+        } else {
+            return new MenusDaSessao(FabMenuExemplo.MENU_INICIAL.getRegistro());
+        }
     }
 
 }

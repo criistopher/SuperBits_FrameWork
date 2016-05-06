@@ -36,7 +36,7 @@ public enum FabMenuExemplo implements ItfFabricaMenu {
     }
 
     @Override
-    public Object getRegistro() {
+    public MenuSBFW getRegistro() {
         MenuSBFW menu = new MenuSBFW();
         AcaoDoSistema acao = new AcaoDoSistema();
         acao.setNomeAcao("Exemplos do Framework");
@@ -51,7 +51,6 @@ public enum FabMenuExemplo implements ItfFabricaMenu {
             case MENU_RESTRITO:
                 AcaoDoSistema acaosessao = new AcaoDoSistema();
                 acaosessao.setNome("Permissões ");
-
                 SessaoMenuSB adminUsuario = new SessaoMenuSB(acaosessao);
                 adminUsuario.addAcao(FabAcaoSeguranca.GRUPOS_MB_GERENCIAR.getRegistro());
                 adminUsuario.addAcao(FabAcaoSeguranca.USUARIO_MB_GERENCIAR.getRegistro());

@@ -7,6 +7,12 @@ package com.super_bits.modulosSB.SBCore.fabrica;
 
 /**
  *
+ *
+ * Uma interface do tipo Fabrica, generaliza os enuns de criação de registro.
+ *
+ * é utilizado por exemplo para Salvar todos os registros de determinada fabrica
+ * de um tipo no banco
+ *
  * @author sfurbino
  */
 public interface ItfFabrica {

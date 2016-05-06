@@ -6,10 +6,20 @@ package com.super_bits.Controller.anotacoes;
 
 /**
  *
+ *
+ *
  * @author desenvolvedor
  */
 public @interface InfoAcaoController {
 
-    public String teste();
+    public String nomeAcao();
+
+    public String icone();
+
+    public Class entidade();
+
+    public boolean precisaPermissao();
+
+    public String xhtmlDaAcao();
 
 }

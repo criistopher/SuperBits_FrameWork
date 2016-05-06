@@ -5,9 +5,18 @@
  */
 package com.super_bits.configSBFW;
 
+import com.super_bits.InomeClienteI.InomeProjetoI.model.config.ConfigPersistenciaInomeProjetoI;
+import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
+import com.super_bits.configSBFW.acessos.ConfigAcessos;
+import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 
 /**
  *
@@ -30,12 +39,40 @@ public enum FabConfiguracoesDeAmbienteModelExemplo {
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
     public ItfConfiguradorCore getConfiguracao() {
-//        ConfigCoreCustomizavel configurador = new ConfigCoreCustomizavel();
-        return null;
+        ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
+        cfg.setCliente("Super_Bits");
+        cfg.setGrupoProjeto("SuperBits_FrameWork");
+        cfg.setNomeProjeto("model_regras");
+        cfg.setDiretorioBase("SuperBitsWPStarter");
+        cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
+        cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
+        cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+        cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
+        cfg.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class, FabAcaoAcessoRestritoExemplo.class});
+        cfg.setClasseConfigPermissao(ConfigAcessos.class);
+
+        switch (this) {
+            case DESENVOLVIMENTO:
+                cfg.setEstadoAPP(SBCore.ESTADO_APP.DESENVOLVIMENTO);
+                cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
+                cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+                break;
+            case HOMOLOGACAO:
+                cfg.setEstadoAPP(SBCore.ESTADO_APP.HOMOLOGACAO);
+                break;
+            case PRODUCAO:
+                cfg.setEstadoAPP(SBCore.ESTADO_APP.PRODUCAO);
+                break;
+            default:
+                throw new AssertionError(this.name());
+
+        }
+        return cfg;
+
     }
 
     public ItfConfigSBPersistencia getConfiguracaoPersistencia() {
-        return null;
+        return new ConfigPersistenciaInomeProjetoI();
     }
 
 }

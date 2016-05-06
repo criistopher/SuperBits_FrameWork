@@ -43,4 +43,24 @@ public abstract class MB_Pagina extends B_Pagina {
         return false;
     }
 
+    @Override
+    protected String defineTitulo() {
+        return getAcaoVinculada().getDescricao();
+    }
+
+    @Override
+    protected String defineNomeLink() {
+        return getAcaoVinculada().getNomeAcao();
+    }
+
+    @Override
+    protected String defineDescricao() {
+        return getAcaoVinculada().getDescricao();
+    }
+
+    @Override
+    public int getId() {
+        return getAcaoVinculada().getId();
+    }
+
 }

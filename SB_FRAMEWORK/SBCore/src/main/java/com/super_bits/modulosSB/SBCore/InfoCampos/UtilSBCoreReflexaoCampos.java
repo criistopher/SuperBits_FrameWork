@@ -273,7 +273,7 @@ public class UtilSBCoreReflexaoCampos {
             }
             return caminho;
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir de caminho relativo:" + pCaminho + " na classe" + pClase.getSimpleName(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir de caminho relativo:-->" + pCaminho + "<-- na classe:-->" + pClase.getSimpleName(), t);
 
         }
         return null;
