@@ -28,29 +28,30 @@ public class AssuntoFaleConosco extends EntidadeNormal {
     @Id
     private int id;
 
-    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO)
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do assunto(ativo/inativo)")
     @NotNull
     private boolean ativo;
 
     @NotNull
     @Column(length = 200, nullable = false)
-    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "assunto")
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "assunto", descricao = "Assunto que será cadastrado para ser mostrado no fale conosco")
     private String assunto;
 
     @NotNull
     @Column(length = 200, nullable = false)
-    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Remetente", descricao = "Remetente que utilizou o fale-conosco")
     private String remetente;
 
     @Temporal(javax.persistence.TemporalType.DATE)
-    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO, label = "Data Inclusão", descricao = "Data de inclusão do assunto")
     private Date dataInclusao;
 
     @NotNull
     @Column(length = 100, nullable = false)
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Destinatário", descricao = "Destinatário do fale-conosco")
     private String destinatario;
 
-    @InfoCampo(tipo = FabCampos.EMAIL)
+    @InfoCampo(tipo = FabCampos.EMAIL, label = "E-mail", descricao = "E-mail do Destinatário")
     private String email;
 
     @NotNull

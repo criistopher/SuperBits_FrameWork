@@ -49,12 +49,12 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Generated(GenerationTime.NEVER)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome", descricao = "Nome do Usuário")
     @NotNull
     private String nome;
     @Column(nullable = false, unique = true)
     @NotNull
-    @InfoCampo(tipo = FabCampos.EMAIL, label = "E-mail")
+    @InfoCampo(tipo = FabCampos.EMAIL, label = "E-mail", descricao = "email do usuário")
     private String email;
     @NotNull
     @Column(unique = true)
@@ -65,35 +65,43 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @NotNull
     private String senha;
     private String complemento;
-    @InfoCampo(tipo = FabCampos.LCCEP)
+    @InfoCampo(tipo = FabCampos.LCCEP, label = "CEP", descricao = "CEP do usuário")
     private String CEP;
-    @InfoCampo(tipo = FabCampos.TELEFONE_CELULAR, label = "Telefone")
+
+    @InfoCampo(tipo = FabCampos.TELEFONE_CELULAR, label = "Telefone", descricao = "Telefone celular de contato do usuário")
     private String telefone;
+
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoUsuario;
+
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Data Cadastro", descricao = "Data de cadastramento do usuário")
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
+
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do usuário (ativo/inativo)")
     private boolean ativo = true;
 
     @ManyToOne(targetEntity = GrupoUsuarioSB.class)
     @NotNull
-    @InfoCampo(label = "Grupo")
+    @InfoCampo(tipo = FabCampos.LOOKUP, label = "Grupo", descricao = "Grupo de usuário que irá permitir acesso as funcionalidades")
     private GrupoUsuarioSB grupo;
 
+    @InfoCampo(tipo = FabCampos.LOOKUP, label = "Grupos Adicionais", descricao = "Grupos do usuário")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuarios")
     private List<GrupoUsuarioSB> gruposAdicionais;
 
-    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Data/Hora Alteração", descricao = "Data e hora de alteração do perfil do usuário")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraAlteracao;
-    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO, label = "Data/Hora Inserção", descricao = "Data e hora de inserção do perfil do usuário")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraInsersao;
 
-    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO, label = "Usuário Inserção", descricao = "Usuário que fez a inserção de outro na base de dados")
     @ManyToOne
     private UsuarioSB usuarioInsercao;
-    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO, label = "Usuário Alteração", descricao = "Usuário que fez a alteração de outro na base de dados")
     @ManyToOne
     private UsuarioSB usuarioAlteracao;
 

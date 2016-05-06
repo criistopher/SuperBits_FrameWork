@@ -39,26 +39,33 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao")
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao", descricao = "Nome da região(ex: Triângulo Mineiro)")
     private String nomeRegiao;
 
+    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Cidade", descricao = "Lista das cidades que compõem o estado selecionado")
     @ManyToMany
     private List<Cidade> cidades;
+
+    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Bairros", descricao = "Bairros de uma dada região")
     @ManyToMany
     private List<Bairro> bairros;
 
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Sigla", descricao = "Sigla da Região")
     private String sigla;
 
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Quantidade Cidades", descricao = "Quantidade de cidades de uma região")
     private int quantidadeCidades;
 
+    @InfoCampo(tipo = FabCampos.DATA, label = "Data Criação", descricao = "Data de cricação da região")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date criadoEm;
 
+    @InfoCampo(tipo = FabCampos.DATA, label = "Data Alteração", descricao = "Data de alteração da região")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date alteradoEM;
 
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status da Região (ativo/inativo)")
     @NotNull
-    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status")
     private boolean ativo;
 
     public String getNomeRegiao() {

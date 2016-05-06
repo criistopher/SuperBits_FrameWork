@@ -30,26 +30,29 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     @Id
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
-    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Cidade")
+
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Cidade", descricao = "Nome da Cidade")
     @NotNull
     @Column(nullable = false)
     private String nome;
 
-    @InfoCampo(tipo = FabCampos.LOOKUP)
+    @InfoCampo(tipo = FabCampos.LOOKUP, label = "Estado", descricao = "Estado(ex:MG)")
     @ManyToOne(targetEntity = UnidadeFederativa.class)
     private UnidadeFederativa unidadeFederativa;
 
     //bi-directional many-to-one association to Bairro
+    @InfoCampo(tipo = FabCampos.LISTA, label = "Bairros", descricao = "Bairros da Cidade")
     @OneToMany(mappedBy = "cidade")
     private List<Bairro> bairros;
 
     //bi-directional many-to-one association to Localidade
+    @InfoCampo(tipo = FabCampos.LOOKUP, label = "Localidade", descricao = "Localização no Estado")
     @ManyToOne(targetEntity = Localidade.class)
     @JoinColumn(name = "id_Localidade")
     private Localidade localidade;
 
     @NotNull
-    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status")
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status da Cidade")
     private boolean ativo;
 
     public Cidade() {
