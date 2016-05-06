@@ -21,6 +21,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
@@ -56,6 +57,10 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
+        if (MapaAcoesSistema.isMapaCriado()) {
+            return (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistema(this);
+        }
+
         ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
             case GRUPOS_MB_GERENCIAR:

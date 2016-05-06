@@ -8,10 +8,16 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 public abstract class SBPersistencia {
     // VARIAVEIS DE SISTEMA
@@ -37,6 +43,25 @@ public abstract class SBPersistencia {
         formatoDataUsuario = configurador.formatoDataUsuario();
         pastaImagensJPA = configurador.pastaImagensJPA();
         configurado = true;
+
+        EntityManager teste = UtilSBPersistencia.getNovoEM();
+        Metamodel mm = teste.getEntityManagerFactory().getMetamodel();
+        Set<EntityType<?>> entidades = mm.getEntities();
+        List<Class> ClassesDeEntidades = new ArrayList<>();
+        System.out.println("Configurando Campos de entidades");
+        for (EntityType<?> entidade : entidades) {
+
+            if (!entidade.getJavaType().getSimpleName().contains("Acao")) {
+                ClassesDeEntidades.add(entidade.getJavaType());
+            }
+
+        }
+
+        UtilSBCoreReflexaoCampos.configurarTodasAsClasses(ClassesDeEntidades);
+        if (UtilSBCoreReflexaoCampos.isTodasClassesConfiguradas()) {
+            System.out.println("Campos de entidade configurados com sucesso");
+        }
+
     }
 
     /**

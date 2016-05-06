@@ -55,7 +55,7 @@ public abstract class MapaAcoesSistema {
                 UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
 
                 ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
-                System.out.println("Adicionando" + acao + " do modulo" + acao.getModulo());
+                //  System.out.println("Adicionando" + acao + " do modulo" + acao.getModulo());
                 ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
 
                 ACAO_BY_ENUM.put(fabricaAcao, acao);

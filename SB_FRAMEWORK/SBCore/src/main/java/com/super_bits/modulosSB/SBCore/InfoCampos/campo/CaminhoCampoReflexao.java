@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,12 +16,15 @@ import java.util.List;
  */
 public class CaminhoCampoReflexao {
 
-    private List<String> partesCaminho;
+    private final List<String> partesCaminho = new ArrayList<>();
     private String caminhoComleto;
     private Field campoFieldReflection;
 
-    public CaminhoCampoReflexao() {
-        partesCaminho = new ArrayList<>();
+    public CaminhoCampoReflexao(String caminho) {
+        CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
+        campoFieldReflection = cm.getCampoFieldReflection();
+        caminhoComleto = cm.getCaminhoString();
+        partesCaminho.addAll(cm.getPartesCaminho());
     }
 
     private void makePartesCaminho() {
@@ -62,7 +66,7 @@ public class CaminhoCampoReflexao {
      * @param campo O Field obtido por reflecion
      */
     public CaminhoCampoReflexao(String pCaminho, Field campo) {
-        this();
+
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
         this.campoFieldReflection = campo;
@@ -70,9 +74,8 @@ public class CaminhoCampoReflexao {
     }
 
     public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
-        this();
-        //setCaminho(pCaminho);
-        partesCaminho = pPartesCaminho;
+
+        partesCaminho.addAll(pPartesCaminho);
         this.campoFieldReflection = campo;
         makeCaminhoCompleto();
     }

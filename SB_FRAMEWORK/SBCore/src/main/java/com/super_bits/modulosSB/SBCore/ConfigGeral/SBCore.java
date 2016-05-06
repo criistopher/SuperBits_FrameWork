@@ -172,7 +172,11 @@ public class SBCore {
                     throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
                 }
             }
+            System.out.println("COnfigurando Mapa de Ações do sistema");
             MapaAcoesSistema.makeMapaAcoesSistema();
+            if (MapaAcoesSistema.isMapaCriado()) {
+                System.out.println("Mapa de ações criado com sucesso!");
+            }
         } catch (Throwable t) {
             configurado = true;
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
