@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.vip.superCompras.Model.Newsletter.Newsletter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -105,9 +104,8 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private UsuarioSB usuarioInsercao;
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO, label = "Usuário Alteração", descricao = "Usuário que fez a alteração de outro na base de dados")
     @ManyToOne
-    private UsuarioSB usuarioAlteracao;
     @OneToMany(mappedBy = "usuarioAlteracao")
-    private List<Newsletter> newsletters;
+    private UsuarioSB usuarioAlteracao;
 
     public UsuarioSB() {
         super(UsuarioSB.class);
@@ -276,6 +274,39 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
 
     public boolean isGrupoPrincipal(GrupoUsuarioSB pGrupo) {
         return (pGrupo == grupo);
+    }
+
+    @Override
+    public Date getDataHoraAlteracao() {
+        return dataHoraAlteracao;
+    }
+
+    public void setDataHoraAlteracao(Date dataHoraAlteracao) {
+        this.dataHoraAlteracao = dataHoraAlteracao;
+    }
+
+    public Date getDataHoraInsersao() {
+        return dataHoraInsersao;
+    }
+
+    public void setDataHoraInsersao(Date dataHoraInsersao) {
+        this.dataHoraInsersao = dataHoraInsersao;
+    }
+
+    public UsuarioSB getUsuarioInsercao() {
+        return usuarioInsercao;
+    }
+
+    public void setUsuarioInsercao(UsuarioSB usuarioInsercao) {
+        this.usuarioInsercao = usuarioInsercao;
+    }
+
+    public UsuarioSB getUsuarioAlteracao() {
+        return usuarioAlteracao;
+    }
+
+    public void setUsuarioAlteracao(UsuarioSB usuarioAlteracao) {
+        this.usuarioAlteracao = usuarioAlteracao;
     }
 
 }

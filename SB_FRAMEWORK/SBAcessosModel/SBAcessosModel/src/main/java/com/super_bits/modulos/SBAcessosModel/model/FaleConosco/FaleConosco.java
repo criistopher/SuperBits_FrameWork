@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.FaleConosco;
 
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoComunicacaoPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoComunicacao;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
@@ -18,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -73,6 +75,14 @@ public class FaleConosco extends EntidadeNormal {
 
     @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO)
     private boolean ativo;
+
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Data alteração", descricao = "Data de alteração do fale-conosco")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataAlteracao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO, label = "Usuário inserção", descricao = "O remetente da mensagem")
+    @ManyToOne(targetEntity = UsuarioSB.class)
+    private UsuarioSB usuarioInsercao;
 
     @Override
     public int getId() {
