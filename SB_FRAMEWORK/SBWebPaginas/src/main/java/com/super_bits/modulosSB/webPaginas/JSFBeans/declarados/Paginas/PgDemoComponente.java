@@ -17,8 +17,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.InfoAcaoDoSistemaSB;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.bean.BeanExemplo;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.vip.superkompras.webPaginas.BeanExemplo;
+
 import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 

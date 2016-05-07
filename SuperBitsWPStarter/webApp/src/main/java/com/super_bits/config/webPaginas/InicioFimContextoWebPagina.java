@@ -18,14 +18,14 @@ public class InicioFimContextoWebPagina implements ItfInicioFimAppWP {
 
     @Override
     public void inicio() {
-        SBCore.configurar(new ConfigCoreDemoWP());
-        SBPersistencia.configuraJPA(new ConfigPercistenciaWPDemo());
-        SBWebPaginas.configurar(new ConfigWPInomeProjetoI());
+        SBCore.configurar(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracao());
+        SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracaoPersistencia());
+        SBWebPaginas.configurar(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracaoWebPaginas());
     }
 
     @Override
     public void fim() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("FIm do contexto para" + SBCore.getNomeProjeto());
     }
 
 }

@@ -7,7 +7,8 @@ package com.Sphera.codesp.WebService.acessos;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.math.BigDecimal;
@@ -78,7 +79,7 @@ public class WSAcessosMifare implements ItfWSAcessosMifare {
             respTeste.add(resposta.get(2));
             return resposta;
         } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro ao obter a lista de acessos CSV.", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao obter a lista de acessos CSV.", e);
         }
         return null;
     }
@@ -224,7 +225,7 @@ public class WSAcessosMifare implements ItfWSAcessosMifare {
             }
 
         } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro ao obter a lista de acessos permitidos por gate.", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao obter a lista de acessos permitidos por gate.", e);
         }
         return null;
     }
