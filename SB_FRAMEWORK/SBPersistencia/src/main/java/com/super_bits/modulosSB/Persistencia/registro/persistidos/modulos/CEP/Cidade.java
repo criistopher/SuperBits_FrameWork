@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -54,6 +56,10 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     @NotNull
     @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status da Cidade")
     private boolean ativo;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Data alteração", descricao = "Data de alteração da cidade")
+    private Date dataAlteracao = new Date();
 
     public Cidade() {
         super(Cidade.class);
@@ -128,12 +134,22 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
 
     }
 
+    @Override
     public boolean isAtivo() {
         return ativo;
     }
 
+    @Override
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
     }
 
 }

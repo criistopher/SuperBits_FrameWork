@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.vip.superCompras.Model.Newsletter.Newsletter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -104,6 +106,8 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO, label = "Usuário Alteração", descricao = "Usuário que fez a alteração de outro na base de dados")
     @ManyToOne
     private UsuarioSB usuarioAlteracao;
+    @OneToMany(mappedBy = "usuarioAlteracao")
+    private List<Newsletter> newsletters;
 
     public UsuarioSB() {
         super(UsuarioSB.class);
