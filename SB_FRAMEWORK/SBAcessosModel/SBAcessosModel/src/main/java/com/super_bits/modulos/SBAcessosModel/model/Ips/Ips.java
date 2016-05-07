@@ -4,17 +4,20 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.Ips;
 
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.lang.reflect.Field;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -31,18 +34,35 @@ public class Ips extends EntidadeNormal {
 
     @Column(length = 15, nullable = false)
     @NotNull
-    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Inicial", descricao = "Inicio da faixa de ip's autorizados")
     private String inicialFaixa;
 
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "Final", descricao = "Final da faixa de ip's autorizados")
     @Column(length = 15, nullable = false)
     @NotNull
     private String finalFaixa;
 
+    @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "DNS", descricao = "DNS para validação")
     @NotNull
     private String dns;
 
     @ManyToOne(targetEntity = TipoIp.class)
     private TipoIp tipo;
+
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do ip(ativo/inativo)")
+    private boolean ativo;
+
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Alterado em", descricao = "Data de alteração do ip")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataAlteracao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO, label = "Usuário alteração", descricao = "Usuário que alterou o IP")
+    @ManyToOne(targetEntity = UsuarioSB.class)
+    private UsuarioSB usuarioAlteracao;
+
+    @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO, label = "Usuário inserção", descricao = "Usuário que inseriu o IP")
+    @ManyToOne(targetEntity = UsuarioSB.class)
+    private UsuarioSB usuarioInsercao;
 
     @Override
     public int getId() {

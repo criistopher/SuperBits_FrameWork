@@ -1,15 +1,18 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
+import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  * The persistent class for the localidade database table.
@@ -28,6 +31,13 @@ public class Localidade extends EntidadeNormal implements ItfLocalidade {
     private String descricao;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
+
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status da Localidade(ativo/inativo)")
+    private boolean ativo;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Data Alteração", descricao = "Data de alteração da localidade")
+    private Date dataAlteracao = new Date();
 
     //bi-directional many-to-one association to Cidade
     @OneToMany(mappedBy = "localidade")
@@ -90,6 +100,32 @@ public class Localidade extends EntidadeNormal implements ItfLocalidade {
         cidade.setLocalidade(null);
 
         return cidade;
+    }
+
+    public static Localidade getGrandeBH() {
+        return grandeBH;
+    }
+
+    public static void setGrandeBH(Localidade grandeBH) {
+        Localidade.grandeBH = grandeBH;
+    }
+
+    @Override
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    @Override
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
     }
 
 }
