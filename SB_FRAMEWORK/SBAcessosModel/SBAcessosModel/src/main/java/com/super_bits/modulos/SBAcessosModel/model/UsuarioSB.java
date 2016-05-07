@@ -11,6 +11,10 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a366cab03c6f7ee1372e69bf0d9b45dd41114a0d
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +29,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -104,11 +107,48 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private UsuarioSB usuarioInsercao;
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO, label = "Usuário Alteração", descricao = "Usuário que fez a alteração de outro na base de dados")
     @ManyToOne
+<<<<<<< HEAD
     @OneToMany(mappedBy = "usuarioAlteracao")
+=======
+>>>>>>> a366cab03c6f7ee1372e69bf0d9b45dd41114a0d
     private UsuarioSB usuarioAlteracao;
 
     public UsuarioSB() {
         super(UsuarioSB.class);
+    }
+
+    @Override
+    public Date getDataHoraAlteracao() {
+        return dataHoraAlteracao;
+    }
+
+    public void setDataHoraAlteracao(Date dataHoraAlteracao) {
+        this.dataHoraAlteracao = dataHoraAlteracao;
+    }
+
+    public Date getDataHoraInsersao() {
+        return dataHoraInsersao;
+    }
+
+    public void setDataHoraInsersao(Date dataHoraInsersao) {
+        this.dataHoraInsersao = dataHoraInsersao;
+    }
+
+    public UsuarioSB getUsuarioInsercao() {
+        return usuarioInsercao;
+    }
+
+    public void setUsuarioInsercao(UsuarioSB usuarioInsercao) {
+        this.usuarioInsercao = usuarioInsercao;
+    }
+
+    @Override
+    public UsuarioSB getUsuarioAlteracao() {
+        return usuarioAlteracao;
+    }
+
+    public void setUsuarioAlteracao(UsuarioSB usuarioAlteracao) {
+        this.usuarioAlteracao = usuarioAlteracao;
     }
 
     @Override
@@ -129,6 +169,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         this.senha = senha;
     }
 
+    @Override
     public String getComplemento() {
         return complemento;
     }
@@ -160,6 +201,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         return nome;
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -188,6 +230,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         return id;
     }
 
+    @Override
     public void setId(int pId) {
         id = pId;
     }
