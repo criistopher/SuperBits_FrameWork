@@ -5,8 +5,11 @@
  */
 package com.super_bits.config.webPaginas;
 
+import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
+import com.super_bits.view.menu.ItfFabricaMenu;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 
@@ -17,13 +20,22 @@ import javax.faces.bean.ApplicationScoped;
 @ApplicationScoped
 public class SiteMap extends MB_SiteMapa {
 
+    private PgCadastroUsuarios usuarios;
+    private Pg
+
     /// Injete aqui todas as Paginas que extendem o objeto MB_pagina
     @Override
+
     protected Map<String, ItfB_Pagina> buildPaginas() {
         Map<String, ItfB_Pagina> paginasSimples = buildSystemPages();
 
         return paginasSimples;
 
+    }
+
+    @Override
+    public Class<? extends ItfFabricaMenu> getFabricaMenu() {
+        return FabMenuExemplo.class;
     }
 
 }
