@@ -12,11 +12,8 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-<<<<<<< HEAD
-=======
 import com.super_bits.Controller.UtilFabricaDeAcoesBasico;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
->>>>>>> 9cfa83715cefbb13f4652d142f2a170d8aa6d171
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -31,17 +28,11 @@ import java.util.Map;
  */
 public abstract class MapaAcoesSistema {
 
-<<<<<<< HEAD
-    private static Map<String, ItfAcaoDoSistema> acaoBynomeUnico;
-    private static Map<Class, List<ItfAcaoDoSistema>> acoesByClasse;
-    private static Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> acoesByModulo;
-=======
     private static final Map<String, ItfAcaoDoSistema> ACAO_BY_NOME_UNICO = new HashMap<>();
     private static final Map<ItfFabricaAcoes, ItfAcaoDoSistema> ACAO_BY_ENUM = new HashMap<>();
     private static final Map<Class, List<ItfAcaoDoSistema>> ACOES_BY_CLASSE = new HashMap<>();
     private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_BY_MODULO = new HashMap<>();
     private static final Map<String, List<ItfAcaoDoSistema>> ACOES_BY_DOMINIO = new HashMap<>();
->>>>>>> 9cfa83715cefbb13f4652d142f2a170d8aa6d171
 
     private static boolean mapaCriado = false;
 

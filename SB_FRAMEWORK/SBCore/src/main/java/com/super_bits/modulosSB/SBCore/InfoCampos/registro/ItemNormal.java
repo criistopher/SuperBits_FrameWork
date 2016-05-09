@@ -92,7 +92,7 @@ public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal, I
 
     @Override
     public boolean isAtivo() {
-        return (Boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+        return (Boolean) getValorByTipoCampoEsperado(FabCampos.REG_ATIVO_INATIVO);
     }
 
     @Override

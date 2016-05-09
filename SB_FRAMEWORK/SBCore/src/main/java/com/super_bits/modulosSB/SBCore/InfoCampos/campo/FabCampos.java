@@ -47,6 +47,37 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
+     *//**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
      */
     AAA_NOME,
     /**
@@ -274,7 +305,7 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Boolean indicando se a Entidade está ativa ou desativada
      */
-    RET_ATIVO_INATIVO,
+    REG_ATIVO_INATIVO,
     /**
      * Indica um código de barras
      */
@@ -460,7 +491,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case HORA:
                 break;
-            case RET_ATIVO_INATIVO:
+            case REG_ATIVO_INATIVO:
                 break;
             case ICONE:
                 break;

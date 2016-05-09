@@ -20,6 +20,11 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
 
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_LONGO, getNomeCurto()));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_DESCRITIVO, "Lorem ipsum dolor smodo accumsan. Morbi egestas gravida mattis. Suspendisse luctus est a elit gravida imperdiet. Nam in lectus at odio ultricies pretium non a nibh. Suspendisse quis libero sem, sit amet egestas libero. Vestibulum gravida ipsum volutpat nisi dapibus accumsan. Pellentesque imperdiet convallis mollis. Fusce tincidunt diam tempor quam lacinia dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget ipsum at mauris commodo tempus a in nulla. Aliquam erat volutpat. Aliquam non sem a orci tincidunt aliquet. Proin eu gravida odio. Suspendisse potenti."));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_ATIVO_INATIVO));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_DATAALTERACAO));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_DATAALTERACAO));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_USUARIO_ALTERACAO));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_USUARIO_INSERCAO));
 
     }
 
@@ -105,12 +110,12 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
 
     @Override
     public void setAtivo(boolean pAtivo) {
-        setValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO, pAtivo);
+        setValorByTipoCampoEsperado(FabCampos.REG_ATIVO_INATIVO, pAtivo);
     }
 
     @Override
     public boolean isAtivo() {
-        return (boolean) getValorByTipoCampoEsperado(FabCampos.RET_ATIVO_INATIVO);
+        return (boolean) getValorByTipoCampoEsperado(FabCampos.REG_ATIVO_INATIVO);
     }
 
     @Override

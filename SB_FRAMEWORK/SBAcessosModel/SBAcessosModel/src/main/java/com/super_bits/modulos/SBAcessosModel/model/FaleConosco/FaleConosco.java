@@ -71,7 +71,7 @@ public class FaleConosco extends EntidadeNormal {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String mensagem;
 
-    @InfoCampo(tipo = FabCampos.RET_ATIVO_INATIVO)
+    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO)
     private boolean ativo;
 
     @Override
