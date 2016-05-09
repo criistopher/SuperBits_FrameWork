@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
@@ -8,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.PostPersist;
 import javax.persistence.PreUpdate;
 
 public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal, ItfBeanPermisionado {
@@ -25,11 +27,6 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     public String getNomeLongo() {
         camposEsperados.getCampo(FabCampos.AAA_NOME_LONGO).setValorPadrao(getNomeCurto());
         return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_LONGO);
-
-    }
-
-    @PreUpdate
-    public void antesDeSalvar() {
 
     }
 
@@ -64,6 +61,31 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     @Override
     public Date getDataHoraAlteracao() {
         return (Date) getValorByTipoCampoEsperado(FabCampos.REG_DATAALTERACAO);
+    }
+
+    @PostPersist
+    private void configLogPersistencia() {
+
+        if (getCampo(FabCampos.REG_DATAINSERCAO) != null) {
+            setValorByTipoCampoEsperado(FabCampos.REG_DATAINSERCAO, new Date());
+        }
+        if (getCampo(FabCampos.REG_USUARIO_INSERCAO) != null) {
+            setValorByTipoCampoEsperado(FabCampos.REG_USUARIO_INSERCAO, SBCore.getUsuarioLogado());
+        }
+
+    }
+
+    @PreUpdate
+    private void configLogUpdate() {
+
+        if (getCampo(FabCampos.REG_DATAALTERACAO) != null) {
+            setValorByTipoCampoEsperado(FabCampos.REG_DATAINSERCAO, new Date());
+        }
+
+        if (getCampo(FabCampos.REG_USUARIO_ALTERACAO) != null) {
+            setValorByTipoCampoEsperado(FabCampos.REG_USUARIO_ALTERACAO, SBCore.getUsuarioLogado());
+        }
+
     }
 
     @Override

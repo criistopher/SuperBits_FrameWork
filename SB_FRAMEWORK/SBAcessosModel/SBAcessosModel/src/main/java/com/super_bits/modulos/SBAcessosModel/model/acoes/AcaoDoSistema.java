@@ -6,8 +6,10 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
@@ -66,6 +68,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private final List<ItfParametroTela> parametroTela = new ArrayList<>();
     @Transient
     private ItfFabricaAcoes enumAcao;
+    private String nomeDominio;
 
     /**
      *
@@ -110,7 +113,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             enumAcao = pAcao;
             nomeUnico = UtilSBController.gerarNomeUnicoAcaoDoSistema(pAcao);
 
-            setModulo(UtilFabricaDeAcoes.getModuloByFabrica(pAcao));
+            setModulo(UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao));
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
@@ -293,7 +296,33 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public boolean isUmaAcaoGestaoDominio() {
-        return this.getClass().isAssignableFrom(ItfAcaoGerenciarEntidade.class);
+        try {
+            ItfAcaoEntidade teste = (ItfAcaoGerenciarEntidade) this;
+        } catch (Throwable t) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean isUmaAcaoDeEntidade() {
+        try {
+            ItfAcaoEntidade teste = (ItfAcaoEntidade) this;
+        } catch (Throwable t) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isUmaAcaoController() {
+        try {
+            ItfAcaoController teste = (ItfAcaoController) this;
+        } catch (Throwable t) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -308,6 +337,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public boolean isUmaAcaoSessaoMenu() {
         return false;
+    }
+
+    @Override
+    public String getNomeDominio() {
+        return nomeDominio;
     }
 
 }

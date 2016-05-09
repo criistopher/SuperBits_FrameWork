@@ -26,7 +26,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         Field campo;
         campo = UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(classeDoCampo, FabCampos.ID);
         if (campo == null) {
-            campo = UtilSBCoreReflexaoCampos.getCampoByClasseAnotacao(classeDoCampo, Id.class);
+            campo = UtilSBCoreReflexaoCampos.getFieldByClasseAnotacao(classeDoCampo, Id.class);
         }
 
         return campo;

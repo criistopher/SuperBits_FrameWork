@@ -132,4 +132,5 @@ public @interface InfoCampo {
      */
     FabModoExibicaoCampo[] modosExibicao() default {FabModoExibicaoCampo.TODOS_MENOS_LISTA};
 
+    String descricao() default "";
 }

@@ -188,4 +188,25 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return Informa um boolean, se a ação é uma ação do tipo sessão
      */
     public boolean isUmaAcaoSessaoMenu();
+
+    public boolean isUmaAcaoDeEntidade();
+
+    /**
+     *
+     * Retorna se é uma uma ação da camada de cotnroler (que executa alguma
+     * alteração no banco de dados) os enuns das ações de controleer devem
+     * conter _CTR_
+     *
+     * @return é Uma ação controller?
+     */
+    public boolean isUmaAcaoController();
+
+    /**
+     *
+     * O nome do dominio é referente a primeira parte do nome da ação, antes das
+     * palavras de marcação, como CTR, ou frm
+     *
+     * @return
+     */
+    public String getNomeDominio();
 }

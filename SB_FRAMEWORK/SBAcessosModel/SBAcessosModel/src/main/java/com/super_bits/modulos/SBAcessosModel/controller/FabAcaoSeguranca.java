@@ -16,11 +16,12 @@ import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoes;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
@@ -36,7 +37,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     GRUPO_FRM_LISTAR,
     GRUPO_FRM_VISUALIZAR,
     GRUPO_CTR_ALTERAR_STATUS,
-    GRUPO_FRM_LISTARUSUARIOS,
+    GRUPO_FRM_LISTAR_USUARIOS,
     GRUPO__CTR_SALVAR_MERGE,
     USUARIO_MB_GERENCIAR,
     USUARIO_FRM_NOVO,
@@ -46,7 +47,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_FRM_VISUALIZAR,
     USUARIO_FRM_LISTAR_GRUPOS,
     USUARIO_CTR_ALTERAR_STATUS,
-    USUARIO_FRM_LISTARGRUPOS,
     ACAO_CTR_INTERNA_DO_SISTEMA,
     IP_FRM_NOVO,
     IP_CTR_SALVAR_MERGE,
@@ -57,7 +57,11 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-        ItfAcaoDoSistema acao = UtilFabricaDeAcoes.getNovaAcao(this);
+        if (MapaAcoesSistema.isMapaCriado()) {
+            return (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistema(this);
+        }
+
+        ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
             case GRUPOS_MB_GERENCIAR:
                 AcaoGestaoEntidade grupoGerenciar = new AcaoGestaoEntidade(this, GrupoUsuarioSB.class, "/resources/SBComp/seguranca/grupo.xhtml");
@@ -68,7 +72,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
             case GRUPO_FRM_NOVO:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade acaoNovoRegistro = (AcaoFormularioEntidade) acao;
                 acaoNovoRegistro.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/grupo/editarGrupo.xhtml");
 
@@ -80,7 +84,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_FRM_LISTAR_GRUPOS:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(
                         this);
 
                 AcaoFormularioEntidade acaoListarGrupo = (AcaoFormularioEntidade) acao;
@@ -94,7 +98,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_FRM_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade acaoEditar = (AcaoFormularioEntidade) acao;
 
                 acaoEditar.setIconeAcao("fa fa-edit");
@@ -105,7 +109,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_FRM_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade grpVisualizar = (AcaoFormularioEntidade) acao;
 
                 grpVisualizar.setIconeAcao("fa fa-search-plus");
@@ -117,7 +121,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_CTR_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoDeEntidadeController grpAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 grpAlterarStatus.setNomeAcao("Ativar/Desativar");
@@ -127,12 +131,12 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case GRUPO_FRM_LISTARUSUARIOS:
+            case GRUPO_FRM_LISTAR_USUARIOS:
 
                 break;
             case GRUPO__CTR_SALVAR_MERGE:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoDeEntidadeController grpSalvarAlteracoes = (AcaoDeEntidadeController) acao;
 
                 grpSalvarAlteracoes.setIconeAcao("fa fa-save");
@@ -156,7 +160,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
             case USUARIO_FRM_NOVO:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioNovo = (AcaoFormularioEntidade) acao;
                 usuarioNovo.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml");
                 usuarioNovo.setNomeAcao("Criar Novo Usuário");
@@ -167,7 +171,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_FRM_LISTAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioListar = (AcaoFormularioEntidade) acao;
                 usuarioListar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/listarUsuario.xhtml");
                 usuarioListar.setNomeAcao("Listar Usuários");
@@ -178,7 +182,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_CTR_SALVAR_MERGE:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioSalvar = (AcaoDeEntidadeController) acao;
 
                 usuarioSalvar.setIconeAcao("fa fa-save");
@@ -188,7 +192,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_FRM_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioEditar = (AcaoFormularioEntidade) acao;
                 usuarioEditar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml");
                 usuarioEditar.setIconeAcao("fa fa-edit");
@@ -199,7 +203,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_FRM_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade usuarioVisualizar = (AcaoFormularioEntidade) acao;
                 usuarioVisualizar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml");
                 usuarioVisualizar.setIconeAcao("fa fa-search-plus");
@@ -211,7 +215,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_CTR_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getNovaAcao(this);
+                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoDeEntidadeController usuarioAlterarStatus = (AcaoDeEntidadeController) acao;
 
                 usuarioAlterarStatus.setNomeAcao("Ativar/Desativar");
@@ -222,12 +226,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 break;
 
-            case USUARIO_FRM_LISTARGRUPOS:
-
-                break;
             case ACAO_CTR_INTERNA_DO_SISTEMA:
                 acao = new AcaoController(this);
-
+                acao.setIconeAcao("fa fa-edit");
                 break;
             case GRUPO_FRM_LISTAR:
                 ItfAcaoFormularioEntidade acaoFormularioListar = (ItfAcaoFormularioEntidade) acao;
@@ -378,7 +379,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_FRM_EDITAR:
             case GRUPO_FRM_VISUALIZAR:
             case GRUPO_CTR_ALTERAR_STATUS:
-            case GRUPO_FRM_LISTARUSUARIOS:
+            case GRUPO_FRM_LISTAR_USUARIOS:
             case GRUPO__CTR_SALVAR_MERGE:
             case GRUPO_FRM_LISTAR:
                 return GrupoUsuarioSB.class;
@@ -391,7 +392,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_FRM_VISUALIZAR:
             case USUARIO_FRM_LISTAR_GRUPOS:
             case USUARIO_CTR_ALTERAR_STATUS:
-            case USUARIO_FRM_LISTARGRUPOS:
+
                 return UsuarioSB.class;
 
             case ACAO_CTR_INTERNA_DO_SISTEMA:
@@ -413,7 +414,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public String getNomeModulo() {
-        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();
     }
 
 }

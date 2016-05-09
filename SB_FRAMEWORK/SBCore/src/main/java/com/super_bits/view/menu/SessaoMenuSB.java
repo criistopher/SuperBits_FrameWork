@@ -312,6 +312,11 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     }
 
     @Override
+    public boolean isUmaAcaoDeEntidade() {
+        return acaoSessao.isUmaAcaoDeEntidade();
+    }
+
+    @Override
     public boolean isUmaAcaoSessaoMenu() {
         return true;
     }
@@ -319,6 +324,16 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     @Override
     public String getNomeUnicoSlug() {
         return getNomeCurto() + "-" + getId();
+    }
+
+    @Override
+    public boolean isUmaAcaoController() {
+        return acaoSessao.isUmaAcaoController();
+    }
+
+    @Override
+    public String getNomeDominio() {
+        return acaoSessao.getNomeDominio();
     }
 
 }

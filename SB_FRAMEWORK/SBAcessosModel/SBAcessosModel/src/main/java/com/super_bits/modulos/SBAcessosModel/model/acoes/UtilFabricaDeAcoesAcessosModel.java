@@ -7,18 +7,23 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
+import com.super_bits.Controller.anotacoes.InfoAcaoFormulario;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +32,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public abstract class UtilFabricaDeAcoes {
+public abstract class UtilFabricaDeAcoesAcessosModel {
 
     public static void configFormulario(ItfAcaoDoSistema acao, String formulario) {
         try {
@@ -91,21 +96,17 @@ public abstract class UtilFabricaDeAcoes {
     /**
      *
      * Retorna o tipo de ação generica de acordo com a nomeclatura * MB Ação
-     * managed Bean >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FRM
-     * AÇÃO DE FORMULARIO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-     * FRM_NOVO
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-     * FRM_EDITAR
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-     * FRM_VISUALIZAR
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR AÇÃO
-     * CAMADA CONTROLLER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-     * CTR_ALTERAR_STATUS
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR_SALVAR_MERGE
-     * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> CTR_REMOVER
+     * managed Bean FRMAÇÃO DE FORMULARIO <br>
+     * FRM_NOVO <br>
+     * FRM_EDITAR <br>
+     * FRM_VISUALIZAR <br>
+     * CTR AÇÃO CAMADA CONTROLLER <br>
+     * CTR_ALTERAR_STATUS <br>
+     * CTR_SALVAR_MERGE  <br>
+     * CTR_REMOVER<br>
      *
-     * @param pFabrica
-     * @return
+     * @param pFabrica Fabrica de ação referencia
+     * @return o Tipo de ação generica de acordo com a fabrica referenia enviada
      */
     public static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
 
@@ -115,32 +116,45 @@ public abstract class UtilFabricaDeAcoes {
 
         List<String> lista = Arrays.asList(divisoes);
 
-        for (String parte : divisoes) {
+        if (lista.contains("FRM")) {
 
             if (lista.contains("FRM") && lista.contains("NOVO")) {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
             }
-
             if (lista.contains("FRM") && lista.contains("EDITAR")) {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR;
             }
-
             if (lista.contains("FRM") && lista.contains("VISUALIZAR")) {
                 return FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR;
             }
 
+            if (lista.contains("FRM") && lista.contains("LISTAR")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR;
+            }
+            if (lista.contains("FRM") && lista.contains("MODAL")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
+            }
+
+            if (lista.contains("FRM") && lista.contains("MODAL")) {
+                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
+            }
+
+            if (lista.contains("FRM") && lista.contains("SELECAO") && lista.contains("ACAO")) {
+                return FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
+            }
+
+            return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
+        }
+        if (lista.contains("CTR")) {
             if (lista.contains("CTR") && lista.contains("ALTERAR") && lista.contains("STATUS")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR;
             }
-
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("MERGE")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_MODO_MERGE;
             }
-
             if (lista.contains("CTR") && lista.contains("ATIVAR")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR;
             }
-
             if (lista.contains("CTR") && lista.contains("REMOVER")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_REMOVER;
             }
@@ -152,40 +166,17 @@ public abstract class UtilFabricaDeAcoes {
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("NOVO")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_NOVO;
             }
-
             if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("EDICAO")) {
                 return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_EDICAO;
             }
-
-            if (lista.contains("CTR")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_PERSONALIZADO;
-            }
-
-            if (lista.contains("FRM") && lista.contains("MODAL")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
-            }
-
-            if (lista.contains("FRM") && lista.contains("LISTAR")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR;
-            }
-            if (lista.contains("FRM") && lista.contains("MODAL")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
-            }
-
-            if (lista.contains("FRM") && lista.contains("SELECAO") && lista.contains("ACAO")) {
-                return FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
-            }
-
-            if (lista.contains("FRM")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
-            }
-
-            if (lista.contains("MB")) {
-                return FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
-            }
+            return FabTipoAcaoSistemaGenerica.CONTROLLER_PERSONALIZADO;
 
         }
-        throw new UnsupportedOperationException("Não foi possivel determinar o tipo de ação para " + pFabrica.toString() + "Verifique a nomeclatura de acordo com as instruções ");
+        if (lista.contains("MB")) {
+            return FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
+        }
+
+        throw new UnsupportedOperationException("Não foi possível encontar o Tipo da ação " + pFabrica.toString() + " certifique que está usando a nomeclatura estabelecida CTR para controller FRM, para formulario, e MB para gestão de ações");
 
     }
 
@@ -217,6 +208,47 @@ public abstract class UtilFabricaDeAcoes {
 
     }
 
+    private static void configurarAnotacoesAcao(AcaoDoSistema pAcao) throws NoSuchFieldException {
+        System.out.println("CONFIGURAR AÇÃO ANOTACAO");
+        Field campo = pAcao.getEnumAcaoDoSistema().getClass().getField(pAcao.getEnumAcaoDoSistema().toString());
+
+        FabTipoAcaoSistemaGenerica tipoAcao = getTipoAcaoByNome(pAcao.getEnumAcaoDoSistema());
+        Class entidadeDaAcao = pAcao.getEnumAcaoDoSistema().getEntidadeDominio();
+        if (tipoAcao.toString().contains("FORMULARIO")) {
+            InfoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoAcaoFormulario.class);
+            if (anotacaoFormulario != null) {
+                for (String cp : anotacaoFormulario.campos()) {
+
+                    UtilSBCoreReflexaoCampos.buildCamposDaClasse(entidadeDaAcao);
+                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                    if (caminhoCampo == null) {
+                        throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                    }
+                    ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
+                }
+            }
+        }
+        //alcyrnascimento@hotmail.com
+        //dep.acarantes@elmg.gov.br
+
+        if (tipoAcao.toString().contains("CONTROLLER")) {
+
+        }
+        if (tipoAcao.toString()
+                .contains("GEREMCIAR")) {
+
+        }
+
+        campo.getAnnotation(InfoAcaoFormulario.class
+        );
+    }
+
+    /**
+     *
+     * @param pAcao Cria uma nova ação do sistema de forma automática por
+     * reflexão
+     * @return
+     */
     public static ItfAcaoDoSistema getNovaAcao(
             ItfFabricaAcoes pAcao) {
 
@@ -391,7 +423,7 @@ public abstract class UtilFabricaDeAcoes {
             if (novaAcao == null) {
                 throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao" + pAcao + " verifique a nomeclatura de acordo com a documentação e tente novamente");
             }
-
+            configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);

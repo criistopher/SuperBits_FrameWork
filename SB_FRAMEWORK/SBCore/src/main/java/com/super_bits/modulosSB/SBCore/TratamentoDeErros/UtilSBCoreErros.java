@@ -13,6 +13,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  */
 public class UtilSBCoreErros {
 
+    public static String getSimpleName(String nomeCompleto) {
+        String[] caminho = nomeCompleto.split("\\.");
+        return caminho[caminho.length - 1];
+    }
+
     public static String getResumoErro(Throwable pErro) {
         String texto = "";
         if (ExceptionUtils.getRootCause(pErro) != null) {
@@ -23,7 +28,7 @@ public class UtilSBCoreErros {
             for (StackTraceElement etapa : pErro.getStackTrace()) {
 
                 if (etapa.getClassName().contains("super_bits")) {
-                    texto += "\n" + etapa.getClassName() + "->" + etapa.getMethodName() + "-Linha" + etapa.getLineNumber();
+                    texto += "\n" + getSimpleName(etapa.getClassName()) + "->" + etapa.getMethodName() + "-Linha" + etapa.getLineNumber();
                 }
             }
         }

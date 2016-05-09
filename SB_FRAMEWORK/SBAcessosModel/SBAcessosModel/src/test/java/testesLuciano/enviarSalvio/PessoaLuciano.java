@@ -14,13 +14,16 @@ import javax.persistence.Id;
 @Entity
 public class PessoaLuciano {
 
-    private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue
     private Long id;
     private String nomeFantasia;
+
+    private String startDateasdasd;
+
     private EnderecoLuciano enderecoPrincipal;
-    private EnderecoLuciano enderecoEntrega;
-    //private EnderecoLuciano enderecoCobranca;
+
+    private EnderecoLuciano enderecossecundario;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +43,10 @@ public class PessoaLuciano {
         this.nomeFantasia = nomeFantasia;
     }
 
-    @Embedded
+    @Embedded()
+    @AttributeOverrides({
+        @AttributeOverride(name = "LOGRADOURO_TESTE", column = @Column(name = "logradouroPrincipal", columnDefinition = "tttt"))
+    })
     public EnderecoLuciano getEnderecoPrincipal() {
         return enderecoPrincipal;
     }
@@ -50,19 +56,14 @@ public class PessoaLuciano {
     }
 
     @AttributeOverrides({
-        @AttributeOverride(name = "cep", column = @Column(name = "cepEntrega")),
-        @AttributeOverride(name = "cidadeEndereco", column = @Column(name = "cidadeEntrega")),
-        @AttributeOverride(name = "bairro", column = @Column(name = "bairroEntrega")),
-        @AttributeOverride(name = "logradouro", column = @Column(name = "logradouroEntrega")),
-        @AttributeOverride(name = "nro", column = @Column(name = "nroEntrega")),
-        @AttributeOverride(name = "complemento", column = @Column(name = "ComplementoEntrega")),
-        @AttributeOverride(name = "caixaPostal", column = @Column(name = "caixaPostalEntrega")),})
-    @Embedded
-    public EnderecoLuciano getEnderecoEntrega() {
-        return enderecoEntrega;
+        @AttributeOverride(name = "LOGRADOURO_TESTE", column = @Column(name = "entrega"))
+    })
+    public EnderecoLuciano getEnderecossecundario() {
+        return enderecossecundario;
     }
 
-    public void setEnderecoEntrega(EnderecoLuciano enderecoEntrega) {
-        this.enderecoEntrega = enderecoEntrega;
+    public void setEnderecossecundario(EnderecoLuciano enderecossecundario) {
+        this.enderecossecundario = enderecossecundario;
     }
+
 }

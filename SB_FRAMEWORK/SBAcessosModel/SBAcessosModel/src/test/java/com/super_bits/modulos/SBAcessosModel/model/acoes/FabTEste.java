@@ -81,7 +81,7 @@ public enum FabTEste implements ItfFabricaAcoes {
 
     @Override
     public Object getRegistro() {
-        ItfAcaoDoSistema acao = UtilFabricaDeAcoes.getNovaAcao(this);
+        ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         ItfAcaoFormularioEntidade acaoform = null;
         if (acao.isUmaAcaoFormulario()) {
             acaoform = (ItfAcaoFormularioEntidade) acao;
@@ -112,7 +112,7 @@ public enum FabTEste implements ItfFabricaAcoes {
 
     @Override
     public String getNomeModulo() {
-        return UtilFabricaDeAcoes.getModuloByFabrica(this).getNome();
+        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();
     }
 
 }

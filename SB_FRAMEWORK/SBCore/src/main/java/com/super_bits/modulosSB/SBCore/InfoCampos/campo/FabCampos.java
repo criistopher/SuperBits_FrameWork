@@ -198,6 +198,12 @@ public enum FabCampos implements ItfFabrica {
      */
     LOOKUPMULTIPLO,
     /**
+     *
+     *
+     * Representa uma lista de objetos
+     */
+    LISTA,
+    /**
      * Texto simples
      */
     TEXTO_SIMPLES,

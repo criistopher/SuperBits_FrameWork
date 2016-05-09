@@ -248,7 +248,7 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
     }
 
     public AcaoDoSistema getAcaoListarUsuarios() {
-        return FabAcaoSeguranca.GRUPO_FRM_LISTARUSUARIOS.getAcaoDoSistema();
+        return FabAcaoSeguranca.GRUPO_FRM_LISTAR_USUARIOS.getAcaoDoSistema();
     }
 
     public ItfAcaoDoSistema getAcaoSalvarPermissoes() {

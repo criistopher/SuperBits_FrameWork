@@ -171,7 +171,7 @@ public class CrudDataSet<T extends ItfBeanSimples> extends DaoGenerico<T> implem
             case SQL:
                 setRegistros((List) UtilSBPersistencia.getListaRegistrosBySQL(sql, -1, parametros));
                 break;
-            case LIKENOMECURTO:
+            case LIKENOME:
                 registros = (List) UtilSBPersistencia.getListaRegistrosLikeNomeCurto(sql, classe, em);
                 break;
             case SBNQ:
