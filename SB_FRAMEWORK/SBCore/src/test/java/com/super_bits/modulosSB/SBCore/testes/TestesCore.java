@@ -25,11 +25,42 @@ public class TestesCore {
         System.out.println("Relato de Erro OK");
     }
 
+    class TestaString {
+
+        private String stringReferenciada;
+
+        public String getStringReferenciada() {
+            return stringReferenciada;
+        }
+
+        public void setStringReferenciada(String stringReferenciada) {
+            this.stringReferenciada = stringReferenciada;
+        }
+
+    }
+
     @Test
     public void testeToString() {
+
+        TestaString teste1 = new TestaString();
+
+        teste1.setStringReferenciada("sblabla");
+
+        TestaString teste2 = new TestaString();
+        teste2.setStringReferenciada("22222222222222");
+
+        System.out.println("teste1= " + teste1.getStringReferenciada());
+        System.out.println("teste2= " + teste2.getStringReferenciada());
+
+        String nome, sobrenome = "dfasdf";
+        sobrenome = "bbbb";
+
+        System.out.println(sobrenome);
+
+        System.out.println("Teste");
+
         //    InfoErroSB.FabErro tipo = InfoErroSB.FabErro.ARQUIVAR_LOG;
 //        TransparenciaClient client = new TransparenciaClient("3BnvXAL7Mly6");
-
         //Busca candidato por ID, 'true' popula automaticamente os campos 'bens', 'candidaturas', 'doadores' e 'estatisticas'
         //Candidato candidato = client.get
         /**

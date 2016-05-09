@@ -11,7 +11,6 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.List;
@@ -23,9 +22,9 @@ import java.util.Map;
  */
 public abstract class MapaAcoesSistema implements ItfFabricaAcoes {
 
-    private Map<String, ItfAcaoDoSistema> acaoBynomeUnico;
-    private Map<Class, List<ItfAcaoDoSistema>> acoesByClasse;
-    private Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> acoesByModulo;
+    private static Map<String, ItfAcaoDoSistema> acaoBynomeUnico;
+    private static Map<Class, List<ItfAcaoDoSistema>> acoesByClasse;
+    private static Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> acoesByModulo;
 
     public void makeMapaAcoesSistema() {
 
