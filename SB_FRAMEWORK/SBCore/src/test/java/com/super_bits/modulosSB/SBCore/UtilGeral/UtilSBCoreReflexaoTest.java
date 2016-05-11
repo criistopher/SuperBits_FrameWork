@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 
@@ -46,7 +46,7 @@ public class UtilSBCoreReflexaoTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador());
     }
 
 }

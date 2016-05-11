@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.cep.ItemLocal;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import org.junit.Before;
@@ -40,7 +42,7 @@ public class UtilSBCoreCEPTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        configDesenvolvedorPadraoSemClasseDePermissoes();
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador());
     }
 
 }

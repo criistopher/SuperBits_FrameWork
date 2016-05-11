@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
@@ -12,7 +13,7 @@ import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import config.ConfigPersistenciaTestesAcesso;
-import config.FabConfiguracoesCoreAcessosModel;
+
 import java.util.List;
 import org.junit.Test;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getTodosCamposAnotadosComManyToOne;
@@ -47,7 +48,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

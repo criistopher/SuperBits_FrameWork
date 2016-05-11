@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.testes;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCorePadrao;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class TestesCore {
 
     public void testaConfigEErroRElat() {
         System.out.println("Teste relato de Erro");
-        SBCore.configurar(new ConfigCorePadrao());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
         //   SBCore.LancarErro(InfoErroSB.FabErro.USUARIO, "Executa Alerta Usuario");
         System.out.println("Relato de Erro OK");
     }

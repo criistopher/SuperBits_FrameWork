@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -12,7 +13,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import config.FabConfiguracoesCoreAcessosModel;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class UtilFabricaDeAcoesTest {
 
     @Before
     public void configAmbiente() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
 
     }
 

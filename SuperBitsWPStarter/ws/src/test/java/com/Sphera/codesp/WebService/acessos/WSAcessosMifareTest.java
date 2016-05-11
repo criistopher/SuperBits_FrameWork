@@ -6,7 +6,7 @@
 package com.Sphera.codesp.WebService.acessos;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCorePadrao;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
 
     @Test
     public void testeAcessoLiberado() {
-        SBCore.configurar(new ConfigCorePadrao());
+
 //        SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         WSAcessosMifare ws = new WSAcessosMifare();
         //    assertTrue("Cartão de aceso Alline retornou false", ws.acessoPermitido("B6D1D67A", 12));
@@ -34,7 +34,7 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
      * Test of getListaAcessos method, of class AcessosService.
      */
     public void testGetListaAcessos() {
-        SBCore.configurar(new ConfigCorePadrao());
+
         //    SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         WSAcessosMifare ws = new WSAcessosMifare();
         List<CartaoDeAcesso> lista = ws.getAcessosPermitidosPorGate(12);
@@ -44,7 +44,7 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
 
     @Test
     public void testeListaBanco() {
-        SBCore.configurar(new ConfigCorePadrao());
+
         //      SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         List<CartaoDeAcesso> lista = getCartoesPorBanco(12);
         for (CartaoDeAcesso cartao : lista) {
@@ -60,7 +60,6 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
     public void testAcessoPermitido() {
 
         //teste.ativaServidor(AcessosMifareService.class);
-        SBCore.configurar(new ConfigCorePadrao());
         //     SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         WSAcessosMifareIO teste = new WSAcessosMifareIO();
         ItfWSAcessosMifare cliente = teste.getServico();
@@ -74,9 +73,8 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
     }
 
     public void testeSelect() {
-        SBCore.configurar(new ConfigCorePadrao());
-  //      SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
 
+        //      SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         //  List<TbPessoa> pessoa = (List<TbPessoa>) UtilSBPersistencia.getListaRegistrosByHQL(" from Tb_Pessoa ", 10);
         //   System.out.println("selecionadas " + pessoa.size());
         List<Object[]> resposta = (List<Object[]>) UtilSBPersistencia.getListaRegistrosBySQL("SELECT ID_PESSOA, NOME,NOME_MAE from TB_PESSOA where ID_PESSOA>?", 100, 8000);
@@ -89,9 +87,8 @@ public class WSAcessosMifareTest extends WSAcessosMifare {
     }
 
     public void testeConexãoComBanco() {
-        SBCore.configurar(new ConfigCorePadrao());
- //       SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
 
+        //       SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         //      List<TbPessoa> pessoa = (List<TbPessoa>) UtilSBPersistencia.getListaRegistrosByHQL(" from TbPessoa ", 10);
 //        System.out.println("selecionadas " + pessoa.size());
         List<Object[]> resposta = (List<Object[]>) UtilSBPersistencia.getListaRegistrosBySQL("SELECT ID_PESSOA, NOME,NOME_MAE from TB_PESSOA where ID_PESSOA>?", 100, 8000);

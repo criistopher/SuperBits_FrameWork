@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
@@ -14,7 +15,6 @@ import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;
-import config.FabConfiguracoesCoreAcessosModel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class GrupoUsuarioSBTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
 
     }

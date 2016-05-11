@@ -5,11 +5,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;
 import org.junit.Before;
@@ -91,7 +91,7 @@ public class Permitido_GruposTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage(), true);
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

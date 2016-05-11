@@ -5,10 +5,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;
 import java.util.List;
@@ -31,7 +32,7 @@ public class AcessoSBTest extends TestCase {
 
     @Before
     public void init() {
-        SBCore.configurar(new ConfigCoreDeveloper());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
 
     }

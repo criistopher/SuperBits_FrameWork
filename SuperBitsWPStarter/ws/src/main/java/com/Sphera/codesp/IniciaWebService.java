@@ -7,7 +7,7 @@ package com.Sphera.codesp;
 
 import com.Sphera.codesp.WebService.acessos.WSAcessosMifare;
 import com.Sphera.codesp.WebService.acessos.WSAcessosMifareIO;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCorePadrao;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class IniciaWebService {
 
     public static void main(String[] args) {
-        SBCore.configurar(new ConfigCorePadrao());
+        //  SBCore.configurar(new ConfigCorePadrao());
         //     SBPersistencia.configuraJPA(new ConfigPersistenciaSegurancaSphera());
         WSAcessosMifareIO wsAcesso = new WSAcessosMifareIO();
         wsAcesso.ativaServidor(WSAcessosMifare.class);

@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
@@ -106,8 +107,23 @@ public class SBCore {
         configurar(configuracoes, false);
     }
 
+    /**
+     *
+     *
+     *
+     * @param configuracoes Confugração do ambiente
+     * @param pIgnorarClassePermissao Deve ignorar a configuração relativa a
+     * permissoes?
+     */
     public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
         try {
+
+            if (configurado) {
+                //throw new UnsupportedOperationException("A configuração do ambiente de execução só pode ser realizada uma vez");
+                System.out.println("ATENÇÃO, OCORREU UMA TENTATIVA DUPLA  DE CONFIGURAR O CORE, ESTA AÇÃO IRÁ GERAR UMA ERRO PARA_TUDO NAS PROXIMAS VERSÕES");
+                // return;
+            }
+
             estadoAplicativo = configuracoes.getEstadoApp();
             centralMensagens = configuracoes.getCentralDeMensagens();
             classeErro = configuracoes.getClasseErro();
@@ -122,6 +138,10 @@ public class SBCore {
             centralEventos = configuracoes.getCentralDeEventos();
             classeConfigPermissoes = configuracoes.getConfigPermissoes();
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
+
+            if (classeErro == null) {
+                throw new UnsupportedOperationException("Classe de erro não foi definida no configurador");
+            }
 
             if (centralMensagens == null) {
                 throw new UnsupportedOperationException("Central de mensagens não configurada");
@@ -214,6 +234,10 @@ public class SBCore {
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
         ValidaConfigurado();
         try {
+            if (classeErro == null) {
+                System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
+                classeErro = ErroSBCoreDeveloperSopMessagem.class;
+            }
             ItfInfoErroSB erro = (InfoErroSB) classeErro.newInstance();
 
             erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(pMensagem), pTipoErro, pErroJava);

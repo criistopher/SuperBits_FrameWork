@@ -5,8 +5,9 @@
  */
 package com.super_bits.modulosSB.Persistencia.util;
 
+import aux.FabConfigCoreSBSBpersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class UtilSBPersistenciaFabricasTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
+        SBCore.configurar(FabConfigCoreSBSBpersistencia.DESENVOLVIMENTO.getConfigurador());
     }
 
 }

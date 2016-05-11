@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
+import aux.FabConfigCoreSBSBWebPaginas;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
@@ -11,7 +12,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes.TestePaginaEntidade;
 import config.ConfigPersistenciaTestesAcesso;
-import config.FabConfiguracoesCoreAcessosModel;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -53,7 +54,7 @@ public class PgCadastroUsuariosTest extends TestePaginaEntidade<UsuarioSB> {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(FabConfigCoreSBSBWebPaginas.DESENVOLVIMENTO.getConfigurador(), true);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

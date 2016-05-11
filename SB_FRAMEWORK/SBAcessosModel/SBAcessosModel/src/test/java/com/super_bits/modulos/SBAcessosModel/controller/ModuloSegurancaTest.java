@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
@@ -14,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import config.ConfigPersistenciaTestesAcesso;
-import config.FabConfiguracoesCoreAcessosModel;
+
 import org.junit.Test;
 
 /**
@@ -63,7 +64,7 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

@@ -96,6 +96,12 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
         this.centralDeEventos = centralDeEventos;
     }
 
+    /**
+     *
+     * O nome do projeto identifica a pasta onde o projeto se encontra
+     *
+     * @param nomeProjeto
+     */
     public void setNomeProjeto(String nomeProjeto) {
         this.nomeProjeto = nomeProjeto;
     }
@@ -112,6 +118,13 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
         this.grupoProjeto = grupoProjeto;
     }
 
+    /**
+     *
+     * O diretorio base é o diretorio que pode existir logo depois da pasta
+     * source, agrupando diversos projetos
+     *
+     * @param diretorioBase
+     */
     public void setDiretorioBase(String diretorioBase) {
         this.diretorioBase = diretorioBase;
     }

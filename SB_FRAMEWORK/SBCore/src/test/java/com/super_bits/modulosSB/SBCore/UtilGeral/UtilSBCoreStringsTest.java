@@ -5,8 +5,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import javax.swing.JOptionPane;
@@ -97,7 +96,7 @@ public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Before
     public void init() {
-        SBCore.configurar(new ConfigCoreDeveloper());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
     }
 
     /**
@@ -208,7 +207,7 @@ public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador());
     }
 
     @Test

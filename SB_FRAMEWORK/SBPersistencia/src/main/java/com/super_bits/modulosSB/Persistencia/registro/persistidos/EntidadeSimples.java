@@ -166,7 +166,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
             return "nulo".hashCode();
         }
 
-        return (getNomeUnico() + getNomeUnico()).hashCode();
+        return (this.getClass() + getNomeUnico()).hashCode();
     }
 
     @Override

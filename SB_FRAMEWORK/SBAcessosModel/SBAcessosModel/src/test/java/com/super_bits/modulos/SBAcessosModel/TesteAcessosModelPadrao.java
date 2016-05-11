@@ -5,12 +5,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel;
 
+import aux.FabConfigCoreSBSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;
-import config.FabConfiguracoesCoreAcessosModel;
+
 import javax.persistence.EntityManager;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesCoreAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

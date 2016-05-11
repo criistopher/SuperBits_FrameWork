@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.io.BufferedInputStream;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public class UtilSBCoreOutputsTest {
 
     @Before
     public void setUp() {
-        SBCore.configurar(new ConfigCoreDeveloper());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
     }
 
     /**
