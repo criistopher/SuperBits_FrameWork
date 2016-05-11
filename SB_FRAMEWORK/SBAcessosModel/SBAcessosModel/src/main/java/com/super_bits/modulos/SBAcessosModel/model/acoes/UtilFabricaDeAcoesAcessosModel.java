@@ -215,7 +215,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
     }
 
     private static void configurarAnotacoesAcao(AcaoDoSistema pAcao) throws NoSuchFieldException {
-        System.out.println("CONFIGURAR AÇÃO ANOTACAO");
+
         Field campo = pAcao.getEnumAcaoDoSistema().getClass().getField(pAcao.getEnumAcaoDoSistema().toString());
 
         FabTipoAcaoSistemaGenerica tipoAcao = getTipoAcaoByNome(pAcao.getEnumAcaoDoSistema());

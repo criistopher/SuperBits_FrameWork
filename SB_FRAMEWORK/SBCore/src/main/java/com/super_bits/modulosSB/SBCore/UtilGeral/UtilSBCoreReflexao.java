@@ -327,9 +327,17 @@ public abstract class UtilSBCoreReflexao {
         try {
             ItfAcaoController acaocontroller = (ItfAcaoController) pAcaoDoSistema;
             Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(pAcaoDoSistema);
+            if (metodo == null) {
+                throw new Throwable("Método não foi encontrado para a ação" + pAcaoDoSistema.getNomeUnico());
+            }
             return metodo;
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obterMetodo por ação", t);
+            String nomeAcao = "Acao não enviada";
+            if (pAcaoDoSistema != null) {
+                nomeAcao = pAcaoDoSistema.getNomeUnico();
+            }
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obterMetodo por ação, Verifique se existe o método implementado para a ação " + nomeAcao, t);
         }
         return null;
 

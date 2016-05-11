@@ -192,6 +192,33 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
 
     /**
      *
+     * Retorna ação que está vinculada ao metodo;
+     *
+     *
+     *
+     *
+     * @return A ação que estiver anotada no metodo
+     */
+    protected static ItfAcaoDoSistema getAcaoDoMetodo() {
+        try {
+            Method metodo = getMetodoChamado();
+            ItfAcaoDoSistema acao = UtilSBController.getAcaoByMetodo(metodo, true);
+            if (acao == null) {
+                String nomeMetodo = "NULO!!!";
+                if (metodo != null) {
+                    nomeMetodo = metodo.getName();
+                }
+                throw new UnsupportedOperationException("Não foi possível identificar a ação do método" + nomeMetodo);
+            }
+            return acao;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo ação do sistema do método ", t);
+            return null;
+        }
+    }
+
+    /**
+     *
      * Verifica se o usuário logado possui autorização para executar este método
      *
      * @param pResp O objeto de resposta onde a mensagem de erro será adicionada

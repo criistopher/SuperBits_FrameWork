@@ -7,8 +7,8 @@ package com.super_bits.Controller;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
 /**
  *
@@ -18,26 +18,44 @@ public class UtilFabricaDeAcoesBasico {
 
     public static boolean validaIntegridadeAcaoDoSistema(ItfAcaoDoSistema pAcaoDoSistema) {
 
-        assertNotNull("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema());
+        try {
+            if (pAcaoDoSistema == null) {
 
-        if (pAcaoDoSistema.isUmaAcaoDeEntidade()) {
-            assertNotNull("A entidade vindulada da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio());
+            }
+            if (pAcaoDoSistema.getEnumAcaoDoSistema() == null) {
+                throw new UnsupportedOperationException("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido");
+            }
+
+            if (pAcaoDoSistema.isUmaAcaoDeEntidade()) {
+
+                if (pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio() == null) {
+                    throw new UnsupportedOperationException("A entidade vindulada da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido");
+                }
+
+            }
+            if (pAcaoDoSistema.isUmaAcaoFormulario()) {
+                if (((ItfAcaoFormulario) pAcaoDoSistema).getXhtml() == null) {
+                    throw new UnsupportedOperationException("O Xhtml da ação de formulario" + pAcaoDoSistema.getNomeUnico() + " está nula");
+                } else if (((ItfAcaoFormulario) pAcaoDoSistema).getXhtml().length() < 3) {
+                    throw new UnsupportedOperationException("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco");
+                }
+
+                if (pAcaoDoSistema.isTemAcaoPrincipal()) {
+                    if (((ItfAcaoSecundaria) pAcaoDoSistema).getAcaoPrincipal() == null) {
+                        throw new UnsupportedOperationException("A ação secundária" + pAcaoDoSistema.getNomeUnico() + " principal não foi definida em ");
+                    }
+                }
+
+                if (pAcaoDoSistema.getIconeAcao() == null) {
+                    throw new UnsupportedOperationException("O icone da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido");
+                }
+
+            }
+            return true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro validando ação ", t);
+            return false;
         }
-        if (pAcaoDoSistema.isUmaAcaoFormulario()) {
-
-            assertNotNull("O Xhtml da ação de formulario" + pAcaoDoSistema.getNomeUnico() + " está nula", ((ItfAcaoFormulario) pAcaoDoSistema).getXhtml());
-            assertFalse("O xhtml da acao  de formulario" + pAcaoDoSistema.getNomeUnico() + "está em branco",
-                    "".equals(((ItfAcaoFormulario) pAcaoDoSistema).getXhtml()));
-
-        }
-
-        if (pAcaoDoSistema.isTemAcaoPrincipal()) {
-            assertNotNull("A ação secundária" + pAcaoDoSistema.getNomeUnico() + " principal não foi definida em ", ((ItfAcaoSecundaria) pAcaoDoSistema).getAcaoPrincipal());
-        }
-
-        assertNotNull("O icone da ação " + pAcaoDoSistema.getNomeUnico() + " não foi definido", pAcaoDoSistema.getIconeAcao());
-
-        return true;
     }
 
 }

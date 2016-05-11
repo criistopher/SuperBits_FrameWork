@@ -61,9 +61,17 @@ public class UtilSBController {
      * @return O hash da String Classe+nomeMetodo
      */
     public static Integer gerarIDMetodoAcaoDoSistema(Method pMeThod) {
-        String classe = pMeThod.getDeclaringClass().getName();
-        String metodo = pMeThod.getName();
-        return (classe + metodo).hashCode();
+        try {
+            if (pMeThod == null) {
+                throw new UnsupportedOperationException("Enviou metodo nulo para gerar Id do método");
+            }
+            String classe = pMeThod.getDeclaringClass().getName();
+            String metodo = pMeThod.getName();
+            return (classe + metodo).hashCode();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando id do metodo", t);
+            return null;
+        }
     }
 
     public static Integer gerarIDAcaoDoSistema(ItfFabricaAcoes pAcao) {

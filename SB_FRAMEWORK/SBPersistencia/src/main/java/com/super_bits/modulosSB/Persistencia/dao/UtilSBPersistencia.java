@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -1142,6 +1143,12 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     public static Object superMerge(ItfBeanSimples pEntidade, EntityManager em) {
 
         throw new UnsupportedOperationException();
+
+    }
+
+    public static void isEntidadeFoiCarregada(ItfBeanSimples entidade, EntityManager pEm) {
+        PersistenceUnitUtil unitUtil = pEm.getEntityManagerFactory().getPersistenceUnitUtil();
+        unitUtil.isLoaded(entidade);
 
     }
 

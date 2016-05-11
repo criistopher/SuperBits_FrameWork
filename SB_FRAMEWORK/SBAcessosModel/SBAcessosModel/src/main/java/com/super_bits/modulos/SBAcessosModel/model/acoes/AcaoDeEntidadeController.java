@@ -13,6 +13,8 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
@@ -63,11 +65,16 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
 
     @Override
     public int getIdMetodo() {
-        if (idMetodo == 0) {
-            idMetodo = UtilSBController.gerarIDMetodoAcaoDoSistema(UtilSBCoreReflexao.getMetodoByAcao(this));
+        try {
+            if (idMetodo == 0) {
+                idMetodo = UtilSBController.gerarIDMetodoAcaoDoSistema(UtilSBCoreReflexao.getMetodoByAcao(this));
+            }
+            return idMetodo;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando id do metodo para ação" + getNomeUnico(), t);
+            throw new UnsupportedOperationException("Erro gerando id do metodo para ação" + getNomeUnico());
         }
 
-        return idMetodo;
     }
 
     @Override
