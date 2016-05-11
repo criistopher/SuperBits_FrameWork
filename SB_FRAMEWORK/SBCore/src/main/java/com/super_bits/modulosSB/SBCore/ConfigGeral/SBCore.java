@@ -139,10 +139,7 @@ public class SBCore {
             classeConfigPermissoes = configuracoes.getConfigPermissoes();
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
 
-            if (classeErro == null) {
-                throw new UnsupportedOperationException("Classe de erro não foi definida no configurador");
-            }
-
+            //     SBCore.enviarAvisoAoUsuario(SBCore.getCaminhoDesenvolvimento());
             if (centralMensagens == null) {
                 throw new UnsupportedOperationException("Central de mensagens não configurada");
 
@@ -163,8 +160,11 @@ public class SBCore {
                 File pastaTemp = new File("/home/developer/temp/servlet");
                 pastaTemp.mkdirs();
             }
-            if (acoesDoSistema == null) {
-                throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
+
+            if (!pIgnorarClassePermissao) {
+                if (acoesDoSistema == null) {
+                    throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
+                }
             }
 
             try {
@@ -193,9 +193,11 @@ public class SBCore {
                 }
             }
             System.out.println("COnfigurando Mapa de Ações do sistema");
-            MapaAcoesSistema.makeMapaAcoesSistema();
-            if (MapaAcoesSistema.isMapaCriado()) {
-                System.out.println("Mapa de ações criado com sucesso!");
+            if (!pIgnorarClassePermissao) {
+                MapaAcoesSistema.makeMapaAcoesSistema();
+                if (MapaAcoesSistema.isMapaCriado()) {
+                    System.out.println("Mapa de ações criado com sucesso!");
+                }
             }
         } catch (Throwable t) {
             configurado = true;
@@ -406,19 +408,33 @@ public class SBCore {
     public static String getCaminhoDesenvolvimento() {
         String caminhoDiretorioBase = "";
         String separadorCaminhodiretorioBase = "";
-        if (diretorioBase != null) {
-            if (!diretorioBase.isEmpty()) {
-                caminhoDiretorioBase = "/" + diretorioBase;
-                separadorCaminhodiretorioBase = "/";
+
+        boolean temCaminhoDiretorioBase = false;
+        boolean temCaminhoGrupoProjeto = false;
+
+        if (getGrupoProjeto() != null) {
+            if (!getGrupoProjeto().isEmpty()) {
+                temCaminhoGrupoProjeto = true;
             }
         }
-        if (getGrupoProjeto().isEmpty()) {
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + nomeProjeto;
+
+        if (diretorioBase != null) {
+            if (!diretorioBase.isEmpty()) {
+                temCaminhoDiretorioBase = true;
+            }
+        }
+        if (temCaminhoDiretorioBase) {
+            caminhoDiretorioBase = diretorioBase + "/";
+
+        }
+
+        if (!temCaminhoGrupoProjeto) {
+
+            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/" + nomeProjeto;
         } else {
 
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + getGrupoProjeto()
-                    + caminhoDiretorioBase
-                    + separadorCaminhodiretorioBase + "/" + nomeProjeto;
+            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + getGrupoProjeto() + "/" + nomeProjeto;
+
         }
     }
 

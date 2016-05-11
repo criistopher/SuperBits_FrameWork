@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulosSB.SBCore.ManipulaArquivo;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,20 +29,25 @@ import java.util.logging.Logger;
  */
 public abstract class UtilSBCoreArquivoTexto {
 
-    public static boolean criarSeNaoExistir(String pCaminhoArquivo) throws IOException {
-        File arquivo = new File(pCaminhoArquivo);
+    public static boolean criarSeArquivoSeNaoExistir(String pCaminhoArquivo) throws IOException {
+        try {
+            File arquivo = new File(pCaminhoArquivo);
 
-        if (!arquivo.exists()) {
+            if (!arquivo.exists()) {
 
-            File pasta = new File(arquivo.getParent());
-            pasta.mkdirs();
+                File pasta = new File(arquivo.getParent());
+                pasta.mkdirs();
 
-            arquivo.createNewFile();
+                arquivo.createNewFile();
+                return true;
+
+            }
             return true;
-
-        } else {
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando criar:" + pCaminhoArquivo, t);
             return false;
         }
+
     }
 
     /**
@@ -57,7 +63,7 @@ public abstract class UtilSBCoreArquivoTexto {
     public synchronized static boolean escreverEmArquivo(String pCaminhoArquivo, String pLinha) {
 
         try {
-            criarSeNaoExistir(pCaminhoArquivo);
+            criarSeArquivoSeNaoExistir(pCaminhoArquivo);
         } catch (IOException ex) {
 
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor(pLinha, ex);
@@ -86,7 +92,7 @@ public abstract class UtilSBCoreArquivoTexto {
     public static synchronized boolean printLnNoArquivo(String linha, String pArquivo) {
 
         try {
-            criarSeNaoExistir(pArquivo);
+            criarSeArquivoSeNaoExistir(pArquivo);
         } catch (IOException ex) {
 
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando arquivo" + pArquivo, ex);
@@ -119,7 +125,7 @@ public abstract class UtilSBCoreArquivoTexto {
     public static synchronized boolean escreveLinhasNoArquivo(String pArquivo, List<String> pLinhas) {
 
         try {
-            criarSeNaoExistir(pArquivo);
+            criarSeArquivoSeNaoExistir(pArquivo);
         } catch (IOException ex) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando arquivo" + pArquivo, ex);
             return false;
@@ -153,7 +159,7 @@ public abstract class UtilSBCoreArquivoTexto {
      */
     public synchronized static boolean limparArquivoTexto(String pCaminhoArquivo) {
         try {
-            criarSeNaoExistir(pCaminhoArquivo);
+            criarSeArquivoSeNaoExistir(pCaminhoArquivo);
         } catch (IOException ex) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando Arquivo" + pCaminhoArquivo, ex);
             return false;
