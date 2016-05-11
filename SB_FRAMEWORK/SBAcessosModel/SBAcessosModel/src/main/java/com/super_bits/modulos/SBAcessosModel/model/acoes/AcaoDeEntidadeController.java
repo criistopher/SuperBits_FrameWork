@@ -71,7 +71,7 @@ public class AcaoDeEntidadeController extends AcaoDeEntidade implements ItfAcaoC
             }
             return idMetodo;
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando id do metodo para ação" + getNomeUnico(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando id do metodo para ação" + getNomeUnico() + " Certifique que ", t);
             throw new UnsupportedOperationException("Erro gerando id do metodo para ação" + getNomeUnico());
         }
 
