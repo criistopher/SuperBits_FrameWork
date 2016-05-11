@@ -204,11 +204,13 @@ public class UtilSBCoreReflexaoCampos {
             if (retorno == null) {
                 throw new UnsupportedOperationException("As entidades da classe" + pClasse + " não foram encontradas na constante ENTIDADES_DA_CLASSE");
             }
+            return retorno;
         } catch (Throwable t) {
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo Campos de entidade da classe " + pClasse, t);
+            return null;
         }
-        return null;
+
     }
 
     private static Class getclassePorNome(String nome) {
