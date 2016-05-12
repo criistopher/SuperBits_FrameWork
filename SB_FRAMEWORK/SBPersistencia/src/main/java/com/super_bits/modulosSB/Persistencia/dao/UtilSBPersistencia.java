@@ -1148,6 +1148,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static void isEntidadeFoiCarregada(ItfBeanSimples entidade, EntityManager pEm) {
         PersistenceUnitUtil unitUtil = pEm.getEntityManagerFactory().getPersistenceUnitUtil();
+
         unitUtil.isLoaded(entidade);
 
     }
