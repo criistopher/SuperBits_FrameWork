@@ -79,7 +79,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
      * de outro constructor
      *
      */
-    public MB_paginaCadastroEntidades(
+    private MB_paginaCadastroEntidades(
             AcaoDoSistema[] pAcoesRegistro,
             ItfAcaoFormularioEntidade pAcaoNovoRegistro,
             ItfAcaoFormularioEntidade pAcaoListar,

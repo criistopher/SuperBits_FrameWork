@@ -12,14 +12,14 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface InfoAcaoGestaoEntidade {
 
-    public String nomeAcao();
+    public String nomeAcao() default "";
 
-    public String icone();
+    public String icone() default "";
 
-    public Class entidade();
+    public Class entidade() default Object.class;
 
-    public boolean precisaPermissao();
+    public boolean precisaPermissao() default false;
 
-    public String xhtmlDaAcao();
+    public String xhtmlDaAcao() default "";
 
 }
