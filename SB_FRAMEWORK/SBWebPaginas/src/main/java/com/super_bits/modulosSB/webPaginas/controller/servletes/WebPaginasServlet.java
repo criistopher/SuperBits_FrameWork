@@ -70,22 +70,15 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                 mapaRecursos = new HashMap<>();
                 mapaPaginas = new HashMap<>();
                 for (String key : paginas.keySet()) {
-
                     ItfB_Pagina pg = paginas.get(key);
                     List<String> tags = pg.getTags();
-                    System.out.println("Pagina Adcionada:" + pg.getTags() + pg.getRecursoXHTML() + pg.getNomeCurto());
-
                     mapaPaginas.put(pg.getRecursoXHTML(), pg);
                     List<String> tagsDaPagina = pg.getTags();
                     mapaRecursos.put(key, pg.getRecursoXHTML());
                     for (String tag : tagsDaPagina) {
                         mapaRecursos.put(UtilSBCoreStrings.makeStrUrlAmigavel(tag), pg.getRecursoXHTML());
                     }
-
                 }
-                System.out.println("O sitemap foi construido com sucesso");
-
-                System.out.println("Criando ações ManagedBenas");
 
                 if (!infoAplicacao.isAceosMBConfiguradas()) {
 

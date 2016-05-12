@@ -92,7 +92,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     @Override
     public AcaoGestaoEntidade getAcaoVinculada() {
 
-        if (this.getClass().toString().equals(PaginaSimples.class.toString())) {
+        if (this.getClass().getName().equals(PaginaSimples.class.getName())) {
             return null;
         }
 
