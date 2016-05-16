@@ -48,11 +48,14 @@ public abstract class MB_Pagina extends B_Pagina {
     @Override
     protected String defineTitulo() {
         try {
-            return getAcaoVinculada().getDescricao();
+
+            if (getAcaoVinculada() != null) {
+                return getAcaoVinculada().getDescricao();
+            }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
         }
-        return "Errro, obtendo titulo da pagina";
+        return "Tutulo da pagina " + this.getClass().getSimpleName() + " não pode ser definido";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 
@@ -20,13 +21,19 @@ public abstract class MB_SiteMapa implements Serializable {
 
     // injetar PAginas aqui
     private Map<String, ItfB_Pagina> paginasOnline = new HashMap<String, ItfB_Pagina>();
+    private Map<String, ItfB_Pagina> paginasDoSistema = new HashMap<String, ItfB_Pagina>();
     private Map<String, ItfB_Pagina> paginasOffline = new HashMap<String, ItfB_Pagina>();
     private Map<String, ItfB_Pagina> paginasPorRecurso = new HashMap<String, ItfB_Pagina>();
+    private static boolean paginasDoSistemaConstruidas = false;
+    private static boolean paginasOnlineConstruidas = false;
+    private static boolean paginasOffilineConstruidas = false;
 
     private boolean foiInjetado = false;
 
-    // Metodo para criar lista de paginas.add PARA DEFINIR A PAGINA COMO
-    // PRINCIPAL BASTA NÃO SETAR O NOMECURTO
+    /**
+     *
+     * @return Paginas do sistema personalizadas (não Gerenciaveis via Named
+     */
     protected abstract Map<String, ItfB_Pagina> buildPaginas();
 
     /**
@@ -44,14 +51,18 @@ public abstract class MB_SiteMapa implements Serializable {
      * @return Mapa com as Paginas do Sistema
      */
     protected Map<String, ItfB_Pagina> buildSystemPages() {
-        Map<String, ItfB_Pagina> systemPages = new HashMap<String, ItfB_Pagina>();
+        if (paginasDoSistemaConstruidas) {
+            return paginasDoSistema;
+        }
+        paginasDoSistemaConstruidas = true;
+        paginasDoSistema = new HashMap<>();
         String[] tags = {"erro-Critico"};
         B_Pagina erroCritico = new PaginaSimples("EC",
                 "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
         erroCritico.addTag("erroCritico");
         erroCritico.addParametro(new ParametroURL("mensagem",
                 "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
-        systemPages.put(erroCritico.getNomeCurto(), erroCritico);
+        paginasDoSistema.put(erroCritico.getNomeCurto(), erroCritico);
 
         String[] tagsErroSQL = {"erro-SQL"};
         B_Pagina erroSQL = new PaginaSimples("ESQL",
@@ -60,22 +71,22 @@ public abstract class MB_SiteMapa implements Serializable {
 
         erroSQL.addParametro(new ParametroURL("mensagem",
                 "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
-        systemPages.put(erroSQL.getNomeCurto(), erroSQL);
+        paginasDoSistema.put(erroSQL.getNomeCurto(), erroSQL);
 
         String[] tagsPrime = {"teste-prime"};
         B_Pagina testePrime = new PaginaSimples("TP",
                 "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
         testePrime.addTag("Testes PrimeFaces");
-        systemPages.put(testePrime.getNomeCurto(), testePrime);
+        paginasDoSistema.put(testePrime.getNomeCurto(), testePrime);
 
         String[] tagsNegado = {"Negado"};
         B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
-        systemPages.put(acessoNegado.getNomeCurto(), acessoNegado);
+        paginasDoSistema.put(acessoNegado.getNomeCurto(), acessoNegado);
 
         //   String[] tagsAcessos = {"acessos"};
         //     PgAcessos acessos = new PgAcessos();
         //    systemPages.put(acessos.getNomeCurto(), acessos);
-        return systemPages;
+        return paginasDoSistema;
 
     }
 
@@ -98,18 +109,24 @@ public abstract class MB_SiteMapa implements Serializable {
     }
 
     private void addpgInjectOffline() {
+        if (paginasOffilineConstruidas) {
+            return;
+        }
+        paginasOffilineConstruidas = true;
+
         List<ItfB_Pagina> listaOffline = (List<ItfB_Pagina>) UtilSBWPServletTools
                 .getObjetosInjetadosModoOffline(MB_Pagina.class, this);
         for (ItfB_Pagina pg : listaOffline) {
             addPaginaOffline(pg);
         }
-        for (ItfB_Pagina pg : buildSystemPages().values()) {
-            addPaginaOffline(pg);
-        }
+
     }
 
     private void addpgInjectOnline() {
-
+        if (paginasOnlineConstruidas) {
+            return;
+        }
+        paginasOnlineConstruidas = true;
         List<ItfB_Pagina> listaOnline = (List<ItfB_Pagina>) UtilSBWPServletTools.getObjetosInjetados(MB_Pagina.class, this);
         for (ItfB_Pagina pg : buildPaginas().values()) {
             addPaginaOnline(pg);
@@ -134,6 +151,16 @@ public abstract class MB_SiteMapa implements Serializable {
     }
 
     protected void addPaginaOffline(ItfB_Pagina pPagina) {
+
+        if (paginasOffline.get(pPagina.getNomeCurto()) != null) {
+            throw new UnsupportedOperationException("A pagina "
+                    + pPagina.getClass().getSimpleName()
+                    + " não pôde ser adicionada pois a tag: "
+                    + pPagina.getNomeCurto()
+                    + " já foi utilizada em " + paginasOffline.get(pPagina.getNomeCurto()).getClass().getSimpleName()
+                    + " -->" + paginasOffline.get(pPagina.getNomeCurto()).getTitulo());
+
+        }
 
         paginasOffline.put(pPagina.getNomeCurto(), pPagina);
     }
