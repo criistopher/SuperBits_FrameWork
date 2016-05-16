@@ -42,13 +42,15 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
             case DEMONSTRACAO_MB_COMPONENTE:
                 ItfAcaoGerenciarEntidade acaoDemoComponent = (ItfAcaoGerenciarEntidade) acao;
-                acaoDemoComponent.setXhtml("/home/superBits/projetos/vip/source/superkompras/webApp/src/main/webapp/resources/SBComp/SBSystemPages/exemplosAdamantium/demonstracaoLayout.xhtml");
+                acaoDemoComponent.setXhtml("/resources/SBComp/SBSystemPages/exemplosAdamantium/demonstracaoLayout.xhtml");
                 acao.setPrecisaPermissao(false);
+                acao.setIconeAcao("fa fa-heart-o");
 
                 break;
             case DEMONSTRACAO_MB_VALIDACAO:
                 ItfAcaoGerenciarEntidade acaoDemoValidacao = (ItfAcaoGerenciarEntidade) acao;
-                acaoDemoValidacao.setXhtml("/home/superBits/projetos/vip/source/superkompras/webApp/src/main/webapp/resources/SBComp/SBSystemPages/exemplosAdamantium/validacao.xhtml");
+                acaoDemoValidacao.setXhtml("/resources/SBComp/SBSystemPages/exemplosAdamantium/validacao.xhtml");
+                acao.setIconeAcao("fa fa-heart-o");
                 acao.setPrecisaPermissao(false);
                 break;
             default:

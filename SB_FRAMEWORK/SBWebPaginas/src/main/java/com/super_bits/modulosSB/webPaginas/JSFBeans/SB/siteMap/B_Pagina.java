@@ -91,16 +91,20 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public AcaoGestaoEntidade getAcaoVinculada() {
+        try {
+            if (this.getClass().getName().equals(PaginaSimples.class.getName())) {
+                return null;
+            }
 
-        if (this.getClass().getName().equals(PaginaSimples.class.getName())) {
-            return null;
+            if (acaoVinculada == null) {
+                configAnotacoesClasse();
+            }
+
+            return acaoVinculada;
+        } catch (Throwable e) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação vinculada a pagina" + this.getClass().getSimpleName(), e);
         }
-
-        if (acaoVinculada == null) {
-            configAnotacoesClasse();
-        }
-
-        return acaoVinculada;
+        return null;
     }
 
     public EntityManager getEMPagina() {
@@ -200,7 +204,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             System.out.println("Constructor da pagina " + this.getClass().getName() + " finalizado");
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro aplicando anotações da pagina" + this.getClass().getName(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro aplicando anotações da pagina" + this.getClass().getName(), t);
         }
     }
 

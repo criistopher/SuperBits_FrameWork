@@ -25,10 +25,12 @@ public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
     protected void lancarExcecao() {
 
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            System.out.println("Atenão O lançamento de exceção não foi construido para ser utilizado dentro do Relatar Erro!! portando");
             System.out.println("Se você está vendo este erro é porque utilizou um lançamento de exceção, sem especificar o Throw no fim do método, Isto é uma má pratica que desabona a foça Jedi dos programadores Ninjas");
+            System.out.println("Ou você lançou a execao dentro de um catch");
             pararSistem();
         }
-        throw new UnsupportedOperationException("Um Pedido de Lançamento de Exceção foi gerado, ao chamar este método utilize Throwable"); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException(getErroGerado());
     }
 
     @Override

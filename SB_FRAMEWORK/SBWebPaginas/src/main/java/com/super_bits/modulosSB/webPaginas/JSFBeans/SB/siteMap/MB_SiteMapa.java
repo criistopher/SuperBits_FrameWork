@@ -72,10 +72,9 @@ public abstract class MB_SiteMapa implements Serializable {
         B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
         systemPages.put(acessoNegado.getNomeCurto(), acessoNegado);
 
-        String[] tagsAcessos = {"acessos"};
-        PgAcessos acessos = new PgAcessos();
-        systemPages.put(acessos.getNomeCurto(), acessos);
-
+        //   String[] tagsAcessos = {"acessos"};
+        //     PgAcessos acessos = new PgAcessos();
+        //    systemPages.put(acessos.getNomeCurto(), acessos);
         return systemPages;
 
     }

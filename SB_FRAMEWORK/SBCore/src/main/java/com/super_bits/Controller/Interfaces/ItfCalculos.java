@@ -4,12 +4,14 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+
 /**
  *
  * @author desenvolvedor
  */
 public interface ItfCalculos {
 
-    public int getValor();
+    public int getValor(ItfBeanSimples pEntidade);
 
 }

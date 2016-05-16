@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.webPaginas.controller.servletes;
 
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
@@ -187,6 +188,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         } catch (Throwable erro) {
             System.out.println("Erro Reidenrizando pagina>>>" + recurso);
             erroCritico = new InfoErroCritico("", erro);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro reinderizando " + recurso, erro);
             //    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro executando forward de Recurso" + recurso, erro);
         }

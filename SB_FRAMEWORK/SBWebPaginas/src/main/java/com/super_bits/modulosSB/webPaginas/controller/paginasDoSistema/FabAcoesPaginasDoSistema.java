@@ -14,6 +14,7 @@ import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -25,7 +26,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
 public enum FabAcoesPaginasDoSistema implements ItfFabricaAcoes {
 
-    @InfoAcaoGestaoEntidade(icone = "fa fa-heart-o ", precisaPermissao = false)
+    @InfoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_MB_HOME,
     @InfoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true)
     PAGINA_MB_ACESSO_NEGADO,
@@ -89,9 +90,9 @@ public enum FabAcoesPaginasDoSistema implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
+    public AcaoGestaoEntidade geAcaoGerenciarEntidade() {
         try {
-            return (ItfAcaoGerenciarEntidade) getAcaoDoSistema();
+            return (AcaoGestaoEntidade) getAcaoDoSistema();
         } catch (Throwable t) {
             String tipo = t.getStackTrace()[0].getMethodName();
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);

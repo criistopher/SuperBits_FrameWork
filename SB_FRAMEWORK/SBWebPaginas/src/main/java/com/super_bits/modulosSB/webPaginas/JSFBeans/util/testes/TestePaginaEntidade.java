@@ -17,7 +17,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerencia
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
 
 /**
  *

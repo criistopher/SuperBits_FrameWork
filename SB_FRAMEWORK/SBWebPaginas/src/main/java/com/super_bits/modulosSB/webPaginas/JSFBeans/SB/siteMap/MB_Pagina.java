@@ -3,6 +3,8 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -45,22 +47,43 @@ public abstract class MB_Pagina extends B_Pagina {
 
     @Override
     protected String defineTitulo() {
-        return getAcaoVinculada().getDescricao();
+        try {
+            return getAcaoVinculada().getDescricao();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
+        }
+        return "Errro, obtendo titulo da pagina";
     }
 
     @Override
     protected String defineNomeLink() {
-        return getAcaoVinculada().getNomeAcao();
+        try {
+            return getAcaoVinculada().getNomeAcao();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
+        }
+        return "Errro, obtendo nome do link da pagina";
     }
 
     @Override
     protected String defineDescricao() {
-        return getAcaoVinculada().getDescricao();
+        try {
+
+            return getAcaoVinculada().getDescricao();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
+        }
+        return "Errro, obtendo Descricao  da pagina";
     }
 
     @Override
     public int getId() {
-        return getAcaoVinculada().getId();
+        try {
+            return getAcaoVinculada().getId();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
+        }
+        return -1;
     }
 
 }

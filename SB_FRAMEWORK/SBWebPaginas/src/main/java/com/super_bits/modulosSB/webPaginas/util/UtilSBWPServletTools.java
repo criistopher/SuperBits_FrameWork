@@ -116,33 +116,38 @@ public class UtilSBWPServletTools {
      * @return
      */
     public static List<String> getParametrosDaPagina(String pURL) {
-        int inicioParametros = 0;
+        try {
+            int inicioParametros = 0;
 
-        if (SBWebPaginas.isParametrosEmSubdominios()) {
+            if (SBWebPaginas.isParametrosEmSubdominios()) {
 
-            throw new UnsupportedOperationException("Parametro em subdominio ainda não foi implementado");
+                throw new UnsupportedOperationException("Parametro em subdominio ainda não foi implementado");
 
-        } else {
-            String urlPagina = SBWebPaginas.getURLBase();
-            int inicioParametro = urlPagina.length() + 1;
-            List<String> resposta = new ArrayList<>();
-            if (pURL.length() <= inicioParametro) {
+            } else {
+                String urlPagina = SBWebPaginas.getURLBase();
+                int inicioParametro = urlPagina.length() + 1;
+                List<String> resposta = new ArrayList<>();
+                if (pURL.length() <= inicioParametro) {
+                    return resposta;
+                }
+                pURL = pURL.replace("/.wp", "");
+                pURL = pURL.replace(".wp", "");
+                try {
+                    String parametrosStr = pURL.substring(inicioParametro);
+
+                    String[] parametros = parametrosStr.split("/");
+                    System.out.println("String de parametros:" + parametrosStr);
+                    resposta.addAll(Arrays.asList(parametros));
+                } catch (Exception e) {
+                    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro localizando valores para paramentor de pagina, verifique a configuração do url do frameworkWebpaginas");
+                }
+                //Removendo Tag referente a Pagina
+                resposta.remove(0);
                 return resposta;
             }
-            pURL = pURL.replace("/.wp", "");
-            pURL = pURL.replace(".wp", "");
-            try {
-                String parametrosStr = pURL.substring(inicioParametro);
-
-                String[] parametros = parametrosStr.split("/");
-                System.out.println("String de parametros:" + parametrosStr);
-                resposta.addAll(Arrays.asList(parametros));
-            } catch (Exception e) {
-                UtilSBWP_JSFTools.vaParaPaginadeErro("Erro localizando valores para paramentor de pagina, verifique a configuração do url do frameworkWebpaginas");
-            }
-            //Removendo Tag referente a Pagina
-            resposta.remove(0);
-            return resposta;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo parametros da pagina", t);
+            return new ArrayList<>();
         }
 
     }

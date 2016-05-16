@@ -239,7 +239,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaoFormulario.nomeAcao());
                 }
                 if (anotacaoFormulario.xhtmlDaAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoFormulario.xhtmlDaAcao());
+                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoFormulario.xhtmlDaAcao());
                 }
                 pAcao.setPrecisaPermissao(anotacaoFormulario.precisaPermissao());
             }
@@ -259,7 +259,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaocontroller.nomeAcao());
                 }
                 if (anotacaocontroller.xhtmlDaAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaocontroller.xhtmlDaAcao());
+                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaocontroller.xhtmlDaAcao());
                 }
                 pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
 
@@ -277,7 +277,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaoGerenciar.nomeAcao());
                 }
                 if (anotacaoGerenciar.xhtmlDaAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoGerenciar.xhtmlDaAcao());
+                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoGerenciar.xhtmlDaAcao());
                 }
                 pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
 

@@ -38,7 +38,6 @@ public abstract class MB_PaginaAtual implements Serializable {
         }
         if (infoPagina == null) {
             System.out.println("PaginaAtual sem  infoPagina Carregado, obtendo infoPagina por Recurso");
-
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             System.out.println("Recurso encontrado:" + viewId);
             try {
