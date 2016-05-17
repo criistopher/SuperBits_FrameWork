@@ -7,6 +7,8 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.bean;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeContatoCorporativo;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localidade;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localizacao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.lang.reflect.Field;
@@ -89,6 +91,8 @@ public class BeanExemplo
     @InfoCampo(tipo = FabCampos.LCCEP, obrigatorio = true)
     @NotNull
     private String cep;
+
+    private Localizacao localizacao;
 
     public BeanExemplo() {
         super(BeanExemplo.class);

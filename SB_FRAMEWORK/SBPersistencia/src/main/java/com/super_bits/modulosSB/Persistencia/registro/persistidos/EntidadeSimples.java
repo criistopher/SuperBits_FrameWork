@@ -4,6 +4,8 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 //Simport com.super_bits.modulosSB.webPaginas.JSFBeans.util.OrganizadorDeArquivos;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
@@ -210,6 +212,11 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     @Override
     public String getNomeUnicoSlug() {
         return getNomeCurto() + "-" + getId();
+    }
+
+    public List<CaminhoCampoReflexao> getCaminhoCampoNivel1() {
+
+        return UtilSBCoreReflexaoCampos.getTodosCamposDaEntidade(this.getClass());
     }
 
 }

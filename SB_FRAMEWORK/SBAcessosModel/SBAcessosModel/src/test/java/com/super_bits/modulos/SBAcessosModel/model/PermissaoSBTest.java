@@ -35,7 +35,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
         List<CaminhoCampoReflexao> teste = acaoDoSistema.getEntidadesVinculadas();
         System.out.println("Inicio print Entidades Vinculadas");
         for (CaminhoCampoReflexao cm : teste) {
-            System.out.println(cm.getCaminhoString());
+            System.out.println(cm.getCaminhoCompletoString());
 
             for (String parteCaminho : cm.getPartesCaminho()) {
                 System.out.println("ParteCaminho:" + parteCaminho);

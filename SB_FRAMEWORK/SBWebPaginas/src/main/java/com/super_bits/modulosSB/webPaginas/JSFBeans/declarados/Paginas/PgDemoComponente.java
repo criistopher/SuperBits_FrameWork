@@ -88,7 +88,7 @@ public class PgDemoComponente extends MB_PaginaConversation {
         listaDeAcaoes6.add(acaoVoltar);
         listaDeAcaoes6.add(acaoSalvar);
         listatiposVisualizacao = new ArrayList<>();
-        String caminhoRelativoExemplos = "/resources/exemplosAdamantium/";
+        String caminhoRelativoExemplos = "/resources/SBComp/SBSystemPages/exemplosAdamantium/";
         String caminhoExemplos = UtilSBWPServletTools.getCaminhoLocalServletsResource() + "/exemplosAdamantium/";
         List<String> arquivos = UtilSBCoreArquivos.getArquivosDoDiretorio(caminhoExemplos);
 

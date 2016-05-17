@@ -42,7 +42,7 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
             case DEMONSTRACAO_MB_COMPONENTE:
                 ItfAcaoGerenciarEntidade acaoDemoComponent = (ItfAcaoGerenciarEntidade) acao;
-                acaoDemoComponent.setXhtml("/resources/SBComp/SBSystemPages/exemplosAdamantium/demonstracaoLayout.xhtml");
+                acaoDemoComponent.setXhtml("/resources/SBComp/SBSystemPages/exemplos/demoSuperBitsFrameWork.xhtml");
                 acao.setPrecisaPermissao(false);
                 acao.setIconeAcao("fa fa-heart-o");
 

@@ -5,6 +5,8 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,17 +16,21 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class CaminhoCampoReflexao {
+public class CaminhoCampoReflexao extends ItemSimples {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
     private final List<String> partesCaminho = new ArrayList<>();
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String caminhoComleto;
     private Field campoFieldReflection;
 
     public CaminhoCampoReflexao(String caminho) {
         CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
         campoFieldReflection = cm.getCampoFieldReflection();
-        caminhoComleto = cm.getCaminhoString();
+        caminhoComleto = cm.getCaminhoCompletoString();
         partesCaminho.addAll(cm.getPartesCaminho());
+        id = caminhoComleto.hashCode();
     }
 
     private void makePartesCaminho() {
@@ -53,7 +59,7 @@ public class CaminhoCampoReflexao {
 
         }
 
-        String[] partes = caminhoComleto.split("\\.");
+        String[] partes = caminhoComleto.split("//.");
         partesCaminho.clear();
         partesCaminho.addAll(Arrays.asList(partes));
 
@@ -95,8 +101,23 @@ public class CaminhoCampoReflexao {
      * @return O caminho em formato de uma string, exemplo:
      * usuario.localizacao.bairro
      */
-    public String getCaminhoString() {
+    public String getCaminhoCompletoString() {
         return caminhoComleto;
+    }
+
+    public String getCaminhoSemNomeClasse() {
+        int i = 0;
+        String caminhoParcial = "";
+        for (String parte : getCaminhoCompletoString().split("//.")) {
+            System.out.println("parte" + parte);
+            if (i > 0) {
+
+                caminhoParcial += parte;
+                i++;
+            }
+        }
+
+        return caminhoParcial;
     }
 
     public List<String> getPartesCaminho() {
@@ -109,7 +130,7 @@ public class CaminhoCampoReflexao {
 
     @Override
     public String toString() {
-        return getCaminhoString();
+        return getCaminhoCompletoString();
     }
 
 }

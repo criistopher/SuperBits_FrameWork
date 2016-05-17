@@ -28,12 +28,12 @@ import javax.persistence.metamodel.EntityType;
  */
 public class UtilSBCoreReflexaoCampos {
 
-    public static final Map<Class, List<CaminhoCampoReflexao>> CAMPOS_DA_CLASSE = new HashMap<>();
-    public static final Map<String, Class> CLASSE_ENTIDADE_BY_NOME = new HashMap<>();
-    public static final Map<String, CaminhoCampoReflexao> CAMINHO_CAMPO_POR_NOME = new HashMap<>();//ok
-    public static final Map<Class, List<CaminhoCampoReflexao>> ENTIDADES_DA_CLASSE = new HashMap<>();//ok
-    public static final Map<String, Class> CLASSE_ENTIDADE_BY_CAMINHO = new HashMap<>();//ok
-    public static final Map<Class, Boolean> CLASSE_CONFIGURADA = new HashMap<>();//ok
+    private static final Map<Class, List<CaminhoCampoReflexao>> CAMPOS_DA_CLASSE = new HashMap<>();
+    private static final Map<String, Class> CLASSE_ENTIDADE_BY_NOME = new HashMap<>();
+    private static final Map<String, CaminhoCampoReflexao> CAMINHO_CAMPO_POR_NOME = new HashMap<>();//ok
+    private static final Map<Class, List<CaminhoCampoReflexao>> ENTIDADES_DA_CLASSE = new HashMap<>();//ok
+    private static final Map<String, Class> CLASSE_ENTIDADE_BY_CAMINHO = new HashMap<>();//ok
+    private static final Map<Class, Boolean> CLASSE_CONFIGURADA = new HashMap<>();//ok
     private static boolean todasClassesConfiguradas = false;
 
     public static boolean isTodasClassesConfiguradas() {
@@ -85,9 +85,9 @@ public class UtilSBCoreReflexaoCampos {
             // para cada campo do tipo tabela do nivel zero
             for (CaminhoCampoReflexao campoFilho : camposEncontradosNivel0) {
                 // pega os campos do tipo Tabela do campo
-                List<CaminhoCampoReflexao> camposDoFilho = getTodosCamposAnotadosComManyToOne(campoFilho.getCampoFieldReflection().getType(), campoFilho.getCaminhoString());
+                List<CaminhoCampoReflexao> camposDoFilho = getTodosCamposAnotadosComManyToOne(campoFilho.getCampoFieldReflection().getType(), campoFilho.getCaminhoCompletoString());
                 // paga campos e subcampos do filho
-                camposDonivel = getCamposReflectionFilho(null, camposDoFilho, campoFilho.getCaminhoString(), pClasse);
+                camposDonivel = getCamposReflectionFilho(null, camposDoFilho, campoFilho.getCaminhoCompletoString(), pClasse);
                 camposEncontrados.addAll(camposDonivel);
             }
         }
@@ -99,6 +99,10 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     private static void checaEControi(Class pClasse) {
+        if (CLASSE_CONFIGURADA.get(pClasse) == null) {
+            buildCamposDaClasse(pClasse);
+            return;
+        }
         if (!CLASSE_CONFIGURADA.get(pClasse)) {
             buildCamposDaClasse(pClasse);
         }
@@ -171,9 +175,9 @@ public class UtilSBCoreReflexaoCampos {
             for (CaminhoCampoReflexao caminho : lista) {
 
                 //         List<CaminhoCampoReflexao> //List<CaminhoCampoReflexao> camposDaClasse = new ArrayList<>();
-                Class classeAtual = CLASSE_ENTIDADE_BY_CAMINHO.get(caminho.getCaminhoString());
-                //     System.out.println("Add entidade da classe:" + caminho.getCaminhoString());
-                caminhosCampoDaClasse.addAll(buildCamposNivel1(classeAtual, caminho.getCaminhoString()));
+                Class classeAtual = CLASSE_ENTIDADE_BY_CAMINHO.get(caminho.getCaminhoCompletoString());
+                //     System.out.println("Add entidade da classe:" + caminho.getCaminhoCompletoString());
+                caminhosCampoDaClasse.addAll(buildCamposNivel1(classeAtual, caminho.getCaminhoCompletoString()));
 
             }
             CLASSE_CONFIGURADA.put(pClasse, true);
@@ -289,14 +293,20 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     public static String getCaminhoSemNomeClasse(String pCaminho) {
-        throw new UnsupportedOperationException("");
+        //todo
+        // split caminho
+        // verfica se a a primeira letra do primeiro campo é maiusculo
+        // retorna tudo menos o primeiro campo
+        throw new UnsupportedOperationException("Não implementado, o nome da classe deve ser maiusculo, uma string retirando o primeiro nome do caminho deve ser enviada, caso a primeira leta não seja maiuscula, deve gerar uma execao");
     }
 
     public static List<CaminhoCampoReflexao> getTodosCamposDaEntidade(Class pclasse) {
-        throw new UnsupportedOperationException("Ainda não implementado");
+        checaEControi(pclasse);
+        return CAMPOS_DA_CLASSE.get(pclasse);
     }
 
     public static CaminhoCampoReflexao getCaminhoCampoByString(Class pClasse, String caminho) {
+        checaEControi(pClasse);
         return getCaminhoByStringRelativaEClasse(caminho, pClasse);
     }
 
@@ -309,6 +319,7 @@ public class UtilSBCoreReflexaoCampos {
      * @return
      */
     public static List<Field> getTodosCamposTipoItensSimplesDoItem(Class pClasse) {
+        checaEControi(pClasse);
         List<Field> lista = new ArrayList<>();
         while (!isClasseBasicaSB(pClasse)) {
             List<Field> itensdoNivel = new ArrayList<>();
