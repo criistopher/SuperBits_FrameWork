@@ -8,6 +8,7 @@ package testesLuciano.enviarSalvio;
 import config.*;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 
 /**
  *
@@ -50,6 +51,11 @@ public class ConfigPersistenciaTestesLuciano implements ItfConfigSBPersistencia 
     @Override
     public void criarBancoInicial() {
         throw new UnsupportedOperationException("O METODO AINDA N\u00c3O FOI IMPLEMENTADO.");
+    }
+
+    @Override
+    public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
+        return null;
     }
 
 }

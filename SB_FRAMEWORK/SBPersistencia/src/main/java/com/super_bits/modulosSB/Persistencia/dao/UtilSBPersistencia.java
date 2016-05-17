@@ -106,6 +106,17 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         ID, NOMECURTO, LIKENOMECURTO, SQL, JPQL, ULTIMO_REGISTRO, PRIMEIRO_REGISTRO, ENCONTRAR_EMPRESA, ENCONTRAR_PESSOA, QUANTIDADE_REGISTROS
     }
 
+    public static void renovarFabrica() {
+        if (emFacturePadrao != null) {
+            if (emFacturePadrao.isOpen()) {
+                emFacturePadrao.close();
+                emFacturePadrao = null;
+            }
+        }
+        getNovoEM().close();
+
+    }
+
     private static Map<String, EntityManagerFactory> bancoExtra = new HashMap<String, EntityManagerFactory>();
 
     /**
@@ -325,7 +336,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 throw new UnsupportedOperationException("Favor informar ao menos uma entidade para persistir, é possível que você esteja tentando salvar um registro = a nulo");
             }
 
-            System.out.println("executando alteração do tipo" + pTipoAlteracao);
+            System.out.println("executando alteração em " + pEntidade.getClass().getSimpleName() + "do tipo :" + pTipoAlteracao);
             if (SBCore.isControleDeAcessoDefinido()) {
                 if (!SBCore.getConfiguradorDePermissao().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString()).isSucesso()) {
                     FabMensagens.enviarMensagemUsuario("Ação não permita para este usuário, solicite permição ao Administrador", FabMensagens.AVISO);

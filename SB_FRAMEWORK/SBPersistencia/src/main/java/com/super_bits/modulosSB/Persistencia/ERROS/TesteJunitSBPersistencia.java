@@ -18,7 +18,9 @@ public abstract class TesteJunitSBPersistencia extends TesteJunit {
     private EntityManager emTeste;
 
     public EntityManager renovarConexao() {
-        emTeste.close();
+        if (emTeste != null) {
+            emTeste.close();
+        }
         emTeste = null;
         emTeste = UtilSBPersistencia.getNovoEM();
         return emTeste;

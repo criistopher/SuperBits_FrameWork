@@ -405,7 +405,8 @@ public class SBCore {
         return configuradorDePermissao;
     }
 
-    public static String getCaminhoDesenvolvimento() {
+    public static String getCaminhoGrupoProjeto() {
+
         String caminhoDiretorioBase = "";
         String separadorCaminhodiretorioBase = "";
 
@@ -430,12 +431,28 @@ public class SBCore {
 
         if (!temCaminhoGrupoProjeto) {
 
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/" + nomeProjeto;
+            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/";
         } else {
 
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + getGrupoProjeto() + "/" + nomeProjeto;
+            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/" + getGrupoProjeto();
 
         }
+
+    }
+
+    public static String getCaminhoDesenvolvimento() {
+        boolean temCaminhoGrupoProjeto = false;
+        if (getGrupoProjeto() != null) {
+            if (!getGrupoProjeto().isEmpty()) {
+                temCaminhoGrupoProjeto = true;
+            }
+        }
+        if (!temCaminhoGrupoProjeto) {
+            return getCaminhoGrupoProjeto();
+        } else {
+            return getCaminhoGrupoProjeto() + "/" + nomeProjeto;
+        }
+
     }
 
     public static String getGrupoProjeto() {

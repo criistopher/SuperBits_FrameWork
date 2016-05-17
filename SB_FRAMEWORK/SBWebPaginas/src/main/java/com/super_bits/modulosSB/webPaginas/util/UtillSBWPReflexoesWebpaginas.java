@@ -18,6 +18,7 @@ import javax.inject.Inject;
 public abstract class UtillSBWPReflexoesWebpaginas {
 
     public static List<Field> instanciarInjecoes(Object instancia) {
+
         Class classe = instancia.getClass();
         Field[] fields = classe.getDeclaredFields();
 
@@ -27,6 +28,9 @@ public abstract class UtillSBWPReflexoesWebpaginas {
             if (campo.isAnnotationPresent(Inject.class)) {
                 campo.setAccessible(true);
                 try {
+                    if (campo.getType().getName().equals(classe.getName())) {
+                        throw new UnsupportedOperationException("Voce não pode injetar a classe nela mesma :" + classe.getName());
+                    }
                     campo.set(instancia, campo.getType().newInstance());
 
                     //System.out.println("Lista Auto Instanciada" + campo.getName());

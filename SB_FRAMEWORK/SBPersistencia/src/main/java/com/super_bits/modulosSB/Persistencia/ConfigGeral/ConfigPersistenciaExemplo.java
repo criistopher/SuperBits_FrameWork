@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 
 /**
  *
@@ -44,6 +45,11 @@ public class ConfigPersistenciaExemplo implements ItfConfigSBPersistencia {
     @Override
     public void criarBancoInicial() {
         System.out.println("Metodo criação de dados iniciais não foi implementado");
+    }
+
+    @Override
+    public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

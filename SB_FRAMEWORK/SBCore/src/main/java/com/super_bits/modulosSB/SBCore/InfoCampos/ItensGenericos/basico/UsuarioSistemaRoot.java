@@ -23,6 +23,9 @@ public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serial
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
 
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    private String nome;
+
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
     private Date dataHoraAlteracao;
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)

@@ -28,6 +28,10 @@ public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializab
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
+
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    private String nome = "Anônimo ";
+
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
     private Date dataHoraAlteracao;
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
