@@ -195,6 +195,14 @@ public class UtilSBController {
 
     }
 
+    /**
+     *
+     * Procura um metodo de anotação com o nome Acao, que seja uma fabrica de
+     * ações cria uma ação atravez da fabrica e retorna
+     *
+     * @param pClasse Classe referenciada
+     * @return o Objeto AcaodoSistema configurado
+     */
     public static ItfAcaoDoSistema getAcaoByClasse(Class pClasse) {
 
         ItfFabricaAcoes acao = (ItfFabricaAcoes) getFabricaAcaoByClasse(pClasse);

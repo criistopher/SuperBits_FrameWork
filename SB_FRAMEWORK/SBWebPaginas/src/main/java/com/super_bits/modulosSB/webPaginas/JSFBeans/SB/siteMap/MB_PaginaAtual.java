@@ -41,7 +41,7 @@ public abstract class MB_PaginaAtual implements Serializable {
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             System.out.println("Recurso encontrado:" + viewId);
             try {
-                setInfoPagina(getSiteMap().getPaginasPorRecurso().get(viewId));
+                setInfoPagina(getSiteMap().getPaginaNoContexto(viewId));
             } catch (Throwable e) {
                 FabErro.PARA_TUDO.paraSistema("Erro Obtendo pagina Atual por viewID, verifique a declaração no sitemap e anotações View:" + viewId, e);
             }
@@ -106,12 +106,11 @@ public abstract class MB_PaginaAtual implements Serializable {
         String pPagina = UtilSBWPServletTools.getRequestParametro("pPagina");
         ItfBeanSimples pEntidade = UtilSBWPServletTools.getActionBeanSimples(event, "registro");
 
-        ItfB_Pagina novaPg = getSiteMap().getPaginaByTagOuNome(pPagina);
-        novaPg.getParametrobyTipoEntidade(pEntidade.getClass().getSimpleName()).setValor(pEntidade.getNomeCurto());
-
+        // ItfB_Pagina novaPg = getSiteMap().getPaginaByTagOuNome(pPagina);
+        //   novaPg.getParametrobyTipoEntidade(pEntidade.getClass().getSimpleName()).setValor(pEntidade.getNomeCurto());
         fechaPagina();
-        UtilSBWP_JSFTools.vaParaPagina(novaPg.getUrlPadrao());
-
+        //  UtilSBWP_JSFTools.vaParaPagina(novaPg.getUrlPadrao());
+        throw new UnsupportedOperationException("Ainda não implementado, mas estamos quase lá, devido ao mapa de ações do sistema");
     }
 
     public void mudarDePagina() {

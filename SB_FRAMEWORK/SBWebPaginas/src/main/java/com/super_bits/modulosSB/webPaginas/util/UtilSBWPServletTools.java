@@ -459,6 +459,19 @@ public class UtilSBWPServletTools {
 
     }
 
+    public static List<Field> getCamposReflexcaoInjetados(Class pClasse) {
+        List<Field> camposInjetados = new ArrayList<>();
+
+        for (Field campo : pClasse.getDeclaredFields()) {
+            if (campo.getAnnotation(Inject.class) != null) {
+                camposInjetados.add(campo);
+            }
+        }
+
+        return camposInjetados;
+
+    }
+
     /**
      * Lista os objetos de determinado tipo injetados em determinada instancia
      *

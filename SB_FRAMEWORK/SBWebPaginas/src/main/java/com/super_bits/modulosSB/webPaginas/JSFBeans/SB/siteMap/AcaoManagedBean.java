@@ -4,8 +4,10 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.sun.source.tree.IfTree;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -35,11 +37,11 @@ import javax.persistence.Transient;
 public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Transient
-    private final ItfAcaoDoSistema acaoOriginal;
+    private final ItfAcaoFormulario acaoOriginal;
     @Transient
     private final String urlDeAcesso;
 
-    public AcaoManagedBean(ItfAcaoDoSistema pAcaoDoSistema, ItfB_Pagina pagina) {
+    public AcaoManagedBean(ItfAcaoFormulario pAcaoDoSistema, ItfB_Pagina pagina) {
         acaoOriginal = pAcaoDoSistema;
         urlDeAcesso = pagina.getUrlPadrao();
     }
@@ -128,7 +130,7 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
         return urlDeAcesso;
     }
 
-    public ItfAcaoDoSistema getAcaoOriginal() {
+    public ItfAcaoFormulario getAcaoOriginal() {
         return acaoOriginal;
     }
 

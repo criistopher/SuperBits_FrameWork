@@ -204,7 +204,7 @@ public abstract class UtilSBWP_JSFTools {
 
     public static void vaParaPaginadeErro(String Mensagem) {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SBWebPaginas.getSiteURL() + "/resources/SBComp/SBSystemPages/tagPageNotFound.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(SBWebPaginas.getSiteURL() + "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
