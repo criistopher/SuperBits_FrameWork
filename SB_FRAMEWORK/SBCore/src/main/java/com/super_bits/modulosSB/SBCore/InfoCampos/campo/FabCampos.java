@@ -47,7 +47,72 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
-     *//**
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
@@ -311,7 +376,15 @@ public enum FabCampos implements ItfFabrica {
      */
     CODIGO_DE_BARRAS,
     ICONE,
-    SEGURANCA_ATIVA,;
+    SEGURANCA_ATIVA,
+    /**
+     * Indica um arquivo da entidade
+     */
+    ARQUIVO_DE_ENTIDADE,
+    /**
+     * Indica um campo de Localizacao (Que implementa ItfLocalizacao)
+     */
+    LC_LOCALIZACAO;
 
     @Override
     public Campo getRegistro() {
@@ -494,6 +567,16 @@ public enum FabCampos implements ItfFabrica {
             case REG_ATIVO_INATIVO:
                 break;
             case ICONE:
+                break;
+            case LISTA:
+                break;
+            case SEGURANCA_ATIVA:
+                break;
+            case ARQUIVO_DE_ENTIDADE:
+                sbCampo.setLabel("Arquivo: ");
+
+                break;
+            case LC_LOCALIZACAO:
                 break;
 
             default:

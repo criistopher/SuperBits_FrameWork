@@ -26,11 +26,12 @@ import java.util.List;
  */
 public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializable {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
     private Date dataHoraAlteracao;
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
     private Date dataHoraInsersao;
-
     @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
     private ItfUsuario usuarioInsercao;
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
@@ -102,7 +103,7 @@ public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializab
 
     @Override
     public int getId() {
-        return 0;
+        return getNome().hashCode();
     }
 
     @Override

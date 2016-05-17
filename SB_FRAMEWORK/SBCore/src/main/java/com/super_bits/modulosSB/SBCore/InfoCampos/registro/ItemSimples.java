@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -15,6 +16,8 @@ public class ItemSimples extends ItemGenerico implements
         //			+CInfo.pastaImagens + "/SBPequeno.jpg"));
         //adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_CURTO), true);
         //adcionaCampoEsperado(new CampoEsperado(FabCampos.ID), true);
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME), true);
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.ID), true);
     }
 
     @Override
@@ -25,9 +28,10 @@ public class ItemSimples extends ItemGenerico implements
 
     @Override
     public String getNomeCurto() {
-        return "não implementado";
+        return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
         /**
-         * String nome = (String)
+         *
+         * TODO String nome = (String)
          * getValorByTipoCampoEsperado(FabCampos.AAA_NOME_CURTO); String
          * nomeCurto = ""; nome = nome.replace("-", " "); nome =
          * nome.replace(".", " "); for (String parte : nome.split(" ")) { if
@@ -74,7 +78,7 @@ public class ItemSimples extends ItemGenerico implements
         if (this == null) {
             return "nulo";
         }
-        return getNomeCurto();
+        return getNome();
     }
 
     @Override

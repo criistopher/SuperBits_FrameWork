@@ -56,6 +56,7 @@ public class Campo implements Serializable, ItfCampo {
         setTipoCampo(pCampo.getTipoCampo());
         setObrigatorio(pCampo.isObrigatorio());
         setListaDeOpcoes(pCampo.getListaDeOpcoes());
+        setValidacaoRegex(pCampo.validacaoRegex);
 
     }
 
