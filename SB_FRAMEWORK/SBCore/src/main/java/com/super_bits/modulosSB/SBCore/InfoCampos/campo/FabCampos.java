@@ -440,6 +440,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case TELEFONE_FIXO_NACIONAL:
                 sbCampo.setValidacaoRegex("^\\(?([1-9][0-9])\\)?\\s?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
+                sbCampo.setMascara("(##)#####-####");
                 break;
             case MOEDA_REAL:
                 // implementar: separadores, numero de casas decimais Sigla da moeda
@@ -507,8 +508,8 @@ public enum FabCampos implements ItfFabrica {
 
             case TELEFONE_FIXO_INTERNACIONAL:
                 // MAscara e Regex
-                sbCampo.setValidacaoRegex("^((\\+|00)(55)\\s?)(\\(([1-9][0-9])\\)\\s?)(((9\\d|[2-9])\\d{3})\\-(\\d{4}))$");
-                sbCampo.setMascara("*##(##)#####-####");
+                sbCampo.setValidacaoRegex("^((55)\\s?)(\\(([1-9][0-9])\\)\\s?)(((9\\d|[2-9])\\d{3})\\-(\\d{4}))$");
+                sbCampo.setMascara("##(##)a####-####");
                 break;
             case TELEFONE_CELULAR:
                 // MAscara e Regex
