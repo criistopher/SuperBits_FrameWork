@@ -195,4 +195,11 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
      */
     public String getTipoCampoSTR();
 
+    /**
+     *
+     *
+     * @return A frase que vai aparecer caso a informação não seja validada
+     */
+    public String getFraseValidacao();
+
 }

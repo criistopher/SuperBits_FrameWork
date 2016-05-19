@@ -7,7 +7,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import java.util.List;
 
-public class Campo implements Serializable, ItfCampo {
+public final class Campo implements Serializable, ItfCampo {
 
     @InfoCampo(tipo = FabCampos.ID)
     private FabCampos tipoCampo;
@@ -41,6 +41,8 @@ public class Campo implements Serializable, ItfCampo {
 
     private int numCasasDecimais;
 
+    private String fraseValidacao;
+
     public Campo(FabCampos pTipo) {
         tipoCampo = pTipo;
         tipoVisualizacao = pTipo.toString().toUpperCase();
@@ -56,7 +58,8 @@ public class Campo implements Serializable, ItfCampo {
         setTipoCampo(pCampo.getTipoCampo());
         setObrigatorio(pCampo.isObrigatorio());
         setListaDeOpcoes(pCampo.getListaDeOpcoes());
-        setValidacaoRegex(pCampo.validacaoRegex);
+        setValidacaoRegex(pCampo.getValidacaoRegex());
+        setFraseValidacao(pCampo.getFraseValidacao());
 
     }
 
@@ -289,6 +292,14 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getNomeDoObjeto() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getFraseValidacao() {
+        return fraseValidacao;
+    }
+
+    public void setFraseValidacao(String fraseValidacao) {
+        this.fraseValidacao = fraseValidacao;
     }
 
 }
