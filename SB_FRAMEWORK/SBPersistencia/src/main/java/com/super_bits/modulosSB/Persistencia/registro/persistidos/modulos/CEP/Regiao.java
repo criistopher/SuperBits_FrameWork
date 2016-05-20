@@ -8,6 +8,8 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.util.Date;
 import java.util.List;
@@ -140,6 +142,45 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     public void setAlteradoEM(Date alteradoEM) {
         this.alteradoEM = alteradoEM;
+    }
+
+    /**
+     *
+     * Verifica se o Local Pertence a região
+     *
+     *
+     * @param pLocalidade
+     * @return
+     */
+    public boolean isLocalidadeDaRegiao(ItfLocal pLocalidade) {
+
+        boolean temBairro = true;
+        boolean temCidade = true;
+        boolean temEstado = true;
+        if (getCidades().isEmpty()) {
+            temCidade = false;
+        }
+        if (getBairros().isEmpty()) {
+            temBairro = false;
+        }
+
+        if (temCidade) {
+
+            if (getCidades().contains((Cidade) pLocalidade.getBairro().getCidade())) {
+                if (!temBairro) {
+                    return getBairros().contains((Bairro) pLocalidade.getBairro());
+
+                } else {
+                    return false;
+                }
+
+            }
+
+        } else if (temBairro) {
+            return getBairros().contains((Bairro) pLocalidade.getBairro());
+        }
+        return false;
+
     }
 
 }
