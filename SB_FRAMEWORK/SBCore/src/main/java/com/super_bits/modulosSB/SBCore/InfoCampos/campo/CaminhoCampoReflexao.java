@@ -59,7 +59,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
 
         }
 
-        String[] partes = caminhoComleto.split("//.");
+        String[] partes = caminhoComleto.split("\\.");
         partesCaminho.clear();
         partesCaminho.addAll(Arrays.asList(partes));
 
@@ -76,7 +76,9 @@ public class CaminhoCampoReflexao extends ItemSimples {
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
         this.campoFieldReflection = campo;
+
         makePartesCaminho();
+        id = caminhoComleto.hashCode();
     }
 
     public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
@@ -84,6 +86,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
         partesCaminho.addAll(pPartesCaminho);
         this.campoFieldReflection = campo;
         makeCaminhoCompleto();
+        id = caminhoComleto.hashCode();
     }
 
     /**
@@ -108,13 +111,13 @@ public class CaminhoCampoReflexao extends ItemSimples {
     public String getCaminhoSemNomeClasse() {
         int i = 0;
         String caminhoParcial = "";
-        for (String parte : getCaminhoCompletoString().split("//.")) {
-            System.out.println("parte" + parte);
+        for (String parte : getCaminhoCompletoString().split("\\.")) {
+            System.out.println("parte" + String.valueOf(i) + "====" + parte);
             if (i > 0) {
-
                 caminhoParcial += parte;
-                i++;
             }
+            i++;
+
         }
 
         return caminhoParcial;
