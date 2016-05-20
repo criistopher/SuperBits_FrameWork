@@ -582,6 +582,11 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String getMascaraJavaMaskParaJQueryMask(String pMascara) {
-        return pMascara.replace('#', '9').replace('U', 'a').replace('?', 'a').replace('L', 'a');
+        if (pMascara != null) {
+
+            return pMascara.replace('#', '9').replace('U', 'a').replace('?', '*').replace('L', 'a');
+        } else {
+            return "";
+        }
     }
 }

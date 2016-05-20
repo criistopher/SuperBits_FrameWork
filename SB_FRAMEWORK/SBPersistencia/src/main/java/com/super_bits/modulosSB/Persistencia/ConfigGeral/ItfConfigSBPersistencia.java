@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
 /**
  *
  * @author Salvio
@@ -19,6 +21,8 @@ public interface ItfConfigSBPersistencia {
     public String formatoDataUsuario();
 
     public String pastaImagensJPA();
+
+    public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais();
 
     public void criarBancoInicial();
 

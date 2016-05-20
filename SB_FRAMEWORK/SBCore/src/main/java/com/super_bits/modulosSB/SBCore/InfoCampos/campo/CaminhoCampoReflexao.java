@@ -112,14 +112,19 @@ public class CaminhoCampoReflexao extends ItemSimples {
         int i = 0;
         String caminhoParcial = "";
         for (String parte : getCaminhoCompletoString().split("\\.")) {
+<<<<<<< HEAD
             System.out.println("parte" + String.valueOf(i) + "====" + parte);
+=======
+>>>>>>> b8e746ccabd74a7b8394faeb2ae9712e1123ce69
             if (i > 0) {
                 caminhoParcial += parte;
             }
             i++;
+<<<<<<< HEAD
 
+=======
+>>>>>>> b8e746ccabd74a7b8394faeb2ae9712e1123ce69
         }
-
         return caminhoParcial;
     }
 
@@ -134,6 +139,16 @@ public class CaminhoCampoReflexao extends ItemSimples {
     @Override
     public String toString() {
         return getCaminhoCompletoString();
+    }
+
+    @Override
+    public int getId() {
+        return id; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setId(int pID) {
+        setId(pID); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

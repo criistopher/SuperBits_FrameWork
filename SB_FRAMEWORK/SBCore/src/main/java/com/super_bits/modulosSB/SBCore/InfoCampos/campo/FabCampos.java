@@ -47,7 +47,72 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
-     *//**
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
@@ -311,7 +376,15 @@ public enum FabCampos implements ItfFabrica {
      */
     CODIGO_DE_BARRAS,
     ICONE,
-    SEGURANCA_ATIVA,;
+    SEGURANCA_ATIVA,
+    /**
+     * Indica um arquivo da entidade
+     */
+    ARQUIVO_DE_ENTIDADE,
+    /**
+     * Indica um campo de Localizacao (Que implementa ItfLocalizacao)
+     */
+    LC_LOCALIZACAO;
 
     @Override
     public Campo getRegistro() {
@@ -335,6 +408,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case LATITUDE:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
+                sbCampo.setFraseValidacao("A latitude deve conter um valor numérico");
                 break;
             case Longitude:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
@@ -367,6 +441,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case TELEFONE_FIXO_NACIONAL:
                 sbCampo.setValidacaoRegex("^\\(?([1-9][0-9])\\)?\\s?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
+                sbCampo.setMascara("(##)#####-####");
                 break;
             case MOEDA_REAL:
                 // implementar: separadores, numero de casas decimais Sigla da moeda
@@ -434,8 +509,8 @@ public enum FabCampos implements ItfFabrica {
 
             case TELEFONE_FIXO_INTERNACIONAL:
                 // MAscara e Regex
-                sbCampo.setValidacaoRegex("^((\\+|00)(55)\\s?)(\\(([1-9][0-9])\\)\\s?)(((9\\d|[2-9])\\d{3})\\-(\\d{4}))$");
-                sbCampo.setMascara("*##(##)#####-####");
+                sbCampo.setValidacaoRegex("^((55)\\s?)(\\(([1-9][0-9])\\)\\s?)(((9\\d|[2-9])\\d{3})\\-(\\d{4}))$");
+                sbCampo.setMascara("##(##)a####-####");
                 break;
             case TELEFONE_CELULAR:
                 // MAscara e Regex
@@ -494,6 +569,16 @@ public enum FabCampos implements ItfFabrica {
             case REG_ATIVO_INATIVO:
                 break;
             case ICONE:
+                break;
+            case LISTA:
+                break;
+            case SEGURANCA_ATIVA:
+                break;
+            case ARQUIVO_DE_ENTIDADE:
+                sbCampo.setLabel("Arquivo: ");
+
+                break;
+            case LC_LOCALIZACAO:
                 break;
 
             default:

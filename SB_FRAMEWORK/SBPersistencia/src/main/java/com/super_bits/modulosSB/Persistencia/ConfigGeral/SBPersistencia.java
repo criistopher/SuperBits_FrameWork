@@ -7,8 +7,13 @@
  */
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,12 +41,14 @@ public abstract class SBPersistencia {
     private static String pastaImagensJPA = "/img";
     private static boolean configurado = false;
     private static TipoBanco tipoBanco = TipoBanco.MYSQL;
+    private static Class<? extends ItfFabrica>[] fabricasRegistrosIniciais;
 
     public static void configuraJPA(ItfConfigSBPersistencia configurador) {
         nomeFactureManager = configurador.bancoPrincipal();
         formatoDataBanco = configurador.formatoDataBanco();
         formatoDataUsuario = configurador.formatoDataUsuario();
         pastaImagensJPA = configurador.pastaImagensJPA();
+        fabricasRegistrosIniciais = configurador.fabricasRegistrosIniciais();
         configurado = true;
 
         EntityManager teste = UtilSBPersistencia.getNovoEM();
@@ -62,6 +69,29 @@ public abstract class SBPersistencia {
             System.out.println("Campos de entidade configurados com sucesso");
         }
 
+    }
+
+    public static void criarRegistrosIniciais() {
+        validaConfigurado();
+
+        if (fabricasRegistrosIniciais != null) {
+            for (Class classe : fabricasRegistrosIniciais) {
+                UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, UtilSBPersistencia.getNovoEM(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ID);
+            }
+        }
+    }
+
+    public static void limparBanco() {
+
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            throw new UnsupportedOperationException("A limpeza do banco só pode ser realizada em modo desenvolvimento");
+        }
+        String respApagaBanco = UtilSBCoreShellBasico.executeCommand(SBCore.getCaminhoGrupoProjeto() + "/apagaBanco.sh");
+        if (!respApagaBanco.contains("dropped")) {
+            throw new UnsupportedOperationException("A palavra dropped não apareceu no retorno do comando apagaBanco.sh que integra as boas práticas de Devops do frameWork" + respApagaBanco);
+        }
+        UtilSBPersistencia.renovarFabrica();
+        criarRegistrosIniciais();
     }
 
     /**

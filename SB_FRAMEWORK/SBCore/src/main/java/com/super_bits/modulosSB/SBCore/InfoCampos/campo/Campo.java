@@ -41,6 +41,8 @@ public class Campo implements Serializable, ItfCampo {
 
     private int numCasasDecimais;
 
+    private String fraseValidacao;
+
     public Campo(FabCampos pTipo) {
         tipoCampo = pTipo;
         tipoVisualizacao = pTipo.toString().toUpperCase();
@@ -56,6 +58,8 @@ public class Campo implements Serializable, ItfCampo {
         setTipoCampo(pCampo.getTipoCampo());
         setObrigatorio(pCampo.isObrigatorio());
         setListaDeOpcoes(pCampo.getListaDeOpcoes());
+        setValidacaoRegex(pCampo.getValidacaoRegex());
+        setFraseValidacao(pCampo.getFraseValidacao());
 
     }
 
@@ -154,30 +158,30 @@ public class Campo implements Serializable, ItfCampo {
         this.descricao = descricao;
     }
 
-    public void setObrigatorio(boolean obrigatorio) {
+    public final void setObrigatorio(boolean obrigatorio) {
         this.obrigatorio = obrigatorio;
     }
 
     @Override
-    public String getIdComponente() {
+    public final String getIdComponente() {
         return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
     }
 
     @Override
-    public List<ItfBeanSimples> getListaDeOpcoes() {
+    public final List<ItfBeanSimples> getListaDeOpcoes() {
         return listaDeOpcoes;
     }
 
-    public void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
+    public final void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
         listaDeOpcoes = pLista;
     }
 
     @Override
-    public String getValidacaoRegex() {
+    public final String getValidacaoRegex() {
         return validacaoRegex;
     }
 
-    public void setValidacaoRegex(String validacaoRegex) {
+    public final void setValidacaoRegex(String validacaoRegex) {
         this.validacaoRegex = validacaoRegex;
     }
 
@@ -288,6 +292,15 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getNomeDoObjeto() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public final String getFraseValidacao() {
+        return fraseValidacao;
+    }
+
+    public final void setFraseValidacao(String fraseValidacao) {
+        this.fraseValidacao = fraseValidacao;
     }
 
 }
