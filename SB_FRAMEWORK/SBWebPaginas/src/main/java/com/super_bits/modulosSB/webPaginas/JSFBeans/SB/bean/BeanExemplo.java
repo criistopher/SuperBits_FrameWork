@@ -92,7 +92,7 @@ public class BeanExemplo
 
     @NotNull
     @InfoCampo(tipo = FabCampos.PERCENTUAL)
-    private Double porcentagem;
+    private int porcentagem;
 
     @NotNull
     @InfoCampo(tipo = FabCampos.MOEDA_REAL)

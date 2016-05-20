@@ -7,7 +7,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import java.util.List;
 
-public final class Campo implements Serializable, ItfCampo {
+public class Campo implements Serializable, ItfCampo {
 
     @InfoCampo(tipo = FabCampos.ID)
     private FabCampos tipoCampo;
@@ -158,30 +158,30 @@ public final class Campo implements Serializable, ItfCampo {
         this.descricao = descricao;
     }
 
-    public void setObrigatorio(boolean obrigatorio) {
+    public final void setObrigatorio(boolean obrigatorio) {
         this.obrigatorio = obrigatorio;
     }
 
     @Override
-    public String getIdComponente() {
+    public final String getIdComponente() {
         return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
     }
 
     @Override
-    public List<ItfBeanSimples> getListaDeOpcoes() {
+    public final List<ItfBeanSimples> getListaDeOpcoes() {
         return listaDeOpcoes;
     }
 
-    public void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
+    public final void setListaDeOpcoes(List<ItfBeanSimples> pLista) {
         listaDeOpcoes = pLista;
     }
 
     @Override
-    public String getValidacaoRegex() {
+    public final String getValidacaoRegex() {
         return validacaoRegex;
     }
 
-    public void setValidacaoRegex(String validacaoRegex) {
+    public final void setValidacaoRegex(String validacaoRegex) {
         this.validacaoRegex = validacaoRegex;
     }
 
@@ -294,11 +294,12 @@ public final class Campo implements Serializable, ItfCampo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getFraseValidacao() {
+    @Override
+    public final String getFraseValidacao() {
         return fraseValidacao;
     }
 
-    public void setFraseValidacao(String fraseValidacao) {
+    public final void setFraseValidacao(String fraseValidacao) {
         this.fraseValidacao = fraseValidacao;
     }
 
