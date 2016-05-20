@@ -408,6 +408,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case LATITUDE:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
+                sbCampo.setFraseValidacao("A latitude deve conter um valor numérico");
                 break;
             case Longitude:
                 sbCampo.setDescricao("Representa a posição geografica de longitude");
