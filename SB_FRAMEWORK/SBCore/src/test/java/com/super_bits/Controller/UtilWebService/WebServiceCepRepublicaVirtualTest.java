@@ -7,7 +7,6 @@ package com.super_bits.Controller.UtilWebService;
 import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtual;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

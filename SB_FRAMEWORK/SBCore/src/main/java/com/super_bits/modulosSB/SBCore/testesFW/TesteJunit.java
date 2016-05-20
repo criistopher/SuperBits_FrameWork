@@ -5,7 +5,6 @@
 package com.super_bits.modulosSB.SBCore.testesFW;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-
 import org.junit.Before;
 
 /**

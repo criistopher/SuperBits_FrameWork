@@ -7,7 +7,6 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

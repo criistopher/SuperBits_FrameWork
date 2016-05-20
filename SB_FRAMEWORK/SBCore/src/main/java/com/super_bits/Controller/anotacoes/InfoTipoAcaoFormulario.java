@@ -1,6 +1,5 @@
 package com.super_bits.Controller.anotacoes;
 
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
-import javax.persistence.metamodel.EntityType;
 
 /**
  *

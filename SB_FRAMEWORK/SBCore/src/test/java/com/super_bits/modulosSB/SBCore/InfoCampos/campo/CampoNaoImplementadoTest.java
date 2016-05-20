@@ -6,7 +6,6 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

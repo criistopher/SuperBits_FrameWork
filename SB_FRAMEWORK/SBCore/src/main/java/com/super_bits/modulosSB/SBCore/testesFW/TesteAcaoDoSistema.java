@@ -5,8 +5,6 @@
 package com.super_bits.modulosSB.SBCore.testesFW;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.UtilFabricaDeAcoesBasico;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 

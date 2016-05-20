@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabTipoUsuarioInteracao;
 import com.super_bits.modulosSB.SBCore.Mensagens.Mensagem;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

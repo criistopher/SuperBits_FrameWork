@@ -4,8 +4,8 @@
  */
 package com.super_bits.Controller.comunicacao;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;

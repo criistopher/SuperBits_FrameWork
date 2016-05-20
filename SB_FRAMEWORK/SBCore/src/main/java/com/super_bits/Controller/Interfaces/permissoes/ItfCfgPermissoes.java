@@ -6,10 +6,8 @@ package com.super_bits.Controller.Interfaces.permissoes;
 
 import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.GrupoUsuariosDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.view.menu.MenuSBFW;
 import com.super_bits.view.menu.MenusDaSessao;
 import java.lang.reflect.Method;
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ItfBeanNormal extends ItfBeanSimples {

@@ -5,7 +5,6 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

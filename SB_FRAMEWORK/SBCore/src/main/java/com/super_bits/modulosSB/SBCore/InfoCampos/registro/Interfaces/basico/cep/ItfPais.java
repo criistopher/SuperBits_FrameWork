@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep;
 
-import com.sun.mail.iap.Literal;
 import java.util.List;
 
 /**
