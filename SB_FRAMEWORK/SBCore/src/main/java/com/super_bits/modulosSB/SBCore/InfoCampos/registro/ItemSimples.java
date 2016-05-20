@@ -15,10 +15,7 @@ public class ItemSimples extends ItemGenerico implements
         //	adcionaCampoEsperado(new CampoEsperado(TC.IMG_PEQUENA, CInfo.SITE_URL
         //			+CInfo.pastaImagens + "/SBPequeno.jpg"));
         //adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_CURTO), true);
-<<<<<<< HEAD
-=======
         //adcionaCampoEsperado(new CampoEsperado(FabCampos.ID), true);
->>>>>>> b8e746ccabd74a7b8394faeb2ae9712e1123ce69
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME), true);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.ID), true);
     }
