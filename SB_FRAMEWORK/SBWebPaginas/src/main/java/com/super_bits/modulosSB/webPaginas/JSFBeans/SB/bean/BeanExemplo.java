@@ -29,7 +29,7 @@ public class BeanExemplo
 
     @InfoCampo(tipo = FabCampos.ID)
     @NotNull
-    private int id = 9999;
+    private int id;
 
     @InfoCampo(tipo = FabCampos.EMAIL)
     @NotNull
@@ -133,8 +133,17 @@ public class BeanExemplo
         super(BeanExemplo.class);
 
         apelido = "testeeeeeeee";
-        id = 99;
 
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

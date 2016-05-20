@@ -47,6 +47,7 @@ public class ItemSimples extends ItemGenerico implements
         // return UtilSBCoreStrings.makeStrUrlAmigavel(nomeCurto);
     }
 
+    @Override
     public int getId() {
         return Integer.parseInt(getValorByTipoCampoEsperado(FabCampos.ID).toString());
     }
