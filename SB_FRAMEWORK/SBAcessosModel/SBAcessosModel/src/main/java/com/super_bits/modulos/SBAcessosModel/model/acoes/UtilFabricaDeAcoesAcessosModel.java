@@ -11,9 +11,10 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
-import com.super_bits.Controller.anotacoes.InfoAcaoController;
-import com.super_bits.Controller.anotacoes.InfoAcaoFormulario;
-import com.super_bits.Controller.anotacoes.InfoAcaoGestaoEntidade;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
+
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
@@ -221,7 +222,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         FabTipoAcaoSistemaGenerica tipoAcao = getTipoAcaoByNome(pAcao.getEnumAcaoDoSistema());
         Class entidadeDaAcao = pAcao.getEnumAcaoDoSistema().getEntidadeDominio();
         if (tipoAcao.toString().contains("FORMULARIO")) {
-            InfoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoAcaoFormulario.class);
+            InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
             if (anotacaoFormulario != null) {
                 for (String cp : anotacaoFormulario.campos()) {
 
@@ -250,7 +251,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
         if (tipoAcao.toString().contains("CONTROLLER")) {
 
-            InfoAcaoController anotacaocontroller = campo.getAnnotation(InfoAcaoController.class);
+            InfoTipoAcaoController anotacaocontroller = campo.getAnnotation(InfoTipoAcaoController.class);
             if (anotacaocontroller != null) {
                 if (anotacaocontroller.icone().length() > 2) {
                     pAcao.setIconeAcao(anotacaocontroller.icone());
@@ -268,7 +269,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         }
         if (tipoAcao.toString().contains("GERENCIAR")) {
 
-            InfoAcaoGestaoEntidade anotacaoGerenciar = campo.getAnnotation(InfoAcaoGestaoEntidade.class);
+            InfoTipoAcaoGestaoEntidade anotacaoGerenciar = campo.getAnnotation(InfoTipoAcaoGestaoEntidade.class);
             if (anotacaoGerenciar != null) {
                 if (anotacaoGerenciar.icone().length() > 2) {
                     pAcao.setIconeAcao(anotacaoGerenciar.icone());
