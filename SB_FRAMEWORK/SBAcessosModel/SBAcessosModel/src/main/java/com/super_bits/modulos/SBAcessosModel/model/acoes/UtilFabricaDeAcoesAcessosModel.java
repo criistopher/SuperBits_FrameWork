@@ -195,7 +195,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 if (dominioDaAcaoAtual != null) {
                     if (dominioDaAcaoAtual.getName().equals(classeDominioDaAcao.getName())) {
                         // verifica se alem de ser o mesmo dominio possui o MB
-                        if (acao.toString().contains("_MB_")) {
+                        if (acao.toString().contains("_MB")) {
                             if (acao.equals(pAcao)) {
                                 return null;
                             }
@@ -314,6 +314,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     case FORMULARIO_VISUALIZAR:
                     case FORMULARIO_LISTAR:
                     case FORMULARIO_MODAL:
+                    case CONTROLLER_PERSONALIZADO:
+
                         throw new UnsupportedOperationException("A ação " + pAcao + " deveria ter uma ação principal vinculada, por ser do tipo " + pTipoAcaoGenerica);
 
                 }
@@ -471,7 +473,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando ação secontaria:" + t.getMessage(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando ação automática por nome:" + t.getMessage(), t);
         }
         return null;
     }
