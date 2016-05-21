@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface InfoAcaoFormulario {
+public @interface InfoTipoAcaoGestaoEntidade {
 
     public String nomeAcao() default "";
 
@@ -21,7 +21,5 @@ public @interface InfoAcaoFormulario {
     public boolean precisaPermissao() default false;
 
     public String xhtmlDaAcao() default "";
-
-    public String[] campos() default {};
 
 }

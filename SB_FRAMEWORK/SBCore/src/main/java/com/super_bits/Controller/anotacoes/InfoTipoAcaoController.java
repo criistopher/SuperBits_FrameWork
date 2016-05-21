@@ -10,7 +10,7 @@ package com.super_bits.Controller.anotacoes;
  *
  * @author desenvolvedor
  */
-public @interface InfoAcaoController {
+public @interface InfoTipoAcaoController {
 
     public String nomeAcao();
 
