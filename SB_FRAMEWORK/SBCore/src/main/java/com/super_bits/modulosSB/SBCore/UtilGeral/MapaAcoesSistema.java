@@ -242,6 +242,14 @@ public abstract class MapaAcoesSistema {
         return null;
     }
 
+    public static List<ItfModuloAcaoSistema> getModulos() {
+
+        List<ItfModuloAcaoSistema> modulosEncontrados = new ArrayList<>();
+        modulosEncontrados.addAll(ACOES_BY_MODULO.keySet());
+        return modulosEncontrados;
+
+    }
+
     /**
      *
      *

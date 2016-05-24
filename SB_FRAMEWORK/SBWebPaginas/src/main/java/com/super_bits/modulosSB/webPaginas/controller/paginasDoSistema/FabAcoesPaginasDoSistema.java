@@ -26,11 +26,11 @@ import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
 public enum FabAcoesPaginasDoSistema implements ItfFabricaAcoes {
 
-    @InfoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
+    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_MB_HOME,
-    @InfoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true)
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true)
     PAGINA_MB_ACESSO_NEGADO,
-    @InfoAcaoGestaoEntidade(icone = "fa fa-key ", precisaPermissao = true)
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key ", precisaPermissao = true)
     PAGINA_MB_LOGIN;
 
     @Override
