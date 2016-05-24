@@ -150,11 +150,12 @@ public abstract class MB_SiteMapa implements Serializable {
     public ItfB_Pagina getPaginaNoContexto(String xhtmlGerenciarPG) throws UnsupportedOperationException {
 
         Field campo = paginasInjetadas.get(xhtmlGerenciarPG);
-        campo.setAccessible(true);
+
         if (campo == null) {
             throw new UnsupportedOperationException("a pagina vinculada ao recurso não foi localizada no sitemap do projeto , o recurso enviado foi:[" + xhtmlGerenciarPG + "]");
         }
         ItfB_Pagina pagina;
+        campo.setAccessible(true);
         try {
             pagina = (ItfB_Pagina) campo.get(this);
         } catch (IllegalArgumentException | IllegalAccessException ex) {
