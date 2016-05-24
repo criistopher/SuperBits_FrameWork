@@ -27,6 +27,7 @@ import java.util.Set;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -186,15 +187,27 @@ public class UtilSBWPServletTools {
         }
         try {
 
-            FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesContext contextoVisualizacaoAtual = FacesContext.getCurrentInstance();
             // String teste = context.getRealPath("/");
-            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            if (contextoVisualizacaoAtual == null) {
+                //TODO VA PARA VIEWEXPIRED
+                UtilSBWP_JSFTools.vaParaPaginaInicial();
+                throw new ViewExpiredException();
+            }
+            ExternalContext contextoExterno = contextoVisualizacaoAtual.getExternalContext();
+
+            ServletContext scontext = (ServletContext) contextoExterno.getContext();
 
             return scontext.getRealPath("/");
         } catch (Exception e) {
             System.out.println("UTILIZANDO PASTA RESOURCE DE DESENVOLVIMENTO." + e.getMessage() + e.getClass());
-            e.printStackTrace();
-            return SBWebPaginas.getCaminhoWebAppDeveloper();
+            if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+                return SBWebPaginas.getCaminhoWebAppDeveloper();
+            } else {
+                return SBWebPaginas.getCaminhoWebAppDeveloper();
+                //throw new ViewExpiredException();
+            }
         }
 
     }

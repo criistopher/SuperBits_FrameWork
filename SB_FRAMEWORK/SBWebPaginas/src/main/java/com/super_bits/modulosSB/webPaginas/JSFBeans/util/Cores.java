@@ -291,7 +291,7 @@ public class Cores implements Serializable {
             prop.store(output, "Configuração de cores basicas do FrameWork Super-Bits");
             System.out.println("Arquivo de configuracao salvo com suceso");
             FabMensagens.enviarMensagemUsuario("Arquivo de configuração salvo com sucesso", FabMensagens.AVISO);
-        } catch (IOException | IllegalArgumentException | IllegalAccessException e) {
+        } catch (Throwable e) {
             FabMensagens.enviarMensagemUsuario("Erro tentando gravar arquivo de configuração", FabMensagens.AVISO);
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro salvando arquivo de configuração de cores", e);
         } finally {
@@ -330,8 +330,8 @@ public class Cores implements Serializable {
                 }
             }
 
-        } catch (IOException | IllegalArgumentException | IllegalAccessException ex) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro carregando cores apartir de arquivo, Utilizando Templates oficiais no projeto este arquivo é obrigatório", ex);
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro carregando cores apartir de arquivo, Utilizando Templates oficiais no projeto este arquivo é obrigatório", t);
         } finally {
             if (input != null) {
                 try {

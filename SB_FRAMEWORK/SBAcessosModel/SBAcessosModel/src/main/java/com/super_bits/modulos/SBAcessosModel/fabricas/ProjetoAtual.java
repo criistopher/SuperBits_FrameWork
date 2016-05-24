@@ -6,13 +6,21 @@
 package com.super_bits.modulos.SBAcessosModel.fabricas;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 
 /**
  *
  * @author desenvolvedor
  */
-public class ProjetoAtual {
+@InfoClasse(tags = {"Projeto Atual"})
+public class ProjetoAtual extends ItemSimples {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeProjeto;
     private String nomeCliente;
 

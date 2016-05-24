@@ -12,6 +12,10 @@ import java.lang.annotation.Target;
 
 /**
  *
+ *
+ * //TODO renomear para InfoPaginaSiteMAP e retenção para fild, pois a anotação
+ * será usada no siteMAP
+ *
  * @author Salvio
  */
 @Documented

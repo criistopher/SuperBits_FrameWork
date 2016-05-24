@@ -420,7 +420,8 @@ public abstract class UtilSBCoreReflexao {
                         }
                     }
 
-                    throw new UnsupportedOperationException("Anotação de ação não foi encontrada no método" + pClasse.getName());
+                    throw new UnsupportedOperationException("Anotação do tipo fabrica não foi encontrada no método" + pNomeMetodoAnotacao + " na classe " + pClasse.getName()
+                    );
 
                 }
             } catch (Throwable t) {
