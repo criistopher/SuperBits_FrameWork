@@ -12,6 +12,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
@@ -31,7 +32,7 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      * desenvolvimento
      *
      */
-    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/gerenciarProjeto.xhtml",
+    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/projeto/gerenciarProjeto.xhtml",
             icone = "fa fa-codepen")
     PROJETO_GERENCIAR_MB,
     /**
