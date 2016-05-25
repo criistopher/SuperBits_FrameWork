@@ -10,7 +10,9 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
 
 /**
  *
@@ -28,8 +30,8 @@ public enum FabConfigCoreSBSBWebPaginas {
         cfg.setNomeProjeto("SBWebPaginas");
         cfg.setDiretorioBase("SB_FRAMEWORK");
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
-        cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
-        cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+        cfg.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
+        cfg.setClasseErro(ErroSBCoreFW.class);
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
 
         //      cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
