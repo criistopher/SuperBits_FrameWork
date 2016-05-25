@@ -4,10 +4,20 @@
  */
 package com.super_bits.Controller.Interfaces.permissoes;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import java.util.List;
+
 /**
+ *
+ *
+ *
  *
  * @author desenvolvedor
  */
 public interface ItfAcaoGerenciarEntidade extends ItfAcaoEntidade, ItfAcaoFormulario {
+
+    public List<ItfAcaoSecundaria> getAcoesVinculadas();
+
+    public void setAcoesVinculadas(List<ItfAcaoSecundaria> acoesVinculadas);
 
 }

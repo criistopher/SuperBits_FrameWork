@@ -5,6 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
@@ -76,13 +77,13 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         return true;
     }
 
-    public List<AcaoSecundaria> getAcoesVinculadas() {
+    public List<ItfAcaoSecundaria> getAcoesVinculadas() {
 
-        return acoesVinculadas;
+        return (List) acoesVinculadas;
     }
 
-    public void setAcoesVinculadas(List<AcaoSecundaria> acoesVinculadas) {
-        this.acoesVinculadas = acoesVinculadas;
+    public void setAcoesVinculadas(List<ItfAcaoSecundaria> acoesVinculadas) {
+        this.acoesVinculadas = (List) acoesVinculadas;
     }
 
     public List<ItfFabricaAcoes> getEnumAcoesVinculadas() {

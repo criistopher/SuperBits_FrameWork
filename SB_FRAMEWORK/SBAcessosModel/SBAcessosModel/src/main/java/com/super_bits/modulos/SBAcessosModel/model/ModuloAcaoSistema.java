@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -121,6 +122,17 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
 
     public void setSelecaoAcoes(List<AcaoDoSistema> SelecaoAcoes) {
         this.selecaoAcoes = SelecaoAcoes;
+    }
+
+    public List<ItfAcaoDoSistema> getAcoesGestaoMB() {
+        List<ItfAcaoDoSistema> listaacaoGestao = new ArrayList<>();
+
+        for (ItfAcaoDoSistema acao : getAcoes()) {
+            if (acao.isUmaAcaoGestaoDominio()) {
+                listaacaoGestao.add((AcaoDoSistema) acao);
+            }
+        }
+        return listaacaoGestao;
     }
 
 }

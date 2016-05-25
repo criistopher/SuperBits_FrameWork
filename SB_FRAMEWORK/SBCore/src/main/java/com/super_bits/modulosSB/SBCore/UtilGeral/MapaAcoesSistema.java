@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
@@ -32,13 +33,36 @@ public abstract class MapaAcoesSistema {
     private static final Map<ItfFabricaAcoes, ItfAcaoDoSistema> ACAO_BY_ENUM = new HashMap<>();
     private static final Map<Class, List<ItfAcaoDoSistema>> ACOES_BY_CLASSE = new HashMap<>();
     private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_BY_MODULO = new HashMap<>();
-    private static final Map<String, List<ItfAcaoDoSistema>> ACOES_BY_DOMINIO = new HashMap<>();
+    private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_MANAGED_BEAN_BY_MODULO = new HashMap<>();
+    private static final Map<ItfAcaoGerenciarEntidade, List<ItfAcaoSecundaria>> SUBACOES_BY_ACAO_GERENCIAR_MB = new HashMap<>();
 
+    private static final Map<String, List<ItfAcaoDoSistema>> ACOES_BY_DOMINIO = new HashMap<>();
     private static boolean mapaCriado = false;
+
+    /// cria mapeamentos relacionais dos Objetos todos os (OneToMany) Ex: adiciona as açoes do modulo no objeto Modulo
+    private static void buildRelacoes() {
+
+        for (ItfModuloAcaoSistema modulosEncontrado : ACOES_BY_MODULO.keySet()) {
+            if (modulosEncontrado.getAcoes().isEmpty()) {
+                modulosEncontrado.getAcoes().addAll(ACOES_BY_MODULO.get(modulosEncontrado));
+            }
+        }
+
+        for (ItfAcaoGerenciarEntidade acao : SUBACOES_BY_ACAO_GERENCIAR_MB.keySet()) {
+            if (acao.getAcoesVinculadas().isEmpty()) {
+                acao.setAcoesVinculadas(SUBACOES_BY_ACAO_GERENCIAR_MB.get(acao));
+            }
+        }
+
+    }
 
     public static void makeMapaAcoesSistema() {
         if (mapaCriado) {
             return;
+        }
+
+        if (SBCore.getFabricasDeAcaoDoSistema() == null) {
+            throw new UnsupportedOperationException("O mapa de ações não pode ser definido, pos as Fabricas de ações do core não foram definidas");
         }
 
         for (Class fabrica : SBCore.getFabricasDeAcaoDoSistema()) {
@@ -48,20 +72,43 @@ public abstract class MapaAcoesSistema {
                 ItfAcaoDoSistema acao = fabricaAcao.getAcaoDoSistema();
 
                 List<ItfAcaoDoSistema> acoesDoModulo = ACOES_BY_MODULO.get(acao.getModulo());
+                List<ItfAcaoDoSistema> acoesManagedBeansDoModulo = ACOES_MANAGED_BEAN_BY_MODULO.get(acao.getModulo());
+                UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
+                /// ADICIONANDO MAPAS SIMPLES
+                ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
+                ACAO_BY_ENUM.put(fabricaAcao, acao);
+
                 if (acoesDoModulo == null) {
                     acoesDoModulo = new ArrayList();
+                    acoesManagedBeansDoModulo = new ArrayList<>();
+                    ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
+                    ACOES_MANAGED_BEAN_BY_MODULO.put(acao.getModulo(), acoesManagedBeansDoModulo);
                 }
+
                 acoesDoModulo.add(acao);
-                UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
+                if (acao.isUmaAcaoGestaoDominio()) {
+                    acoesManagedBeansDoModulo.add(acao);
 
-                ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
-                //  System.out.println("Adicionando" + acao + " do modulo" + acao.getModulo());
-                ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
+                } else if (acao.isTemAcaoPrincipal()) {
+                    ItfAcaoGerenciarEntidade acaoprincipal = (ItfAcaoGerenciarEntidade) ACAO_BY_ENUM.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal().getEnumAcaoDoSistema());
+                    if (acaoprincipal == null) {
+                        throw new UnsupportedOperationException(
+                                "A acaoPrincipal: " + ((ItfAcaoSecundaria) acao).getAcaoPrincipal().getNomeUnico() + "deve ser declarada antes de " + acao.getNomeUnico() + " no enum (Coloque as açoes _MB na frente das subAções, "
+                                + "e certifique que o dominio e o inicio do nome da ação estão sendo coincidentes entre ações e subações)");
+                    }
+                    if (SUBACOES_BY_ACAO_GERENCIAR_MB.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal()) == null) {
+                        List<ItfAcaoSecundaria> subacoesDomodulo = new ArrayList();
+                        SUBACOES_BY_ACAO_GERENCIAR_MB.put(acaoprincipal, subacoesDomodulo);
 
-                ACAO_BY_ENUM.put(fabricaAcao, acao);
+                    }
+
+                    SUBACOES_BY_ACAO_GERENCIAR_MB.get(acaoprincipal).add((ItfAcaoSecundaria) acao);
+                }
+
                 if (ACOES_BY_DOMINIO.get(acao.getNomeDominio()) == null) {
                     List<ItfAcaoDoSistema> acoesporDominio = new ArrayList<>();
                     ACOES_BY_DOMINIO.put(acao.getNomeDominio(), acoesporDominio);
+
                 }
                 ACOES_BY_DOMINIO.get(acao.getNomeDominio()).add(acao);
 
@@ -81,6 +128,7 @@ public abstract class MapaAcoesSistema {
             }
 
         }
+        buildRelacoes();
         mapaCriado = true;
     }
 
@@ -246,6 +294,7 @@ public abstract class MapaAcoesSistema {
 
         List<ItfModuloAcaoSistema> modulosEncontrados = new ArrayList<>();
         modulosEncontrados.addAll(ACOES_BY_MODULO.keySet());
+
         return modulosEncontrados;
 
     }

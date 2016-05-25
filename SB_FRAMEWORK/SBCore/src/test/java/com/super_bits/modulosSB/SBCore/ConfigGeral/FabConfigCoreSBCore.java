@@ -20,9 +20,9 @@ public enum FabConfigCoreSBCore {
 
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");
-        cfg.setGrupoProjeto("SuperBits_FrameWork");
+        cfg.setGrupoProjeto("SB_FRAMEWORK");
         cfg.setNomeProjeto("SBCore");
-        cfg.setDiretorioBase("SB_FRAMEWORK");
+        cfg.setDiretorioBase("SuperBits_FrameWork");
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);

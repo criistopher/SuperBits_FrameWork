@@ -32,4 +32,6 @@ public interface ItfModuloAcaoSistema {
 
     public void setDescricao(String pDescricao);
 
+    public List<ItfAcaoDoSistema> getAcoesGestaoMB();
+
 }

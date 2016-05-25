@@ -21,6 +21,7 @@ public class MapaAcoesSistemaTest {
     public void testMakeMapaAcoesSistema() {
 
         SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        System.out.println(SBCore.getCaminhoDesenvolvimento());
         MapaAcoesSistema.makeMapaAcoesSistema();
 
     }
