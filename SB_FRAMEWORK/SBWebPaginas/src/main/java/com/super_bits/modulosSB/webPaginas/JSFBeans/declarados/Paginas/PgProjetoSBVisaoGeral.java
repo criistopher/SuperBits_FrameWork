@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -43,6 +44,7 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     }
 
+    @PostConstruct
     public void init() {
         modulosDoSistema = (List) MapaAcoesSistema.getModulos();
 
