@@ -12,14 +12,18 @@ package com.super_bits.Controller.anotacoes;
  */
 public @interface InfoTipoAcaoController {
 
-    public String nomeAcao();
+    public String nomeAcao() default "";
 
-    public String icone();
+    public String icone() default "";
 
-    public Class entidade();
+    public Class entidade() default Object.class;
 
-    public boolean precisaPermissao();
+    public boolean precisaPermissao() default false;
 
-    public String xhtmlDaAcao();
+    public String xhtmlDaAcao() default "";
+
+    public String descricao() default "";
+
+    public String codigoJira() default "";
 
 }

@@ -24,4 +24,8 @@ public @interface InfoTipoAcaoFormulario {
 
     public String[] campos() default {};
 
+    public String descricao() default "";
+
+    public String codigoJira() default "";
+
 }

@@ -22,4 +22,8 @@ public @interface InfoTipoAcaoGestaoEntidade {
 
     public String xhtmlDaAcao() default "";
 
+    public String descricao() default "";
+
+    public String codigoJira() default "";
+
 }
