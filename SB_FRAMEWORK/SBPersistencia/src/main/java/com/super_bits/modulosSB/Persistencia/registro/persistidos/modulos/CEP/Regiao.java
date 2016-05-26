@@ -167,11 +167,11 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
         if (temCidade) {
 
             if (getCidades().contains((Cidade) pLocalidade.getBairro().getCidade())) {
-                if (!temBairro) {
+                if (temBairro) {
                     return getBairros().contains((Bairro) pLocalidade.getBairro());
 
                 } else {
-                    return false;
+                    return true;
                 }
 
             }

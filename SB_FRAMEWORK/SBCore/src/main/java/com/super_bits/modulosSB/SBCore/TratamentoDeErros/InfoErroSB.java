@@ -336,10 +336,20 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
     }
 
     protected void pararSistem() {
-        System.err.println("_____________________________________________________________________");
-        System.err.println(" ESTE ERRO PRECISA SER CORRIGIDO ANTES DE CONTINUAR O DESENVOLVIMENTO");
-        System.err.println("_____________________________________________________________________");
-        System.exit(0);
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            System.err.println("_____________________________________________________________________");
+            System.err.println(" ESTE ERRO PRECISA SER CORRIGIDO ANTES DE CONTINUAR O DESENVOLVIMENTO");
+            System.err.println("_____________________________________________________________________");
+            sytemOutDoErro();
+            System.exit(0);
+        } else {
+
+            System.err.println("_____________________________________________________________________");
+            System.err.println(" ESTE ERRO PRECISA SER CORRIGIDO ANTES DE CONTINUAR O DESENVOLVIMENTO");
+            System.err.println(" ***************** O SISTEMA SÓ NÃO FOI PARADO POR NÃO ESTAR NO MODO DE DESENVOLVIMENTO ");
+            System.err.println("_____________________________________________________________________");
+            sytemOutDoErro();
+        }
     }
 
 }
