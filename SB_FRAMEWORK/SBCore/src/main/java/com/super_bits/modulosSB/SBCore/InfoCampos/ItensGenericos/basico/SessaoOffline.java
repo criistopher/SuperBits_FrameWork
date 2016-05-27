@@ -58,7 +58,7 @@ public class SessaoOffline implements ItfSessao {
 
     @Override
     public boolean isIdentificado() {
-        if (usuarioLogado == null) {
+        if (usuarioLogado == null || usuarioLogado.equals(new UsuarioAnonimo())) {
             System.out.println("id Usuario logado está nulo");
             return false;
         }

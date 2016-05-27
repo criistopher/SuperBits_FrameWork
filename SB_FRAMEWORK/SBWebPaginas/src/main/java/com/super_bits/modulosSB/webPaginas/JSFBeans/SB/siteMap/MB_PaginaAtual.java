@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -31,15 +32,15 @@ public abstract class MB_PaginaAtual implements Serializable {
 
     @PostConstruct
     public void startBean() {
-        System.out.println("Iniciando pagina Atual");
+        SBCore.soutInfoDebug("Iniciando pagina Atual");
         datahoraAbertura = new Date();
         if (infoPagina != null) {
             System.out.println("Pagina Atual infoPagina carregado");
         }
         if (infoPagina == null) {
-            System.out.println("PaginaAtual sem  infoPagina Carregado, obtendo infoPagina por Recurso");
+            SBCore.soutInfoDebug("PaginaAtual sem  infoPagina Carregado, obtendo infoPagina por Recurso");
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-            System.out.println("Recurso encontrado:" + viewId);
+            SBCore.soutInfoDebug("Recurso encontrado:" + viewId);
             try {
                 setInfoPagina(getSiteMap().getPaginaNoContexto(viewId));
             } catch (Throwable e) {

@@ -524,4 +524,11 @@ public class SBCore {
         return acoesDoSistema;
     }
 
+    public static void soutInfoDebug(String  pInfo) {
+        if (getEstadoAPP() != ESTADO_APP.PRODUCAO) {
+            System.out.println("DebugInfo: "+ pInfo);
+        }
+
+    }
+
 }
