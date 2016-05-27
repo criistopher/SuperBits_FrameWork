@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.UtilSBController;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -66,6 +67,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private String titulo;
     private String linkRotulo;
     private String descricao;
+
+    private String xhtmlAtual;
+    private ItfAcaoDoSistema acaoSelecionada;
+    private List<ItfAcaoDoSistema> acoesDaPagina;
+
     public static List<AcaoGestaoEntidade> acoesMB;
     private String nomeMB;
     private final Map<String, String> infoIds = new HashMap<>();

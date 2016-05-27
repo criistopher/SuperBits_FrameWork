@@ -55,52 +55,52 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     private InfoWebApp infoAplicacao;
 
     public void buildMapaRecurso() {
+        if (mapaPaginas != null) {
+            return;
+        }
 
-        if (mapaPaginas == null) {
+        try {
+            System.out.println("Montando Mapa de paginas Para encaminhamento Via Servlet");
 
-            try {
-                System.out.println("Montando Mapa de paginas Para encaminhamento Via Servlet");
+            Class sitemapClass = SBWebPaginas.getSiteMap();
+            MB_SiteMapa sitemapa;
+            sitemapa = (MB_SiteMapa) sitemapClass.newInstance();
 
-                Class sitemapClass = SBWebPaginas.getSiteMap();
-                MB_SiteMapa sitemapa;
-                sitemapa = (MB_SiteMapa) sitemapClass.newInstance();
-
-                Map<String, ItfB_Pagina> paginas = sitemapa.getPaginasOffline();
-                // criando mapa de recursos a partir das paginas
-                mapaRecursos = new HashMap<>();
-                mapaPaginas = new HashMap<>();
-                for (String key : paginas.keySet()) {
-                    ItfB_Pagina pg = paginas.get(key);
-                    List<String> tags = pg.getTags();
-                    mapaPaginas.put(pg.getRecursoXHTML(), pg);
-                    List<String> tagsDaPagina = pg.getTags();
-                    mapaRecursos.put(key, pg.getRecursoXHTML());
-                    for (String tag : tagsDaPagina) {
-                        mapaRecursos.put(UtilSBCoreStrings.makeStrUrlAmigavel(tag), pg.getRecursoXHTML());
-                    }
+            Map<String, ItfB_Pagina> paginas = sitemapa.getPaginasOffline();
+            // criando mapa de recursos a partir das paginas
+            mapaRecursos = new HashMap<>();
+            mapaPaginas = new HashMap<>();
+            for (String key : paginas.keySet()) {
+                ItfB_Pagina pg = paginas.get(key);
+                List<String> tags = pg.getTags();
+                mapaPaginas.put(pg.getRecursoXHTML(), pg);
+                List<String> tagsDaPagina = pg.getTags();
+                mapaRecursos.put(key, pg.getRecursoXHTML());
+                mapaRecursos.put(pg.getNomeCurto(), pg.getRecursoXHTML());
+                for (String tag : tagsDaPagina) {
+                    mapaRecursos.put(UtilSBCoreStrings.makeStrUrlAmigavel(tag), pg.getRecursoXHTML());
                 }
-
-                if (!infoAplicacao.isAceosMBConfiguradas()) {
-
-                    try {
-                        for (ItfB_Pagina pagina : mapaPaginas.values()) {
-                            if (pagina.getAcaoVinculada() != null) {
-                                infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoManagedBean(pagina.getAcaoVinculada(), pagina));
-                            }
-                        }
-
-                    } catch (Throwable t) {
-                        FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
-                    }
-
-                }
-
-                System.out.println("Contexto Inicializado");
-            } catch (InstantiationException | IllegalAccessException ex) {
-
-                FabErro.PARA_TUDO.paraSistema("erro gerando cadastrado de recursos via siteMap", ex);
             }
 
+            if (!infoAplicacao.isAceosMBConfiguradas()) {
+
+                try {
+                    for (ItfB_Pagina pagina : mapaPaginas.values()) {
+                        if (pagina.getAcaoVinculada() != null) {
+                            infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoManagedBean(pagina.getAcaoVinculada(), pagina));
+                        }
+                    }
+
+                } catch (Throwable t) {
+                    FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
+                }
+
+            }
+
+            System.out.println("Contexto Inicializado");
+        } catch (InstantiationException | IllegalAccessException ex) {
+
+            FabErro.PARA_TUDO.paraSistema("erro gerando cadastrado de recursos via siteMap", ex);
         }
 
     }
@@ -142,23 +142,6 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                         }
                     }
 
-                    /**
-                     * OLD STYLE SEM AÇÃO VINCULADA
-                     *
-                     * if (!pagina.isAcessoLivre()) { if
-                     * (pagina.getAcaoVinculada() == null) {
-                     * FabErro.PARA_TUDO.paraSistema("Você não vinculou nenhuma
-                     * ação de sipublic static List<AcaoManagedBean>
-                     * acoesMB;stema a esta pagina a qual o acesso não é livre",
-                     * null); }
-                     *
-                     * if (!UtilSBAcessosModel.acessoAPaginaPermitido(usuario,
-                     * recurso)) { RequestDispatcher wp =
-                     * req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
-                     * wp.forward(req, resp); return; }
-                     *
-                     * }
-                     */
                     int idParametro = 0;
 
                     for (String valorParametro : UtilSBWPServletTools.getParametrosDaPagina(caminhoCOmpleto)) {
