@@ -432,46 +432,6 @@ public class UtilSBWPServletTools {
         return (String) SBWebPaginas.getSiteHost() + origRequest.getAttribute("javax.servlet.forward.request_uri");
     }
 
-    /**
-     *
-     * Através de reflexão lista todos objetos com a anotação Inject da classe
-     * que seja de determinado tipo
-     *
-     * +++++++> Este metodo instancia a classe onde os metodos serão localizados
-     *
-     * @param pTipo Tipo pesquizado
-     * @param pClasse Classe onde os objetos serão localizados
-     * @return
-     */
-    public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Class<?> pClasse) {
-
-        try {
-            return getObjetosInjetadosModoOffline(pTipo, pClasse.newInstance());
-        } catch (InstantiationException | IllegalAccessException e) {
-
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro obtendo Objetos Ingetados no modo Offline (com CDI desativado) ", e);
-        }
-        return null;
-
-    }
-
-    /**
-     *
-     * * Através de reflexão lista todos objetos com a anotação Inject da do
-     * objeto instanciado que seja de determinado tipo
-     *
-     *
-     * @param pTipo Tipo de objeto que será pesquisado
-     * @param pInstancia Instancia onde os objetos instanciados serão
-     * localizados
-     * @return
-     */
-    public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Object pInstancia) {
-
-        return objetosInjetados(pTipo, pInstancia, true);
-
-    }
-
     public static List<Field> getCamposReflexcaoInjetados(Class pClasse) {
         List<Field> camposInjetados = new ArrayList<>();
 
@@ -486,92 +446,62 @@ public class UtilSBWPServletTools {
     }
 
     /**
-     * Lista os objetos de determinado tipo injetados em determinada instancia
+     * private static List<? extends Object> objetosInjetados(Class<?> pTipo,
+     * Object pInstancia, Boolean modoOffline) {
      *
+     * String nomeClasseProcurada = pTipo.getSimpleName(); List<Object>
+     * objetosEncontrados = new ArrayList<Object>(); Class<?> classe =
+     * pInstancia.getClass(); Field[] fields = classe.getDeclaredFields();
+     * //pInstancia.getClass().getSuperclass();
      *
-     * @param pTipo Tipo de objeto sendo que será adicionado na lista
-     * @param pInstancia instancia onde os Objetos serão localizados
-     * @return um lista com os objetos instanciados
+     * for (Field field : fields) { field.setAccessible(true); Constructor<?>[]
+     * constr = field.getType().getConstructors();
+     *
+     * try { Inject injetado = field.getAnnotation(Inject.class); if (injetado
+     * != null) {
+     *
+     * Boolean encontrou = false; Boolean classeObjeto = false; Object campo =
+     * field.get(pInstancia);
+     *
+     * try { if (modoOffline) { campo = field.getType().newInstance(); }
+     *
+     * try { if (campo == null) { throw new ErroSBCritico("erro (chamada para
+     * criar ObjetosInjetados Online com objetos não injetados)em " +
+     * pTipo.getSimpleName() + ":: " + campo.getClass().getSimpleName()); }
+     *
+     * } catch (Exception e) {
+     * UtilSBWP_JSFTools.mensagens().erroSistema(e.getMessage(), e); }
+     *
+     * } catch (InstantiationException e) { System.out.println("Erro tentando
+     * Instanciar Um objeto nulo no BeanUtil getObjetosInjetados");
+     * e.printStackTrace(); }
+     *
+     * if (campo != null) { Class<?> classeCampo = campo.getClass(); while
+     * (encontrou == false && classeObjeto == false) {
+     * System.out.println(classeCampo.getSimpleName()); if
+     * (classeCampo.getSimpleName().equals(nomeClasseProcurada)) { encontrou =
+     * true; } if (classeCampo.getSimpleName().equals("Object")) { classeObjeto
+     * = true; } if (classeObjeto == false) { classeCampo =
+     * classeCampo.getSuperclass(); } }
+     *
+     * }
+     *
+     * if (encontrou == true) {
+     *
+     * }
+     *
+     * if (encontrou == true & campo != null) { objetosEncontrados.add(campo); }
+     *
+     * }
+     *
+     * } catch (IllegalArgumentException | IllegalAccessException e1) {
+     * FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo objetos
+     * injetados via CDI", e1); }
+     *
+     * }
+     *
+     * return objetosEncontrados; }
      */
-    public static List<? extends Object> getObjetosInjetados(Class<?> pTipo, Object pInstancia) {
-        return objetosInjetados(pTipo, pInstancia, false);
-    }
-
-    private static List<? extends Object> objetosInjetados(Class<?> pTipo, Object pInstancia, Boolean modoOffline) {
-
-        String nomeClasseProcurada = pTipo.getSimpleName();
-        List<Object> objetosEncontrados = new ArrayList<Object>();
-        Class<?> classe = pInstancia.getClass();
-        Field[] fields = classe.getDeclaredFields();
-        //pInstancia.getClass().getSuperclass();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-            Constructor<?>[] constr = field.getType().getConstructors();
-
-            try {
-                Inject injetado = field.getAnnotation(Inject.class);
-                if (injetado != null) {
-
-                    Boolean encontrou = false;
-                    Boolean classeObjeto = false;
-                    Object campo = field.get(pInstancia);
-
-                    try {
-                        if (modoOffline) {
-                            campo = field.getType().newInstance();
-                        }
-
-                        try {
-                            if (campo == null) {
-                                throw new ErroSBCritico("erro (chamada para criar ObjetosInjetados Online com objetos não injetados)em " + pTipo.getSimpleName() + ":: " + campo.getClass().getSimpleName());
-                            }
-
-                        } catch (Exception e) {
-                            UtilSBWP_JSFTools.mensagens().erroSistema(e.getMessage(), e);
-                        }
-
-                    } catch (InstantiationException e) {
-                        System.out.println("Erro tentando Instanciar Um objeto nulo no BeanUtil getObjetosInjetados");
-                        e.printStackTrace();
-                    }
-
-                    if (campo != null) {
-                        Class<?> classeCampo = campo.getClass();
-                        while (encontrou == false && classeObjeto == false) {
-                            System.out.println(classeCampo.getSimpleName());
-                            if (classeCampo.getSimpleName().equals(nomeClasseProcurada)) {
-                                encontrou = true;
-                            }
-                            if (classeCampo.getSimpleName().equals("Object")) {
-                                classeObjeto = true;
-                            }
-                            if (classeObjeto == false) {
-                                classeCampo = classeCampo.getSuperclass();
-                            }
-                        }
-
-                    }
-
-                    if (encontrou == true) {
-
-                    }
-
-                    if (encontrou == true & campo != null) {
-                        objetosEncontrados.add(campo);
-                    }
-
-                }
-
-            } catch (IllegalArgumentException | IllegalAccessException e1) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo objetos injetados via CDI", e1);
-            }
-
-        }
-
-        return objetosEncontrados;
-    }
-
     public static Map<String, ParametroURL> setValoresParametrosByUrl(Map<String, ParametroURL> pParametros) {
         for (String prStr : pParametros.keySet()) {
             pParametros.get(UtilSBCoreStrings.makeStrUrlAmigavel(prStr)).setValor(getRequestParametro(prStr));

@@ -3,11 +3,10 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import com.super_bits.view.menu.ItfFabricaMenu;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -15,20 +14,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 
 @SuppressWarnings("serial")
 public abstract class MB_SiteMapa implements Serializable {
 
     private final Map<String, ItfB_Pagina> paginasDoSistema = new HashMap<>();
     private Map<String, ItfB_Pagina> paginasOffline = new HashMap<>();
-    private final Map<String, ItfB_Pagina> paginasPorRecurso = new HashMap<>();
     private final Map<String, Field> paginasInjetadas = new HashMap<>();
     private boolean paginasDoSistemaConstruidas = false;
-    private boolean paginasOnlineConstruidas = false;
-    private boolean paginasOffilineConstruidas = false;
-
-    private boolean foiInjetado = false;
 
     /**
      *
@@ -62,7 +55,7 @@ public abstract class MB_SiteMapa implements Serializable {
         erroCritico.addTag("erroCritico");
         erroCritico.addParametro(new ParametroURL("mensagem",
                 "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
-        paginasDoSistema.put(erroCritico.getNomeCurto(), erroCritico);
+        paginasDoSistema.put(erroCritico.getRecursoXHTML(), erroCritico);
 
         String[] tagsErroSQL = {"erro-SQL"};
         B_Pagina erroSQL = new PaginaSimples("ESQL",
@@ -71,17 +64,17 @@ public abstract class MB_SiteMapa implements Serializable {
 
         erroSQL.addParametro(new ParametroURL("mensagem",
                 "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
-        paginasDoSistema.put(erroSQL.getNomeCurto(), erroSQL);
+        paginasDoSistema.put(erroSQL.getRecursoXHTML(), erroSQL);
 
         String[] tagsPrime = {"teste-prime"};
         B_Pagina testePrime = new PaginaSimples("TP",
                 "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
         testePrime.addTag("Testes PrimeFaces");
-        paginasDoSistema.put(testePrime.getNomeCurto(), testePrime);
+        paginasDoSistema.put(testePrime.getRecursoXHTML(), testePrime);
 
         String[] tagsNegado = {"Negado"};
         B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
-        paginasDoSistema.put(acessoNegado.getNomeCurto(), acessoNegado);
+        paginasDoSistema.put(acessoNegado.getRecursoXHTML(), acessoNegado);
 
         //   String[] tagsAcessos = {"acessos"};
         //     PgAcessos acessos = new PgAcessos();
@@ -91,26 +84,27 @@ public abstract class MB_SiteMapa implements Serializable {
     }
 
     public MB_SiteMapa() {
-        paginasOffline = buildPaginas();
-        addpgInjectOffline();
-        List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
-        for (Field campo : camposInjetados) {
-            AcaoGestaoEntidade acao = (AcaoGestaoEntidade) UtilSBController.getAcaoByClasse(campo.getType());
-            paginasInjetadas.put(acao.getXhtml(), campo);
-        }
+        try {
+            paginasOffline = buildPaginas();
 
-    }
+            List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
 
-    private void addpgInjectOffline() {
-        if (paginasOffilineConstruidas) {
-            return;
-        }
-        paginasOffilineConstruidas = true;
+            for (Field campo : camposInjetados) {
+                try {
+                    AcaoGestaoEntidade acao = (AcaoGestaoEntidade) UtilSBController.getAcaoByClasse(campo.getType());
 
-        List<ItfB_Pagina> listaOffline = (List<ItfB_Pagina>) UtilSBWPServletTools
-                .getObjetosInjetadosModoOffline(MB_Pagina.class, this);
-        for (ItfB_Pagina pg : listaOffline) {
-            addPaginaOffline(pg);
+                    if (acao != null) {
+                        paginasInjetadas.put(acao.getXhtml(), campo);
+                        paginasOffline.put(acao.getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
+                    } else {
+                        throw new UnsupportedOperationException("No siteMap só devem ser injetadas paginas com ação vinculada");
+                    }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType(), t);
+                }
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
         }
 
     }

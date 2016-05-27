@@ -13,6 +13,8 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -161,36 +163,41 @@ public class UtilSBController {
     }
 
     public static ItfFabricaAcoes getFabricaAcaoByClasse(Class pClasse) {
+        try {
+            Annotation[] anotacoes = pClasse.getAnnotations();
+            if (anotacoes != null) {
+                for (Annotation a : anotacoes) {
 
-        Annotation[] anotacoes = pClasse.getAnnotations();
-        if (anotacoes != null) {
-            for (Annotation a : anotacoes) {
-
-                try {
-
-                    Method metodo = a.getClass().getMethod("acao");
-                    if (metodo == null) {
-                        System.out.println("A classe" + pClasse + "Não possui uma anotação de ação vinculada ");
-                        return null;
-                    }
                     try {
 
-                        ItfFabricaAcoes acao = (ItfFabricaAcoes) metodo.invoke(a);
-                        return acao;
+                        Method metodo = a.getClass().getMethod("acao");
+                        if (metodo == null) {
+                            System.out.println("A classe" + pClasse + "Não possui uma anotação de ação vinculada ");
 
-                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                        System.out.println("A classe" + pClasse + "Não possui uma anotação de ação ");
-                        //  FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", ex);
+                        } else {
+
+                            ItfFabricaAcoes acao;
+                            try {
+                                acao = (ItfFabricaAcoes) metodo.invoke(a);
+                                return acao;
+                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                                SBCore.RelatarErro(FabErro.PARA_TUDO, "O nome [acao] em uma anotação está reservado para enuns que extendam " + ItfFabricaAcoes.class.getSimpleName(), ex);
+                            }
+
+                        }
+
+                    } catch (NoSuchMethodException | SecurityException ex) {
+
+                        //   FabErro. .paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA", ex);
                     }
-                } catch (NoSuchMethodException | SecurityException ex) {
-                    System.out.println("A classe" + pClasse + "Não possui uma anotação de ação ");
-                    //   FabErro. .paraSistema("MÉTODO AÇÃO NÃO ENCONTADO NA ANOTAÇÃO DE METODO DE AÇÃO DO SISTEMA", ex);
                 }
-            }
 
+            }
+            throw new UnsupportedOperationException("A classe " + pClasse.getSimpleName() + " não está anotada com uma anotação contendo uma ação");
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "A anotação de ação não foi encontrada na classe", t);
         }
 
-        //   FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", null);
         return null;
 
     }
