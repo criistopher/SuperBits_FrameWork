@@ -54,8 +54,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     @Inject
     private InfoWebApp infoAplicacao;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void buildMapaRecurso() {
 
         if (mapaPaginas == null) {
 
@@ -103,6 +102,13 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             }
 
         }
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        buildMapaRecurso();
 
         ItfUsuario usuario = null;
         if (controleDeSessao != null) {
