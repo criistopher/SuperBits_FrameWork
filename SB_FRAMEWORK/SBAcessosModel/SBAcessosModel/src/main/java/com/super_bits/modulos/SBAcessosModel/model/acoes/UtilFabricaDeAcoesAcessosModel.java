@@ -257,11 +257,15 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaocontroller.icone());
                 }
                 if (anotacaocontroller.nomeAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaocontroller.nomeAcao());
+                    pAcao.setNomeAcao(anotacaocontroller.nomeAcao());
                 }
                 if (anotacaocontroller.xhtmlDaAcao().length() > 2) {
                     ((ItfAcaoFormulario) pAcao).setXhtml(anotacaocontroller.xhtmlDaAcao());
                 }
+                if (anotacaocontroller.descricao().length() > 2) {
+                    pAcao.setDescricao(anotacaocontroller.descricao());
+                }
+
                 pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
 
             }
@@ -275,11 +279,15 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaoGerenciar.icone());
                 }
                 if (anotacaoGerenciar.nomeAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoGerenciar.nomeAcao());
+                    pAcao.setNomeAcao(anotacaoGerenciar.nomeAcao());
                 }
                 if (anotacaoGerenciar.xhtmlDaAcao().length() > 2) {
                     ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoGerenciar.xhtmlDaAcao());
                 }
+                if (anotacaoGerenciar.descricao().length() > 2) {
+                    pAcao.setDescricao(anotacaoGerenciar.descricao());
+                }
+
                 pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
 
             }

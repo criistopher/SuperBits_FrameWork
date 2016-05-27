@@ -1,10 +1,13 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
+import static com.super_bits.Controller.UtilSBController.getFabricaAcaoByClasse;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.view.menu.ItfFabricaMenu;
@@ -91,7 +94,9 @@ public abstract class MB_SiteMapa implements Serializable {
 
             for (Field campo : camposInjetados) {
                 try {
-                    AcaoGestaoEntidade acao = (AcaoGestaoEntidade) UtilSBController.getAcaoByClasse(campo.getType());
+
+                    ItfFabricaAcoes fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
+                    ItfAcaoGerenciarEntidade acao = fabrica.geAcaoGerenciarEntidade();
 
                     if (acao != null) {
                         paginasInjetadas.put(acao.getXhtml(), campo);

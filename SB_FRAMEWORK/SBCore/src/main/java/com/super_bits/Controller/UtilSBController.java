@@ -213,12 +213,8 @@ public class UtilSBController {
     public static ItfAcaoDoSistema getAcaoByClasse(Class pClasse) {
 
         ItfFabricaAcoes acao = (ItfFabricaAcoes) getFabricaAcaoByClasse(pClasse);
-        if (acao == null) {
-            return null;
-        }
-        ItfAcaoDoSistema acaoSisTema = (ItfAcaoDoSistema) acao.getRegistro();
 
-        return acaoSisTema;
+        return (ItfAcaoDoSistema) acao.getRegistro();
 
         //   FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo", null);
     }

@@ -74,6 +74,7 @@ public abstract class UtilTestePagina {
                     ItfAcaoGerenciarEntidade acaoGerenciarDominio = pagina.getAcaoVinculada();
                     UtilTestePagina.testaAcaoFormulario((ItfAcaoFormulario) acaoGerenciarDominio);
                     assertNotNull("ação vinculada", acaoGerenciarDominio);
+
                     UtilTestePagina.testaconfigIcone(acaoGerenciarDominio.getEnumAcaoDoSistema());
                 } catch (Throwable t) {
                     throw new UnsupportedOperationException("Erro validando Ação gerenciar dominio", t);
