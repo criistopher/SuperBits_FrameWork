@@ -6,8 +6,10 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.sun.source.tree.IfTree;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -246,6 +248,21 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     @Override
     public String getNomeDominio() {
         return acaoOriginal.getNomeDominio();
+    }
+
+    @Override
+    public ItfAcaoFormulario comoFormulario() {
+        return acaoOriginal.comoFormulario();
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
+        return acaoOriginal.comoGestaoEntidade();
+    }
+
+    @Override
+    public ItfAcaoController comoController() {
+        return acaoOriginal.comoController();
     }
 
 }

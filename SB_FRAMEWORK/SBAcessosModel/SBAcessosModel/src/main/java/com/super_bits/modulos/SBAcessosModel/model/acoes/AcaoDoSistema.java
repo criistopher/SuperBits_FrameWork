@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
@@ -344,6 +345,49 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public String getNomeDominio() {
         return nomeDominio;
+    }
+
+    public ItfAcaoFormulario comoFormulario() {
+        try {
+            if (isUmaAcaoFormulario()) {
+                return (ItfAcaoFormulario) this;
+            } else {
+                throw new UnsupportedOperationException("A acao " + this.getNomeUnico() + " não é to tipo " + ItfAcaoFormulario.class.getSimpleName());
+            }
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
+            return null;
+        }
+
+    }
+
+    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
+        try {
+            if (isUmaAcaoFormulario()) {
+                return (ItfAcaoGerenciarEntidade) this;
+            } else {
+                throw new UnsupportedOperationException("A acao " + this.getNomeUnico() + " não é to tipo " + ItfAcaoGerenciarEntidade.class.getSimpleName());
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
+            return null;
+        }
+
+    }
+
+    public ItfAcaoController comoController() {
+        try {
+            if (isUmaAcaoFormulario()) {
+                return (ItfAcaoController) this;
+            } else {
+                throw new UnsupportedOperationException("A acao " + this.getNomeUnico() + " não é to tipo " + ItfAcaoController.class.getSimpleName());
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
+            return null;
+        }
+
     }
 
 }

@@ -61,7 +61,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     protected ItfAcaoDoSistema acaoSelecionada;
     protected boolean podeEditar;
     protected boolean novoRegistro;
-    protected String xhtmlAcaoAtual;
+
     @Inject
     protected PgUtil paginaUtil;
 

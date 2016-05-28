@@ -21,7 +21,6 @@ public abstract class MB_Pagina extends B_Pagina {
     @PostConstruct
     private void initBean() {
         System.out.println("Iniciando InitBeanDePagina" + this.getClass().getSimpleName());
-        foiInjetado = true;
         configParametros();
 
     }

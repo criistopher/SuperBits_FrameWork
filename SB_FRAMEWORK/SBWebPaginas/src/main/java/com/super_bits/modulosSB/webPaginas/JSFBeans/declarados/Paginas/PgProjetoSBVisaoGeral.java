@@ -32,7 +32,7 @@ import javax.inject.Named;
 public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     private List<AcaoDoSistema> acoesGestaoDoModulo;
-    private AcaoDoSistema acaoSelecionada;
+
     private ModuloAcaoSistema moduloSelecionado;
     private List<ModuloAcaoSistema> modulosDoSistema;
     private List<ItfBeanSimples> objetosDoSistema;
@@ -44,18 +44,15 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     }
 
+    @Override
+    public void executarAcaoSelecionada() {
+        super.executarAcaoSelecionada(); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @PostConstruct
     public void init() {
         modulosDoSistema = (List) MapaAcoesSistema.getModulos();
 
-    }
-
-    public AcaoDoSistema getAcaoSelecionada() {
-        return acaoSelecionada;
-    }
-
-    public void setAcaoSelecionada(AcaoDoSistema acaoSelecionada) {
-        this.acaoSelecionada = acaoSelecionada;
     }
 
     public ModuloAcaoSistema getModuloSelecionado() {

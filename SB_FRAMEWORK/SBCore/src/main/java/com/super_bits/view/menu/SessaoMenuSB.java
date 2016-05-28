@@ -5,9 +5,12 @@
 package com.super_bits.view.menu;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
@@ -334,6 +337,21 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     @Override
     public String getNomeDominio() {
         return acaoSessao.getNomeDominio();
+    }
+
+    @Override
+    public ItfAcaoFormulario comoFormulario() {
+        throw new UnsupportedOperationException("Uma ação de sessão não pode retornar um formulário"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
+        throw new UnsupportedOperationException("Uma ação de sessao não pode ser retronada como gestao de entidade"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoController comoController() {
+        throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo controller"); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

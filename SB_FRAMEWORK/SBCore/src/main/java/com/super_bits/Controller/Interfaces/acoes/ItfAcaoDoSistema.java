@@ -5,6 +5,8 @@
 package com.super_bits.Controller.Interfaces.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
@@ -209,4 +211,23 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return
      */
     public String getNomeDominio();
+
+    /**
+     *
+     * @return Esta ação com o Tipo ItfAcaoFormulario
+     */
+    public ItfAcaoFormulario comoFormulario();
+
+    /**
+     *
+     * @return Esta ação com o Tipo ItrGerenciarEntidade
+     */
+    public ItfAcaoGerenciarEntidade comoGestaoEntidade();
+
+    /**
+     *
+     * @return Esta ação com o tipo Controller
+     */
+    public ItfAcaoController comoController();
+
 }

@@ -49,7 +49,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @NotNull
     private String descricao;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "modulos_grupo", uniqueConstraints = @UniqueConstraint(columnNames = {"grupo_id", "modulo_id"}),
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "modulo_id")
@@ -169,6 +169,10 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
         if (!modulos.contains(modulo)) {
             modulos.add(modulo);
         }
+    }
+
+    public ModuloAcaoSistema getModuloPrincipal() {
+        return getModulos().get(0);
     }
 
 }

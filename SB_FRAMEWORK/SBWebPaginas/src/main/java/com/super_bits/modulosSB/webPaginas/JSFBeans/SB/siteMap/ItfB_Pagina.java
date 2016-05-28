@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import java.util.List;
 import java.util.Map;
@@ -77,5 +78,19 @@ public interface ItfB_Pagina {
      * @param valorStringPorParametro
      */
     public void aplicaValoresDeParametrosModoDesenvolvimento(Map<String, String> valorStringPorParametro);
+
+    public void executarAcaoSelecionada();
+
+    /**
+     *
+     * @return Todas as ações declaradas no managed Bean
+     */
+    public List<ItfAcaoDoSistema> getAcoesDaPagina();
+
+    /**
+     *
+     * @return A ação selecionada no momento
+     */
+    public ItfAcaoDoSistema getAcaoSelecionada();
 
 }

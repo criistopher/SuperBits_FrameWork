@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -45,8 +46,13 @@ public class PgUtil implements Serializable {
 
     @Inject
     private SessaoAtualSBWP sessao;
+
     @Inject
     private InfoWebApp infoWeb;
+
+    public void testeMuitoLouco(ItfB_Pagina pagina) {
+        pagina.executarAcaoSelecionada();
+    }
 
     private final CampoNaoImplementado camponaoImplementado = new CampoNaoImplementado();
 

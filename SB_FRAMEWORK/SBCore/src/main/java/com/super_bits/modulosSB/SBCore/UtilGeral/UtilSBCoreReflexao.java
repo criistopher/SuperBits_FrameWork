@@ -7,10 +7,12 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,6 +22,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Transient;
+import org.eclipse.jetty.util.B64Code;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -496,6 +499,96 @@ public abstract class UtilSBCoreReflexao {
             FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
             return null;
         }
+    }
+
+    /**
+     *
+     * Retorna todas as classes por hierarquia até encontrar um objeto final
+     *
+     * @param pClasse
+     * @param objetosFinal
+     * @return
+     */
+    protected static List<Class> getClassesComHierarquiaAteObjetoFinal(Class pClasse, Class... objetosFinal) {
+
+        List<Class> classes = new ArrayList<>();
+
+        Class classeAtual = pClasse;
+        boolean encontrou = false;
+        while (!encontrou) {
+            if (classeAtual == ItemGenerico.class
+                    || classeAtual == Object.class) {
+                return classes;
+            }
+            for (Class objtoFinal : objetosFinal) {
+                if (pClasse == objtoFinal) {
+                    return classes;
+                }
+
+            }
+            classes.add(classeAtual);
+            classeAtual = classeAtual.getSuperclass();
+
+        }
+        return classes;
+    }
+
+    /**
+     *
+     * @param pclasse
+     * @param tipoCampo
+     * @param objetosFinal
+     * @return
+     */
+    public static List<Field> getCamposRecursivoPorTipo(Class pclasse, Class tipoCampo, Class... objetosFinal) {
+        List<Field> camposEncontrados = new ArrayList<>();
+
+        for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, objetosFinal)) {
+            for (Field cp : classe.getDeclaredFields()) {
+                if (cp.getType().equals(tipoCampo)) {
+                    camposEncontrados.add(cp);
+                }
+            }
+        }
+
+        return camposEncontrados;
+
+    }
+
+    public static List<Field> getCamposRecursivoPorAnotacao(Class pclasse, Class anotacao, Class... objetosFinal) {
+
+        List<Field> camposEncontrados = new ArrayList<>();
+
+        for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, objetosFinal)) {
+            for (Field cp : classe.getDeclaredFields()) {
+                if (cp.getAnnotation(anotacao) != null) {
+                    camposEncontrados.add(cp);
+                }
+            }
+        }
+
+        return camposEncontrados;
+
+    }
+
+    public static List<Field> getCamposRecursivoPorInterface(Class pclasse, Class pItf, Class... pObjetosFinal) {
+
+        List<Field> camposEncontrados = new ArrayList<>();
+
+        for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, pObjetosFinal)) {
+            for (Field cp : classe.getDeclaredFields()) {
+
+                for (Class itf : cp.getType().getInterfaces()) {
+                    if (itf.equals(pItf)) {
+                        camposEncontrados.add(cp);
+                    }
+                }
+
+            }
+        }
+
+        return camposEncontrados;
+
     }
 
 }

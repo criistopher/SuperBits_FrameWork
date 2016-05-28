@@ -82,6 +82,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * @return Nome do módulo vinculado a ação
      */
+    @Deprecated
     public String getNomeModulo();
 
 }

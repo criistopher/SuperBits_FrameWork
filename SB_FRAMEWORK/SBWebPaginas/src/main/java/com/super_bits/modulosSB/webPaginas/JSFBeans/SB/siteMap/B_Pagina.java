@@ -19,6 +19,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.I
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_IdWidget;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 /**
@@ -47,9 +49,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private int id;
     private Boolean abriuPagina = false;
     private final List<String> tags = new ArrayList<>();
-    private final Map<String, ParametroURL> parametrosURL = new HashMap<>();
+    private Map<String, ParametroURL> parametrosURL;
     private boolean parametrosDeUrlPreenchido = false;
-    protected boolean foiInjetado = false;
+    @Inject()
+    protected PgUtil paginaUtil;
+
     private boolean anotacoesConfiguradas = false;
     private AcaoGestaoEntidade acaoVinculada;
 
@@ -58,16 +62,19 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     protected abstract String defineNomeLink();
 
     protected abstract String defineDescricao();
+
     private String nomeCurto;
     private final List<String> urls = new ArrayList<>();
     private String urlPadrao;
     private String tagUsada;
     private String recursoXHTML;
-    private String titulo;
+    private final String titulo;
     private String linkRotulo;
-    private String descricao;
+    private final String descricao;
+    @InfoMB_Bean(descricao = "Div onde será exibido o xhtml da ação selecionada", exemplo = "<h:painelGroup id={#PaginaAtual.infoPagina.idConteudoPagina}")
+    protected String idAreaExbicaoAcaoSelecionada = "divSBAreaAcaoSelecionada";
 
-    private String xhtmlAtual;
+    protected String xhtmlAcaoAtual;
     private ItfAcaoDoSistema acaoSelecionada;
     private List<ItfAcaoDoSistema> acoesDaPagina;
 
@@ -178,9 +185,14 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     protected void configParametros() {
         try {
-            System.out.println("Configurando paramentros:: ");
+            if (parametrosURL != null) {
+                return;
+            }
+
+            parametrosURL = new HashMap<>();
+            SBCore.soutInfoDebug("Configurando paramentros:: ");
             List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
-            System.out.println(lista.size() + "parametos encontrados" + lista);
+            SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
             parametrosURL.clear();
             for (ParametroURL pr : lista) {
                 parametrosURL.put(pr.getNome(), pr);
@@ -199,15 +211,15 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
             anotacoesConfiguradas = true;
             configAnotacoesClasse();
-            System.out.println("Configurando Anotações de Bean");
+            SBCore.soutInfoDebug("Configurando Anotações de Bean");
             configAnotacoesBeans();
             System.out.println("Configurando Anotações de Parametros");
 
-            System.out.println("Aplicando valores");
+            SBCore.soutInfoDebug("Aplicando valores");
             nomeMB = "#{" + this.getClass().getSimpleName() + "}";
-            System.out.println("Configurando Anotações de Pagnia");
+            SBCore.soutInfoDebug("Configurando Anotações de Pagnia");
 
-            System.out.println("Constructor da pagina " + this.getClass().getName() + " finalizado");
+            SBCore.soutInfoDebug("Constructor da pagina " + this.getClass().getName() + " finalizado");
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro aplicando anotações da pagina" + this.getClass().getName(), t);
         }
@@ -440,22 +452,20 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 emPagina.close();
             }
         }
-        System.out.println("Bean de escopo" + this.getClass().getSimpleName() + " Encerrado (B_Pagina.FecharPagina)");
+        SBCore.soutInfoDebug("Bean de escopo" + this.getClass().getSimpleName() + " Encerrado (B_Pagina.FecharPagina)");
     }
 
     @Override
     public void abrePagina() {
         if (abriuPagina) {
-            System.out.println("Comando Abre PAgina já foi executado, saindo do método");
+            SBCore.soutInfoDebug("Comando Abre PAgina já foi executado, saindo do método");
             return;
         }
         abriuPagina = true;
-        System.out.println("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
+        SBCore.soutInfoDebug("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
 
-        if (!foiInjetado) {
-            // carregarAnotacoes();
-            configParametros();
-        }
+        configParametros();
+
         Boolean tudoPreenchido = true;
         // DEFININDO OS VALORES DE PARAMETROS POR URL
         Map<String, String> valoresStrPorParametro = new HashMap<>();
@@ -488,17 +498,9 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     @Override
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     @Override
@@ -661,6 +663,75 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         System.out.println("PostConstruct interno");
         System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
 
+    }
+
+    /**
+     *
+     * Este metodo por padrão troca o xhtml atual caso nescessário, e atualiza o
+     * conteudo, normalmente é substituído por um método superior, mas pode ser
+     * utilizado de forma combinada (Chamando super.executarAcaoSelecionada)
+     * dentro do metodo com override
+     *
+     *
+     *
+     *
+     */
+    @Override
+    public void executarAcaoSelecionada() {
+        try {
+            if (acaoSelecionada == null) {
+                throw new UnsupportedOperationException("A ação selecionada não pode ser nula");
+            }
+
+            if (acaoSelecionada.isUmaAcaoFormulario()) {
+                if (!acaoSelecionada.comoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
+                    xhtmlAcaoAtual = acaoSelecionada.comoFormulario().getXhtml();
+                    paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                }
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando ação selecionada da pagina" + this.getClass().getSimpleName(), t);
+        }
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     * @return Todas as ações do sistema declaradas no Managed Bean da pagina
+     */
+    @Override
+    public List<ItfAcaoDoSistema> getAcoesDaPagina() {
+        if (acoesDaPagina != null) {
+            return acoesDaPagina;
+        }
+        try {
+            acoesDaPagina = new ArrayList<>();
+
+            List<Field> camposDeAcao = UtilSBCoreReflexao.getCamposRecursivoPorInterface(this.getClass(), ItfAcaoDoSistema.class, B_Pagina.class, MB_PaginaConversation.class);
+            for (Field cp : camposDeAcao) {
+                acoesDaPagina.add((ItfAcaoDoSistema) cp.get(this));
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro obtendo Ação do sistema", t);
+        }
+
+        return acoesDaPagina;
+    }
+
+    public String getIdAreaExbicaoAcaoSelecionada() {
+        return idAreaExbicaoAcaoSelecionada;
+    }
+
+    @Override
+    public ItfAcaoDoSistema getAcaoSelecionada() {
+        return acaoSelecionada;
+    }
+
+    public void setIdAreaExbicaoAcaoSelecionada(String idAreaExbicaoAcaoSelecionada) {
+        this.idAreaExbicaoAcaoSelecionada = idAreaExbicaoAcaoSelecionada;
     }
 
 }
