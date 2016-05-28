@@ -55,7 +55,7 @@ public abstract class UtilTestePagina {
 
             if (!UtilSBCoreArquivoTexto.isTemPalavraNoArquivo(arquivoCSSFOntAnsome, iconeSemInicio)) {
 
-                throw new UnsupportedOperationException("O ícone  da ação " + pAcaoDoSistema.toString() + " com nome [" + iconeSemInicio + "] não foi encontrado no arquivo css do FontAswome e");
+                throw new UnsupportedOperationException("O ícone  da ação " + pAcaoDoSistema.getAcaoDoSistema().getNomeUnico() + " com nome [" + iconeSemInicio + "] não foi encontrado no arquivo css do FontAswome e");
             }
         }
 
