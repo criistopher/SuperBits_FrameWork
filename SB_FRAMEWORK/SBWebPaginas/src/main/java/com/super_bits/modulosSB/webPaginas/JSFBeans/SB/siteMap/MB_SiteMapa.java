@@ -47,48 +47,58 @@ public abstract class MB_SiteMapa implements Serializable {
      * @return Mapa com as Paginas do Sistema
      */
     protected Map<String, ItfB_Pagina> buildSystemPages() {
-        if (paginasDoSistemaConstruidas) {
-            return paginasDoSistema;
+        try {
+            if (paginasDoSistemaConstruidas) {
+                return paginasDoSistema;
+            }
+            paginasDoSistemaConstruidas = true;
+
+            String[] tags = {"erro-Critico"};
+            B_Pagina erroCritico = new PaginaSimples("EC",
+                    "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
+            erroCritico.addTag("erroCritico");
+            erroCritico.addParametro(new ParametroURL("mensagem",
+                    "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
+            paginasDoSistema.put(erroCritico.getRecursoXHTML(), erroCritico);
+
+            String[] tagsErroSQL = {"erro-SQL"};
+            B_Pagina erroSQL = new PaginaSimples("ESQL",
+                    "/resources/SBComp/SBSystemPages/erroSQLInfo.xhtml", tagsErroSQL);
+            erroSQL.addTag("erroSQLInfo");
+
+            erroSQL.addParametro(new ParametroURL("mensagem",
+                    "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
+            paginasDoSistema.put(erroSQL.getRecursoXHTML(), erroSQL);
+
+            String[] tagsPrime = {"teste-prime"};
+            B_Pagina testePrime = new PaginaSimples("TP",
+                    "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
+            testePrime.addTag("Testes PrimeFaces");
+            paginasDoSistema.put(testePrime.getRecursoXHTML(), testePrime);
+
+            String[] tagsNegado = {"Negado"};
+            B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
+            paginasDoSistema.put(acessoNegado.getRecursoXHTML(), acessoNegado);
+
+            //   String[] tagsAcessos = {"acessos"};
+            //     PgAcessos acessos = new PgAcessos();
+            //    systemPages.put(acessos.getNomeCurto(), acessos);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro criando paginas básicas do sistema", t);
         }
-        paginasDoSistemaConstruidas = true;
-
-        String[] tags = {"erro-Critico"};
-        B_Pagina erroCritico = new PaginaSimples("EC",
-                "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
-        erroCritico.addTag("erroCritico");
-        erroCritico.addParametro(new ParametroURL("mensagem",
-                "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
-        paginasDoSistema.put(erroCritico.getRecursoXHTML(), erroCritico);
-
-        String[] tagsErroSQL = {"erro-SQL"};
-        B_Pagina erroSQL = new PaginaSimples("ESQL",
-                "/resources/SBComp/SBSystemPages/erroSQLInfo.xhtml", tagsErroSQL);
-        erroSQL.addTag("erroSQLInfo");
-
-        erroSQL.addParametro(new ParametroURL("mensagem",
-                "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
-        paginasDoSistema.put(erroSQL.getRecursoXHTML(), erroSQL);
-
-        String[] tagsPrime = {"teste-prime"};
-        B_Pagina testePrime = new PaginaSimples("TP",
-                "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
-        testePrime.addTag("Testes PrimeFaces");
-        paginasDoSistema.put(testePrime.getRecursoXHTML(), testePrime);
-
-        String[] tagsNegado = {"Negado"};
-        B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
-        paginasDoSistema.put(acessoNegado.getRecursoXHTML(), acessoNegado);
-
-        //   String[] tagsAcessos = {"acessos"};
-        //     PgAcessos acessos = new PgAcessos();
-        //    systemPages.put(acessos.getNomeCurto(), acessos);
         return paginasDoSistema;
 
     }
 
     public MB_SiteMapa() {
         try {
-            paginasOffline = buildPaginas();
+
+            try {
+                paginasOffline = buildPaginas();
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando paginas básicas do sistema (Aquelas que não foram injetadas pois tem apenas as propriedades basicas,  mas foram delclaradas no sitemap atraves do metodo BuildPaginas", t);
+                paginasOffline = buildSystemPages();
+            }
 
             List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
 

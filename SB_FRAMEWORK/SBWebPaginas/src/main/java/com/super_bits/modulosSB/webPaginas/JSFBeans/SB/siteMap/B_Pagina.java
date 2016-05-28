@@ -589,7 +589,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public List<ParametroURL> getParametrosURL() {
-        if (parametrosURL.isEmpty()) {
+        if (parametrosURL == null) {
             configParametros();
         }
         List<ParametroURL> parametros = new ArrayList<>(getMapaParametros().values());
@@ -597,7 +597,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     private Map<String, ParametroURL> getMapaParametros() {
-        if (parametrosURL.isEmpty()) {
+        if (parametrosURL == null) {
             configParametros();
         }
         return parametrosURL;

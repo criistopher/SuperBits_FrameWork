@@ -44,6 +44,10 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     }
 
+    public void selecionarModulo() {
+
+    }
+
     @Override
     public void executarAcaoSelecionada() {
         super.executarAcaoSelecionada(); //To change body of generated methods, choose Tools | Templates.
