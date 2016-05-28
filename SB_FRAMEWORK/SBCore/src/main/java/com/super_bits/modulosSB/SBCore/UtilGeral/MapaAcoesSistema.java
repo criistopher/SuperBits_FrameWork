@@ -301,7 +301,7 @@ public abstract class MapaAcoesSistema {
 
     public static List<ItfAcaoDoSistema> getListaTodasAcoes() {
 
-        return new ArrayList(ACAO_BY_ENUM.entrySet());
+        return new ArrayList<>(ACAO_BY_ENUM.values());
     }
 
     /**
