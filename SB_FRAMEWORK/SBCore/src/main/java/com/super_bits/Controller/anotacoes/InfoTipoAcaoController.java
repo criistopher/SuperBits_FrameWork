@@ -4,6 +4,11 @@
  */
 package com.super_bits.Controller.anotacoes;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * w
  *
@@ -11,6 +16,8 @@ package com.super_bits.Controller.anotacoes;
  *
  * @author desenvolvedor
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface InfoTipoAcaoController {
 
     public String nomeAcao() default "";

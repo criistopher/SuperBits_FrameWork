@@ -262,6 +262,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 AcaoDeEntidadeController ipSalvar = (AcaoDeEntidadeController) acao;
 
+                ipSalvar.setIconeAcao("fa fa-save");
                 ipSalvar.setNomeAcao("Salvar IP");
                 ipSalvar.setDescricao("Salva um novo IP cadastrado");
                 ipSalvar.setPrecisaPermissao(true);
