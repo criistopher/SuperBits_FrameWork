@@ -237,7 +237,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     pAcao.setIconeAcao(anotacaoFormulario.icone());
                 }
                 if (anotacaoFormulario.nomeAcao().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoFormulario.nomeAcao());
+                    pAcao.setNomeAcao(anotacaoFormulario.nomeAcao());
                 }
                 if (anotacaoFormulario.xhtmlDaAcao().length() > 2) {
                     ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoFormulario.xhtmlDaAcao());

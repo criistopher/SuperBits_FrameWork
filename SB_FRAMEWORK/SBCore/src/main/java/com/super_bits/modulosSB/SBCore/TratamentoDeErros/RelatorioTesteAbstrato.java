@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
@@ -19,13 +21,16 @@ public abstract class RelatorioTesteAbstrato extends TesteJunit implements ItfRe
     public void exibirRelatorio() {
 
         List<ItfInfoErroSB> erros = executarTestes();
-        String mensage = "OS SEGUINTES ERROS DE CONFIGURAÇÃO FORAM ENCONTRADOS NO SISTEMA: /n";
-        mensage += " Você pode encontrar informações mais detalhadas do erro no SystemOut /n";
+        String mensage = "OS SEGUINTES ERROS DE CONFIGURAÇÃO FORAM ENCONTRADOS NO SISTEMA: \n";
+        mensage += " Você pode encontrar informações mais detalhadas do erro no SystemOut \n";
         for (ItfInfoErroSB erro : erros) {
-            System.out.println("->" + erro.getMsgDesenvolvedorLancou() + "/n");
+            mensage += ("->" + erro.getMsgDesenvolvedorLancou() + "\n");
         }
 
         UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemProgramador(mensage));
+        String arquivoRelatorio = SBCore.getCaminhoDesenvolvimento() + "/temp/errosAcoes.txt";
+        UtilSBCoreArquivoTexto.limparArquivoTexto(arquivoRelatorio);
+        UtilSBCoreArquivoTexto.printLnNoArquivo(mensage, arquivoRelatorio);
     }
 
 }
