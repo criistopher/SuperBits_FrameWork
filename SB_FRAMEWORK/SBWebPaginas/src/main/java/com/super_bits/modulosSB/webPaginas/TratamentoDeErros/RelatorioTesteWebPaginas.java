@@ -31,7 +31,10 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
 
             try {
                 UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());
-                UtilTestePagina.testaAcaoFormulario(acao.comoFormulario());
+                if (acao.isUmaAcaoFormulario()) {
+
+                    UtilTestePagina.testaAcaoFormulario(acao.comoFormulario());
+                }
             } catch (Throwable t) {
                 ErroSBCoreFW errro = new ErroSBCoreFW();
                 errro.configurar(new Mensagem(FabTipoUsuarioInteracao.DESENVOLVEDOR, FabMensagens.ERRO, t.getMessage()), FabErro.ARQUIVAR_LOG, t);
