@@ -58,4 +58,14 @@ public class PgCadastroUsuariosTest extends TestePaginaEntidade<UsuarioSB> {
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 
+    @Override
+    public void configuracoesIniciais() {
+
+    }
+
+    @Override
+    public void testesAdicionas() {
+
+    }
+
 }
