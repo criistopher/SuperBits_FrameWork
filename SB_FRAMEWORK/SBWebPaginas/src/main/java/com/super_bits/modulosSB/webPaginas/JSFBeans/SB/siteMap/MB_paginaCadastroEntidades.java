@@ -213,7 +213,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         if (pEntidadeSelecionada != null) {
 
             if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
-                System.out.println("Uma nova Entidade foi enviada no método, a entidade é " + getEntidadeSelecionada().toString());
+                //System.out.println("Uma nova Entidade foi enviada no método, a entidade é " + getEntidadeSelecionada().toString());
 
             }
 
