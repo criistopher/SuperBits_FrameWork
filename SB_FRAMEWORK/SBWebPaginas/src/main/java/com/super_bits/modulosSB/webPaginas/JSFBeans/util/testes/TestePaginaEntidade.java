@@ -28,6 +28,17 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     protected ItfPaginaGerenciarEntidade<T> pagina;
 
+    private ItfAcaoDoSistema acaoAprovarCampanha;
+    private ItfAcaoDoSistema acaoReprovarCampanha;
+
+    /**
+     * Metodo executado antes do inicio do fluxo de testes, usado por exemplo
+     * para efetuar login
+     */
+    public abstract void configuracoesIniciais();
+
+    public abstract void testesAdicionas();
+
     @Before
     public void inicio() {
         pagina = definirPagina();
@@ -39,6 +50,8 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
         try {
             SBCore.getControleDeSessao().logarComoRoot();
+            configuracoesIniciais();
+
             UtilTestePagina.testaAcaoFormulario(pagina.getAcaoVinculada());
             UtilTestePagina.testaconfigIcone(pagina.getAcaoVinculada().getEnumAcaoDoSistema());
 
@@ -92,6 +105,13 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
                 UtilTestePagina.testaconfigIcone(pagina.getAcaoAlterarStatus().getEnumAcaoDoSistema());
             }
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+
+        try {
+            testesAdicionas();
         } catch (Throwable t) {
             lancarErroJUnit(t);
         }
@@ -208,6 +228,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
                     entidadeAlterada = (ItfBeanSimples) entidade;
                 }
             }
+
             assertFalse(" O Xhtml de listar dados deveria ser definido apos o registro ser cadastrado com sucesso, e o valor esta nulo", pagina.getXhtmlAcaoAtual() == null);
             assertTrue("O XHTML de listar não foi alterado apos salvar o registro", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoListarRegistros().getXhtml()));
             assertTrue("A entidade selecionada não foi encontrada na lista de entidades", entidadeAlterada != null);
@@ -237,6 +258,14 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
         assertTrue("O status não foi alterado", entidadeQueOUsuarioIraSelecionar.isAtivo() != statusAnterior);
 
+    }
+
+    public ItfAcaoDoSistema getAcaoAprovarCampanha() {
+        return acaoAprovarCampanha;
+    }
+
+    public ItfAcaoDoSistema getAcaoReprovarCampanha() {
+        return acaoReprovarCampanha;
     }
 
 }
