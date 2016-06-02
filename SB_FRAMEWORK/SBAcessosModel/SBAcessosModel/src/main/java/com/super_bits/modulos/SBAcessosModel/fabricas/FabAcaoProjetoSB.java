@@ -51,7 +51,10 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
     PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/infoTabela.xhtml",
             icone = "fa fa-bars")
-    PROJETO_FRM_VISUALIZAR_TABELA;
+    PROJETO_FRM_VISUALIZAR_TABELA,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/listaTipoInformacao.xhtml",
+            icone = "fa fa-bars")
+    PROJETO_FORM_ESCOLHER_TIPO;
 
     @Override
     public Object getRegistro() {
