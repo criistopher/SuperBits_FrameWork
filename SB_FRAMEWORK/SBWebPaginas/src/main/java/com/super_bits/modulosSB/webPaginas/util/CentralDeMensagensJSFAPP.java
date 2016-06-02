@@ -2,6 +2,7 @@ package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.CentralDeMensagemAbstrata;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
@@ -11,7 +12,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.util.MensagensJSF;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCritico;
 import javax.faces.context.FacesContext;
 
-public class CentralDeMensagensJSFAPP implements ItfCentralMensagens {
+public class CentralDeMensagensJSFAPP extends CentralDeMensagemAbstrata {
 
     private static InfoErroCritico infoErro;
 

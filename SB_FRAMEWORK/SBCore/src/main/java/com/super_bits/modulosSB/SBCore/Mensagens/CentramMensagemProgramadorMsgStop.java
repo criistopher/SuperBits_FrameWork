@@ -11,7 +11,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
  *
  * @author Salvio
  */
-public class CentramMensagemProgramadorMsgStop implements ItfCentralMensagens {
+public class CentramMensagemProgramadorMsgStop extends CentralDeMensagemAbstrata {
 
     @Override
     public void enviaMensagem(ItfMensagem pMensagem) {

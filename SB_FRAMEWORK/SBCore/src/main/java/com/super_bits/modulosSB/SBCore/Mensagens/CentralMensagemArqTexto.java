@@ -19,7 +19,7 @@ import java.util.Date;
  * @since 25/05/2014
  *
  */
-public class CentralMensagemArqTexto implements ItfCentralMensagens {
+public class CentralMensagemArqTexto extends CentralDeMensagemAbstrata {
 
     public static int maximoErroLog = 5000;
     public static final String ARQLOGSYSTEM = "/home/sbLogSystem.txt";
@@ -41,7 +41,8 @@ public class CentralMensagemArqTexto implements ItfCentralMensagens {
 
     public void enviaMensagem(ItfMensagem pMensagem) {
 
-        UtilSBCoreArquivoTexto.escreverEmArquivo(ARQLOGUSUARIO + "_" + tipoMensagem, pMensagem.getMenssagem());
+        // TODO UM arquivo para cada destinatario
+        UtilSBCoreArquivoTexto.escreverEmArquivo(ARQLOGUSUARIO + "_" + tipoMensagem, makeCabecalho(pMensagem.getTipoDestinatario()) + pMensagem.getMenssagem());
     }
 
 }
