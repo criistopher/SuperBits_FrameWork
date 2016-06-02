@@ -51,6 +51,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
         try {
             SBCore.getControleDeSessao().logarComoRoot();
             configuracoesIniciais();
+            pagina.listarDados();
 
             UtilTestePagina.testaAcaoFormulario(pagina.getAcaoVinculada());
             UtilTestePagina.testaconfigIcone(pagina.getAcaoVinculada().getEnumAcaoDoSistema());
