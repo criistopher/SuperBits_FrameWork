@@ -224,15 +224,21 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         if (tipoAcao.toString().contains("FORMULARIO")) {
             InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
             if (anotacaoFormulario != null) {
-                for (String cp : anotacaoFormulario.campos()) {
 
-                    UtilSBCoreReflexaoCampos.buildCamposDaClasse(entidadeDaAcao);
-                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
-                    if (caminhoCampo == null) {
-                        throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                for (String cp : anotacaoFormulario.campos()) {
+                    try {
+                        UtilSBCoreReflexaoCampos.buildCamposDaClasse(entidadeDaAcao);
+                        CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                        if (caminhoCampo == null) {
+                            throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                        }
+                        ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
+
+                    } catch (Throwable t) {
+                        SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
                     }
-                    ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
                 }
+
                 if (anotacaoFormulario.icone().length() > 2) {
                     pAcao.setIconeAcao(anotacaoFormulario.icone());
                 }
