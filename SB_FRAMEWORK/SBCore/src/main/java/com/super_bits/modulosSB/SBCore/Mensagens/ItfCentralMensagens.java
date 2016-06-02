@@ -19,11 +19,60 @@ public interface ItfCentralMensagens {
 
     /**
      *
+     * Envia uma mensagem do tipo MensagemSB, destinada ao Usuario,
+     * Desenvolvedor, ou sistema
      *
      * Envia Mensagem
      *
      * @param pMensagem
      */
     public void enviaMensagem(ItfMensagem pMensagem);
+
+    /**
+     *
+     * Envia uma mensagem do tipo aviiso ao usuário
+     *
+     * @param pMensagem Mensagem que será enviada
+     */
+    public void enviarMsgAvisoAoUsuario(String pMensagem);
+
+    /**
+     *
+     * Envia uma mensagem do tipo alerta ao usuário
+     *
+     * @param pMensagem
+     */
+    public void enviarMsgAlertaAoUsuario(String pMensagem);
+
+    /**
+     *
+     * Envia uma mensagem de erro ao usuário
+     *
+     * @param pMensagem
+     */
+    public void enviarMsgErroAoUsuario(String pMensagem);
+
+    /**
+     *
+     * Envia um aviso ao Desenvolvedor
+     *
+     * @param pMensagem
+     */
+    public void enviarMsgAvisoAoDesenvolvedor(String pMensagem);
+
+    /**
+     *
+     * Envia uma mensagem de alerta ao DEsenvolvedor
+     *
+     * @param pMensagem Mensagem enviada
+     */
+    public void enviarMsgAlertaAoDesenvolvedor(String pMensagem);
+
+    /**
+     * Envia uma mensagem de erro ao desenvolvedor
+     *
+     * @param pMensagem Mensagem enviada
+     */
+    public void enviarMsgErroAoDesenvolvedor(String pMensagem);
 
 }
