@@ -4,6 +4,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 //Simport com.super_bits.modulosSB.webPaginas.JSFBeans.util.OrganizadorDeArquivos;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
@@ -39,20 +40,25 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
     @Override
     public String getNomeCurto() {
-        String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
-        String nomeCurto = "";
-        nome = nome.replace("-", " ");
-        nome = nome.replace(".", " ");
-        for (String parte : nome.split(" ")) {
-            if (nomeCurto.length() < 15) {
-                if (nomeCurto.length() > 0) {
-                    nomeCurto = nomeCurto + " " + parte;
-                } else {
-                    nomeCurto = nomeCurto + parte;
+        try {
+            String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+            String nomeCurto = "";
+            nome = nome.replace("-", " ");
+            nome = nome.replace(".", " ");
+            for (String parte : nome.split(" ")) {
+                if (nomeCurto.length() < 15) {
+                    if (nomeCurto.length() > 0) {
+                        nomeCurto = nomeCurto + " " + parte;
+                    } else {
+                        nomeCurto = nomeCurto + parte;
+                    }
                 }
             }
+            return nomeCurto;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro Obtendo o campo nome da classe" + this.getClass().getSimpleName() + " certifique que o nome tenha sido anotado, e que o tipo retornado seja String", t);
         }
-        return nomeCurto;
+        return null;
     }
 
     public String getNomeCurtoURLAmigavel() {

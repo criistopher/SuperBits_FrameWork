@@ -31,6 +31,21 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      * Managed Bean responsável por exibir o projeto e seu status de
      * desenvolvimento
      *
+     *//**
+     *
+     * Managed Bean responsável por exibir o projeto e seu status de
+     * desenvolvimento
+     *
+     *//**
+     *
+     * Managed Bean responsável por exibir o projeto e seu status de
+     * desenvolvimento
+     *
+     *//**
+     *
+     * Managed Bean responsável por exibir o projeto e seu status de
+     * desenvolvimento
+     *
      */
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/projeto/gerenciarProjeto.xhtml",
             icone = "fa fa-codepen")
@@ -54,7 +69,7 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
     PROJETO_FRM_VISUALIZAR_TABELA,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/listaTipoInformacao.xhtml",
             icone = "fa fa-bars")
-    PROJETO_FORM_ESCOLHER_TIPO;
+    PROJETO_FRM_VISAO_GERAL;
 
     @Override
     public Object getRegistro() {
