@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
+import com.super_bits.Controller.Interfaces.ItfCalculos;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
@@ -183,6 +184,13 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
 
     public void setNome(String pNome) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    protected Object getRetornoSoma() {
+        // Obtem a anotação por reflexao do nome do metodo por atributo
+        // seta o valor no atrbuto, e retorna o valor obtido
+
+        return null;
     }
 
 }

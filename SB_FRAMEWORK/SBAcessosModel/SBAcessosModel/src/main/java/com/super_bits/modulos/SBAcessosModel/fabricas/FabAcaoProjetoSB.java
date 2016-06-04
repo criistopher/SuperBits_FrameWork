@@ -31,17 +31,20 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      * Managed Bean responsável por exibir o projeto e seu status de
      * desenvolvimento
      *
-     *//**
+     */
+    /**
      *
      * Managed Bean responsável por exibir o projeto e seu status de
      * desenvolvimento
      *
-     *//**
+     */
+    /**
      *
      * Managed Bean responsável por exibir o projeto e seu status de
      * desenvolvimento
      *
-     *//**
+     */
+    /**
      *
      * Managed Bean responsável por exibir o projeto e seu status de
      * desenvolvimento
@@ -67,7 +70,7 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/infoTabela.xhtml",
             icone = "fa fa-bars")
     PROJETO_FRM_VISUALIZAR_TABELA,
-    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/listaTipoInformacao.xhtml",
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/visaoGeral.xhtml",
             icone = "fa fa-bars")
     PROJETO_FRM_VISAO_GERAL;
 

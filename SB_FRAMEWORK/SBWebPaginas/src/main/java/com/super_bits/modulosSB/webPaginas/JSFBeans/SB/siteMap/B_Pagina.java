@@ -75,7 +75,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     protected String idAreaExbicaoAcaoSelecionada = "divSBAreaAcaoSelecionada";
 
     protected String xhtmlAcaoAtual;
-    private ItfAcaoDoSistema acaoSelecionada;
+    protected ItfAcaoDoSistema acaoSelecionada;
     private List<ItfAcaoDoSistema> acoesDaPagina;
 
     public static List<AcaoGestaoEntidade> acoesMB;
@@ -728,6 +728,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     @Override
     public ItfAcaoDoSistema getAcaoSelecionada() {
         return acaoSelecionada;
+    }
+
+    public String getXhtmlAcaoAtual() {
+        return xhtmlAcaoAtual;
     }
 
     public void setIdAreaExbicaoAcaoSelecionada(String idAreaExbicaoAcaoSelecionada) {

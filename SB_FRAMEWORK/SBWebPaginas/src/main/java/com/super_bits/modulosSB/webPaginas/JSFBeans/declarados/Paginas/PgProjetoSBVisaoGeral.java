@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulos.SBAcessosModel.fabricas.InfoAcaoProjetoSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
@@ -37,8 +38,8 @@ import javax.inject.Named;
 @InfoPagina(nomeCurto = "Proj", tags = "Andamento do Projeto")
 public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
-    private List<AcaoDoSistema> acoesGestaoDoModulo;
-
+    private List<ItfAcaoGerenciarEntidade> acoesGestaoDoModulo;
+    private ItfAcaoGerenciarEntidade acaoGEstaoSelecionada;
     private ModuloAcaoSistema moduloSelecionado;
     private List<ModuloAcaoSistema> modulosDoSistema;
 
@@ -46,6 +47,12 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
     private final ItfAcaoFormulario acaoVisualizarPontosDeFuncao = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_ACOES.getAcaoEntidadeFormulario();
     private final ItfAcaoFormulario acaoVisualizarBancoDeDados = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS.getAcaoEntidadeFormulario();
     private final ItfAcaoFormulario acaoVisisaoGeral = FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL.getAcaoEntidadeFormulario();
+
+    @PostConstruct
+    public void init() {
+        modulosDoSistema = (List) MapaAcoesSistema.getModulos();
+        acaoSelecionada = acaoVisisaoGeral;
+    }
 
     public List<ItfAcaoDoSistema> buildListaDeAcoes(ItfFabricaAcoes... acoes) {
         List<ItfAcaoDoSistema> acoesCriadas = new ArrayList<>();
@@ -74,12 +81,6 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
         super.executarAcaoSelecionada(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @PostConstruct
-    public void init() {
-        modulosDoSistema = (List) MapaAcoesSistema.getModulos();
-
-    }
-
     public ModuloAcaoSistema getModuloSelecionado() {
         return moduloSelecionado;
     }
@@ -104,14 +105,6 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
         this.objetosDoSistema = objetosDoSistema;
     }
 
-    public void setAcoesGestaoDoModulo(List<AcaoDoSistema> acoesGestaoDoModulo) {
-        this.acoesGestaoDoModulo = acoesGestaoDoModulo;
-    }
-
-    public List<AcaoDoSistema> getAcoesGestaoDoModulo() {
-        return acoesGestaoDoModulo;
-    }
-
     public ItfAcaoFormulario getAcaoVisualizarPontosDeFuncao() {
         return acaoVisualizarPontosDeFuncao;
     }
@@ -122,6 +115,26 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     public ItfAcaoFormulario getAcaoVisisaoGeral() {
         return acaoVisisaoGeral;
+    }
+
+    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada) {
+        this.acaoSelecionada = acaoSelecionada;
+    }
+
+    public List<ItfAcaoGerenciarEntidade> getAcoesGestaoDoModulo() {
+        return acoesGestaoDoModulo;
+    }
+
+    public void setAcoesGestaoDoModulo(List<ItfAcaoGerenciarEntidade> acoesGestaoDoModulo) {
+        this.acoesGestaoDoModulo = acoesGestaoDoModulo;
+    }
+
+    public ItfAcaoGerenciarEntidade getAcaoGEstaoSelecionada() {
+        return acaoGEstaoSelecionada;
+    }
+
+    public void setAcaoGEstaoSelecionada(ItfAcaoGerenciarEntidade acaoGEstaoSelecionada) {
+        this.acaoGEstaoSelecionada = acaoGEstaoSelecionada;
     }
 
 }
