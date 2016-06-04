@@ -51,6 +51,7 @@ public class TestesCore {
 
         System.out.println("teste1= " + teste1.getStringReferenciada());
         System.out.println("teste2= " + teste2.getStringReferenciada());
+        System.out.println(teste1.getStringReferenciada());
 
         String nome, sobrenome = "dfasdf";
         sobrenome = "bbbb";

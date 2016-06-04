@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.io.Serializable;
@@ -189,8 +190,8 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     protected Object getRetornoSoma() {
         // Obtem a anotação por reflexao do nome do metodo por atributo
         // seta o valor no atrbuto, e retorna o valor obtido
-
-        return null;
+        ItfCalculos calculo = null;
+        return null;//calculo.getValor((ItfBeanSimples) this);
     }
 
 }
