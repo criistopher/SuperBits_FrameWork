@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.tempo.old;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Session;

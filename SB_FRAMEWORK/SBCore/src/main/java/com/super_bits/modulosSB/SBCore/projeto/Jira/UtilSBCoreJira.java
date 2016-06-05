@@ -2,23 +2,30 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
+import com.atlassian.jira.rest.client.api.domain.IssueType;
+import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
+import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
+import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import com.google.common.collect.Lists;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -126,16 +133,14 @@ public class UtilSBCoreJira {
     }
 
     private static JiraRestClient criarConexaoJira() {
-        if (SBCore.getUrlJira().startsWith("https")) {
+        if (!SBCore.getUrlJira().startsWith("https")) {
             throw new UnsupportedOperationException("A URL Jira precisa ser uma conexão segura com https");
         }
         try {
             URI jiraServerUrl = new URI(SBCore.getUrlJira());
             final AsynchronousJiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
             final JiraRestClient restClient = factory.createWithBasicHttpAuthentication(jiraServerUrl, "salviof@gmail.com", "123321");
-            if (restClient.getProjectClient().getAllProjects().claim().iterator().hasNext()) {
-                throw new UnsupportedOperationException("A URL Jira precisa ser uma conexão segura com https");
-            }
+
             return restClient;
         } catch (URISyntaxException ex) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Impossível conectar com o servidor Jira", ex);
@@ -149,7 +154,17 @@ public class UtilSBCoreJira {
 
         try {
             conexao = criarConexaoJira();
-            //      List<Issue> tarefas =
+
+            BasicProject projeto = conexao.getProjectClient().getAllProjects().claim().iterator().next();
+            List<IssueType> tiposAcoes = Lists.newArrayList(conexao.getMetadataClient().getIssueTypes().claim().iterator());
+
+            IssueType tipoTeste = tiposAcoes.get(0);
+            final IssueInput issueInput = new IssueInputBuilder(projeto, tipoTeste, "Ação com tempo estimado").build();
+            Map<String, Object> map = new HashMap<>();
+            map.put("originalEstimate", "4h 30m");
+            issueInput.getFields().put(IssueFieldId.TIMETRACKING_FIELD.id, new FieldInput("originalEstimate", "4h 30m"));
+
+            final BasicIssue basicCreatedIssue = conexao.getIssueClient().createIssue(issueInput).claim();
 
         } catch (Throwable t) {
 

@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.Jira;
 
+import com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.tempo.old.TempoClienteWs;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

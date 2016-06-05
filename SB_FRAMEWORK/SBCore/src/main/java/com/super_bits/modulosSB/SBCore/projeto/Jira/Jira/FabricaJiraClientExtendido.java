@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira.Jira;
 
 import com.atlassian.httpclient.api.HttpClient;
 import com.atlassian.jira.rest.client.api.AuthenticationHandler;

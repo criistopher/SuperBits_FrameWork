@@ -2,8 +2,9 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira.Jira;
 
+import com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.tempo.JiraRestClientTempoPlanoTarefa;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClient;
 import com.atlassian.jira.rest.client.internal.async.DisposableHttpClient;
 import java.net.URI;

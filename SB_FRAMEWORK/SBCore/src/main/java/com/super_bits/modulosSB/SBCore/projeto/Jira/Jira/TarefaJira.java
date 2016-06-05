@@ -2,8 +2,10 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira.Jira;
 
+import com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.tempo.old.PlanosDeTrabalhoTempoJira;
+import com.super_bits.modulosSB.SBCore.projeto.Jira.UtilSBCoreJira;
 import java.util.List;
 
 /**

@@ -2,19 +2,21 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Controller.Jira;
+package com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.tempo;
 
 import com.atlassian.httpclient.api.HttpClient;
-import com.atlassian.httpclient.api.Request;
-import com.atlassian.httpclient.api.ResponsePromise;
 import com.atlassian.jira.rest.client.api.RestClientException;
 import com.atlassian.jira.rest.client.api.SessionRestClient;
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Session;
 import com.atlassian.jira.rest.client.internal.async.AbstractAsynchronousRestClient;
+import com.atlassian.jira.rest.client.internal.json.BasicProjectsJsonParser;
 import com.atlassian.jira.rest.client.internal.json.SessionJsonParser;
-import com.atlassian.jira.rest.client.internal.json.UserJsonParser;
 import com.atlassian.util.concurrent.Promise;
+import com.super_bits.modulosSB.SBCore.Mensagens.MensagemUsuario;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import java.net.URI;
+import java.util.Iterator;
 import javax.ws.rs.core.UriBuilder;
 
 /**
@@ -27,6 +29,7 @@ public class JiraRestClientTempoPlanoTarefa extends AbstractAsynchronousRestClie
     private final URI serverUri;
     private final HttpClient cliente;
     private static final String JSON_CONTENT_TYPE = "application/json";
+    private final BasicProjectsJsonParser basicProjectsJsonParser = new BasicProjectsJsonParser();
 
     public JiraRestClientTempoPlanoTarefa(final URI serverUri, final HttpClient client) {
         super(client);
@@ -40,10 +43,22 @@ public class JiraRestClientTempoPlanoTarefa extends AbstractAsynchronousRestClie
     }
 
     public void cadastrarPlanosDeTarefa() {
-        Request requisicao = cliente.newRequest(UriBuilder.fromUri(serverUri).path("rest/tempo-planning/1/allocation").build());
-        requisicao.setContentType(JSON_CONTENT_TYPE);
-        requisicao.trace();
-        requisicao.get();
+
+        try {
+            URI urlAcesso = UriBuilder.fromUri(serverUri).path("rest/tempo-planning/1/allocation").build();
+            Promise<Iterable<PlanTimeObjeto>> teste = getAndParse(urlAcesso, new PlanTimeJsonParcer());
+            Iterable<PlanTimeObjeto> lista = teste.claim();
+
+            for (Iterator iterator = lista.iterator(); lista.iterator().hasNext();) {
+                Object next = iterator.next();
+
+            }
+
+        } catch (Throwable t) {
+            UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemUsuario(t.getMessage()));
+            UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemUsuario(t.getCause().getMessage()));
+            UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemUsuario(t.getLocalizedMessage()));
+        }
 
     }
 
