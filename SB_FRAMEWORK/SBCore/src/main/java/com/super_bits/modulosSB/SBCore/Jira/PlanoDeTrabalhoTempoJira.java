@@ -12,6 +12,13 @@ import javax.ws.rs.Produces;
  *
  * @author desenvolvedor
  */
-public class PlanoDeTrabalhoTempo {
+public class PlanoDeTrabalhoTempoJira {
+
+    private String id;
+
+    private class Assignee {
+
+        private String id;
+    }
 
 }

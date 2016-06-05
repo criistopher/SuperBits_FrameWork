@@ -194,7 +194,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    protected Object getRetornoSoma() throws NoSuchMethodException {
+    protected Object getRetornoSoma() {
         // Obtem a anotação por reflexao do nome do metodo por atributo
         // seta o valor no atrbuto, e retorna o valor obtido
         ItfCalculos calculo = null;
@@ -222,6 +222,8 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvocationTargetException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
             Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
         }
 

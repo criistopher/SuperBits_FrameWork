@@ -12,10 +12,11 @@ import java.util.List;
  */
 public class TarefaJira {
 
+    private UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa;
     private String nomeTarefa;
     private String descricaoTarefa;
     private String codigoTarefa;
 
-    List<PlanoDeTrabalhoTempo> planosDeTrabalho;
+    List<PlanoDeTrabalhoTempoJira> planosDeTrabalho;
 
 }

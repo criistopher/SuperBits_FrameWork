@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class UtilSBCoreJira {
 
-    public static enum TIPOS_DE_ACAO {
+    public static enum TIPOS_DE_TAREFA_JIRA {
 
         ACAO_TESTE_MANAGED_BEAN,
         ACAO_IMPLEMENTACAO_MANAGED_BEAN,
