@@ -43,6 +43,7 @@ public class JiraRestClientTempoPlanoTarefa extends AbstractAsynchronousRestClie
         Request requisicao = cliente.newRequest(UriBuilder.fromUri(serverUri).path("rest/tempo-planning/1/allocation").build());
         requisicao.setContentType(JSON_CONTENT_TYPE);
         requisicao.trace();
+        requisicao.get();
 
     }
 

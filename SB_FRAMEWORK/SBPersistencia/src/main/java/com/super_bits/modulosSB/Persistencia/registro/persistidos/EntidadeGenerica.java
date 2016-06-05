@@ -4,6 +4,7 @@ import com.super_bits.Controller.Interfaces.ItfCalculos;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
@@ -200,31 +201,33 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         ItfCalculos calculo = null;
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
 
-        String nomeMetodo = stackTraceElements[0].getMethodName();
+        String nomeMetodo = stackTraceElements[2].getMethodName();
         String nomeCampo = nomeMetodo.substring(3);
+        nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
         try {
             Field campo = this.getClass().getDeclaredField(nomeCampo);
-
+            campo.setAccessible(true);
             Annotation anotacao = UtilSBCoreReflexao.getAnotacaoComEsteMetodo(campo.getAnnotations(), "calculo");
 
             Method metodoCalculo = anotacao.annotationType().getMethod("calculo");
 
             calculo = (ItfCalculos) metodoCalculo.invoke(anotacao);
+
             return calculo.getValor(this);
 
             //anotacaoCalculo.get
         } catch (NoSuchFieldException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não Enconcontrou o campo " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         } catch (SecurityException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha de segurança ao tentar modificar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Acesso ilegal tentando identificar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Argumento ilegal tentando configurar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         } catch (InvocationTargetException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro chamando método calculo na tentativa de obter a Fabrica de ação do campo " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         } catch (NoSuchMethodException ex) {
-            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "O metodo calculo não foi encontrado na anotação do campo" + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
         }
 
         return null;//calculo.getValor((ItfBeanSimples) this);
