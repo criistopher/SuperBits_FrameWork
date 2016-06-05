@@ -84,7 +84,10 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
     public void buildAcoesJira() {
 
         MapaAcoesSistema mapaAcoes;
+<<<<<<< HEAD
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
+=======
+>>>>>>> 3b0a65d3903c6b0c576a2d6148cb2886de6f63af
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
@@ -106,12 +109,14 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
                     case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
                         usuarioDaTarefa = getAnalistaImplementacao();
                         break;
+
                     case ACAO_TESTES_ENTIDADE_CALCULO:
                     case ACAO_TESTE_MANAGED_BEAN:
                     case ACAO_TESTES_ENTIDADE_LISTAS:
                     case ACAO_TESTE_CONTROLLER:
                     case ACAO_TESTE_CONTROLLER_COMPLEXO:
                         usuarioDaTarefa = getAnalistaTDD();
+                        break;
                     default:
 
                 }
@@ -123,6 +128,7 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
             }
 
         }
+<<<<<<< HEAD
         /**
          * for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
          *
@@ -136,6 +142,9 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
          *
          * UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa); }
          */
+=======
+        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
+>>>>>>> 3b0a65d3903c6b0c576a2d6148cb2886de6f63af
 
         for (Class entidade : entidades) {
 

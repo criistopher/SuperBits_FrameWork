@@ -12,8 +12,16 @@ import java.util.List;
  */
 public interface ItfRelatorioTestes {
 
-    public List<ItfInfoErroSB> executarTestes();
+    public List<ItfInfoErroSB> executarTestesAcoes();
 
-    public void exibirRelatorio();
+    public List<ItfInfoErroSB> executarTestesBanco();
+
+    public List<ItfInfoErroSB> executarTestesBancoAcoes();
+
+    public void exibirRelatorioCompleto();
+
+    public void exibirRelatorioBanco();
+
+    public void exibirRelatorioAcoes();
 
 }

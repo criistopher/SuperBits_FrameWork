@@ -33,12 +33,14 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * @return Uma ação vinculada a uma classe de Entidade específica
      */
+    @Deprecated
     public ItfAcaoEntidade getAcaoDeEntidade();
 
     /**
      *
      * @return Uma ação referente a coleta de dados (ação de formulário)
      */
+    @Deprecated
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario();
 
     /**
@@ -50,6 +52,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      *
      */
+    @Deprecated
     public ItfAcaoControllerEntidade getAcaoEntidadeController();
 
     /**
@@ -57,6 +60,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * @return Uma ação do tipo Controller (que gera alteração no sistema)
      */
+    @Deprecated
     public ItfAcaoController getAcaoController();
 
     /**
@@ -64,6 +68,7 @@ public interface ItfFabricaAcoes extends ItfFabrica {
      *
      * @return A ação de gestão de entidade,
      */
+    @Deprecated
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade();
 
     /**

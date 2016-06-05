@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoSeparador;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -52,6 +53,32 @@ public class UtilSBCoreReflexaoCampos {
 
     public static boolean isUmCampoSeparador(String pNomeSeparador) {
         return pNomeSeparador.contains(TAG_SEPARADOR);
+    }
+
+    public static List<GrupoCampos> buildAgrupamentoCampos(List<CaminhoCampoReflexao> pCampos) {
+        List<GrupoCampos> grupocampos = new ArrayList<>();
+        if (!pCampos.isEmpty()) {
+            GrupoCampos grupoatual = null;
+
+            if (pCampos.get(0).isUmCampoSeparador()) {
+                grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getCaminhoSemNomeClasse(pCampos.get(0).toString()));
+            } else {
+                grupoatual = new GrupoCampos();
+            }
+            grupocampos.add(grupoatual);
+
+            for (CaminhoCampoReflexao campo : pCampos) {
+                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())) {
+
+                    grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
+                    grupocampos.add(grupoatual);
+                } else {
+                    grupoatual.adicionarCampo(campo);
+                }
+
+            }
+        }
+        return grupocampos;
     }
 
     public static String getNomeGrupoPorStrSeparador(String pSeparador) {
@@ -340,6 +367,10 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     public static String getCaminhoSemNomeClasse(String pCaminho) {
+
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
+            return pCaminho;
+        }
         //todo
         // split caminho
         // verfica se a a primeira letra do primeiro campo é maiusculo
