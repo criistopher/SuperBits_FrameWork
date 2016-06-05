@@ -86,20 +86,6 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
         MapaAcoesSistema mapaAcoes;
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
 
-        for (Class entidade : entidades) {
-
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
-
-                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
-
-                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
-                }
-            }
-
-        }
-
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
             if (acao.getTipoAcaoGenerica() == null) {
@@ -127,7 +113,6 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
                     case ACAO_TESTE_CONTROLLER_COMPLEXO:
                         usuarioDaTarefa = getAnalistaTDD();
                     default:
-                        throw new AssertionError(tarefa.getTipoTarefa().name());
 
                 }
 
@@ -151,6 +136,21 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
          *
          * UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa); }
          */
+
+        for (Class entidade : entidades) {
+
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
+
+                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
+
+                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
+
+                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
+                }
+            }
+
+        }
+
         fecharConexao();
     }
 
