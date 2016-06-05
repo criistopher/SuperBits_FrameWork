@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.Jira;
+package com.super_bits.modulosSB.SBCore.Jira;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
@@ -89,6 +89,7 @@ public class UtilSBCoreJira {
                     // setar DAta e hora
                     break;
                 case FORMULARIO_PERSONALIZADO:
+
                     break;
 
                 case CONTROLLER_SALVAR_EDICAO:
@@ -148,26 +149,21 @@ public class UtilSBCoreJira {
 
         try {
             conexao = criarConexaoJira();
-            List<Issue> tarefas =
+            //      List<Issue> tarefas =
 
         } catch (Throwable t) {
 
-        }
-    }
-
-
-        finally {
+        } finally {
             if (conexao != null) {
-            try {
-                conexao.close();
-            } catch (IOException ex) {
-                Logger.getLogger(UtilSBCoreJira.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    conexao.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(UtilSBCoreJira.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-    }
 
-
-return false;
+        return false;
     }
 
     public static boolean criarTarefasBancoDeDados(ItfBeanSimples pAcao) {

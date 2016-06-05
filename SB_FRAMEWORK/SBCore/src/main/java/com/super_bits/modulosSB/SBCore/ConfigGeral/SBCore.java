@@ -537,7 +537,7 @@ public class SBCore {
     }
 
     public static String getUrlJira() {
-        getUrlJira();
+        return urlJira;
     }
 
 }

@@ -85,8 +85,7 @@ public class SBCoreTest {
                     System.out.println("tarefa" + tarefa.getDescription());
                     System.out.println(tarefa.getAssignee().getAvatarUri());
                 }
-
-                // build issue input
+                //       Utilsb // build issue input
                 final String summary = "Teste criação de Tarefa por API!";
                 try {
                     // create

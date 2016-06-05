@@ -461,44 +461,46 @@ public abstract class UtilSBCoreReflexao {
      * @return
      */
     public static ItfFabrica getFabricaDoMetodoByAnotacao(Method pMetodo, String pNomeMetodoAnotacao, boolean pararSistemaCasoNaoEncontre) {
+
+        Annotation anotacao = getAnotacaoComEsteMetodo(pMetodo.getAnnotations(), pNomeMetodoAnotacao);
+
         try {
-
-            Annotation[] anotacoes = pMetodo.getAnnotations();
-            try {
-                if (anotacoes != null) {
-
-                    for (Annotation a : anotacoes) {
-
-                        try {
-
-                            Method metodo = a.getClass().getMethod(pNomeMetodoAnotacao);
-                            try {
-
-                                ItfFabrica fabrica = (ItfFabrica) metodo.invoke(a);
-                                return fabrica;
-
-                            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-
-                            }
-                        } catch (NoSuchMethodException | SecurityException ex) {
-
-                        }
-                    }
-
-                    throw new UnsupportedOperationException("Anotação de ação não foi encontrada no método" + pMetodo.getName());
-
-                }
-            } catch (Throwable t) {
-                FabErro.PARA_TUDO.paraSistema("Erro tentando obeter a Fabrica de acao a partir do metodo certifique que os metodos da classe de controler tenha uma anotação informando o parametro " + pNomeMetodoAnotacao + " no metodo " + pMetodo.getName(), null);
-            }
-            return null;
+            Method metodo = anotacao.getClass().getMethod(pNomeMetodoAnotacao);
+            ItfFabrica fabrica = (ItfFabrica) metodo.invoke(anotacao);
+            return fabrica;
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação por Método", t);
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo Ação para o  Método" + pMetodo.getName() + " em " + pMetodo.getDeclaringClass().getSimpleName(), t);
-            FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
+
+            if (pararSistemaCasoNaoEncontre) {
+                SBCore.RelatarErro(FabErro.PARA_TUDO, pNomeMetodoAnotacao, t);
+            } else {
+                FabErro.PARA_TUDO.paraSistema("Erro Para Tudo obtendo ação pelo id do metodo" + pMetodo.getName(), t);
+            }
             return null;
+
         }
+
+    }
+
+    public static Annotation getAnotacaoComEsteMetodo(Annotation[] anotacoes, String pNomeMetodoAnotacao) {
+
+        for (Annotation anotacao : anotacoes) {
+
+            try {
+
+                Method metodo = anotacao.getClass().getMethod(pNomeMetodoAnotacao);
+                if (metodo != null) {
+                    return anotacao;
+                }
+            } catch (NoSuchMethodException | SecurityException ex) {
+
+            }
+
+        }
+        throw new UnsupportedOperationException("Anotação com o metodo (propriedade de anotação ) " + pNomeMetodoAnotacao + "não encontrada em " + anotacoes);
+
     }
 
     /**
