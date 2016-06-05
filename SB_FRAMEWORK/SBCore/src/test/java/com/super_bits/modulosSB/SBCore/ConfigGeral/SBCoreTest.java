@@ -18,6 +18,9 @@ import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
+import com.super_bits.Controller.Jira.FabricaJiraClientExtendido;
+import com.super_bits.Controller.Jira.JiraRestClientExtendido;
+import com.super_bits.Controller.Jira.JiraRestClientTempoPlanoTarefa;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -53,8 +56,18 @@ public class SBCoreTest {
         try {
             jiraServerUri = new URI("https://vipsol.atlassian.net");
 
+            FabricaJiraClientExtendido fabricaExtendida = new FabricaJiraClientExtendido();
+
+            JiraRestClientExtendido jiraExtendido = fabricaExtendida.getJiraClientExtendido(jiraServerUri, "salviof@gmail.com", "123321");
+            JiraRestClientTempoPlanoTarefa testeTempoPLanoTarefa = jiraExtendido.getClientPlanTime();
+            testeTempoPLanoTarefa.cadastrarPlanosDeTarefa();
+
+            jiraExtendido.getProjectClient().getAllProjects().claim();
+            jiraExtendido.getClientPlanTime().getCurrentSession().claim();
+
             final AsynchronousJiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
             final JiraRestClient restClient = factory.createWithBasicHttpAuthentication(jiraServerUri, "salviof@gmail.com", "123321");
+
             try {
                 UserRestClient restUser = restClient.getUserClient();
                 List<BasicProject> projetos = Lists.newArrayList(restClient.getProjectClient().getAllProjects().claim().iterator());
