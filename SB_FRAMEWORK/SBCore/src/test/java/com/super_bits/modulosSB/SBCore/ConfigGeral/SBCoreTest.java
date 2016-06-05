@@ -51,6 +51,9 @@ public class SBCoreTest {
         System.out.println(s);
 
         final URI jiraServerUri;
+
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+
         try {
             jiraServerUri = new URI("https://vipsol.atlassian.net");
 
