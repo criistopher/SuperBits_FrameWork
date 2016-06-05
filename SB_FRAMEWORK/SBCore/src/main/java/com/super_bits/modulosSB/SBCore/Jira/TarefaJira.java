@@ -17,6 +17,6 @@ public class TarefaJira {
     private String descricaoTarefa;
     private String codigoTarefa;
 
-    List<PlanoDeTrabalhoTempoJira> planosDeTrabalho;
+    List<PlanosDeTrabalhoTempoJira> planosDeTrabalho;
 
 }
