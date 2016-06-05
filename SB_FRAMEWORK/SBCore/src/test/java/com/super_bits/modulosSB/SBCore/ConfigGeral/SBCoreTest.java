@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
+import com.atlassian.jira.rest.client.api.UserRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Issue;
@@ -55,7 +56,7 @@ public class SBCoreTest {
             final AsynchronousJiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
             final JiraRestClient restClient = factory.createWithBasicHttpAuthentication(jiraServerUri, "salviof@gmail.com", "123321");
             try {
-
+                UserRestClient restUser = restClient.getUserClient();
                 List<BasicProject> projetos = Lists.newArrayList(restClient.getProjectClient().getAllProjects().claim().iterator());
                 BasicProject projetoVip = projetos.get(0);
                 for (BasicProject proj : projetos) {
