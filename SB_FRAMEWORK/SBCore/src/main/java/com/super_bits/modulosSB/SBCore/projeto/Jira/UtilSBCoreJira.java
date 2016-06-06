@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.TarefaJira;
 import java.io.IOException;
 import java.net.URI;
@@ -49,12 +50,15 @@ public class UtilSBCoreJira {
         ACAO_BANCO_IMPLEMENTACAO_TIPOS,
         ACAO_TESTES_BANCO_CALCULO,
         ACAO_TESTES_BANCO_LISTSTAS,
+        ACAO_SUB_CRIAR_CALCULO,
+        ACAO_SUB_CRIAR_LISTA,
         ACAO_IMPLEMENTAR_CONTROLLER,
         ACAO_TESTE_CONTROLLER;
 
         public TarefaJira getTarefaInssueJira() {
             TarefaJira tarefa = new TarefaJira();
             switch (this) {
+
                 case ACAO_TESTE_MANAGED_BEAN:
                     tarefa.setTempoEsperado("6 h");
                     break;
@@ -87,6 +91,18 @@ public class UtilSBCoreJira {
                 case ACAO_TESTE_CONTROLLER:
                     tarefa.setTempoEsperado("6 h");
                     break;
+                case ACAO_CRIAR_FORMULARIO:
+                    tarefa.setTempoEsperado("6 h");
+                    break;
+                case ACAO_CRIAR_FORMULARIO_COMPLEXO:
+                    tarefa.setTempoEsperado("12 h");
+                    break;
+                case ACAO_SUB_CRIAR_CALCULO:
+                    tarefa.setTempoEsperado("40 m");
+                    break;
+                case ACAO_SUB_CRIAR_LISTA:
+                    tarefa.setTempoEsperado("40 m");
+                    break;
                 default:
                     throw new AssertionError(this.name());
             }
@@ -98,6 +114,7 @@ public class UtilSBCoreJira {
 
             switch (pAcaoDoSistema.getTipoAcaoGenerica()) {
                 case FORMULARIO_NOVO_REGISTRO:
+
                 case FORMULARIO_EDITAR:
 
                 case FORMULARIO_VISUALIZAR:
@@ -216,6 +233,12 @@ public class UtilSBCoreJira {
 
     private static boolean criarAcaoTabela() {
         return false;
+    }
+
+    public void buildAcoesJira() {
+
+        MapaAcoesSistema mapaAcoes;
+
     }
 
 }
