@@ -1107,6 +1107,21 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return null;
     }
 
+    public static List<Class> getTodasEntidades() {
+        EntityManager em = UtilSBPersistencia.getNovoEM();
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = em.getMetamodel().getEntities();
+        List<Class> entidades = new ArrayList<>();
+        for (EntityType<?> entidade : lista) {
+            System.out.println(entidade.getJavaType().toString());
+            Class<?> classe = entidade.getJavaType();
+            System.out.println(entidade.getClass().getName());
+            entidades.add(entidade.getJavaType());
+        }
+        em.close();
+        return entidades;
+    }
+
     public static List<?> getListaBySBNQ(SBNQ pSBNQ) {
         return pSBNQ.getQueryHibernate().getResultList();
     }
