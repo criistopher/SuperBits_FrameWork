@@ -10,6 +10,7 @@ import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
+import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
@@ -158,16 +159,23 @@ public class UtilSBCoreJira {
             BasicProject projeto = conexao.getProjectClient().getAllProjects().claim().iterator().next();
             List<IssueType> tiposAcoes = Lists.newArrayList(conexao.getMetadataClient().getIssueTypes().claim().iterator());
 
-            IssueType tipoTeste = tiposAcoes.get(0);
-            final IssueInput issueInput = new IssueInputBuilder(projeto, tipoTeste, "Ação com tempo estimado").build();
+            IssueType tipoTeste = tiposAcoes.get(1);
+            // final IssueInput issueInput = new IssueInputBuilder(projeto, tipoTeste, "Ação com tempo estimado").build();
+            //Map<String, Object> map = new HashMap<>();
+            //map.put("originalEstimate", "4h 30m");
+            // issueInput.getFields().put(IssueFieldId.TIMETRACKING_FIELD.id, new FieldInput("originalEstimate", "4h 30m"));
+
+            IssueInputBuilder inputBuilder = new IssueInputBuilder(projeto, tipoTeste);
+
             Map<String, Object> map = new HashMap<>();
             map.put("originalEstimate", "4h 30m");
-            issueInput.getFields().put(IssueFieldId.TIMETRACKING_FIELD.id, new FieldInput("originalEstimate", "4h 30m"));
+            inputBuilder.setFieldInput(new FieldInput(IssueFieldId.TIMETRACKING_FIELD, new ComplexIssueInputFieldValue(map)));
+            inputBuilder.setSummary("AÇÃO TESTE COM ORIGINAL ESTIMATE");
 
-            final BasicIssue basicCreatedIssue = conexao.getIssueClient().createIssue(issueInput).claim();
-
+            final BasicIssue basicCreatedIssue = conexao.getIssueClient().createIssue(inputBuilder.build()).claim();
+            return true;
         } catch (Throwable t) {
-
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro cadastrando tarefa", t);
         } finally {
             if (conexao != null) {
                 try {

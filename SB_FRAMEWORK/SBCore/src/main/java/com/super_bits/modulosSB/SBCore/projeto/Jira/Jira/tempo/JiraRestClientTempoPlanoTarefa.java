@@ -42,7 +42,7 @@ public class JiraRestClientTempoPlanoTarefa extends AbstractAsynchronousRestClie
         return getAndParse(UriBuilder.fromUri(serverUri).path("rest/tempo-planning/1/allocation").build(), sessionJsonParser);
     }
 
-    public void cadastrarPlanosDeTarefa() {
+    public void listarPLanosDeTrabalho() {
 
         try {
             URI urlAcesso = UriBuilder.fromUri(serverUri).path("rest/tempo-planning/1/allocation").build();
@@ -59,6 +59,10 @@ public class JiraRestClientTempoPlanoTarefa extends AbstractAsynchronousRestClie
             UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemUsuario(t.getCause().getMessage()));
             UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemUsuario(t.getLocalizedMessage()));
         }
+
+    }
+
+    public void incluirPLanosDeTrabalho() {
 
     }
 

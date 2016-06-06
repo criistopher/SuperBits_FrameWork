@@ -24,6 +24,7 @@ public class UtilSBCoreJiraTest {
         SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
 
         UtilSBCoreJira.criarTarefafasDaAcao(null);
+
     }
 
     @Test

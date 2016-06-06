@@ -33,7 +33,7 @@ public class JiraRestClientTempoPlanoTarefaTest {
             JiraRestClientExtendido jiraExtendido = fabricaExtendida.getJiraClientExtendido(jiraServerUri, "salviof@gmail.com", "123321");
             JiraRestClientTempoPlanoTarefa testeTempoPLanoTarefa = jiraExtendido.getClientPlanTime();
             jiraExtendido.getProjectClient().getAllProjects();
-            testeTempoPLanoTarefa.cadastrarPlanosDeTarefa();
+            testeTempoPLanoTarefa.listarPLanosDeTrabalho();
         } catch (URISyntaxException ex) {
             Logger.getLogger(JiraRestClientTempoPlanoTarefaTest.class.getName()).log(Level.SEVERE, null, ex);
         }

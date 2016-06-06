@@ -60,7 +60,7 @@ public class SBCoreTest {
 
             JiraRestClientExtendido jiraExtendido = fabricaExtendida.getJiraClientExtendido(jiraServerUri, "salviof@gmail.com", "123321");
             JiraRestClientTempoPlanoTarefa testeTempoPLanoTarefa = jiraExtendido.getClientPlanTime();
-            testeTempoPLanoTarefa.cadastrarPlanosDeTarefa();
+            testeTempoPLanoTarefa.listarPLanosDeTrabalho();
 
             jiraExtendido.getProjectClient().getAllProjects().claim();
             jiraExtendido.getClientPlanTime().getCurrentSession().claim();
