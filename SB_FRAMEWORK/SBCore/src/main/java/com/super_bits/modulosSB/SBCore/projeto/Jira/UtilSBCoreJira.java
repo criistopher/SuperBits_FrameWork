@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.projeto.Jira.Jira.TarefaJira;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,29 +52,42 @@ public class UtilSBCoreJira {
         ACAO_IMPLEMENTAR_CONTROLLER,
         ACAO_TESTE_CONTROLLER;
 
-        public Issue getTarefaInssueJira() {
-
+        public TarefaJira getTarefaInssueJira() {
+            TarefaJira tarefa = new TarefaJira();
             switch (this) {
                 case ACAO_TESTE_MANAGED_BEAN:
+                    tarefa.setTempoEsperado("6 h");
+
                     break;
                 case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
+                    tarefa.setTempoEsperado("12 h");
+
                     break;
 
                 case ACAO_TESTES_AMBIENTE_DE_DADOS:
+                    tarefa.setTempoEsperado("6 h");
+
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_BANCO_TESTES_TIPOS:
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
+                    tarefa.setTempoEsperado("6 h");
                     break;
                 case ACAO_TESTES_BANCO_CALCULO:
+                    tarefa.setTempoEsperado("6 h");
                     break;
                 case ACAO_TESTES_BANCO_LISTSTAS:
+                    tarefa.setTempoEsperado("6 h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER:
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_TESTE_CONTROLLER:
+                    tarefa.setTempoEsperado("6 h");
                     break;
                 default:
                     throw new AssertionError(this.name());

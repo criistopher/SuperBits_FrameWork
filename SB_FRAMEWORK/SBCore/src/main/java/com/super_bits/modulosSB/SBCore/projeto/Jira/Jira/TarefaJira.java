@@ -18,7 +18,56 @@ public class TarefaJira {
     private String nomeTarefa;
     private String descricaoTarefa;
     private String codigoTarefa;
+    private String tempoEsperado;
 
-    List<PlanosDeTrabalhoTempoJira> planosDeTrabalho;
+    private List<PlanosDeTrabalhoTempoJira> planosDeTrabalho;
+
+    public UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA getTipoTarefa() {
+        return tipoTarefa;
+    }
+
+    public void setTipoTarefa(UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa) {
+        this.tipoTarefa = tipoTarefa;
+    }
+
+    public String getNomeTarefa() {
+        return nomeTarefa;
+    }
+
+    public void setNomeTarefa(String nomeTarefa) {
+        this.nomeTarefa = nomeTarefa;
+    }
+
+    public String getDescricaoTarefa() {
+        return descricaoTarefa;
+    }
+
+    public void setDescricaoTarefa(String descricaoTarefa) {
+        this.descricaoTarefa = descricaoTarefa;
+    }
+
+    public String getCodigoTarefa() {
+        return codigoTarefa;
+    }
+
+    public void setCodigoTarefa(String codigoTarefa) {
+        this.codigoTarefa = codigoTarefa;
+    }
+
+    public String getTempoEsperado() {
+        return tempoEsperado;
+    }
+
+    public void setTempoEsperado(String tempoEsperado) {
+        this.tempoEsperado = tempoEsperado;
+    }
+
+    public List<PlanosDeTrabalhoTempoJira> getPlanosDeTrabalho() {
+        return planosDeTrabalho;
+    }
+
+    public void setPlanosDeTrabalho(List<PlanosDeTrabalhoTempoJira> planosDeTrabalho) {
+        this.planosDeTrabalho = planosDeTrabalho;
+    }
 
 }
