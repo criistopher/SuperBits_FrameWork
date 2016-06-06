@@ -57,11 +57,9 @@ public class UtilSBCoreJira {
             switch (this) {
                 case ACAO_TESTE_MANAGED_BEAN:
                     tarefa.setTempoEsperado("6 h");
-
                     break;
                 case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
                     tarefa.setTempoEsperado("12 h");
-
                     break;
 
                 case ACAO_TESTES_AMBIENTE_DE_DADOS:
@@ -107,7 +105,7 @@ public class UtilSBCoreJira {
                 case FORMULARIO_MODAL:
                 case SELECAO_DE_ACAO:
 
-                    Issue acaoCriarFormulario = ACAO_CRIAR_FORMULARIO.getTarefaInssueJira();
+                    //      Issue acaoCriarFormulario = ACAO_CRIAR_FORMULARIO.getTarefaInssueJira();
                     // setar DAta e hora
                     break;
                 case FORMULARIO_PERSONALIZADO:
@@ -127,8 +125,8 @@ public class UtilSBCoreJira {
                 case CONTROLLER_REMOVER:
 
                 case CONTROLLER_DESATIVAR:
-                    Issue acaoControllerGenericoTestar = ACAO_TESTE_CONTROLLER.getTarefaInssueJira();
-                    Issue acaoControllerGenericoImplementar = ACAO_IMPLEMENTAR_CONTROLLER.getTarefaInssueJira();
+                    //         Issue acaoControllerGenericoTestar = ACAO_TESTE_CONTROLLER.getTarefaInssueJira();
+                    //          Issue acaoControllerGenericoImplementar = ACAO_IMPLEMENTAR_CONTROLLER.getTarefaInssueJira();
                     break;
                 case CONTROLLER_PERSONALIZADO:
                     break;
