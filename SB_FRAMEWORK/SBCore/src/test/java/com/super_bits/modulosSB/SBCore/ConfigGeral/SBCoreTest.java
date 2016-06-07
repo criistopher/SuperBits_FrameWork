@@ -7,14 +7,11 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.BasicIssue;
 import com.atlassian.jira.rest.client.api.domain.BasicProject;
-import com.atlassian.jira.rest.client.api.domain.BulkOperationResult;
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.api.domain.IssueField;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.api.domain.Transition;
 import com.atlassian.jira.rest.client.api.domain.User;
-import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
@@ -23,8 +20,6 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,17 +73,19 @@ public class SBCoreTest {
                 Promise<SearchResult> pesquisa = restClient.getSearchClient().searchJql("assignee is not EMPTY");
                 SearchResult resp = pesquisa.claim();
                 User cristopher = resp.getIssues().iterator().next().getAssignee();
+
                 for (Issue tarefa : resp.getIssues()) {
                     System.out.println("tarefa" + tarefa.getDescription());
                     System.out.println(tarefa.getAssignee().getAvatarUri());
                 }
 
                 // build issue input
-                final String summary = "Teste criação de Tarefa por API!";
+                final String summary = "Agora o desenvolvimento será mais rápido com a  API!";
                 try {
                     // create
                     final IssueInput issueInput = new IssueInputBuilder(projetoVip, tipoTeste, summary).build();
                     final BasicIssue basicCreatedIssue = restClient.getIssueClient().createIssue(issueInput).claim();
+
                     System.out.println("CHAVE:" + basicCreatedIssue.getKey());
                 } catch (Throwable t) {
                     System.out.println(t.getMessage());
