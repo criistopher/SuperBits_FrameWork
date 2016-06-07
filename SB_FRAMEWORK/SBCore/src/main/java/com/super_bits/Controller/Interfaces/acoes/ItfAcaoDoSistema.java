@@ -230,4 +230,10 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public ItfAcaoController comoController();
 
+    /**
+     *
+     * @return A ação como uma ação secundaria
+     */
+    public ItfAcaoSecundaria comoSecundaria();
+
 }

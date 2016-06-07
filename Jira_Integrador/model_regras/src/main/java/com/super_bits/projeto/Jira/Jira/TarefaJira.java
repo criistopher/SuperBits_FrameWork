@@ -4,9 +4,21 @@
  */
 package com.super_bits.projeto.Jira.Jira;
 
+import com.atlassian.jira.rest.client.api.domain.BasicIssue;
+import com.atlassian.jira.rest.client.api.domain.BasicPriority;
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
+import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
+import com.atlassian.jira.rest.client.api.domain.IssueType;
+import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
+import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
+import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
+import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.projeto.Jira.Jira.tempo.old.PlanosDeTrabalhoTempoJira;
 import com.super_bits.projeto.Jira.UtilSBCoreJira;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -19,6 +31,8 @@ public class TarefaJira {
     private String descricaoTarefa;
     private String codigoTarefa;
     private String tempoEsperado;
+    private ItfAcaoDoSistema acaoVinculada;
+    private Class tabelaVinculada;
 
     private List<PlanosDeTrabalhoTempoJira> planosDeTrabalho;
 
@@ -68,6 +82,57 @@ public class TarefaJira {
 
     public void setPlanosDeTrabalho(List<PlanosDeTrabalhoTempoJira> planosDeTrabalho) {
         this.planosDeTrabalho = planosDeTrabalho;
+    }
+
+    public ItfAcaoDoSistema getAcaoVinculada() {
+        return acaoVinculada;
+    }
+
+    public void setAcaoVinculada(ItfAcaoDoSistema acaoVinculada) {
+        this.acaoVinculada = acaoVinculada;
+    }
+
+    public Class getTabelaVinculada() {
+        return tabelaVinculada;
+    }
+
+    public void setTabelaVinculada(Class tabelaVinculada) {
+        this.tabelaVinculada = tabelaVinculada;
+    }
+
+    public IssueInput getIssue(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade, BasicIssue acaoPrincipal) {
+
+        IssueInputBuilder inputBuilder = new IssueInputBuilder(pProjeto, pTipoIssue);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("originalEstimate", getTempoEsperado());
+        inputBuilder.setFieldInput(new FieldInput(IssueFieldId.TIMETRACKING_FIELD, new ComplexIssueInputFieldValue(map)));
+
+        Map<String, Object> parent = new HashMap<String, Object>();
+        parent.put("key", acaoPrincipal.getKey());
+        inputBuilder.setFieldInput(new FieldInput("parent", new ComplexIssueInputFieldValue(parent)));
+
+        inputBuilder.setSummary(getNomeTarefa());
+        inputBuilder.setDescription(getDescricaoTarefa());
+        inputBuilder.setPriority(prioridade);
+
+        return inputBuilder.build();
+
+    }
+
+    public IssueInput getIssueGrupoAcoes(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade) {
+
+        IssueInputBuilder inputBuilder = new IssueInputBuilder(pProjeto, pTipoIssue);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("originalEstimate", getTempoEsperado());
+
+        //inputBuilder.setFieldInput(new FieldInput(IssueFieldId. , new ComplexIssueInputFieldValue(map)));
+        inputBuilder.setSummary(getNomeTarefa());
+        inputBuilder.setDescription(getDescricaoTarefa());
+        inputBuilder.setPriority(prioridade);
+        return inputBuilder.build();
+
     }
 
 }

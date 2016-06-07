@@ -8,6 +8,7 @@ import com.sun.source.tree.IfTree;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
@@ -263,6 +264,11 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     @Override
     public ItfAcaoController comoController() {
         return acaoOriginal.comoController();
+    }
+
+    @Override
+    public ItfAcaoSecundaria comoSecundaria() {
+        throw new UnsupportedOperationException("Uma ação de Managed bean não pode ser tratada como ação secundaria"); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

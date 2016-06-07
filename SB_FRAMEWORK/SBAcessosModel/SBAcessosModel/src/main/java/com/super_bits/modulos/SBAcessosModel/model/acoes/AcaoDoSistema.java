@@ -390,4 +390,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
+    @Override
+    public ItfAcaoSecundaria comoSecundaria() {
+        return (ItfAcaoSecundaria) this;
+    }
+
 }

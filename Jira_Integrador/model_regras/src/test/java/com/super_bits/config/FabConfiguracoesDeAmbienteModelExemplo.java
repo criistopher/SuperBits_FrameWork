@@ -50,6 +50,7 @@ public enum FabConfiguracoesDeAmbienteModelExemplo {
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
         cfg.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class, FabAcaoAcessoRestritoExemplo.class});
         cfg.setClasseConfigPermissao(ConfigAcessos.class);
+        cfg.setUrlJira("https://vipsol.atlassian.net");
 
         switch (this) {
             case DESENVOLVIMENTO:

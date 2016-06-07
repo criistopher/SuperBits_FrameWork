@@ -4,11 +4,7 @@
  */
 package com.super_bits.projeto.Jira.Jira.projeto.Jira;
 
-import com.super_bits.projeto.Jira.UtilSBCoreJira;
-//import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -23,8 +19,7 @@ public class UtilSBCoreJiraTest {
     public void testCriarTarefafasDaAcao() {
 
         //      SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
-        UtilSBCoreJira.criarTarefafasDaAcao(null);
-
+        //    UtilSBCoreJira.criarTarefafasDaAcao(null);
     }
 
     @Test

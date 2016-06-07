@@ -354,4 +354,9 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo controller"); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ItfAcaoSecundaria comoSecundaria() {
+        throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo Secundaria"); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

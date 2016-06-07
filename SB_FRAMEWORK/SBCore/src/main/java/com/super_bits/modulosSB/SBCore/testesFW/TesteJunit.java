@@ -15,7 +15,7 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     protected abstract void configAmbienteDesevolvimento();
 
-    private boolean inicializou = false;
+    private static boolean inicializou = false;
 
     @Before
     public void initPadrao() {
