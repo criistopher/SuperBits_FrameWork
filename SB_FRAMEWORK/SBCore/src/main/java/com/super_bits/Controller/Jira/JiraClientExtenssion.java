@@ -16,6 +16,7 @@ import com.atlassian.jira.rest.client.api.UserRestClient;
 import com.atlassian.jira.rest.client.api.VersionRestClient;
 import java.io.IOException;
 import java.util.List;
+import org.eclipse.jetty.util.Promise;
 
 /**
  *
@@ -23,10 +24,11 @@ import java.util.List;
  */
 public class JiraClientExtenssion implements JiraRestClient {
 
-    private JiraRestClient jiraClient;
+    private final JiraRestClient jiraClient;
+    private Promise<JiraRestClientTempoPlanoTarefa> tarefasPlanejadas;
 
     public void cadastrarPlanejamentoDeTrabalho(List<String> teste) {
-
+        //    tarefasPlanejadas = new JiraRestClientTempoPlanoTarefa(baseUri, client);
     }
 
     public JiraClientExtenssion(JiraRestClient pJiraClient) {
