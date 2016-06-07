@@ -227,8 +227,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
 
             case ACAO_CTR_INTERNA_DO_SISTEMA:
-                acao = new AcaoController(this);
-                acao.setIconeAcao("fa fa-edit");
+
                 break;
             case GRUPO_FRM_LISTAR:
                 ItfAcaoFormularioEntidade acaoFormularioListar = (ItfAcaoFormularioEntidade) acao;

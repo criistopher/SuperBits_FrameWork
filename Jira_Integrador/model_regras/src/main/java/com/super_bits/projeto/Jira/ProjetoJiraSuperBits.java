@@ -92,6 +92,10 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
+            if (acao.getTipoAcaoGenerica() == null) {
+                throw new UnsupportedOperationException("A ação generica para" + acao.getNomeUnico() + " não foi especificada");
+            }
+
             UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA[] tarefas = UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica());
 
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : tarefas) {

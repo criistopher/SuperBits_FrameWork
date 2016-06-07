@@ -212,6 +212,7 @@ public class UtilSBCoreJira {
                 case ACAO_TESTE_CONTROLLER:
                 case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
                 case ACAO_TESTE_CONTROLLER_COMPLEXO:
+
                     return TIPO_GRUPO_TAREFA.MODULO_CONTROLLER;
                 default:
                     throw new AssertionError(this.name());
@@ -310,18 +311,18 @@ public class UtilSBCoreJira {
         TarefaJira tarefaPrincipal = new TarefaJira();
 
         tarefaPrincipal.setGropoTarefas(true);
+        ItfAcaoDoSistema acaoPrincipal = null;
+        if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
+            acaoPrincipal = pTarefa.getAcaoVinculada();
+        } else {
+            acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
+        }
+        if (acaoPrincipal == null) {
+            throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());
+        }
+
         switch (pTarefa.getTipoTarefa().getGrupoTarefaInssueJira()) {
             case TELA_GESTAO_ENTIDADE:
-
-                ItfAcaoDoSistema acaoPrincipal = null;
-                if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
-                    acaoPrincipal = pTarefa.getAcaoVinculada();
-                } else {
-                    acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
-                }
-                if (acaoPrincipal == null) {
-                    throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());
-                }
 
                 tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
                 tarefaPrincipal.setNomeTarefa("Gestão de " + acaoPrincipal.getNomeAcao());
@@ -330,7 +331,13 @@ public class UtilSBCoreJira {
                 return tarefaPrincipal;
 
             case MODULO_CONTROLLER:
-                break;
+                tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
+                tarefaPrincipal.setNomeTarefa("Ações Controller do modulo " + acaoPrincipal.getModulo().getNome());
+                tarefaPrincipal.setDescricaoTarefa("As ações  do modulo controller são aquelas que geram alterações no sistema \n"
+                        + " todas as ações do sistema estarão disponíveis via API, portanto sua implementação deve levar em consideração chamadas com parametros de todas as formas possíveis, "
+                        + "e não apenas aquelas que estarão disponíveis para o usuário. ");
+                return tarefaPrincipal;
+
             case MODELAGEM_TABELA:
                 break;
             case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
@@ -382,6 +389,10 @@ public class UtilSBCoreJira {
             BasicPriority prioridadeAlta = getPrioridadeMaxiama(conexao);
 
             TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
+
+            if (conexao == null) {
+
+            }
 
             if (tarefaPrincipal == null) {
                 throw new UnsupportedOperationException("Impossível deterinar a tarefa principal para" + pTarefa.getReferencia());
