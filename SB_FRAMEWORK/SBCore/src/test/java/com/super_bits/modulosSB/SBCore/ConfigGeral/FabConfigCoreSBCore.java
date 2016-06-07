@@ -27,7 +27,7 @@ public enum FabConfigCoreSBCore {
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
-
+        cfg.setUrlJira("https://vipsol.atlassian.net");
         //      cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
         switch (this) {
             case DESENVOLVIMENTO:

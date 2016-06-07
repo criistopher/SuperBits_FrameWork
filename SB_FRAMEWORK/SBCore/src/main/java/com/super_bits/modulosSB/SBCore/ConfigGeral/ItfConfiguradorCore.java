@@ -105,4 +105,5 @@ public interface ItfConfiguradorCore {
      */
     public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes();
 
+    public String getUrlJira();
 }

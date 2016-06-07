@@ -46,6 +46,9 @@ public class SBCoreTest {
         System.out.println(s);
 
         final URI jiraServerUri;
+
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+
         try {
             jiraServerUri = new URI("https://vipsol.atlassian.net");
 
@@ -78,9 +81,14 @@ public class SBCoreTest {
                     System.out.println("tarefa" + tarefa.getDescription());
                     System.out.println(tarefa.getAssignee().getAvatarUri());
                 }
+<<<<<<< HEAD
 
                 // build issue input
                 final String summary = "Agora o desenvolvimento será mais rápido com a  API!";
+=======
+                //       Utilsb // build issue input
+                final String summary = "Teste criação de Tarefa por API!";
+>>>>>>> c6345875727c99ca3f2de4b27ddfccd2cc977f18
                 try {
                     // create
                     final IssueInput issueInput = new IssueInputBuilder(projetoVip, tipoTeste, summary).build();

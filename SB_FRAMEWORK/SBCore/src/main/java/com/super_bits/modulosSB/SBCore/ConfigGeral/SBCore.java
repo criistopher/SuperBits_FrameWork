@@ -57,7 +57,8 @@ public class SBCore {
     }
 
     private static ESTADO_APP estadoAplicativo;
-    private static boolean configurado = false;
+    private static boolean ambienteExecucaoConfigurado = false;
+    private static boolean informacoesProjetoConfigurado = false;
     private static Class<? extends InfoErroSB> classeErro;
     private static Class<? extends ItfCentralMensagens> centralMensagens;
     private static Class<? extends ItfControleDeSessao> controleDeSessao;
@@ -71,9 +72,10 @@ public class SBCore {
     private static boolean controleDeAcessosDefinido;
     private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
     private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
+    private static String urlJira;
 
     private static void ValidaConfigurado() {
-        if (configurado) {
+        if (ambienteExecucaoConfigurado) {
             return;
         }
 
@@ -98,7 +100,7 @@ public class SBCore {
 
     public static void configurar(ItfConfiguradorCore configuracoes) {
 
-        if (configurado) {
+        if (ambienteExecucaoConfigurado) {
             System.out.println("Ocorreu uma tentativa de reconfigurar o core");
             return;
             //throw new UnsupportedOperationException("A configuração do core só pode ser executada uma única vez");
@@ -118,7 +120,7 @@ public class SBCore {
     public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
         try {
 
-            if (configurado) {
+            if (ambienteExecucaoConfigurado) {
                 //throw new UnsupportedOperationException("A configuração do ambiente de execução só pode ser realizada uma vez");
                 System.out.println("ATENÇÃO, OCORREU UMA TENTATIVA DUPLA  DE CONFIGURAR O CORE, ESTA AÇÃO IRÁ GERAR UMA ERRO PARA_TUDO NAS PROXIMAS VERSÕES");
                 // return;
@@ -133,11 +135,12 @@ public class SBCore {
             grupoProjeto = configuracoes.getGrupoProjeto();
             cliente = configuracoes.getCliente();
             // central de eventos e config de permissao podem ser definidos logo após a chamada do configurar
-            configurado = true;
+            ambienteExecucaoConfigurado = true;
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
             centralEventos = configuracoes.getCentralDeEventos();
             classeConfigPermissoes = configuracoes.getConfigPermissoes();
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
+            urlJira = configuracoes.getUrlJira();
 
             //     SBCore.enviarAvisoAoUsuario(SBCore.getCaminhoDesenvolvimento());
             if (centralMensagens == null) {
@@ -165,24 +168,26 @@ public class SBCore {
                 if (acoesDoSistema == null) {
                     throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
                 }
-            }
 
-            try {
-                // Definindo configuração de acessos
-                if (classeConfigPermissoes == null) {
-                    Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
-                    configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
-                } else {
-                    configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+                try {
+                    // Definindo configuração de acessos
+                    if (classeConfigPermissoes == null) {
+                        Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+                        configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
+                    } else {
+                        configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+                    }
+
+                } catch (Throwable t) {
+                    if (pIgnorarClassePermissao) {
+                        System.out.println("A Classe de permissões não foi definida");
+                    } else {
+                        throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
+                    }
+
                 }
 
-            } catch (Throwable t) {
-                if (pIgnorarClassePermissao) {
-                    System.out.println("A Classe de permissões não foi definida");
-                } else {
-                    throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
-                }
-
+                informacoesProjetoConfigurado = true;
             }
 
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
@@ -200,7 +205,7 @@ public class SBCore {
                 }
             }
         } catch (Throwable t) {
-            configurado = true;
+            ambienteExecucaoConfigurado = true;
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
             FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }
@@ -524,11 +529,15 @@ public class SBCore {
         return acoesDoSistema;
     }
 
-    public static void soutInfoDebug(String  pInfo) {
+    public static void soutInfoDebug(String pInfo) {
         if (getEstadoAPP() != ESTADO_APP.PRODUCAO) {
-            System.out.println("DebugInfo: "+ pInfo);
+            System.out.println("DebugInfo: " + pInfo);
         }
 
+    }
+
+    public static String getUrlJira() {
+        return urlJira;
     }
 
 }

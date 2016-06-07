@@ -5,16 +5,23 @@ import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -191,6 +198,35 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         // Obtem a anotação por reflexao do nome do metodo por atributo
         // seta o valor no atrbuto, e retorna o valor obtido
         ItfCalculos calculo = null;
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+        String nomeMetodo = stackTraceElements[0].getMethodName();
+        String nomeCampo = nomeMetodo.substring(3);
+        try {
+            Field campo = this.getClass().getDeclaredField(nomeCampo);
+
+            Annotation anotacao = UtilSBCoreReflexao.getAnotacaoComEsteMetodo(campo.getAnnotations(), "calculo");
+
+            Method metodoCalculo = anotacao.annotationType().getMethod("calculo");
+
+            calculo = (ItfCalculos) metodoCalculo.invoke(anotacao);
+            return calculo.getValor(this);
+
+            //anotacaoCalculo.get
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return null;//calculo.getValor((ItfBeanSimples) this);
     }
 

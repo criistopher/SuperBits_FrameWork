@@ -30,7 +30,8 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     private String cliente;
     private String grupoProjeto;
     private String diretorioBase = "";
-    private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
+    private Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
+    private String urlJira;
 
     @Override
     public Class<? extends ItfCentralMensagens> getCentralDeMensagens() {
@@ -145,6 +146,15 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
 
     public void setFabricaDeAcoes(Class<? extends ItfFabricaAcoes>[] pAcoes) {
         acoesDoSistema = pAcoes;
+    }
+
+    @Override
+    public String getUrlJira() {
+        return urlJira;
+    }
+
+    public void setUrlJira(String urlJira) {
+        this.urlJira = urlJira;
     }
 
 }
