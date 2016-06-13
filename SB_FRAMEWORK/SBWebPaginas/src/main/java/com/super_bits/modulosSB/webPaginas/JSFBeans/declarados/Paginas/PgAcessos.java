@@ -35,7 +35,7 @@ import javax.inject.Named;
  *
  * @author Salvio
  */
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_MB_GERENCIAR)
 @InfoPagina(nomeCurto = "AC", tags = {"acessos"}, acessoLivre = false)
 @ViewScoped
 @Named

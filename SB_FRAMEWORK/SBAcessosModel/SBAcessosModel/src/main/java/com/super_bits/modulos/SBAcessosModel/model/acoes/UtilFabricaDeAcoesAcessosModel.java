@@ -14,7 +14,6 @@ import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
-
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
@@ -238,7 +237,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                         SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
                     }
                 }
-
+                if (anotacaoFormulario.codigoJira().length() > 2) {
+                    pAcao.setIdDescritivoJira(anotacaoFormulario.codigoJira());
+                }
                 if (anotacaoFormulario.icone().length() > 2) {
                     pAcao.setIconeAcao(anotacaoFormulario.icone());
                 }
@@ -271,7 +272,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 if (anotacaocontroller.descricao().length() > 2) {
                     pAcao.setDescricao(anotacaocontroller.descricao());
                 }
-
+                if (anotacaocontroller.codigoJira().length() > 2) {
+                    pAcao.setIdDescritivoJira(anotacaocontroller.codigoJira());
+                }
                 pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
 
             }
@@ -292,6 +295,10 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 }
                 if (anotacaoGerenciar.descricao().length() > 2) {
                     pAcao.setDescricao(anotacaoGerenciar.descricao());
+                }
+
+                if (anotacaoGerenciar.codigoJira().length() > 2) {
+                    pAcao.setIdDescritivoJira(anotacaoGerenciar.codigoJira());
                 }
 
                 pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());

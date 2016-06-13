@@ -12,23 +12,19 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.atlassian.jira.rest.client.api.domain.Priority;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.jira.rest.client.api.domain.User;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -43,7 +39,7 @@ public class UtilSBCoreJira {
         ACAO_BANCO_AMBIENTE_E_ADEQUACAO
     }
 
-    public static TIPOS_DE_TAREFA_JIRA[] getTipoTarefaPorTipoAcao(FabTipoAcaoSistemaGenerica pTipoAcaoDoSistemaGenerica) {
+    public static TIPOS_DE_TAREFA_JIRA[] getTiposTarefaPorTipoAcao(FabTipoAcaoSistemaGenerica pTipoAcaoDoSistemaGenerica) {
         switch (pTipoAcaoDoSistemaGenerica) {
             case FORMULARIO_NOVO_REGISTRO:
 
@@ -108,9 +104,9 @@ public class UtilSBCoreJira {
 
     }
 
-    public static TIPOS_DE_TAREFA_JIRA getTipoTarefaPorEntidade(Class pClasseEntidade) {
+    public static TIPOS_DE_TAREFA_JIRA[] getTipoTarefaPorEntidade(Class pClasseEntidade) {
 
-        return TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_BANCO_CALCULO;
+        return new TIPOS_DE_TAREFA_JIRA[]{TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_BANCO_CALCULO};
 
     }
 
@@ -244,18 +240,22 @@ public class UtilSBCoreJira {
 
     private static BasicProject getProjetoPrincipal(JiraRestClient conexao) {
         List<BasicProject> lista = Lists.newArrayList(conexao.getProjectClient().getAllProjects().claim());
+
         if (lista.size() > 1) {
             throw new UnsupportedOperationException("Foram encontrados mais de um projeto vinculado a este usuário, impossívcel determinar o projeto ");
         }
         return lista.get(0);
     }
 
-    private static IssueType getTipoIssueTarefa(JiraRestClient conexao) {
+    private static IssueType getTipoIssueTarefaPrincipal(JiraRestClient conexao) {
 
         List<IssueType> tiposAcoes = Lists.newArrayList(conexao.getMetadataClient().getIssueTypes().claim().iterator());
         for (IssueType tipoAcao : tiposAcoes) {
-            if (tipoAcao.getName().contains("Task")) {
-                return tipoAcao;
+            if (!tipoAcao.isSubtask()) {
+                if (tipoAcao.getName().startsWith("Task")
+                        || tipoAcao.getName().startsWith("Tarefa")) {
+                    return tipoAcao;
+                }
             }
 
         }
@@ -271,7 +271,22 @@ public class UtilSBCoreJira {
                 return prioridae;
             }
         }
+
         throw new UnsupportedOperationException("Alta Prioridade não encontrada");
+
+    }
+
+    public static User getUsuarioPorNome(JiraRestClient conexao, String username) {
+        try {
+            List<User> usuarios = Lists.newArrayList(conexao.getUserClient().getUser(username).claim());
+            if (usuarios.size() > 0) {
+                return usuarios.get(0);
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, username, t);
+        }
+
+        throw new UnsupportedOperationException("O usuário" + username + " não foi encontrado");
 
     }
 
@@ -279,8 +294,11 @@ public class UtilSBCoreJira {
 
         List<IssueType> tiposAcoes = Lists.newArrayList(conexao.getMetadataClient().getIssueTypes().claim().iterator());
         for (IssueType tipoAcao : tiposAcoes) {
-            if (tipoAcao.getName().contains("Sub-Task")) {
-                return tipoAcao;
+            if (tipoAcao.isSubtask()) {
+                if (tipoAcao.getName().startsWith("Sub-Task")
+                        || tipoAcao.getName().startsWith("Sub-Tarefa")) {
+                    return tipoAcao;
+                }
             }
 
         }
@@ -290,20 +308,25 @@ public class UtilSBCoreJira {
 
     public static TarefaJira buildTarefaPrincipal(JiraRestClient conexao, TarefaJira pTarefa) {
         TarefaJira tarefaPrincipal = new TarefaJira();
-        IssueType tipoTarefaPrincipal = getTipoIssueTarefa(conexao);
+
+        tarefaPrincipal.setGropoTarefas(true);
         switch (pTarefa.getTipoTarefa().getGrupoTarefaInssueJira()) {
             case TELA_GESTAO_ENTIDADE:
-                String idGrupo = pTarefa.getCodigoTarefa();
+
                 ItfAcaoDoSistema acaoPrincipal = null;
                 if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
                     acaoPrincipal = pTarefa.getAcaoVinculada();
                 } else {
                     acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
                 }
+                if (acaoPrincipal == null) {
+                    throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());
+                }
 
                 tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
-                tarefaPrincipal.setNomeTarefa("Implementar Requisito de Gestão para" + acaoPrincipal.getNomeAcao());
-                tarefaPrincipal.setDescricaoTarefa("Um requisto de gestão de entidade, implementa uma Listagem da entidade com botões para todas as ações vinculadas a ela.");
+                tarefaPrincipal.setNomeTarefa("Gestão de " + acaoPrincipal.getNomeAcao());
+                tarefaPrincipal.setDescricaoTarefa("Um requisto de gestão de entidade, \n"
+                        + " implementa uma Listagem da entidade com botões para todas as ações vinculadas a ela. \n juntamente com os formularios atrelados as ações");
                 return tarefaPrincipal;
 
             case MODULO_CONTROLLER:
@@ -322,7 +345,18 @@ public class UtilSBCoreJira {
 
     public static String getIdTarefa(JiraRestClient conexao, TarefaJira pTarefa) {
 
-        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("Summary ~ \"" + pTarefa.getNomeTarefa() + "\"");
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("Summary ~ \"" + pTarefa.getReferencia() + "\" and issueType =\"Task\"");
+        SearchResult resp = pesquisa.claim();
+        List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
+        if (resplist.size() > 0) {
+            return resplist.get(0).getId().toString();
+        }
+        return null;
+    }
+
+    public static String getIdSubTarefa(JiraRestClient conexao, TarefaJira pTarefa) {
+
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("Summary ~ \"" + pTarefa.getReferencia() + "\" and issueType =\"Sub-Task - ST\"");
         SearchResult resp = pesquisa.claim();
         List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
         if (resplist.size() > 0) {
@@ -335,24 +369,45 @@ public class UtilSBCoreJira {
 
         try {
 
+            if (pTarefa == null) {
+                throw new UnsupportedOperationException("Evocou metodo criar tarefas com a tarefa nula");
+            }
+            if (conexao == null) {
+                throw new UnsupportedOperationException("Evocou metodo criar tarefas com a conexão nula");
+            }
+
             BasicProject projeto = getProjetoPrincipal(conexao);
             IssueType tipoTarefaSecundaria = getTipoIssueTarefaSecundaria(conexao);
-            IssueType tipoTarefaPrincipal = getTipoIssueTarefa(conexao);
+            IssueType tipoTarefaPrincipal = getTipoIssueTarefaPrincipal(conexao);
             BasicPriority prioridadeAlta = getPrioridadeMaxiama(conexao);
 
             TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
+
+            if (tarefaPrincipal == null) {
+                throw new UnsupportedOperationException("Impossível deterinar a tarefa principal para" + pTarefa.getReferencia());
+            }
             String idTarefaPrincipal = getIdTarefa(conexao, tarefaPrincipal);
-            IssueInput issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta);
+
             BasicIssue tarefaPrincipalCriada = null;
+            IssueInput issuePrincipal = null;
+            if (idTarefaPrincipal == null) {
+                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, getUsuarioPorNome(conexao, "salvio"));
+            } else {
+                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, getUsuarioPorNome(conexao, "cristopherAmaral"));
+            }
+
             if (idTarefaPrincipal == null) {
                 tarefaPrincipalCriada = conexao.getIssueClient().createIssue(issuePrincipal).claim();
             } else {
                 conexao.getIssueClient().updateIssue(idTarefaPrincipal, issuePrincipal);
                 tarefaPrincipalCriada = conexao.getIssueClient().getIssue(idTarefaPrincipal).claim();
             }
-            String idTarefa = getIdTarefa(conexao, pTarefa);
+            String idTarefa = getIdSubTarefa(conexao, pTarefa);
+
             IssueInput issueTarefa = pTarefa.getIssue(projeto, tipoTarefaSecundaria, prioridadeAlta, tarefaPrincipalCriada);
+            System.out.println(pTarefa.getNomeTarefa());
             if (idTarefa == null) {
+
                 BasicIssue tarefaCriada = conexao.getIssueClient().createIssue(issueTarefa).claim();
             } else {
                 conexao.getIssueClient().updateIssue(idTarefa, issueTarefa);
@@ -360,19 +415,9 @@ public class UtilSBCoreJira {
             return true;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro cadastrando tarefa", t);
-        } finally {
-            if (conexao != null) {
-                try {
-                    conexao.close();
-
-                } catch (IOException ex) {
-                    Logger.getLogger(UtilSBCoreJira.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            return false;
         }
 
-        return false;
     }
 
     public static TarefaJira getTarefaJiraAcaoDoSistema(TIPOS_DE_TAREFA_JIRA pTipoTarefaJira, ItfAcaoDoSistema pAcao) {
@@ -383,10 +428,11 @@ public class UtilSBCoreJira {
             case ACAO_TESTE_MANAGED_BEAN:
                 tarefa.setNomeTarefa("Criar Teste Managed Bean para " + pAcao.getNomeAcao());
                 tarefa.setDescricaoTarefa("Simular todo o Fluxo nescessário para utilização do XHTML em" + pAcao.getNomeAcao());
+
                 break;
             case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
-                tarefa.setNomeTarefa("Implementar Managed Bean." + pAcao.getNomeAcao());
-                tarefa.setDescricaoTarefa("Implementar o código atendendo os requisitos do teste");
+                tarefa.setNomeTarefa("Implementar Managed Bean de " + pAcao.getNomeAcao());
+                tarefa.setDescricaoTarefa("Implementar o código atendendo os requisitos do teste de fluxo do Junit");
                 break;
             case ACAO_CRIAR_FORMULARIO:
                 tarefa.setNomeTarefa("Criar formulario " + pAcao.getNomeAcao());
@@ -394,9 +440,13 @@ public class UtilSBCoreJira {
                         + " e da criatividade do usuário que clicará em tudo e ficará triste com erros, deixe o usuário ser feliz!");
                 break;
             case ACAO_CRIAR_FORMULARIO_COMPLEXO:
-
+                tarefa.setNomeTarefa("Criar formulario Complexo para:" + pAcao.getNomeAcao());
+                tarefa.setDescricaoTarefa("Criar o XHTML Complexo para pagina descrita como: " + pAcao.getDescricao() + " <br> não esqueça da responsividade,"
+                        + " e da criatividade do usuário que clicará em tudo e ficará triste com erros, deixe o usuário ser feliz!"
+                        + " <br> Atenção! por se um formulário complexo, é recomendável que você altere o tempo previsto ");
                 break;
             case ACAO_TESTES_AMBIENTE_DE_DADOS:
+
                 break;
             case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
                 break;
@@ -413,12 +463,23 @@ public class UtilSBCoreJira {
             case ACAO_SUB_CRIAR_LISTA:
                 break;
             case ACAO_IMPLEMENTAR_CONTROLLER:
+                tarefa.setNomeTarefa("Implementação de código para " + pAcao.getNomeAcao());
+                tarefa.setDescricaoTarefa("Cria os testes pensando na metodologia TDD, para ação descrita como " + pAcao.getNomeAcao() + " um bom teste deve testar a evocação do métod em todas as opções possíveis, verificando  via comandos de assert o resultado esperado, um bom teste considera não só as opções disponíveis para o usuaŕio, "
+                        + "como também aqueles possíveis de serem cometidas por programadores e clientes de api");
+
                 break;
             case ACAO_TESTE_CONTROLLER:
-                break;
+                tarefa.setNomeTarefa("Teste TDD para" + pAcao.getNomeAcao());
+                tarefa.setDescricaoTarefa("Cria os testes pensando na metodologia TDD, para ação descrita como " + pAcao.getNomeAcao() + " um bom teste deve testar a evocação do métod em todas as opções possíveis, verificando  via comandos de assert o resultado esperado, um bom teste considera não só as opções disponíveis para o usuaŕio, "
+                        + "como também aqueles possíveis de serem cometidas por programadores e clientes de api");
             case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+                tarefa.setNomeTarefa("Implemetação código para " + pAcao.getNome());
+                tarefa.setDescricaoTarefa("A implementação do código da ação descrita como " + pAcao.getDescricao() + ", por ser uma ação  complexa é recomendavel alterar o tempo previsto...  dica: F6 para testar, control F6 para debugar, e um atalho pode ser criado para executar o método de teste focado antes iniciar a implementação leia o fluxo do teste, o teste vai te dar uma visão ainda mais clara sobre o que este método faz, além disso se você der uma re-lida na documentação pode evitar re-trabalho e tristeza");
                 break;
             case ACAO_TESTE_CONTROLLER_COMPLEXO:
+                tarefa.setNomeTarefa("Implemetação código para " + pAcao.getNome());
+                tarefa.setDescricaoTarefa("A implementação do código da ação descrita como " + pAcao.getDescricao() + ",dica: F6 para testar, control F6 para debugar, e um atalho pode ser criado para executar o método de teste focado antes iniciar a implementação leia o fluxo do teste, o teste vai te dar uma visão ainda mais clara sobre o que este método faz, além disso se você der uma re-lida na documentação pode evitar re-trabalho e tristeza");
+
                 break;
             default:
                 throw new AssertionError("A regra de negocio para O tipo de tarefa:" + pTipoTarefaJira.name() + "não foi definda");
@@ -431,29 +492,6 @@ public class UtilSBCoreJira {
     public static TarefaJira getTarefaJiraDoBancoDeDados(TIPOS_DE_TAREFA_JIRA pTipoTarefaJira, Object pEntidade) {
         TarefaJira tarefa = pTipoTarefaJira.getTarefaInssueJira();
         return tarefa;
-    }
-
-    public static void buildAcoesJira() {
-
-        MapaAcoesSistema mapaAcoes;
-        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
-
-        for (Class entidade : entidades) {
-            System.out.println(entidade.getSimpleName());
-        }
-
-        for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
-
-            TIPOS_DE_TAREFA_JIRA[] tarefas = getTipoTarefaPorTipoAcao(acao.getTipoAcaoGenerica());
-
-            for (TIPOS_DE_TAREFA_JIRA tipoTarefa : tarefas) {
-
-                TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
-
-            }
-
-        }
-
     }
 
 }

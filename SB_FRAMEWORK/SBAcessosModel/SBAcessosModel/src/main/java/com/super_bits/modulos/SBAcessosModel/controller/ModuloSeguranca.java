@@ -81,7 +81,7 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
      *
      * @return
      */
-    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE, padraoBloqueado = false)
+    @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE, padraoBloqueado = false)
     public static ItfResposta grupoDeUsuariosSalvarAlteracoes(@NotNull GrupoUsuarioSB pGrpUsuario, @NotNull List<ModuloAcaoSistema> pModulos, EntityManager pEM) {
 
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrpUsuario);

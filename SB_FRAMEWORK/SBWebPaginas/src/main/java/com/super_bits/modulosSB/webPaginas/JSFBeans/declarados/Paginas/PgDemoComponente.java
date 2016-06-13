@@ -42,7 +42,7 @@ import javax.enterprise.context.SessionScoped;
 public class PgDemoComponente extends MB_PaginaConversation {
 
     private final BeanExemplo beanExemplo;
-    private final AcaoDoSistema acaoSalvar = FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema();
+    private final AcaoDoSistema acaoSalvar = FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoDoSistema();
     private final AcaoDoSistema acaoVoltar = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema();
     private final AcaoDoSistema acaoExcluir = FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema();
     private List<AcaoDoSistema> listaDeAcaoes2;

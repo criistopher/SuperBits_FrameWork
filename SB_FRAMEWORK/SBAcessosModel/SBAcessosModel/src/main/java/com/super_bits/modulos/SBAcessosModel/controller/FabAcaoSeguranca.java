@@ -31,14 +31,14 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.SEGURANCA)
 public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
-    GRUPOS_MB_GERENCIAR,
+    GRUPO_MB_GERENCIAR,
     GRUPO_FRM_NOVO,
     GRUPO_FRM_EDITAR,
     GRUPO_FRM_LISTAR,
     GRUPO_FRM_VISUALIZAR,
     GRUPO_CTR_ALTERAR_STATUS,
     GRUPO_FRM_LISTAR_USUARIOS,
-    GRUPO__CTR_SALVAR_MERGE,
+    GRUPO_CTR_SALVAR_MERGE,
     USUARIO_MB_GERENCIAR,
     USUARIO_FRM_NOVO,
     USUARIO_FRM_LISTAR,
@@ -63,7 +63,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
         ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
-            case GRUPOS_MB_GERENCIAR:
+            case GRUPO_MB_GERENCIAR:
                 AcaoGestaoEntidade grupoGerenciar = new AcaoGestaoEntidade(this, GrupoUsuarioSB.class, "/resources/SBComp/seguranca/grupo.xhtml");
                 grupoGerenciar.setNome("Gerenciar grupos");
                 grupoGerenciar.setIconeAcao("fa fa-users");
@@ -134,7 +134,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case GRUPO_FRM_LISTAR_USUARIOS:
 
                 break;
-            case GRUPO__CTR_SALVAR_MERGE:
+            case GRUPO_CTR_SALVAR_MERGE:
 
                 acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoDeEntidadeController grpSalvarAlteracoes = (AcaoDeEntidadeController) acao;
@@ -375,13 +375,13 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     @Override
     public Class getEntidadeDominio() {
         switch (this) {
-            case GRUPOS_MB_GERENCIAR:
+            case GRUPO_MB_GERENCIAR:
             case GRUPO_FRM_NOVO:
             case GRUPO_FRM_EDITAR:
             case GRUPO_FRM_VISUALIZAR:
             case GRUPO_CTR_ALTERAR_STATUS:
             case GRUPO_FRM_LISTAR_USUARIOS:
-            case GRUPO__CTR_SALVAR_MERGE:
+            case GRUPO_CTR_SALVAR_MERGE:
             case GRUPO_FRM_LISTAR:
                 return GrupoUsuarioSB.class;
 

@@ -9,6 +9,7 @@ import com.atlassian.jira.rest.client.api.domain.BasicPriority;
 import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.IssueFieldId;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
+import com.atlassian.jira.rest.client.api.domain.User;
 import com.atlassian.jira.rest.client.api.domain.input.ComplexIssueInputFieldValue;
 import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
@@ -26,6 +27,13 @@ import java.util.Map;
  */
 public class TarefaJira {
 
+    public enum TIPO_ORIGEM_TAREFA {
+        BANCO_DE_DADOS, ACAO_DO_SISTEMA;
+
+    }
+
+    private boolean gropoTarefas;
+    private TIPO_ORIGEM_TAREFA tipoOrigem;
     private UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa;
     private String nomeTarefa;
     private String descricaoTarefa;
@@ -45,7 +53,7 @@ public class TarefaJira {
     }
 
     public String getNomeTarefa() {
-        return nomeTarefa;
+        return nomeTarefa + " ref[" + getReferencia() + "]";
     }
 
     public void setNomeTarefa(String nomeTarefa) {
@@ -53,6 +61,11 @@ public class TarefaJira {
     }
 
     public String getDescricaoTarefa() {
+        if (acaoVinculada.getIdDescritivoJira() != null) {
+            if (acaoVinculada.getIdDescritivoJira().length() > 2) {
+                return descricaoTarefa + " conforme especificado em " + acaoVinculada.getIdDescritivoJira();
+            }
+        }
         return descricaoTarefa;
     }
 
@@ -89,6 +102,7 @@ public class TarefaJira {
     }
 
     public void setAcaoVinculada(ItfAcaoDoSistema acaoVinculada) {
+        tipoOrigem = TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA;
         this.acaoVinculada = acaoVinculada;
     }
 
@@ -97,6 +111,7 @@ public class TarefaJira {
     }
 
     public void setTabelaVinculada(Class tabelaVinculada) {
+        tipoOrigem = TIPO_ORIGEM_TAREFA.BANCO_DE_DADOS;
         this.tabelaVinculada = tabelaVinculada;
     }
 
@@ -120,7 +135,7 @@ public class TarefaJira {
 
     }
 
-    public IssueInput getIssueGrupoAcoes(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade) {
+    public IssueInput getIssueGrupoAcoes(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade, User pUsuarioResponsavel) {
 
         IssueInputBuilder inputBuilder = new IssueInputBuilder(pProjeto, pTipoIssue);
 
@@ -131,8 +146,40 @@ public class TarefaJira {
         inputBuilder.setSummary(getNomeTarefa());
         inputBuilder.setDescription(getDescricaoTarefa());
         inputBuilder.setPriority(prioridade);
+
+        if (pUsuarioResponsavel != null) {
+            inputBuilder.setAssignee(pUsuarioResponsavel);
+        }
         return inputBuilder.build();
 
+    }
+
+    public String getReferencia() {
+        String strgrupoTarefa = "";
+        if (isGropoTarefas()) {
+            strgrupoTarefa = "grp-";
+        }
+        switch (tipoOrigem) {
+            case BANCO_DE_DADOS:
+                return "@" + strgrupoTarefa + tabelaVinculada.getSimpleName();
+            case ACAO_DO_SISTEMA:
+                return "@" + strgrupoTarefa + acaoVinculada.getNomeUnico();
+            default:
+                throw new AssertionError(tipoOrigem.name());
+
+        }
+    }
+
+    public boolean isGropoTarefas() {
+        return gropoTarefas;
+    }
+
+    public void setGropoTarefas(boolean gropoTarefas) {
+        this.gropoTarefas = gropoTarefas;
+    }
+
+    public TIPO_ORIGEM_TAREFA getTipoOrigem() {
+        return tipoOrigem;
     }
 
 }

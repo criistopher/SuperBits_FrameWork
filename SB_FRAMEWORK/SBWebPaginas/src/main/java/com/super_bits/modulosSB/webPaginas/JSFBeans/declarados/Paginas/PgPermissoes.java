@@ -47,7 +47,7 @@ import org.primefaces.context.RequestContext;
 @InfoPagina(nomeCurto = "PM", tags = {"Permissoes"})
 @Named
 @ViewScoped
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPOS_MB_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_MB_GERENCIAR)
 public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
     @Inject
@@ -75,7 +75,7 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
             FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema()
         }, FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoEntidadeFormulario(),
                 FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoEntidadeFormulario(),
-                FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoEntidadeController(),
+                FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoEntidadeController(),
                 false
         );
 
@@ -121,7 +121,7 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
     public void executarAcao(GrupoUsuarioSB pEntidadeSelecionada) {
         super.executarAcao(pEntidadeSelecionada);
 
-        if (acaoSelecionada.getId() == FabAcaoSeguranca.GRUPO__CTR_SALVAR_MERGE.getAcaoDoSistema().getId()) {
+        if (acaoSelecionada.getId() == FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoDoSistema().getId()) {
 
             ItfResposta resp = ModuloSeguranca.grupoDeUsuariosSalvarAlteracoes(pEntidadeSelecionada, modulos, getEMPagina());
             if (resp.isSucesso()) {

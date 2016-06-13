@@ -16,7 +16,6 @@ import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
@@ -51,7 +50,7 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      *
      */
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/projeto/gerenciarProjeto.xhtml",
-            icone = "fa fa-codepen")
+            icone = "fa fa-codepen", nomeAcao = "Gestão do Projeto", codigoJira = "SK-94")
     PROJETO_GERENCIAR_MB,
     /**
      * Formulário que exibe todas as ações do sistema
