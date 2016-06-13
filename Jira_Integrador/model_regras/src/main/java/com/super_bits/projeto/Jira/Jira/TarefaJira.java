@@ -15,6 +15,9 @@ import com.atlassian.jira.rest.client.api.domain.input.FieldInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.tempo.old.PlanosDeTrabalhoTempoJira;
 import com.super_bits.projeto.Jira.UtilSBCoreJira;
 import java.util.HashMap;
@@ -41,6 +44,7 @@ public class TarefaJira {
     private String tempoEsperado;
     private ItfAcaoDoSistema acaoVinculada;
     private Class tabelaVinculada;
+    private UtilSBCoreJira.TIPO_GRUPO_TAREFA tipoGrupoTarefa;
 
     private List<PlanosDeTrabalhoTempoJira> planosDeTrabalho;
 
@@ -61,12 +65,30 @@ public class TarefaJira {
     }
 
     public String getDescricaoTarefa() {
-        if (acaoVinculada.getIdDescritivoJira() != null) {
-            if (acaoVinculada.getIdDescritivoJira().length() > 2) {
-                return descricaoTarefa + " conforme especificado em " + acaoVinculada.getIdDescritivoJira();
+        String retornoDescricao = descricaoTarefa;
+        if (!isGropoTarefas() & !acaoVinculada.isUmaAcaoGestaoDominio()) {
+            try {
+                if (acaoVinculada.isUmaAcaoFormulario()) {
+                    if (!acaoVinculada.comoFormulario().getCampos().isEmpty()) {
+                        retornoDescricao += "\n Este formulário deve exibir os seguintes campos <br>";
+                        for (CaminhoCampoReflexao campo : acaoVinculada.comoFormulario().getCampos()) {
+                            retornoDescricao += " \n" + campo.getCaminhoCompletoString();
+                        }
+                    }
+                }
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campos na ação " + nomeTarefa, t);
             }
         }
-        return descricaoTarefa;
+
+        if (acaoVinculada.getIdDescritivoJira() != null) {
+
+            if (acaoVinculada.getIdDescritivoJira().length() > 2) {
+                retornoDescricao += " \n conforme especificado em " + acaoVinculada.getIdDescritivoJira();
+            }
+
+        }
+        return retornoDescricao;
     }
 
     public void setDescricaoTarefa(String descricaoTarefa) {
@@ -158,7 +180,26 @@ public class TarefaJira {
         String strgrupoTarefa = "";
         if (isGropoTarefas()) {
             strgrupoTarefa = "grp-";
+
+            switch (tipoGrupoTarefa) {
+                case TELA_GESTAO_ENTIDADE:
+                    strgrupoTarefa += "GT";
+                    break;
+                case MODULO_CONTROLLER:
+                    strgrupoTarefa += "MD";
+                    break;
+                case MODELAGEM_TABELA:
+                    strgrupoTarefa += "TM";
+                    break;
+                case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
+                    strgrupoTarefa += "TA";
+                    break;
+                default:
+                    throw new AssertionError(tipoGrupoTarefa.name());
+
+            }
         }
+
         switch (tipoOrigem) {
             case BANCO_DE_DADOS:
                 return "@" + strgrupoTarefa + tabelaVinculada.getSimpleName();
@@ -180,6 +221,14 @@ public class TarefaJira {
 
     public TIPO_ORIGEM_TAREFA getTipoOrigem() {
         return tipoOrigem;
+    }
+
+    public UtilSBCoreJira.TIPO_GRUPO_TAREFA getTipoGrupoTarefa() {
+        return tipoGrupoTarefa;
+    }
+
+    public void setTipoGrupoTarefa(UtilSBCoreJira.TIPO_GRUPO_TAREFA tipoGrupoTarefa) {
+        this.tipoGrupoTarefa = tipoGrupoTarefa;
     }
 
 }

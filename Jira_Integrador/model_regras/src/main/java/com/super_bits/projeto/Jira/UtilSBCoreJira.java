@@ -311,9 +311,11 @@ public class UtilSBCoreJira {
         TarefaJira tarefaPrincipal = new TarefaJira();
 
         tarefaPrincipal.setGropoTarefas(true);
+
         ItfAcaoDoSistema acaoPrincipal = null;
         if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
             acaoPrincipal = pTarefa.getAcaoVinculada();
+
         } else {
             acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
         }
@@ -323,7 +325,7 @@ public class UtilSBCoreJira {
 
         switch (pTarefa.getTipoTarefa().getGrupoTarefaInssueJira()) {
             case TELA_GESTAO_ENTIDADE:
-
+                tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.TELA_GESTAO_ENTIDADE);
                 tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
                 tarefaPrincipal.setNomeTarefa("Gestão de " + acaoPrincipal.getNomeAcao());
                 tarefaPrincipal.setDescricaoTarefa("Um requisto de gestão de entidade, \n"
@@ -331,8 +333,9 @@ public class UtilSBCoreJira {
                 return tarefaPrincipal;
 
             case MODULO_CONTROLLER:
+                tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.MODULO_CONTROLLER);
                 tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
-                tarefaPrincipal.setNomeTarefa("Ações Controller do modulo " + acaoPrincipal.getModulo().getNome());
+                tarefaPrincipal.setNomeTarefa("Controllers modulo " + acaoPrincipal.getModulo().getNome() + "." + acaoPrincipal.getNomeAcao());
                 tarefaPrincipal.setDescricaoTarefa("As ações  do modulo controller são aquelas que geram alterações no sistema \n"
                         + " todas as ações do sistema estarão disponíveis via API, portanto sua implementação deve levar em consideração chamadas com parametros de todas as formas possíveis, "
                         + "e não apenas aquelas que estarão disponíveis para o usuário. ");

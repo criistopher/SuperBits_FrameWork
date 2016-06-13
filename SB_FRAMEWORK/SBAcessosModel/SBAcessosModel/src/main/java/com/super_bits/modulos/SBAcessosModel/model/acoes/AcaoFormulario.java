@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -29,6 +30,8 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     public AcaoFormulario() {
         super();
+        campos = new ArrayList<>();
+
     }
 
     public AcaoFormulario(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
