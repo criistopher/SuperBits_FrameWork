@@ -21,6 +21,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -104,9 +105,14 @@ public class UtilSBCoreJira {
 
     }
 
-    public static TIPOS_DE_TAREFA_JIRA[] getTipoTarefaPorEntidade(Class pClasseEntidade) {
+    public static TIPOS_DE_TAREFA_JIRA[] getTiposTarefaPorEntidade(Class pClasseEntidade) {
 
-        return new TIPOS_DE_TAREFA_JIRA[]{TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_BANCO_CALCULO};
+        return new TIPOS_DE_TAREFA_JIRA[]{
+            TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_ENTIDADE_CALCULO,
+            TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_ENTIDADE_LISTAS,
+            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_LISTA,
+            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_CALCULO,
+            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO};
 
     }
 
@@ -116,18 +122,19 @@ public class UtilSBCoreJira {
         ACAO_IMPLEMENTACAO_MANAGED_BEAN,
         ACAO_CRIAR_FORMULARIO,
         ACAO_CRIAR_FORMULARIO_COMPLEXO,
+        ACAO_IMPLEMENTAR_CONTROLLER,
+        ACAO_TESTE_CONTROLLER,
+        ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO,
+        ACAO_TESTE_CONTROLLER_COMPLEXO,
         ACAO_TESTES_AMBIENTE_DE_DADOS,
         ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS,
         ACAO_BANCO_TESTES_TIPOS,
         ACAO_BANCO_IMPLEMENTACAO_TIPOS,
-        ACAO_TESTES_BANCO_CALCULO,
-        ACAO_TESTES_BANCO_LISTSTAS,
-        ACAO_SUB_CRIAR_CALCULO,
-        ACAO_SUB_CRIAR_LISTA,
-        ACAO_IMPLEMENTAR_CONTROLLER,
-        ACAO_TESTE_CONTROLLER,
-        ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO,
-        ACAO_TESTE_CONTROLLER_COMPLEXO;
+        ACAO_TESTES_ENTIDADE_CALCULO,
+        ACAO_TESTES_ENTIDADE_LISTAS,
+        ACAO_ENTIDADE_CRIAR_CALCULO,
+        ACAO_ENTIDADE_CRIAR_LISTA,
+        ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO,;
 
         public TarefaJira getTarefaInssueJira() {
             TarefaJira tarefa = new TarefaJira();
@@ -153,10 +160,10 @@ public class UtilSBCoreJira {
                 case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
                     tarefa.setTempoEsperado("6 h");
                     break;
-                case ACAO_TESTES_BANCO_CALCULO:
+                case ACAO_TESTES_ENTIDADE_CALCULO:
                     tarefa.setTempoEsperado("6 h");
                     break;
-                case ACAO_TESTES_BANCO_LISTSTAS:
+                case ACAO_TESTES_ENTIDADE_LISTAS:
                     tarefa.setTempoEsperado("6 h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER:
@@ -171,21 +178,69 @@ public class UtilSBCoreJira {
                 case ACAO_CRIAR_FORMULARIO_COMPLEXO:
                     tarefa.setTempoEsperado("12 h");
                     break;
-                case ACAO_SUB_CRIAR_CALCULO:
+                case ACAO_ENTIDADE_CRIAR_CALCULO:
                     tarefa.setTempoEsperado("40 m");
                     break;
-                case ACAO_SUB_CRIAR_LISTA:
+                case ACAO_ENTIDADE_CRIAR_LISTA:
                     tarefa.setTempoEsperado("40 m");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_TESTE_CONTROLLER_COMPLEXO:
+                    tarefa.setTempoEsperado("12 h");
+                    break;
+                case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
+                    tarefa.setTempoEsperado("3 h");
                     break;
                 default:
                     throw new AssertionError(this.name());
             }
 
             return tarefa;
+        }
+
+        public String getSigla() {
+            switch (this) {
+                case ACAO_TESTE_MANAGED_BEAN:
+                    return "TMB";
+                case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
+                    return "IMB";
+                case ACAO_CRIAR_FORMULARIO:
+                    return "FNOVO";
+                case ACAO_CRIAR_FORMULARIO_COMPLEXO:
+                    return "FNCX";
+                case ACAO_IMPLEMENTAR_CONTROLLER:
+
+                    return "IC";
+                case ACAO_TESTE_CONTROLLER:
+                    return "TC";
+                case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+                    return "ICCX";
+                case ACAO_TESTE_CONTROLLER_COMPLEXO:
+                    return "TCCX";
+                case ACAO_TESTES_AMBIENTE_DE_DADOS:
+                    return "TADB";
+                case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
+                    return "IADB";
+                case ACAO_BANCO_TESTES_TIPOS:
+                    return "TTADB";
+                case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
+                    return "IADB";
+                case ACAO_TESTES_ENTIDADE_CALCULO:
+                    return "TEC";
+                case ACAO_TESTES_ENTIDADE_LISTAS:
+                    return "TELIST";
+                case ACAO_ENTIDADE_CRIAR_CALCULO:
+                    return "IEC";
+                case ACAO_ENTIDADE_CRIAR_LISTA:
+                    return "IEL";
+                case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
+                    return "VCR";
+                default:
+                    throw new AssertionError(this.name());
+
+            }
         }
 
         public TIPO_GRUPO_TAREFA getGrupoTarefaInssueJira() {
@@ -202,10 +257,11 @@ public class UtilSBCoreJira {
                 case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
                     return TIPO_GRUPO_TAREFA.ACAO_BANCO_AMBIENTE_E_ADEQUACAO;
 
-                case ACAO_TESTES_BANCO_CALCULO:
-                case ACAO_TESTES_BANCO_LISTSTAS:
-                case ACAO_SUB_CRIAR_CALCULO:
-                case ACAO_SUB_CRIAR_LISTA:
+                case ACAO_TESTES_ENTIDADE_CALCULO:
+                case ACAO_TESTES_ENTIDADE_LISTAS:
+                case ACAO_ENTIDADE_CRIAR_CALCULO:
+                case ACAO_ENTIDADE_CRIAR_LISTA:
+                case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
                     return TIPO_GRUPO_TAREFA.MODELAGEM_TABELA;
 
                 case ACAO_IMPLEMENTAR_CONTROLLER:
@@ -214,6 +270,7 @@ public class UtilSBCoreJira {
                 case ACAO_TESTE_CONTROLLER_COMPLEXO:
 
                     return TIPO_GRUPO_TAREFA.MODULO_CONTROLLER;
+
                 default:
                     throw new AssertionError(this.name());
 
@@ -308,19 +365,37 @@ public class UtilSBCoreJira {
     }
 
     public static TarefaJira buildTarefaPrincipal(JiraRestClient conexao, TarefaJira pTarefa) {
+
         TarefaJira tarefaPrincipal = new TarefaJira();
 
         tarefaPrincipal.setGropoTarefas(true);
 
-        ItfAcaoDoSistema acaoPrincipal = null;
-        if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
-            acaoPrincipal = pTarefa.getAcaoVinculada();
+        switch (pTarefa.getTipoOrigem()) {
+            case BANCO_DE_DADOS:
+                tarefaPrincipal.setTabelaVinculada(pTarefa.getTabelaVinculada());
+                tarefaPrincipal.setTipoTarefa(TIPOS_DE_TAREFA_JIRA.ACAO_GRUPO_ENTIDADE);
+                break;
+            case ACAO_DO_SISTEMA:
+                tarefaPrincipal.setAcaoVinculada(pTarefa.getAcaoVinculada());
+                tarefaPrincipal.setTipoTarefa(TIPOS_DE_TAREFA_JIRA.ACAO_GRUPO_ENTIDADE);
+                break;
+            default:
+                throw new AssertionError(pTarefa.getTipoOrigem().name());
 
-        } else {
-            acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
         }
-        if (acaoPrincipal == null) {
-            throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());
+
+        ItfAcaoDoSistema acaoPrincipal = null;
+        if (pTarefa.getTipoOrigem() == TarefaJira.TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA) {
+
+            if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
+                acaoPrincipal = pTarefa.getAcaoVinculada();
+
+            } else {
+                acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
+            }
+            if (acaoPrincipal == null) {
+                throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());
+            }
         }
 
         switch (pTarefa.getTipoTarefa().getGrupoTarefaInssueJira()) {
@@ -342,8 +417,15 @@ public class UtilSBCoreJira {
                 return tarefaPrincipal;
 
             case MODELAGEM_TABELA:
-                break;
+                tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.MODELAGEM_TABELA);
+
+                String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjeto(pTarefa.getTabelaVinculada());
+
+                tarefaPrincipal.setNomeTarefa("Model Entidade: " + nomeEntidade + " ");
+                return tarefaPrincipal;
+
             case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
+
                 break;
             default:
                 throw new AssertionError(pTarefa.getTipoTarefa().getGrupoTarefaInssueJira().name());
@@ -392,6 +474,7 @@ public class UtilSBCoreJira {
             BasicPriority prioridadeAlta = getPrioridadeMaxiama(conexao);
 
             TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
+            System.out.println("NOME DA AÇÂO PRINCIPAL=" + pTarefa.getNomeTarefa() + pTarefa.getReferencia());
 
             if (conexao == null) {
 
@@ -428,9 +511,70 @@ public class UtilSBCoreJira {
             }
             return true;
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro cadastrando tarefa", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro cadastrando tarefa" + pTarefa.getNomeTarefa(), t);
             return false;
         }
+
+    }
+
+    public static TarefaJira getTarefaJiraEntidade(TIPOS_DE_TAREFA_JIRA pTipoTarefaJira, Class pEntidade) {
+        TarefaJira tarefa = pTipoTarefaJira.getTarefaInssueJira();
+        String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjeto(pEntidade);
+        tarefa.setTabelaVinculada(pEntidade);
+        tarefa.setTipoTarefa(pTipoTarefaJira);
+
+        switch (pTipoTarefaJira) {
+            case ACAO_TESTE_MANAGED_BEAN:
+
+            case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
+
+            case ACAO_CRIAR_FORMULARIO:
+
+            case ACAO_CRIAR_FORMULARIO_COMPLEXO:
+
+            case ACAO_IMPLEMENTAR_CONTROLLER:
+
+            case ACAO_TESTE_CONTROLLER:
+
+            case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+
+            case ACAO_TESTE_CONTROLLER_COMPLEXO:
+
+            case ACAO_TESTES_AMBIENTE_DE_DADOS:
+
+            case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
+
+            case ACAO_BANCO_TESTES_TIPOS:
+
+            case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
+                throw new UnsupportedOperationException("Algo está errado, Esta tarefa é referente a ação do sistema, mas o tipo esta setado como" + pTipoTarefaJira.name());
+
+            case ACAO_TESTES_ENTIDADE_CALCULO:
+                tarefa.setNomeTarefa("Testes de Calculo para " + nomeEntidade);
+                tarefa.setDescricaoTarefa("A partir de um ambiente de banco de dados pré configurado, um assert para cada Calculo deve ser gerado, conferindo o valor esperado");
+                break;
+            case ACAO_TESTES_ENTIDADE_LISTAS:
+                tarefa.setNomeTarefa("Testes de Lista para " + nomeEntidade);
+                tarefa.setDescricaoTarefa("A partir de um ambiente de banco de dados pré configurado, um assert para cada lista deve ser gerado, conferindo o valor esperado");
+                break;
+            case ACAO_ENTIDADE_CRIAR_CALCULO:
+                tarefa.setNomeTarefa("Implementação de Calculos para " + nomeEntidade);
+                tarefa.setDescricaoTarefa("Os calculos implementam campos somente leitura que retornam um valor especifico encontrado no banco de dados a partir do parametro id da entidade " + nomeEntidade);
+                break;
+            case ACAO_ENTIDADE_CRIAR_LISTA:
+                tarefa.setNomeTarefa("Implementação de listas para " + nomeEntidade);
+                tarefa.setDescricaoTarefa("Implementa lista de registros que podem ser obtidos a partir do id da entidade" + nomeEntidade);
+                break;
+            case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
+                tarefa.setNomeTarefa("Validação de todas as configuranções de label, notNull, infocampo, e anotações  da entidade " + nomeEntidade);
+                tarefa.setDescricaoTarefa("Criação de assert para todos os campos da entidade [" + nomeEntidade + "] ");
+
+                break;
+            default:
+                throw new AssertionError(pTipoTarefaJira.name());
+
+        }
+        return tarefa;
 
     }
 
@@ -461,21 +605,20 @@ public class UtilSBCoreJira {
                 break;
             case ACAO_TESTES_AMBIENTE_DE_DADOS:
 
-                break;
             case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
-                break;
+
             case ACAO_BANCO_TESTES_TIPOS:
-                break;
+
             case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
-                break;
-            case ACAO_TESTES_BANCO_CALCULO:
-                break;
-            case ACAO_TESTES_BANCO_LISTSTAS:
-                break;
-            case ACAO_SUB_CRIAR_CALCULO:
-                break;
-            case ACAO_SUB_CRIAR_LISTA:
-                break;
+
+            case ACAO_TESTES_ENTIDADE_CALCULO:
+
+            case ACAO_TESTES_ENTIDADE_LISTAS:
+
+            case ACAO_ENTIDADE_CRIAR_CALCULO:
+
+            case ACAO_ENTIDADE_CRIAR_LISTA:
+                throw new UnsupportedOperationException("Algo está errado, Esta tarefa é referente a ação do sistema, mas o tipo esta setado como" + pTipoTarefaJira.name());
             case ACAO_IMPLEMENTAR_CONTROLLER:
                 tarefa.setNomeTarefa("Implementação de código para " + pAcao.getNomeAcao());
                 tarefa.setDescricaoTarefa("Cria os testes pensando na metodologia TDD, para ação descrita como " + pAcao.getNomeAcao() + " um bom teste deve testar a evocação do métod em todas as opções possíveis, verificando  via comandos de assert o resultado esperado, um bom teste considera não só as opções disponíveis para o usuaŕio, "

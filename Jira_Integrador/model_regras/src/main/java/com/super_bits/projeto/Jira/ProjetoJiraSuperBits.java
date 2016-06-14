@@ -87,18 +87,26 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
 
         for (Class entidade : entidades) {
-            System.out.println(entidade.getSimpleName());
+
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
+
+                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
+                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade)) {
+
+                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
+                }
+            }
+
         }
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
             if (acao.getTipoAcaoGenerica() == null) {
+
                 throw new UnsupportedOperationException("A ação generica para" + acao.getNomeUnico() + " não foi especificada");
             }
 
-            UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA[] tarefas = UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica());
-
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : tarefas) {
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
 
                 TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
 

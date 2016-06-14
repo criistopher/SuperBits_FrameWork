@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
  * @author Salvio
  */
 @Entity
+@InfoClasse(tags = "Grupos com acesso negado")
 public class Negado_Grupos implements Serializable {
 
     @Id

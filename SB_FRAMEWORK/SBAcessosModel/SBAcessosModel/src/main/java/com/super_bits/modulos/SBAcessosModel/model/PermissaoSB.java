@@ -6,12 +6,13 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
-import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
@@ -38,6 +39,7 @@ import javax.persistence.Transient;
  * @author Salvio
  */
 @Entity
+@InfoClasse(tags = {"Informações de Permissão"})
 public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serializable {
 
     @Id

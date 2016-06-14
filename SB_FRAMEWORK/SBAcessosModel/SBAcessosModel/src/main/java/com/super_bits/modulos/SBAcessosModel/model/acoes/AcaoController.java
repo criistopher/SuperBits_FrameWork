@@ -4,10 +4,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -29,6 +30,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = {"Ação da cadamada de controller "})
 public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
     private int idMetodo;

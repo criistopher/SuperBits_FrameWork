@@ -5,8 +5,8 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
  * @author Salvio
  */
 @Entity
+@InfoClasse(tags = {"Permissão por Grupos"})
 public class Permitido_Grupos implements Serializable {
 
     @Id

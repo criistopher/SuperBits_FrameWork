@@ -66,28 +66,31 @@ public class TarefaJira {
 
     public String getDescricaoTarefa() {
         String retornoDescricao = descricaoTarefa;
-        if (!isGropoTarefas() & !acaoVinculada.isUmaAcaoGestaoDominio()) {
-            try {
-                if (acaoVinculada.isUmaAcaoFormulario()) {
-                    if (!acaoVinculada.comoFormulario().getCampos().isEmpty()) {
-                        retornoDescricao += "\n Este formulário deve exibir os seguintes campos <br>";
-                        for (CaminhoCampoReflexao campo : acaoVinculada.comoFormulario().getCampos()) {
-                            retornoDescricao += " \n" + campo.getCaminhoCompletoString();
+
+        if (tipoOrigem == TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA) {
+            if (!isGropoTarefas() & !acaoVinculada.isUmaAcaoGestaoDominio()) {
+                try {
+                    if (acaoVinculada.isUmaAcaoFormulario()) {
+                        if (!acaoVinculada.comoFormulario().getCampos().isEmpty()) {
+                            retornoDescricao += "\n Este formulário deve exibir os seguintes campos <br>";
+                            for (CaminhoCampoReflexao campo : acaoVinculada.comoFormulario().getCampos()) {
+                                retornoDescricao += " \n" + campo.getCaminhoCompletoString();
+                            }
                         }
                     }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campos na ação " + nomeTarefa, t);
                 }
-            } catch (Throwable t) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campos na ação " + nomeTarefa, t);
+            }
+            if (acaoVinculada.getIdDescritivoJira() != null) {
+
+                if (acaoVinculada.getIdDescritivoJira().length() > 2) {
+                    retornoDescricao += " \n conforme especificado em " + acaoVinculada.getIdDescritivoJira();
+                }
+
             }
         }
 
-        if (acaoVinculada.getIdDescritivoJira() != null) {
-
-            if (acaoVinculada.getIdDescritivoJira().length() > 2) {
-                retornoDescricao += " \n conforme especificado em " + acaoVinculada.getIdDescritivoJira();
-            }
-
-        }
         return retornoDescricao;
     }
 
@@ -125,6 +128,9 @@ public class TarefaJira {
 
     public void setAcaoVinculada(ItfAcaoDoSistema acaoVinculada) {
         tipoOrigem = TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA;
+        if (tipoOrigem != null) {
+            throw new UnsupportedOperationException("A origem da ação já foi definida");
+        }
         this.acaoVinculada = acaoVinculada;
     }
 
@@ -133,7 +139,11 @@ public class TarefaJira {
     }
 
     public void setTabelaVinculada(Class tabelaVinculada) {
+        if (tipoOrigem != null) {
+            throw new UnsupportedOperationException("A origem da ação já foi definida");
+        }
         tipoOrigem = TIPO_ORIGEM_TAREFA.BANCO_DE_DADOS;
+
         this.tabelaVinculada = tabelaVinculada;
     }
 
@@ -177,38 +187,50 @@ public class TarefaJira {
     }
 
     public String getReferencia() {
-        String strgrupoTarefa = "";
-        if (isGropoTarefas()) {
-            strgrupoTarefa = "grp-";
+        try {
+            String strgrupoTarefa = "";
+            if (isGropoTarefas()) {
+                strgrupoTarefa = "grp-";
 
-            switch (tipoGrupoTarefa) {
-                case TELA_GESTAO_ENTIDADE:
-                    strgrupoTarefa += "GT";
-                    break;
-                case MODULO_CONTROLLER:
-                    strgrupoTarefa += "MD";
-                    break;
-                case MODELAGEM_TABELA:
-                    strgrupoTarefa += "TM";
-                    break;
-                case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
-                    strgrupoTarefa += "TA";
-                    break;
-                default:
-                    throw new AssertionError(tipoGrupoTarefa.name());
+                switch (tipoGrupoTarefa) {
+                    case TELA_GESTAO_ENTIDADE:
+                        strgrupoTarefa += "GT";
+                        break;
+                    case MODULO_CONTROLLER:
+                        strgrupoTarefa += "MD";
+                        break;
+                    case MODELAGEM_TABELA:
+                        strgrupoTarefa += "TM";
+                        break;
+                    case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
+                        strgrupoTarefa += "TA";
+                        break;
+                    default:
+                        throw new AssertionError(tipoGrupoTarefa.name());
+
+                }
+            } else {
+
+                strgrupoTarefa += tipoTarefa.getSigla();
 
             }
+
+            switch (tipoOrigem) {
+
+                case BANCO_DE_DADOS:
+                    return "@" + strgrupoTarefa + tabelaVinculada.getSimpleName();
+
+                case ACAO_DO_SISTEMA:
+                    return "@" + strgrupoTarefa + acaoVinculada.getNomeUnico();
+                default:
+                    throw new AssertionError(tipoOrigem.name());
+
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro obtendo refenrencia da tarefa" + nomeTarefa, t);
+            return null;
         }
 
-        switch (tipoOrigem) {
-            case BANCO_DE_DADOS:
-                return "@" + strgrupoTarefa + tabelaVinculada.getSimpleName();
-            case ACAO_DO_SISTEMA:
-                return "@" + strgrupoTarefa + acaoVinculada.getNomeUnico();
-            default:
-                throw new AssertionError(tipoOrigem.name());
-
-        }
     }
 
     public boolean isGropoTarefas() {

@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -28,6 +29,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = "Ação relacionada a uma entidade")
 public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     @Transient

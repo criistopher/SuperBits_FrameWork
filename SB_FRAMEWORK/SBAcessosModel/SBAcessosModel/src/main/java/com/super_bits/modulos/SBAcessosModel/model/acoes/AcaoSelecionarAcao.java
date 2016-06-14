@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -15,6 +16,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = {"Ação para selação de ações"})
 public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecionarAcao {
 
     @Transient

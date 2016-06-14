@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
 
@@ -15,6 +16,7 @@ import javax.persistence.Entity;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = {"Ação formulario Modal relacionado a entidade"})
 public class AcaoFormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";

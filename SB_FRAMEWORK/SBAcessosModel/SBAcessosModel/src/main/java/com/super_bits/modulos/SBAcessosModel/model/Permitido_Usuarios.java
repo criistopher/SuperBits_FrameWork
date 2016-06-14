@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesso_id"}))
 @Entity
+@InfoClasse(tags = {"Permissão por Usuários"})
 public class Permitido_Usuarios implements Serializable {
 
     @Id

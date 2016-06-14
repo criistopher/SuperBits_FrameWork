@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
  * @author desenvolvedor
  */
 @Entity
+@InfoClasse(tags = "Ação secundária")
 public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria {
 
     @ManyToOne
