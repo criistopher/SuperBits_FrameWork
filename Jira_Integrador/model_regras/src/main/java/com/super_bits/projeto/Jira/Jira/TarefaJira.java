@@ -20,6 +20,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.tempo.old.PlanosDeTrabalhoTempoJira;
 import com.super_bits.projeto.Jira.UtilSBCoreJira;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,10 +128,11 @@ public class TarefaJira {
     }
 
     public void setAcaoVinculada(ItfAcaoDoSistema acaoVinculada) {
-        tipoOrigem = TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA;
         if (tipoOrigem != null) {
-            throw new UnsupportedOperationException("A origem da ação já foi definida");
+            throw new UnsupportedOperationException("A origem da ação já foi definida como" + tipoOrigem);
         }
+        tipoOrigem = TIPO_ORIGEM_TAREFA.ACAO_DO_SISTEMA;
+
         this.acaoVinculada = acaoVinculada;
     }
 
@@ -158,7 +160,7 @@ public class TarefaJira {
         Map<String, Object> parent = new HashMap<String, Object>();
         parent.put("key", acaoPrincipal.getKey());
         inputBuilder.setFieldInput(new FieldInput("parent", new ComplexIssueInputFieldValue(parent)));
-
+        inputBuilder.setFieldValue("labels", Arrays.asList(" ref[" + getReferencia() + "]"));
         inputBuilder.setSummary(getNomeTarefa());
         inputBuilder.setDescription(getDescricaoTarefa());
         inputBuilder.setPriority(prioridade);
@@ -173,6 +175,8 @@ public class TarefaJira {
 
         Map<String, Object> map = new HashMap<>();
         map.put("originalEstimate", getTempoEsperado());
+
+        inputBuilder.setFieldValue("labels", Arrays.asList(" ref[" + getReferencia() + "]"));
 
         //inputBuilder.setFieldInput(new FieldInput(IssueFieldId. , new ComplexIssueInputFieldValue(map)));
         inputBuilder.setSummary(getNomeTarefa());
