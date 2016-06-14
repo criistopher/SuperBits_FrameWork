@@ -35,7 +35,7 @@ public class ProjetoJiraSuperBitsTest extends TesteJunitSBPersistencia {
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
 
                 TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-                UtilSBCoreJira.criarTarefafasDaAcao(conexao, tarefaEntidade);
+                //UtilSBCoreJira.criarTarefafasDaAcao(conexao, tarefaEntidade);
                 System.out.println(tarefaEntidade.getReferencia());
             }
 

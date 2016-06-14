@@ -37,7 +37,7 @@ public class UtilSBCoreJiraTest extends TesteJunitSBPersistencia {
         UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemProgramador(usuario2.getName()));
 
         TarefaJira tarefa = UtilSBCoreJira.getTarefaJiraAcaoDoSistema(UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA.ACAO_IMPLEMENTACAO_MANAGED_BEAN, FabAcaoProjetoSB.PROJETO_GERENCIAR_MB.getAcaoDoSistema());
-        UtilSBCoreJira.criarTarefafasDaAcao(conexao, tarefa);
+        //   UtilSBCoreJira.criarTarefafasDaAcao(conexao, tarefa);
 
     }
 

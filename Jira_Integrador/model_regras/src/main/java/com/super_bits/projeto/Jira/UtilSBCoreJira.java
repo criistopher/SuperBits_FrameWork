@@ -110,8 +110,8 @@ public class UtilSBCoreJira {
         return new TIPOS_DE_TAREFA_JIRA[]{
             TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_ENTIDADE_CALCULO,
             TIPOS_DE_TAREFA_JIRA.ACAO_TESTES_ENTIDADE_LISTAS,
-            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_LISTA,
-            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_CALCULO,
+            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_LISTAS,
+            TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_CRIAR_CALCULOS,
             TIPOS_DE_TAREFA_JIRA.ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO};
 
     }
@@ -132,8 +132,8 @@ public class UtilSBCoreJira {
         ACAO_BANCO_IMPLEMENTACAO_TIPOS,
         ACAO_TESTES_ENTIDADE_CALCULO,
         ACAO_TESTES_ENTIDADE_LISTAS,
-        ACAO_ENTIDADE_CRIAR_CALCULO,
-        ACAO_ENTIDADE_CRIAR_LISTA,
+        ACAO_ENTIDADE_CRIAR_CALCULOS,
+        ACAO_ENTIDADE_CRIAR_LISTAS,
         ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO,;
 
         public TarefaJira getTarefaInssueJira() {
@@ -146,10 +146,8 @@ public class UtilSBCoreJira {
                 case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
                     tarefa.setTempoEsperado("12 h");
                     break;
-
                 case ACAO_TESTES_AMBIENTE_DE_DADOS:
                     tarefa.setTempoEsperado("6 h");
-
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
                     tarefa.setTempoEsperado("12 h");
@@ -178,11 +176,11 @@ public class UtilSBCoreJira {
                 case ACAO_CRIAR_FORMULARIO_COMPLEXO:
                     tarefa.setTempoEsperado("12 h");
                     break;
-                case ACAO_ENTIDADE_CRIAR_CALCULO:
-                    tarefa.setTempoEsperado("40 m");
+                case ACAO_ENTIDADE_CRIAR_CALCULOS:
+                    tarefa.setTempoEsperado("12 h");
                     break;
-                case ACAO_ENTIDADE_CRIAR_LISTA:
-                    tarefa.setTempoEsperado("40 m");
+                case ACAO_ENTIDADE_CRIAR_LISTAS:
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
                     tarefa.setTempoEsperado("12 h");
@@ -211,7 +209,6 @@ public class UtilSBCoreJira {
                 case ACAO_CRIAR_FORMULARIO_COMPLEXO:
                     return "FNCX";
                 case ACAO_IMPLEMENTAR_CONTROLLER:
-
                     return "IC";
                 case ACAO_TESTE_CONTROLLER:
                     return "TC";
@@ -231,9 +228,9 @@ public class UtilSBCoreJira {
                     return "TEC";
                 case ACAO_TESTES_ENTIDADE_LISTAS:
                     return "TELIST";
-                case ACAO_ENTIDADE_CRIAR_CALCULO:
+                case ACAO_ENTIDADE_CRIAR_CALCULOS:
                     return "IEC";
-                case ACAO_ENTIDADE_CRIAR_LISTA:
+                case ACAO_ENTIDADE_CRIAR_LISTAS:
                     return "IEL";
                 case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
                     return "VCR";
@@ -259,8 +256,8 @@ public class UtilSBCoreJira {
 
                 case ACAO_TESTES_ENTIDADE_CALCULO:
                 case ACAO_TESTES_ENTIDADE_LISTAS:
-                case ACAO_ENTIDADE_CRIAR_CALCULO:
-                case ACAO_ENTIDADE_CRIAR_LISTA:
+                case ACAO_ENTIDADE_CRIAR_CALCULOS:
+                case ACAO_ENTIDADE_CRIAR_LISTAS:
                 case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
                     return TIPO_GRUPO_TAREFA.MODELAGEM_TABELA;
 
@@ -367,17 +364,13 @@ public class UtilSBCoreJira {
     public static TarefaJira buildTarefaPrincipal(JiraRestClient conexao, TarefaJira pTarefa) {
 
         TarefaJira tarefaPrincipal = new TarefaJira();
-
         tarefaPrincipal.setGropoTarefas(true);
-
         switch (pTarefa.getTipoOrigem()) {
             case BANCO_DE_DADOS:
                 tarefaPrincipal.setTabelaVinculada(pTarefa.getTabelaVinculada());
-
                 break;
             case ACAO_DO_SISTEMA:
                 tarefaPrincipal.setAcaoVinculada(pTarefa.getAcaoVinculada());
-
                 break;
             default:
                 throw new AssertionError(pTarefa.getTipoOrigem().name());
@@ -389,7 +382,6 @@ public class UtilSBCoreJira {
 
             if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
                 acaoPrincipal = pTarefa.getAcaoVinculada();
-
             } else {
                 acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
             }
@@ -401,31 +393,23 @@ public class UtilSBCoreJira {
         switch (pTarefa.getTipoTarefa().getGrupoTarefaInssueJira()) {
             case TELA_GESTAO_ENTIDADE:
                 tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.TELA_GESTAO_ENTIDADE);
-                tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
-                tarefaPrincipal.setNomeTarefa("Gestão de " + acaoPrincipal.getNomeAcao());
-                tarefaPrincipal.setDescricaoTarefa("Um requisto de gestão de entidade, \n"
-                        + " implementa uma Listagem da entidade com botões para todas as ações vinculadas a ela. \n juntamente com os formularios atrelados as ações");
+                tarefaPrincipal.setNomeTarefa("WebPaginas p/ " + acaoPrincipal.getNomeAcao());
+                tarefaPrincipal.setDescricaoTarefa("Webpaginas que  \n"
+                        + " implementam uma Listagem da entidade com botões para todas as ações vinculadas a ela. \n juntamente com os formularios atrelados as ações");
                 return tarefaPrincipal;
-
             case MODULO_CONTROLLER:
                 tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.MODULO_CONTROLLER);
-                tarefaPrincipal.setAcaoVinculada(acaoPrincipal);
-                tarefaPrincipal.setNomeTarefa("Controllers modulo " + acaoPrincipal.getModulo().getNome() + "." + acaoPrincipal.getNomeAcao());
+                tarefaPrincipal.setNomeTarefa("Controllers p/" + acaoPrincipal.getModulo().getNome() + "." + acaoPrincipal.getNomeAcao());
                 tarefaPrincipal.setDescricaoTarefa("As ações  do modulo controller são aquelas que geram alterações no sistema \n"
                         + " todas as ações do sistema estarão disponíveis via API, portanto sua implementação deve levar em consideração chamadas com parametros de todas as formas possíveis, "
                         + "e não apenas aquelas que estarão disponíveis para o usuário. ");
                 return tarefaPrincipal;
-
             case MODELAGEM_TABELA:
                 tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.MODELAGEM_TABELA);
-
                 String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjeto(pTarefa.getTabelaVinculada());
-
-                tarefaPrincipal.setNomeTarefa("Model Entidade: " + nomeEntidade + " ");
+                tarefaPrincipal.setNomeTarefa("Model p/ " + nomeEntidade + " ");
                 return tarefaPrincipal;
-
             case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
-
                 break;
             default:
                 throw new AssertionError(pTarefa.getTipoTarefa().getGrupoTarefaInssueJira().name());
@@ -435,9 +419,9 @@ public class UtilSBCoreJira {
 
     }
 
-    public static String getIdTarefa(JiraRestClient conexao, TarefaJira pTarefa) {
+    public static String getIdTarefaPeloLabel(JiraRestClient conexao, TarefaJira pTarefa) {
 
-        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("Summary ~ \"" + pTarefa.getReferencia() + "\" and issueType =\"Task\"");
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("labels = \"" + pTarefa.getReferencia() + "\" and issueType =\"Task\"");
         SearchResult resp = pesquisa.claim();
         List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
         if (resplist.size() > 0) {
@@ -446,9 +430,9 @@ public class UtilSBCoreJira {
         return null;
     }
 
-    public static String getIdSubTarefa(JiraRestClient conexao, TarefaJira pTarefa) {
+    public static String getIdSubTarefaPeloLabel(JiraRestClient conexao, TarefaJira pTarefa) {
 
-        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("Summary ~ \"" + pTarefa.getReferencia() + "\" and issueType =\"Sub-Task - ST\"");
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("labels = \"" + pTarefa.getReferencia() + "\" and issueType =\"Sub-Task - ST\"");
         SearchResult resp = pesquisa.claim();
         List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
         if (resplist.size() > 0) {
@@ -457,7 +441,7 @@ public class UtilSBCoreJira {
         return null;
     }
 
-    public static boolean criarTarefafasDaAcao(JiraRestClient conexao, TarefaJira pTarefa) {
+    public static boolean criarTarefafasDaAcao(JiraRestClient conexao, TarefaJira pTarefa, User pUsuarioResponsavel) {
 
         try {
 
@@ -474,7 +458,6 @@ public class UtilSBCoreJira {
             BasicPriority prioridadeAlta = getPrioridadeMaxiama(conexao);
 
             TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
-            System.out.println("NOME DA AÇÂO PRINCIPAL=" + pTarefa.getNomeTarefa() + pTarefa.getReferencia());
 
             if (conexao == null) {
 
@@ -483,14 +466,14 @@ public class UtilSBCoreJira {
             if (tarefaPrincipal == null) {
                 throw new UnsupportedOperationException("Impossível deterinar a tarefa principal para" + pTarefa.getReferencia());
             }
-            String idTarefaPrincipal = getIdTarefa(conexao, tarefaPrincipal);
+            String idTarefaPrincipal = getIdTarefaPeloLabel(conexao, tarefaPrincipal);
 
             BasicIssue tarefaPrincipalCriada = null;
             IssueInput issuePrincipal = null;
             if (idTarefaPrincipal == null) {
-                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, getUsuarioPorNome(conexao, "salvio"));
+                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, pUsuarioResponsavel);
             } else {
-                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, getUsuarioPorNome(conexao, "cristopherAmaral"));
+                issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, pUsuarioResponsavel);
             }
 
             if (idTarefaPrincipal == null) {
@@ -499,9 +482,9 @@ public class UtilSBCoreJira {
                 conexao.getIssueClient().updateIssue(idTarefaPrincipal, issuePrincipal);
                 tarefaPrincipalCriada = conexao.getIssueClient().getIssue(idTarefaPrincipal).claim();
             }
-            String idTarefa = getIdSubTarefa(conexao, pTarefa);
+            String idTarefa = getIdSubTarefaPeloLabel(conexao, pTarefa);
 
-            IssueInput issueTarefa = pTarefa.getIssue(projeto, tipoTarefaSecundaria, prioridadeAlta, tarefaPrincipalCriada);
+            IssueInput issueTarefa = pTarefa.getIssue(projeto, tipoTarefaSecundaria, prioridadeAlta, tarefaPrincipalCriada, pUsuarioResponsavel);
             System.out.println(pTarefa.getNomeTarefa());
             if (idTarefa == null) {
 
@@ -557,11 +540,11 @@ public class UtilSBCoreJira {
                 tarefa.setNomeTarefa("Testes de Lista para " + nomeEntidade);
                 tarefa.setDescricaoTarefa("A partir de um ambiente de banco de dados pré configurado, um assert para cada lista deve ser gerado, conferindo o valor esperado");
                 break;
-            case ACAO_ENTIDADE_CRIAR_CALCULO:
+            case ACAO_ENTIDADE_CRIAR_CALCULOS:
                 tarefa.setNomeTarefa("Implementação de Calculos para " + nomeEntidade);
                 tarefa.setDescricaoTarefa("Os calculos implementam campos somente leitura que retornam um valor especifico encontrado no banco de dados a partir do parametro id da entidade " + nomeEntidade);
                 break;
-            case ACAO_ENTIDADE_CRIAR_LISTA:
+            case ACAO_ENTIDADE_CRIAR_LISTAS:
                 tarefa.setNomeTarefa("Implementação de listas para " + nomeEntidade);
                 tarefa.setDescricaoTarefa("Implementa lista de registros que podem ser obtidos a partir do id da entidade" + nomeEntidade);
                 break;
@@ -615,9 +598,9 @@ public class UtilSBCoreJira {
 
             case ACAO_TESTES_ENTIDADE_LISTAS:
 
-            case ACAO_ENTIDADE_CRIAR_CALCULO:
+            case ACAO_ENTIDADE_CRIAR_CALCULOS:
 
-            case ACAO_ENTIDADE_CRIAR_LISTA:
+            case ACAO_ENTIDADE_CRIAR_LISTAS:
                 throw new UnsupportedOperationException("Algo está errado, Esta tarefa é referente a ação do sistema, mas o tipo esta setado como" + pTipoTarefaJira.name());
             case ACAO_IMPLEMENTAR_CONTROLLER:
                 tarefa.setNomeTarefa("Implementação de código para " + pAcao.getNomeAcao());

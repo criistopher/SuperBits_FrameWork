@@ -58,7 +58,7 @@ public class TarefaJira {
     }
 
     public String getNomeTarefa() {
-        return nomeTarefa + " ref[" + getReferencia() + "]";
+        return nomeTarefa;
     }
 
     public void setNomeTarefa(String nomeTarefa) {
@@ -149,7 +149,7 @@ public class TarefaJira {
         this.tabelaVinculada = tabelaVinculada;
     }
 
-    public IssueInput getIssue(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade, BasicIssue acaoPrincipal) {
+    public IssueInput getIssue(BasicProject pProjeto, IssueType pTipoIssue, BasicPriority prioridade, BasicIssue acaoPrincipal, User pUsuario) {
 
         IssueInputBuilder inputBuilder = new IssueInputBuilder(pProjeto, pTipoIssue);
 
@@ -164,7 +164,9 @@ public class TarefaJira {
         inputBuilder.setSummary(getNomeTarefa());
         inputBuilder.setDescription(getDescricaoTarefa());
         inputBuilder.setPriority(prioridade);
-
+        if (pUsuario != null) {
+            inputBuilder.setAssignee(pUsuario);
+        }
         return inputBuilder.build();
 
     }
@@ -176,7 +178,7 @@ public class TarefaJira {
         Map<String, Object> map = new HashMap<>();
         map.put("originalEstimate", getTempoEsperado());
 
-        inputBuilder.setFieldValue("labels", Arrays.asList(" ref[" + getReferencia() + "]"));
+        inputBuilder.setFieldValue("labels", Arrays.asList(getReferencia()));
 
         //inputBuilder.setFieldInput(new FieldInput(IssueFieldId. , new ComplexIssueInputFieldValue(map)));
         inputBuilder.setSummary(getNomeTarefa());
@@ -192,22 +194,23 @@ public class TarefaJira {
 
     public String getReferencia() {
         try {
-            String strgrupoTarefa = "";
+            String strInicioReferencia = "ref[@";
+            String fimReferencia = "]";
             if (isGropoTarefas()) {
-                strgrupoTarefa = "grp-";
+                strInicioReferencia = "grp-";
 
                 switch (tipoGrupoTarefa) {
                     case TELA_GESTAO_ENTIDADE:
-                        strgrupoTarefa += "GT";
+                        strInicioReferencia += "GT";
                         break;
                     case MODULO_CONTROLLER:
-                        strgrupoTarefa += "MD";
+                        strInicioReferencia += "MD";
                         break;
                     case MODELAGEM_TABELA:
-                        strgrupoTarefa += "TM";
+                        strInicioReferencia += "TM";
                         break;
                     case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
-                        strgrupoTarefa += "TA";
+                        strInicioReferencia += "TA";
                         break;
                     default:
                         throw new AssertionError(tipoGrupoTarefa.name());
@@ -215,17 +218,17 @@ public class TarefaJira {
                 }
             } else {
 
-                strgrupoTarefa += tipoTarefa.getSigla();
+                strInicioReferencia += tipoTarefa.getSigla();
 
             }
 
             switch (tipoOrigem) {
 
                 case BANCO_DE_DADOS:
-                    return "@" + strgrupoTarefa + tabelaVinculada.getSimpleName();
+                    return strInicioReferencia + tabelaVinculada.getSimpleName() + fimReferencia;
 
                 case ACAO_DO_SISTEMA:
-                    return "@" + strgrupoTarefa + acaoVinculada.getNomeUnico();
+                    return strInicioReferencia + acaoVinculada.getNomeUnico() + fimReferencia;
                 default:
                     throw new AssertionError(tipoOrigem.name());
 

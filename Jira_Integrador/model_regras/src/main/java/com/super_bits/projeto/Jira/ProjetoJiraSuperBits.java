@@ -21,7 +21,7 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
     private User analistaBancoDados;
     private User analistaTDD;
-    private User implementaDor;
+    private User analistaImplementacao;
     private User analistaTelas;
     private User analistaAndroid;
 
@@ -54,12 +54,12 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
         this.analistaTDD = getUsuario(analistaTDD);
     }
 
-    public User getImplementaDor() {
-        return implementaDor;
+    public User getAnalistaImplementacao() {
+        return analistaImplementacao;
     }
 
-    public void setImplementaDor(String implementaDor) {
-        this.implementaDor = getUsuario(implementaDor);
+    public void setAnalistaImplementacao(String implementaDor) {
+        this.analistaImplementacao = getUsuario(implementaDor);
     }
 
     public User getAnalistaTelas() {
@@ -91,7 +91,8 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
 
                 TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade)) {
+
+                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
 
                     throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
                 }
@@ -105,12 +106,32 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
                 throw new UnsupportedOperationException("A ação generica para" + acao.getNomeUnico() + " não foi especificada");
             }
-
+            User usuarioDaTarefa = getAnalistaTDD();
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
 
                 TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
+                switch (tarefa.getTipoTarefa()) {
 
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa)) {
+                    case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
+                    case ACAO_CRIAR_FORMULARIO:
+                    case ACAO_CRIAR_FORMULARIO_COMPLEXO:
+                    case ACAO_IMPLEMENTAR_CONTROLLER:
+                    case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+                    case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
+                        usuarioDaTarefa = getAnalistaImplementacao();
+                        break;
+                    case ACAO_TESTES_ENTIDADE_CALCULO:
+                    case ACAO_TESTE_MANAGED_BEAN:
+                    case ACAO_TESTES_ENTIDADE_LISTAS:
+                    case ACAO_TESTE_CONTROLLER:
+                    case ACAO_TESTE_CONTROLLER_COMPLEXO:
+                        usuarioDaTarefa = getAnalistaTDD();
+                    default:
+                        throw new AssertionError(tarefa.getTipoTarefa().name());
+
+                }
+
+                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa, usuarioDaTarefa)) {
 
                     throw new UnsupportedOperationException("Erro criando ação para " + acao.getNomeUnico());
                 }

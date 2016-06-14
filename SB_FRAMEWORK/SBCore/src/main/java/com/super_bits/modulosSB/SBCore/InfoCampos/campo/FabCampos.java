@@ -384,7 +384,11 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Indica um campo de Localizacao (Que implementa ItfLocalizacao)
      */
-    LC_LOCALIZACAO;
+    LC_LOCALIZACAO,
+    /**
+     * Campo especial, que indica uma separação
+     */
+    CAMPO_SEPARADOR;
 
     @Override
     public Campo getRegistro() {
