@@ -373,11 +373,11 @@ public class UtilSBCoreJira {
         switch (pTarefa.getTipoOrigem()) {
             case BANCO_DE_DADOS:
                 tarefaPrincipal.setTabelaVinculada(pTarefa.getTabelaVinculada());
-                tarefaPrincipal.setTipoTarefa(TIPOS_DE_TAREFA_JIRA.ACAO_GRUPO_ENTIDADE);
+
                 break;
             case ACAO_DO_SISTEMA:
                 tarefaPrincipal.setAcaoVinculada(pTarefa.getAcaoVinculada());
-                tarefaPrincipal.setTipoTarefa(TIPOS_DE_TAREFA_JIRA.ACAO_GRUPO_ENTIDADE);
+
                 break;
             default:
                 throw new AssertionError(pTarefa.getTipoOrigem().name());
