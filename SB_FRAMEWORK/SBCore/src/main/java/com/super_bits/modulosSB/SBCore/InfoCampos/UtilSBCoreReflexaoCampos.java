@@ -8,6 +8,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoSeparador;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
@@ -33,10 +34,45 @@ public class UtilSBCoreReflexaoCampos {
     private static final Map<Class, List<CaminhoCampoReflexao>> ENTIDADES_DA_CLASSE = new HashMap<>();//ok
     private static final Map<String, Class> CLASSE_ENTIDADE_BY_CAMINHO = new HashMap<>();//ok
     private static final Map<Class, Boolean> CLASSE_CONFIGURADA = new HashMap<>();//ok
+
+    /**
+     *
+     * A TAG SEPARADOR É A TAG QUE IDENTIFICA UM NOME DE CAMPO COMO SEPARADOR
+     *
+     * A SINTAXE PARA UM CAMPO SEPARADOR É [SEPARADOR:Nome do Separador]
+     *
+     */
+    public static final String TAG_SEPARADOR = "[separador";
     private static boolean todasClassesConfiguradas = false;
 
     public static boolean isTodasClassesConfiguradas() {
         return todasClassesConfiguradas;
+
+    }
+
+    public static boolean isUmCampoSeparador(String pNomeSeparador) {
+        return pNomeSeparador.contains(TAG_SEPARADOR);
+    }
+
+    public static String getNomeGrupoPorStrSeparador(String pSeparador) {
+        if (!isUmCampoSeparador(pSeparador)) {
+            throw new UnsupportedOperationException("A string não parece ser referente a um separador, ->" + pSeparador);
+        }
+
+        String[] partes = pSeparador.split(":");
+        if (partes.length < 2) {
+            return null;
+        }
+        return partes[1];
+
+    }
+
+    public static CampoInstanciadoSeparador getCampoSeparador(String pSeparador) {
+        if (isUmCampoSeparador(pSeparador)) {
+            throw new UnsupportedOperationException("A tag" + TAG_SEPARADOR + " não foi encontrada");
+        }
+
+        return new CampoInstanciadoSeparador(getNomeGrupoPorStrSeparador(pSeparador));
 
     }
 
@@ -247,6 +283,12 @@ public class UtilSBCoreReflexaoCampos {
 
     public static CaminhoCampoReflexao getCaminhoCAmpoByString(String pCaminho) {
         try {
+
+            if (isUmCampoSeparador(pCaminho)) {
+                String caminhoCompleto = pCaminho;
+                return new CaminhoCampoReflexao(caminhoCompleto);
+            }
+
             if (getClassePrincipalPorNome(pCaminho) == null) {
                 throw new UnsupportedOperationException("A classe principal para " + pCaminho + "não foi encontrada");
             }
@@ -265,7 +307,13 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     public static CaminhoCampoReflexao getCaminhoByStringRelativaEClasse(String pCaminho, Class pClase) {
+
         try {
+            if (isUmCampoSeparador(pCaminho)) {
+                String caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
+                return new CaminhoCampoReflexao(caminhoCompleto);
+            }
+
             if (getClassePrincipalPorNome(pClase.getSimpleName()) == null) {
                 throw new UnsupportedOperationException("A classe principal para " + pCaminho + "não foi encontrada");
             }

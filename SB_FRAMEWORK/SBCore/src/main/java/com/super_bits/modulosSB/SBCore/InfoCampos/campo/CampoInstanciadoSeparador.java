@@ -12,11 +12,17 @@ import java.util.List;
 
 /**
  *
+ *
+ *
+ *
  * @author desenvolvedor
  */
 public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
+    private String nomeDoSeparador;
+
     public CampoInstanciadoSeparador(String pnome) {
+        nomeDoSeparador = pnome;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getNomeCamponaClasse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
     @Override
@@ -51,32 +57,32 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public boolean validarCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
     public boolean isVazio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public FabCampos getTipoCampo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return FabCampos.CAMPO_SEPARADOR;
     }
 
     @Override
     public TIPOPRIMITIVO getTipoValor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return TIPOPRIMITIVO.LETRAS;
     }
 
     @Override
     public String getTipoVisualizacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "linha";
     }
 
     @Override
     public String getLabel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getDescricao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Separador para montagem de formularios";
     }
 
     @Override
@@ -96,12 +102,12 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getValorPadrao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
     @Override
     public boolean isObrigatorio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
@@ -141,17 +147,17 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public boolean isTemMascara() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean isNumeral() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean isMoeda() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
@@ -186,22 +192,22 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
     @Override
     public String getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
     @Override
     public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
     @Override
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
@@ -216,7 +222,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getNomeDoObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomeDoSeparador;
     }
 
 }

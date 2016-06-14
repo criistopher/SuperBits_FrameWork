@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroObtendoValorDoCampoPorReflexao;
@@ -164,7 +165,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         mapaCamposInstanciados = new HashMap<>();
 
         while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
-
             for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
                 campoEncontrado.getAnnotations(); // SE o campo não for estatico
                 if (!Modifier.isStatic(campoEncontrado.getModifiers())) {
@@ -177,10 +177,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                         if (anotacao != null) {
                             mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
                         }
-
                     }
                 }
-
             }
             classeAnalizada = classeAnalizada.getSuperclass();
         }
@@ -411,7 +409,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                 if (pCampoReflexao.getType().getName().equals("int")) {
+                {
+                    if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -428,6 +427,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
+                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
@@ -509,7 +509,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     @Override
     public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNome) {
-
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pNome)) {
+            return UtilSBCoreReflexaoCampos.getCampoSeparador(pNome);
+        }
         return getmapaCamposInstanciados().get(pNome);
     }
 

@@ -26,11 +26,19 @@ public class CaminhoCampoReflexao extends ItemSimples {
     private Field campoFieldReflection;
 
     public CaminhoCampoReflexao(String caminho) {
-        CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
-        campoFieldReflection = cm.getCampoFieldReflection();
-        caminhoComleto = cm.getCaminhoCompletoString();
-        partesCaminho.addAll(cm.getPartesCaminho());
-        id = caminhoComleto.hashCode();
+        if (!UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminho)) {
+            CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
+
+            campoFieldReflection = cm.getCampoFieldReflection();
+            caminhoComleto = cm.getCaminhoCompletoString();
+            partesCaminho.addAll(cm.getPartesCaminho());
+            id = caminhoComleto.hashCode();
+        } else {
+            campoFieldReflection = null;
+            caminhoComleto = caminho;
+            partesCaminho.addAll(getPartesCaminho());
+            id = caminhoComleto.hashCode();
+        }
     }
 
     private void makePartesCaminho() {
@@ -143,6 +151,10 @@ public class CaminhoCampoReflexao extends ItemSimples {
     @Override
     public void setId(int pID) {
         setId(pID); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean isUmCampoSeparador() {
+        return UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminhoComleto);
     }
 
 }

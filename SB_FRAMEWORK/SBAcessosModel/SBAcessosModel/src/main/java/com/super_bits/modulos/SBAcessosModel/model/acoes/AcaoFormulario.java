@@ -8,8 +8,10 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +101,32 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     @Override
     public boolean isUmaAcaoFormulario() {
         return true;
+    }
+
+    public List<GrupoCampos> getGruposDeCampos() {
+        List<GrupoCampos> grupocampos = new ArrayList<>();
+        if (!getCampos().isEmpty()) {
+            GrupoCampos grupoatual = null;
+
+            if (getCampos().get(0).isUmCampoSeparador()) {
+                grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getCaminhoSemNomeClasse(nomeAcao));
+            } else {
+                grupoatual = new GrupoCampos();
+            }
+            grupocampos.add(grupoatual);
+
+            for (CaminhoCampoReflexao campo : getCampos()) {
+                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())) {
+
+                    grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
+                    grupocampos.add(grupoatual);
+                } else {
+                    grupoatual.adicionarCampo(campo);
+                }
+
+            }
+        }
+        return grupocampos;
     }
 
 }

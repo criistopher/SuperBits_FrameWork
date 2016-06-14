@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocalidade;
 import java.util.Date;
@@ -19,6 +20,7 @@ import javax.persistence.Temporal;
  *
  */
 @Entity
+@InfoClasse(tags = {"Localidade "})
 public class Localidade extends EntidadeNormal implements ItfLocalidade {
 
     public static Localidade grandeBH = new Localidade(1, "Grande BH", "Belo horizonte, Contagem, Betim e Região");
