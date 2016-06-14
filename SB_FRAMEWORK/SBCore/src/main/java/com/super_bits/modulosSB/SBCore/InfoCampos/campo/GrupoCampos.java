@@ -41,4 +41,8 @@ public class GrupoCampos {
         return campos;
     }
 
+    public String getNomeGrupo() {
+        return nomeGrupo;
+    }
+
 }

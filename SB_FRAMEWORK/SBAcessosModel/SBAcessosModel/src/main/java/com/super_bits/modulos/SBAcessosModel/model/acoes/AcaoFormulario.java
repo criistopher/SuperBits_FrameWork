@@ -103,30 +103,10 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
         return true;
     }
 
+    @Override
     public List<GrupoCampos> getGruposDeCampos() {
-        List<GrupoCampos> grupocampos = new ArrayList<>();
-        if (!getCampos().isEmpty()) {
-            GrupoCampos grupoatual = null;
 
-            if (getCampos().get(0).isUmCampoSeparador()) {
-                grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getCaminhoSemNomeClasse(nomeAcao));
-            } else {
-                grupoatual = new GrupoCampos();
-            }
-            grupocampos.add(grupoatual);
-
-            for (CaminhoCampoReflexao campo : getCampos()) {
-                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())) {
-
-                    grupoatual = new GrupoCampos(UtilSBCoreReflexaoCampos.getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
-                    grupocampos.add(grupoatual);
-                } else {
-                    grupoatual.adicionarCampo(campo);
-                }
-
-            }
-        }
-        return grupocampos;
+        return UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(campos);
     }
 
 }

@@ -13,8 +13,10 @@ import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +120,11 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
     @Override
     public boolean isUmaAcaoFormulario() {
         return true;
+    }
+
+    @Override
+    public List<GrupoCampos> getGruposDeCampos() {
+        return UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(getCampos());
     }
 
 }

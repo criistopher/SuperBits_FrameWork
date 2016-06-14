@@ -7,6 +7,7 @@ package com.super_bits.Controller.Interfaces.permissoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import java.util.List;
 
 /**
@@ -26,5 +27,7 @@ public interface ItfAcaoFormulario extends ItfAcaoDoSistema {
     public String getXhtml();
 
     public void setXhtml(String pXhtml);
+
+    public List<GrupoCampos> getGruposDeCampos();
 
 }

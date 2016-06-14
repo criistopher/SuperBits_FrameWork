@@ -10,6 +10,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.Ips.Ips;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
@@ -43,6 +44,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_FRM_NOVO,
     USUARIO_FRM_LISTAR,
     USUARIO_CTR_SALVAR_MERGE,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml", icone = "fa fa-edit",
+            nomeAcao = "Editar Usuário", precisaPermissao = true, codigoJira = "UI032.1",
+            campos = {"[separador:basico]", "email", "senha", "[separador:detalhes]", "telefone", "nome", "apelido", "[separador:endereco]", "CEP", "[separador:dadosCadastrais]", "dataHoraInsersao", "dataHoraAlteracao", "usuarioInsercao", "usuarioAlteracao"})
     USUARIO_FRM_EDITAR,
     USUARIO_FRM_VISUALIZAR,
     USUARIO_FRM_LISTAR_GRUPOS,
@@ -193,12 +197,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             case USUARIO_FRM_EDITAR:
 
                 acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
-                AcaoFormularioEntidade usuarioEditar = (AcaoFormularioEntidade) acao;
-                usuarioEditar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml");
-                usuarioEditar.setIconeAcao("fa fa-edit");
-                usuarioEditar.setNomeAcao("Editar Usuário");
-                usuarioEditar.setPrecisaPermissao(true);
-                usuarioEditar.setIdDescritivoJira("UI032.1");
 
                 break;
             case USUARIO_FRM_VISUALIZAR:

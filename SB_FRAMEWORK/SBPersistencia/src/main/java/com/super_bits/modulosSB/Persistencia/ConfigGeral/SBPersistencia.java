@@ -12,6 +12,12 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.text.ParseException;
@@ -101,8 +107,18 @@ public abstract class SBPersistencia {
         if (configurado) {
             return;
         }
+        try {
+            System.out.println("CONFIG DO SBPERSISTENCIA NAO DEFINIDO !!");
+            throw new UnsupportedOperationException("Erro o config do core não foi defido");
+        } catch (Throwable t) {
 
-        System.out.println("CONFIG DO SBPERSISTENCIA NAO DEFINIDO");
+            ItfInfoErroSB erro = (InfoErroSB) new ErroSBCoreDeveloperSopMessagem();
+
+            erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(t.getMessage()), FabErro.PARA_TUDO, t);
+
+            erro.executarErro();
+
+        }
         System.exit(0);
         //    configCoreNaoDefinido.Alerta(ErroSB.TIPO_ERRO.PARA_TUDO, "CONFIG DO CORE NAO DEFINIDO");
     }

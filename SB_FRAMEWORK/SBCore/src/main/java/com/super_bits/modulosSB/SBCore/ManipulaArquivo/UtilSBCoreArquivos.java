@@ -187,7 +187,7 @@ public abstract class UtilSBCoreArquivos {
             File f = new File(pDiretorio);
 
             if (!f.isDirectory()) {
-                throw new UnsupportedOperationException("A solicitação de arquivos do diretorio precisa receber um diretorio existente como parametro");
+                throw new UnsupportedOperationException("A solicitação de arquivos do diretorio precisa receber um diretorio existente como parametro \n " + pDiretorio);
             }
             File[] listaCompleta = f.listFiles();
             for (File arq : listaCompleta) {

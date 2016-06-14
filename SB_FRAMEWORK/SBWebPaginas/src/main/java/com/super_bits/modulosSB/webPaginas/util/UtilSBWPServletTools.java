@@ -182,9 +182,6 @@ public class UtilSBWPServletTools {
      */
     public static String getCaminhoLocalServlet() {
 
-        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-            return SBCoreConfigGeral.CAMINHO_SERVLETS_JUNIT;
-        }
         try {
 
             FacesContext contextoVisualizacaoAtual = FacesContext.getCurrentInstance();
