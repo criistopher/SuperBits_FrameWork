@@ -27,9 +27,8 @@ import java.util.List;
 public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
 
     @Override
-    public List<ItfInfoErroSB> executarTestes() {
+    public List<ItfInfoErroSB> executarTestesBanco() {
         List<ItfInfoErroSB> erros = new ArrayList<>();
-
         for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
             try {
                 System.out.println("entidade::::" + entidade.getSimpleName());
@@ -40,6 +39,21 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
                 erros.add(errro);
             }
         }
+        return erros;
+    }
+
+    @Override
+    public List<ItfInfoErroSB> executarTestesBancoAcoes() {
+        List<ItfInfoErroSB> erros = new ArrayList<>();
+        erros.addAll(executarTestesAcoes());
+        erros.addAll(executarTestesBanco());
+        return erros;
+    }
+
+    @Override
+
+    public List<ItfInfoErroSB> executarTestesAcoes() {
+        List<ItfInfoErroSB> erros = new ArrayList<>();
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 

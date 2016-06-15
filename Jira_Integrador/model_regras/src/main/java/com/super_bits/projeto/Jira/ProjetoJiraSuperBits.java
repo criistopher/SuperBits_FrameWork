@@ -105,12 +105,14 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
                     case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
                         usuarioDaTarefa = getAnalistaImplementacao();
                         break;
+
                     case ACAO_TESTES_ENTIDADE_CALCULO:
                     case ACAO_TESTE_MANAGED_BEAN:
                     case ACAO_TESTES_ENTIDADE_LISTAS:
                     case ACAO_TESTE_CONTROLLER:
                     case ACAO_TESTE_CONTROLLER_COMPLEXO:
                         usuarioDaTarefa = getAnalistaTDD();
+                        break;
                     default:
                         throw new AssertionError(tarefa.getTipoTarefa().name());
 
