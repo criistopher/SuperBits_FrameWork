@@ -348,7 +348,7 @@ public class UtilSBCoreReflexaoCampos {
 
             //Confgurando caminho completo
             String caminhoCompleto = pCaminho;
-            if (!UtilSBCoreStrings.isPrimeiraLetraMaiuscula(pCaminho)) {
+            if (!UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(pCaminho)) {
                 caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
             }
 
