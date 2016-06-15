@@ -45,4 +45,12 @@ public class GrupoCampos {
         return nomeGrupo;
     }
 
+    public int getResponsividade() {
+        if (campos.size() % 2 == 0) {
+            return 33;
+        } else {
+            return 50;
+        }
+    }
+
 }

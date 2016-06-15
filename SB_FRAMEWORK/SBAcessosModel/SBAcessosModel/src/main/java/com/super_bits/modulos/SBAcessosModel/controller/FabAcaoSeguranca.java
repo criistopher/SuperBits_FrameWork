@@ -46,7 +46,9 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_CTR_SALVAR_MERGE,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/SBSystemPages/seguranca/simples/usuario/editarUsuario.xhtml", icone = "fa fa-edit",
             nomeAcao = "Editar Usuário", precisaPermissao = true, codigoJira = "UI032.1",
-            campos = {"[separador:basico]", "email", "senha", "[separador:detalhes]", "telefone", "nome", "apelido", "[separador:endereco]", "CEP", "[separador:dadosCadastrais]", "dataHoraInsersao", "dataHoraAlteracao", "usuarioInsercao", "usuarioAlteracao"})
+            campos = {"[separador:basico]", "email", "senha", "[separador:detalhes]", "telefone", "nome",
+                "apelido", "[separador:endereco]", "CEP", "[separador:dadosCadastrais]", "dataHoraInsersao",
+                "dataHoraAlteracao", "usuarioInsercao", "usuarioAlteracao"})
     USUARIO_FRM_EDITAR,
     USUARIO_FRM_VISUALIZAR,
     USUARIO_FRM_LISTAR_GRUPOS,

@@ -119,7 +119,12 @@ public abstract class SBPersistencia {
             erro.executarErro();
 
         }
-        System.exit(0);
+
+        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            System.exit(0);
+        } else {
+            System.out.println("A configuração da persistencia não foi definida");
+        }
         //    configCoreNaoDefinido.Alerta(ErroSB.TIPO_ERRO.PARA_TUDO, "CONFIG DO CORE NAO DEFINIDO");
     }
 
