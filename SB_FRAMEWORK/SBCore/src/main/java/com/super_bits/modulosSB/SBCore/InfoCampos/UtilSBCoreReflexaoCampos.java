@@ -309,6 +309,11 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    /**
+     *
+     * @param pCaminho
+     * @return
+     */
     public static CaminhoCampoReflexao getCaminhoCAmpoByString(String pCaminho) {
         try {
 
