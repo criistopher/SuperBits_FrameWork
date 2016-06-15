@@ -84,14 +84,6 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
     public void buildAcoesJira() {
 
         MapaAcoesSistema mapaAcoes;
-<<<<<<< HEAD
-         << << << < HEAD
-
-        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
-         == == ==
-                =  >>> >>> > 3b0a65d3903c6b0c576a2d6148cb2886de6f63af
-=======
->>>>>>> c264d8acff80123010aba42d605680f5297324fc
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
@@ -132,27 +124,8 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
             }
 
         }
-<<<<<<< HEAD
-         << << << < HEAD
-        /**
-         * for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
-         *
-         * UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA[] tarefas =
-         * UtilSBCoreJira.getTipoTarefaPorEntidade(entidade);
-         *
-         * for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : tarefas) {
-         *
-         * TarefaJira tarefa =
-         * UtilSBCoreJira.getTarefaJiraDoBancoDeDados(tipoTarefa, entidade);
-         *
-         * UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa); }
-         */
- == == ==
-                = List < Class > entidades = UtilSBPersistencia.getTodasEntidades();
-         >>> >>> > 3b0a65d3903c6b0c576a2d6148cb2886de6f63af
-=======
+
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
->>>>>>> c264d8acff80123010aba42d605680f5297324fc
 
         for (Class entidade : entidades) {
 
