@@ -589,4 +589,9 @@ public abstract class UtilSBCoreStrings {
             return "";
         }
     }
+
+    public static boolean isPrimeiraLetraMaiuscula(String pString) {
+        return Character.isUpperCase(pString.charAt(0));
+    }
+
 }

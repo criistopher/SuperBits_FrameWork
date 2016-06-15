@@ -14,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -345,12 +346,24 @@ public class UtilSBCoreReflexaoCampos {
                 throw new UnsupportedOperationException("A classe principal para " + pCaminho + "não foi encontrada");
             }
 
-            String caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
+            //Confgurando caminho completo
+            String caminhoCompleto = pCaminho;
+            if (!UtilSBCoreStrings.isPrimeiraLetraMaiuscula(pCaminho)) {
+                caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
+            }
+
             CaminhoCampoReflexao caminho = CAMINHO_CAMPO_POR_NOME.get(caminhoCompleto);
+
+            if (caminho == null) {
+                for (String partes : caminhoCompleto.split("/.")) {
+
+                }
+            }
 
             if (caminho == null) {
                 throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho " + pCaminho + " na classe " + pClase.getSimpleName());
             }
+
             return caminho;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir de caminho relativo:-->" + pCaminho + "<-- na classe:-->" + pClase.getSimpleName(), t);
