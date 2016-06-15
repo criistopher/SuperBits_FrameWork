@@ -84,21 +84,6 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
     public void buildAcoesJira() {
 
         MapaAcoesSistema mapaAcoes;
-        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
-
-        for (Class entidade : entidades) {
-
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
-
-                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
-
-                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
-                }
-            }
-
-        }
 
         for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
@@ -138,19 +123,22 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
             }
 
         }
-        /**
-         * for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
-         *
-         * UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA[] tarefas =
-         * UtilSBCoreJira.getTipoTarefaPorEntidade(entidade);
-         *
-         * for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : tarefas) {
-         *
-         * TarefaJira tarefa =
-         * UtilSBCoreJira.getTarefaJiraDoBancoDeDados(tipoTarefa, entidade);
-         *
-         * UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa); }
-         */
+        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
+
+        for (Class entidade : entidades) {
+
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
+
+                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
+
+                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
+
+                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
+                }
+            }
+
+        }
+
         fecharConexao();
     }
 

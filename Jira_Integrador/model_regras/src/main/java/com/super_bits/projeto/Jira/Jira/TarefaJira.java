@@ -160,7 +160,7 @@ public class TarefaJira {
         Map<String, Object> parent = new HashMap<String, Object>();
         parent.put("key", acaoPrincipal.getKey());
         inputBuilder.setFieldInput(new FieldInput("parent", new ComplexIssueInputFieldValue(parent)));
-        inputBuilder.setFieldValue("labels", Arrays.asList(" ref[" + getReferencia() + "]"));
+        inputBuilder.setFieldValue("labels", Arrays.asList(getReferencia()));
         inputBuilder.setSummary(getNomeTarefa());
         inputBuilder.setDescription(getDescricaoTarefa());
         inputBuilder.setPriority(prioridade);

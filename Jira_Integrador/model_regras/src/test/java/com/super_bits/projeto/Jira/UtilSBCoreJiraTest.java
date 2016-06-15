@@ -6,7 +6,10 @@
 package com.super_bits.projeto.Jira;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
+import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.api.domain.User;
+import com.google.common.collect.Lists;
 import com.super_bits.config.ConfigPersistenciaIntegrador;
 import com.super_bits.config.FabConfiguracoesDeAmbienteModelExemplo;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
@@ -16,6 +19,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
+import java.util.List;
 import org.junit.Test;
 
 /**
@@ -31,6 +35,15 @@ public class UtilSBCoreJiraTest extends TesteJunitSBPersistencia {
     public void testGetTarefaJiraAcaoDoSistema() {
 
         JiraRestClient conexao = UtilSBCoreJira.criarConexaoJira("salviof@gmail.com", "123321");
+
+        SearchResult resultado = conexao.getSearchClient().searchJql("summary ~ \"webpaginas\"").claim();
+        List<Issue> todasTarefas = Lists.newArrayList(resultado.getIssues().iterator());
+
+        for (Issue tarefa : todasTarefas) {
+            conexao.getIssueClient().deleteIssue(tarefa.getKey(), true);
+            System.out.println("removeu" + tarefa.getSummary());
+        }
+
         User usuario = UtilSBCoreJira.getUsuarioPorNome(conexao, "salvio");
         User usuario2 = UtilSBCoreJira.getUsuarioPorNome(conexao, "cristopherAmaral");
         UTILSBCoreDesktopApp.showMessageStopProcess(new MensagemProgramador(usuario.getName()));
