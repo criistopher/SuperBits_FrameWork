@@ -20,6 +20,8 @@ import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 
 /**
@@ -36,12 +38,17 @@ public class UtilSBCoreJiraTest extends TesteJunitSBPersistencia {
 
         JiraRestClient conexao = UtilSBCoreJira.criarConexaoJira("salviof@gmail.com", "123321");
 
-        SearchResult resultado = conexao.getSearchClient().searchJql("summary ~ \"webpaginas\"").claim();
+        SearchResult resultado = conexao.getSearchClient().searchJql("summary ~ \"Controllers\"").claim();
         List<Issue> todasTarefas = Lists.newArrayList(resultado.getIssues().iterator());
 
         for (Issue tarefa : todasTarefas) {
             conexao.getIssueClient().deleteIssue(tarefa.getKey(), true);
             System.out.println("removeu" + tarefa.getSummary());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UtilSBCoreJiraTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         User usuario = UtilSBCoreJira.getUsuarioPorNome(conexao, "salvio");
