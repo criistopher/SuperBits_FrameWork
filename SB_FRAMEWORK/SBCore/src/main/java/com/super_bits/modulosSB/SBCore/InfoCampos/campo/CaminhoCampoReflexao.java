@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
     private final List<String> partesCaminho = new ArrayList<>();
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String caminhoComleto;
-    private Field campoFieldReflection;
+    private final Field campoFieldReflection;
 
     public CaminhoCampoReflexao(String caminho) {
         if (!UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminho)) {
@@ -155,6 +156,16 @@ public class CaminhoCampoReflexao extends ItemSimples {
 
     public boolean isUmCampoSeparador() {
         return UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminhoComleto);
+    }
+
+    public boolean temUmTipoComOutrasPropriedades() {
+
+        return caminhoComleto.split("\\.").length > 2;
+
+    }
+
+    public boolean isUmTipoComOutrasPropriedades() {
+        return campoFieldReflection.getType().isAnnotationPresent(InfoClasse.class);
     }
 
 }
