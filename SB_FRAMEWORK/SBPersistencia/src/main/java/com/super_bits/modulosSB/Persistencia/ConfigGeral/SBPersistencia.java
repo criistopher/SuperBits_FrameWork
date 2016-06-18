@@ -7,14 +7,12 @@
  */
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
-import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
@@ -50,6 +48,16 @@ public abstract class SBPersistencia {
     private static Class<? extends ItfFabrica>[] fabricasRegistrosIniciais;
 
     public static void configuraJPA(ItfConfigSBPersistencia configurador) {
+        configuraJPA(configurador, true);
+    }
+
+    /**
+     *
+     * @param configurador
+     * @param pCriarTodosCampos Indica se o caminho para todos os campos deve
+     * ser préconfigurado
+     */
+    public static void configuraJPA(ItfConfigSBPersistencia configurador, boolean pCriarTodosCampos) {
         nomeFactureManager = configurador.bancoPrincipal();
         formatoDataBanco = configurador.formatoDataBanco();
         formatoDataUsuario = configurador.formatoDataUsuario();
@@ -69,10 +77,11 @@ public abstract class SBPersistencia {
             }
 
         }
-
-        UtilSBCoreReflexaoCampos.configurarTodasAsClasses(ClassesDeEntidades);
-        if (UtilSBCoreReflexaoCampos.isTodasClassesConfiguradas()) {
-            System.out.println("Campos de entidade configurados com sucesso");
+        if (pCriarTodosCampos) {
+            UtilSBCoreReflexaoCampos.configurarTodasAsClasses(ClassesDeEntidades);
+            if (UtilSBCoreReflexaoCampos.isTodasClassesConfiguradas()) {
+                System.out.println("Campos de entidade configurados com sucesso");
+            }
         }
 
     }

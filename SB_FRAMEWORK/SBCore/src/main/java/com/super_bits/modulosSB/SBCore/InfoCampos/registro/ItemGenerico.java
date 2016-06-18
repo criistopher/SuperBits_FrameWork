@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.registro;
 
+import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
@@ -9,7 +10,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroObtendoValorDoCampoPorReflexao;
@@ -512,6 +512,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pNome)) {
             return UtilSBCoreReflexaoCampos.getCampoSeparador(pNome);
         }
+
         return getmapaCamposInstanciados().get(pNome);
     }
 
@@ -607,7 +608,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     @Override
     public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
 
-        return UtilSBCoreReflexaoCampos.getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(this.getClass());
+        return Lists.newArrayList(UtilSBCoreReflexaoCampos.getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(this.getClass()).values());
 
     }
 

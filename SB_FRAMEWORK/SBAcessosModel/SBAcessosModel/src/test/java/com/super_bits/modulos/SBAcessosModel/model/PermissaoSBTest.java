@@ -6,17 +6,17 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import aux.FabConfigCoreSBSBAcessosModel;
+import com.google.common.collect.Lists;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getTodosCamposAnotadosComManyToOne;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import config.ConfigPersistenciaTestesAcesso;
-
 import java.util.List;
 import org.junit.Test;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getTodosCamposAnotadosComManyToOne;
 
 /**
  *
@@ -31,7 +31,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
     public void testgetEntidadesVinvuladas() {
 
         AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
-        List<CaminhoCampoReflexao> cps = getTodosCamposAnotadosComManyToOne(PermissaoSB.class, "PermissaoSB.class");
+        List<CaminhoCampoReflexao> cps = Lists.newArrayList(getTodosCamposAnotadosComManyToOne(PermissaoSB.class, "PermissaoSB.class").values());
         List<CaminhoCampoReflexao> teste = acaoDoSistema.getEntidadesVinculadas();
         System.out.println("Inicio print Entidades Vinculadas");
         for (CaminhoCampoReflexao cm : teste) {
