@@ -477,6 +477,8 @@ public class UtilSBCoreReflexaoCampos {
 
     public static CaminhoCampoReflexao getCaminhoByStringRelativaEClasse(String pCaminho, Class pClase) {
 
+        buildCamposDaClasse(pClase);
+
         try {
             if (isUmCampoSeparador(pCaminho)) {
                 String caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
@@ -493,7 +495,7 @@ public class UtilSBCoreReflexaoCampos {
                 caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
             }
 
-            CaminhoCampoReflexao caminho = CAMINHO_CAMPO_POR_NOME.get(caminhoCompleto);
+            CaminhoCampoReflexao caminho = CAMPOS_DA_CLASSE.get(pClase).get(caminhoCompleto);
 
             if (caminho == null) {
                 for (String partes : caminhoCompleto.split("\\.")) {
@@ -502,7 +504,7 @@ public class UtilSBCoreReflexaoCampos {
             }
 
             if (caminho == null) {
-                throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho [" + pCaminho + "] na classe [" + pClase.getSimpleName() + "] ");
+                throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho [" + caminhoCompleto + "] na classe [" + pClase.getSimpleName() + "] ");
             }
 
             return caminho;
