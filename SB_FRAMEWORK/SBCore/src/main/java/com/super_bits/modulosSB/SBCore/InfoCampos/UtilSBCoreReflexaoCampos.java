@@ -522,7 +522,7 @@ public class UtilSBCoreReflexaoCampos {
         // todo Tratar EntidadeGenerica gerar trhow se Chegar no Object
         return (pClasse == ItemGenerico.class
                 || pClasse == Object.class
-                || pClasse.getSimpleName().contains("Entidade"));
+                || pClasse.getSimpleName().startsWith("Entidade"));
 
     }
 
