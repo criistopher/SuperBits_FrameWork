@@ -22,7 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -129,7 +131,8 @@ public class UtilSBCoreReflexaoCampos {
     /**
      *
      * Retorna os Fields que sejam compativeis com ItfItemSimples em ordem de
-     * Itens filho para pai
+     * Itens filho para pai (Retorna também os Campos do tipo lista que sejam
+     * tipados com ItfBeanSimples
      *
      * @param pClasse classe que será analizada
      * @return Fileds Do tipo item Simples
@@ -179,15 +182,16 @@ public class UtilSBCoreReflexaoCampos {
 
         String inicio = caminho;
         boolean raiz = false;
-        if (!inicio.contains(".")) {
+        if (UtilSBCoreStrings.isPrimeiraLetraMaiuscula(caminho)) {
             raiz = true;
         }
 
         List<Class> classesComCampos = new ArrayList<>();
+
         boolean chegouAoFim = false;
         Class classeatualiza = pClasse;
-        Map<String, CaminhoCampoReflexao> camposEncontrados = new HashMap<>();
-        // Obtendo todos os campos com subcampos
+
+        // Listando todas as classes com a anotação Entity que extendem esta classe
         while (!chegouAoFim) {
             classesComCampos.add(classeatualiza);
             if (isClasseBasicaSB(pClasse)) {
@@ -200,14 +204,22 @@ public class UtilSBCoreReflexaoCampos {
             classeatualiza = classeatualiza.getSuperclass();
         }
 
+        Map<String, CaminhoCampoReflexao> camposEncontrados = new HashMap<>();
         for (Class classeCampos : classesComCampos) {
             Field[] camposDaClasse = classeCampos.getDeclaredFields();
 
-            for (Field campo : camposDaClasse) {
-                String caminhostr = inicio + "." + campo.getName();
-                CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campo);
-                CAMINHO_CAMPO_POR_NOME.put(caminhostr, cm);
-                camposEncontrados.put(cm.getCaminhoCompletoString(), cm);
+            for (Field campoReflecxao : camposDaClasse) {
+                if (!campoReflecxao.getType().getSimpleName().equals("List")) {
+                    String caminhostr = inicio + "." + campoReflecxao.getName();
+                    CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campoReflecxao);
+                    CAMINHO_CAMPO_POR_NOME.put(caminhostr, cm);
+                    camposEncontrados.put(cm.getCaminhoCompletoString(), cm);
+                } else {
+                    String caminhostr = inicio + "." + campoReflecxao.getName() + "[]";
+                    CaminhoCampoReflexao cm = new CaminhoCampoReflexao(caminhostr, campoReflecxao);
+                    CAMINHO_CAMPO_POR_NOME.put(caminhostr, cm);
+                    camposEncontrados.put(cm.getCaminhoCompletoString(), cm);
+                }
                 //              System.out.println("Add Campo da classe:" + caminhostr);
             }
         }
@@ -361,6 +373,40 @@ public class UtilSBCoreReflexaoCampos {
 
     /**
      *
+     * O CaminhoCampoReflexão, possui uma string de referencia e o Campo Field
+     * do java reflection referente a ele
+     *
+     * @param pClasse
+     * @param pCaminho
+     * @return Retorna o Caminho campo da classe, ou gera um erro caso o
+     * endereço não exista
+     */
+    public static CaminhoCampoReflexao getCaminhoCAmpoByString(Class pClasse, String pCaminho) {
+
+        try {
+
+            String strCaminho = pCaminho;
+            if (!UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(pCaminho)) {
+                strCaminho = pClasse.getSimpleName() + "." + pCaminho;
+            }
+
+            CaminhoCampoReflexao caminho = CAMPOS_DA_CLASSE.get(pClasse).get(strCaminho);
+
+            if (caminho != null) {
+                return caminho;
+            } else {
+                throw new UnsupportedOperationException("O caminho" + pCaminho + "não foi encontrado");
+            }
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir da String : [" + pCaminho + "] e classe" + pClasse.getSimpleName(), t);
+        }
+        return null;
+
+    }
+
+    /**
+     *
      * Retorna todos os campos possíveis a partir do nome de uma classe
      *
      * @param nomeClasse O nome da classe referente aos campos que serão
@@ -397,13 +443,13 @@ public class UtilSBCoreReflexaoCampos {
             CaminhoCampoReflexao caminho = CAMINHO_CAMPO_POR_NOME.get(caminhoCompleto);
 
             if (caminho == null) {
-                for (String partes : caminhoCompleto.split("/.")) {
+                for (String partes : caminhoCompleto.split("\\.")) {
 
                 }
             }
 
             if (caminho == null) {
-                throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho " + pCaminho + " na classe " + pClase.getSimpleName());
+                throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho [" + pCaminho + "] na classe [" + pClase.getSimpleName() + "] ");
             }
 
             return caminho;
@@ -503,6 +549,59 @@ public class UtilSBCoreReflexaoCampos {
         return lista;
     }
 
+    public static Map<String, CaminhoCampoReflexao> getTodosCamposAnotadosComOneToManyOuManyToMany(Class pClasse, String pCaminho) {
+
+        Map<String, CaminhoCampoReflexao> lista = new HashMap<>();
+        while (!isClasseBasicaSB(pClasse)) {
+            List<Field> itensdoNivel = new ArrayList<>();
+            Field[] fields = pClasse.getDeclaredFields();
+
+            for (Field campo : fields) {
+                if (campo.isAnnotationPresent(OneToMany.class
+                ) || campo.isAnnotationPresent(ManyToMany.class)) {
+                    String caminhocampo = pCaminho + "." + campo.getName();
+                    CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo, campo);
+                    lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
+                    CLASSE_ENTIDADE_BY_CAMINHO.put(caminhocampo, campo.getType());
+
+                }
+            }
+
+            pClasse = pClasse.getSuperclass();
+        }
+
+        return lista;
+    }
+
+    /**
+     *
+     * @param pClasse
+     * @param pCaminho
+     * @return
+     */
+    public static Map<String, CaminhoCampoReflexao> getTodosCamposDoTipoLista(Class pClasse, String pCaminho) {
+
+        Map<String, CaminhoCampoReflexao> lista = new HashMap<>();
+        while (!isClasseBasicaSB(pClasse)) {
+            List<Field> itensdoNivel = new ArrayList<>();
+            Field[] fields = pClasse.getDeclaredFields();
+
+            for (Field campo : fields) {
+                if (campo.getType().getSimpleName().equals("List")) {
+                    String caminhocampo = pCaminho + "." + campo.getName() + "[]";
+                    CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo, campo);
+                    lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
+                    CLASSE_ENTIDADE_BY_CAMINHO.put(caminhocampo, campo.getType());
+
+                }
+            }
+
+            pClasse = pClasse.getSuperclass();
+        }
+
+        return lista;
+    }
+
     private static Map<String, CaminhoCampoReflexao> getCamposReflectionFilho(Map<String, CaminhoCampoReflexao> pListaAtualizada, Map<String, CaminhoCampoReflexao> pListaNova, String pCaminhoAnterior, Class pClasePrincipal) {
         if (pListaAtualizada == null) {
             pListaAtualizada = new HashMap<>();
@@ -573,6 +672,140 @@ public class UtilSBCoreReflexaoCampos {
             classe = classe.getSuperclass();
         }
         return null;
+    }
+
+    /**
+     *
+     *
+     *
+     * @param pCaminhoCompleto
+     * @return
+     */
+    public static String getStrPrimeiroCampoDoCaminhoCampo(String pCaminhoCompleto) {
+
+        String[] partes = pCaminhoCompleto.split("\\.");
+
+        try {
+            for (String parte : partes) {
+                if (!UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(parte)) {
+                    return parte;
+                }
+            }
+            throw new UnsupportedOperationException("Não foi possível determinar a primeira parte do caminho para o campo " + pCaminhoCompleto);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "", t);
+        }
+        return null;
+    }
+
+    /**
+     *
+     *
+     *
+     * @param pCaminhoCompleto
+     * @return
+     */
+    public static String getStrCaminhoCampoSemPrimeiroCampo(String pCaminhoCompleto) {
+        String[] partes = pCaminhoCompleto.split("\\.");
+        String caminhoParcial = "";
+        int i = 0;
+        try {
+            for (String parte : partes) {
+                if (!UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(parte)) {
+
+                    if (i > 0) {
+                        if (caminhoParcial.length() > 0) {
+                            caminhoParcial += "." + parte;
+                        } else {
+                            caminhoParcial = parte;
+
+                        }
+                    }
+                    i++;
+                } else {
+
+                }
+
+            }
+
+            if (caminhoParcial.length() < 1) {
+                throw new UnsupportedOperationException("Não foi possível determinar a primeira parte do caminho para o campo " + pCaminhoCompleto);
+            }
+
+            return caminhoParcial;
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "", t);
+        }
+        return null;
+    }
+
+    /**
+     *
+     * Caso possua, retira o nome da classe principal do caminho para o campo
+     *
+     * @param pCaminhoCompleto
+     * @return
+     */
+    public static String getStrCaminhoCampoSemNomeClassePrincipal(String pCaminhoCompleto) {
+
+        return null;
+    }
+
+    /**
+     *
+     * Caso possua, retira o nome da classe principal do camiho para o campo,
+     * caso possua uma classe principal no nome, e o nome da classe não seja o
+     * enviado como referencia, gera um erro
+     *
+     * @param pCaminhoCompleto
+     * @param pClasseReferencia
+     * @return
+     */
+    public static String getStrCaminhoCampoSemNomeClassePrincipal(String pCaminhoCompleto, Class pClasseReferencia) {
+        String[] partes = pCaminhoCompleto.split("\\.");
+
+        boolean temNomeDaClasse = UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(partes[0]);
+
+        if (temNomeDaClasse) {
+
+            String nome = partes[0];
+            if (!pClasseReferencia.getSimpleName().equals(nome)) {
+                throw new UnsupportedOperationException("A classe principal encontrada na string [" + pCaminhoCompleto + "]" + " não confere com a classe Referencia: " + pClasseReferencia.getSimpleName());
+            }
+            String novoCaminho = "";
+            int i = 0;
+            for (String parte : partes) {
+                if (i > 0) {
+                    if (novoCaminho.length() > 0) {
+                        novoCaminho += novoCaminho + "." + parte;
+                    } else {
+                        novoCaminho = parte;
+                    }
+                }
+
+                i++;
+            }
+
+            return novoCaminho;
+        } else {
+            return pCaminhoCompleto;
+        }
+    }
+
+    public static int getQuantidadeSubCampos(String pCaminhoCompleto) {
+
+        String[] partes = pCaminhoCompleto.split("\\.");
+
+        boolean temNomeDaClasse = UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(partes[0]);
+
+        if (temNomeDaClasse) {
+
+            return partes.length - 1;
+        } else {
+            return partes.length;
+        }
+
     }
 
 }

@@ -32,7 +32,7 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
         for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
             try {
                 System.out.println("entidade::::" + entidade.getSimpleName());
-                UtilSBCoreReflexao.getNomeDoObjeto(entidade);
+                UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(entidade);
             } catch (Throwable t) {
                 ErroSBCoreFW errro = new ErroSBCoreFW();
                 errro.configurar(new Mensagem(FabTipoUsuarioInteracao.DESENVOLVEDOR, FabMensagens.ERRO, t.getMessage()), FabErro.ARQUIVAR_LOG, t);

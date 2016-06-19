@@ -28,6 +28,17 @@ public interface ItfBeanReflexoes {
 
     /**
      *
+     * Retorna um campo instanciado a partir do nome do campo, ou nome da
+     * anotação do campo
+     *
+     * Um campo instanciado possui todas propriedades de um campo nescessário
+     * para exibição visual deste, e um métodos getValor, e setValor, que
+     * permitem acessar e alterar o valor.
+     *
+     * Caso ocorra uma tentativa de acessar um campo instanciado nulo, ele será
+     * instanciado automaticamente pelo sistema
+     *
+     *
      * @param pNome nome do campo declarado, ou nome Da anotação do tipo
      * InfoCampo que
      * @return O Objeto campo instanciado, contendo get e set para obter os
@@ -58,7 +69,6 @@ public interface ItfBeanReflexoes {
     public List<CampoInvalido> getCamposInvalidos();
 
     public Field getCampoReflexaoByAnotacao(FabCampos pInfoCampo);
-    
-    
+
     public String getNomeCampo(FabCampos pInfocampo);
 }

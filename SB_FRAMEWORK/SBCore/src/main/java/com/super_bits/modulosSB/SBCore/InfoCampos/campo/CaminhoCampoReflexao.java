@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -25,6 +26,8 @@ public class CaminhoCampoReflexao extends ItemSimples {
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String caminhoComleto;
     private final Field campoFieldReflection;
+    private boolean umCampoListavel;
+    private boolean umaEntidade;
 
     public CaminhoCampoReflexao(String caminho) {
         if (!UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminho)) {
@@ -74,6 +77,17 @@ public class CaminhoCampoReflexao extends ItemSimples {
 
     }
 
+    private void configuraInformacoesBasicasDoCampoPorReflexao() {
+        if (campoFieldReflection.getType().getSimpleName().equals("List")) {
+            umCampoListavel = true;
+            umaEntidade = true;
+        }
+
+        if (campoFieldReflection.isAnnotationPresent(ManyToOne.class)) {
+            umaEntidade = true;
+        }
+    }
+
     /**
      *
      * @param pCaminho Caminho para encontrar o Campo, separado por . exemplo:
@@ -85,7 +99,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
         this.campoFieldReflection = campo;
-
+        configuraInformacoesBasicasDoCampoPorReflexao();
         makePartesCaminho();
         id = caminhoComleto.hashCode();
     }
@@ -94,6 +108,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
 
         partesCaminho.addAll(pPartesCaminho);
         this.campoFieldReflection = campo;
+        configuraInformacoesBasicasDoCampoPorReflexao();
         makeCaminhoCompleto();
         id = caminhoComleto.hashCode();
     }

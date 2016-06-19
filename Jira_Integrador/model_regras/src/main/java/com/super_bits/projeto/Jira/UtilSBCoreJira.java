@@ -406,7 +406,7 @@ public class UtilSBCoreJira {
                 return tarefaPrincipal;
             case MODELAGEM_TABELA:
                 tarefaPrincipal.setTipoGrupoTarefa(TIPO_GRUPO_TAREFA.MODELAGEM_TABELA);
-                String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjeto(pTarefa.getTabelaVinculada());
+                String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pTarefa.getTabelaVinculada());
                 tarefaPrincipal.setNomeTarefa("Model p/ " + nomeEntidade + " ");
                 return tarefaPrincipal;
             case ACAO_BANCO_AMBIENTE_E_ADEQUACAO:
@@ -502,7 +502,7 @@ public class UtilSBCoreJira {
 
     public static TarefaJira getTarefaJiraEntidade(TIPOS_DE_TAREFA_JIRA pTipoTarefaJira, Class pEntidade) {
         TarefaJira tarefa = pTipoTarefaJira.getTarefaInssueJira();
-        String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjeto(pEntidade);
+        String nomeEntidade = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pEntidade);
         tarefa.setTabelaVinculada(pEntidade);
         tarefa.setTipoTarefa(pTipoTarefaJira);
 

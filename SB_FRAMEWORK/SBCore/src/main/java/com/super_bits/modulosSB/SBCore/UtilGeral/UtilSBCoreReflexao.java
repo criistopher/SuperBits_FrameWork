@@ -12,17 +12,16 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Transient;
-import org.eclipse.jetty.util.B64Code;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -310,6 +309,12 @@ public abstract class UtilSBCoreReflexao {
         return false;
     }
 
+    /**
+     *
+     * @param pAnotacao
+     * @param pCaminhoPacote
+     * @return
+     */
     public static List<Class> getClassesComEstaAnotacao(Class pAnotacao, String pCaminhoPacote) {
 
         List<Class> lista = new ArrayList<>();
@@ -346,7 +351,15 @@ public abstract class UtilSBCoreReflexao {
 
     }
 
-    public static String getNomeDoObjeto(Class pClasse) {
+    /**
+     *
+     * Retorna a primeira tag configurada como nome da entidade atravez da
+     * anotação InfoClasse
+     *
+     * @param pClasse Classe analizada
+     * @return Nome Humanizado da entidade
+     */
+    public static String getNomeDoObjetoPorAnotacaoInfoClasse(Class pClasse) {
 
         try {
             if (!pClasse.isAnnotationPresent(InfoClasse.class)) {
@@ -537,17 +550,107 @@ public abstract class UtilSBCoreReflexao {
 
     /**
      *
+     * Retorna todas as classes por hierarquia até encontrar a string de um
+     * objeto final
+     *
+     * @param pClasse
+     * @param nomesObjetosFinal
+     * @return
+     */
+    protected static List<Class> getClassesComHierarquiaAteNomeObjetoFinalConter(Class pClasse, String... nomesObjetosFinal) {
+
+        List<Class> classes = new ArrayList<>();
+
+        Class classeAtual = pClasse;
+        boolean encontrou = false;
+        while (!encontrou) {
+            if (classeAtual == ItemGenerico.class
+                    || classeAtual == Object.class) {
+                return classes;
+            }
+            for (String objtoFinal : nomesObjetosFinal) {
+                if (pClasse.getSimpleName().contains(objtoFinal)) {
+                    return classes;
+                }
+
+            }
+            classes.add(classeAtual);
+            classeAtual = classeAtual.getSuperclass();
+
+        }
+        return classes;
+    }
+
+    /**
+     *
+     * Retrona uma lista de objetos Fileds, via reflection contendo todos os
+     * campos declarados na classe , ou interface sendo publico ou privado eté
+     * encontrar uma classe objeto final, caso o objeto final não seja
+     * especificado, ele vai até o ItemGenerico, ou até Object
+     *
+     *
      * @param pclasse
-     * @param tipoCampo
+     *
+     * @param objetosFinal Indica até qual classe a recursividade deve
+     * acontecer, (em qual classe deve parar de coletar campos)
+     * @return
+     */
+    public static List<Field> getCamposRecursivodaClasseAteObjetoFinal(Class pclasse, Class... objetosFinal) {
+        List<Field> camposEncontrados = new ArrayList<>();
+
+        for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, objetosFinal)) {
+            camposEncontrados.addAll(Arrays.asList(classe.getDeclaredFields()));
+        }
+
+        return camposEncontrados;
+
+    }
+
+    /**
+     *
+     * Retrona uma lista de objetos Fileds, via reflection contendo todos os
+     * campos declarados na classe , ou interface sendo publico ou privado eté
+     * encontrar uma classe que contenha parte dos nomes enviados como objeto
+     * final, caso o objeto final não seja especificado, ele vai até o
+     * ItemGenerico, ou até Object
+     *
+     *
+     * @param pclasse
+     *
+     * @param objetosFinal Indica até qual classe a recursividade deve
+     * acontecer, (em qual classe deve parar de coletar campos)
+     * @return
+     */
+    public static List<Field> getCamposRecursivodaClasseAteConterNomeObjetoFinal(Class pclasse, String... objetosFinal) {
+        List<Field> camposEncontrados = new ArrayList<>();
+
+        for (Class classe : getClassesComHierarquiaAteNomeObjetoFinalConter(pclasse, objetosFinal)) {
+            camposEncontrados.addAll(Arrays.asList(classe.getDeclaredFields()));
+        }
+
+        return camposEncontrados;
+
+    }
+
+    /**
+     * Retrona uma lista de objetos Fileds, via reflection contendo todos os
+     * campos declarados na classe que são do tipo enviado no parametro
+     * pTipoCampo, ou interface sendo publico ou privado eté encontrar uma
+     * classe objeto final, caso o objeto final não seja especificado, ele vai
+     * até o ItemGenerico, ou até Object
+     *
+     * @param pclasse
+     * @param pTipoCampo
      * @param objetosFinal
      * @return
      */
-    public static List<Field> getCamposRecursivoPorTipo(Class pclasse, Class tipoCampo, Class... objetosFinal) {
+    public static List<Field> getCamposRecursivoPorTipo(Class pclasse, Class pTipoCampo, Class... objetosFinal) {
         List<Field> camposEncontrados = new ArrayList<>();
 
         for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, objetosFinal)) {
             for (Field cp : classe.getDeclaredFields()) {
-                if (cp.getType().equals(tipoCampo)) {
+
+                if (cp.getType().equals(pTipoCampo)) {
                     camposEncontrados.add(cp);
                 }
             }
@@ -557,6 +660,19 @@ public abstract class UtilSBCoreReflexao {
 
     }
 
+    /**
+     * Retrona uma lista de objetos Fileds, via reflection contendo todos os
+     * campos declarados na classe ou interface que contenha a anotação enviada
+     * no parametro, sendo publico ou privado eté encontrar uma classe objeto
+     * final, caso o objeto final não seja especificado, ele vai até o
+     * ItemGenerico, ou até Object
+     *
+     *
+     * @param pclasse
+     * @param anotacao
+     * @param objetosFinal
+     * @return
+     */
     public static List<Field> getCamposRecursivoPorAnotacao(Class pclasse, Class anotacao, Class... objetosFinal) {
 
         List<Field> camposEncontrados = new ArrayList<>();
@@ -573,6 +689,18 @@ public abstract class UtilSBCoreReflexao {
 
     }
 
+    /**
+     * Retrona uma lista de objetos Fileds, via reflection contendo todos os
+     * campos declarados na classe ou interface que implementem a interface
+     * enviada no parametro, sendo publico ou privado eté encontrar uma classe
+     * objeto final, caso o objeto final não seja especificado, ele vai até o
+     * ItemGenerico, ou até Object
+     *
+     * @param pclasse
+     * @param pItf
+     * @param pObjetosFinal
+     * @return
+     */
     public static List<Field> getCamposRecursivoPorInterface(Class pclasse, Class pItf, Class... pObjetosFinal) {
 
         List<Field> camposEncontrados = new ArrayList<>();

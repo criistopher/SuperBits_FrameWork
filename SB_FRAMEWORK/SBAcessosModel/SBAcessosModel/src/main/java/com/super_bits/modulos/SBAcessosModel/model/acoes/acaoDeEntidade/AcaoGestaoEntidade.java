@@ -55,7 +55,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
             throw new UnsupportedOperationException("Aind não implementado");
         }
         ItfAcaoDoSistema novaAcao = null;
-        String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(this.getClasseRelacionada());
+        String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(this.getClasseRelacionada());
         String diretorioFormulariosEntidade = "/site/" + this.getClass().getSimpleName();
 
         switch (pAcaoGenerica) {

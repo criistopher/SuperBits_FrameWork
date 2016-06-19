@@ -347,7 +347,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
             String diretorioBaseEntidade = "/site/" + pAcao.getNomeModulo().toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
-            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcao.getEntidadeDominio());
+            String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pAcao.getEntidadeDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
             AcaoGestaoEntidade acaoPrincipal = null;
