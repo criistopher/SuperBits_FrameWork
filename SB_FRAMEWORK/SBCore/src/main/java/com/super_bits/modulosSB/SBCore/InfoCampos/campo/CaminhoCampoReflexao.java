@@ -264,6 +264,25 @@ public final class CaminhoCampoReflexao extends ItemSimples {
 
     }
 
+    public List<String> getTodosCaminhosPossiveisSemUltimoParametro() {
+        List<String> caminhosPossiveis = new ArrayList();
+        String novoCaminho = "";
+        int i = 0;
+        for (String parte : partesCaminho) {
+            if (!novoCaminho.isEmpty()) {
+                novoCaminho += "." + parte;
+            } else {
+                novoCaminho = parte;
+            }
+            if (i < partesCaminho.size() - 1) {
+                caminhosPossiveis.add(novoCaminho);
+            }
+            i++;
+        }
+        return caminhosPossiveis;
+
+    }
+
     public List<String> getTodasListas() {
         List<String> caminhosComLista = new ArrayList();
         return caminhosComLista;
