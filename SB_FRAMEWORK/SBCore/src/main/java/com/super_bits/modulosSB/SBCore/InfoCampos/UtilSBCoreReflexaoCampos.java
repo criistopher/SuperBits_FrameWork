@@ -301,7 +301,7 @@ public class UtilSBCoreReflexaoCampos {
             listaCaminhosCampoDaClasse.putAll(buildCamposNivel1(pClasse, pClasse.getSimpleName()));
             //
             for (CaminhoCampoReflexao caminho : listaEntidadesPossiveis.values()) {
-
+                System.out.println(caminho.getCaminhoCompletoString());
                 Class classeAtual = caminho.getTipoCampo();
                 //
                 listaCaminhosCampoDaClasse.put(caminho.getCaminhoCompletoString(), caminho);
