@@ -150,10 +150,10 @@ public class UtilSBCoreReflexaoCampos {
                 classeJaAdicionada = true;
             }
             if (!classeJaAdicionada) {
-                for (String parte : cm.getTodosCaminhosPossiveis()) {
-
-                    if (CLASSE_ENTIDADE_BY_CAMINHO.get(parte) != null) {
-                        if (CLASSE_ENTIDADE_BY_CAMINHO.get(parte).getSimpleName().equals(classe.getSimpleName())) {
+                for (String parte : cm.getTodosCaminhosPossiveisSemUltimoParametro()) {
+                    Class classeDaParte = CLASSE_ENTIDADE_BY_CAMINHO.get(parte);
+                    if (classeDaParte != null) {
+                        if (classeDaParte.getSimpleName().equals(classe.getSimpleName())) {
                             classeJaAdicionada = true;
                         }
 
