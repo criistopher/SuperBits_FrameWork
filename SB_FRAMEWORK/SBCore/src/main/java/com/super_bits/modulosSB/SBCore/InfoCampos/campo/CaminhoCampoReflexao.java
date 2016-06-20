@@ -46,6 +46,9 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         configuraInformacoesBasicasDoCampoPorReflexao();
         makePartesCaminho();
         id = caminhoComleto.hashCode();
+        if (caminhoComleto.equals("Comprador.filiais[].filiais")) {
+            throw new UnsupportedOperationException("Peguei!!!" + "Field" + campo.getName() + "Caminho" + pCaminho);
+        }
     }
 
     /**
