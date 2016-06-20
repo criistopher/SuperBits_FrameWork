@@ -269,4 +269,16 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         return caminhosComLista;
     }
 
+    public String getLabel() {
+
+        InfoCampo anotacao = campoFieldReflection.getAnnotation(InfoCampo.class);
+
+        if (anotacao != null) {
+            return anotacao.label();
+        }
+
+        return "sem label";
+
+    }
+
 }

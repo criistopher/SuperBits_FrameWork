@@ -62,4 +62,6 @@ public interface ItfPaginaGerenciarEntidade<T> extends ItfB_Pagina {
 
     public ItfAcaoFormularioEntidade getAcaoEditar();
 
+    public boolean isSomenteLeitura();
+
 }

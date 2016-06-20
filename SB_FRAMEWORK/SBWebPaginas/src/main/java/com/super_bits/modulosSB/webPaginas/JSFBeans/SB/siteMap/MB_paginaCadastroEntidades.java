@@ -474,4 +474,9 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         return acaoEntidadeVisualizar;
     }
 
+    @Override
+    public boolean isSomenteLeitura() {
+        return !podeEditar;
+    }
+
 }
