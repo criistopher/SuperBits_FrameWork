@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToOne;
  *
  * @author desenvolvedor
  */
-public class CaminhoCampoReflexao extends ItemSimples {
+public final class CaminhoCampoReflexao extends ItemSimples {
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
@@ -28,11 +29,72 @@ public class CaminhoCampoReflexao extends ItemSimples {
     private final Field campoFieldReflection;
     private boolean umCampoListavel;
     private boolean umaEntidade;
+    private boolean umCampoSeparador;
+    private boolean umCampoVinculado;
 
+    /**
+     *
+     * @param pCaminho Caminho para encontrar o Campo, separado por . exemplo:
+     * usuario.localizacao.bairro
+     * @param campo O Field obtido por reflecion
+     */
+    public CaminhoCampoReflexao(String pCaminho, Field campo) {
+
+        //setCaminho(pCaminho);
+        caminhoComleto = pCaminho;
+        this.campoFieldReflection = campo;
+        configuraInformacoesBasicasDoCampoPorReflexao();
+        makePartesCaminho();
+        id = caminhoComleto.hashCode();
+    }
+
+    /**
+     *
+     * @param pPartesCaminho
+     * @param campo
+     */
+    public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
+
+        partesCaminho.addAll(pPartesCaminho);
+        this.campoFieldReflection = campo;
+        configuraInformacoesBasicasDoCampoPorReflexao();
+        makeCaminhoCompleto();
+        id = caminhoComleto.hashCode();
+    }
+
+    private void configuraInformacoesBasicasDoCampoPorReflexao() {
+
+        umCampoVinculado = campoFieldReflection != null;
+
+        if (umCampoVinculado) {
+
+            if (campoFieldReflection.getType().getSimpleName().equals("List")) {
+                umCampoListavel = true;
+                umaEntidade = true;
+                if (caminhoComleto.contains("[]")) {
+
+                } else {
+                    caminhoComleto += "[]";
+                    makePartesCaminho();
+                }
+            }
+
+            if (campoFieldReflection.isAnnotationPresent(ManyToOne.class)) {
+                umaEntidade = true;
+            }
+        } else {
+
+        }
+    }
+
+    /**
+     *
+     * @param caminho
+     */
     public CaminhoCampoReflexao(String caminho) {
         if (!UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminho)) {
             CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
-
+            umCampoSeparador = true;
             campoFieldReflection = cm.getCampoFieldReflection();
             caminhoComleto = cm.getCaminhoCompletoString();
             partesCaminho.addAll(cm.getPartesCaminho());
@@ -43,6 +105,7 @@ public class CaminhoCampoReflexao extends ItemSimples {
             partesCaminho.addAll(getPartesCaminho());
             id = caminhoComleto.hashCode();
         }
+        umCampoVinculado = false;
     }
 
     private void makePartesCaminho() {
@@ -75,42 +138,6 @@ public class CaminhoCampoReflexao extends ItemSimples {
         partesCaminho.clear();
         partesCaminho.addAll(Arrays.asList(partes));
 
-    }
-
-    private void configuraInformacoesBasicasDoCampoPorReflexao() {
-        if (campoFieldReflection.getType().getSimpleName().equals("List")) {
-            umCampoListavel = true;
-            umaEntidade = true;
-        }
-
-        if (campoFieldReflection.isAnnotationPresent(ManyToOne.class)) {
-            umaEntidade = true;
-        }
-    }
-
-    /**
-     *
-     * @param pCaminho Caminho para encontrar o Campo, separado por . exemplo:
-     * usuario.localizacao.bairro
-     * @param campo O Field obtido por reflecion
-     */
-    public CaminhoCampoReflexao(String pCaminho, Field campo) {
-
-        //setCaminho(pCaminho);
-        caminhoComleto = pCaminho;
-        this.campoFieldReflection = campo;
-        configuraInformacoesBasicasDoCampoPorReflexao();
-        makePartesCaminho();
-        id = caminhoComleto.hashCode();
-    }
-
-    public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
-
-        partesCaminho.addAll(pPartesCaminho);
-        this.campoFieldReflection = campo;
-        configuraInformacoesBasicasDoCampoPorReflexao();
-        makeCaminhoCompleto();
-        id = caminhoComleto.hashCode();
     }
 
     /**
@@ -180,7 +207,63 @@ public class CaminhoCampoReflexao extends ItemSimples {
     }
 
     public boolean isUmTipoComOutrasPropriedades() {
-        return campoFieldReflection.getType().isAnnotationPresent(InfoClasse.class);
+        return getTipoCampo().isAnnotationPresent(InfoClasse.class);
+    }
+
+    /**
+     *
+     *
+     * @return O tipo do campo caso seja uma
+     */
+    public Class getTipoCampo() {
+
+        if (umCampoListavel) {
+
+            ParameterizedType genericoTipo = (ParameterizedType) campoFieldReflection.getGenericType();
+            Class tipoDaLista = (Class<?>) genericoTipo.getActualTypeArguments()[0];
+
+            return tipoDaLista;
+        } else {
+            return campoFieldReflection.getType();
+        }
+    }
+
+    public boolean isUmCampoListavel() {
+        return umCampoListavel;
+    }
+
+    public boolean isUmaEntidade() {
+        return umaEntidade;
+    }
+
+    public boolean isUmCampoVinculado() {
+        return umCampoVinculado;
+    }
+
+    public String getUtimoNome() {
+        return partesCaminho.get(partesCaminho.size() - 1);
+    }
+
+    public List<String> getTodosCaminhosPossiveis() {
+        List<String> caminhosPossiveis = new ArrayList();
+        String novoCaminho = "";
+        for (String parte : partesCaminho) {
+            if (!novoCaminho.isEmpty()) {
+                novoCaminho += "." + parte;
+            } else {
+                novoCaminho = parte;
+            }
+
+            caminhosPossiveis.add(novoCaminho);
+
+        }
+        return caminhosPossiveis;
+
+    }
+
+    public List<String> getTodasListas() {
+        List<String> caminhosComLista = new ArrayList();
+        return caminhosComLista;
     }
 
 }
