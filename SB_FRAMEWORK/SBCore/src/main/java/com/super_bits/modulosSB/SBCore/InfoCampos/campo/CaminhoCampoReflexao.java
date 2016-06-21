@@ -43,12 +43,14 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
         this.campoFieldReflection = campo;
+        if (caminhoComleto.equals("Comprador.filiais[].pedidos")) {
+            System.out.println("PEguei");
+            //   throw new UnsupportedOperationException("Peguei!!!" + "Field" + campo.getName() + "Caminho" + pCaminho);
+        }
         configuraInformacoesBasicasDoCampoPorReflexao();
         makePartesCaminho();
         id = caminhoComleto.hashCode();
-        if (caminhoComleto.equals("Comprador.filiais[].filiais")) {
-            throw new UnsupportedOperationException("Peguei!!!" + "Field" + campo.getName() + "Caminho" + pCaminho);
-        }
+
     }
 
     /**
@@ -74,7 +76,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
             if (campoFieldReflection.getType().getSimpleName().equals("List")) {
                 umCampoListavel = true;
                 umaEntidade = true;
-                if (caminhoComleto.contains("[]")) {
+                if (caminhoComleto.endsWith("[]")) {
 
                 } else {
                     caminhoComleto += "[]";
