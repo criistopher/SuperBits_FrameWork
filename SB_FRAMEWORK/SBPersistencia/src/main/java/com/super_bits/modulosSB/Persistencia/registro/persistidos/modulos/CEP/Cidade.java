@@ -61,6 +61,10 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO, label = "Data alteração", descricao = "Data de alteração da cidade")
     private Date dataAlteracao = new Date();
 
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO, label = "Data criação", descricao = "Data de Criação da Cidade")
+    private Date dataCriacao = new Date();
+
     public Cidade() {
         super(Cidade.class);
         unidadeFederativa = new UnidadeFederativa();
@@ -151,5 +155,14 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
     }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
 
 }
