@@ -4,24 +4,17 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.Ips.Ips;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 

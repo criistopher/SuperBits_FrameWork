@@ -380,13 +380,11 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     public ItfAcaoController comoController() {
         try {
-            if (isUmaAcaoFormulario()) {
-                return (ItfAcaoController) this;
-            } else {
-                throw new UnsupportedOperationException("A acao " + this.getNomeUnico() + " não é to tipo " + ItfAcaoController.class.getSimpleName());
-            }
+
+            return (ItfAcaoController) this;
+
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação  " + this + " não é to tipo controller ", t);
             return null;
         }
 
