@@ -40,6 +40,8 @@ public class UtilSBCoreReflexaoCampos {
     private static final Map<String, Class> CLASSE_ENTIDADE_BY_CAMINHO = new HashMap<>();//ok
     private static final Map<Class, Boolean> CLASSE_CONFIGURADA = new HashMap<>();//ok
 
+    private static final int LIMITE_SEQUENCIA_CAMPO = 6;
+
     /**
      *
      * A TAG SEPARADOR É A TAG QUE IDENTIFICA UM NOME DE CAMPO COMO SEPARADOR
@@ -107,6 +109,30 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    private static boolean isUmaEntidadeJaAlcancadaNoCaminho(CaminhoCampoReflexao pCaminho) {
+
+        Class classe = pCaminho.getTipoCampo();
+        List<Class> classesEncontradas = new ArrayList<>();
+        for (String parte : pCaminho.getTodosCaminhosPossiveisSemUltimoParametro()) {
+
+            Class classeDaParte = CLASSE_ENTIDADE_BY_CAMINHO.get(parte);
+            if (classeDaParte != null) {
+                if (classesEncontradas.contains(classeDaParte)) {
+                    return true;
+                }
+
+                if (classeDaParte.getSimpleName().equals(classe.getSimpleName())) {
+                    return true;
+                }
+                classesEncontradas.add(classeDaParte);
+            } else {
+                throw new UnsupportedOperationException("Impossivel determinar a classe para [" + parte + "]");
+            }
+        }
+
+        return false;
+    }
+
     public static void configurarTodasAsClasses(List<Class> entidades) {
         try {
             if (!todasClassesConfiguradas) {
@@ -132,45 +158,33 @@ public class UtilSBCoreReflexaoCampos {
     private static Map<String, CaminhoCampoReflexao> getCamposReflectionFilho(
             Map<String, CaminhoCampoReflexao> pListaAtualizada,
             Map<String, CaminhoCampoReflexao> pListaNova,
-            String pCaminhoAnterior, Class pClasePrincipal) {
+            String pCaminhoAnterior) {
         if (pListaAtualizada == null) {
             pListaAtualizada = new HashMap<>();
         }
 
         // PARA CADA CAMPO DA LISTA NOVA ADICIONA O CAMPO NA LISTA ATUALIZADA
         for (CaminhoCampoReflexao cm : pListaNova.values()) {
-            pListaAtualizada.put(cm.getCaminhoCompletoString(), cm);
-        }
+            if (cm.getPartesCaminho().size() < LIMITE_SEQUENCIA_CAMPO && !isUmaEntidadeJaAlcancadaNoCaminho(cm)) {
+                pListaAtualizada.put(cm.getCaminhoCompletoString(), cm);
 
-        // PARA CADA CAMPO DA LISTA NOVA VERIFICA SE A ENTIDADE JÁ FOI ADICIONADA NO CAMINHO DO CAMPO E ADICIONA O NOVO CAMINHO
-        for (CaminhoCampoReflexao cm : pListaNova.values()) {
-            Class classe = cm.getTipoCampo();
-            boolean classeJaAdicionada = false;
-            if (classe.getSimpleName().equals(pClasePrincipal.getSimpleName())) {
-                classeJaAdicionada = true;
-            }
-            if (!classeJaAdicionada) {
-                for (String parte : cm.getTodosCaminhosPossiveisSemUltimoParametro()) {
-                    Class classeDaParte = CLASSE_ENTIDADE_BY_CAMINHO.get(parte);
-                    if (classeDaParte != null) {
-                        if (classeDaParte.getSimpleName().equals(classe.getSimpleName())) {
-                            classeJaAdicionada = true;
-                        }
+                // Verificando se a entidade já foi alcaçada neste caminho para evitar loop
+                Class classe = cm.getTipoCampo();
 
-                    }
-                }
-            }
-
-            if (!classeJaAdicionada) {
+                // caso a entidade não tenha sido alcançada neste caminho adiciona como um caminho possivel
                 //  System.out.println("Configurando SubCampos Para o campo:" + cm.getCaminhoCompletoString());
                 Map<String, CaminhoCampoReflexao> novosCamposEncontrados = new HashMap<>();
 
                 novosCamposEncontrados = getCamposComSubCamposDaClasse(classe, pCaminhoAnterior + "." + cm.getUtimoNome());
+                if (!novosCamposEncontrados.isEmpty()) {
+                    pListaAtualizada.putAll(getCamposReflectionFilho(pListaAtualizada, novosCamposEncontrados, pCaminhoAnterior + "." + cm.getUtimoNome()));
+                }
 
-                return getCamposReflectionFilho(pListaAtualizada, novosCamposEncontrados, pCaminhoAnterior + "." + cm.getUtimoNome(), pClasePrincipal);
             }
 
         }
+
+        // PARA CADA CAMPO DA LISTA NOVA VERIFICA SE A ENTIDADE JÁ FOI ADICIONADA NO CAMINHO DO CAMPO E ADICIONA O NOVO CAMINHO
         return pListaAtualizada;
 
     }
@@ -199,16 +213,18 @@ public class UtilSBCoreReflexaoCampos {
         if (!camposdeEntidadeEncontradosNivel0.isEmpty()) {
 
             // para cada campo do tipo tabela do nivel zero
-            for (CaminhoCampoReflexao campoFilho : Lists.newArrayList(camposdeEntidadeEncontradosNivel0.values())) {
+            for (CaminhoCampoReflexao campoFilho : camposdeEntidadeEncontradosNivel0.values()) {
+
                 Class classeAtual = campoFilho.getTipoCampo();
-                camposDonivel.put(campoFilho.getCaminhoCompletoString(), campoFilho);
+
                 // pega os campos do tipo Tabela do campo
                 Map<String, CaminhoCampoReflexao> camposDoFilho = getCamposComSubCamposDaClasse(classeAtual, campoFilho.getCaminhoCompletoString());
 
                 // adicionando Campos de entidade do tipo Lista
                 // paga campos e subcampos do filho
-                Map<String, CaminhoCampoReflexao> novosCampos = getCamposReflectionFilho(null, camposDoFilho, campoFilho.getCaminhoCompletoString(), pClasse);
-                camposDonivel.putAll(novosCampos);
+                Map<String, CaminhoCampoReflexao> novosCampos = getCamposReflectionFilho(null, camposDoFilho, campoFilho.getCaminhoCompletoString());
+                camposDonivel = novosCampos;
+                camposEncontrados.put(campoFilho.getCaminhoCompletoString(), campoFilho);
                 camposEncontrados.putAll(camposDonivel);
             }
         }
@@ -237,6 +253,10 @@ public class UtilSBCoreReflexaoCampos {
 
         boolean chegouAoFim = false;
         Class classeatualiza = pClasse;
+
+        if (pClasse.getSimpleName().equals("ResponsavelComprador")) {
+            System.out.println("teste");
+        }
 
         // Listando todas as classes com a anotação Entity que extendem esta classe
         while (!chegouAoFim) {
@@ -285,7 +305,7 @@ public class UtilSBCoreReflexaoCampos {
                     return CAMPOS_DA_CLASSE.get(pClasse);
                 }
             }
-
+            CLASSE_ENTIDADE_BY_CAMINHO.put(pClasse.getSimpleName(), pClasse);
             // Lista todas as entidades ligadas a entidade principal, e o caminho para chegar até ela
             Map<String, CaminhoCampoReflexao> listaEntidadesPossiveis = makeCaminhosDeCamposDoTipoEntidadePossiveisDaClasse(pClasse);
 
@@ -301,7 +321,7 @@ public class UtilSBCoreReflexaoCampos {
             listaCaminhosCampoDaClasse.putAll(buildCamposNivel1(pClasse, pClasse.getSimpleName()));
             //
             for (CaminhoCampoReflexao caminho : listaEntidadesPossiveis.values()) {
-                System.out.println(caminho.getCaminhoCompletoString());
+
                 Class classeAtual = caminho.getTipoCampo();
                 //
                 listaCaminhosCampoDaClasse.put(caminho.getCaminhoCompletoString(), caminho);
@@ -598,7 +618,7 @@ public class UtilSBCoreReflexaoCampos {
         while (!isClasseBasicaSB(classeAtual)) {
 
             if (classeAtual == null) {
-                System.out.println("Teste");
+                throw new UnsupportedOperationException("Erro obtendo classe superior em reflexao para obter campos manytone da classe" + pClasse);
             }
 
             Field[] fields = classeAtual.getDeclaredFields();
@@ -632,7 +652,7 @@ public class UtilSBCoreReflexaoCampos {
         while (!isClasseBasicaSB(classeAtual)) {
 
             if (classeAtual == null) {
-                System.out.println("Teste");
+                throw new UnsupportedOperationException("Impossível percorrrer classes superiores de" + pClasse + " com caminho base=" + pCaminho);
             }
 
             Field[] fields = classeAtual.getDeclaredFields();
@@ -645,7 +665,7 @@ public class UtilSBCoreReflexaoCampos {
                         String caminhocampo = pCaminho + "." + campo.getName();
                         CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo, campo);
                         lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
-                        CLASSE_ENTIDADE_BY_CAMINHO.put(caminhocampo, caminhoCR.getTipoCampo());
+                        CLASSE_ENTIDADE_BY_CAMINHO.put(caminhoCR.getCaminhoCompletoString(), caminhoCR.getTipoCampo());
                     }
                 }
 

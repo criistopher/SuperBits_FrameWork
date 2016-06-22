@@ -43,10 +43,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
         this.campoFieldReflection = campo;
-        if (caminhoComleto.equals("Comprador.filiais[].pedidos")) {
-            System.out.println("PEguei");
-            //   throw new UnsupportedOperationException("Peguei!!!" + "Field" + campo.getName() + "Caminho" + pCaminho);
-        }
+
         configuraInformacoesBasicasDoCampoPorReflexao();
         makePartesCaminho();
         id = caminhoComleto.hashCode();
