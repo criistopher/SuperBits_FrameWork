@@ -106,7 +106,7 @@ public abstract class MB_SiteMapa implements Serializable {
                 try {
 
                     ItfFabricaAcoes fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
-                    ItfAcaoGerenciarEntidade acao = fabrica.geAcaoGerenciarEntidade();
+                    ItfAcaoGerenciarEntidade acao = fabrica.getAcaoDoSistema().comoGestaoEntidade();
 
                     if (acao != null) {
                         paginasInjetadas.put(acao.getXhtml(), campo);

@@ -6,10 +6,12 @@ package com.super_bits.view.menu;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSessaoCategoria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -357,6 +359,16 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     @Override
     public ItfAcaoSecundaria comoSecundaria() {
         throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo Secundaria"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoFormularioEntidade comoFormularioEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoControllerEntidade comoControllerEntidade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
