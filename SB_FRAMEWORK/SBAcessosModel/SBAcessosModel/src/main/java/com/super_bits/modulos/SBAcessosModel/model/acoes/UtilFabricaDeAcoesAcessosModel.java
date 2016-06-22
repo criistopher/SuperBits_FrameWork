@@ -234,7 +234,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                         ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
 
                     } catch (Throwable t) {
-                        SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
+                        SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
                     }
                 }
                 if (anotacaoFormulario.codigoJira().length() > 2) {
@@ -497,7 +497,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando ação automática por nome:" + t.getMessage(), t);
         }
-        return null;
+        throw new UnsupportedOperationException("Erro Criando ação do sistema >>" + pAcao);
     }
 
     public static AcaoDoSistema criaAcaodoSistemaPorTipoAcao(FabTipoAcaoSistemaGenerica tipoDeAcao) {

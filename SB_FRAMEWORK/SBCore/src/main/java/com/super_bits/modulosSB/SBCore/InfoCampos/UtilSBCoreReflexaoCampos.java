@@ -254,10 +254,6 @@ public class UtilSBCoreReflexaoCampos {
         boolean chegouAoFim = false;
         Class classeatualiza = pClasse;
 
-        if (pClasse.getSimpleName().equals("ResponsavelComprador")) {
-            System.out.println("teste");
-        }
-
         // Listando todas as classes com a anotação Entity que extendem esta classe
         while (!chegouAoFim) {
             classesComCampos.add(classeatualiza);
