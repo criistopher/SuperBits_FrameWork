@@ -6,6 +6,7 @@ package com.super_bits.Controller.Interfaces.acoes;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
@@ -218,6 +219,8 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public ItfAcaoFormulario comoFormulario();
 
+    public ItfAcaoFormularioEntidade comoFormularioEntidade();
+
     /**
      *
      * @return Esta ação com o Tipo ItrGerenciarEntidade
@@ -235,5 +238,11 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return A ação como uma ação secundaria
      */
     public ItfAcaoSecundaria comoSecundaria();
+
+    /**
+     *
+     * @return A ação como controller Entidade
+     */
+    public ItfAcaoControllerEntidade comoControllerEntidade();
 
 }

@@ -7,10 +7,12 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
 import com.super_bits.Controller.UtilSBController;
@@ -392,7 +394,32 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     public ItfAcaoSecundaria comoSecundaria() {
-        return (ItfAcaoSecundaria) this;
+        try {
+            return (ItfAcaoSecundaria) this;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não é compativel com o Tipo Secudaria ", t);
+            return null;
+        }
+    }
+
+    @Override
+    public ItfAcaoFormularioEntidade comoFormularioEntidade() {
+        try {
+            return (ItfAcaoFormularioEntidade) this;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não é compativel com o Tipo Formulario Entidade ", t);
+            return null;
+        }
+    }
+
+    @Override
+    public ItfAcaoControllerEntidade comoControllerEntidade() {
+        try {
+            return (ItfAcaoControllerEntidade) this;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não é compativel com o Tipo ControllerEntidade ", t);
+            return null;
+        }
     }
 
 }
