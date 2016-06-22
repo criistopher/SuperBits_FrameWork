@@ -311,67 +311,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        try {
-            return (ItfAcaoGerenciarEntidade) getRegistro();
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
-        }
-
-        return null;
-
-    }
-
-    @Override
-    public ItfAcaoEntidade getAcaoDeEntidade() {
-        try {
-            return (ItfAcaoEntidade) getRegistro();
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
-        }
-
-        return null;
-    }
-
-    @Override
-    public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-
-        try {
-            return (ItfAcaoControllerEntidade) getRegistro();
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
-        }
-
-        return null;
-
-    }
-
-    @Override
-    public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
-        try {
-            return (ItfAcaoFormularioEntidade) getRegistro();
-
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
-        }
-
-        return null;
-
-    }
-
-    @Override
-    public ItfAcaoController getAcaoController() {
-        try {
-            return (ItfAcaoController) getRegistro();
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo ItfAcaoControllerEntidade", t);
-        }
-
-        return null;
-
-    }
-
-    @Override
     public Class getEntidadeDominio() {
         switch (this) {
             case GRUPO_MB_GERENCIAR:

@@ -65,32 +65,6 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoEntidade getAcaoDeEntidade() {
-        return (ItfAcaoEntidade) getRegistro();
-    }
-
-    @Override
-    public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
-        return (ItfAcaoFormularioEntidade) getRegistro();
-    }
-
-    @Override
-    public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-        return (ItfAcaoControllerEntidade) getRegistro();
-    }
-
-    @Override
-    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        return (ItfAcaoGerenciarEntidade) getRegistro();
-    }
-
-    @Override
-    public ItfAcaoController getAcaoController() {
-        return (ItfAcaoController) getRegistro();
-
-    }
-
-    @Override
     public Class getEntidadeDominio() {
         switch (this) {
 

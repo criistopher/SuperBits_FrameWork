@@ -45,31 +45,6 @@ public enum FabAcaoComunicacaoPadrao implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoEntidade getAcaoDeEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfAcaoController getAcaoController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Class getEntidadeDominio() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

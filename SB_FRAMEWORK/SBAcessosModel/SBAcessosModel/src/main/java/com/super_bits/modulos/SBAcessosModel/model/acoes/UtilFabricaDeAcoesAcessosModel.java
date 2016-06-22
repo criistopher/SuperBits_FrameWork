@@ -325,7 +325,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         try {
             if (fabricaDadoPrincipal != null) {
 
-                pAcaoPrincipal = fabricaDadoPrincipal.geAcaoGerenciarEntidade();
+                pAcaoPrincipal = fabricaDadoPrincipal.getAcaoDoSistema().comoGestaoEntidade();
             }
 
             if (pAcaoPrincipal == null) {

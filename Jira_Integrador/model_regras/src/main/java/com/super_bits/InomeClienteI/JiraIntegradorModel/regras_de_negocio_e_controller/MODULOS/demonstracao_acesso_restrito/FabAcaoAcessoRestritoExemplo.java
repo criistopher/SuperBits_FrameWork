@@ -99,65 +99,6 @@ public enum FabAcaoAcessoRestritoExemplo implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoEntidade getAcaoDeEntidade() {
-
-        try {
-            return (ItfAcaoEntidade) getAcaoDoSistema();
-        } catch (Throwable t) {
-            String tipo = t.getStackTrace()[0].getMethodName();
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);
-            return null;
-        }
-
-    }
-
-    @Override
-    public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario() {
-        try {
-            return (ItfAcaoFormularioEntidade) getAcaoDoSistema();
-        } catch (Throwable t) {
-            String tipo = t.getStackTrace()[0].getMethodName();
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);
-            return null;
-        }
-
-    }
-
-    @Override
-    public ItfAcaoControllerEntidade getAcaoEntidadeController() {
-        try {
-            return (ItfAcaoControllerEntidade) getAcaoDoSistema();
-        } catch (Throwable t) {
-            String tipo = t.getStackTrace()[0].getMethodName();
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);
-            return null;
-        }
-    }
-
-    @Override
-    public ItfAcaoController getAcaoController() {
-        try {
-            return (ItfAcaoController) getAcaoDoSistema();
-        } catch (Throwable t) {
-            String tipo = t.getStackTrace()[0].getMethodName();
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);
-            return null;
-        }
-    }
-
-    @Override
-    public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade() {
-        try {
-            return (ItfAcaoGerenciarEntidade) getAcaoDoSistema();
-        } catch (Throwable t) {
-            String tipo = t.getStackTrace()[0].getMethodName();
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não parece ser do tipo " + tipo, t);
-            return null;
-        }
-
-    }
-
-    @Override
     public Class getEntidadeDominio() {
         return AcaoDoSistema.class;
 
