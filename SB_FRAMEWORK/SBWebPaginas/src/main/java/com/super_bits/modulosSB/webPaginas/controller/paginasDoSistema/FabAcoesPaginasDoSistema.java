@@ -4,18 +4,11 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.paginasDoSistema;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 
@@ -28,9 +21,9 @@ public enum FabAcoesPaginasDoSistema implements ItfFabricaAcoes {
 
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_MB_HOME,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true)
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/acessoNegado.xhtml")
     PAGINA_MB_ACESSO_NEGADO,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key ", precisaPermissao = true)
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = true, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/login.xhtml")
     PAGINA_MB_LOGIN;
 
     @Override

@@ -6,6 +6,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -24,6 +25,8 @@ public abstract class MB_PaginaAtual implements Serializable {
     private Date datahoraAbertura;
     private ItfB_Pagina infoPagina;
     private Conversation conversa;
+    @Inject
+    private InfoErroCritico erroCriticoDoSistema;
 
     @Inject
     private ControleDeSessaoWeb controleDeSessao;
@@ -32,34 +35,52 @@ public abstract class MB_PaginaAtual implements Serializable {
 
     @PostConstruct
     public void startBean() {
-        SBCore.soutInfoDebug("Iniciando pagina Atual");
-        datahoraAbertura = new Date();
-        if (infoPagina != null) {
-            System.out.println("Pagina Atual infoPagina carregado");
-        }
-        if (infoPagina == null) {
-            SBCore.soutInfoDebug("PaginaAtual sem  infoPagina Carregado, obtendo infoPagina por Recurso");
-            String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-            SBCore.soutInfoDebug("Recurso encontrado:" + viewId);
-            try {
-                setInfoPagina(getSiteMap().getPaginaNoContexto(viewId));
-            } catch (Throwable e) {
-                FabErro.PARA_TUDO.paraSistema("Erro Obtendo pagina Atual por viewID, verifique a declaração no sitemap e anotações View:" + viewId, e);
+        try {
+            SBCore.soutInfoDebug("Iniciando pagina Atual");
+            datahoraAbertura = new Date();
+            if (infoPagina != null) {
+                System.out.println("Pagina Atual infoPagina carregado");
             }
-        }
+            if (infoPagina == null) {
 
-        if (getInfoPagina() == null) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("PAGINA ATUAL NÃO PODE SER DETERMINADA PELO URL DE SOLICITACAO", null);
-            UtilSBWP_JSFTools.vaParaPaginadeErro("impossível determinar a Pagina atual pela URL");
-        } else {
-            infoPagina.abrePagina();
-            conversa = infoPagina.getConversa();
-            if (conversa == null) {
-                //    iniciaConvesa();
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                if (contexto == null) {
+                    throw new UnsupportedOperationException("O contexto do XHTML não pode ser determinando em PGPaginaAtual");
+                }
+
+                String viewId = contexto.getViewRoot().getViewId();
+                if (viewId == null) {
+                    throw new UnsupportedOperationException("O XHTML principal do contexto atual não pode ser determinado");
+                }
+
+                try {
+                    setInfoPagina(getSiteMap().getPaginaNoContexto(viewId));
+                } catch (Throwable e) {
+                    throw new UnsupportedOperationException("Não foi possível identificar a pagina vinculada ao xhtml:" + viewId);
+
+                }
             }
-            System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getTagUsada());
-        }
 
+            if (getInfoPagina() == null) {
+                throw new UnsupportedOperationException("PAGINA ATUAL NÃO PODE SER DETERMINADA PELO URL DE SOLICITACAO", null);
+
+            } else {
+                infoPagina.abrePagina();
+                conversa = infoPagina.getConversa();
+                if (conversa == null) {
+                    //    iniciaConvesa();
+                }
+                System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getTagUsada());
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual", t);
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+
+                erroCriticoDoSistema.setBeanErroCritico(new InfoErroCritico("Erro criando bean Pagina Atual," + getSiteMap().getPaginasOffline(), t));
+                UtilSBWP_JSFTools.vaParaPaginadeErro(t.getMessage());
+            }
+
+        }
     }
 
     public void iniciaConvesa() {

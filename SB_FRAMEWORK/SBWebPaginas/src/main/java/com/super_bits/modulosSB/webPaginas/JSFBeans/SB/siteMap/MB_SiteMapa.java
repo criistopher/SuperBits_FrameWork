@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import static com.super_bits.Controller.UtilSBController.getFabricaAcaoByClasse;
@@ -8,6 +9,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGest
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.FabricaBeansPrimeFaces;
 
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.view.menu.ItfFabricaMenu;
@@ -101,21 +103,25 @@ public abstract class MB_SiteMapa implements Serializable {
             }
 
             List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
-
+            ItfFabricaAcoes fabrica = null;
             for (Field campo : camposInjetados) {
                 try {
 
-                    ItfFabricaAcoes fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
-                    ItfAcaoGerenciarEntidade acao = fabrica.getAcaoDoSistema().comoGestaoEntidade();
+                    fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
+                    if (fabrica == null) {
+                        throw new UnsupportedOperationException("Impossível determinar a fabrica de ação para" + campo.getType() + " é Obrigatorio criar uma anotação nas classes de pagina com o metodo acao() retornando um ItfFabricaDeAcao");
+                    }
+
+                    ItfAcaoDoSistema acao = fabrica.getAcaoDoSistema();
 
                     if (acao != null) {
-                        paginasInjetadas.put(acao.getXhtml(), campo);
-                        paginasOffline.put(acao.getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
+                        paginasInjetadas.put(acao.comoGestaoEntidade().getXhtml(), campo);
+                        paginasOffline.put(acao.comoGestaoEntidade().getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
                     } else {
-                        throw new UnsupportedOperationException("No siteMap só devem ser injetadas paginas com ação vinculada");
+                        throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
                     }
                 } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType(), t);
+                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType() + " com anotação: " + fabrica, t);
                 }
             }
         } catch (Throwable t) {

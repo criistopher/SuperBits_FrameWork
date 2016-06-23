@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.context.RequestContext;
 
 /**

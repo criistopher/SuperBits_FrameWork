@@ -18,7 +18,12 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author desenvolvedor
+ *
+ * Classe para camada controller que utliza controle de usuário através de
+ * persistencia com Hibernate
+ *
+ *
+ * @author Salvio Fubino
  */
 public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbstratoSBCore {
 

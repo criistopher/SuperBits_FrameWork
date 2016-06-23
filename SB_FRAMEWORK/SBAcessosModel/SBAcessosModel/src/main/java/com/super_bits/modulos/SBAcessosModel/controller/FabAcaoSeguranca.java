@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.Ips.Ips;
@@ -31,6 +32,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     GRUPO_FRM_LISTAR,
     GRUPO_FRM_VISUALIZAR,
     GRUPO_CTR_ALTERAR_STATUS,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/SBSystemPages/seguranca/simples/grupo/usuariosDoGrupo.xhtml")
     GRUPO_FRM_LISTAR_USUARIOS,
     GRUPO_CTR_SALVAR_MERGE,
     USUARIO_MB_GERENCIAR,
@@ -46,6 +48,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     USUARIO_FRM_VISUALIZAR,
     USUARIO_FRM_LISTAR_GRUPOS,
     USUARIO_CTR_ALTERAR_STATUS,
+    @InfoTipoAcaoController(icone = "fa fa-save")
     ACAO_CTR_INTERNA_DO_SISTEMA,
     IP_MB_GERENCIAR,
     IP_FRM_NOVO,
@@ -73,7 +76,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
                 acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
                 AcaoFormularioEntidade acaoNovoRegistro = (AcaoFormularioEntidade) acao;
-                acaoNovoRegistro.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/usuario/grupo/editarGrupo.xhtml");
+                acaoNovoRegistro.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/grupo/editarGrupo.xhtml");
 
                 acaoNovoRegistro.setPrecisaPermissao(true);
                 acaoNovoRegistro.setDescricao("Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras");

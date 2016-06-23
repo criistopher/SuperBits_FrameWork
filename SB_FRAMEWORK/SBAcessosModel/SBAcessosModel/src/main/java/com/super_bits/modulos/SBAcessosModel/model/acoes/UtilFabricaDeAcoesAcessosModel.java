@@ -22,6 +22,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.lang.reflect.Field;
@@ -250,6 +251,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoFormulario.xhtmlDaAcao());
                 }
                 pAcao.setPrecisaPermissao(anotacaoFormulario.precisaPermissao());
+            } else if (campo.getDeclaredAnnotations().length > 0) {
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }
@@ -277,6 +280,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 }
                 pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
 
+            } else if (campo.getDeclaredAnnotations().length > 0) {
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }
@@ -303,6 +308,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                 pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
 
+            } else if (campo.getDeclaredAnnotations().length > 0) {
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }
@@ -317,6 +324,16 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      */
     public static ItfAcaoDoSistema getNovaAcao(
             ItfFabricaAcoes pAcao) {
+
+        // Verificando se a ação já foi criada
+        if (MapaAcoesSistema.isMapaCriado()) {
+            AcaoDoSistema acao = (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistema(pAcao);
+            if (acao == null) {
+                throw new UnsupportedOperationException("O Mapa de ações foi criado, mas a ação procurada não foi encontra, certifique que a ação chamada esteja no core., a ação foi: " + pAcao);
+            }
+
+            return acao;
+        }
 
         FabTipoAcaoSistemaGenerica pTipoAcaoGenerica = getTipoAcaoByNome(pAcao);
 
@@ -407,7 +424,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
@@ -416,7 +433,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;
