@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimple
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.util.Date;
@@ -64,7 +63,7 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     @InfoCampo(tipo = FabCampos.DATA, label = "Data Alteração", descricao = "Data de alteração da região")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date alteradoEM;
+    private Date alteradoEm;
 
     @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status da Região (ativo/inativo)")
     @NotNull
@@ -136,12 +135,12 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
         this.criadoEm = criadoEm;
     }
 
-    public Date getAlteradoEM() {
-        return alteradoEM;
+    public Date getAlteradoEm() {
+        return alteradoEm;
     }
 
-    public void setAlteradoEM(Date alteradoEM) {
-        this.alteradoEM = alteradoEM;
+    public void setAlteradoEm(Date alteradoEm) {
+        this.alteradoEm = alteradoEm;
     }
 
     /**
