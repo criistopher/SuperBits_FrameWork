@@ -397,7 +397,7 @@ public class UtilSBCoreReflexaoCampos {
      */
     public static Class getClassePrincipalPorNome(String pNome) {
         String[] nomes = pNome.split("\\.");
-        System.out.println("Obtendo classe por nome" + pNome);
+        System.out.print(".");
         if (UtilSBCoreStrings.isPrimeiraLetraMaiuscula(pNome)) {
             return getclassePorNome(nomes[0]);
         } else {
