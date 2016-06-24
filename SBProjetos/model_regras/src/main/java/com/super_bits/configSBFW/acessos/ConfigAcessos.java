@@ -166,8 +166,7 @@ public class ConfigAcessos extends ConfigAcessoAbstratoSBCore {
             finalizarRequisito.addUsuarioPermitido(salvio);
             UtilSBPersistencia.mergeRegistro(finalizarRequisito);
         }
-        get List
-        <ItfAcesso > resp = new ArrayList<>();
+        get List  <ItfAcesso > resp = new ArrayList<>();
         try {
             resp = (List<ItfAcesso>) UtilSBPersistencia.getListaTodos(AcessoSB.class);
         } catch (Exception e) {
