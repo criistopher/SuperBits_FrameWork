@@ -50,13 +50,16 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Generated(GenerationTime.NEVER)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome", descricao = "Nome do Usuário")
     @NotNull
     private String nome;
+
     @Column(nullable = false, unique = true)
     @NotNull
     @InfoCampo(tipo = FabCampos.EMAIL, label = "E-mail", descricao = "email do usuário")
     private String email;
+
     @NotNull
     @Column(unique = true)
     @InfoCampo(label = "Usuário")
@@ -65,7 +68,9 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @InfoCampo(tipo = FabCampos.SENHA, label = "Senha")
     @NotNull
     private String senha;
+
     private String complemento;
+
     @InfoCampo(tipo = FabCampos.LCCEP, label = "CEP", descricao = "CEP do usuário")
     private String CEP;
 
