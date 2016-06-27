@@ -61,6 +61,15 @@ public class UtilSBCoreReflexaoCampos {
         return pNomeSeparador.contains(TAG_SEPARADOR);
     }
 
+    public static void limparTudo() {
+        CAMPOS_DA_CLASSE.clear();
+        CLASSE_ENTIDADE_BY_CAMINHO.clear();
+        ENTIDADES_DA_CLASSE.clear();
+        CLASSE_CONFIGURADA.clear();
+        CAMINHO_CAMPO_POR_NOME.clear();
+        System.gc();
+    }
+
     public static List<GrupoCampos> buildAgrupamentoCampos(List<CaminhoCampoReflexao> pCampos) {
         List<GrupoCampos> grupocampos = new ArrayList<>();
         if (!pCampos.isEmpty()) {
@@ -134,6 +143,10 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     public static void configurarTodasAsClasses(List<Class> entidades) {
+
+        if (true) {
+            return;
+        }
         try {
             if (!todasClassesConfiguradas) {
                 for (Class entidade : entidades) {

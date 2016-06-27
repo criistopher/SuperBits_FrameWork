@@ -56,6 +56,17 @@ public abstract class MapaAcoesSistema {
 
     }
 
+    public static void limparTudo() {
+        ACAO_BY_NOME_UNICO.clear();
+        ACAO_BY_ENUM.clear();
+        ACOES_BY_CLASSE.clear();
+        ACOES_BY_MODULO.clear();
+        ACOES_MANAGED_BEAN_BY_MODULO.clear();
+        SUBACOES_BY_ACAO_GERENCIAR_MB.clear();
+        ACOES_BY_DOMINIO.clear();
+        System.gc();
+    }
+
     public static void makeMapaAcoesSistema() {
         if (mapaCriado) {
             return;
