@@ -22,4 +22,6 @@ public interface ItfTipoView {
 
     public int getNumeroMaximoColunas();
 
+    public boolean isUmMobile();
+
 }

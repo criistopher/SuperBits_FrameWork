@@ -107,4 +107,9 @@ public class TelaWP implements ItfTipoView, Serializable {
         return numeroMaximoColunas;
     }
 
+    @Override
+    public boolean isUmMobile() {
+        return x < 600;
+    }
+
 }
