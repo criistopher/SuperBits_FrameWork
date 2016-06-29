@@ -28,7 +28,6 @@ public class UTILSBCoreDesktopAppTest {
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.USUARIO, FabMensagens.ALERTA, "teste"));
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.USUARIO, FabMensagens.AVISO, "teste"));
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.USUARIO, FabMensagens.ERRO, "teste"));
-
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.DESENVOLVEDOR, FabMensagens.ALERTA, "teste"));
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.DESENVOLVEDOR, FabMensagens.AVISO, "teste"));
         UTILSBCoreDesktopApp.showMessageStopProcess(new Mensagem(FabTipoUsuarioInteracao.DESENVOLVEDOR, FabMensagens.ERRO, "teste"));
