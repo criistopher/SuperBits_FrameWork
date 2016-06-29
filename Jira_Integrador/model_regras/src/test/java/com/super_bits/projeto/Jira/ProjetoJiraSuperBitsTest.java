@@ -49,7 +49,7 @@ public class ProjetoJiraSuperBitsTest extends TesteJunitSBPersistencia {
     @Override
     protected void configAmbienteDesevolvimento() {
         AcaoDoSistema acaoTeste3 = (AcaoDoSistema) FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_FRM_EDITAR.getAcaoDoSistema();
-        acaoTeste3.comoFormulario().getCampos();
+        acaoTeste3.getComoFormulario().getCampos();
 
         SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao());
         SBPersistencia.configuraJPA(new ConfigPersistenciaIntegrador());

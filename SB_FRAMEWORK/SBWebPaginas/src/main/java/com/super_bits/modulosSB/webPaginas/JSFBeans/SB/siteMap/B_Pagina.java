@@ -684,8 +684,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
 
             if (acaoSelecionada.isUmaAcaoFormulario()) {
-                if (!acaoSelecionada.comoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
-                    xhtmlAcaoAtual = acaoSelecionada.comoFormulario().getXhtml();
+                if (!acaoSelecionada.getComoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
+                    xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
                     paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
                 }
             }

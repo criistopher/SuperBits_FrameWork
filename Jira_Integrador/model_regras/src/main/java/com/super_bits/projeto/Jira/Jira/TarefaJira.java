@@ -72,9 +72,9 @@ public class TarefaJira {
             if (!isGropoTarefas() & !acaoVinculada.isUmaAcaoGestaoDominio()) {
                 try {
                     if (acaoVinculada.isUmaAcaoFormulario()) {
-                        if (!acaoVinculada.comoFormulario().getCampos().isEmpty()) {
+                        if (!acaoVinculada.getComoFormulario().getCampos().isEmpty()) {
                             retornoDescricao += "\n Este formulário deve exibir os seguintes campos <br>";
-                            for (CaminhoCampoReflexao campo : acaoVinculada.comoFormulario().getCampos()) {
+                            for (CaminhoCampoReflexao campo : acaoVinculada.getComoFormulario().getCampos()) {
                                 retornoDescricao += " \n" + campo.getCaminhoCompletoString();
                             }
                         }

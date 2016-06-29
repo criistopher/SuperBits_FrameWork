@@ -342,7 +342,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         try {
             if (fabricaDadoPrincipal != null) {
 
-                pAcaoPrincipal = fabricaDadoPrincipal.getAcaoDoSistema().comoGestaoEntidade();
+                pAcaoPrincipal = fabricaDadoPrincipal.getAcaoDoSistema().getComoGestaoEntidade();
             }
 
             if (pAcaoPrincipal == null) {

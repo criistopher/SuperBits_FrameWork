@@ -43,7 +43,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     }
 
     @Override
-    public ItfAcaoSecundaria comoSecundaria() {
+    public ItfAcaoSecundaria getComoSecundaria() {
         return (ItfAcaoSecundaria) this;
     }
 

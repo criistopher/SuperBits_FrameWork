@@ -349,7 +349,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return nomeDominio;
     }
 
-    public ItfAcaoFormulario comoFormulario() {
+    public ItfAcaoFormulario getComoFormulario() {
         try {
             if (isUmaAcaoFormulario()) {
                 return (ItfAcaoFormulario) this;
@@ -364,7 +364,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
+    public ItfAcaoGerenciarEntidade getComoGestaoEntidade() {
         try {
             if (isUmaAcaoFormulario()) {
                 return (ItfAcaoGerenciarEntidade) this;
@@ -378,7 +378,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-    public ItfAcaoController comoController() {
+    public ItfAcaoController getComoController() {
         try {
 
             return (ItfAcaoController) this;
@@ -391,7 +391,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoSecundaria comoSecundaria() {
+    public ItfAcaoSecundaria getComoSecundaria() {
         try {
             return (ItfAcaoSecundaria) this;
         } catch (Throwable t) {
@@ -401,7 +401,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoFormularioEntidade comoFormularioEntidade() {
+    public ItfAcaoFormularioEntidade getComoFormularioEntidade() {
         try {
             return (ItfAcaoFormularioEntidade) this;
         } catch (Throwable t) {
@@ -411,7 +411,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoControllerEntidade comoControllerEntidade() {
+    public ItfAcaoControllerEntidade getComoControllerEntidade() {
         try {
             return (ItfAcaoControllerEntidade) this;
         } catch (Throwable t) {

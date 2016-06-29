@@ -254,32 +254,32 @@ public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoFormulario comoFormulario() {
-        return acaoOriginal.comoFormulario();
+    public ItfAcaoFormulario getComoFormulario() {
+        return acaoOriginal.getComoFormulario();
     }
 
     @Override
-    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
-        return acaoOriginal.comoGestaoEntidade();
+    public ItfAcaoGerenciarEntidade getComoGestaoEntidade() {
+        return acaoOriginal.getComoGestaoEntidade();
     }
 
     @Override
-    public ItfAcaoController comoController() {
-        return acaoOriginal.comoController();
+    public ItfAcaoController getComoController() {
+        return acaoOriginal.getComoController();
     }
 
     @Override
-    public ItfAcaoSecundaria comoSecundaria() {
+    public ItfAcaoSecundaria getComoSecundaria() {
         throw new UnsupportedOperationException("Uma ação de Managed bean não pode ser tratada como ação secundaria"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoFormularioEntidade comoFormularioEntidade() {
+    public ItfAcaoFormularioEntidade getComoFormularioEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoControllerEntidade comoControllerEntidade() {
+    public ItfAcaoControllerEntidade getComoControllerEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

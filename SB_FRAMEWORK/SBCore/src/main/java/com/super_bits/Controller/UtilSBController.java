@@ -115,7 +115,7 @@ public class UtilSBController {
                 throw new UnsupportedOperationException("En GetAcaoByMetodo");
             }
 
-            ItfAcaoController acaoSisTema = (ItfAcaoController) acao.getAcaoDoSistema().comoController();
+            ItfAcaoController acaoSisTema = (ItfAcaoController) acao.getAcaoDoSistema().getComoController();
             acaoSisTema.setIdMetodo(pMetodo);
 
             return acaoSisTema;

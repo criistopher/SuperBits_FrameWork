@@ -73,9 +73,9 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
             FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema(),
             FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema(),
             FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema()
-        }, FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema().comoFormularioEntidade(),
-                FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().comoFormularioEntidade(),
-                FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoDoSistema().comoControllerEntidade(),
+        }, FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoDoSistema().getComoControllerEntidade(),
                 false
         );
 

@@ -42,9 +42,9 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
     private List<ModuloAcaoSistema> modulosDoSistema;
 
     private List<ItfBeanSimples> objetosDoSistema;
-    private final ItfAcaoFormulario acaoVisualizarPontosDeFuncao = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_ACOES.getAcaoDoSistema().comoFormularioEntidade();
-    private final ItfAcaoFormulario acaoVisualizarBancoDeDados = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS.getAcaoDoSistema().comoFormularioEntidade();
-    private final ItfAcaoFormulario acaoVisisaoGeral = FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL.getAcaoDoSistema().comoFormularioEntidade();
+    private final ItfAcaoFormulario acaoVisualizarPontosDeFuncao = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_ACOES.getAcaoDoSistema().getComoFormularioEntidade();
+    private final ItfAcaoFormulario acaoVisualizarBancoDeDados = FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS.getAcaoDoSistema().getComoFormularioEntidade();
+    private final ItfAcaoFormulario acaoVisisaoGeral = FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL.getAcaoDoSistema().getComoFormularioEntidade();
 
     @PostConstruct
     public void init() {

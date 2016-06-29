@@ -342,32 +342,32 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     }
 
     @Override
-    public ItfAcaoFormulario comoFormulario() {
+    public ItfAcaoFormulario getComoFormulario() {
         throw new UnsupportedOperationException("Uma ação de sessão não pode retornar um formulário"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoGerenciarEntidade comoGestaoEntidade() {
+    public ItfAcaoGerenciarEntidade getComoGestaoEntidade() {
         throw new UnsupportedOperationException("Uma ação de sessao não pode ser retronada como gestao de entidade"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoController comoController() {
+    public ItfAcaoController getComoController() {
         throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo controller"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoSecundaria comoSecundaria() {
+    public ItfAcaoSecundaria getComoSecundaria() {
         throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo Secundaria"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoFormularioEntidade comoFormularioEntidade() {
+    public ItfAcaoFormularioEntidade getComoFormularioEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoControllerEntidade comoControllerEntidade() {
+    public ItfAcaoControllerEntidade getComoControllerEntidade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

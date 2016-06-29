@@ -115,8 +115,8 @@ public abstract class MB_SiteMapa implements Serializable {
                     ItfAcaoDoSistema acao = fabrica.getAcaoDoSistema();
 
                     if (acao != null) {
-                        paginasInjetadas.put(acao.comoGestaoEntidade().getXhtml(), campo);
-                        paginasOffline.put(acao.comoGestaoEntidade().getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
+                        paginasInjetadas.put(acao.getComoGestaoEntidade().getXhtml(), campo);
+                        paginasOffline.put(acao.getComoGestaoEntidade().getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
                     } else {
                         throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
                     }

@@ -383,7 +383,7 @@ public class UtilSBCoreJira {
             if (pTarefa.getAcaoVinculada().isUmaAcaoGestaoDominio()) {
                 acaoPrincipal = pTarefa.getAcaoVinculada();
             } else {
-                acaoPrincipal = pTarefa.getAcaoVinculada().comoSecundaria().getAcaoPrincipal();
+                acaoPrincipal = pTarefa.getAcaoVinculada().getComoSecundaria().getAcaoPrincipal();
             }
             if (acaoPrincipal == null) {
                 throw new UnsupportedOperationException("Impossível determinar a ação principal para" + pTarefa.getAcaoVinculada());

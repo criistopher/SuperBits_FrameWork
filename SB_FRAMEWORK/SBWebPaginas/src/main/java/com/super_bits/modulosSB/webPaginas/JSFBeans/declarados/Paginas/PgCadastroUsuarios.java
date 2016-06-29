@@ -47,9 +47,9 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
             FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema(),
             FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema()
 
-        }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoDoSistema().comoFormularioEntidade(),
-                FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoDoSistema().comoFormularioEntidade(),
-                FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoDoSistema().comoControllerEntidade(),
+        }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoDoSistema().getComoControllerEntidade(),
                 true
         );
 

@@ -217,32 +217,32 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      *
      * @return Esta ação com o Tipo ItfAcaoFormulario
      */
-    public ItfAcaoFormulario comoFormulario();
+    public ItfAcaoFormulario getComoFormulario();
 
-    public ItfAcaoFormularioEntidade comoFormularioEntidade();
+    public ItfAcaoFormularioEntidade getComoFormularioEntidade();
 
     /**
      *
      * @return Esta ação com o Tipo ItrGerenciarEntidade
      */
-    public ItfAcaoGerenciarEntidade comoGestaoEntidade();
+    public ItfAcaoGerenciarEntidade getComoGestaoEntidade();
 
     /**
      *
      * @return Esta ação com o tipo Controller
      */
-    public ItfAcaoController comoController();
+    public ItfAcaoController getComoController();
 
     /**
      *
      * @return A ação como uma ação secundaria
      */
-    public ItfAcaoSecundaria comoSecundaria();
+    public ItfAcaoSecundaria getComoSecundaria();
 
     /**
      *
      * @return A ação como controller Entidade
      */
-    public ItfAcaoControllerEntidade comoControllerEntidade();
+    public ItfAcaoControllerEntidade getComoControllerEntidade();
 
 }
