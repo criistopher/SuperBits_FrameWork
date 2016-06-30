@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 public class AssuntoFaleConosco extends EntidadeNormal {
 
     @Id
+    @InfoCampo(tipo = FabCampos.ID, label = "ID", descricao = "Identificação do assunto")
     private int id;
 
     @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do assunto(ativo/inativo)")
@@ -45,6 +46,10 @@ public class AssuntoFaleConosco extends EntidadeNormal {
     @Temporal(javax.persistence.TemporalType.DATE)
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO, label = "Data Inclusão", descricao = "Data de inclusão do assunto")
     private Date dataInclusao;
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO, label = "Data Alteração", descricao = "Data de alteração do assunto")
+    private Date dataAlteracao;
 
     @NotNull
     @Column(length = 100, nullable = false)
@@ -128,6 +133,14 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     public void setDataInclusao(Date dataInclusao) {
         this.dataInclusao = dataInclusao;
+    }
+
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
     }
 
 }

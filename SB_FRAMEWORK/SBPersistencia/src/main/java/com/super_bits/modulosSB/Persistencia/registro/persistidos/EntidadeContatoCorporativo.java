@@ -17,6 +17,7 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
      *
      * @param pTelefon_nome_cnpj Parametro
      * @param pEm Entity Manager
+     * @return
      */
     public boolean loadEmpresabyContato(String pTelefon_nome_cnpj, EntityManager pEm) {
         Object registroEncontrado = UtilSBPersistencia.getEmpresa(this.getClass(), pTelefon_nome_cnpj, pEm);
