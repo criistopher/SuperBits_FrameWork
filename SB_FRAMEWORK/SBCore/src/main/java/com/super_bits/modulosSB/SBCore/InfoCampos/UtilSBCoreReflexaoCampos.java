@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -427,9 +428,6 @@ public class UtilSBCoreReflexaoCampos {
                 return new CaminhoCampoReflexao(caminhoCompleto);
             }
             CLASSE_ENTIDADE_BY_NOME.put(pClase.getSimpleName(), pClase);
-            if (getClassePrincipalPorNome(pClase.getSimpleName()) == null) {
-                throw new UnsupportedOperationException("A classe principal para " + pCaminho + "não foi encontrada");
-            }
 
             //Confgurando caminho completo
             String caminhoCompleto = pCaminho;
