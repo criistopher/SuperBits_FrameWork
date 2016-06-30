@@ -12,17 +12,17 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
  *
  * @author sfurbino
  */
-public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
+public class ErroSBCoreDeveloperSopMessagem extends InfoErroSBComAcoes {
 
     @Override
-    protected void alertarResponsavel() {
+    public void alertarResponsavel() {
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Alertando Responsavel \n" + getMsgDesenvolvedorLancou() + "\n")));
         }
     }
 
     @Override
-    protected void lancarExcecao() {
+    public void lancarExcecao() {
 
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             System.out.println("Atenão O lançamento de exceção não foi construido para ser utilizado dentro do Relatar Erro!! portando");
@@ -34,14 +34,14 @@ public class ErroSBCoreDeveloperSopMessagem extends InfoErroSB {
     }
 
     @Override
-    protected void lancarPane() {
+    public void lancarPane() {
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("VOCÊ GEROU UMA PANE NO SISTEMA! Parabéns ")));
         }
     }
 
     @Override
-    protected void registrarErro() {
+    public void registrarErro() {
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UTILSBCoreDesktopApp.showMessageStopProcess(FabMensagens.AVISO.getMsgDesenvolvedor(getMensagemGenericaFormatada("Atenção um pedido de log foi gerado para este erro:")));
         }

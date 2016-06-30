@@ -15,6 +15,7 @@ public class InfoErroCritico implements Serializable {
     private String tituloErro;
     private String mensagemErro;
     private String printStack;
+    private String printStackResumido;
     private InfoErroCritico beanErroCritico;
 
     public InfoErroCritico() {
@@ -50,6 +51,14 @@ public class InfoErroCritico implements Serializable {
 
     public void setBeanErroCritico(InfoErroCritico beanErroCritico) {
         this.beanErroCritico = beanErroCritico;
+    }
+
+    public String getPrintStackResumido() {
+        return printStackResumido;
+    }
+
+    public void setPrintStackResumido(String printStackResumido) {
+        this.printStackResumido = printStackResumido;
     }
 
 }

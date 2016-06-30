@@ -17,7 +17,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
 
 /**
  *
@@ -59,7 +60,7 @@ public class SBCore {
     private static ESTADO_APP estadoAplicativo;
     private static boolean ambienteExecucaoConfigurado = false;
     private static boolean informacoesProjetoConfigurado = false;
-    private static Class<? extends InfoErroSB> classeErro;
+    private static Class<? extends InfoErroSBComAcoes> classeErro;
     private static Class<? extends ItfCentralMensagens> centralMensagens;
     private static Class<? extends ItfControleDeSessao> controleDeSessao;
     private static Class<? extends ItfCentralEventos> centralEventos;
@@ -213,7 +214,7 @@ public class SBCore {
     }
 
     public static ESTADO_APP getEstadoAPP() {
-        //    ValidaConfigurado(); Retirado para permitir consulta de estado da aplicação ao InfoErroSB
+        //    ValidaConfigurado(); Retirado para permitir consulta de estado da aplicação ao InfoErroSBComAcoes
         // o diretorio do aplicativo o mesmo que o servet
         return estadoAplicativo;
     }
@@ -245,7 +246,7 @@ public class SBCore {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
                 classeErro = ErroSBCoreDeveloperSopMessagem.class;
             }
-            ItfInfoErroSB erro = (InfoErroSB) classeErro.newInstance();
+            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) classeErro.newInstance();
 
             erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(pMensagem), pTipoErro, pErroJava);
 

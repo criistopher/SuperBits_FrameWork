@@ -1,26 +1,26 @@
 package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
 
-public class ErroSBCoreFW extends InfoErroSB {
+public class ErroSBCoreFW extends InfoErroSBComAcoes {
 
     @Override
-    protected void alertarResponsavel() {
+    public void alertarResponsavel() {
         System.out.println("TODO Alerta de usuario");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void lancarExcecao() {
+    public void lancarExcecao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void lancarPane() {
+    public void lancarPane() {
         System.out.println("Pane lançada no sistema");
 
     }
 
     @Override
-    protected void registrarErro() {
+    public void registrarErro() {
 
         System.out.println("Este erro deveria ser persistido de alguma forma, mas não será poruqe o método registrar erro não foi implementado");
 

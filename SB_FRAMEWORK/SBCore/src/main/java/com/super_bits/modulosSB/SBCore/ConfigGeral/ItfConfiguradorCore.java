@@ -7,7 +7,7 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
@@ -29,7 +29,7 @@ public interface ItfConfiguradorCore {
      *
      * @return Classe responsável pelo tratamento de erros, e logs de sistema
      */
-    public Class<? extends InfoErroSB> getClasseErro();
+    public Class<? extends InfoErroSBComAcoes> getClasseErro();
 
     /**
      *

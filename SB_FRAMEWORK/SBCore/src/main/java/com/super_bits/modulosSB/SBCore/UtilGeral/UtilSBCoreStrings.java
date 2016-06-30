@@ -591,10 +591,23 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static boolean isPrimeiraLetraMaiuscula(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        if (pString.length() < 0) {
+            return false;
+        }
         return Character.isUpperCase(pString.charAt(0));
     }
 
     public static boolean isPrimeiraApenasLetraMaiuscula(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        if (pString.length() < 0) {
+            return false;
+        }
+
         if (!Character.isUpperCase(pString.charAt(0))) {
             return false;
         } else if (pString.length() > 1) {

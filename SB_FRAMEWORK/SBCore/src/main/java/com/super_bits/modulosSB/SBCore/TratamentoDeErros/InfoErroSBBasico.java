@@ -1,13 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
+
  */
 package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
+import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,137 +14,29 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  *
- * Classe erro básica que extende todos os erros dos projetos Super-Bits
- *
- * @author Sálvio Furbino <salviof@gmail.com>
- * @since 24/05/2014
- *
+ * @author desenvolvedor
  */
-public abstract class InfoErroSB implements ItfInfoErroSB {
+public class InfoErroSBBasico implements ItfInfoErroSB {
 
-    private ItfMensagem mensagemDoDesenvolvedor;
-    private FabErro tipoErro;
+    protected ItfMensagem mensagemDoDesenvolvedor;
+    protected FabErro tipoErro;
     private Throwable erroJavaGerado;
     private boolean configurado;
 
-    public InfoErroSB() {
-
+    public InfoErroSBBasico(String mensagem, FabErro pTipoErrp, Throwable pErroGerado) {
+        configurar(new MensagemProgramador(mensagem), pTipoErrp, pErroGerado);
     }
 
-    protected abstract void alertarResponsavel();
+    public InfoErroSBBasico() {
+    }
 
-    protected abstract void lancarExcecao();
-
-    protected abstract void lancarPane();
-
-    protected abstract void registrarErro();
-
-    private void checarConfiguracao() {
+    protected void checarConfiguracao() {
         if (!configurado) {
             System.out.println("O que você está fazendo ? Vai com calma amiguinho "
                     + "os erros devem ser Lançados utilizando a FabricaDeErros, "
                     + "ou SBCore, não é possícel acessr uma informação do erro sem configura-lo ;) ");
             pararSistem();
         }
-    }
-
-    @Override
-    public void executarErro() {
-        checarConfiguracao();
-        sytemOutDoErro();
-
-        switch (tipoErro) {
-            case LANCAR_EXCECÃO:
-                switch (SBCore.getEstadoAPP()) {
-                    case DESENVOLVIMENTO:
-                        lancarExcecao();
-
-                        break;
-                    case PRODUCAO:
-                        lancarExcecao();
-
-                        break;
-                    case HOMOLOGACAO:
-                        registrarErro();
-                        lancarExcecao();
-                        break;
-                    default:
-                        throw new AssertionError(SBCore.getEstadoAPP().name());
-                }
-
-                break;
-            case PANE_NO_SISTEMA:
-                switch (SBCore.getEstadoAPP()) {
-                    case DESENVOLVIMENTO:
-                        alertarResponsavel();
-                        break;
-                    case PRODUCAO:
-                        registrarErro();
-                        alertarResponsavel();
-                        break;
-                    case HOMOLOGACAO:
-                        registrarErro();
-                        alertarResponsavel();
-                        break;
-                    default:
-                        throw new AssertionError(SBCore.getEstadoAPP().name());
-                }
-
-                break;
-            case ARQUIVAR_LOG:
-                switch (SBCore.getEstadoAPP()) {
-                    case DESENVOLVIMENTO:
-                        registrarErro();
-                        alertarResponsavel();
-                        break;
-                    case PRODUCAO:
-                        registrarErro();
-                        break;
-                    case HOMOLOGACAO:
-                        registrarErro();
-                        break;
-                    default:
-                        throw new AssertionError(SBCore.getEstadoAPP().name());
-                }
-
-                SBCore.getCentralDeEventos().registrarLogDeEvento(FabMensagens.ERRO, mensagemDoDesenvolvedor.getMenssagem(), -1);
-                break;
-            case SOLICITAR_REPARO:
-                switch (SBCore.getEstadoAPP()) {
-                    case DESENVOLVIMENTO:
-                        alertarResponsavel();
-                        break;
-                    case PRODUCAO:
-                        alertarResponsavel();
-                        break;
-                    case HOMOLOGACAO:
-                        alertarResponsavel();
-                        break;
-                    default:
-                        throw new AssertionError(SBCore.getEstadoAPP().name());
-                }
-                break;
-            case PARA_TUDO:
-                switch (SBCore.getEstadoAPP()) {
-                    case DESENVOLVIMENTO:
-                        pararSistem();
-                        break;
-                    case PRODUCAO:
-                        registrarErro();
-                        break;
-                    case HOMOLOGACAO:
-                        pararSistem();
-                        break;
-                    default:
-                        throw new AssertionError(SBCore.getEstadoAPP().name());
-                }
-
-                break;
-            default:
-                throw new AssertionError(tipoErro.name());
-
-        }
-
     }
 
     @Override
@@ -234,7 +125,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
     }
 
     @Override
-    public void configurar(ItfMensagem pMensagemDoDesenvolvedor, FabErro pTipoErrp, Throwable pErroGerado) {
+    public final void configurar(ItfMensagem pMensagemDoDesenvolvedor, FabErro pTipoErrp, Throwable pErroGerado) {
         this.mensagemDoDesenvolvedor = pMensagemDoDesenvolvedor;
         this.tipoErro = pTipoErrp;
         this.erroJavaGerado = pErroGerado;
@@ -294,7 +185,7 @@ public abstract class InfoErroSB implements ItfInfoErroSB {
      * alterando a centralDeMensagens
      *
      */
-    private void sytemOutDoErro() {
+    protected void sytemOutDoErro() {
 
         try {
 

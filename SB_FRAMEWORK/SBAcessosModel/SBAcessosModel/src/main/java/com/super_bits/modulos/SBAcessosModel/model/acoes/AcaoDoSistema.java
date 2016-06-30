@@ -420,4 +420,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         }
     }
 
+    @Override
+    public String toString() {
+        return getNomeUnico();
+    }
+
 }

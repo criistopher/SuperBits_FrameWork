@@ -76,22 +76,6 @@ public interface ItfInfoErroSB {
      */
     public String getMsgDesenvolvedorLancou();
 
-    /**
-     *
-     *
-     *
-     * Executa uma ação de acordo com as informações do Erro
-     *
-     * Cada Ambiente de execução pode ter um tratamento diferente O Ambiente de
-     * execução é configurado Chamando SBCore.configurar
-     *
-     *
-     * ###ATENÇÃO### E execução de sistemas SuperBits sem executar esta
-     * configuração gera um erro to tipo PARATUDO que executa um system.out!
-     *
-     */
-    public void executarErro();
-
     public List<String> causas();
 
     public String getCausaInicial();

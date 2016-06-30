@@ -14,8 +14,9 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
+
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.text.ParseException;
@@ -121,7 +122,7 @@ public abstract class SBPersistencia {
             throw new UnsupportedOperationException("Erro o config do core não foi defido");
         } catch (Throwable t) {
 
-            ItfInfoErroSB erro = (InfoErroSB) new ErroSBCoreDeveloperSopMessagem();
+            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) new ErroSBCoreDeveloperSopMessagem();
 
             erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(t.getMessage()), FabErro.PARA_TUDO, t);
 

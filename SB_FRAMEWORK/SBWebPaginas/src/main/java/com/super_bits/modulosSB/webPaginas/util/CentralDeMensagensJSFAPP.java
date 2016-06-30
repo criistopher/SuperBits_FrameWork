@@ -3,7 +3,6 @@ package com.super_bits.modulosSB.webPaginas.util;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentralDeMensagemAbstrata;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
@@ -71,7 +70,7 @@ public class CentralDeMensagensJSFAPP extends CentralDeMensagemAbstrata {
         }
     }
 
-    public void erroSistema(String pMensagem, Exception pExcept) {
+    public void erroSistema(String pMensagem, Throwable pExcept) {
 
         InfoErroCritico infoerro = new InfoErroCritico(pMensagem, pExcept);
 

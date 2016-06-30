@@ -68,6 +68,7 @@ public class UtilSBCoreReflexaoCampos {
 
     public static Field getFieldByNomeCompletoCaminhoEClasse(String pCamihoCampo, Class pClasse) {
         CLASSE_ENTIDADE_BY_NOME.put(pClasse.getSimpleName(), pClasse);
+
         return getFieldByNomeCompletoCaminho(pCamihoCampo);
     }
 
@@ -88,7 +89,7 @@ public class UtilSBCoreReflexaoCampos {
         Class classe = CLASSE_ENTIDADE_BY_NOME.get(nomeClassePrincipal);
 
         if (classe == null) {
-            throw new UnsupportedOperationException("A classe " + nomeClassePrincipal + " não foi encontrada ");
+            throw new UnsupportedOperationException("A classe não pode ser encontrada pelo nome:" + nomeClassePrincipal + " não foi encontrada o caminho completo enviado foi " + pCamihoCampo);
         }
         int i = 0;
         for (String parte : partes) {

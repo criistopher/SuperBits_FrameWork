@@ -329,7 +329,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         if (MapaAcoesSistema.isMapaCriado()) {
             AcaoDoSistema acao = (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistema(pAcao);
             if (acao == null) {
-                throw new UnsupportedOperationException("O Mapa de ações foi criado, mas a ação procurada não foi encontra, certifique que a ação chamada esteja no core., a ação foi: " + pAcao);
+                throw new UnsupportedOperationException("O Mapa de ações foi criado, mas a ação procurada não foi encontra, certifique que a ação chamada esteja no core., a ação foi: " + pAcao.getClass().getSimpleName() + "." + pAcao);
             }
 
             return acao;

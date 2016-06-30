@@ -9,6 +9,7 @@ import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampo
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -33,6 +34,39 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     private boolean umCampoSeparador;
     private boolean umCampoVinculado;
 
+    public void defineNomeCompleto(String pCaminho, Class pClasse) {
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
+            caminhoComleto = pCaminho;
+            return;
+        }
+        if (UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(pCaminho)) {
+            caminhoComleto = pCaminho;
+        } else {
+            if (pClasse == null) {
+                throw new UnsupportedOperationException("impossícel determinar o caminho completo pela string, sem enviar a classe como parametro");
+            }
+            caminhoComleto = pClasse.getSimpleName() + "." + pCaminho;
+
+        }
+
+    }
+
+    public void defineNomeCompleto(String pCaminho) {
+
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
+            caminhoComleto = pCaminho;
+            return;
+        }
+
+        if (UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(pCaminho)) {
+            caminhoComleto = pCaminho;
+        } else {
+
+            throw new UnsupportedOperationException("impossícel determinar o caminho completo pela string, sem enviar a classe como parametro");
+        }
+
+    }
+
     /**
      *
      * @param pCaminho Caminho para encontrar o Campo, separado por . exemplo:
@@ -42,7 +76,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     public CaminhoCampoReflexao(String pCaminho) {
 
         //setCaminho(pCaminho);
-        caminhoComleto = pCaminho;
+        defineNomeCompleto(pCaminho);
 
         configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
         makePartesCaminho();
@@ -53,7 +87,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     public CaminhoCampoReflexao(String pCaminho, Class pClasse) {
 
         //setCaminho(pCaminho);
-        caminhoComleto = pCaminho;
+        defineNomeCompleto(pCaminho, pClasse);
 
         configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(pClasse));
         makePartesCaminho();
@@ -88,11 +122,16 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         partesCaminho.addAll(pPartesCaminho);
 
         makeCaminhoCompleto();
+        defineNomeCompleto(caminhoComleto);
         configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
         id = caminhoComleto.hashCode();
     }
 
     private void configuraInformacoesBasicasDoCampoPorReflexao(Field pField) {
+
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminhoComleto)) {
+            return;
+        }
 
         umCampoVinculado = UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho(caminhoComleto) != null;
 
@@ -113,6 +152,8 @@ public final class CaminhoCampoReflexao extends ItemSimples {
                 umaEntidade = true;
             }
         } else {
+
+            throw new UnsupportedOperationException("O campo vinculado não pode ser encontrado pelo caminho " + caminhoComleto);
 
         }
     }

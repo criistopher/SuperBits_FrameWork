@@ -6,7 +6,7 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
@@ -21,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
 
     private Class<? extends ItfCentralMensagens> centralMEnsagens;
-    private Class<? extends InfoErroSB> classeErro;
+    private Class<? extends InfoErroSBComAcoes> classeErro;
     private Class<? extends ItfControleDeSessao> controleDeSessao;
     private Class<? extends ItfCentralEventos> centralDeEventos;
     private Class<? extends ConfigPermissaoAbstratoSBCore> classeConfigPermissao;
@@ -40,7 +40,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     }
 
     @Override
-    public Class<? extends InfoErroSB> getClasseErro() {
+    public Class<? extends InfoErroSBComAcoes> getClasseErro() {
         return classeErro;
     }
 
@@ -85,7 +85,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
         this.centralMEnsagens = centralMEnsagens;
     }
 
-    public void setClasseErro(Class<? extends InfoErroSB> classeErro) {
+    public void setClasseErro(Class<? extends InfoErroSBComAcoes> classeErro) {
         this.classeErro = classeErro;
     }
 
