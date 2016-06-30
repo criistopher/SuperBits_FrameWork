@@ -87,7 +87,7 @@ public class UtilSBCoreReflexaoCampos {
 
             if (i > 0) {
                 try {
-                    Field campo = classe.getField(parte);
+                    Field campo = classe.getDeclaredField(parte.replace("[]", ""));
 
                     if (i == partes.length - 1) {
                         return campo;
