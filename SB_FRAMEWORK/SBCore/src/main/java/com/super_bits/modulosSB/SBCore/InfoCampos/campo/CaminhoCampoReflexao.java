@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
@@ -26,7 +27,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     private final List<String> partesCaminho = new ArrayList<>();
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String caminhoComleto;
-    private final Field campoFieldReflection;
+
     private boolean umCampoListavel;
     private boolean umaEntidade;
     private boolean umCampoSeparador;
@@ -38,15 +39,27 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      * usuario.localizacao.bairro
      * @param campo O Field obtido por reflecion
      */
-    public CaminhoCampoReflexao(String pCaminho, Field campo) {
+    public CaminhoCampoReflexao(String pCaminho) {
 
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
-        this.campoFieldReflection = campo;
 
-        configuraInformacoesBasicasDoCampoPorReflexao();
+        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo());
         makePartesCaminho();
         id = caminhoComleto.hashCode();
+
+    }
+
+    private Field validaCampo() {
+        if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminhoComleto)) {
+            return null;
+        }
+
+        Field campo = getFieldByNomeCompletoCaminho(caminhoComleto);
+        if (campo == null) {
+            throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho [" + caminhoComleto + "] ");
+        }
+        return campo;
 
     }
 
@@ -55,22 +68,22 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      * @param pPartesCaminho
      * @param campo
      */
-    public CaminhoCampoReflexao(List<String> pPartesCaminho, Field campo) {
+    public CaminhoCampoReflexao(List<String> pPartesCaminho) {
 
         partesCaminho.addAll(pPartesCaminho);
-        this.campoFieldReflection = campo;
-        configuraInformacoesBasicasDoCampoPorReflexao();
+
         makeCaminhoCompleto();
+        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo());
         id = caminhoComleto.hashCode();
     }
 
-    private void configuraInformacoesBasicasDoCampoPorReflexao() {
+    private void configuraInformacoesBasicasDoCampoPorReflexao(Field pField) {
 
-        umCampoVinculado = campoFieldReflection != null;
+        umCampoVinculado = UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho(caminhoComleto) != null;
 
         if (umCampoVinculado) {
 
-            if (campoFieldReflection.getType().getSimpleName().equals("List")) {
+            if (pField.getType().getSimpleName().equals("List")) {
                 umCampoListavel = true;
                 umaEntidade = true;
                 if (caminhoComleto.endsWith("[]")) {
@@ -81,33 +94,12 @@ public final class CaminhoCampoReflexao extends ItemSimples {
                 }
             }
 
-            if (campoFieldReflection.isAnnotationPresent(ManyToOne.class)) {
+            if (pField.isAnnotationPresent(ManyToOne.class)) {
                 umaEntidade = true;
             }
         } else {
 
         }
-    }
-
-    /**
-     *
-     * @param caminho
-     */
-    public CaminhoCampoReflexao(String caminho) {
-        if (!UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminho)) {
-            CaminhoCampoReflexao cm = UtilSBCoreReflexaoCampos.getCaminhoCAmpoByString(caminho);
-            umCampoSeparador = true;
-            campoFieldReflection = cm.getCampoFieldReflection();
-            caminhoComleto = cm.getCaminhoCompletoString();
-            partesCaminho.addAll(cm.getPartesCaminho());
-            id = caminhoComleto.hashCode();
-        } else {
-            campoFieldReflection = null;
-            caminhoComleto = caminho;
-            partesCaminho.addAll(getPartesCaminho());
-            id = caminhoComleto.hashCode();
-        }
-        umCampoVinculado = false;
     }
 
     private void makePartesCaminho() {
@@ -180,7 +172,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     }
 
     public Field getCampoFieldReflection() {
-        return campoFieldReflection;
+        return UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho(caminhoComleto);
     }
 
     @Override
@@ -218,7 +210,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      * @return O tipo do campo caso seja uma
      */
     public Class getTipoCampo() {
-
+        Field campoFieldReflection = UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho(caminhoComleto);
         if (umCampoListavel) {
 
             ParameterizedType genericoTipo = (ParameterizedType) campoFieldReflection.getGenericType();
@@ -288,7 +280,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     }
 
     public String getLabel() {
-
+        Field campoFieldReflection = UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho(caminhoComleto);
         InfoCampo anotacao = campoFieldReflection.getAnnotation(InfoCampo.class);
 
         if (anotacao != null) {

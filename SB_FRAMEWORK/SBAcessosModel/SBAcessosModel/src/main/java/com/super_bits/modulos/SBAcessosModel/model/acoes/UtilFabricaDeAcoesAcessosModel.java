@@ -227,7 +227,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                 for (String cp : anotacaoFormulario.campos()) {
                     try {
-                        UtilSBCoreReflexaoCampos.buildCamposDaClasse(entidadeDaAcao);
+
                         CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
                         if (caminhoCampo == null) {
                             throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
@@ -252,7 +252,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 }
                 pAcao.setPrecisaPermissao(anotacaoFormulario.precisaPermissao());
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }
@@ -281,7 +281,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
 
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }
@@ -309,7 +309,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
 
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getEnumAcaoDoSistema() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
             }
 
         }

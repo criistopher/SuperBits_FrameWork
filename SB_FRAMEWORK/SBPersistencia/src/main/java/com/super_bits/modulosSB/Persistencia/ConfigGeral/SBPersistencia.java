@@ -68,20 +68,20 @@ public abstract class SBPersistencia {
         EntityManager teste = UtilSBPersistencia.getNovoEM();
         Metamodel mm = teste.getEntityManagerFactory().getMetamodel();
         Set<EntityType<?>> entidades = mm.getEntities();
-        List<Class> ClassesDeEntidades = new ArrayList<>();
+        List<Class> classesDeEntidades = new ArrayList<>();
         System.out.println("Configurando Campos de entidades");
         for (EntityType<?> entidade : entidades) {
 
             if (!entidade.getJavaType().getSimpleName().contains("Acao")) {
-                ClassesDeEntidades.add(entidade.getJavaType());
+                classesDeEntidades.add(entidade.getJavaType());
             }
 
         }
         if (pCriarTodosCampos) {
-            UtilSBCoreReflexaoCampos.configurarTodasAsClasses(ClassesDeEntidades);
-            if (UtilSBCoreReflexaoCampos.isTodasClassesConfiguradas()) {
-                System.out.println("Campos de entidade configurados com sucesso");
-            }
+            UtilSBCoreReflexaoCampos.configurarTodasAsClasses(classesDeEntidades);
+
+            System.out.println("Campos de entidade configurados com sucesso" + classesDeEntidades);
+
         }
 
     }
