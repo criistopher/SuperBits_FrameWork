@@ -169,6 +169,7 @@ public class SBCore {
                 if (acoesDoSistema == null) {
                     throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
                 }
+                MapaAcoesSistema.makeMapaAcoesSistema();
 
                 try {
                     // Definindo configuração de acessos
@@ -200,7 +201,7 @@ public class SBCore {
             }
             System.out.println("COnfigurando Mapa de Ações do sistema");
             if (!pIgnorarClassePermissao) {
-                MapaAcoesSistema.makeMapaAcoesSistema();
+
                 if (MapaAcoesSistema.isMapaCriado()) {
                     System.out.println("Mapa de ações criado com sucesso!");
                 }
