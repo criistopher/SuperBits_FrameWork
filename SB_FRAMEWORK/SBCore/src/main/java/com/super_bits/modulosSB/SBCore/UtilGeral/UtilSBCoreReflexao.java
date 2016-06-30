@@ -583,6 +583,39 @@ public abstract class UtilSBCoreReflexao {
 
     /**
      *
+     * Retorna todas as classes por hierarquia até encontrar a string de um
+     * objeto final
+     *
+     * @param pClasse
+     * @param nomesObjetosFinal
+     * @return
+     */
+    protected static List<Class> getClassesComHierarquiaAteNomeObjetoFinalConterNoInicio(Class pClasse, String... nomesObjetosFinal) {
+
+        List<Class> classes = new ArrayList<>();
+
+        Class classeAtual = pClasse;
+        boolean encontrou = false;
+        while (!encontrou) {
+            if (classeAtual == ItemGenerico.class
+                    || classeAtual == Object.class) {
+                return classes;
+            }
+            for (String objtoFinal : nomesObjetosFinal) {
+                if (pClasse.getSimpleName().startsWith(objtoFinal)) {
+                    return classes;
+                }
+
+            }
+            classes.add(classeAtual);
+            classeAtual = classeAtual.getSuperclass();
+
+        }
+        return classes;
+    }
+
+    /**
+     *
      * Retrona uma lista de objetos Fileds, via reflection contendo todos os
      * campos declarados na classe , ou interface sendo publico ou privado eté
      * encontrar uma classe objeto final, caso o objeto final não seja
@@ -604,6 +637,18 @@ public abstract class UtilSBCoreReflexao {
 
         return camposEncontrados;
 
+    }
+
+    /**
+     *
+     * Retorna uma lista de classes e seus supers até encontrar uma classe que
+     * comece com entidade, Item ou Objeto
+     *
+     * @param pClasse
+     * @return
+     */
+    public static List<Class> getClasseESubclassesAteClasseBaseDeEntidade(Class pClasse) {
+        return getClassesComHierarquiaAteNomeObjetoFinalConter(pClasse, "Entidade", "Item", "Object");
     }
 
     /**

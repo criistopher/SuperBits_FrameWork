@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -86,18 +87,28 @@ public class UtilSBCoreReflexaoCampos {
         for (String parte : partes) {
 
             if (i > 0) {
-                try {
-                    Field campo = classe.getDeclaredField(parte.replace("[]", ""));
 
-                    if (i == partes.length - 1) {
-                        return campo;
-                    } else {
-                        classe = getClassePrincipalDoCampo(campo);
+                Field campo = null;
+                List<Class> classesDaEntidade = UtilSBCoreReflexao.getClasseESubclassesAteClasseBaseDeEntidade(classe);
+                for (Class classeAtual : classesDaEntidade) {
+                    try {
+                        campo = classeAtual.getDeclaredField(parte.replace("[]", ""));
+                        if (campo != null) {
+                            break;
+                        }
+                    } catch (Throwable t) {
 
                     }
-                } catch (Throwable t) {
 
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo campo por nome (procurando a parte: [" + parte + "] do caminho para [" + pCamihoCampo + "]" + "A classe onde o campo foi procurado foi " + classe.getSimpleName(), t);
+                }
+                if (campo == null) {
+                    throw new UnsupportedOperationException("Impossível obter o campo " + parte + " na classe" + classe.getSimpleName());
+                }
+                if (i == partes.length - 1) {
+                    return campo;
+                } else {
+                    classe = getClassePrincipalDoCampo(campo);
+
                 }
 
             }
