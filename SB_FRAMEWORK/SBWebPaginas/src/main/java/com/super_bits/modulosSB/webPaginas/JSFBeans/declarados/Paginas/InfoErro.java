@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBBasico;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -56,10 +58,10 @@ public class InfoErro implements Serializable {
         erroPrimeFaces = context.getApplication().evaluateExpressionGet(context, "#{pfExceptionHandler}", ExceptionInfo.class);
     }
 
-    private ORIGEM_ERRO_WEBPAGINA getTipoOrigem() {
+    public ORIGEM_ERRO_WEBPAGINA getTipoOrigem() {
 
         boolean temErroServlet = erroServlet != null;
-        boolean temErroPrime = erroServlet != null;
+        boolean temErroPrime = erroPrimeFaces != null;
 
         if (temErroPrime & temErroServlet) {
             return ORIGEM_ERRO_WEBPAGINA.MULTIPLOS;
@@ -75,15 +77,15 @@ public class InfoErro implements Serializable {
 
     }
 
-    public Throwable getErro() {
+    public InfoErroSBBasico getErro() {
 
         switch (getTipoOrigem()) {
             case SERVLET:
+                return new InfoErroSBBasico("Erro de Servlet", FabErro.SOLICITAR_REPARO, erroServlet);
 
-                break;
             case PRIMEFACES:
+                return new InfoErroSBBasico("Erro JSF Prime", FabErro.SOLICITAR_REPARO, erroPrimeFaces.getException());
 
-                break;
             case ERRO_CRITICO_FRAMEWORK:
 
                 break;
@@ -91,8 +93,8 @@ public class InfoErro implements Serializable {
 
                 break;
             case MULTIPLOS:
+                return new InfoErroSBBasico("Erro multiplo", FabErro.SOLICITAR_REPARO, erroPrimeFaces.getException());
 
-                break;
             case ERRO_NAO_ENCONTRADO:
 
                 break;
@@ -100,9 +102,11 @@ public class InfoErro implements Serializable {
                 throw new AssertionError(getTipoOrigem().name());
 
         }
-
-        return erroServlet;
-
+        try {
+            throw new UnsupportedOperationException("Aconteceu um erro, porém o sistema não encontrou um bean com informações sobre ele");
+        } catch (Throwable t) {
+            return new InfoErroSBBasico("Erro misterioso desconhecido, (Veerifique a saída do tomcat com Ctr+4", FabErro.SOLICITAR_REPARO, t);
+        }
     }
 
     public ExceptionInfo getErroPrimefaces() {
@@ -116,6 +120,14 @@ public class InfoErro implements Serializable {
 
     public ExceptionInfo getErroPrimeFaces() {
         return erroPrimeFaces;
+    }
+
+    public boolean isUmErroTipoPrime() {
+        return erroPrimeFaces != null;
+    }
+
+    public boolean isUmErroTipoServlet() {
+        return erroServlet != null;
     }
 
 }

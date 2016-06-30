@@ -594,7 +594,7 @@ public abstract class UtilSBCoreStrings {
         if (pString == null) {
             return false;
         }
-        if (pString.length() < 0) {
+        if (pString.length() < 1) {
             return false;
         }
         return Character.isUpperCase(pString.charAt(0));
@@ -604,7 +604,7 @@ public abstract class UtilSBCoreStrings {
         if (pString == null) {
             return false;
         }
-        if (pString.length() < 0) {
+        if (pString.length() < 1) {
             return false;
         }
 
