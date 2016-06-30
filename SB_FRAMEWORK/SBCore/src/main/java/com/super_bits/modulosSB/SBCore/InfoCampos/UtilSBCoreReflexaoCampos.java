@@ -54,6 +54,7 @@ public class UtilSBCoreReflexaoCampos {
      * @return
      */
     public static Class getClassePrincipalPorNome(String pNome) {
+
         String[] nomes = pNome.split("\\.");
         System.out.print(".");
         if (UtilSBCoreStrings.isPrimeiraLetraMaiuscula(pNome)) {
@@ -62,6 +63,11 @@ public class UtilSBCoreReflexaoCampos {
             throw new UnsupportedOperationException("O nome da classe principal não pode ser descoberto, se não for enviado na string, a string enviada foi" + pNome);
         }
 
+    }
+
+    public static Field getFieldByNomeCompletoCaminhoEClasse(String pCamihoCampo, Class pClasse) {
+        CLASSE_ENTIDADE_BY_NOME.put(pClasse.getSimpleName(), pClasse);
+        return getFieldByNomeCompletoCaminho(pCamihoCampo);
     }
 
     public static Field getFieldByNomeCompletoCaminho(String pCamihoCampo) {
@@ -420,7 +426,7 @@ public class UtilSBCoreReflexaoCampos {
                 String caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
                 return new CaminhoCampoReflexao(caminhoCompleto);
             }
-
+            CLASSE_ENTIDADE_BY_NOME.put(pClase.getSimpleName(), pClase);
             if (getClassePrincipalPorNome(pClase.getSimpleName()) == null) {
                 throw new UnsupportedOperationException("A classe principal para " + pCaminho + "não foi encontrada");
             }
@@ -431,7 +437,7 @@ public class UtilSBCoreReflexaoCampos {
                 caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
             }
 
-            return new CaminhoCampoReflexao(caminhoCompleto);
+            return new CaminhoCampoReflexao(caminhoCompleto, pClase);
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo caminho do campo a partir de caminho relativo:-->" + pCaminho + "<-- na classe:-->" + pClase.getSimpleName(), t);
 

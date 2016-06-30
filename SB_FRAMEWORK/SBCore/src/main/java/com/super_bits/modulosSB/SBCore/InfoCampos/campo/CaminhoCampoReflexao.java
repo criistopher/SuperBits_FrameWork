@@ -44,18 +44,33 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         //setCaminho(pCaminho);
         caminhoComleto = pCaminho;
 
-        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo());
+        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
         makePartesCaminho();
         id = caminhoComleto.hashCode();
 
     }
 
-    private Field validaCampo() {
+    public CaminhoCampoReflexao(String pCaminho, Class pClasse) {
+
+        //setCaminho(pCaminho);
+        caminhoComleto = pCaminho;
+
+        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(pClasse));
+        makePartesCaminho();
+        id = caminhoComleto.hashCode();
+
+    }
+
+    private Field validaCampo(Class pClasse) {
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(caminhoComleto)) {
             return null;
         }
-
-        Field campo = getFieldByNomeCompletoCaminho(caminhoComleto);
+        Field campo = null;
+        if (pClasse == null) {
+            campo = getFieldByNomeCompletoCaminho(caminhoComleto);
+        } else {
+            campo = UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminhoEClasse(caminhoComleto, pClasse);
+        }
         if (campo == null) {
             throw new UnsupportedOperationException("Não foi possivel encontrar o campo pelo caminho [" + caminhoComleto + "] ");
         }
@@ -73,7 +88,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         partesCaminho.addAll(pPartesCaminho);
 
         makeCaminhoCompleto();
-        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo());
+        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
         id = caminhoComleto.hashCode();
     }
 
