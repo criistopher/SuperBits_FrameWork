@@ -739,4 +739,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         this.idAreaExbicaoAcaoSelecionada = idAreaExbicaoAcaoSelecionada;
     }
 
+    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada) {
+        this.acaoSelecionada = acaoSelecionada;
+    }
+
 }
