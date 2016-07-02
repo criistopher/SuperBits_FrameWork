@@ -584,6 +584,8 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case LC_LOCALIZACAO:
                 break;
+            case CAMPO_SEPARADOR:
+                break;
 
             default:
                 break;
@@ -612,6 +614,9 @@ public enum FabCampos implements ItfFabrica {
 
         if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
             return FabCampos.MOEDA_REAL;
+        }
+        if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
+            return FabCampos.PERCENTUAL;
         }
 
         return FabCampos.TEXTO_SIMPLES;
@@ -685,6 +690,7 @@ public enum FabCampos implements ItfFabrica {
             case INSCRIACAO_MUNICIPAL:
             case CODIGO_DE_BARRAS:
             case ICONE:
+            case CAMPO_SEPARADOR:
                 return FabCampos.TEXTO_SIMPLES.toString();
         }
         return this.toString();
