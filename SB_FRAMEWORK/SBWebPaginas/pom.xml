@@ -90,15 +90,31 @@
 
         <!-- Prime Faces -->
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>6.0</version>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>resources-codemirror</artifactId>
+            <version>6.0.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
-            <artifactId>primefaces-extensions</artifactId>
+            <artifactId>resources-ckeditor</artifactId>
             <version>6.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.super_bits.view.primefaces</groupId>
+            <artifactId>adamantium</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
+            <version>2.44.0</version>
         </dependency>
 
 
