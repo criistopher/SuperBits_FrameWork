@@ -91,7 +91,7 @@ public class UtilSBCoreReflexaoCamposOldReferencia {
         if (partes.length < 2) {
             return null;
         }
-        return partes[1];
+        return partes[1].replace("]", "");
 
     }
 

@@ -215,7 +215,11 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         for (String parte : getCaminhoCompletoString().split("\\.")) {
 
             if (i > 0) {
-                caminhoParcial += parte;
+                if (i > 1) {
+                    caminhoParcial += "." + parte;
+                } else {
+                    caminhoParcial += parte;
+                }
             }
             i++;
 

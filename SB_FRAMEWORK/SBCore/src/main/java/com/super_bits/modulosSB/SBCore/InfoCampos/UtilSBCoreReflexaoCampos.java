@@ -220,7 +220,7 @@ public class UtilSBCoreReflexaoCampos {
      * @return Um campo Instanciado, do tipo separador
      */
     public static CampoInstanciadoSeparador getCampoSeparador(String pSeparador) {
-        if (isUmCampoSeparador(pSeparador)) {
+        if (!isUmCampoSeparador(pSeparador)) {
             throw new UnsupportedOperationException("A tag" + TAG_SEPARADOR + " não foi encontrada");
         }
 
@@ -406,15 +406,21 @@ public class UtilSBCoreReflexaoCampos {
             } else {
                 grupoatual = new GrupoCampos();
             }
-            grupocampos.add(grupoatual);
-
+            int i = 0;
             for (CaminhoCampoReflexao campo : pCampos) {
-                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())) {
+
+                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())
+                        & i != 0) {
                     grupocampos.add(grupoatual);
                     grupoatual = new GrupoCampos(getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
                 } else {
                     grupoatual.adicionarCampo(campo);
                 }
+
+                if (i == pCampos.size() - 1) {
+                    grupocampos.add(grupoatual);
+                }
+                i++;
 
             }
         }
