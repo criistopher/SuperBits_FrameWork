@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
@@ -119,18 +120,20 @@ public class PgUtil implements Serializable {
     }
 
     public void atualizaTelaPorID(String idAtualizacao) {
+        try {
+            String id = idAtualizacao;
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+                System.out.println("Atualizando a exibição dos componentes nomeados com: " + id);
 
-        String id = idAtualizacao;
-        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
-            System.out.println("Atualizando a exibição dos componentes nomeados com: " + id);
+            }
 
-        }
+            if (id == null) {
 
-        if (id == null) {
+            }
+            UtilSBWP_JSFTools.atualizaPorId(id);
+        } catch (Throwable t) {
             UtilSBWP_JSFTools.mensagens().erroSistema("o atributo idAtualizacao não foi encontrado, é necessário criar o atributo no componente" + idAtualizacao);
         }
-        UtilSBWP_JSFTools.atualizaPorId(id);
-
     }
 
     public void mostraDialogoByWidgetVar(String idWidget) {
