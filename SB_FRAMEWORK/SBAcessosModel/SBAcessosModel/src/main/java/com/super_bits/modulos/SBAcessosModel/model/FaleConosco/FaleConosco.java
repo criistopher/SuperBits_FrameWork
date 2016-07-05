@@ -68,7 +68,8 @@ public class FaleConosco extends EntidadeNormal {
     private int numeroPedido;
 
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
-    private String assunto;
+    @ManyToOne(targetEntity = AssuntoFaleConosco.class)
+    private AssuntoFaleConosco assunto;
 
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String mensagem;
@@ -150,13 +151,14 @@ public class FaleConosco extends EntidadeNormal {
         this.numeroPedido = numeroPedido;
     }
 
-    public String getAssunto() {
+    public AssuntoFaleConosco getAssunto() {
         return assunto;
     }
 
-    public void setAssunto(String assunto) {
+    public void setAssunto(AssuntoFaleConosco assunto) {
         this.assunto = assunto;
     }
+
 
     public String getMensagem() {
         return mensagem;
