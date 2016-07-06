@@ -97,6 +97,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
+            paginaUtil = new PgUtil();
         }
 
     }
