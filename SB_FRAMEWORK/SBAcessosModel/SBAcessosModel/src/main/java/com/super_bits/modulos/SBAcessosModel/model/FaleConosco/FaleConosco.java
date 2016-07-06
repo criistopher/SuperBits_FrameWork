@@ -85,6 +85,23 @@ public class FaleConosco extends EntidadeNormal {
     @ManyToOne(targetEntity = UsuarioSB.class)
     private UsuarioSB usuarioInsercao;
 
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    public UsuarioSB getUsuarioInsercao() {
+        return usuarioInsercao;
+    }
+
+    public void setUsuarioInsercao(UsuarioSB usuarioInsercao) {
+        this.usuarioInsercao = usuarioInsercao;
+    }
+
+
     @Override
     public int getId() {
         return id;
