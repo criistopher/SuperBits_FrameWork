@@ -124,7 +124,7 @@ public class PgUtil implements Serializable {
             String id = idAtualizacao;
             if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
                 System.out.println("Atualizando a exibição dos componentes nomeados com: " + id);
-                return;
+
             }
 
             if (id == null) {
