@@ -1124,6 +1124,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static List<?> getListaBySBNQ(SBNQ pSBNQ) {
         return pSBNQ.getQueryHibernate().getResultList();
+
     }
 
     private static boolean executaSQLcmd(EntityManager pEm, String pSQl) {
