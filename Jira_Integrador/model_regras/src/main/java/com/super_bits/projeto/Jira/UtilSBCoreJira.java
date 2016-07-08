@@ -134,7 +134,7 @@ public class UtilSBCoreJira {
         ACAO_TESTES_ENTIDADE_LISTAS,
         ACAO_ENTIDADE_CRIAR_CALCULOS,
         ACAO_ENTIDADE_CRIAR_LISTAS,
-        ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO,;
+        ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO;
 
         public TarefaJira getTarefaInssueJira() {
             TarefaJira tarefa = new TarefaJira();
@@ -150,13 +150,13 @@ public class UtilSBCoreJira {
                     tarefa.setTempoEsperado("6 h");
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("48 h");
                     break;
                 case ACAO_BANCO_TESTES_TIPOS:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("8 h");
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
-                    tarefa.setTempoEsperado("6 h");
+                    tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_TESTES_ENTIDADE_CALCULO:
                     tarefa.setTempoEsperado("6 h");
@@ -183,7 +183,7 @@ public class UtilSBCoreJira {
                     tarefa.setTempoEsperado("12 h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("24 h");
                     break;
                 case ACAO_TESTE_CONTROLLER_COMPLEXO:
                     tarefa.setTempoEsperado("12 h");
