@@ -76,7 +76,7 @@ public class TipoCampos extends ConstantesWeb {
 
     public String getDataHora() {
 
-        return getStrTipoCampoInput(FabCampos.CALENDARIO);
+        return getStrTipoCampoInput(FabCampos.DATAHORA);
 
     }
 
@@ -230,6 +230,10 @@ public class TipoCampos extends ConstantesWeb {
 
     public String getVerdadeiroFalso() {
         return getStrTipoCampoInput(FabCampos.VERDADEIRO_FALSO);
+    }
+
+    public String getDATA() {
+        return getStrTipoCampoInput(FabCampos.DATA);
     }
 
 }
