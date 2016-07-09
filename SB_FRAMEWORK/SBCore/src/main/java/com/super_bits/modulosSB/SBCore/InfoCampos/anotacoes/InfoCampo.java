@@ -3,6 +3,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabModoExibicaoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampo;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -131,6 +132,18 @@ public @interface InfoCampo {
      * @return Os locais onde o campo será exibido
      */
     FabModoExibicaoCampo[] modosExibicao() default {FabModoExibicaoCampo.TODOS_MENOS_LISTA};
+
+    /**
+     *
+     * @return Uma fabrica com as opções disponíveis
+     */
+    public Class fabricaDeOpcoes() default void.class;
+
+    /**
+     *
+     * @return O caminho do campo para obter a lista
+     */
+    public String caminhoParaLista() default "";
 
     String descricao() default "";
 }
