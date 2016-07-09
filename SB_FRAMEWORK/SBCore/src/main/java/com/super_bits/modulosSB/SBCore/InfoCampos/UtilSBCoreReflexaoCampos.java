@@ -33,6 +33,7 @@ public class UtilSBCoreReflexaoCampos {
 
     // Tabela contendo nome da classe, e classe
     private static final Map<String, Class> CLASSE_ENTIDADE_BY_NOME = new HashMap<>();
+    private static final Map<Class, CaminhoCampoReflexao> CAMPOS_DA_CLASSE = new HashMap<>();
     private static boolean TODAS_CLASSES_CONFIGURADAS = false;
     /**
      *

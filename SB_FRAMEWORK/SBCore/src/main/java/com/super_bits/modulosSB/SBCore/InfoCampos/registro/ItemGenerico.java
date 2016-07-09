@@ -83,6 +83,13 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         @Override
         public void setValor(Object pValor) {
             try {
+                System.out.println("Tipo campo=" + campoReflection.getType());
+
+                if (campoReflection.getType() == int.class) {
+                    int valor = (int) Integer.parseInt(pValor.toString());
+                    campoReflection.set(getInstancia(), valor);
+                }
+
                 campoReflection.set(getInstancia(), pValor);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro setando valor via CampoGenericoInstanciado", ex);
