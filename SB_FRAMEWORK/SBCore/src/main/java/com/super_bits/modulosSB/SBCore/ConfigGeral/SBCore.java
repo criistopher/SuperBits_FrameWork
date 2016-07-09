@@ -257,6 +257,34 @@ public class SBCore {
         }
     }
 
+    /**
+     *
+     *
+     *
+     *
+     * @param pTipoErro Programador: em desenvolvimento faz sout e se possivel
+     * mostra na tela, em testes salva em log, em produção não faz nada Usuario:
+     * Mostra na tela o erro. ParaTudo: Interrompe a execução do sistema
+     * @param pMensagem Mensagem que será exibida
+     * @param pErroJava O exception que gerou esse relato de erro
+     */
+    public static void RelatarErroAoUsuario(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
+        ValidaConfigurado();
+        try {
+            if (classeErro == null) {
+                System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
+                classeErro = ErroSBCoreDeveloperSopMessagem.class;
+            }
+            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) classeErro.newInstance();
+
+            erro.configurar(FabMensagens.ERRO.getMsgUsuario(pMensagem), pTipoErro, pErroJava);
+
+            erro.executarErro();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            System.out.println("Erro Criando objeto ErrroSB erro" + ex.getMessage());
+        }
+    }
+
     public synchronized static void salvaInfoThread(String pPastaArquivoLog, boolean milesegundos) {
 
         Runtime runtime = Runtime.getRuntime();

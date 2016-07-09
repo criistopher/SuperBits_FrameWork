@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
@@ -25,8 +26,18 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
     DEMONSTRACAO_MB_COMPONENTE,
     DEMONSTRACAO_MB_VALIDACAO,
-    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/debug/conformidadeInputCampo")
-    TESTES_CAMPO_MB;
+    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/debug/conformidadeInputCampo.xhtml", icone = "fa fa-pencil-square-o")
+    TESTES_CAMPO_MB,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/fichaTecnica.xhtml", icone = "fa fa-cogs")
+    TESTES_CAMPO_FRM_FICHATECNICA,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/verCampo.xhtml", icone = "fa fa-eye")
+    TESTES_CAMPO_FRM_VER_CAMPO,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/onChange.xhtml", icone = "fa fa-retweet")
+    TESTES_CAMPO_FRM_TESTAR_ONCHANGE,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/laboratorio.xhtml", icone = "fa fa-flask")
+    TESTES_CAMPO_FRM_LABORARATORIO,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/instrucoes.xhtml", icone = "fa fa-question-circle")
+    TESTES_CAMPO_FRM_INSTRUCOES;
 
     @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {
@@ -51,8 +62,7 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
                 acao.setIconeAcao("fa fa-heart-o");
                 acao.setPrecisaPermissao(false);
                 break;
-            default:
-                throw new AssertionError(this.name());
+
         }
 
         return acao;
@@ -64,16 +74,7 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
     @Override
     public Class getEntidadeDominio() {
-        switch (this) {
 
-            case DEMONSTRACAO_MB_COMPONENTE:
-                break;
-            case DEMONSTRACAO_MB_VALIDACAO:
-                break;
-            default:
-                throw new AssertionError(this.name());
-
-        }
         return UsuarioSB.class;
     }
 
