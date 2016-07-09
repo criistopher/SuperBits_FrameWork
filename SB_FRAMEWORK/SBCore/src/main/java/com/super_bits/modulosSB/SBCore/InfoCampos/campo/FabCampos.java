@@ -662,4 +662,32 @@ public enum FabCampos implements ItfFabrica {
         return sbCampo;
 
     }
+
+    public String getStrTipoInputCampo() {
+        switch (this) {
+            case AAA_NOME:
+
+            case AAA_NOME_LONGO:
+            case ID:
+            case LCLOGRADOURO:
+            case LCComplemeto:
+            case LCCampoAberto:
+            case HTML:
+            case TELEFONE_FIXO_NACIONAL:
+            case TELEFONE_FIXO_INTERNACIONAL:
+            case TELEFONE_CELULAR:
+            case TELEFONE_GENERICO:
+            case RESPONSAVEL:
+            case NOME_COMPLETO:
+            case CNPJ:
+            case CPF:
+            case INSCRICAO_ESTADUAL:
+            case INSCRIACAO_MUNICIPAL:
+            case CODIGO_DE_BARRAS:
+            case ICONE:
+                return FabCampos.TEXTO_SIMPLES.toString();
+        }
+        return this.toString();
+
+    }
 }

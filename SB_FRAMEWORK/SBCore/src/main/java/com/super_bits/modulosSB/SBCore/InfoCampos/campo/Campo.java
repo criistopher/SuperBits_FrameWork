@@ -303,4 +303,8 @@ public class Campo implements Serializable, ItfCampo {
         this.fraseValidacao = fraseValidacao;
     }
 
+    public String getStrTipoInput() {
+        return tipoCampo.getStrTipoInputCampo();
+    }
+
 }
