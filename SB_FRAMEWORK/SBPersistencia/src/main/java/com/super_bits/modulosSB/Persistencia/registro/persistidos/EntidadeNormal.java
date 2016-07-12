@@ -15,7 +15,7 @@ import javax.persistence.PreUpdate;
 public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanNormal, ItfBeanPermisionado {
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public EntidadeNormal(Class<?> pClasseModelo) {
+    public EntidadeNormal() {
         super();
 
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_LONGO, getNomeCurto()));

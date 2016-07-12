@@ -15,9 +15,9 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
     private Double longitude;
 
     //private LatLng localizacao;
-    public EntidadeEndereco(Class<?> pClasseModelo) {
+    public EntidadeEndereco() {
 
-        super(pClasseModelo);
+        super();
 
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE, "-19.8225864"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));

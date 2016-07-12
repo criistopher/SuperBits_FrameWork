@@ -28,8 +28,8 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
         return true;
     }
 
-    public EntidadeContatoCorporativo(Class<?> pClasseModelo) {
-        super(pClasseModelo);
+    public EntidadeContatoCorporativo() {
+        super();
         adcionaCampoEsperado(new CampoEsperado(FabCampos.CNPJ));
         // TODO implementar EntidadeContatoCorporativo
     }

@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -34,7 +33,7 @@ import javax.persistence.TemporalType;
 public class FaleConosco extends EntidadeNormal {
 
     public FaleConosco() {
-        super(FaleConosco.class);
+        super();
     }
 
     @Id
@@ -100,7 +99,6 @@ public class FaleConosco extends EntidadeNormal {
     public void setUsuarioInsercao(UsuarioSB usuarioInsercao) {
         this.usuarioInsercao = usuarioInsercao;
     }
-
 
     @Override
     public int getId() {
@@ -175,7 +173,6 @@ public class FaleConosco extends EntidadeNormal {
     public void setAssunto(AssuntoFaleConosco assunto) {
         this.assunto = assunto;
     }
-
 
     public String getMensagem() {
         return mensagem;

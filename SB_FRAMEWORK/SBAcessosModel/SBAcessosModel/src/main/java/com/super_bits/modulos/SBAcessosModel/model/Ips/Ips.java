@@ -9,7 +9,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import java.lang.reflect.Field;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -92,7 +91,7 @@ public class Ips extends EntidadeNormal {
 
     @NotNull
     public Ips() {
-        super(Ips.class);
+        super();
     }
 
     public TipoIp getTipo() {

@@ -6,7 +6,7 @@ public abstract class EntidadeContatoPessoa extends EntidadeEndereco implements
         ItfBeanContatoPessoa {
 
     public EntidadeContatoPessoa() {
-        super(EntidadeContatoPessoa.class);
+        super();
         // TODO implementar EntidadeContatoCorporativo
     }
 

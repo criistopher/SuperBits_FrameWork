@@ -1,6 +1,5 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
-import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
@@ -46,12 +45,12 @@ public class Localidade extends EntidadeNormal implements ItfLocalidade {
     private List<Cidade> cidades;
 
     public Localidade() {
-        super(Localidade.class);
+        super();
 
     }
 
     public Localidade(int pID, String pNome, String pDescricao) {
-        super(Localidade.class);
+        super();
 
         id = pID;
         nome = pNome;

@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +112,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private UsuarioSB usuarioAlteracao;
 
     public UsuarioSB() {
-        super(UsuarioSB.class);
+        super();
     }
 
     @Override

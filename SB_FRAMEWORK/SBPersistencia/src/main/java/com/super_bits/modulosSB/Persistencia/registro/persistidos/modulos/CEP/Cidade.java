@@ -66,7 +66,7 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     private Date dataCriacao = new Date();
 
     public Cidade() {
-        super(Cidade.class);
+        super();
         unidadeFederativa = new UnidadeFederativa();
     }
 
@@ -163,6 +163,5 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-
 
 }
