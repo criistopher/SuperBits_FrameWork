@@ -73,6 +73,15 @@ public class UtilSBCoreReflexaoCampos {
         return getFieldByNomeCompletoCaminho(pCamihoCampo);
     }
 
+    public static Class getClasseByNome(String pNome) {
+        Class classe = CLASSE_ENTIDADE_BY_NOME.get(pNome);
+
+        if (classe == null) {
+            throw new UnsupportedOperationException("A classe não pode ser encontrada pelo nome:" + pNome + " não foi encontrada o caminho completo enviado foi ");
+        }
+        return classe;
+    }
+
     public static Field getFieldByNomeCompletoCaminho(String pCamihoCampo) {
 
         if (pCamihoCampo == null) {
@@ -86,11 +95,11 @@ public class UtilSBCoreReflexaoCampos {
         String[] partes = pCamihoCampo.split("\\.");
 
         String nomeClassePrincipal = partes[0];
-
-        Class classe = CLASSE_ENTIDADE_BY_NOME.get(nomeClassePrincipal);
-
-        if (classe == null) {
-            throw new UnsupportedOperationException("A classe não pode ser encontrada pelo nome:" + nomeClassePrincipal + " não foi encontrada o caminho completo enviado foi " + pCamihoCampo);
+        Class classe = null;
+        try {
+            classe = getClasseByNome(nomeClassePrincipal);
+        } catch (Throwable t) {
+            throw new UnsupportedOperationException("A classe não pode ser encontrada pelo caminho completo " + pCamihoCampo);
         }
         int i = 0;
         for (String parte : partes) {
@@ -412,9 +421,10 @@ public class UtilSBCoreReflexaoCampos {
 
                 if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())
                         & i != 0) {
+
                     grupocampos.add(grupoatual);
                     grupoatual = new GrupoCampos(getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
-                } else {
+                } else if (!isUmCampoSeparador(campo.getCaminhoCompletoString())) {
                     grupoatual.adicionarCampo(campo);
                 }
 

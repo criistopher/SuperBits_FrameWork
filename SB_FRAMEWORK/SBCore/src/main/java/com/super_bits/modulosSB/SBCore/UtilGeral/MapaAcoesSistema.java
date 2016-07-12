@@ -163,6 +163,25 @@ public abstract class MapaAcoesSistema {
 
     /**
      *
+     * Retorna todas as ações Referentes a Entidade
+     *
+     *
+     * @param pEntidade Entidade referencia
+     * @return Todas as ações da Entidade
+     */
+    public static List<ItfAcaoGerenciarEntidade> getAcoesDeGestaoByEntidade(Class pEntidade) {
+        List<ItfAcaoDoSistema> acoes = ACOES_BY_CLASSE.get(pEntidade);
+        List<ItfAcaoGerenciarEntidade> acoesDeGestao = new ArrayList<>();
+        for (ItfAcaoDoSistema acao : acoes) {
+            if (acao.isUmaAcaoGestaoDominio()) {
+                acoesDeGestao.add((ItfAcaoGerenciarEntidade) acao);
+            }
+        }
+        return acoesDeGestao;
+    }
+
+    /**
+     *
      * Um domínio corresponde a primeira parte do enum da ação antes das chaves
      * principais de identificação
      *
