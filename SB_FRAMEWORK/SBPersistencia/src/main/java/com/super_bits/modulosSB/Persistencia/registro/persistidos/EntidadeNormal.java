@@ -71,10 +71,10 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     @PostPersist
     private void configLogPersistencia() {
 
-        if (getCampo(FabCampos.REG_DATAINSERCAO) != null) {
+        if (getCampoByAnotacao(FabCampos.REG_DATAINSERCAO) != null) {
             setValorByTipoCampoEsperado(FabCampos.REG_DATAINSERCAO, new Date());
         }
-        if (getCampo(FabCampos.REG_USUARIO_INSERCAO) != null) {
+        if (getCampoByAnotacao(FabCampos.REG_USUARIO_INSERCAO) != null) {
             setValorByTipoCampoEsperado(FabCampos.REG_USUARIO_INSERCAO, SBCore.getUsuarioLogado());
         }
 
@@ -83,11 +83,11 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     @PreUpdate
     private void configLogUpdate() {
 
-        if (getCampo(FabCampos.REG_DATAALTERACAO) != null) {
+        if (getCampoByAnotacao(FabCampos.REG_DATAALTERACAO) != null) {
             setValorByTipoCampoEsperado(FabCampos.REG_DATAINSERCAO, new Date());
         }
 
-        if (getCampo(FabCampos.REG_USUARIO_ALTERACAO) != null) {
+        if (getCampoByAnotacao(FabCampos.REG_USUARIO_ALTERACAO) != null) {
             setValorByTipoCampoEsperado(FabCampos.REG_USUARIO_ALTERACAO, SBCore.getUsuarioLogado());
         }
 

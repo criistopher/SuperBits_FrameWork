@@ -408,31 +408,33 @@ public class UtilSBCoreReflexaoCampos {
     @Deprecated
     public static List<GrupoCampos> buildAgrupamentoCampos(List<CaminhoCampoReflexao> pCampos) {
         List<GrupoCampos> grupocampos = new ArrayList<>();
-        if (!pCampos.isEmpty()) {
-            GrupoCampos grupoatual = null;
+        if (pCampos != null) {
+            if (!pCampos.isEmpty()) {
+                GrupoCampos grupoatual = null;
 
-            if (pCampos.get(0).isUmCampoSeparador()) {
-                grupoatual = new GrupoCampos(getCaminhoSemNomeClasse(pCampos.get(0).toString()));
-            } else {
-                grupoatual = new GrupoCampos();
-            }
-            int i = 0;
-            for (CaminhoCampoReflexao campo : pCampos) {
-
-                if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())
-                        & i != 0) {
-
-                    grupocampos.add(grupoatual);
-                    grupoatual = new GrupoCampos(getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
-                } else if (!isUmCampoSeparador(campo.getCaminhoCompletoString())) {
-                    grupoatual.adicionarCampo(campo);
+                if (pCampos.get(0).isUmCampoSeparador()) {
+                    grupoatual = new GrupoCampos(getCaminhoSemNomeClasse(pCampos.get(0).toString()));
+                } else {
+                    grupoatual = new GrupoCampos();
                 }
+                int i = 0;
+                for (CaminhoCampoReflexao campo : pCampos) {
 
-                if (i == pCampos.size() - 1) {
-                    grupocampos.add(grupoatual);
+                    if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(campo.getCaminhoCompletoString())
+                            & i != 0) {
+
+                        grupocampos.add(grupoatual);
+                        grupoatual = new GrupoCampos(getNomeGrupoPorStrSeparador(campo.getCaminhoCompletoString()));
+                    } else if (!isUmCampoSeparador(campo.getCaminhoCompletoString())) {
+                        grupoatual.adicionarCampo(campo);
+                    }
+
+                    if (i == pCampos.size() - 1) {
+                        grupocampos.add(grupoatual);
+                    }
+                    i++;
+
                 }
-                i++;
-
             }
         }
         return grupocampos;

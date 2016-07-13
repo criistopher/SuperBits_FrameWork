@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,12 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class GrupoCampos {
+public class GrupoCampos extends ItemSimples {
 
-    private String nomeGrupo;
+    @InfoCampo(label = "Nome do Grupo", tipo = FabCampos.AAA_NOME)
+    private String nomeGrupo = "Dados Cadastrais";
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
     private final List<CaminhoCampoReflexao> campos = new ArrayList<>();
 
     public GrupoCampos(String pTituloGrupo) {
@@ -24,6 +29,11 @@ public class GrupoCampos {
 
     public GrupoCampos() {
 
+    }
+
+    @Override
+    public int getId() {
+        return nomeGrupo.hashCode();
     }
 
     public boolean isUmCampoComNome() {

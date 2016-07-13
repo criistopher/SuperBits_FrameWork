@@ -32,12 +32,16 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
     TESTES_CAMPO_FRM_FICHATECNICA,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/verCampo.xhtml", icone = "fa fa-eye")
     TESTES_CAMPO_FRM_VER_CAMPO,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/verCampoTodosFormatos.xhtml", icone = "fa fa-eye")
+    TESTES_CAMPO_FRM_VER_CAMPO_EM_TODOS_FORMATOS,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/onChange.xhtml", icone = "fa fa-retweet")
     TESTES_CAMPO_FRM_TESTAR_ONCHANGE,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/laboratorio.xhtml", icone = "fa fa-flask")
     TESTES_CAMPO_FRM_LABORARATORIO,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/instrucoes.xhtml", icone = "fa fa-question-circle")
-    TESTES_CAMPO_FRM_INSTRUCOES;
+    TESTES_CAMPO_FRM_INSTRUCOES,
+    @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/debug/camposDaAcao.xhtml", icone = "fa fa-question-circle")
+    TESTES_CAMPO_FRM_VER_CAMPOS_DA_ACAO_FORMULARIO;
 
     @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {

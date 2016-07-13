@@ -93,6 +93,9 @@ public class ItemSimples extends ItemGenerico implements
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj.hashCode() == this.hashCode()) {
             return true;
         } else {
