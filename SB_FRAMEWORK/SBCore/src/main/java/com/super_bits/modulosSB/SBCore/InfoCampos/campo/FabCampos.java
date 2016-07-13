@@ -618,6 +618,9 @@ public enum FabCampos implements ItfFabrica {
         if (pClasse.getSimpleName().equals(Double.class.getSimpleName())) {
             return FabCampos.PERCENTUAL;
         }
+        if (pClasse.getSimpleName().equals(boolean.class.getSimpleName())) {
+            return FabCampos.VERDADEIRO_FALSO;
+        }
 
         return FabCampos.TEXTO_SIMPLES;
     }
@@ -692,6 +695,11 @@ public enum FabCampos implements ItfFabrica {
             case ICONE:
             case CAMPO_SEPARADOR:
                 return FabCampos.TEXTO_SIMPLES.toString();
+        }
+        switch (this) {
+            case VERDADEIRO_FALSO:
+            case REG_ATIVO_INATIVO:
+                return FabCampos.VERDADEIRO_FALSO.toString();
         }
         return this.toString();
 

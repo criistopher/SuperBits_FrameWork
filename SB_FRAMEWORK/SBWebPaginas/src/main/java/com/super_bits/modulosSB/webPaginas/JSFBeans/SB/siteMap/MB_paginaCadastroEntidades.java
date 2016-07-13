@@ -231,7 +231,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             listarDados();
 
-            paginaUtil.atualizaTelaPorID("formulario");
+            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
 
         }
 
@@ -251,14 +251,14 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                 atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
 
                 // define que a atualização das informações aconteceram no formulario
-                paginaUtil.atualizaTelaPorID("formulario");
+                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
             }
         }
 
         if (isTemEditar()) {
             if (acaoSelecionada.equals(getAcaoEditar())) {
                 atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
-                paginaUtil.atualizaTelaPorID("formulario");
+                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
 
             }
         }
@@ -267,13 +267,13 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
             listarDados();
-            paginaUtil.atualizaTelaPorID("formulario");
+            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
 
         }
 
         if (acaoSelecionada.isUmaAcaoFormulario()) {
 
-            paginaUtil.atualizaTelaPorID("formulario");
+            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
         }
 
     }
