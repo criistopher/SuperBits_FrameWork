@@ -696,6 +696,14 @@ public enum FabCampos implements ItfFabrica {
             case CAMPO_SEPARADOR:
                 return FabCampos.TEXTO_SIMPLES.toString();
         }
+
+        switch (this) {
+
+            case REG_DATAALTERACAO:
+            case REG_DATAINSERCAO:
+                return FabCampos.DATAHORA.toString();
+        }
+
         switch (this) {
             case VERDADEIRO_FALSO:
             case REG_ATIVO_INATIVO:
