@@ -709,6 +709,7 @@ public enum FabCampos implements ItfFabrica {
             case REG_ATIVO_INATIVO:
                 return FabCampos.VERDADEIRO_FALSO.toString();
         }
+
         return this.toString();
 
     }
