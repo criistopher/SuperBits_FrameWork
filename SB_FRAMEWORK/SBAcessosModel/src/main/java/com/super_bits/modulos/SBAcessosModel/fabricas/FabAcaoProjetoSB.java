@@ -10,6 +10,7 @@ import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
@@ -69,13 +70,13 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
     PROJETO_FRM_VISAO_GERAL;
 
     @Override
-    public Object getRegistro() {
-        return UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
+    public AcaoDoSistema getRegistro() {
+        return (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoDoSistema() {
-        return (ItfAcaoDoSistema) getRegistro();
+    public AcaoDoSistema getAcaoDoSistema() {
+        return getRegistro();
     }
 
     public Class getEntidadeDominio() {

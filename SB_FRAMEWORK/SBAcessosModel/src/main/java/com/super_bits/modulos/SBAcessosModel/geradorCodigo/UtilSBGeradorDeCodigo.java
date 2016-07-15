@@ -2,12 +2,13 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.geradorCodigo;
+package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import java.util.List;
 
 /**

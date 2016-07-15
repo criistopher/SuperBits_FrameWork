@@ -4,6 +4,7 @@
  */
 package aux;
 
+import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
@@ -24,14 +25,16 @@ public enum FabConfigCoreSBSBAcessosModel {
 
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");
-        cfg.setGrupoProjeto("SuperBits_FrameWork");
+        cfg.setGrupoProjeto("SB_FRAMEWORK");
         cfg.setNomeProjeto("SBAcessosModel");
-        cfg.setDiretorioBase("SB_FRAMEWORK");
+        cfg.setDiretorioBase("SuperBits_FrameWork");
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         cfg.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
-
+        cfg.setFabricaDeAcoes(new Class[]{
+            FabAcaoSeguranca.class}
+        );
         //      cfg.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
         switch (this) {
             case DESENVOLVIMENTO:

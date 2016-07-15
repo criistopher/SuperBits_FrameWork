@@ -24,11 +24,10 @@ public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
-        SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
+        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
+        //  SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 
-    @Test
     public void teste() {
         EntityManager em = getEmTeste();
         ControllerAbstratoSBPersistencia.reloadAcessos();
