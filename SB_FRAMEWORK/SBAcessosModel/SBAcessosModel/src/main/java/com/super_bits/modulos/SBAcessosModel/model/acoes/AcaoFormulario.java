@@ -50,6 +50,17 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
         return (ItfAcaoSecundaria) this;
     }
 
+    @Override
+    public GrupoCampos getGrupoCampoByID(int pID) {
+        if (pID >= getGruposDeCampos().size() - 1) {
+            pID = 0;
+        }
+        if (getGruposDeCampos().isEmpty()) {
+            return null;
+        }
+        return grupos.get(pID);
+    }
+
     public static enum VARIAVEIS_ACAO_DO_SISTEMA {
         VIEW_NAO_IMPLEMENTADA,;
 
@@ -108,7 +119,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     @Override
     public List<GrupoCampos> getGruposDeCampos() {
-        if (grupos == null) {
+        if (grupos.isEmpty()) {
             grupos = UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(campos);
         }
         return grupos;

@@ -31,18 +31,18 @@ import javax.persistence.Transient;
 @InfoClasse(tags = {"Ação de formulário para entidade"})
 public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFormulario, ItfAcaoSecundaria, ItfAcaoFormularioEntidade {
 
-    @Transient
-    private List<CaminhoCampoReflexao> camposDoFormulario;
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
     @Transient
     private ItfAcaoDoSistema acaoExectarFormulario;
     @Transient
-    private List<CaminhoCampoReflexao> campos;
+    private List<CaminhoCampoReflexao> campos = new ArrayList<>();
+    @Transient
+    private List<GrupoCampos> grupos;
 
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao, String pXhtml) {
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
         xhtml = pXhtml;
-        camposDoFormulario = new ArrayList<>();
+
     }
 
     public AcaoFormularioEntidade() {
@@ -51,13 +51,11 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao) {
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
 
-        camposDoFormulario = new ArrayList<>();
     }
 
     public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica acaoGenerica) {
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao, acaoGenerica);
 
-        camposDoFormulario = new ArrayList<>();
         setAcaoPrincipal(pAcaoPrincipal);
     }
 
@@ -74,17 +72,12 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
             throw new UnsupportedOperationException("Este constructor só deve ser usado por uma acaoGestaoEntidade");
         }
         xhtml = pXhtml;
-        camposDoFormulario = new ArrayList<>();
+
     }
 
     public AcaoFormularioEntidade(Class pclasse, ItfFabricaAcoes pFabricaAcao) {
         super(pclasse, FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
 
-        camposDoFormulario = new ArrayList<>();
-    }
-
-    public List<CaminhoCampoReflexao> getCamposDoFormulario() {
-        return camposDoFormulario;
     }
 
     @Override
@@ -124,7 +117,24 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
 
     @Override
     public List<GrupoCampos> getGruposDeCampos() {
-        return UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(getCampos());
+        if (grupos == null) {
+            grupos = new ArrayList<>();
+        }
+        if (grupos.isEmpty()) {
+            grupos = UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(campos);
+        }
+        return grupos;
+    }
+
+    @Override
+    public GrupoCampos getGrupoCampoByID(int pID) {
+        if (pID >= getGruposDeCampos().size() - 1) {
+            pID = 0;
+        }
+        if (getGruposDeCampos().isEmpty()) {
+            return null;
+        }
+        return grupos.get(pID);
     }
 
 }

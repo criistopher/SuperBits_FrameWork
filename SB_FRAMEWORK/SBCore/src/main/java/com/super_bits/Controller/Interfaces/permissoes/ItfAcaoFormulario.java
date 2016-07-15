@@ -30,4 +30,6 @@ public interface ItfAcaoFormulario extends ItfAcaoDoSistema {
 
     public List<GrupoCampos> getGruposDeCampos();
 
+    public GrupoCampos getGrupoCampoByID(int pID);
+
 }
