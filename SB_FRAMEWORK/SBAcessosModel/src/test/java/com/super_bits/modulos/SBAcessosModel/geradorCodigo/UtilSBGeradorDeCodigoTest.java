@@ -53,7 +53,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
                 if (acao.isUmaAcaoFormulario()) {
                     System.out.println(acao.getComoFormulario().getXhtml());
                 }
-                //    SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Anotação gerada para " + acao.getNomeAcao() + "= \n " + anotacaoDaAcao);
+                SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Anotação gerada para " + acao.getNomeAcao() + "= \n " + anotacaoDaAcao);
             }
 
         } catch (Throwable t) {
