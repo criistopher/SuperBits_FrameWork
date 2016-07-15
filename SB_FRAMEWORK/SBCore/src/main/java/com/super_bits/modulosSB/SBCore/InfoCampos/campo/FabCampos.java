@@ -4,7 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -672,45 +674,81 @@ public enum FabCampos implements ItfFabrica {
     }
 
     public String getStrTipoInputCampo() {
-        switch (this) {
-            case AAA_NOME:
 
-            case AAA_NOME_LONGO:
-            case ID:
-            case LCLOGRADOURO:
-            case LCComplemeto:
-            case LCCampoAberto:
-            case HTML:
-            case TELEFONE_FIXO_NACIONAL:
-            case TELEFONE_FIXO_INTERNACIONAL:
-            case TELEFONE_CELULAR:
-            case TELEFONE_GENERICO:
-            case RESPONSAVEL:
-            case NOME_COMPLETO:
-            case CNPJ:
-            case CPF:
-            case INSCRICAO_ESTADUAL:
-            case INSCRIACAO_MUNICIPAL:
-            case CODIGO_DE_BARRAS:
-            case ICONE:
-            case CAMPO_SEPARADOR:
-                return FabCampos.TEXTO_SIMPLES.toString();
+        try {
+            // TIPOS DE CAMPO QUE DEVEN USAR INPUT SIMPLES COM MASCARAS E REGEX
+            switch (this) {
+                case AAA_NOME:
+                case AAA_NOME_LONGO:
+                case ID:
+                case LCLOGRADOURO:
+                case LCComplemeto:
+                case LCCampoAberto:
+
+                case TELEFONE_FIXO_NACIONAL:
+                case TELEFONE_FIXO_INTERNACIONAL:
+                case TELEFONE_CELULAR:
+                case TELEFONE_GENERICO:
+                case RESPONSAVEL:
+                case NOME_COMPLETO:
+                case CNPJ:
+                case CPF:
+                case INSCRICAO_ESTADUAL:
+                case INSCRIACAO_MUNICIPAL:
+                case CODIGO_DE_BARRAS:
+                case ICONE:
+                case CAMPO_SEPARADOR:
+                    return FabCampos.TEXTO_SIMPLES.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT COM BARRA CONTENDO MINIMO E MAXIMO
+                case PERCENTUAL:
+                    return PERCENTUAL.toString();
+                // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
+                case LOOKUP:
+                case LISTA:
+                    return LOOKUP.toString();
+                // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
+                case SENHA:
+                case SENHA_SEGURANCA_MAXIMA:
+                    return SENHA.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT CEP
+                case LCCEP:
+                    return LCCEP.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
+                case COR:
+                    return COR.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT DE HTML
+                case HTML:
+                    return HTML.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT quantidade
+                case QUANTIDADE:
+                    return QUANTIDADE.toString();
+                case AAA_DESCRITIVO:
+                    return AAA_DESCRITIVO.toString();
+
+                case MOEDA_REAL:
+                case MOEDA_DOLAR:
+                    return MOEDA_REAL.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT EMAIL
+                case EMAIL:
+                    return EMAIL.toString();
+                // TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO APENAS DATA
+                case DATA:
+                    return DATA.toString();
+                //// TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO DATA E HORA
+                case REG_DATAALTERACAO:
+                case REG_DATAINSERCAO:
+                case DATAHORA:
+                    return FabCampos.DATAHORA.toString();
+                case VERDADEIRO_FALSO:
+                case REG_ATIVO_INATIVO:
+                    return FabCampos.VERDADEIRO_FALSO.toString();
+            }
+
+            //  throw new UnsupportedOperationException("a exibição para o campo do tipo" + this.toString() + "não foi prevista ainda");
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ATENÇÃO erro determinando tipo de campo para:" + this.toString(), t);
         }
-
-        switch (this) {
-
-            case REG_DATAALTERACAO:
-            case REG_DATAINSERCAO:
-                return FabCampos.DATAHORA.toString();
-        }
-
-        switch (this) {
-            case VERDADEIRO_FALSO:
-            case REG_ATIVO_INATIVO:
-                return FabCampos.VERDADEIRO_FALSO.toString();
-        }
-
-        return this.toString();
+        return FabCampos.TEXTO_SIMPLES.toString();
 
     }
 }
