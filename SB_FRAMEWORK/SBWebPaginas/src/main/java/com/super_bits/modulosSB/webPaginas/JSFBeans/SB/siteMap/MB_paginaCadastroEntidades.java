@@ -218,6 +218,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
             setEntidadeSelecionada(pEntidadeSelecionada);
+            System.out.println("ALTERANDO A ENTIDADE SELECIONADA TESTE ---------------------- " + pEntidadeSelecionada);
         }
 
         if (acaoSelecionada.equals(acaoListarRegistros)) {
