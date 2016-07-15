@@ -48,6 +48,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     protected CampoMapValores camposEsperados;
 
     private Map<String, ItfCampoInstanciado> mapaCamposInstanciados;
+    private Map<String, Field> mapaCampoPorAnotacao;
 
     // Descobrir um meio de obter o campo através da instancia (não pode se atravez do valor, precisa ser instancia para funcionar com campos com o mesmo valor
     //private Map<Object, Campo> mapaCamposByInstancia;
@@ -152,50 +153,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      */
     protected Campo getCampoByFieldReflexao(Field pCampo) {
         return FabCampos.getCampoByAnotacoesSimplesSemPersistencia(pCampo);
-    }
-
-    /**
-     * Cria um mapa com todos os campos da classe.
-     *
-     * Aqueles encontrados encontrados comgetCamposInstaciadosInvalidos a
-     * Anotação @InfoCampo, tem suas configurações personalizadas
-     *
-     * Aqueles sem esta anotação são configurados de maneira padrão de acordo
-     * com o tipo
-     *
-     */
-    protected void makeMapaCampos() {
-
-        // Por segurança, sai caso o campo já tenha sido criado
-        if (mapaCamposInstanciados != null) {
-            if (mapaCamposInstanciados.isEmpty()) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("O mapa de campos não foi criado, pois nenhum campo foi encontrado, este erro é grave, reflita sobre a vida, tome um café quem sabe..", null);
-            }
-            return;
-        }
-
-        // Definindo Classe Para analize de campos
-        Class<?> classeAnalizada = this.getClass();
-        mapaCamposInstanciados = new HashMap<>();
-
-        while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
-            for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
-                campoEncontrado.getAnnotations(); // SE o campo não for estatico
-                if (!Modifier.isStatic(campoEncontrado.getModifiers())) {
-                    campoEncontrado.setAccessible(true);
-                    // Se este campo não foi adicionado antes (por segurança)
-                    if (!mapaCamposInstanciados.containsKey(campoEncontrado.getName())) {
-                        InfoCampo anotacao = campoEncontrado.getAnnotation(InfoCampo.class);
-                        CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(getCampoByFieldReflexao(campoEncontrado), campoEncontrado); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
-                        mapaCamposInstanciados.put(campoEncontrado.getName(), campoformatado);
-                        if (anotacao != null) {
-                            mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
-                        }
-                    }
-                }
-            }
-            classeAnalizada = classeAnalizada.getSuperclass();
-        }
     }
 
     /**
@@ -510,11 +467,65 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         return classeModelo;
     }
 
-    public Map<String, ItfCampoInstanciado> getmapaCamposInstanciados() {
+    private void carregaCampoInstanciado(Field pCampo) {
+
+        CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(getCampoByFieldReflexao(pCampo), pCampo); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
+        mapaCamposInstanciados.put(pCampo.getName(), campoformatado);
+        InfoCampo anotacao = pCampo.getAnnotation(InfoCampo.class);
+        if (anotacao != null) {
+            mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
+        }
+
+    }
+
+    public Map<String, ItfCampoInstanciado> getmapaCamposInstanciados(String pCampo) {
         if (mapaCamposInstanciados == null || mapaCamposInstanciados.isEmpty()) {
 
-            makeMapaCampos();
+            mapaCamposInstanciados = new HashMap<>();
+            mapaCampoPorAnotacao = new HashMap<>();
+            Class classeAnalizada = this.getClass();
+            while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
+                classeAnalizada = classeAnalizada.getSuperclass();
+                for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
+                    InfoCampo anotacao = campoEncontrado.getAnnotation(InfoCampo.class);
+                    if (anotacao != null) {
+                        mapaCampoPorAnotacao.put(anotacao.tipo().toString(), campoEncontrado);
+                    }
+                }
+                classeAnalizada = classeAnalizada.getSuperclass();
+            }
+
         }
+        boolean pesquisouanotacao = false;
+        if (mapaCamposInstanciados.containsKey(pCampo)) {
+            return mapaCamposInstanciados;
+        } else {
+
+            Class classeAnalizada = this.getClass();
+
+            while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
+
+                try {
+                    Field campoEncontrado = classeAnalizada.getDeclaredField(pCampo);
+                    campoEncontrado.setAccessible(true);
+                    carregaCampoInstanciado(campoEncontrado);
+                    return mapaCamposInstanciados;
+                    // Caso não encontre pelo nome, procura pela anotação
+                } catch (NoSuchFieldException | SecurityException ex) {
+                    if (!pesquisouanotacao) {
+                        pesquisouanotacao = true;
+                        if (mapaCampoPorAnotacao.containsKey(pCampo.toUpperCase())) {
+                            carregaCampoInstanciado(mapaCampoPorAnotacao.get(pCampo.toUpperCase()));
+                            return mapaCamposInstanciados;
+                        }
+                    }
+
+                }
+                classeAnalizada = classeAnalizada.getSuperclass();
+            }
+
+        }
+
         return mapaCamposInstanciados;
 
     }
@@ -528,16 +539,12 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
         if (quantidade == 1) {
 
-            if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pNomeOuANotacao)) {
-                return UtilSBCoreReflexaoCampos.getCampoSeparador(pNomeOuANotacao);
-            }
-
-            return getmapaCamposInstanciados().get(pNomeOuANotacao);
+            return getmapaCamposInstanciados(pNomeOuANotacao).get(pNomeOuANotacao);
 
         } else {
             String nomeProximoObjeto = UtilSBCoreReflexaoCampos.getStrPrimeiroCampoDoCaminhoCampo(pNomeOuANotacao);
 
-            ItfCampoInstanciado itemAtual = getmapaCamposInstanciados().get(nomeProximoObjeto);
+            ItfCampoInstanciado itemAtual = getmapaCamposInstanciados(pNomeOuANotacao).get(nomeProximoObjeto);
             if (itemAtual == null) {
                 return new CampoNaoImplementado();
             }
@@ -572,8 +579,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     @Override
     public List<CampoInvalido> getCamposInvalidos() {
+
         List<CampoInvalido> camposInvalidados = new ArrayList<>();
-        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados().entrySet()) {
+        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados("TODodeprecated").entrySet()) {
             if (campo.getValue().validarCampo()) {
                 CampoInvalido novoCampoInvalido = new CampoInvalido();
                 novoCampoInvalido.setNomeCampo(campo.getValue().getLabel());
@@ -589,7 +597,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
 
         List<ItfCampoInstanciado> camposInstanciadosInvalidados = new ArrayList<>();
-        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados().entrySet()) {
+        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados("TODOdeprecated").entrySet()) {
             if (campo.getValue().validarCampo()) {
                 camposInstanciadosInvalidados.add(campo.getValue());
 
@@ -631,7 +639,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      */
     public List<ItfCampoInstanciado> getTodosCamposInstanciados() {
         List<ItfCampoInstanciado> camposInstanciados = new ArrayList<>();
-        for (ItfCampoInstanciado campo : getmapaCamposInstanciados().values()) {
+        for (ItfCampoInstanciado campo : getmapaCamposInstanciados("TODODEprecated").values()) {
             if (!camposInstanciados.contains(campo)) {
                 camposInstanciados.add(campo);
 

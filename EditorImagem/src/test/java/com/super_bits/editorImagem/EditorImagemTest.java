@@ -5,8 +5,6 @@
  */
 package com.super_bits.editorImagem;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,7 +25,7 @@ public class EditorImagemTest {
 
     @Before
     public void setUp() {
-        SBCore.configurar(new ConfigCoreDeveloper());
+        //SBCore.configurar(new ());
     }
 
     /**

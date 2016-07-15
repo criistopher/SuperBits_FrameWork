@@ -32,6 +32,9 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     @Transient
     private List<CaminhoCampoReflexao> campos;
 
+    @Transient
+    private List<GrupoCampos> grupos;
+
     public AcaoFormulario() {
         super();
         campos = new ArrayList<>();
@@ -105,8 +108,10 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     @Override
     public List<GrupoCampos> getGruposDeCampos() {
-
-        return UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(campos);
+        if (grupos == null) {
+            grupos = UtilSBCoreReflexaoCampos.buildAgrupamentoCampos(campos);
+        }
+        return grupos;
     }
 
 }
