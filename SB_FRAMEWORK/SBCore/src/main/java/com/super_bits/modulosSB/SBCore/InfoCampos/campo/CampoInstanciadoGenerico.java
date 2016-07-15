@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 
 /**
@@ -49,6 +50,18 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         } else {
             return !getValor().toString().isEmpty();
         }
+    }
+
+    @Override
+    public boolean isUmCampoNaoInstanciado() {
+
+        return getLabel().equals(CampoNaoImplementado.LABEL_NAO_IMPLEMENTADO);
+
+    }
+
+    @Override
+    public String getLabelSlug() {
+        return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
     }
 
 }

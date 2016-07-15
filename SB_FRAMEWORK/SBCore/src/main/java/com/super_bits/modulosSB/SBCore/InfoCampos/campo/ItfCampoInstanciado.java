@@ -29,4 +29,8 @@ public interface ItfCampoInstanciado extends ItfCampo {
 
     public boolean isVazio();
 
+    public boolean isUmCampoNaoInstanciado();
+
+    public String getLabelSlug();
+
 }
