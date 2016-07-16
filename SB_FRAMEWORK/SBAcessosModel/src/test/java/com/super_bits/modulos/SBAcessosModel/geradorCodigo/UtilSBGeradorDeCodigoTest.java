@@ -109,6 +109,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         try {
 
             EstruturaDeEntidade comprador = new EstruturaDeEntidade();
+
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");
             campoID.getMascara();
