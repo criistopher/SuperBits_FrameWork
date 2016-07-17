@@ -10,6 +10,7 @@ import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.util.List;
 
 /**
@@ -95,14 +96,34 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
+
         String classeFormatada = "";
+
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
-            String anotcaoDoCampo = "@InfoCampo(tipo=\"" + campo.getTipoCampo().toString() + "\" label=\"" + campo.getLabel() + "\" ) \n";
+            switch (campo.getTipoValor()) {
+
+                case NUMERO:
+                    break;
+
+                case LETRAS:
+                    break;
+
+                case DATAS:
+                    break;
+
+                default:
+                    throw new AssertionError(campo.getTipoValor().name());
+
+            }
+
+        }
+
+        /*  String anotcaoDoCampo = "@InfoCampo(tipo=\"" + campo.getTipoCampo().toString() + "\" label=\"" + campo.getLabel() + "\" ) \n";
             classeFormatada += anotcaoDoCampo;
             String declaracaoDoCampo = " private " + campo.getNomeDeclarado();
             classeFormatada += declaracaoDoCampo;
-        }
+         */
         return classeFormatada;
     }
 

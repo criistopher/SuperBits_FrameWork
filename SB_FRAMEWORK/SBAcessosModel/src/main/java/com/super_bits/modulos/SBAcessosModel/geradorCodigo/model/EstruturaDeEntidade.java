@@ -15,9 +15,11 @@ import java.util.List;
 public class EstruturaDeEntidade {
 
     private String nomeEntidade;
+
     private List<EstruturaCampo> campos;
 
     private List<EstruturaDeEntidade> muitosParaUm;
+
     private List<EstruturaDeEntidade> umParaMuitos;
 
     public EstruturaDeEntidade() {
