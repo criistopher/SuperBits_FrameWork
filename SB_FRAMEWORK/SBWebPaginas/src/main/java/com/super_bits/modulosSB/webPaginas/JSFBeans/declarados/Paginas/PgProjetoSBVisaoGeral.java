@@ -33,7 +33,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 @InfoAcaoProjetoSB(acao = FabAcaoProjetoSB.PROJETO_GERENCIAR_MB)
-@InfoPagina(nomeCurto = "Proj", tags = "Andamento do Projeto")
+@InfoPagina(nomeCurto = "GPROJ", tags = "Andamento do Projeto")
 public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
 
     private List<ItfAcaoGerenciarEntidade> acoesGestaoDoModulo;

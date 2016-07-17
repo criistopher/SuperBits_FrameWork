@@ -29,7 +29,7 @@ import javax.inject.Named;
  *
  * @author rjesus
  */
-@InfoPagina(nomeCurto = "US", tags = {"cadastro de usuarios"}, acessoLivre = false)
+@InfoPagina(nomeCurto = "GUS", tags = {"cadastro de usuarios"}, acessoLivre = false)
 @Named
 @ViewScoped
 @InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_MB_GERENCIAR)
