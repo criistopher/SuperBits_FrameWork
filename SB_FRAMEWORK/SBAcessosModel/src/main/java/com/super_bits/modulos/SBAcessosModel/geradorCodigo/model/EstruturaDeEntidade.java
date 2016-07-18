@@ -5,7 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoEntidades;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class EstruturaDeEntidade {
 
     private String plural, icone;
 
-    private FabTipoEntidades tipoEntidade;
+    private FabTipoBeanSBGenerico tipoEntidade;
 
     public EstruturaDeEntidade() {
         campos = new ArrayList<>();
@@ -42,11 +42,11 @@ public class EstruturaDeEntidade {
         this.nomeEntidade = nomeEntidade;
     }
 
-    public FabTipoEntidades getTipoEntidade() {
+    public FabTipoBeanSBGenerico getTipoEntidade() {
         return tipoEntidade;
     }
 
-    public void setTipoEntidade(FabTipoEntidades tipoEntidade) {
+    public void setTipoEntidade(FabTipoBeanSBGenerico tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
     }
 

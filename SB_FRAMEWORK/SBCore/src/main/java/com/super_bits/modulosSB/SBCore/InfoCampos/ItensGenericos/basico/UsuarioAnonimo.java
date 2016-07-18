@@ -41,7 +41,7 @@ public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializab
     private ItfUsuario usuarioAlteracao;
 
     public UsuarioAnonimo() {
-        super(UsuarioAnonimo.class);
+        super();
     }
 
     @Override

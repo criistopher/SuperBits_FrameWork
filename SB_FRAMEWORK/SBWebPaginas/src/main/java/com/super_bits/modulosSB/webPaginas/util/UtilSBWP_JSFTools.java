@@ -122,6 +122,7 @@ public abstract class UtilSBWP_JSFTools {
         Iterator<UIComponent> childIt = currentComponent.getFacetsAndChildren();
         while (childIt.hasNext()) {
             UIComponent child = childIt.next();
+
             accumulator.addAll(resolveList(id, child));
         }
 
