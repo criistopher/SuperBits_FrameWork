@@ -34,7 +34,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ACOES_PARA_TESTE = new ArrayList<>();
         //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema());
         //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
         //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
         //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
