@@ -110,17 +110,11 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         try {
 
             EstruturaDeEntidade comprador = new EstruturaDeEntidade();
-<<<<<<< HEAD
             comprador.setNomeEntidade("Comprador");
             comprador.setIcone("fa fa-shopping-cart");
             comprador.setPlural("Compradores");
             comprador.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
             comprador.setTipoEntidade(FabTipoEntidades.BEAN_CONTATO_CORPORATIVO);
-=======
-
-            comprador.setNomeEntidade("Comprador");
->>>>>>> b4cfc5bac39100a04e530f67238cf91b79512bdc
-
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");
             campoID.getMascara();
