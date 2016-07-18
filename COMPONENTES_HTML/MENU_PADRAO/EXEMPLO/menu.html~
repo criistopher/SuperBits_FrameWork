@@ -1,0 +1,156 @@
+<!-- saved from url=(0036)http://localhost:8084/super_compras/ -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class=""><head id="j_idt2"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+            
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+				<meta name="apple-mobile-web-app-capable" content="yes">
+
+				<link rel="stylesheet" href="./icones/css/font-awesome.css">
+
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/theme.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/font-awesome.css.xhtml">
+				<script type="text/javascript" src="./primefaces_files/erroAjax.js.xhtml"></script>
+				<script type="text/javascript" src="./primefaces_files/ativarGridsResp.js.xhtml"></script>
+				<script type="text/javascript" src="./primefaces_files/correcaoBugJsf.js.xhtml"></script>
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/components.css.xhtml">
+				<script type="text/javascript" src="./primefaces_files/jquery.js.xhtml"></script>
+				<script type="text/javascript" src="./primefaces_files/core.js.xhtml"></script>
+				<script type="text/javascript" src="./primefaces_files/components.js.xhtml"></script>
+				<script type="text/javascript" src="./primefaces_files/jquery-plugins.js.xhtml"></script>
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/colorpicker.css.xhtml">
+				<script type="text/javascript" src="./primefaces_files/colorpicker.js.xhtml"></script>
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/fileupload.css.xhtml">
+				<script type="text/javascript" src="./primefaces_files/fileupload.js.xhtml"></script>
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/SBLayout.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/core-layout.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/animate.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/adamantium-font.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/ripple-effect.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/perfect-scrollbar.css.xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/font-awesome.css(1).xhtml">
+				<link type="text/css" rel="stylesheet" href="./primefaces_files/adamantium-layout.css.xhtml">
+				<script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='br';}</script>
+		<title>Portal Super Compras - Home Page</title><script type="text/javascript" src="./primefaces_files/ripple-effect.js.xhtml"></script><script type="text/javascript" src="./primefaces_files/perfect-scrollbar.js.xhtml"></script><script type="text/javascript" src="./primefaces_files/layout.js.xhtml"></script>
+		<script type="text/javascript" src="./primefaces_files/auxiliarPrimeFaces.js.xhtml"></script>
+
+				<style>
+					.botaoBox {
+						margin-top: 3px;
+					}
+						.fa{
+	color:#fcfc08;						
+						}
+				</style>
+				
+			
+   <!-- Inicio do Menu, configuração da logomarca  div topo geral do menu-->     
+		<div id="layout-topbar"><img id="j_idt23:j_idt24:logo" 
+		src="http://planofunerariosantaclara.com.br/wp-content/uploads/2016/04/logosantaclara.png" style="width: 200px;">
+
+
+				<a id="topmenu-button" class="Animated1">
+					<i class="icon-list2"> Menu</i> 	<!--Icone menu para mobile -->
+   
+				</a>
+
+				<ul id="top-menu">
+					<li>
+						<a class="menulink Animated05"><i class="fa fa-university"
+										
+						></i> INSTITUCIONAL</a>
+						
+						
+						
+						<ul style="margin-left:-145px;">
+								<li><a href="#"><i class="fa fa-envelope Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> QUEM SOMOS </span></a></li>
+								<li><a href="#"><i class="icon-attachment Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold">  AÇOES SOCIAIS </span></a></li>
+								<li><a href="#"><i class="icon-attachment Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold">  AÇOES SOCIAIS </span></a></li>
+								</li>
+						</ul>
+						
+						
+						
+						
+						
+					</li>
+					
+
+
+	
+	
+	
+					<li>
+						<a class="menulink Animated05"><i class="fa fa-comment"></i> Comunicados</a>
+						<ul style="margin-left:-155px;">
+								<li><a href="http://localhost:8084/super_compras/#"><i class="icon-cd Fs20 Blue Fright"></i> <span class="FontAdamantiumBold Green">Mensagem Legal</span><br><span class="Fs12">Feliz natal! hj complemtamos 1 cifra de 500 milhões em compras </span></a></li>
+								<li><a href="http://localhost:8084/super_compras/#"><i class="icon-cd Fs20 Red Fright"></i> <span class="FontAdamantiumBold Red">Mensagem Imperativa</span><br><span class="Fs12"> Não encontramos o pagamento de seu boleto, favor entrar em contato </span></a></li>
+								<li><a href="http://localhost:8084/super_compras/#"><i class="icon-cd Fs20 Orange Fright"></i> <span class="FontAdamantiumBold Orange">Mensagem de Alerta</span><br><span class="Fs12">Atenção sem boleto vence em 5 dias </span></a></li>
+						</ul>
+					</li>
+
+					<li>
+	<form id="j_idt23:j_idt24:j_idt29" name="j_idt23:j_idt24:j_idt29" method="post" action="http://localhost:8084/super_compras/site/comprador/homeComprador.xhtml?cid=5" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt23:j_idt24:j_idt29" value="j_idt23:j_idt24:j_idt29">
+
+								<ul style="margin-left:-150px;">
+									<li><span class="PadWithBorder10 DispBlock"><input id="j_idt23:j_idt24:j_idt29:j_idt31" name="j_idt23:j_idt24:j_idt29:j_idt31" type="text" placeholder="Encontrar Campanha" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all Wid60" role="textbox" aria-disabled="false" aria-readonly="false"><button id="j_idt23:j_idt24:j_idt29:j_idt32" name="j_idt23:j_idt24:j_idt29:j_idt32" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only Fright" onclick="window.open(&#39;/super_compras/site/comprador/homeComprador.xhtml&#39;,&#39;_self&#39;)" role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-c fa fa-search"></span><span class="ui-button-text ui-c">ui-button</span></button></span></li>
+
+								</ul><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-5401518434612079785:-1531951371066887963" autocomplete="off">
+</form>
+					</li>
+
+
+					<li>
+						<a class="menulink Animated05"><i class="icon-settings"></i>  Minha Conta </a>
+						<ul style="margin-left:-145px;">
+								<li><a href="http://localhost:8084/super_compras/#"><i class="fa fa-envelope Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> Enviar Mensagem </span></a></li>
+								<li><a href="http://localhost:8084/super_compras/#"><i class="icon-attachment Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold">  Perfil e senha </span></a></li>
+
+
+
+								<li>  <span class="FontAdamantiumBold">
+<form id="j_idt23:j_idt24:j_idt35" name="j_idt23:j_idt24:j_idt35" method="post" action="http://localhost:8084/super_compras/site/comprador/homeComprador.xhtml?cid=5" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt23:j_idt24:j_idt35" value="j_idt23:j_idt24:j_idt35">
+<a id="j_idt23:j_idt24:j_idt35:j_idt36" href="http://localhost:8084/super_compras/#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;j_idt23:j_idt24:j_idt35:j_idt36&quot;,onco:function(xhr,status,args){javascript:window.location=&#39;http://superkompras.org:8084/super_compras&#39;;;}});return false;">
+													<li><i class="icon-lock-stroke Fs18 Fleft MarRight10"></i> <span class="FontAdamantiumBold"> Sair </span></li></a><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="-5401518434612079785:-1531951371066887963" autocomplete="off">
+</form>
+									</span></li>
+
+						</ul>
+					</li>
+
+				</ul>
+		</div>
+        
+        
+        
+
+        
+        
+        
+        
+        
+		<div class="layout-menu-cover-top Animated05" id="layout-menu-cover">
+<form id="j_idt23:j_idt39:j_idt41" name="j_idt23:j_idt39:j_idt41" method="post" action="http://localhost:8084/super_compras/site/comprador/homeComprador.xhtml?cid=5" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt23:j_idt39:j_idt41" value="j_idt23:j_idt39:j_idt41">
+<ul id="j_idt23:j_idt39:j_idt41:j_idt42" class="layout-menu"></ul><script type="text/javascript">Adamantium.restoreMenuState();</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="-5401518434612079785:-1531951371066887963" autocomplete="off">
+</form>
+
+
+
+
+
+
+		</div>
+
+        
+		<div style="visibility: hidden;">
+<form id="contactfrm" name="contactfrm" method="post" action="http://localhost:8084/super_compras/site/comprador/homeComprador.xhtml?cid=5" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="contactfrm" value="contactfrm">
+<script type="text/javascript">enviarInfoTela = function() {PrimeFaces.ab({s:"contactfrm:j_idt45",f:"contactfrm",pa:arguments[0]});}</script><input id="contactfrm:clientinfo" name="contactfrm:clientinfo" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false"><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:3" value="-5401518434612079785:-1531951371066887963" autocomplete="off">
+</form>
+		</div>
+
+
+</body></html>
