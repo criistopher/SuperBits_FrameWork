@@ -228,11 +228,11 @@ public class UtilSBGeradorDeCodigo {
 
             if(i > 0){
 
-            tagsFormatadas += ", "+pTags.get(i);
+            tagsFormatadas += ", \""+pTags.get(i)+"\"";
 
             }else{
 
-                tagsFormatadas += pTags.get(i);
+                tagsFormatadas += "\""+pTags.get(i)+"\"";
 
             }
 
@@ -253,10 +253,10 @@ public class UtilSBGeradorDeCodigo {
                 += "@Entity\n"
 
                 // ADICIONA A STRING DE ANOTAÇÃO INFOCLASSE DA CLASSE NA VARIAVEL ClasseFormata
-                + "@InfoClasse(tags = {\""+ getTagsDaEntidade(pEstrutura.getTags()) +"\"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
+                + "@InfoClasse(tags = {"+ getTagsDaEntidade(pEstrutura.getTags()) +"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
 
                 // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
-                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade()+" {\n\n";
+                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade().getClassePorTipoEntidade()+" {\n\n";
 
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
@@ -300,8 +300,8 @@ public class UtilSBGeradorDeCodigo {
 
                     }
 
-                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
-                    return classeFormatada;
+                    break;
+
                 //
                 //
                 //
@@ -331,8 +331,8 @@ public class UtilSBGeradorDeCodigo {
                     // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
                     classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
 
-                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
-                    return classeFormatada;
+                    break;
+
                 //
                 //
                 //
@@ -367,8 +367,8 @@ public class UtilSBGeradorDeCodigo {
                     // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
                     classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
 
-                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
-                    return classeFormatada;
+                    break;
+
                 //
                 //
                 //
@@ -396,8 +396,7 @@ public class UtilSBGeradorDeCodigo {
                     // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
                     classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
 
-                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
-                    return classeFormatada;
+                    break;
 
                 //
                 //
@@ -412,6 +411,7 @@ public class UtilSBGeradorDeCodigo {
 
                     throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
 
+
                 //
                 //
                 //
@@ -424,7 +424,7 @@ public class UtilSBGeradorDeCodigo {
         }
 
         // ADICIONA O CARACTER } PARA FECHAR A CLASSE
-        classeFormatada += "\n}";
+        classeFormatada += "}";
 
         // RETORNA A VARIAVEL ClasseFormatada COM A STRING DE CRIAÇÃO DA CLASSE
         return classeFormatada;

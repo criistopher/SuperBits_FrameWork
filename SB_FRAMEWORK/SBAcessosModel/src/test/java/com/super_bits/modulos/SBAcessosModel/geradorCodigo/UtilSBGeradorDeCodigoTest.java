@@ -46,7 +46,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public UtilSBGeradorDeCodigoTest() {
     }
 
-    @Test
+    //@Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -85,27 +85,28 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
-    @Test
+    //@Test
     public void testMakeClasseAnotacaoInfoAcao() {
 
     }
 
-    @Test
+    //@Test
     public void testMakeEnumListas() {
     }
 
-    @Test
+    //@Test
     public void testMakeListasAnotacao() {
     }
 
-    @Test
+    //@Test
     public void testMakeEnumCalculos() {
     }
 
-    @Test
+    //@Test
     public void testMakeCalculoAnotacaos() {
     }
 
+    @Test
     public void testMakeEntidade() {
         try {
 
@@ -115,6 +116,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             comprador.setPlural("Compradores");
             comprador.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
             comprador.setTipoEntidade(FabTipoEntidades.BEAN_CONTATO_CORPORATIVO);
+
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");
             campoID.getMascara();
@@ -149,7 +151,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
-    @Test
+    //@Test
     public void testCriarArquivosDoSistema() {
     }
 
