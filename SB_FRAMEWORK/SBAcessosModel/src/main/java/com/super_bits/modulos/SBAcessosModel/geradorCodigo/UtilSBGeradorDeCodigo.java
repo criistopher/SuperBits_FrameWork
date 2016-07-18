@@ -6,7 +6,11 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+=======
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
+>>>>>>> 3abeebfa29e80bdc4260193d81e0e7be6c23b7c4
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
@@ -104,7 +108,35 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
-        return null;
+
+        String classeFormatada = "";
+
+        for (EstruturaCampo campo : pEstrutura.getCampos()) {
+
+            switch (campo.getTipoValor()) {
+
+                case NUMERO:
+                    break;
+
+                case LETRAS:
+                    break;
+
+                case DATAS:
+                    break;
+
+                default:
+                    throw new AssertionError(campo.getTipoValor().name());
+
+            }
+
+        }
+
+        /*  String anotcaoDoCampo = "@InfoCampo(tipo=\"" + campo.getTipoCampo().toString() + "\" label=\"" + campo.getLabel() + "\" ) \n";
+            classeFormatada += anotcaoDoCampo;
+            String declaracaoDoCampo = " private " + campo.getNomeDeclarado();
+            classeFormatada += declaracaoDoCampo;
+         */
+        return classeFormatada;
     }
 
     public static void criarArquivosDoSistema(List<EstruturaDeEntidade> entidades, List<ItfAcaoDoSistema> acoesDoSistema) {

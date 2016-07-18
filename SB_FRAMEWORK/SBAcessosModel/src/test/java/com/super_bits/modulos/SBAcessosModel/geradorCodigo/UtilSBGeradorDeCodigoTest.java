@@ -9,8 +9,12 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public UtilSBGeradorDeCodigoTest() {
     }
 
-    @Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -61,7 +64,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
-    @Test
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -104,6 +106,22 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     @Test
     public void testMakeEntidade() {
+        try {
+
+            EstruturaDeEntidade comprador = new EstruturaDeEntidade();
+
+            EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
+            campoID.setNomeDeclarado("id");
+            campoID.getMascara();
+            comprador.getCampos().add(campoID);
+
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n " + codigoGerado);
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+
     }
 
     @Test

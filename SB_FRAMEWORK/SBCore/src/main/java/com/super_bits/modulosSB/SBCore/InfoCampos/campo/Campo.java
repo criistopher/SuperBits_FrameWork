@@ -44,8 +44,10 @@ public class Campo implements Serializable, ItfCampo {
     private String fraseValidacao;
 
     public Campo(FabCampos pTipo) {
+
         tipoCampo = pTipo;
         tipoVisualizacao = pTipo.toString().toUpperCase();
+
     }
 
     public Campo(Campo pCampo) {
