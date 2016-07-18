@@ -6,15 +6,13 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-=======
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
->>>>>>> 3abeebfa29e80bdc4260193d81e0e7be6c23b7c4
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import java.util.List;
 
 /**
@@ -34,9 +32,15 @@ public class UtilSBGeradorDeCodigo {
             return "@InfoTipoAcaoGestaoEntidade(nomeAcao = \" " + pAcao.getNome() + " \", descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \"  \n"
                     + " , xhtmlDaAcao = \" " + ((ItfAcaoFormulario) pAcao).getXhtml() + " \", precisaPermissao = " + pAcao.isPrecisaPermissao() + ", codigoJira = \" " + pAcao.getIdDescritivoJira() + "\" ) ";
         } else if (pAcao.isUmaAcaoFormulario() && !pAcao.isUmaAcaoGestaoDominio()) {
+            String campos = "";
+            if (!pAcao.getComoFormulario().getGruposDeCampos().isEmpty()) {
+                for (GrupoCampos acao : pAcao.getComoFormulario().getGruposDeCampos()) {
+                    campos += acao.toString();
+                }
+            }
             return "@InfoTipoAcaoFormulario(nomeAcao = \" " + pAcao.getNome() + " \",descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \"  \n"
                     + " , xhtmlDaAcao = \" " + ((ItfAcaoFormulario) pAcao).getXhtml() + " \",precisaPermissao = " + pAcao.isPrecisaPermissao() + " , codigoJira = \" " + pAcao.getIdDescritivoJira() + " \" ) "
-                    + "campos = {" + pAcao.getComoFormulario().getGruposDeCampos() + "}";
+                    + campos + "= {" + pAcao.getComoFormulario().getGruposDeCampos() + "}";
         } else {
 
             return null;
@@ -45,7 +49,8 @@ public class UtilSBGeradorDeCodigo {
 
     public static String makeEnumFabricaDeAcoes(List<ItfAcaoDoSistema> pAcoes, ItfModuloAcaoSistema pModulo) {
 
-        String enumGerado = "";
+        String enumGerado = "@InfoModulosSuperKompras(modulo = FabModuloSuperKompras.ADMINISTRATIVO)\n"
+                + "public enum FabAcaoAdministrador implements ItfFabricaAcoes {";
 
         //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
 
