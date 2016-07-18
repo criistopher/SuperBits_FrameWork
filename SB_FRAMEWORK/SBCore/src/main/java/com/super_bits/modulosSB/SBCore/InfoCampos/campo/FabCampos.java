@@ -423,7 +423,6 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case LCCEP:
                 sbCampo.setMascara("#####-###");
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case LCBairro:
                 break;
@@ -483,28 +482,23 @@ public enum FabCampos implements ItfFabrica {
             case CNPJ:
                 // mascara (tipo primitivo numeral)
                 sbCampo.setMascara("##.###.###/####-##");
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case CPF:
                 //mascara(tipo primitivo numeral)
                 sbCampo.setMascara("###-###-###-##");
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 sbCampo.setValorMinimo(11);
                 break;
             case INSCRICAO_ESTADUAL:
                 // mascara (tipo primitivo numeral)
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case INSCRIACAO_MUNICIPAL:
                 // mascara (tipo primitivo numeral)
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
 
             case LCCampoAberto:
                 break;
             case QUANTIDADE:
                 // define tipo primitivo numerico
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.NUMERO);
                 break;
             case SENHA:
                 // tamanho minimo 3
@@ -525,13 +519,11 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case REG_DATAALTERACAO:
                 // tipo primitivo Data mascara data
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.DATAS);
                 sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
                 sbCampo.setMascara("##/##/####");
                 break;
             case REG_DATAINSERCAO:
                 // tipo primitivo Data mascara data
-                sbCampo.setTipoValor(ItfCampo.TIPOPRIMITIVO.DATAS);
                 sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
                 sbCampo.setMascara("##/##/####");
                 break;
@@ -749,6 +741,88 @@ public enum FabCampos implements ItfFabrica {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ATENÇÃO erro determinando tipo de campo para:" + this.toString(), t);
         }
         return FabCampos.TEXTO_SIMPLES.toString();
+
+    }
+
+    public ItfCampo.TIPOPRIMITIVO getTipoPrimitivo() {
+
+        switch (this) {
+            case AAA_NOME:
+            case AAA_NOME_LONGO:
+            case AAA_DESCRITIVO:
+            case LCLOGRADOURO:
+            case LCCEP:
+            case LCBairro:
+            case LCCidade:
+            case LCUnidadeFederativa:
+            case SENHA:
+            case SENHA_SEGURANCA_MAXIMA:
+            case LCComplemeto:
+            case LCCampoAberto:
+            case HTML:
+            case CHART_LABEL:
+            case CHART_CATEGORIA:
+            case TELEFONE_FIXO_NACIONAL:
+            case TELEFONE_FIXO_INTERNACIONAL:
+            case TELEFONE_CELULAR:
+            case TELEFONE_GENERICO:
+            case COR:
+            case EMAIL:
+            case SITE:
+            case URL:
+            case RESPONSAVEL:
+            case TEXTO_SIMPLES:
+            case NOME_COMPLETO:
+            case CNPJ:
+            case CPF:
+            case INSCRICAO_ESTADUAL:
+            case INSCRIACAO_MUNICIPAL:
+            case CAMPO_SEPARADOR:
+            case ICONE:
+            case ARQUIVO_DE_ENTIDADE:
+            case IMG_PEQUENA:
+            case IMG_MEDIA:
+            case IMG_GRANDE:
+                return ItfCampo.TIPOPRIMITIVO.LETRAS;
+
+            case ID:
+            case LATITUDE:
+            case Longitude:
+            case CHART_VALOR:
+            case QUANTIDADE:
+            case CODIGO_DE_BARRAS:
+                return ItfCampo.TIPOPRIMITIVO.INTEIRO;
+
+            case CALENDARIO:
+            case DATAHORA:
+            case DATA:
+            case HORA:
+            case REG_DATAALTERACAO:
+            case REG_DATAINSERCAO:
+                return ItfCampo.TIPOPRIMITIVO.DATAS;
+
+            case MOEDA_REAL:
+            case MOEDA_DOLAR:
+            case PERCENTUAL:
+                return ItfCampo.TIPOPRIMITIVO.DECIMAL;
+
+            case VERDADEIRO_FALSO:
+            case REG_ATIVO_INATIVO:
+            case SEGURANCA_ATIVA:
+                return ItfCampo.TIPOPRIMITIVO.BOOLEAN;
+
+            case REG_USUARIO_ALTERACAO:
+            case REG_USUARIO_INSERCAO:
+            case LC_LOCALIZACAO:
+            case LOOKUP:
+            case LOOKUPMULTIPLO:
+            case LISTA:
+                return ItfCampo.TIPOPRIMITIVO.ENTIDADE;
+
+            default:
+                throw new AssertionError(this.name());
+
+        }
 
     }
 }

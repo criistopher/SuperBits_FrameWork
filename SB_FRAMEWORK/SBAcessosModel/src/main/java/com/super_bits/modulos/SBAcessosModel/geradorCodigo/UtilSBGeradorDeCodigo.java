@@ -103,15 +103,160 @@ public class UtilSBGeradorDeCodigo {
 
             switch (campo.getTipoValor()) {
 
-                case NUMERO:
-                    break;
+                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+                //
+                //
+                //
+                case INTEIRO:
 
-                case LETRAS:
-                    break;
+                    // VERIFICA SE O CAMPO É DO TIPO ID
+                    if (campo.getTipoCampo().equals(FabCampos.ID)) {
 
+                        // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                        classeFormatada
+                                // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
+                                += "@Id\n"
+                                // ADICIONA A STRING DE ANOTAÇÃO GENERATEDVALUE DO CAMPO NA VARIAVEL ClasseFormata
+                                + "@GeneratedValue(strategy = GenerationType.AUTO)\n"
+                                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                                + "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+
+                    } else {
+
+                        // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                        classeFormatada
+                                // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
+                                += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
+
+                        // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                        if (campo.isObrigatorio()) {
+
+                            // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                            classeFormatada += "@NotNull\n";
+
+                        }
+
+                        // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                        classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+
+                    }
+
+                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
+                    return classeFormatada;
+                //
+                //
+                //
+                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+
+                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+                //
+                //
+                //
                 case DATAS:
-                    break;
 
+                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    classeFormatada
+                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n"
+                            // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
+                            + "@Temporal(javax.persistence.TemporalType.DATE)\n";
+
+                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                    if (campo.isObrigatorio()) {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                        classeFormatada += "@NotNull\n";
+
+                    }
+
+                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+
+                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
+                    return classeFormatada;
+                //
+                //
+                //
+                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+
+                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+                //
+                //
+                //
+                case LETRAS:
+
+                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    classeFormatada
+                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
+
+                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                    if (campo.isObrigatorio()) {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = true)\n"
+                                // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                                + "@NotNull\n";
+
+                    } else {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = false)\n";
+
+                    }
+
+                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+
+                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
+                    return classeFormatada;
+                //
+                //
+                //
+                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+
+                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+                //
+                //
+                //
+                case BOOLEAN:
+
+                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    classeFormatada
+                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                            += "@InfoCampo(tipo =" + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
+
+                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                    if (campo.isObrigatorio()) {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                        classeFormatada += "@NotNull\n";
+
+                    }
+
+                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+
+                    // RETORNA A VARIAVEL ClasseFormatada COM A STRING DO CAMPO CRIADO
+                    return classeFormatada;
+
+                //
+                //
+                //
+                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+
+                 // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO ENTIDADE
+                //
+                //
+                //
+                case ENTIDADE:
+
+                    throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
+
+                //
+                //
+                //
+                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
                 default:
                     throw new AssertionError(campo.getTipoValor().name());
 

@@ -22,7 +22,42 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
 
     public static enum TIPOPRIMITIVO {
 
-        NUMERO, LETRAS, DATAS
+        INTEIRO, LETRAS, DATAS, BOOLEAN, DECIMAL, ENTIDADE;
+
+        public String getDeclaracaoJava() {
+
+            switch (this) {
+
+                case INTEIRO:
+
+                    return "int";
+
+                case LETRAS:
+
+                    return "String";
+
+                case DATAS:
+
+                    return "Date";
+
+                case BOOLEAN:
+
+                    return "boolean";
+
+                case DECIMAL:
+
+                    return "double";
+
+                case ENTIDADE:
+
+                    return "entidade";
+
+                default:
+                    throw new AssertionError(this.name());
+
+            }
+
+        }
     }
 
     /**
