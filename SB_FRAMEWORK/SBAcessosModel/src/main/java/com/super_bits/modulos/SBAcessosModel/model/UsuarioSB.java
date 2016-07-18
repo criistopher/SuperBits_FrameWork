@@ -42,7 +42,7 @@ import org.hibernate.annotations.GenerationTime;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoUsuario")
-@InfoClasse(tags = {"Usuários"})
+@InfoClasse(tags = {"Usuário"}, plural = "Usuários")
 public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializable {
 
     @Id

@@ -29,7 +29,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = "Ação relacionada a uma entidade")
+@InfoClasse(tags = "Ação relacionada a uma entidade", plural = "Ações de entidade")
 public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     @Transient

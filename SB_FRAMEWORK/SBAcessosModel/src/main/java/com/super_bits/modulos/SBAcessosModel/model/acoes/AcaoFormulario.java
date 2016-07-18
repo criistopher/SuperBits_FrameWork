@@ -23,7 +23,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação de Abertura de Formulário"})
+@InfoClasse(tags = {"Ação de Abertura de Formulário"}, plural = "Ações de abertura formulário")
 public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     private String xhtml;

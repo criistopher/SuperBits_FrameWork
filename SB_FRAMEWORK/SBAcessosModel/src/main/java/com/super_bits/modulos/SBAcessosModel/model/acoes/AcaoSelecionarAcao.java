@@ -16,7 +16,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação para selação de ações"})
+@InfoClasse(tags = {"Ação para selação de ações"}, plural = "Ações de seleção")
 public class AcaoSelecionarAcao extends AcaoDoSistema implements ItfAcaoSelecionarAcao {
 
     @Transient

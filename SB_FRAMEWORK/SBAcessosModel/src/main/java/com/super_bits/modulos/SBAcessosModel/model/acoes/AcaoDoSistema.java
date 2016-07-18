@@ -45,7 +45,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @DiscriminatorColumn(name = "tipoAcaoDB")
-@InfoClasse(tags = {"Ação do Sistema"})
+@InfoClasse(tags = {"Ação do Sistema"}, plural = "Ações do sistema")
 public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Enumerated(EnumType.STRING)

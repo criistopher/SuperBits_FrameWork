@@ -665,18 +665,21 @@ public enum FabCampos implements ItfFabrica {
 
     }
 
-    public String getStrTipoInputCampo() {
-
+    public ItfCampo.TIPO_INPUT_PRIME getTipo_input_prime() {
         try {
             // TIPOS DE CAMPO QUE DEVEN USAR INPUT SIMPLES COM MASCARAS E REGEX
             switch (this) {
+
                 case AAA_NOME:
                 case AAA_NOME_LONGO:
                 case ID:
                 case LCLOGRADOURO:
                 case LCComplemeto:
                 case LCCampoAberto:
-
+                case LOOKUPMULTIPLO:
+                case TEXTO_SIMPLES:
+                case SITE:
+                case URL:
                 case TELEFONE_FIXO_NACIONAL:
                 case TELEFONE_FIXO_INTERNACIONAL:
                 case TELEFONE_CELULAR:
@@ -686,61 +689,87 @@ public enum FabCampos implements ItfFabrica {
                 case CNPJ:
                 case CPF:
                 case INSCRICAO_ESTADUAL:
+                case CHART_LABEL:
+                case CHART_CATEGORIA:
                 case INSCRIACAO_MUNICIPAL:
                 case CODIGO_DE_BARRAS:
                 case ICONE:
                 case CAMPO_SEPARADOR:
-                    return FabCampos.TEXTO_SIMPLES.toString();
+                case IMG_PEQUENA:
+                case IMG_MEDIA:
+                case IMG_GRANDE:
+                    return ItfCampo.TIPO_INPUT_PRIME.TEXTO_COM_FORMATACAO;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT COM BARRA CONTENDO MINIMO E MAXIMO
                 case PERCENTUAL:
-                    return PERCENTUAL.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.PERCENTUAL;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
                 case LISTA:
-                    return LOOKUP.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.LISTAGEM;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
                 case SENHA:
                 case SENHA_SEGURANCA_MAXIMA:
-                    return SENHA.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.SENHA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CEP
                 case LCCEP:
-                    return LCCEP.toString();
-                // TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
+                    return ItfCampo.TIPO_INPUT_PRIME.CEP;// TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
                 case COR:
-                    return COR.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.COR;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT DE HTML
                 case HTML:
-                    return HTML.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.HTML;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT quantidade
                 case QUANTIDADE:
-                    return QUANTIDADE.toString();
+                case LATITUDE:
+                case CHART_VALOR:
+                case Longitude:
+                    return ItfCampo.TIPO_INPUT_PRIME.QUANTIDADE;
                 case AAA_DESCRITIVO:
-                    return AAA_DESCRITIVO.toString();
-
+                    return ItfCampo.TIPO_INPUT_PRIME.TEXTMO_MULTIPLAS_LINHAS;
                 case MOEDA_REAL:
                 case MOEDA_DOLAR:
-                    return MOEDA_REAL.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.MOEDA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT EMAIL
                 case EMAIL:
-                    return EMAIL.toString();
+                    return ItfCampo.TIPO_INPUT_PRIME.EMAIL;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO APENAS DATA
                 case DATA:
-                    return DATA.toString();
+                case CALENDARIO:
+                    return ItfCampo.TIPO_INPUT_PRIME.DATA;
                 //// TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO DATA E HORA
                 case REG_DATAALTERACAO:
                 case REG_DATAINSERCAO:
+                    return ItfCampo.TIPO_INPUT_PRIME.ENTIDADE_SIMPLES;
                 case DATAHORA:
-                    return FabCampos.DATAHORA.toString();
+                case HORA:
+                    return ItfCampo.TIPO_INPUT_PRIME.DATA_HORA;
+
                 case VERDADEIRO_FALSO:
                 case REG_ATIVO_INATIVO:
-                    return FabCampos.VERDADEIRO_FALSO.toString();
+                case SEGURANCA_ATIVA:
+                    return ItfCampo.TIPO_INPUT_PRIME.LIGADO_DESLIGADO;
+
+                case LCUnidadeFederativa:
+                case REG_USUARIO_ALTERACAO:
+                case REG_USUARIO_INSERCAO:
+                case ARQUIVO_DE_ENTIDADE:
+                case LCBairro:
+                case LCCidade:
+                case LC_LOCALIZACAO:
+                    return ItfCampo.TIPO_INPUT_PRIME.ENTIDADE_SIMPLES;
+                default:
+                    throw new AssertionError(this.name());
             }
 
             //  throw new UnsupportedOperationException("a exibição para o campo do tipo" + this.toString() + "não foi prevista ainda");
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ATENÇÃO erro determinando tipo de campo para:" + this.toString(), t);
         }
-        return FabCampos.TEXTO_SIMPLES.toString();
+        return null;
+    }
+
+    public String getStrTipoInputCampo() {
+        return this.getTipo_input_prime().getStrOldStyle();
 
     }
 

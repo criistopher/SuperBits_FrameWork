@@ -28,7 +28,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação de formulário para entidade"})
+@InfoClasse(tags = {"Ação de formulário para entidade"}, plural = "Ações de entidade")
 public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFormulario, ItfAcaoSecundaria, ItfAcaoFormularioEntidade {
 
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();

@@ -8,6 +8,10 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4cfc5bac39100a04e530f67238cf91b79512bdc
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;

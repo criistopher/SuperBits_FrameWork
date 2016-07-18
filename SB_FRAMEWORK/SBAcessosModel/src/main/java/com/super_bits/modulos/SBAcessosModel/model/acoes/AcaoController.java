@@ -30,7 +30,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação da cadamada de controller "})
+@InfoClasse(tags = {"Ação da cadamada de controller "}, plural = "Ações Controllers")
 public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
     private int idMetodo;

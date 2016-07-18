@@ -35,7 +35,7 @@ import javax.validation.constraints.NotNull;
  * @author Salvio
  */
 @Entity
-@InfoClasse(tags = {"Grupos de Usuário"})
+@InfoClasse(tags = {"Grupos de Usuário"}, plural = "Grupos de Usuários")
 public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
 
     @Id
