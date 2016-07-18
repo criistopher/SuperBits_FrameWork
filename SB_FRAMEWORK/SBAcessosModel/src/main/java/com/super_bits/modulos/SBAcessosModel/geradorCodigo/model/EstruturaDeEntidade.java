@@ -5,6 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoEntidades;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,9 @@ public class EstruturaDeEntidade {
 
     private List<String> tags;
 
-    private String plural;
+    private String plural, icone;
+
+    private FabTipoEntidades tipoEntidade;
 
     public EstruturaDeEntidade() {
         campos = new ArrayList<>();
@@ -39,12 +42,50 @@ public class EstruturaDeEntidade {
         this.nomeEntidade = nomeEntidade;
     }
 
+    public FabTipoEntidades getTipoEntidade() {
+        return tipoEntidade;
+    }
+
+    public void setTipoEntidade(FabTipoEntidades tipoEntidade) {
+        this.tipoEntidade = tipoEntidade;
+    }
+
     public List<String> getTags() {
         return tags;
     }
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public void adicionarTags(String pTag) {
+
+        String[] array;
+        array = pTag.split(",");
+
+        for (int i = 0; i < array.length; i++) {
+
+            if (tags == null) {
+
+                tags = new ArrayList();
+                tags.add(array[i]);
+
+            } else {
+
+                tags.add(array[i]);
+
+            }
+
+        }
+
+    }
+
+    public String getIcone() {
+        return icone;
+    }
+
+    public void setIcone(String icone) {
+        this.icone = icone;
     }
 
     public String getPlural() {

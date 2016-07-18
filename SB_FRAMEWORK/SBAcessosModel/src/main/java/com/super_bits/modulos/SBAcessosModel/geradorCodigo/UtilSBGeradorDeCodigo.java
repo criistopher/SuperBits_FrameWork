@@ -109,11 +109,43 @@ public class UtilSBGeradorDeCodigo {
         return null;
     }
 
-    public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
+    private static String getTagsDaEntidade(List<String> pTags){
 
+        String tagsFormatadas = "";
+
+        for (int i = 0; i < pTags.size(); i++) {
+
+            if(i > 0){
+
+            tagsFormatadas += ", "+pTags.get(i);
+
+            }else{
+
+                tagsFormatadas += pTags.get(i);
+
+            }
+
+        }
+
+        return tagsFormatadas;
+    }
+
+    public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
+        
+        // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
         String classeFormatada = "";
 
-        classeFormatada += "@Entity\n" + "@InfoClasse(tags = {\""+ "\"}, icone = \""+"\", plural = \""+"\")";
+        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+        classeFormatada
+
+                // ADICIONA A STRING DE ANOTAÇÃO ENTITY DA CLASSE NA VARIAVEL ClasseFormata
+                += "@Entity\n"
+
+                // ADICIONA A STRING DE ANOTAÇÃO INFOCLASSE DA CLASSE NA VARIAVEL ClasseFormata
+                + "@InfoClasse(tags = {\""+ getTagsDaEntidade(pEstrutura.getTags()) +"\"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
+
+                // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
+                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade()+" {\n\n";
 
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
@@ -128,7 +160,7 @@ public class UtilSBGeradorDeCodigo {
                     // VERIFICA SE O CAMPO É DO TIPO ID
                     if (campo.getTipoCampo().equals(FabCampos.ID)) {
 
-                        // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                         classeFormatada
                                 // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
                                 += "@Id\n"
@@ -139,7 +171,7 @@ public class UtilSBGeradorDeCodigo {
 
                     } else {
 
-                        // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                         classeFormatada
                                 // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
                                 += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
@@ -170,7 +202,7 @@ public class UtilSBGeradorDeCodigo {
                 //
                 case DATAS:
 
-                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                     classeFormatada
                             // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
                             += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n"
@@ -201,7 +233,7 @@ public class UtilSBGeradorDeCodigo {
                 //
                 case LETRAS:
 
-                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                     classeFormatada
                             // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
                             += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
@@ -237,7 +269,7 @@ public class UtilSBGeradorDeCodigo {
                 //
                 case BOOLEAN:
 
-                    // VARIAVEL QUE ARMAZENA A STRING DE CRIAÇÃO DO CAMPO
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                     classeFormatada
                             // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
                             += "@InfoCampo(tipo =" + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
@@ -280,11 +312,10 @@ public class UtilSBGeradorDeCodigo {
 
         }
 
-        /*  String anotcaoDoCampo = "@InfoCampo(tipo=\"" + campo.getTipoCampo().toString() + "\" label=\"" + campo.getLabel() + "\" ) \n";
-            classeFormatada += anotcaoDoCampo;
-            String declaracaoDoCampo = " private " + campo.getNomeDeclarado();
-            classeFormatada += declaracaoDoCampo;
-         */
+        // ADICIONA O CARACTER } PARA FECHAR A CLASSE
+        classeFormatada += "\n}";
+
+        // RETORNA A VARIAVEL ClasseFormatada COM A STRING DE CRIAÇÃO DA CLASSE
         return classeFormatada;
     }
 
