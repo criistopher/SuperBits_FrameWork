@@ -22,6 +22,10 @@ public class EstruturaDeEntidade {
 
     private List<EstruturaDeEntidade> umParaMuitos;
 
+    private List<String> tags;
+
+    private String plural;
+
     public EstruturaDeEntidade() {
         campos = new ArrayList<>();
 
@@ -33,6 +37,22 @@ public class EstruturaDeEntidade {
 
     public void setNomeEntidade(String nomeEntidade) {
         this.nomeEntidade = nomeEntidade;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getPlural() {
+        return plural;
+    }
+
+    public void setPlural(String plural) {
+        this.plural = plural;
     }
 
     public List<EstruturaCampo> getCampos() {

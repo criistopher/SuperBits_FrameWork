@@ -99,6 +99,8 @@ public class UtilSBGeradorDeCodigo {
 
         String classeFormatada = "";
 
+        classeFormatada += "@Entity\n" + "@InfoClasse(tags = {\""+ "\"}, icone = \""+"\", plural = \""+"\")";
+
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
             switch (campo.getTipoValor()) {
