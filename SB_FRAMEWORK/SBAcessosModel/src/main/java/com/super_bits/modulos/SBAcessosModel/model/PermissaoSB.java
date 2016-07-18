@@ -39,7 +39,7 @@ import javax.persistence.Transient;
  * @author Salvio
  */
 @Entity
-@InfoClasse(tags = {"Informações de Permissão"})
+@InfoClasse(tags = {"Informações de Permissão"}, plural = "Informações de Permissão")
 public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serializable {
 
     @Id

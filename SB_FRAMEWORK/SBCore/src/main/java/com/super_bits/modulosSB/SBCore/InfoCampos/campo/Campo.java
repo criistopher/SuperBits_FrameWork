@@ -77,11 +77,7 @@ public class Campo implements Serializable, ItfCampo {
 
     @Override
     public TIPOPRIMITIVO getTipoValor() {
-        return tipoValor;
-    }
-
-    public void setTipoValor(TIPOPRIMITIVO tipoValor) {
-        this.tipoValor = tipoValor;
+        return tipoCampo.getTipoPrimitivo();
     }
 
     @Override
@@ -216,7 +212,7 @@ public class Campo implements Serializable, ItfCampo {
 
     @Override
     public boolean isNumeral() {
-        return tipoValor == TIPOPRIMITIVO.NUMERO;
+        return tipoValor == TIPOPRIMITIVO.INTEIRO;
     }
 
     @Override

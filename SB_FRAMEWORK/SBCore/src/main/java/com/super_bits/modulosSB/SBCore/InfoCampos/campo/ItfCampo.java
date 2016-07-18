@@ -5,6 +5,11 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.AAA_DESCRITIVO;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LCCEP;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LOOKUP;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.MOEDA_REAL;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.PERCENTUAL;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import java.util.List;
@@ -22,7 +27,84 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
 
     public static enum TIPOPRIMITIVO {
 
-        NUMERO, LETRAS, DATAS
+        INTEIRO, LETRAS, DATAS, BOOLEAN, DECIMAL, ENTIDADE;
+
+        public String getDeclaracaoJava() {
+
+            switch (this) {
+                case INTEIRO:
+                    return "int";
+                case LETRAS:
+                    return "String";
+                case DATAS:
+                    return "Date";
+                case BOOLEAN:
+                    return "boolean";
+                case DECIMAL:
+                    return "double";
+                case ENTIDADE:
+                    return "entidade";
+                default:
+                    throw new AssertionError(this.name());
+            }
+        }
+    }
+
+    public static enum TIPO_INPUT_PRIME {
+        TEXTO_COM_FORMATACAO,
+        TEXTMO_MULTIPLAS_LINHAS,
+        PERCENTUAL,
+        LISTAGEM,
+        SENHA,
+        CEP,
+        COR,
+        HTML,
+        QUANTIDADE,
+        MOEDA,
+        EMAIL,
+        DATA,
+        DATA_HORA,
+        LIGADO_DESLIGADO,
+        ENTIDADE_SIMPLES;
+
+        @Deprecated
+        public String getStrOldStyle() {
+            switch (this) {
+                case TEXTO_COM_FORMATACAO:
+                    return FabCampos.TEXTO_SIMPLES.toString();
+                case TEXTMO_MULTIPLAS_LINHAS:
+                    return AAA_DESCRITIVO.toString();
+                case PERCENTUAL:
+                    return PERCENTUAL.toString();
+                case LISTAGEM:
+                    return LOOKUP.toString();
+                case SENHA:
+                    return SENHA.toString();
+                case CEP:
+                    return LCCEP.toString();
+                case COR:
+                    return COR.toString();
+                case HTML:
+                    return HTML.toString();
+                case QUANTIDADE:
+                    return QUANTIDADE.toString();
+                case MOEDA:
+                    return MOEDA_REAL.toString();
+                case EMAIL:
+                    return FabCampos.EMAIL.toString();
+                case DATA:
+                    return FabCampos.DATA.toString();
+                case DATA_HORA:
+                    return FabCampos.DATAHORA.toString();
+                case LIGADO_DESLIGADO:
+                    return FabCampos.VERDADEIRO_FALSO.toString();
+
+                default:
+                    throw new AssertionError(this.name());
+
+            }
+
+        }
     }
 
     /**

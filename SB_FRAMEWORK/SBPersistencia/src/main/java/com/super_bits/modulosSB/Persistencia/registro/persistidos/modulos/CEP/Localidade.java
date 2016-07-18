@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  *
  */
 @Entity
-@InfoClasse(tags = {"Localidade "})
+@InfoClasse(tags = {"Localidade "}, plural = "Localidades")
 public class Localidade extends EntidadeNormal implements ItfLocalidade {
 
     public static Localidade grandeBH = new Localidade(1, "Grande BH", "Belo horizonte, Contagem, Betim e Região");

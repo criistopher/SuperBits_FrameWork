@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@InfoClasse(tags = {"Cidade"})
+@InfoClasse(tags = {"Cidade"}, plural = "Cidades")
 public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
 
     private static final long serialVersionUID = 1L;

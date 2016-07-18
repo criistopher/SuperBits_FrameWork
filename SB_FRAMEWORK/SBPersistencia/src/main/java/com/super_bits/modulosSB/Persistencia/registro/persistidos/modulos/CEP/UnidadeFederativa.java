@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Estado do Brasil"})
+@InfoClasse(tags = {"Estado do Brasil"}, plural = "Estados")
 public class UnidadeFederativa extends EntidadeSimples implements ItfUnidadeFederativa {
 
     @Id

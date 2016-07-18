@@ -15,6 +15,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoEntidades;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public UtilSBGeradorDeCodigoTest() {
     }
 
+    @Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -104,16 +106,45 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeCalculoAnotacaos() {
     }
 
-    @Test
     public void testMakeEntidade() {
         try {
 
             EstruturaDeEntidade comprador = new EstruturaDeEntidade();
+<<<<<<< HEAD
+            comprador.setNomeEntidade("Comprador");
+            comprador.setIcone("fa fa-shopping-cart");
+            comprador.setPlural("Compradores");
+            comprador.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
+            comprador.setTipoEntidade(FabTipoEntidades.BEAN_CONTATO_CORPORATIVO);
+=======
+
+            comprador.setNomeEntidade("Comprador");
+>>>>>>> b4cfc5bac39100a04e530f67238cf91b79512bdc
 
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");
             campoID.getMascara();
             comprador.getCampos().add(campoID);
+
+            EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro());
+            campoNome.setNomeDeclarado("nome");
+            campoNome.getMascara();
+            comprador.getCampos().add(campoNome);
+
+            EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro());
+            campoRazao.setNomeDeclarado("razaoSocial");
+            campoRazao.getMascara();
+            comprador.getCampos().add(campoRazao);
+
+            EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro());
+            campoTelefoneNacional.setNomeDeclarado("telefone");
+            campoTelefoneNacional.getMascara();
+            comprador.getCampos().add(campoTelefoneNacional);
+
+            EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro());
+            campoCnpj.setNomeDeclarado("cnpj");
+            campoCnpj.getMascara();
+            comprador.getCampos().add(campoCnpj);
 
             String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n " + codigoGerado);

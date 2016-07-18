@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@InfoClasse(tags = {"Bairro"})
+@InfoClasse(tags = {"Bairro"}, plural = "Bairros")
 public class Bairro extends EntidadeSimples implements ItfBairro {
 
     @Id

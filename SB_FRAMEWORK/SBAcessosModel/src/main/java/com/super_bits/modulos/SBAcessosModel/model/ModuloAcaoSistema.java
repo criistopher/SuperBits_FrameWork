@@ -34,7 +34,7 @@ import javax.persistence.Transient;
  *
  */
 @Entity
-@InfoClasse(tags = {"Modulo do Sistema"})
+@InfoClasse(tags = {"Modulo do Sistema"}, plural = "Modulos do Sistema")
 public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoSistema {
 
     @Id
