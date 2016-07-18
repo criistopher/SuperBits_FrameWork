@@ -6,11 +6,20 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
+<<<<<<< HEAD
+
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
+
+=======
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
+>>>>>>> ded4b082900c9d8ac2a7ac12645f0b1b05954869
 import java.util.List;
 
 /**
@@ -22,16 +31,34 @@ public class UtilSBGeradorDeCodigo {
     public static String makeAnotacaoDaAcao(ItfAcaoDoSistema pAcao) {
         // retorna a string com a anotação do enum da ação exemplo:
         // @InfoTipoFormulario(nomeAcao="teste" , campos="{'nome','telefone'} , precisaPermissao=true)
+        if (pAcao.isUmaAcaoController()) {
+            return "@InfoTipoAcaoController(nomeAcao = \" " + pAcao.getNome() + " \", descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \" \n"
+                    + " , precisaPermissao = " + pAcao.isPrecisaPermissao() + " , codigoJira = \" " + pAcao.getIdDescritivoJira() + "\" ) ";
+        } else if (pAcao.isUmaAcaoGestaoDominio()) {
+            return "@InfoTipoAcaoGestaoEntidade(nomeAcao = \" " + pAcao.getNome() + " \", descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \"  \n"
+                    + " , xhtmlDaAcao = \" " + ((ItfAcaoFormulario) pAcao).getXhtml() + " \", precisaPermissao = " + pAcao.isPrecisaPermissao() + ", codigoJira = \" " + pAcao.getIdDescritivoJira() + "\" ) ";
+        } else if (pAcao.isUmaAcaoFormulario() && !pAcao.isUmaAcaoGestaoDominio()) {
+            String campos = "";
+            if (!pAcao.getComoFormulario().getGruposDeCampos().isEmpty()) {
+                for (GrupoCampos acao : pAcao.getComoFormulario().getGruposDeCampos()) {
+                    campos += acao.toString();
+                }
+            }
+            return "@InfoTipoAcaoFormulario(nomeAcao = \" " + pAcao.getNome() + " \",descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \"  \n"
+                    + " , xhtmlDaAcao = \" " + ((ItfAcaoFormulario) pAcao).getXhtml() + " \",precisaPermissao = " + pAcao.isPrecisaPermissao() + " , codigoJira = \" " + pAcao.getIdDescritivoJira() + " \" ) "
+                    + campos + "= {" + pAcao.getComoFormulario().getGruposDeCampos() + "}";
+        } else {
 
-        return null;
+            return null;
+        }
     }
 
     public static String makeEnumFabricaDeAcoes(List<ItfAcaoDoSistema> pAcoes, ItfModuloAcaoSistema pModulo) {
-        //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
-        //
 
-        //
-        //
+        String enumGerado = "@InfoModulosSuperKompras(modulo = FabModuloSuperKompras.ADMINISTRATIVO)\n"
+                + "public enum FabAcaoAdministrador implements ItfFabricaAcoes {";
+
+        //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
         // ao final não esquecer de adicionar os métodos com implementação obrigatória,
         // conforme exemplo abaixo, e do metodo  getEntidadeDominio()
         //
@@ -52,14 +79,8 @@ public class UtilSBGeradorDeCodigo {
          * return null;
          *
          * }
-         *
-         *
-         *
-         *
          * @Override public AcaoDoSistema getAcaoDoSistema() { return
          * getRegistro(); }
-         *
-         *
          */
         //@Override
         //public AcaoDoSistema getAcaoDoSistema() {

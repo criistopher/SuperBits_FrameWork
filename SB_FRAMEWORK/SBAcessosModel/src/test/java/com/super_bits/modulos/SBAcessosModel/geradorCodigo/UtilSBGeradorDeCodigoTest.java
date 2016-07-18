@@ -33,12 +33,12 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void criaSimulaco() {
 
         ACOES_PARA_TESTE = new ArrayList<>();
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
+        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
         ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
+        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
+        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
+        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
+        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
 
     }
 
@@ -64,6 +64,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
+    @Test
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -104,12 +105,15 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeCalculoAnotacaos() {
     }
 
-    @Test
     public void testMakeEntidade() {
         try {
 
             EstruturaDeEntidade comprador = new EstruturaDeEntidade();
+<<<<<<< HEAD
             comprador.setNomeEntidade("Comprador");
+=======
+
+>>>>>>> 72ed84ef558feb78ab3ffa6021c9e5734e97893e
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");
             campoID.getMascara();
