@@ -11,7 +11,14 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
+<<<<<<< HEAD
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+=======
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+>>>>>>> cd8300ab5623ec3d2564332a7110dca600604b14
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 
@@ -54,14 +61,18 @@ public class UtilSBGeradorDeCodigo {
 
         // primeiro infoModulos, segundo declaracaoEnum, terceiro anotacao de acordo com o tipo da acao executada
         // nome da aplicação a ser incluida no infomodulos
+<<<<<<< HEAD
         String nomeAplicacao = "[NOMEDAAPLICACAO]";
+=======
+        String nomeAplicacao = "[nomeDaAplicacao]";
+>>>>>>> cd8300ab5623ec3d2564332a7110dca600604b14
         // nome da fabrica a ser incluida na declaração do enum
         String fabrica = "[NOMEDAFABRICA]";
         // inicial generica para o enum
         String generico = "[GENÉRICO]";
 
         // somente o infoModulos com os nomes de nome da aplicação
-        String infoModulos = "@InfoModulos[" + nomeAplicacao + "](modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
+        String infoModulos = "@InfoModulos" + nomeAplicacao + "(modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
         // declaração do enum
         String declaracaoEnum = "public enum FabAcao[" + fabrica + "] implements ItfFabricaAcoes {\n\n";
         // cabeçalho = infoModulos + declaraEnum
@@ -169,6 +180,7 @@ public class UtilSBGeradorDeCodigo {
                 + "        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();\n"
                 + "    }\n";
 
+<<<<<<< HEAD
         String classeGetEntidadeDeDominio
                 = "@Override\n"
                 + "                   public Class\n"
@@ -211,6 +223,232 @@ public class UtilSBGeradorDeCodigo {
 
         }
 
+=======
+
+        String modulo = "MÓDULO_GENÉRICO"; // modulo que irá compor os enum do switch da classe getEntidadeDeDominio()
+        String classe = "Classe"; // classe para ser colocada no switch do da classe getEntidadeDeDominio()
+        String classeGetEntidadeDeDominio = " "
+                + "@Override\n"
+                + "    public Class\n"
+                + "            getEntidadeDominio() {\n"
+                + "\n"
+                + "        switch (this) {\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_ALTERACAO:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTARPEDIDOS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_NOVO:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FILIAL_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FILIAL_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_FILIAL_CTR_ALTERAR_STATUS:\n"
+                + "                return FilialComprador.class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_NOVO:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_ALTERACAO:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR_CAMPANHA:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FILIAL_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_FILIAL_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_FILIAL_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_FILIAL_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FILIAL_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FILIAL_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_MB_GERENCIAR_ENTRADA:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_FRM_NOVO:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_FRM_LISTAR:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_MB_GERENCIAR_ENTRADA:\n"
+                + "            case SOLICITACAO_FRM_ENTRADA_[" + modulo + "]_CADASTRAR:\n"
+                + "            case SOLICITACAO_FRM_ENTRADA_[" + modulo + "]_VISUALIZAR:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_FRM_LISTAR:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case SOLICITACAO_ENTRADA_[" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR_EMANDAMENTO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR_PROGRAMADA:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR_ADMINISTRADOR:\n"
+                + "            case [" + modulo + "]_CTR_APROVAR:\n"
+                + "            case [" + modulo + "]_CTR_REPROVAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR_PEDIDO:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_FRM_APROVAR_REPROVAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [modulo]_DE_PAGAMENTO_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_[" + modulo + "]_CTR_REMOVER:\n"
+                + "            case [" + modulo + "]_CIDADE_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_CIDADE_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_CIDADE_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_ENVIAR_RESPOSTA:\n"
+                + "            case [" + modulo + "]_FRM_CRIAR_MENSAGEM:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_FRM_NOVO_MODELO:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_CTR_DOWNLOAD:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_CTR_GERAR:\n"
+                + "            case [" + modulo + "]_CTR_UPLOAD:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVOBANNER_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_EDITAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZA:\n"
+                + "            case [" + modulo + "]AFATURAR_MB_GERENCIAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case SUGESTAO_[" + modulo + "]_FRM_LISTAR:\n"
+                + "            case SUGESTAO_[" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case SUGESTAO_[" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case SUGESTAO_[" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case SUGESTAO_[" + modulo + "]_FRM_NOVO:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
+                + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
+                + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
+                + "            case [" + modulo + "]_CTR_SALVAR_MERGE:\n"
+                + "            case [" + modulo + "]_FRM_NOVO:\n"
+                + "            case [" + modulo + "]_FRM_LISTAR:\n"
+                + "                return [" + classe + "].class;\n"
+                + "\n"
+                + "            default:\n"
+                + "                throw new AssertionError(this.name());\n"
+                + "        }\n"
+                + "\n"
+                + "    }";
+
+>>>>>>> cd8300ab5623ec3d2564332a7110dca600604b14
         //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
         // ao final não esquecer de adicionar os métodos com implementação obrigatória,
         // conforme exemplo abaixo, e do metodo  getEntidadeDominio()
@@ -269,25 +507,230 @@ public class UtilSBGeradorDeCodigo {
         return null;
     }
 
-    private static String getTagsDaEntidade(List<String> pTags){
+    private static String getTagsDaEntidade(List<String> pTags) {
 
         String tagsFormatadas = "";
 
         for (int i = 0; i < pTags.size(); i++) {
 
-            if(i > 0){
+            if (i > 0) {
 
-            tagsFormatadas += ", \""+pTags.get(i)+"\"";
+                tagsFormatadas += ", \"" + pTags.get(i) + "\"";
 
-            }else{
+            } else {
 
-                tagsFormatadas += "\""+pTags.get(i)+"\"";
+                tagsFormatadas += "\"" + pTags.get(i) + "\"";
 
             }
 
         }
 
         return tagsFormatadas;
+    }
+
+    public static String makeDeclaracaoCampo(EstruturaCampo pCampo) {
+
+        String campoFormatado = "";
+
+        switch (pCampo.getTipoValor()) {
+
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+            //
+            //
+            //
+            case INTEIRO:
+
+                // VERIFICA SE O CAMPO É DO TIPO ID
+                if (pCampo.getTipoCampo().equals(FabCampos.ID)) {
+
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                    campoFormatado
+                            // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
+                            += "@Id\n"
+                            // ADICIONA A STRING DE ANOTAÇÃO GENERATEDVALUE DO CAMPO NA VARIAVEL ClasseFormata
+                            + "@GeneratedValue(strategy = GenerationType.AUTO)\n"
+                            // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                            + "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                } else {
+
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                    campoFormatado
+                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
+                            += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                    if (pCampo.isObrigatorio()) {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                        campoFormatado += "@NotNull\n";
+
+                    }
+
+                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                }
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+            //
+            //
+            //
+            case DATAS:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n"
+                        // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
+                        + "@Temporal(javax.persistence.TemporalType.DATE)\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@NotNull\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+            //
+            //
+            //
+            case LETRAS:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@Column(length = " + pCampo.getValorMaximo() + ", nullable = true)\n"
+                            // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                            + "@NotNull\n";
+
+                } else {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@Column(length = " + pCampo.getValorMaximo() + ", nullable = false)\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            //
+            //
+            //
+            case BOOLEAN:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo =" + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@NotNull\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO ENTIDADE
+            //
+            //
+            //
+            case ENTIDADE:
+
+                throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            default:
+                throw new AssertionError(pCampo.getTipoValor().name());
+
+        }
+
+        return campoFormatado;
+
+    }
+
+    public static String makeDeclaracaoUmParaMuitos(LigacaoUmParaMuitos pEstrutura) {
+
+        String umParaMuitosDeclarado = "";
+
+        umParaMuitosDeclarado += "@InfoCampo(tipo = FabCampos.LISTA, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+
+        umParaMuitosDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ".class, cascade = CascadeType.ALL, orphanRemoval = true)\n";
+
+        umParaMuitosDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return umParaMuitosDeclarado;
+    }
+
+    public static String makeDeclaracaoMuitosParaUm(LigacaoMuitosParaUm pEstrutura) {
+
+        String muitosParaUmDeclarado = "";
+
+        muitosParaUmDeclarado += "@InfoCampo(tipo = FabCampos.LOOKUP, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+
+        muitosParaUmDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ")\n";
+
+        muitosParaUmDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return muitosParaUmDeclarado;
+
+    }
+
+    public static String makeDeclaracaoMuitosParaMuitos(LigacaoMuitosParaMuitos pEstrutura) {
+
+        String muitosParaMuitosDeclarado = "";
+
+        muitosParaMuitosDeclarado += "@ManyToMany(fetch = FetchType.EAGER)\n";
+
+        muitosParaMuitosDeclarado += "@JoinTable(name = \"" + pEstrutura.getJoinTableName() + "\", joinColumns = @JoinColumn(name = \"" + pEstrutura.getJoinColumName() + "\"), inverseJoinColumns = @JoinColumn(name = \"" + pEstrutura.getInverseJoinColumName() + "\"))\n";
+
+        muitosParaMuitosDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return muitosParaMuitosDeclarado;
+
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
@@ -297,178 +740,34 @@ public class UtilSBGeradorDeCodigo {
 
         // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
         classeFormatada
-
                 // ADICIONA A STRING DE ANOTAÇÃO ENTITY DA CLASSE NA VARIAVEL ClasseFormata
                 += "@Entity\n"
-
                 // ADICIONA A STRING DE ANOTAÇÃO INFOCLASSE DA CLASSE NA VARIAVEL ClasseFormata
-                + "@InfoClasse(tags = {"+ getTagsDaEntidade(pEstrutura.getTags()) +"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
-
+                + "@InfoClasse(tags = {" + getTagsDaEntidade(pEstrutura.getTags()) + "}, icone = \"" + pEstrutura.getIcone() + "\", plural = \"" + pEstrutura.getPlural() + "\")\n"
                 // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
-                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade().getNomeClasseEntidade()+" {\n\n";
+                + "public class " + pEstrutura.getNomeEntidade() + " extends " + pEstrutura.getTipoEntidade().getNomeClasseEntidade() + " {\n\n";
 
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
-            switch (campo.getTipoValor()) {
+            classeFormatada += makeDeclaracaoCampo(campo);
 
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
-                //
-                //
-                //
-                case INTEIRO:
+        }
 
-                    // VERIFICA SE O CAMPO É DO TIPO ID
-                    if (campo.getTipoCampo().equals(FabCampos.ID)) {
+        for (LigacaoUmParaMuitos pLigacao : pEstrutura.getUmParaMuitos()) {
 
-                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                        classeFormatada
-                                // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
-                                += "@Id\n"
-                                // ADICIONA A STRING DE ANOTAÇÃO GENERATEDVALUE DO CAMPO NA VARIAVEL ClasseFormata
-                                + "@GeneratedValue(strategy = GenerationType.AUTO)\n"
-                                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                                + "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+            classeFormatada += makeDeclaracaoUmParaMuitos(pLigacao);
 
-                    } else {
+        }
 
-                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                        classeFormatada
-                                // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
-                                += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
+        for (LigacaoMuitosParaUm pLigacao : pEstrutura.getMuitosParaUm()) {
 
-                        // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                        if (campo.isObrigatorio()) {
+            classeFormatada += makeDeclaracaoMuitosParaUm(pLigacao);
 
-                            // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
-                            classeFormatada += "@NotNull\n";
+        }
 
-                        }
+        for (LigacaoMuitosParaMuitos pLigacao : pEstrutura.getMuitosParaMuitos()) {
 
-                        // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    }
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
-                //
-                //
-                //
-                case DATAS:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n"
-                            // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
-                            + "@Temporal(javax.persistence.TemporalType.DATE)\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@NotNull\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
-                //
-                //
-                //
-                case LETRAS:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = true)\n"
-                                // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
-                                + "@NotNull\n";
-
-                    } else {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = false)\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-                //
-                //
-                //
-                case BOOLEAN:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo =" + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@NotNull\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-
-                 // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO ENTIDADE
-                //
-                //
-                //
-                case ENTIDADE:
-
-                    throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
-
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-                default:
-                    throw new AssertionError(campo.getTipoValor().name());
-
-            }
+            classeFormatada += makeDeclaracaoMuitosParaMuitos(pLigacao);
 
         }
 
