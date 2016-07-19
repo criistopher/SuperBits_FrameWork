@@ -69,12 +69,7 @@ public class UtilSBGeradorDeCodigo {
         // nome da fabrica a ser incluida na declaração do enum
         String fabrica = "[NOMEDAFABRICA]";
         // inicial generica para o enum
-<<<<<<< HEAD
         String generico = "[DOMÍNIO]";
-
-=======
-        String generico = "[GENÉRICO]";
->>>>>>> 7b695a7bd14e89479c89f3c14177dfffcc3381ab
         // somente o infoModulos com os nomes de nome da aplicação
         String infoModulos = "@InfoModulos" + nomeAplicacao + "(modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
         // declaração do enum
