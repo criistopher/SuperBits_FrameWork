@@ -13,18 +13,22 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
  */
 public class CalculoDeEntidade extends EstruturaCampo {
 
-    public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno, Campo pCampo, EstruturaDeEntidade pEstrutura) {
+    public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno, Campo pCampo, EstruturaDeEntidade pEstrutura, String javaDoc) {
 
         super(pCampo, pEstrutura);
 
         this.nomeEnum = nomeEnum;
         this.descricao = descricao;
         this.tipoRetorno = tipoRetorno;
+        this.javaDoc = javaDoc;
+
     }
 
     private String tipoRetorno;
     private String nomeEnum;
     private String descricao;
+    private String javaDoc;
+
 
     public String getTipoRetorno() {
         return tipoRetorno;
@@ -41,5 +45,18 @@ public class CalculoDeEntidade extends EstruturaCampo {
     public void setNomeEnum(String nomeEnum) {
         this.nomeEnum = nomeEnum;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getJavaDoc() {
+        return javaDoc;
+    }
+
+    public void setJavaDoc(String javaDoc) {
+        this.javaDoc = javaDoc;
+    }
+
 
 }

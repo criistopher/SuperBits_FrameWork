@@ -287,18 +287,34 @@ public class UtilSBGeradorDeCodigo {
         listaAnotacao += "    Listas" + classe + " lista();\n"
                 + "\n";
         listaAnotacao += "\n}";
-
         return listaAnotacao;
     }
 
+    // refatorar este método para utilizar a EstruturaDeEntidade
     public static String makeEnumCalculos(EstruturaDeEntidade pEntidade) {
 
-        //String stringComTodosOsEnuns = makeEnu
         String classe = "[classeGenérica]";
         String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
         String enumCalculos = declaracaoEnum + "}\n";
-
         return enumCalculos;
+    }
+    // utilizar este método no makeEnumCalculos
+    public static String makeEnumCalculosEntidade(List<CalculoDeEntidade> pCalculoEntidade) {
+        String listaEnumEntidade = "";
+        int i = 0;
+        for (CalculoDeEntidade entidade : pCalculoEntidade) {
+            listaEnumEntidade += entidade.getJavaDoc();
+            listaEnumEntidade += "\n";
+            listaEnumEntidade += entidade.getNomeEnum();
+            i++;
+            if (i <= pCalculoEntidade.size() - 1) {
+                listaEnumEntidade += ",\n";
+            } else {
+                listaEnumEntidade += ";\n";
+            }
+        }
+
+        return listaEnumEntidade;
     }
 
     public static String makeCalculoAnotacaos() {
@@ -339,7 +355,6 @@ public class UtilSBGeradorDeCodigo {
         int i = 0;
         for (ListaDeEntidade tempEnum : pEnum) {
             enums += tempEnum.getJavaDoc();
-
             enums += "\n";
             enums += tempEnum.getNomeEnum();
             i++;

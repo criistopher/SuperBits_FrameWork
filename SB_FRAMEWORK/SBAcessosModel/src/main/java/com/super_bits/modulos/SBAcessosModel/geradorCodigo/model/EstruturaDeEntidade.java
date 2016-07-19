@@ -126,14 +126,10 @@ public class EstruturaDeEntidade {
                 for (ListaDeEntidade entidade : listas) {
                     listaEnum.add(entidade.getNomeEnum());
                 }
-
             } else {
-
                 listaEnum.add(array[i]);
-
             }
         }
-
     }
 
     public String getIcone() {
