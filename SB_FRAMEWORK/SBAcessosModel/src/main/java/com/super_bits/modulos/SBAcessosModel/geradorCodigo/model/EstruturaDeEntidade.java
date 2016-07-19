@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class EstruturaDeEntidade {
 
+    private List<String> listaEnum;
+
     private String nomeEntidade;
 
     private List<EstruturaCampo> campos;
@@ -111,9 +113,21 @@ public class EstruturaDeEntidade {
                 tags.add(array[i]);
 
             }
-
         }
+    }
 
+    public void adicionarEnum(String enums) {
+        String[] array;
+        array = enums.split(",");
+
+        for (int i = 0; i < array.length; i++) {
+            if (listaEnum == null) {
+                listaEnum = new ArrayList();
+                listaEnum.add(array[i]);
+            } else {
+                listaEnum.add(array[i]);
+            }
+        }
     }
 
     public String getIcone() {
@@ -155,5 +169,14 @@ public class EstruturaDeEntidade {
     public void setUmParaMuitos(List<LigacaoUmParaMuitos> umParaMuitos) {
         this.umParaMuitos = umParaMuitos;
     }
+
+    public List<String> getListaEnum() {
+        return listaEnum;
+    }
+
+    public void setListaEnum(List<String> listaEnum) {
+        this.listaEnum = listaEnum;
+    }
+
 
 }
