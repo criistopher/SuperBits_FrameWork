@@ -123,9 +123,14 @@ public class EstruturaDeEntidade {
         for (int i = 0; i < array.length; i++) {
             if (listaEnum == null) {
                 listaEnum = new ArrayList();
-                listaEnum.add(array[i]);
+                for (ListaDeEntidade entidade : listas) {
+                    listaEnum.add(entidade.getNomeEnum());
+                }
+
             } else {
+
                 listaEnum.add(array[i]);
+
             }
         }
 

@@ -11,13 +11,15 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
  */
 public class ListaDeEntidade extends EstruturaDeEntidade {
 
-    public ListaDeEntidade(String nomeEnum, String nomeDeclaracao, String nomeEntidade, String nomeObjetoListado) {
+    public ListaDeEntidade(String nomeEnum, String nomeDeclaracao, String nomeEntidade, String nomeObjetoListado, String javaDoc) {
         this.nomeEnum = nomeEnum;
         this.nomeDeclaracao = nomeDeclaracao;
         this.nomeEntidade = nomeEntidade;
         this.nomeObjetoListado = nomeObjetoListado;
+        this.javaDoc = javaDoc;
     }
 
+    private String javaDoc;
     private String nomeEntidade;
     private String nomeEnum;
     private String nomeDeclaracao;
@@ -54,5 +56,14 @@ public class ListaDeEntidade extends EstruturaDeEntidade {
     public void setNomeDeclaracao(String nomeDeclaracao) {
         this.nomeDeclaracao = nomeDeclaracao;
     }
+
+    public String getJavaDoc() {
+        return javaDoc;
+    }
+
+    public void setJavaDoc(String javaDoc) {
+        this.javaDoc = javaDoc;
+    }
+
 
 }
