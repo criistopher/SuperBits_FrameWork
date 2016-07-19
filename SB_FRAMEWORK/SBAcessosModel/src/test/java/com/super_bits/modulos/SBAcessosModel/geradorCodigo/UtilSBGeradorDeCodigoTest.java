@@ -158,7 +158,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
-    //@Test
+    @Test
     public void testMakeEnumListas() {
         try {
 
@@ -175,7 +175,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao(ESTRUTURA_DE_ENTIDADE);
+            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao();
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
@@ -186,18 +186,24 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     //@Test
     public void testMakeEnumCalculos() {
 
-<<<<<<< HEAD
-//@Test
-public void testMakeEnumCalculos(EstruturaDeEntidade pEntidade){
-=======
->>>>>>> 7812d5106889dd8affa2bf52fb47cba0eb3697b0
+
     }
 
     //@Test
     public void testMakeCalculoAnotacaos() {
+
+        try {
+
+            String codigoGerado = UtilSBGeradorDeCodigo.makeCalculoAnotacaos();
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+
     }
 
-    @Test
+    //@Test
     public void testMakeEntidade() {
         try {
 
