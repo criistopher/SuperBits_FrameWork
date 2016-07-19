@@ -294,9 +294,11 @@ public class UtilSBGeradorDeCodigo {
     public static String makeEnumCalculos(EstruturaDeEntidade pEntidade) {
 
         String classe = "[classeGenérica]";
+        String enums = "";
         String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
-        String enumCalculos = declaracaoEnum + "}\n";
-        return enumCalculos;
+        String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n";
+        enums += declaracaoEnum + enumsCalculo + "}\n";
+        return enums;
     }
     // utilizar este método no makeEnumCalculos
     public static String makeEnumCalculosEntidade(List<CalculoDeEntidade> pCalculoEntidade) {
@@ -313,7 +315,6 @@ public class UtilSBGeradorDeCodigo {
                 listaEnumEntidade += ";\n";
             }
         }
-
         return listaEnumEntidade;
     }
 
