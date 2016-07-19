@@ -274,6 +274,7 @@ public class UtilSBGeradorDeCodigo {
 
     public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
 
+<<<<<<< HEAD
         String classe = "[classeGenérica]";
         String enumGerado = "public enum Listas" + classe + " implements ItfListas {";
         enumGerado += getEnumDaEntidade(pEntidade.getListaEnum()) + "\n";
@@ -284,6 +285,9 @@ public class UtilSBGeradorDeCodigo {
         enumGerado += "\n}";
 
         return enumGerado;
+=======
+        return null;
+>>>>>>> aaf2b93d1533787a14a3b9a6b367ba05b162ccc0
     }
 
     public static String makeListasAnotacao(Class pClasse) {
@@ -543,9 +547,9 @@ public class UtilSBGeradorDeCodigo {
 
         listaFormatada += "@Transient\n";
 
-        listaFormatada += "@Lista" + pLista.getEntidadeListada().getNomeEntidade() + "(lista = Listas" + pLista.getEntidadeListada().getNomeEntidade() + "." + pLista.getNomeEnum() + ")";
+        listaFormatada += "@Lista" + pLista.getNomeEntidade() + "(lista = Listas" + pLista.getNomeEntidade() + "." + pLista.getNomeEnum() + ")\n";
 
-        listaFormatada += "private List<" + pLista + "> pedidosConfirmados;";
+        listaFormatada += "private List<" + pLista.getNomeObjetoListado() + "> " + pLista.getNomeDeclaracao() + ";\n\n";
 
         return listaFormatada;
     }
@@ -586,6 +590,11 @@ public class UtilSBGeradorDeCodigo {
 
             classeFormatada += makeDeclaracaoMuitosParaMuitos(pLigacao);
 
+        }
+
+        for (ListaDeEntidade pLista : pEstrutura.getListas()) {
+
+            classeFormatada += makeDeclaracaoListas(pLista);
         }
 
         // ADICIONA O CARACTER } PARA FECHAR A CLASSE
