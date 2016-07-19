@@ -49,10 +49,8 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public UtilSBGeradorDeCodigoTest() {
     }
 
-<<<<<<< HEAD
-=======
     @Test
->>>>>>> cd8300ab5623ec3d2564332a7110dca600604b14
+
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
