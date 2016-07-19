@@ -162,7 +162,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeEnumListas() {
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE.getClass());
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
@@ -175,7 +175,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE.getClass());
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
