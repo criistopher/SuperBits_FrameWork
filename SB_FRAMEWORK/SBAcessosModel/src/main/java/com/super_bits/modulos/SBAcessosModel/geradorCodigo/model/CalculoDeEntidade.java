@@ -5,13 +5,18 @@
  */
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
+
 /**
  *
  * @author desenvolvedor
  */
-public class CalculoDeEntidade extends EstruturaDeEntidade {
+public class CalculoDeEntidade extends EstruturaCampo {
 
-    public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno) {
+    public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno, Campo pCampo, EstruturaDeEntidade pEstrutura) {
+
+        super(pCampo, pEstrutura);
+
         this.nomeEnum = nomeEnum;
         this.descricao = descricao;
         this.tipoRetorno = tipoRetorno;
@@ -35,14 +40,6 @@ public class CalculoDeEntidade extends EstruturaDeEntidade {
 
     public void setNomeEnum(String nomeEnum) {
         this.nomeEnum = nomeEnum;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
 }
