@@ -274,7 +274,6 @@ public class UtilSBGeradorDeCodigo {
 
     public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
 
-<<<<<<< HEAD
         String classe = "[classeGenérica]";
         String enumGerado = "public enum Listas" + classe + " implements ItfListas {";
         enumGerado += getEnumDaEntidade(pEntidade.getListaEnum()) + "\n";
@@ -285,9 +284,6 @@ public class UtilSBGeradorDeCodigo {
         enumGerado += "\n}";
 
         return enumGerado;
-=======
-        return null;
->>>>>>> aaf2b93d1533787a14a3b9a6b367ba05b162ccc0
     }
 
     public static String makeListasAnotacao(Class pClasse) {
