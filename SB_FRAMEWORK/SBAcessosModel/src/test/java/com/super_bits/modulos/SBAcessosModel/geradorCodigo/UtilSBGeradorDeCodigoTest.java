@@ -34,19 +34,18 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void criaSimulaco() {
 
         ACOES_PARA_TESTE = new ArrayList<>();
-        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
         ACOES_PARA_TESTE.add(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema());
-        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
-        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
-        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
-        //ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
 
     }
 
     public UtilSBGeradorDeCodigoTest() {
     }
 
-    //@Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -65,7 +64,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo anotação da ação", t);
         }
     }
-
+    @Test
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -106,7 +105,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeCalculoAnotacaos() {
     }
 
-    @Test
+    //@Test
     public void testMakeEntidade() {
         try {
 
