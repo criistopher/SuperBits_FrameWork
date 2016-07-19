@@ -256,10 +256,22 @@ public class UtilSBGeradorDeCodigo {
     public static String makeClasseAnotacaoInfoAcao(ItfAcaoDoSistema pAcao) {
 
         // COnstroi uma anotação do tipo InfoAcaoNomeDoModulo
-        return null;
+        String modulo = "[GENERICO]";
+        String infoAcao = "";
+        infoAcao += "@Documented\n"
+                + "@Retention(RetentionPolicy.RUNTIME)\n";
+        infoAcao += "public @interface InfoAcao" + modulo + " {\n"
+                + "\n"
+                + "    public boolean padraoBloqueado() default true;\n"
+                + "\n"
+                + "    public FabAcaoAdministrador acao();\n"
+                + "}";
+
+        return infoAcao;
     }
 
     public static String makeEnumListas(Class pClasse) {
+
         return null;
     }
 

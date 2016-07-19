@@ -9,11 +9,13 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
@@ -32,6 +34,7 @@ import org.junit.Before;
 public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     List<AcaoDoSistema> ACOES_PARA_TESTE;
+    EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE = new EstruturaDeEntidade();
 
     @Before
     public void criaSimulaco() {
@@ -43,6 +46,63 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
         ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
         ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
+
+        EstruturaDeEntidade estruturaDeEntidade = new EstruturaDeEntidade();
+        ESTRUTURA_DE_ENTIDADE.setNomeEntidade("Comprador");
+        ESTRUTURA_DE_ENTIDADE.setIcone("fa fa-shopping-cart");
+        ESTRUTURA_DE_ENTIDADE.setPlural("Compradores");
+        ESTRUTURA_DE_ENTIDADE.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
+        ESTRUTURA_DE_ENTIDADE.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
+        ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", estruturaDeEntidade));
+        ESTRUTURA_DE_ENTIDADE.getCalculos().add(new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno"));
+
+        EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
+        campoID.setNomeDeclarado("id");
+        campoID.getMascara();
+        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoID);
+
+        EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro());
+        campoNome.setNomeDeclarado("nome");
+        campoNome.getMascara();
+        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoNome);
+
+        EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro());
+        campoRazao.setNomeDeclarado("razaoSocial");
+        campoRazao.getMascara();
+        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoRazao);
+
+        EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro());
+        campoTelefoneNacional.setNomeDeclarado("telefone");
+        campoTelefoneNacional.getMascara();
+        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoTelefoneNacional);
+
+        EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro());
+        campoCnpj.setNomeDeclarado("cnpj");
+        campoCnpj.getMascara();
+        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoCnpj);
+
+        LigacaoUmParaMuitos campoFiliais = new LigacaoUmParaMuitos();
+        campoFiliais.setLabel("Filiais");
+        campoFiliais.setDescricao("Filiais do Comprador");
+        campoFiliais.setNomeDeclarado("filiais");
+        campoFiliais.setNomeEntidade("FilialComprador");
+        ESTRUTURA_DE_ENTIDADE.getUmParaMuitos().add(campoFiliais);
+
+        LigacaoMuitosParaUm campoFilialPrincipal = new LigacaoMuitosParaUm();
+        campoFilialPrincipal.setLabel("Filial Principal");
+        campoFilialPrincipal.setDescricao("Filial Principal do Comprador");
+        campoFilialPrincipal.setNomeDeclarado("filialPrincipal");
+        campoFilialPrincipal.setNomeEntidade("FilialComprador");
+        ESTRUTURA_DE_ENTIDADE.getMuitosParaUm().add(campoFilialPrincipal);
+
+        LigacaoMuitosParaMuitos campoPermitidos = new LigacaoMuitosParaMuitos();
+        campoPermitidos.setJoinTableName("Compradores_Permitidos");
+        campoPermitidos.setJoinColumName("acesso_id");
+        campoPermitidos.setInverseJoinColumName("comprador_id");
+        campoPermitidos.setNomeDeclarado("compradoresPermitidos");
+        campoPermitidos.setNomeEntidade("Comprador");
+        //    ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
+
 
     }
 
@@ -114,61 +174,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeEntidade() {
         try {
 
-            EstruturaDeEntidade comprador = new EstruturaDeEntidade();
-            comprador.setNomeEntidade("Comprador");
-            comprador.setIcone("fa fa-shopping-cart");
-            comprador.setPlural("Compradores");
-            comprador.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
-            comprador.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
-
-            EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
-            campoID.setNomeDeclarado("id");
-            campoID.getMascara();
-            comprador.getCampos().add(campoID);
-
-            EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro());
-            campoNome.setNomeDeclarado("nome");
-            campoNome.getMascara();
-            comprador.getCampos().add(campoNome);
-
-            EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro());
-            campoRazao.setNomeDeclarado("razaoSocial");
-            campoRazao.getMascara();
-            comprador.getCampos().add(campoRazao);
-
-            EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro());
-            campoTelefoneNacional.setNomeDeclarado("telefone");
-            campoTelefoneNacional.getMascara();
-            comprador.getCampos().add(campoTelefoneNacional);
-
-            EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro());
-            campoCnpj.setNomeDeclarado("cnpj");
-            campoCnpj.getMascara();
-            comprador.getCampos().add(campoCnpj);
-
-            LigacaoUmParaMuitos campoFiliais = new LigacaoUmParaMuitos();
-            campoFiliais.setLabel("Filiais");
-            campoFiliais.setDescricao("Filiais do Comprador");
-            campoFiliais.setNomeDeclarado("filiais");
-            campoFiliais.setNomeEntidade("FilialComprador");
-            comprador.getUmParaMuitos().add(campoFiliais);
-
-            LigacaoMuitosParaUm campoFilialPrincipal = new LigacaoMuitosParaUm();
-            campoFilialPrincipal.setLabel("Filial Principal");
-            campoFilialPrincipal.setDescricao("Filial Principal do Comprador");
-            campoFilialPrincipal.setNomeDeclarado("filialPrincipal");
-            campoFilialPrincipal.setNomeEntidade("FilialComprador");
-            comprador.getMuitosParaUm().add(campoFilialPrincipal);
-
-            LigacaoMuitosParaMuitos campoPermitidos = new LigacaoMuitosParaMuitos();
-            campoPermitidos.setJoinTableName("Compradores_Permitidos");
-            campoPermitidos.setJoinColumName("acesso_id");
-            campoPermitidos.setInverseJoinColumName("comprador_id");
-            campoPermitidos.setNomeDeclarado("compradoresPermitidos");
-            campoPermitidos.setNomeEntidade("Comprador");
-            //    comprador.getMuitosParaMuitos().add(campoPermitidos);
-
-            String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(ESTRUTURA_DE_ENTIDADE);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {

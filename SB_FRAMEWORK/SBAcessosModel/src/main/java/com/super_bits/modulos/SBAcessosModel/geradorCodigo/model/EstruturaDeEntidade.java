@@ -31,6 +31,27 @@ public class EstruturaDeEntidade {
 
     private FabTipoBeanSBGenerico tipoEntidade;
 
+    private List<CalculoDeEntidade> calculos;
+
+    private List<ListaDeEntidade> listas;
+
+    public List<CalculoDeEntidade> getCalculos() {
+        return calculos;
+    }
+
+    public void setCalculos(List<CalculoDeEntidade> calculos) {
+        this.calculos = calculos;
+    }
+
+    public List<ListaDeEntidade> getListas() {
+        return listas;
+    }
+
+    public void setListas(List<ListaDeEntidade> listas) {
+        this.listas = listas;
+    }
+
+
     public List<LigacaoMuitosParaMuitos> getMuitosParaMuitos() {
         return muitosParaMuitos;
     }
@@ -44,6 +65,8 @@ public class EstruturaDeEntidade {
         muitosParaUm = new ArrayList<>();
         muitosParaMuitos = new ArrayList<>();
         umParaMuitos = new ArrayList<>();
+        calculos = new ArrayList<>();
+        listas = new ArrayList<>();
 
     }
 
