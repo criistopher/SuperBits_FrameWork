@@ -70,7 +70,6 @@ public class UtilSBGeradorDeCodigo {
         String fabrica = "[NOMEDAFABRICA]";
         // inicial generica para o enum
         String generico = "[GENÉRICO]";
-
         // somente o infoModulos com os nomes de nome da aplicação
         String infoModulos = "@InfoModulos" + nomeAplicacao + "(modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
         // declaração do enum
@@ -80,7 +79,6 @@ public class UtilSBGeradorDeCodigo {
 
         String enumGerado = null;
         for (ItfAcaoDoSistema acao : pAcoes) {
-
             // colocar o MB a frente das outras ações do sistema
             if (acao.isUmaAcaoGestaoDominio()) {
                 // setar primeiro uma ação de gestão de domínio
@@ -138,7 +136,6 @@ public class UtilSBGeradorDeCodigo {
                     }
                 }
             }
-
         }
 
         for (int i = 0; i < enumGerado.length(); i++) {
@@ -222,14 +219,11 @@ public class UtilSBGeradorDeCodigo {
             classeGetEntidadeDeDominio += ".class;\n";
 
             classeGetEntidadeDeDominio += "}\n";
-
         }
         //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
         // ao final não esquecer de adicionar os métodos com implementação obrigatória,
-        // conforme exemplo abaixo, e do metodo  getEntidadeDominio()
-        //
+        // conforme exemplo abaixo, e do metodo  getEntidadeDominio()        //
         /**
-         *
          * @Override public AcaoDoSistema getRegistro() { try { if
          * (MapaAcoesSistema.isMapaCriado()) { return (AcaoDoSistema)
          * MapaAcoesSistema.getAcaoDoSistema(this); }
@@ -239,12 +233,8 @@ public class UtilSBGeradorDeCodigo {
          *
          * return (AcaoDoSistema) acao; } catch (Throwable t) {
          * SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando ação"
-         * + this, t);
-         *
-         * }
-         * return null;
-         *
-         * }
+         * + this, t); *         * }
+         * return null; *         * }
          * @Override public AcaoDoSistema getAcaoDoSistema() { return
          * getRegistro(); }
          */
@@ -260,7 +250,6 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeClasseAnotacaoInfoAcao(ItfAcaoDoSistema pAcao) {
-
         // COnstroi uma anotação do tipo InfoAcaoNomeDoModulo
         //  TODO -> validar
         String modulo = "[GENERICO]";
@@ -273,14 +262,11 @@ public class UtilSBGeradorDeCodigo {
                 + "\n"
                 + "    public FabAcaoAdministrador acao();\n"
                 + "}";
-
         return infoAcao;
     }
 
     public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
-
         String stringcomtodosoosenuns = makeEnumListasEntidade(pEntidade.getListas());
-
 //        if (stringcomtodosoosenuns.endsWith(",\n")) {
 //            int ultimoCaracter = stringcomtodosoosenuns.length() - 1;
 //            stringcomtodosoosenuns.replace(stringcomtodosoosenuns.substring(ultimoCaracter), ";\n");
@@ -292,11 +278,8 @@ public class UtilSBGeradorDeCodigo {
                 + "    public Class getClasse() {\n"
                 + "        return " + classe + ".class;\n"
                 + "    }\n";
-
         enumGerado += "\n}";
-
         return enumGerado;
-
     }
 
     public static String makeListasAnotacao() {
@@ -313,8 +296,11 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeEnumCalculos() {
+        String classe = "[classeGenérica]";
+        String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
+        String enumCalculos = declaracaoEnum + "}\n";
 
-        return null;
+        return enumCalculos;
     }
 
     public static String makeCalculoAnotacaos() {
@@ -327,7 +313,6 @@ public class UtilSBGeradorDeCodigo {
                 + "\n"
                 + "    Calculos" + classe + " calculo();\n"
                 + "}";
-
         return anotacaoCalculos;
     }
 
