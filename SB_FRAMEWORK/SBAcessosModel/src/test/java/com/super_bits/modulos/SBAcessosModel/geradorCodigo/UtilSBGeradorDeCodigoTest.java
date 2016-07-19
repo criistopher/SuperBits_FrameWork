@@ -103,8 +103,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoPermitidos.setNomeDeclarado("compradoresPermitidos");
         campoPermitidos.setNomeEntidade("Comprador");
         //    ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
-
-
     }
 
     public UtilSBGeradorDeCodigoTest() {
@@ -169,6 +167,17 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     //@Test
     public void testMakeListasAnotacao() {
+
+        try {
+
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE.getClass());
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+    }
+
     }
 
     //@Test

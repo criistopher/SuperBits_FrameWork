@@ -128,6 +128,7 @@ public class EstruturaDeEntidade {
                 listaEnum.add(array[i]);
             }
         }
+
     }
 
     public String getIcone() {
