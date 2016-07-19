@@ -285,10 +285,7 @@ public class UtilSBGeradorDeCodigo {
         enumGerado += "\n}";
 
         return enumGerado;
-<<<<<<< HEAD
-=======
 
->>>>>>> bb74bda0e324c709aa6b89a4923ea7cc8ff73d93
     }
 
     public static String makeListasAnotacao(Class pClasse) {
