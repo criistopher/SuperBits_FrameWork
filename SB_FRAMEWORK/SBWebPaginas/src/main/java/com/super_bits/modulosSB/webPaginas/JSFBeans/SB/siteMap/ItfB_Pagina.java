@@ -48,6 +48,8 @@ public interface ItfB_Pagina {
 
     public Conversation getConversa();
 
+    public String getXhtmlAcaoAtual();
+
     /**
      *
      * Identificação numérica da pagina, não precisa ser único (Criado para

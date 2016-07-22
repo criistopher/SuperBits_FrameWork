@@ -8,7 +8,6 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.SessaoOffline;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
-import com.super_bits.view.menu.MenuSBFW;
 import com.super_bits.view.menu.MenusDaSessao;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;

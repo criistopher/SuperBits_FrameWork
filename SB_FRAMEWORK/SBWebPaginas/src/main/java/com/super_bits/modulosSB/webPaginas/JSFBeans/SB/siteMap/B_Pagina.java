@@ -13,7 +13,6 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBAcao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBBean;
-
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMBIdComponente;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
@@ -731,6 +730,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return acaoSelecionada;
     }
 
+    @Override
     public String getXhtmlAcaoAtual() {
         return xhtmlAcaoAtual;
     }
