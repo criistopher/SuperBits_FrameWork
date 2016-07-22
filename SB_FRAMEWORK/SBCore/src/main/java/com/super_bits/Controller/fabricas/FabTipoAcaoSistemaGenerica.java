@@ -35,79 +35,183 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
         TipoAcaoPadrao acaoPadrao = new TipoAcaoPadrao();
 
+        acaoPadrao.setNomePadrao(this.getNomePadrao());
+        acaoPadrao.setDescricaoPadrao(this.getDescricaoPadrao());
+        acaoPadrao.setIconePadrao(this.getIconePadrao());
+
+        return acaoPadrao;
+    }
+
+    public String getIconePadrao() {
+
         switch (this) {
             case FORMULARIO_NOVO_REGISTRO:
-                acaoPadrao.setNomePadrao("Criar registro");
-                acaoPadrao.setDescricaoPadrao("Inicia formulario de novo registro");
-                acaoPadrao.setIconePadrao("fa fa-plus");
-                break;
+                return "fa fa-plus";
             case FORMULARIO_EDITAR:
-                acaoPadrao.setNomePadrao("Editar registro");
-                acaoPadrao.setDescricaoPadrao("Inicia formulario de edicao de registro existente");
-                acaoPadrao.setIconePadrao("fa fa-pencil");
-                break;
-            case FORMULARIO_VISUALIZAR:
-                acaoPadrao.setNomePadrao("Visualizar registro");
-                acaoPadrao.setDescricaoPadrao("Inicia formulario de visualizacao de registro");
-                acaoPadrao.setIconePadrao("fa fa-eye");
-                break;
-            case CONTROLLER_SALVAR_EDICAO:
-                acaoPadrao.setNomePadrao("Salvar registro editado");
-                acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro editado ");
-                acaoPadrao.setIconePadrao("fa fa-edit (alias)");
-                break;
-            case CONTROLLER_SALVAR_NOVO:
-                acaoPadrao.setNomePadrao("Salvar registro criado");
-                acaoPadrao.setDescricaoPadrao("Inicia gravacao do registro criado");
-                acaoPadrao.setIconePadrao("fa fa-save (alias)");
-                break;
-            case CONTROLLER_SALVAR_MODO_MERGE:
-                acaoPadrao.setNomePadrao("Atualizar registro");
-                acaoPadrao.setDescricaoPadrao("Inicia gravacao");
-                acaoPadrao.setIconePadrao("fa fa-save");
-                break;
-            case FORMULARIO_LISTAR:
-                acaoPadrao.setNomePadrao("Listar registro");
-                acaoPadrao.setDescricaoPadrao("Exibe os registros existentes");
-                acaoPadrao.setIconePadrao("fa fa-list-alt");
-                break;
-            case CONTROLLER_ATIVAR_DESATIVAR:
-                acaoPadrao.setNomePadrao("Alterador de status");
-                acaoPadrao.setDescricaoPadrao("Ativa ou desativa conforme o status atual");
-                acaoPadrao.setIconePadrao("fa fa-retweet");
-                break;
-            case CONTROLLER_ATIVAR:
-                acaoPadrao.setNomePadrao("Ativador");
-                acaoPadrao.setDescricaoPadrao("Define status como ativo");
-                acaoPadrao.setIconePadrao("fa fa-check");
-                break;
-            case CONTROLLER_DESATIVAR:
-                acaoPadrao.setNomePadrao("Desativar");
-                acaoPadrao.setDescricaoPadrao("Define status como desativado");
-                acaoPadrao.setIconePadrao("fa-close (alias)");
-                break;
+                return "fa fa-pencil";
             case FORMULARIO_PERSONALIZADO:
                 break;
-            case SELECAO_DE_ACAO:
-                acaoPadrao.setNomePadrao("Selecione uma direção");
-                acaoPadrao.setDescricaoPadrao("Ação para seleção de ação a ser executada");
-                break;
+            case FORMULARIO_VISUALIZAR:
+                return "fa fa-eye";
+            case FORMULARIO_LISTAR:
+                return "fa fa-list-alt";
             case FORMULARIO_MODAL:
-                break;
-            case GERENCIAR_DOMINIO:
-
-                break;
-            case CONTROLLER_REMOVER:
-                acaoPadrao.setNomePadrao("Excluir");
-                acaoPadrao.setDescricaoPadrao("Exlui o registro do banco de dados");
-                acaoPadrao.setIconePadrao("fa-close (alias)");
-                break;
+                return "fa fa-gear";
+            case SELECAO_DE_ACAO:
+                return "fa-map-signs";
+            case CONTROLLER_SALVAR_EDICAO:
+                return "fa fa-save ";
+            case CONTROLLER_SALVAR_NOVO:
+                return "fa fa-save ";
+            case CONTROLLER_SALVAR_MODO_MERGE:
+                return "fa fa-save ";
             case CONTROLLER_PERSONALIZADO:
+                return "fa fa-gear";
+            case CONTROLLER_ATIVAR_DESATIVAR:
+                return "fa fa-retweet";
+            case CONTROLLER_ATIVAR:
+                return "fa fa-check";
+            case CONTROLLER_REMOVER:
+                return "fa fa-minus";
+            case CONTROLLER_DESATIVAR:
+                return "fa - close";
+            case GERENCIAR_DOMINIO:
                 break;
+            default:
+                return "fa fa-gear";
+
+        }
+        return null;
+    }
+
+    public String getNomeFormularioPadrao() {
+        switch (this.getAcaoBase()) {
+            case FORMULARIO:
+                return "formulario";
+            case GESTAO:
+                return "gestao";
+            case CONTROLLER:
+                return "modal";
+            default:
+                throw new AssertionError(this.getAcaoBase().name());
+
+        }
+
+    }
+
+    public String getNomePadrao() {
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+                return "Novo ";
+            case FORMULARIO_EDITAR:
+                return "Editar";
+            case FORMULARIO_PERSONALIZADO:
+                return "?????";
+            case FORMULARIO_VISUALIZAR:
+                return "visualizar";
+            case FORMULARIO_LISTAR:
+                return "Listar";
+            case FORMULARIO_MODAL:
+                return "????";
+            case SELECAO_DE_ACAO:
+                return "Escolha";
+            case CONTROLLER_SALVAR_EDICAO:
+                return "Salvar Alterações";
+            case CONTROLLER_SALVAR_NOVO:
+                return "Criar Registro";
+            case CONTROLLER_SALVAR_MODO_MERGE:
+                return "Salvar";
+            case CONTROLLER_PERSONALIZADO:
+                return "??????";
+            case CONTROLLER_ATIVAR_DESATIVAR:
+                return "Alterar Status";
+            case CONTROLLER_ATIVAR:
+                return "Ativar";
+            case CONTROLLER_REMOVER:
+                return "Remover";
+            case CONTROLLER_DESATIVAR:
+                return "Desativar";
+            case GERENCIAR_DOMINIO:
+                return "Gerenciar";
             default:
                 throw new AssertionError(this.name());
 
         }
-        return acaoPadrao;
+
     }
+
+    public String getDescricaoPadrao() {
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+                return "Abre um formulário para criação";
+            case FORMULARIO_EDITAR:
+                return "Abre um formulário para editar";
+            case FORMULARIO_PERSONALIZADO:
+                return "?????";
+            case FORMULARIO_VISUALIZAR:
+                return "Abre um formulário para visualizar ";
+            case FORMULARIO_LISTAR:
+                return "Abre um formulário listando";
+            case FORMULARIO_MODAL:
+                return "????";
+            case SELECAO_DE_ACAO:
+                return "Escolha entre as opções disponíveis";
+            case CONTROLLER_SALVAR_EDICAO:
+                return "Salvar Alterações";
+            case CONTROLLER_SALVAR_NOVO:
+                return "Criar Registro";
+            case CONTROLLER_SALVAR_MODO_MERGE:
+                return "Salva ou cria um registro caso não exista um com este id";
+            case CONTROLLER_PERSONALIZADO:
+                return "??????";
+            case CONTROLLER_ATIVAR_DESATIVAR:
+                return "Alterar Status entre Ativo e Inativo";
+            case CONTROLLER_ATIVAR:
+                return "Marca o registro como ativo";
+            case CONTROLLER_REMOVER:
+                return "Remove o registro de maneira irreversível";
+            case CONTROLLER_DESATIVAR:
+                return "Marca o registro como desativado";
+            case GERENCIAR_DOMINIO:
+                return "Gerencia os registros";
+            default:
+                throw new AssertionError(this.name());
+
+        }
+    }
+
+    public FabTipoAcaoBase getAcaoBase() {
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+            case FORMULARIO_EDITAR:
+            case FORMULARIO_PERSONALIZADO:
+            case FORMULARIO_VISUALIZAR:
+            case FORMULARIO_LISTAR:
+            case FORMULARIO_MODAL:
+
+            case SELECAO_DE_ACAO:
+                return FabTipoAcaoBase.FORMULARIO;
+            case CONTROLLER_SALVAR_EDICAO:
+            case CONTROLLER_SALVAR_NOVO:
+
+            case CONTROLLER_SALVAR_MODO_MERGE:
+
+            case CONTROLLER_PERSONALIZADO:
+
+            case CONTROLLER_ATIVAR_DESATIVAR:
+
+            case CONTROLLER_ATIVAR:
+
+            case CONTROLLER_REMOVER:
+
+            case CONTROLLER_DESATIVAR:
+                return FabTipoAcaoBase.CONTROLLER;
+            case GERENCIAR_DOMINIO:
+                return FabTipoAcaoBase.GESTAO;
+            default:
+                throw new AssertionError(this.name());
+
+        }
+    }
+
 }

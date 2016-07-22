@@ -21,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
  *
  * @author desenvolvedor
  */
-@InfoModulosSistemaSB(modulo = FabModulosSistemaSB.COMUNICACAO)
+@InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
 public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
     DEMONSTRACAO_MB_COMPONENTE,
