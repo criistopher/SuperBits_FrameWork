@@ -507,7 +507,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             }
             if (novaAcao == null) {
-                throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao " + pAcao.getNomeModulo() + " verifique a nomeclatura de acordo com a documentação e tente novamente");
+                throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao " + pAcao.toString() + " verifique a nomeclatura de acordo com a documentação e tente novamente");
             }
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;

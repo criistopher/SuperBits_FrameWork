@@ -51,7 +51,7 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      * Formulário que exibe todas as ações do sistema
      */
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/pontosDeFuncao.xhtml",
-            icone = "fa fa-bars")
+            nomeAcao = "Ver Ações", icone = "fa fa-bars")
     PROJETO_FRM_VISUALIZAR_ACOES,
     /**
      *
@@ -59,13 +59,13 @@ public enum FabAcaoProjetoSB implements ItfFabricaAcoes {
      *
      */
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/umlBancoDeDados.xhtml",
-            icone = "fa fa-bars")
+            nomeAcao = "Visualizar Banco de Dados", icone = "fa fa-bars")
     PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/infoTabela.xhtml",
-            icone = "fa fa-bars")
+            nomeAcao = "Visualizar Tabela", icone = "fa fa-bars")
     PROJETO_FRM_VISUALIZAR_TABELA,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/visaoGeral.xhtml",
-            icone = "fa fa-bars")
+            nomeAcao = "Visão geral", icone = "fa fa-bars")
     PROJETO_FRM_VISAO_GERAL;
 
     @Override

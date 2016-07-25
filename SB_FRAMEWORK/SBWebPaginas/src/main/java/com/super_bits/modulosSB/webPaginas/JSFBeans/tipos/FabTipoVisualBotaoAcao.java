@@ -4,11 +4,13 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
 /**
  *
  * @author sfurbino
  */
-public enum FabTipoVisualBotaoAcao {
+public enum FabTipoVisualBotaoAcao implements ItfFabrica {
 
     /**
      * Exibe um pequeno botão com o icone da ação. ->Quando possível adicionar o
@@ -36,5 +38,10 @@ public enum FabTipoVisualBotaoAcao {
      * icone alinhado a esquerda e nome
      */
     BOTAO_GIGANTE;
+
+    @Override
+    public Object getRegistro() {
+        return this.toString();
+    }
 
 }

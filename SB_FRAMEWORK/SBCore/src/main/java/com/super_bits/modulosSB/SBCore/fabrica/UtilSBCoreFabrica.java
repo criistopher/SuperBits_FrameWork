@@ -27,7 +27,7 @@ public abstract class UtilSBCoreFabrica {
      * @param fabrica Fabrica de referencia
      * @return Todos os registros criados pela fabrica
      */
-    public static List getListaTodosRegistrosDaFabrica(Class<ItfFabrica> fabrica) {
+    public static List getListaTodosRegistrosDaFabrica(Class<? extends ItfFabrica> fabrica) {
         List todos = new ArrayList<>();
         for (ItfFabrica fb : fabrica.getEnumConstants()) {
             todos.add(fb.getRegistro());
