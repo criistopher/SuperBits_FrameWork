@@ -6,15 +6,12 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-<<<<<<< HEAD
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-=======
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
->>>>>>> 3abeebfa29e80bdc4260193d81e0e7be6c23b7c4
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+
 import java.util.List;
 
 /**
@@ -23,10 +20,9 @@ import java.util.List;
  */
 public class UtilSBGeradorDeCodigo {
 
-
     public static String makeAnotacaoDaAcao(ItfAcaoDoSistema pAcao) {
         // retorna a string com a anotação do enum da ação exemplo:
-       // @InfoTipoFormulario(nomeAcao="teste" , campos="{'nome','telefone'} , precisaPermissao=true)
+        // @InfoTipoFormulario(nomeAcao="teste" , campos="{'nome','telefone'} , precisaPermissao=true)
         if (pAcao.isUmaAcaoController()) {
             return "@InfoTipoAcaoController(nomeAcao = \" " + pAcao.getNome() + " \", descricao = \" " + pAcao.getDescricao() + " \" , icone = \" " + pAcao.getIconeAcao() + " \" \n"
                     + " , precisaPermissao = " + pAcao.isPrecisaPermissao() + " , codigoJira = \" " + pAcao.getIdDescritivoJira() + "\" ) ";
@@ -48,7 +44,6 @@ public class UtilSBGeradorDeCodigo {
         String enumGerado = "";
 
         //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
-
         // ao final não esquecer de adicionar os métodos com implementação obrigatória,
         // conforme exemplo abaixo, e do metodo  getEntidadeDominio()
         //
@@ -80,7 +75,6 @@ public class UtilSBGeradorDeCodigo {
         //public String getNomeModulo() {
         //    return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();
         //}
-
         return null;
     }
 
