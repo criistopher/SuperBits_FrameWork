@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@InfoClasse(tags = {"Localização"})
+@InfoClasse(tags = {"Localização"}, plural = "Localização")
 public class Localizacao extends EntidadeSimples implements ItfLocal {
 
     @Id

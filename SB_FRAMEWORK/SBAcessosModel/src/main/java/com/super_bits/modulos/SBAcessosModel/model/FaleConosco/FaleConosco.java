@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
  */
 @Entity()
 @DiscriminatorColumn(name = "tipoFaleConosco")
-@InfoClasse(tags = {"Fale Conosco"}, icone = "fa fa-bullhorn")
+@InfoClasse(tags = {"Fale Conosco"}, icone = "fa fa-bullhorn", plural = "Mensagens Fale Conosco")
 @InfoAcaoComunicacao(acao = FabAcaoComunicacaoPadrao.ASSUNTO_FALE_CONOSCO_CTR_SALVAR_MERGE)
 public class FaleConosco extends EntidadeNormal {
 

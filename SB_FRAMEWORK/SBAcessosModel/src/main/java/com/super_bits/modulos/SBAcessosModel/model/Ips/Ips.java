@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ips"})
+@InfoClasse(tags = {"Ips"}, plural = "Ips")
 public class Ips extends EntidadeNormal {
 
     @Id

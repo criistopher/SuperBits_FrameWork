@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
  * @author Salvio
  */
 @Entity
-@InfoClasse(tags = {"Permissão por Grupos"})
+@InfoClasse(tags = {"Permissão por Grupos"}, plural = "Permissões por Grupo")
 public class Permitido_Grupos implements Serializable {
 
     @Id

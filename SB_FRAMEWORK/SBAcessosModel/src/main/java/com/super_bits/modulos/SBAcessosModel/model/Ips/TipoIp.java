@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Tipo ip"})
+@InfoClasse(tags = {"Tipo ip"}, plural = "Tipos de Ip")
 class TipoIp extends EntidadeSimples {
 
     @Id

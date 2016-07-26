@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
  * @author Salvio
  */
 @Entity
-@InfoClasse(tags = "Grupos com acesso negado")
+@InfoClasse(tags = "Grupos com acesso negado", plural = "Grupos com acesso negado")
 public class Negado_Grupos implements Serializable {
 
     @Id

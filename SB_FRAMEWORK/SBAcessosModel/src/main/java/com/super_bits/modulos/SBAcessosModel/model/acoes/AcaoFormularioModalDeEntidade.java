@@ -16,7 +16,7 @@ import javax.persistence.Entity;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Ação formulario Modal relacionado a entidade"})
+@InfoClasse(tags = {"Ação formulario Modal relacionado a entidade"}, plural = "Ações de formulario Modal")
 public class AcaoFormularioModalDeEntidade extends AcaoFormularioEntidade {
 
     private static String formularioPadrao = "/resources/SBComp/resources/formularios/formularioModalGenerico.xhtml";

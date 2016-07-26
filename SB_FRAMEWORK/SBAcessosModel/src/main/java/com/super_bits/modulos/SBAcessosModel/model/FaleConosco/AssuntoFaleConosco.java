@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Assunto"})
+@InfoClasse(tags = {"Assunto"}, plural = "Assuntos")
 public class AssuntoFaleConosco extends EntidadeNormal {
 
     @Id

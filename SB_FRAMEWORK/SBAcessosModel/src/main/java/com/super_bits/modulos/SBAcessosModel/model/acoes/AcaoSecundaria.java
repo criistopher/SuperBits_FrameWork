@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = "Ação secundária")
+@InfoClasse(tags = "Ação secundária", plural = "Ações secundarias")
 public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria {
 
     @ManyToOne

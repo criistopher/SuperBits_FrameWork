@@ -23,7 +23,7 @@ import javax.persistence.Transient;
  * @author desenvolvedor
  */
 @Entity
-@InfoClasse(tags = {"Açao de Gestão de Dominio da Entidade"})
+@InfoClasse(tags = {"Açao de Gestão de Dominio da Entidade"}, plural = "Ações de Dominio")
 public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAcaoGerenciarEntidade {
 
     @Transient

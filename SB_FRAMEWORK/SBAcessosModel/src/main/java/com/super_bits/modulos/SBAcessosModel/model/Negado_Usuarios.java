@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesso_id"}))
 @Entity
-@InfoClasse(tags = "Usuários com acesso negado")
+@InfoClasse(tags = "Usuários com acesso negado", plural = "Usuários com acesso negado")
 public class Negado_Usuarios implements Serializable {
 
     @Id

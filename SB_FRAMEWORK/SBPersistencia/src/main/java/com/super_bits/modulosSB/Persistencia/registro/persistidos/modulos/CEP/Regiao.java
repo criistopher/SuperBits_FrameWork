@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@InfoClasse(tags = {"Regiao", "Regiões"})
+@InfoClasse(tags = {"Regiao", "Regiões"}, plural = "Regiões")
 public class Regiao extends EntidadeSimples implements ItfRegiao {
 
     @Id

@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
  *
  * @author desenvolvedor
  */
-@InfoClasse(tags = {"Projeto Atual"})
+@InfoClasse(tags = {"Projeto Atual"}, plural = "Projetos Atuais")
 public class ProjetoAtual extends ItemSimples {
 
     @InfoCampo(tipo = FabCampos.ID)
