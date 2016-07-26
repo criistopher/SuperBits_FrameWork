@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.el.ValueExpression;
@@ -228,24 +229,47 @@ public class PgUtil implements Serializable {
     }
 
     public String getInfoComponente(String pId) {
+        try {
+            UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
+            UIComponent componenteEncontrador = componenteRaiz.findComponent(pId);
+            for (UIComponent comp : componenteRaiz.getChildren()) {
+                System.out.println(comp.getId());
 
-        UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
-        UIComponent componenteEncontrador = componenteRaiz.findComponent(pId);
-        for (UIComponent comp : componenteRaiz.getChildren()) {
-            System.out.println(comp.getId());
+            }
 
+            System.out.println("");
+            return pId;
+        } catch (Throwable t) {
+            return "Aconteceu Um Erro";
+        }
+    }
+
+    public boolean isTesteValido(UIComponent componente) {
+
+        Map<String, Object> atributos = componente.getAttributes();
+
+        ValueExpression valor = componente.getValueExpression("armazenamentoAcaoExecutada");
+
+        if (valor != null) {
+            System.out.println("Expressao====" + valor.getExpressionString());
+        } else {
+            System.out.println("Expressao==== NULOOOOOOOOOOOOOOO");
         }
 
-        System.out.println("");
-        return pId;
+        for (Object atributo : atributos.values()) {
+            System.out.println(atributo);
+        }
+        return false;
 
     }
 
     public boolean isAtributoPreenchido(String pIdComponente, String atributo) {
-
         UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
-        UIComponent componenteEncontrador = componenteRaiz.findComponent(pIdComponente);
+
         try {
+
+            UIComponent componenteEncontrador = componenteRaiz.findComponent(pIdComponente);
+
             ValueExpression valor = componenteEncontrador.getValueExpression(atributo);
             System.out.println(valor);
         } catch (Throwable t) {
