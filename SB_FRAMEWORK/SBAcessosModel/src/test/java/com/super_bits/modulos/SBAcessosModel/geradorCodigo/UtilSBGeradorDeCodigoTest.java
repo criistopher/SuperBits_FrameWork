@@ -45,6 +45,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public UtilSBGeradorDeCodigoTest() {
     }
 
+    @Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -64,7 +65,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
-    @Test
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
