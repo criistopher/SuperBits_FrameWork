@@ -29,7 +29,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.el.ValueExpression;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -222,6 +225,39 @@ public class PgUtil implements Serializable {
         }
 
         return novoCaminho;
+    }
+
+    public String getInfoComponente(String pId) {
+
+        UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
+        UIComponent componenteEncontrador = componenteRaiz.findComponent(pId);
+        for (UIComponent comp : componenteRaiz.getChildren()) {
+            System.out.println(comp.getId());
+
+        }
+
+        System.out.println("");
+        return pId;
+
+    }
+
+    public boolean isAtributoPreenchido(String pIdComponente, String atributo) {
+
+        UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
+        UIComponent componenteEncontrador = componenteRaiz.findComponent(pIdComponente);
+        try {
+            ValueExpression valor = componenteEncontrador.getValueExpression(atributo);
+            System.out.println(valor);
+        } catch (Throwable t) {
+            return false;
+        }
+
+        for (UIComponent comp : componenteRaiz.getChildren()) {
+            System.out.println(comp.getId());
+
+        }
+        return true;
+
     }
 
     public void preencherEndereco(String pcep, ItfLocal pLocal) {
