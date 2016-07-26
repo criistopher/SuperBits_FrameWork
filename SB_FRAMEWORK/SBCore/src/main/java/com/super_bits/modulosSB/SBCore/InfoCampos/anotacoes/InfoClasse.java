@@ -17,4 +17,6 @@ public @interface InfoClasse {
 
     String icone() default "";
 
+    String plural();
+
 }
