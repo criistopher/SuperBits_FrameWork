@@ -165,7 +165,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             campoPermitidos.setInverseJoinColumName("comprador_id");
             campoPermitidos.setNomeDeclarado("compradoresPermitidos");
             campoPermitidos.setNomeEntidade("Comprador");
-            comprador.getMuitosParaMuitos().add(campoPermitidos);
+            //    comprador.getMuitosParaMuitos().add(campoPermitidos);
 
             String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
