@@ -41,6 +41,9 @@ public class EstruturaDeEntidade {
 
     public EstruturaDeEntidade() {
         campos = new ArrayList<>();
+        muitosParaUm = new ArrayList<>();
+        muitosParaMuitos = new ArrayList<>();
+        umParaMuitos = new ArrayList<>();
 
     }
 

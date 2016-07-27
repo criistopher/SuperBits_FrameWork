@@ -685,8 +685,6 @@ public class UtilSBGeradorDeCodigo {
                 // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
                 + "public class " + pEstrutura.getNomeEntidade() + " extends " + pEstrutura.getTipoEntidade().getNomeClasseEntidade() + " {\n\n";
 
-        pEstrutura.getMuitosParaUm().get(0).getTipoEntidade().getNomeClasseEntidade();
-
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
             classeFormatada += makeDeclaracaoCampo(campo);
