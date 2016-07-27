@@ -11,6 +11,9 @@ import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
@@ -141,6 +144,21 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             campoCnpj.setNomeDeclarado("cnpj");
             campoCnpj.getMascara();
             comprador.getCampos().add(campoCnpj);
+
+            LigacaoUmParaMuitos campoFiliais = new LigacaoUmParaMuitos();
+            campoFiliais.setLabel("Filiais");
+            campoFiliais.setDescricao("Filiais do Comprador");
+            campoFiliais.setNomeDeclarado("filiais");
+
+            LigacaoMuitosParaUm campoFilialPrincipal = new LigacaoMuitosParaUm();
+            campoFilialPrincipal.setLabel("Filial Principal");
+            campoFilialPrincipal.setDescricao("Filial Principal do Comprador");
+            campoFilialPrincipal.setNomeDeclarado("filialPrincipal");
+
+            LigacaoMuitosParaMuitos campoPermitidos = new LigacaoMuitosParaMuitos();
+            campoPermitidos.setJoinTableName("Compradores_Permitidos");
+            campoPermitidos.setJoinColumName("acesso_id");
+            campoPermitidos.setInverseJoinColumName("comprador_id");
 
             String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n " + codigoGerado);

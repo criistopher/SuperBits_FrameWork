@@ -19,15 +19,25 @@ public class EstruturaDeEntidade {
 
     private List<EstruturaCampo> campos;
 
-    private List<EstruturaDeEntidade> muitosParaUm;
+    private List<LigacaoMuitosParaUm> muitosParaUm;
 
-    private List<EstruturaDeEntidade> umParaMuitos;
+    private List<LigacaoUmParaMuitos> umParaMuitos;
+
+    private List<LigacaoMuitosParaMuitos> muitosParaMuitos;
 
     private List<String> tags;
 
     private String plural, icone;
 
     private FabTipoBeanSBGenerico tipoEntidade;
+
+    public List<LigacaoMuitosParaMuitos> getMuitosParaMuitos() {
+        return muitosParaMuitos;
+    }
+
+    public void setMuitosParaMuitos(List<LigacaoMuitosParaMuitos> muitosParaMuitos) {
+        this.muitosParaMuitos = muitosParaMuitos;
+    }
 
     public EstruturaDeEntidade() {
         campos = new ArrayList<>();
@@ -104,19 +114,19 @@ public class EstruturaDeEntidade {
         this.campos = campos;
     }
 
-    public List<EstruturaDeEntidade> getMuitosParaUm() {
+    public List<LigacaoMuitosParaUm> getMuitosParaUm() {
         return muitosParaUm;
     }
 
-    public void setMuitosParaUm(List<EstruturaDeEntidade> muitosParaUm) {
+    public void setMuitosParaUm(List<LigacaoMuitosParaUm> muitosParaUm) {
         this.muitosParaUm = muitosParaUm;
     }
 
-    public List<EstruturaDeEntidade> getUmParaMuitos() {
+    public List<LigacaoUmParaMuitos> getUmParaMuitos() {
         return umParaMuitos;
     }
 
-    public void setUmParaMuitos(List<EstruturaDeEntidade> umParaMuitos) {
+    public void setUmParaMuitos(List<LigacaoUmParaMuitos> umParaMuitos) {
         this.umParaMuitos = umParaMuitos;
     }
 

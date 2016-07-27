@@ -10,6 +10,10 @@ import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 
@@ -383,8 +387,6 @@ public class UtilSBGeradorDeCodigo {
                 + "\n"
                 + "    }";
 
-
-
         //retorna uma string contendo todo conteúdo da enum (cada ação com sua respectiva anotação, e os metodos obrigatórios
         // ao final não esquecer de adicionar os métodos com implementação obrigatória,
         // conforme exemplo abaixo, e do metodo  getEntidadeDominio()
@@ -443,25 +445,230 @@ public class UtilSBGeradorDeCodigo {
         return null;
     }
 
-    private static String getTagsDaEntidade(List<String> pTags){
+    private static String getTagsDaEntidade(List<String> pTags) {
 
         String tagsFormatadas = "";
 
         for (int i = 0; i < pTags.size(); i++) {
 
-            if(i > 0){
+            if (i > 0) {
 
-            tagsFormatadas += ", \""+pTags.get(i)+"\"";
+                tagsFormatadas += ", \"" + pTags.get(i) + "\"";
 
-            }else{
+            } else {
 
-                tagsFormatadas += "\""+pTags.get(i)+"\"";
+                tagsFormatadas += "\"" + pTags.get(i) + "\"";
 
             }
 
         }
 
         return tagsFormatadas;
+    }
+
+    public static String makeDeclaracaoCampo(EstruturaCampo pCampo) {
+
+        String campoFormatado = "";
+
+        switch (pCampo.getTipoValor()) {
+
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+            //
+            //
+            //
+            case INTEIRO:
+
+                // VERIFICA SE O CAMPO É DO TIPO ID
+                if (pCampo.getTipoCampo().equals(FabCampos.ID)) {
+
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                    campoFormatado
+                            // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
+                            += "@Id\n"
+                            // ADICIONA A STRING DE ANOTAÇÃO GENERATEDVALUE DO CAMPO NA VARIAVEL ClasseFormata
+                            + "@GeneratedValue(strategy = GenerationType.AUTO)\n"
+                            // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                            + "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                } else {
+
+                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                    campoFormatado
+                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
+                            += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                    if (pCampo.isObrigatorio()) {
+
+                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                        campoFormatado += "@NotNull\n";
+
+                    }
+
+                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                }
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+            //
+            //
+            //
+            case DATAS:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n"
+                        // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
+                        + "@Temporal(javax.persistence.TemporalType.DATE)\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@NotNull\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+            //
+            //
+            //
+            case LETRAS:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@Column(length = " + pCampo.getValorMaximo() + ", nullable = true)\n"
+                            // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                            + "@NotNull\n";
+
+                } else {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@Column(length = " + pCampo.getValorMaximo() + ", nullable = false)\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            //
+            //
+            //
+            case BOOLEAN:
+
+                // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
+                campoFormatado
+                        // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
+                        += "@InfoCampo(tipo =" + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+
+                // VERIFICA SE É UM CAMPO OBRIGATÓRIO
+                if (pCampo.isObrigatorio()) {
+
+                    // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
+                    campoFormatado += "@NotNull\n";
+
+                }
+
+                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
+                campoFormatado += "private " + pCampo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ";\n\n";
+
+                break;
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO ENTIDADE
+            //
+            //
+            //
+            case ENTIDADE:
+
+                throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
+
+            //
+            //
+            //
+            // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
+            default:
+                throw new AssertionError(pCampo.getTipoValor().name());
+
+        }
+
+        return campoFormatado;
+
+    }
+
+    public static String makeDeclaracaoUmParaMuitos(LigacaoUmParaMuitos pEstrutura) {
+
+        String umParaMuitosDeclarado = "";
+
+        umParaMuitosDeclarado += "@InfoCampo(tipo = FabCampos.LISTA, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+
+        umParaMuitosDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ".class, cascade = CascadeType.ALL, orphanRemoval = true)\n";
+
+        umParaMuitosDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return umParaMuitosDeclarado;
+    }
+
+    public static String makeDeclaracaoMuitosParaUm(LigacaoMuitosParaUm pEstrutura) {
+
+        String muitosParaUmDeclarado = "";
+
+        muitosParaUmDeclarado += "@InfoCampo(tipo = FabCampos.LOOKUP, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+
+        muitosParaUmDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ")\n";
+
+        muitosParaUmDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return muitosParaUmDeclarado;
+
+    }
+
+    public static String makeDeclaracaoMuitosParaMuitos(LigacaoMuitosParaMuitos pEstrutura) {
+
+        String muitosParaMuitosDeclarado = "";
+
+        muitosParaMuitosDeclarado += "@ManyToMany(fetch = FetchType.EAGER)\n";
+
+        muitosParaMuitosDeclarado += "@JoinTable(name = \"" + pEstrutura.getJoinTableName() + "\", joinColumns = @JoinColumn(name = \"" + pEstrutura.getJoinColumName() + "\"), inverseJoinColumns = @JoinColumn(name = \"" + pEstrutura.getInverseJoinColumName() + "\"))\n";
+
+        muitosParaMuitosDeclarado += "private List<" + pEstrutura.getNomeEntidade() + ">" + pEstrutura.getNomeDeclarado() + ";\n\n";
+
+        return muitosParaMuitosDeclarado;
+
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
@@ -471,178 +678,36 @@ public class UtilSBGeradorDeCodigo {
 
         // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
         classeFormatada
-
                 // ADICIONA A STRING DE ANOTAÇÃO ENTITY DA CLASSE NA VARIAVEL ClasseFormata
                 += "@Entity\n"
-
                 // ADICIONA A STRING DE ANOTAÇÃO INFOCLASSE DA CLASSE NA VARIAVEL ClasseFormata
-                + "@InfoClasse(tags = {"+ getTagsDaEntidade(pEstrutura.getTags()) +"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
-
+                + "@InfoClasse(tags = {" + getTagsDaEntidade(pEstrutura.getTags()) + "}, icone = \"" + pEstrutura.getIcone() + "\", plural = \"" + pEstrutura.getPlural() + "\")\n"
                 // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
-                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade().getNomeClasseEntidade()+" {\n\n";
+                + "public class " + pEstrutura.getNomeEntidade() + " extends " + pEstrutura.getTipoEntidade().getNomeClasseEntidade() + " {\n\n";
+
+        pEstrutura.getMuitosParaUm().get(0).getTipoEntidade().getNomeClasseEntidade();
 
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
-            switch (campo.getTipoValor()) {
+            classeFormatada += makeDeclaracaoCampo(campo);
 
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
-                //
-                //
-                //
-                case INTEIRO:
+        }
 
-                    // VERIFICA SE O CAMPO É DO TIPO ID
-                    if (campo.getTipoCampo().equals(FabCampos.ID)) {
+        for (LigacaoUmParaMuitos pLigacao : pEstrutura.getUmParaMuitos()) {
 
-                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                        classeFormatada
-                                // ADICIONA A STRING DE ANOTAÇÃO ID DO CAMPO NA VARIAVEL ClasseFormata
-                                += "@Id\n"
-                                // ADICIONA A STRING DE ANOTAÇÃO GENERATEDVALUE DO CAMPO NA VARIAVEL ClasseFormata
-                                + "@GeneratedValue(strategy = GenerationType.AUTO)\n"
-                                // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                                + "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
+            classeFormatada += makeDeclaracaoUmParaMuitos(pLigacao);
 
-                    } else {
+        }
 
-                        // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                        classeFormatada
-                                // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
-                                += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
+        for (LigacaoMuitosParaUm pLigacao : pEstrutura.getMuitosParaUm()) {
 
-                        // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                        if (campo.isObrigatorio()) {
+            classeFormatada += makeDeclaracaoMuitosParaUm(pLigacao);
 
-                            // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
-                            classeFormatada += "@NotNull\n";
+        }
 
-                        }
+        for (LigacaoMuitosParaMuitos pLigacao : pEstrutura.getMuitosParaMuitos()) {
 
-                        // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    }
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
-                //
-                //
-                //
-                case DATAS:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n"
-                            // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
-                            + "@Temporal(javax.persistence.TemporalType.DATE)\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL SE OBRIGATÓRIO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@NotNull\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO DATA
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
-                //
-                //
-                //
-                case LETRAS:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo = " + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = true)\n"
-                                // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
-                                + "@NotNull\n";
-
-                    } else {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO COLUMN DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@Column(length = " + campo.getValorMaximo() + ", nullable = false)\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO LETRAS
-
-                // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-                //
-                //
-                //
-                case BOOLEAN:
-
-                    // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
-                    classeFormatada
-                            // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                            += "@InfoCampo(tipo =" + campo.getTipoCampo().toString() + ", label = \"" + campo.getLabel() + "\", descricao = \"" + campo.getDescricao() + "\")\n";
-
-                    // VERIFICA SE É UM CAMPO OBRIGATÓRIO
-                    if (campo.isObrigatorio()) {
-
-                        // ADICIONA A STRING DE ANOTAÇÃO NOTNULL DO CAMPO NA VARIAVEL ClasseFormatada
-                        classeFormatada += "@NotNull\n";
-
-                    }
-
-                    // ADICIONA STRING DE DECLARAÇÃO DO CAMPO, SEU TIPO E SUA VISUALIZAÇÃO NA VARIAVEL ClasseFormatada
-                    classeFormatada += "private " + campo.getTipoCampo().getTipoPrimitivo().getDeclaracaoJava() + " " + campo.getNomeDeclarado() + ";\n\n";
-
-                    break;
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-
-                 // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO ENTIDADE
-                //
-                //
-                //
-                case ENTIDADE:
-
-                    throw new UnsupportedOperationException("O CASE ENTIDADE NÃO RETORNA UMA STRING DE FORMATAÇÃO DE CLASSE!!!");
-
-
-                //
-                //
-                //
-                // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
-                default:
-                    throw new AssertionError(campo.getTipoValor().name());
-
-            }
+            classeFormatada += makeDeclaracaoMuitosParaMuitos(pLigacao);
 
         }
 
