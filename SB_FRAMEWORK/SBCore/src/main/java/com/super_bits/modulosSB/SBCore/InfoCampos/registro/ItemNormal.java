@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal, ItfBeanPermisionado {
 
-    public ItemNormal(Class<?> pClasseModelo) {
+    public ItemNormal() {
         super();
 
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME, getNomeCurto()));

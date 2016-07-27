@@ -6,8 +6,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 public class ItemContatoCorporativo extends ItemEndereco implements
         ItfBeanContatoCorporativo {
 
-    public ItemContatoCorporativo(Class<?> pClasseModelo) {
-        super(pClasseModelo);
+    public ItemContatoCorporativo() {
+        super();
 
     }
 

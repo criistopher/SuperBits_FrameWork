@@ -37,7 +37,7 @@ public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serial
     private ItfUsuario usuarioAlteracao;
 
     public UsuarioSistemaRoot() {
-        super(UsuarioSistemaRoot.class);
+        super();
     }
 
     @Override

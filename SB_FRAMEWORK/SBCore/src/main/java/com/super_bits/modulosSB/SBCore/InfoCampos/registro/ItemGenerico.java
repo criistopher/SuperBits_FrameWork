@@ -467,29 +467,35 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         return classeModelo;
     }
 
-    private void carregaCampoInstanciado(Field pCampo) {
+    private void carregaCampoInstanciado(Field pCampoReflection) {
 
-        CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(getCampoByFieldReflexao(pCampo), pCampo); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
-        mapaCamposInstanciados.put(pCampo.getName(), campoformatado);
-        InfoCampo anotacao = pCampo.getAnnotation(InfoCampo.class);
+        CampoIntemGenericoInstanciado campoformatado = new CampoIntemGenericoInstanciado(getCampoByFieldReflexao(pCampoReflection), pCampoReflection); //se encontrar adiciona duas vezes, para ser encontrado também pelo nome da anotacao
+        mapaCamposInstanciados.put(pCampoReflection.getName(), campoformatado);
+        InfoCampo anotacao = pCampoReflection.getAnnotation(InfoCampo.class);
         if (anotacao != null) {
-            mapaCamposInstanciados.put(anotacao.tipo().toString(), campoformatado);
+            mapaCamposInstanciados.put(anotacao.tipo().toString().toUpperCase(), campoformatado);
         }
 
     }
 
     public Map<String, ItfCampoInstanciado> getmapaCamposInstanciados(String pCampo) {
-        if (mapaCamposInstanciados == null || mapaCamposInstanciados.isEmpty()) {
+
+        if (mapaCampoPorAnotacao == null) {
+            mapaCamposInstanciados = new HashMap<>();
+            mapaCampoPorAnotacao = new HashMap<>();
+        }
+
+        if (mapaCampoPorAnotacao.isEmpty()) {
 
             mapaCamposInstanciados = new HashMap<>();
             mapaCampoPorAnotacao = new HashMap<>();
             Class classeAnalizada = this.getClass();
             while (!UtilSBCoreReflexaoCampos.isClasseBasicaSB(classeAnalizada)) {
-                classeAnalizada = classeAnalizada.getSuperclass();
+
                 for (Field campoEncontrado : classeAnalizada.getDeclaredFields()) {
                     InfoCampo anotacao = campoEncontrado.getAnnotation(InfoCampo.class);
                     if (anotacao != null) {
-                        mapaCampoPorAnotacao.put(anotacao.tipo().toString(), campoEncontrado);
+                        mapaCampoPorAnotacao.put(anotacao.tipo().toString().toUpperCase(), campoEncontrado);
                     }
                 }
                 classeAnalizada = classeAnalizada.getSuperclass();

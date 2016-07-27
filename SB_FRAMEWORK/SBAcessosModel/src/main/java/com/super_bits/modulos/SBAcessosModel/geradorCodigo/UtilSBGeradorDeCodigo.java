@@ -256,7 +256,7 @@ public class UtilSBGeradorDeCodigo {
                 + "@InfoClasse(tags = {"+ getTagsDaEntidade(pEstrutura.getTags()) +"}, icone = \""+pEstrutura.getIcone()+"\", plural = \""+pEstrutura.getPlural()+"\")\n"
 
                 // ADICIONA A STRING DE DECLARAÇÃO DA CLASSE, SEU NOME E EXTENSÕES NA VARIAVEL ClasseFormata
-                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade().getClassePorTipoEntidade()+" {\n\n";
+                + "public class "+pEstrutura.getNomeEntidade()+ " extends "+ pEstrutura.getTipoEntidade().getNomeClasseEntidade()+" {\n\n";
 
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 

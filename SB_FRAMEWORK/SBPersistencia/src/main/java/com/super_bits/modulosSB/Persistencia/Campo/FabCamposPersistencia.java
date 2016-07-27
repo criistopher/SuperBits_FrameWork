@@ -6,12 +6,14 @@
 package com.super_bits.modulosSB.Persistencia.Campo;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LOOKUP;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LOOKUPMULTIPLO;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.getTipoPadraoByClasse;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import javax.persistence.ManyToOne;
@@ -33,26 +35,26 @@ public enum FabCamposPersistencia {
      * @param pClasse
      * @return
      */
-    public static Campo getCampoByAnotacoes(Field campo) {
+    public static Campo getCampoByAnotacoes(Field campoReflexao) {
 
-        InfoCampo anotacaoInfoCampo = campo.getAnnotation(InfoCampo.class);
+        InfoCampo anotacaoInfoCampo = campoReflexao.getAnnotation(InfoCampo.class);
         FabCampos tipoDoCampo;
         Campo sbCampo;
         if (anotacaoInfoCampo != null) {
             tipoDoCampo = anotacaoInfoCampo.tipo();
 
         } else {
-            tipoDoCampo = getTipoPadraoByClasse(campo.getType());
+            tipoDoCampo = getTipoPadraoByClasse(campoReflexao.getType());
 
         }
 
-        ManyToOne muitosParaUm = campo.getAnnotation(ManyToOne.class);
+        ManyToOne muitosParaUm = campoReflexao.getAnnotation(ManyToOne.class);
 
         if (muitosParaUm != null) {
             tipoDoCampo = LOOKUP;
 
         }
-        OneToMany umParaMuitos = campo.getAnnotation(OneToMany.class);
+        OneToMany umParaMuitos = campoReflexao.getAnnotation(OneToMany.class);
 
         if (umParaMuitos != null) {
             tipoDoCampo = LOOKUPMULTIPLO;
@@ -60,15 +62,23 @@ public enum FabCamposPersistencia {
         }
 
         sbCampo = tipoDoCampo.getRegistro();
-        sbCampo.setLabel(campo.getName());
+        sbCampo.setLabel(campoReflexao.getName());
 
         // CONFIGURANDO OPÇÕES DE SELEÇÃO
         switch (sbCampo.getTipoCampo()) {
             case LOOKUP:
 
-                if (muitosParaUm != null) {
-                    Class classeOpcoes = muitosParaUm.targetEntity();
-                    sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+                if (sbCampo.getListaDeOpcoes() != null) {
+                    if (sbCampo.getListaDeOpcoes().isEmpty()) {
+                        if (muitosParaUm != null) {
+                            try {
+                                Class classeOpcoes = muitosParaUm.targetEntity();
+                                sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+                            } catch (Throwable t) {
+                                SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro obtendo lista de opções em banco de dados para o  campo" + campoReflexao.getDeclaringClass().getSimpleName() + "." + campoReflexao.getName(), t);
+                            }
+                        }
+                    }
                 }
 
                 break;
@@ -77,6 +87,7 @@ public enum FabCamposPersistencia {
                     Class classeOpcoesMultiplo = umParaMuitos.targetEntity();
                     //            sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
                 }
+
                 break;
         }
 
@@ -93,9 +104,9 @@ public enum FabCamposPersistencia {
             }
         }
 
-        Annotation[] outrasAnotacoes = campo.getAnnotations();
+        Annotation[] outrasAnotacoes = campoReflexao.getAnnotations();
 
-        NotNull nulo = campo.getAnnotation(NotNull.class);
+        NotNull nulo = campoReflexao.getAnnotation(NotNull.class);
         if (nulo != null) {
             sbCampo.setObrigatorio(true);
         }

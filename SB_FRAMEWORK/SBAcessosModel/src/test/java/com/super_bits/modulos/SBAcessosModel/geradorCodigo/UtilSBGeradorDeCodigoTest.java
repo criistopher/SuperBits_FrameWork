@@ -15,7 +15,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoEntidades;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +115,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             comprador.setIcone("fa fa-shopping-cart");
             comprador.setPlural("Compradores");
             comprador.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
-            comprador.setTipoEntidade(FabTipoEntidades.BEAN_CONTATO_CORPORATIVO);
+            comprador.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
 
             EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
             campoID.setNomeDeclarado("id");

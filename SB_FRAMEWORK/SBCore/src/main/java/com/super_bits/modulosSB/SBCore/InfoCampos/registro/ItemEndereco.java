@@ -14,17 +14,16 @@ public class ItemEndereco extends ItemNormal implements ItfBeanEndereco {
     //private LatLng localizacao;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public ItemEndereco(Class<?> pClasseModelo) {
+    public ItemEndereco() {
 
-        super(pClasseModelo);
+        super();
 
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE, "-19.8225864"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCEP, ""), true);
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"), true);
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCLOGRADOURO, ""), true);
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL, ""), true);
+
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCLOGRADOURO, ""));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL, ""));
 
     }
 

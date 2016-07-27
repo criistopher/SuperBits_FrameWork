@@ -18,8 +18,6 @@ import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.InfoErro;
-import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBGenericoWeb;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
@@ -27,7 +25,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.el.ValueExpression;
@@ -37,7 +34,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.application.exceptionhandler.ExceptionInfo;
 
 /**
  *
@@ -244,44 +240,31 @@ public class PgUtil implements Serializable {
         }
     }
 
-    public boolean isTesteValido(UIComponent componente) {
-
-        Map<String, Object> atributos = componente.getAttributes();
-
-        ValueExpression valor = componente.getValueExpression("armazenamentoAcaoExecutada");
-
-        if (valor != null) {
-            System.out.println("Expressao====" + valor.getExpressionString());
-        } else {
-            System.out.println("Expressao==== NULOOOOOOOOOOOOOOO");
-        }
-
-        for (Object atributo : atributos.values()) {
-            System.out.println(atributo);
-        }
-        return false;
-
-    }
-
-    public boolean isAtributoPreenchido(String pIdComponente, String atributo) {
-        UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
-
+    /**
+     *
+     * @param component
+     * @param atributo
+     * @return
+     */
+    public boolean isAtributoPreenchidoComExpressao(UIComponent component, String atributo) {
         try {
+            ValueExpression valor = component.getValueExpression(atributo);
+            if (valor != null) {
+                if (valor.getExpressionString().length() > 3) {
+                    System.out.println("O v");
+                    return true;
+                }
+                System.out.println("o componente " + component.getId() + " não possui 3 caracteres no  " + atributo + " está nulo" + valor.getExpressionString());
+                return false;
+            } else {
+                System.out.println("o atributo do componente" + component.getId() + " do atributo " + atributo + " está nulo");
+                return false;
+            }
 
-            UIComponent componenteEncontrador = componenteRaiz.findComponent(pIdComponente);
-
-            ValueExpression valor = componenteEncontrador.getValueExpression(atributo);
-            System.out.println(valor);
         } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Impossível determinar se o atributo do componente foi configurado", t);
             return false;
         }
-
-        for (UIComponent comp : componenteRaiz.getChildren()) {
-            System.out.println(comp.getId());
-
-        }
-        return true;
-
     }
 
     public void preencherEndereco(String pcep, ItfLocal pLocal) {

@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import javax.validation.constraints.NotNull;
@@ -648,6 +649,14 @@ public enum FabCampos implements ItfFabrica {
 
             sbCampo.setObrigatorio(anotacaoInfoCampo.obrigatorio());
             anotacaoInfoCampo.valoresAceitos();
+
+            if (!anotacaoInfoCampo.fabricaDeOpcoes().equals(void.class)) {
+                try {
+                    sbCampo.setListaDeOpcoes(UtilSBCoreFabrica.getListaTodosRegistrosDaFabrica(anotacaoInfoCampo.fabricaDeOpcoes()));
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Impossível listar as opções de registro apartir da classe" + anotacaoInfoCampo.fabricaDeOpcoes().getSimpleName() + " verifique se esta classe extende ItfFabricaDeAções", t);
+                }
+            }
         }
 
         Annotation[] outrasAnotacoes = campo.getAnnotations();
