@@ -168,7 +168,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             comprador.getMuitosParaMuitos().add(campoPermitidos);
 
             String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(comprador);
-            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n " + codigoGerado);
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
             lancarErroJUnit(t);
