@@ -53,7 +53,7 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
     public static enum TIPO_INPUT_PRIME {
         TEXTO_COM_FORMATACAO,
         TEXTMO_MULTIPLAS_LINHAS,
-        PERCENTUAL,
+        NUMERO_MINIMO_MAXIMO,
         LISTAGEM,
         SENHA,
         CEP,
@@ -74,8 +74,8 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
                     return FabCampos.TEXTO_SIMPLES.toString();
                 case TEXTMO_MULTIPLAS_LINHAS:
                     return AAA_DESCRITIVO.toString();
-                case PERCENTUAL:
-                    return PERCENTUAL.toString();
+                case NUMERO_MINIMO_MAXIMO:
+                    return NUMERO_MINIMO_MAXIMO.toString();
                 case LISTAGEM:
                     return LOOKUP.toString();
                 case SENHA:
@@ -98,12 +98,26 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
                     return FabCampos.DATAHORA.toString();
                 case LIGADO_DESLIGADO:
                     return FabCampos.VERDADEIRO_FALSO.toString();
+                case ENTIDADE_SIMPLES:
+                    return FabCampos.LOOKUP.toString();
 
                 default:
                     throw new AssertionError(this.name());
 
             }
 
+        }
+
+        public String getIdPadraoComponente() {
+            switch (this) {
+
+                case LISTAGEM:
+                    return "componenteInputDado:inputSB:seletor";
+
+                default:
+                    return "componenteInputDado";
+
+            }
         }
     }
 

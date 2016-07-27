@@ -50,14 +50,14 @@ public class UtilSBGeradorDeCodigo {
 
         // primeiro infoModulos, segundo declaracaoEnum, terceiro anotacao de acordo com o tipo da acao executada
         // nome da aplicação a ser incluida no infomodulos
-        String nomeAplicacao = null;
+        String nomeAplicacao = "[nomeDaAplicacao]";
         // nome da fabrica a ser incluida na declaração do enum
         String fabrica = null;
         // inicial generica para o enum
         String generico = null;
 
         // somente o infoModulos com os nomes de nome da aplicação
-        String infoModulos = "@InfoModulos[" + nomeAplicacao + "](modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
+        String infoModulos = "@InfoModulos" + nomeAplicacao + "(modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
         // declaração do enum
         String declaracaoEnum = "public enum FabAcao[" + fabrica + "] implements ItfFabricaAcoes {\n\n"; // não esquecer de fechar a declaração do enum no final de tudo
         // cabeçalho = infoModulos + declaraEnum
@@ -160,6 +160,7 @@ public class UtilSBGeradorDeCodigo {
                 + "        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();\n"
                 + "    }\n";
 
+
         String modulo = "MÓDULO_GENÉRICO"; // modulo que irá compor os enum do switch da classe getEntidadeDeDominio()
         String classe = "Classe"; // classe para ser colocada no switch do da classe getEntidadeDeDominio()
         String classeGetEntidadeDeDominio = " "
@@ -168,13 +169,13 @@ public class UtilSBGeradorDeCodigo {
                 + "            getEntidadeDominio() {\n"
                 + "\n"
                 + "        switch (this) {\n"
+                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
                 + "            case [" + modulo + "]_FRM_NOVO:\n"
                 + "            case [" + modulo + "]_CTR_ALTERAR_STATUS:\n"
                 + "            case [" + modulo + "]_FRM_VISUALIZAR:\n"
                 + "            case [" + modulo + "]_CTR_SALVAR_ALTERACAO:\n"
                 + "            case [" + modulo + "]_FRM_EDITAR:\n"
                 + "            case [" + modulo + "]_FRM_LISTAR:\n"
-                + "            case [" + modulo + "]_MB_GERENCIAR:\n"
                 + "            case [" + modulo + "]_FRM_LISTARPEDIDOS:\n"
                 + "            case [" + modulo + "]_CTR_SALVAR_NOVO:\n"
                 + "                return [" + classe + "].class;\n"

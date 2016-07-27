@@ -23,130 +23,6 @@ public enum FabCampos implements ItfFabrica {
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
     AAA_NOME,
     /**
      * Indica um nome completo do Item
@@ -710,7 +586,7 @@ public enum FabCampos implements ItfFabrica {
                     return ItfCampo.TIPO_INPUT_PRIME.TEXTO_COM_FORMATACAO;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT COM BARRA CONTENDO MINIMO E MAXIMO
                 case PERCENTUAL:
-                    return ItfCampo.TIPO_INPUT_PRIME.PERCENTUAL;
+                    return ItfCampo.TIPO_INPUT_PRIME.NUMERO_MINIMO_MAXIMO;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
                 case LISTA:
