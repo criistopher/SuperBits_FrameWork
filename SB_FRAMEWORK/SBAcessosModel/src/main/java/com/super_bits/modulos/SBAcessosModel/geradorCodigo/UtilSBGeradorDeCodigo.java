@@ -283,7 +283,7 @@ public class UtilSBGeradorDeCodigo {
         String listaAnotacao = "";
         listaAnotacao += "@Documented\n"
                 + "@Retention(RetentionPolicy.RUNTIME)\n";
-        listaAnotacao += "public @interface Lista" + classe + "{ \n";
+        listaAnotacao += "public @interface Lista" + classe + "{ \n\n";
         listaAnotacao += "    Listas" + classe + " lista();\n"
                 + "\n";
         listaAnotacao += "\n}";
@@ -754,6 +754,8 @@ public class UtilSBGeradorDeCodigo {
             String nomeArquivoEntidade = pEntidade.getNomeEntidade() + ".java";
             String nomeArquivoLista = "Listas" + pEntidade.getNomeEntidade() + ".java";
             String nomeCalculo = "Calculos" + pEntidade.getNomeEntidade() + ".java";
+            String nomeAnotacaoLista = "Lista" + pEntidade.getNomeEntidade() + ".java";
+            String nomeAnotacaoCalculo = "Calculo" + pEntidade.getNomeEntidade() + ".java";
 
             UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeArquivoEntidade);
             UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoEntidade, makeEntidade(pEntidade));
@@ -761,6 +763,10 @@ public class UtilSBGeradorDeCodigo {
             UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoLista, makeEnumListas(pEntidade));
             UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeCalculo);
             UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeCalculo, makeEnumCalculos(pEntidade));
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeAnotacaoLista);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeAnotacaoLista, makeListasAnotacao(pEntidade));
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeAnotacaoCalculo);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeAnotacaoCalculo, makeCalculoAnotacaos(pEntidade));
 
         }
 
