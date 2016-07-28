@@ -290,7 +290,16 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeListasAnotacao() {
-        return null;
+        String classe = "[ClasseGenérica]";
+        String listaAnotacao = "";
+        listaAnotacao += "@Documented\n"
+                + "@Retention(RetentionPolicy.RUNTIME)\n";
+        listaAnotacao += "public @interface Lista" + classe + "{ \n";
+        listaAnotacao += "    Listas" + classe + " lista();\n"
+                + "\n";
+        listaAnotacao += "\n}";
+
+        return listaAnotacao;
     }
 
     public static String makeEnumCalculos() {
@@ -299,7 +308,17 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeCalculoAnotacaos() {
-        return null;
+
+        String anotacaoCalculos = "";
+        String classe = "[ClasseGenérica]";
+        anotacaoCalculos += "@Documented\n"
+                + "@Retention(RetentionPolicy.RUNTIME)\n";
+        anotacaoCalculos += "public @interface Calculo" + classe + " {\n"
+                + "\n"
+                + "    Calculos" + classe + " calculo();\n"
+                + "}";
+
+        return anotacaoCalculos;
     }
 
     private static String getTagsDaEntidade(List<String> pTags) {
