@@ -9,17 +9,17 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-<<<<<<< HEAD
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-=======
->>>>>>> 7b695a7bd14e89479c89f3c14177dfffcc3381ab
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.ArrayList;
@@ -55,7 +55,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ESTRUTURA_DE_ENTIDADE1.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
         ESTRUTURA_DE_ENTIDADE1.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
         ESTRUTURA_DE_ENTIDADE1.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
-<<<<<<< HEAD
 
         EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoID.setNomeDeclarado("id");
@@ -337,8 +336,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ACOES_PARA_TESTE.add(acaoTest1);
         ACOES_PARA_TESTE.add(acaoTest2);
         ACOES_PARA_TESTE.add(acaoTest3);
-
-=======
         /**
          * EstruturaCampo campoID = new
          * EstruturaCampo(FabCampos.ID.getRegistro(), ESTRUTURA_DE_ENTIDADE);
@@ -414,7 +411,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
          *
          * // // // FINAL DA CRIAÇÃO DA ESTRUTURA DE ENTIDADE 1 // // //
          */
->>>>>>> 7b695a7bd14e89479c89f3c14177dfffcc3381ab
     }
 
     @Before
