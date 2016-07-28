@@ -288,16 +288,16 @@ public class UtilSBGeradorDeCodigo {
 
     }
 
-    public static String makeListasAnotacao(Class pClasse) {
+    public static String makeListasAnotacao() {
         return null;
     }
 
-    public static String makeEnumCalculos(Class pClasse) {
+    public static String makeEnumCalculos() {
 
         return null;
     }
 
-    public static String makeCalculoAnotacaos(Class pClasse) {
+    public static String makeCalculoAnotacaos() {
         return null;
     }
 

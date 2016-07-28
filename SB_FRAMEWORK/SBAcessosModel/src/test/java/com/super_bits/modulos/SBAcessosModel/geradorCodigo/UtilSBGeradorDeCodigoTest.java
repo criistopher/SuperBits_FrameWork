@@ -187,6 +187,8 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
 //@Test
 public void testMakeEnumCalculos() {
+
+
     }
 
     //@Test
