@@ -13,13 +13,22 @@ public class ListaDeEntidade {
 
     public ListaDeEntidade(String nomeEnum, String descricao, EstruturaDeEntidade entidade) {
         this.nomeEnum = nomeEnum;
-        this.descricao = descricao;
+        this.nomeDeclaracao = descricao;
         this.entidadeListada = entidade;
     }
 
     private EstruturaDeEntidade entidadeListada;
     private String nomeEnum;
-    private String descricao;
+    private String nomeDeclaracao;
+    private String nomeObjetoListado;
+
+    public String getNomeObjetoListado() {
+        return nomeObjetoListado;
+    }
+
+    public void setNomeObjetoListado(String nomeObjetoListado) {
+        this.nomeObjetoListado = nomeObjetoListado;
+    }
 
     public EstruturaDeEntidade getEntidadeListada() {
         return entidadeListada;
@@ -29,7 +38,6 @@ public class ListaDeEntidade {
         this.entidadeListada = entidadeListada;
     }
 
-
     public String getNomeEnum() {
         return nomeEnum;
     }
@@ -38,13 +46,12 @@ public class ListaDeEntidade {
         this.nomeEnum = nomeEnum;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNomeDeclaracao() {
+        return nomeDeclaracao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNomeDeclaracao(String nomeDeclaracao) {
+        this.nomeDeclaracao = nomeDeclaracao;
     }
-
 
 }

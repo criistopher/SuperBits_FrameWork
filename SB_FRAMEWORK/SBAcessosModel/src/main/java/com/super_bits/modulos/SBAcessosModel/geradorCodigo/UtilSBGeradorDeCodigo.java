@@ -17,6 +17,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
@@ -512,6 +513,19 @@ public class UtilSBGeradorDeCodigo {
 
         return muitosParaMuitosDeclarado;
 
+    }
+
+    public static String makeDeclaracaoListas(ListaDeEntidade pLista) {
+
+        String listaFormatada = "";
+
+        listaFormatada += "@Transient\n";
+
+        listaFormatada += "@Lista" + pLista.getEntidadeListada().getNomeEntidade() + "(lista = Listas" + pLista.getEntidadeListada().getNomeEntidade() + "." + pLista.getNomeEnum() + ")";
+
+        listaFormatada += "private List<" + pLista + "> pedidosConfirmados;";
+
+        return listaFormatada;
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
