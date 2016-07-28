@@ -295,9 +295,18 @@ public class UtilSBGeradorDeCodigo {
 
         String classe = "[classeGenérica]";
         String enums = "";
+<<<<<<< HEAD
         String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n\n";
         String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n\n";
         enums += declaracaoEnum + enumsCalculo + "}\n";
+=======
+        String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
+        String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n";
+        String metodoGetCalculos = "@Override\n"
+                + "public Object getValor(Object pEntidade) {\n"
+                + "}\n";
+        enums += declaracaoEnum + enumsCalculo + metodoGetCalculos + "}\n";
+>>>>>>> 2aa235e2f3416ce938260ea23251724508a9ca86
         return enums;
     }
 
