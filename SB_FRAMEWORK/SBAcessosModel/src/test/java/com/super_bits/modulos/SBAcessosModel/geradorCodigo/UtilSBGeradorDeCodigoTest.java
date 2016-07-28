@@ -281,14 +281,14 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ESTRUTURA_DE_ENTIDADE3.getMuitosParaMuitos().add(campoPermitidos);
 
-        ListaDeEntidade campoLista3 = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "");
+        ListaDeEntidade campoLista3 = new ListaDeEntidade("LISTA_PEDIDOS_CAMPANHA", "pedidosCampanha", "Campanha", "Pedido", "/*Retorna lista com todos os pedidos de uma Campanha.*/");
         campoLista3.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE3.getListas().add(campoLista3);
 
-        CalculoDeEntidade campoCalculo3 = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE3);
-        campoCalculo3.setLabel("LABEL");
-        campoCalculo3.setDescricao("DESCRIÇÃO TESTE");
-        campoCalculo3.setNomeDeclarado("calculoLeroLero");
+        CalculoDeEntidade campoCalculo3 = new CalculoDeEntidade("CALCULA_TOTAL", "totalCalculado", "int", FabCampos.QUANTIDADE.getRegistro(), ESTRUTURA_DE_ENTIDADE3);
+        campoCalculo3.setLabel("Total");
+        campoCalculo3.setDescricao("Total Calculado");
+        campoCalculo3.setNomeDeclarado("valorTotal");
         ESTRUTURA_DE_ENTIDADE3.getCalculos().add(campoCalculo3);
 
         //
@@ -502,7 +502,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
-    @Test
+    //@Test
     public void testMakeEnumCalculos() {
         try {
             String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao();
@@ -540,7 +540,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
-    //@Test
+    @Test
     public void testCriarArquivosDoSistema() {
 
         UtilSBGeradorDeCodigo.criarArquivosDoSistema(LISTA_ESTRUTURA_DE_ENTIDADE, ACOES_PARA_TESTE);

@@ -231,8 +231,7 @@ public class UtilSBGeradorDeCodigo {
          *
          * return (AcaoDoSistema) acao; } catch (Throwable t) {
          * SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando ação"
-         * + this, t); *         * }
-         * return null; *         * }
+         * + this, t); * * } return null; * * }
          * @Override public AcaoDoSistema getAcaoDoSistema() { return
          * getRegistro(); }
          */
@@ -270,11 +269,10 @@ public class UtilSBGeradorDeCodigo {
 //            stringcomtodosoosenuns.replace(stringcomtodosoosenuns.substring(ultimoCaracter), ";\n");
 //        }
         String classe = "[classeGenérica]";
-        String enumGerado = "public enum Listas" + classe + " implements ItfListas {\n";
-        enumGerado += stringcomtodosoosenuns + "\n";
+        String enumGerado = "public enum Listas" + classe + " implements ItfListas {\n\n";
+        enumGerado += stringcomtodosoosenuns + "\n\n";
         enumGerado += "@Override\n"
-                + "    public Class getClasse() {\n"
-                + "        return " + classe + ".class;\n"
+                + "    public List getLista() {\n\n"
                 + "    }\n";
         enumGerado += "\n}";
         return enumGerado;
@@ -293,7 +291,9 @@ public class UtilSBGeradorDeCodigo {
         return listaAnotacao;
     }
 
-    public static String makeEnumCalculos() {
+    public static String makeEnumCalculos(EstruturaDeEntidade pEntidade) {
+
+        //String stringComTodosOsEnuns = makeEnu
         String classe = "[classeGenérica]";
         String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
         String enumCalculos = declaracaoEnum + "}\n";
