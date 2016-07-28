@@ -258,7 +258,7 @@ public class UtilSBGeradorDeCodigo {
     public static String makeClasseAnotacaoInfoAcao(ItfAcaoDoSistema pAcao) {
 
         // COnstroi uma anotação do tipo InfoAcaoNomeDoModulo
-        // validar
+        //  TODO -> validar
         String modulo = "[GENERICO]";
         String infoAcao = "";
         infoAcao += "@Documented\n"
@@ -273,11 +273,22 @@ public class UtilSBGeradorDeCodigo {
         return infoAcao;
     }
 
-    public static String makeEnumListas(Class pClasse) {
-        // TODO
-        String enumListas = "";
+    public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
 
+<<<<<<< HEAD
+        String classe = "[classeGenérica]";
+        String enumGerado = "public enum Listas" + classe + " implements ItfListas {";
+        enumGerado += getEnumDaEntidade(pEntidade.getListaEnum()) + "\n";
+        enumGerado += "@Override\n"
+                + "    public Class getClasse() {\n"
+                + "        return " + classe + ".class;\n"
+                + "    }\n";
+        enumGerado += "\n}";
+
+        return enumGerado;
+=======
         return null;
+>>>>>>> aaf2b93d1533787a14a3b9a6b367ba05b162ccc0
     }
 
     public static String makeListasAnotacao(Class pClasse) {
@@ -308,18 +319,22 @@ public class UtilSBGeradorDeCodigo {
                 tagsFormatadas += "\"" + pTags.get(i) + "\"";
 
             }
-
         }
-
         return tagsFormatadas;
     }
 
     public static String getEnumDaEntidade(List<String> pEnum) {
+
         String enums = "";
         for (String tempEnum : pEnum) {
-
+            enums += tempEnum;
+            enums += ",\n";
         }
-        return null;
+        if (enums.endsWith(",")) {
+            int ultimoCaracter = enums.length() - 1;
+            enums.replace(enums.substring(ultimoCaracter), ";\n");
+        }
+        return enums;
     }
 
     public static String makeDeclaracaoCampo(EstruturaCampo pCampo) {

@@ -102,10 +102,14 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoPermitidos.setInverseJoinColumName("comprador_id");
         campoPermitidos.setNomeDeclarado("compradoresPermitidos");
         campoPermitidos.setNomeEntidade("Comprador");
+<<<<<<< HEAD
+        //    ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
+=======
         ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
 
         ListaDeEntidade campoLista;
 
+>>>>>>> aaf2b93d1533787a14a3b9a6b367ba05b162ccc0
     }
 
     public UtilSBGeradorDeCodigoTest() {
@@ -170,6 +174,17 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     //@Test
     public void testMakeListasAnotacao() {
+
+        try {
+
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE.getClass());
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
+    }
+
     }
 
     //@Test
