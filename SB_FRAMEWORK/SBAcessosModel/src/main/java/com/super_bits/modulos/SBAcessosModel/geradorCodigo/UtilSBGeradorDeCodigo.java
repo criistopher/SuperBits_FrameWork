@@ -578,9 +578,9 @@ public class UtilSBGeradorDeCodigo {
 
         calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo.getTipoCampo().toString() + ", label = \"" + pCalculo.getLabel() + "\", descricao = \"" + pCalculo.getDescricao() + "\")\n";
 
-        calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo.getNome() + "." + pCalculo + ")\n";
+        calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo.getEstruturaPai().getNomeEntidade() + "." + pCalculo.getNomeEnum() + ")\n";
 
-        calculoFormatado += "private " + pCalculo + " " + pCalculo + ";\n\n";
+        calculoFormatado += "private " + pCalculo.getTipoValor().getDeclaracaoJava() + " " + pCalculo.getNomeDeclarado() + ";\n\n";
 
         return calculoFormatado;
     }
@@ -589,9 +589,9 @@ public class UtilSBGeradorDeCodigo {
 
         String getSetListaFormatados = "";
 
-        getSetListaFormatados += "public List<" + pLista.getNomeObjetoListado() + "> getPedidosEmAtraso() {\n";
+        getSetListaFormatados += "public List<" + pLista.getNomeObjetoListado() + "> get" + pLista.getNomeDeclaracao() + "{\n\n";
 
-        getSetListaFormatados += "return pedidosEmAtraso;\n";
+        getSetListaFormatados += "return pedidosEmAtraso;\n\n";
 
         getSetListaFormatados += "}\n\n";
 
@@ -602,17 +602,17 @@ public class UtilSBGeradorDeCodigo {
 
         String getSetCalculoFormatados = "";
 
-        getSetCalculoFormatados += "public double getTotal() {\n";
+        getSetCalculoFormatados += "public " + pCalculo.getTipoValor().getDeclaracaoJava() + " get" + pCalculo.getNomeEnum().toLowerCase() + " {\n\n";
 
-        getSetCalculoFormatados += "Object resultado = getRetornoSoma();\n";
+        getSetCalculoFormatados += "Object resultado = getRetornoSoma();\n\n";
 
-        getSetCalculoFormatados += "if (resultado != null) {\n";
+        getSetCalculoFormatados += "if (resultado != null) {\n\n";
 
-        getSetCalculoFormatados += "return (double) resultado;\n";
+        getSetCalculoFormatados += "return (" + pCalculo.getTipoValor().getDeclaracaoJava() + ") resultado;\n\n";
 
-        getSetCalculoFormatados += "} else {\n";
+        getSetCalculoFormatados += "} else {\n\n";
 
-        getSetCalculoFormatados += "return 0;\n";
+        getSetCalculoFormatados += "return 0;\n\n";
 
         getSetCalculoFormatados += "}\n\n";
 
@@ -636,25 +636,21 @@ public class UtilSBGeradorDeCodigo {
         for (EstruturaCampo campo : pEstrutura.getCampos()) {
 
             classeFormatada += makeDeclaracaoCampo(campo);
-
         }
 
         for (LigacaoUmParaMuitos pLigacao : pEstrutura.getUmParaMuitos()) {
 
             classeFormatada += makeDeclaracaoUmParaMuitos(pLigacao);
-
         }
 
         for (LigacaoMuitosParaUm pLigacao : pEstrutura.getMuitosParaUm()) {
 
             classeFormatada += makeDeclaracaoMuitosParaUm(pLigacao);
-
         }
 
         for (LigacaoMuitosParaMuitos pLigacao : pEstrutura.getMuitosParaMuitos()) {
 
             classeFormatada += makeDeclaracaoMuitosParaMuitos(pLigacao);
-
         }
 
         for (ListaDeEntidade pLista : pEstrutura.getListas()) {
@@ -709,7 +705,10 @@ public class UtilSBGeradorDeCodigo {
          */
         for (EstruturaDeEntidade pEntidade : entidades) {
 
-            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoArquivosClasse + pEntidade.getNomeEntidade() + ".java", makeEntidade(pEntidade));
+            String caminhoFinal = caminhoArquivosClasse + pEntidade.getNomeEntidade() + ".java";
+
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoFinal);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoFinal, makeEntidade(pEntidade));
 
         }
     }
