@@ -23,6 +23,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
+import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 
 import java.util.List;
 
@@ -560,9 +561,43 @@ public class UtilSBGeradorDeCodigo {
 
         calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo + "." + pCalculo + ")\n";
 
-        calculoFormatado += "private " + pCalculo + " produtoValorPorVolume;";
+        calculoFormatado += "private " + pCalculo + " " + pCalculo + ";\n\n";
 
         return calculoFormatado;
+    }
+
+    public static String makeDeclaracaoGetSetListas(ListaDeEntidade pLista) {
+
+        String getSetListaFormatados = "";
+
+        getSetListaFormatados += "public List<" + pLista.getNomeObjetoListado() + "> getPedidosEmAtraso() {\n";
+
+        getSetListaFormatados += "return pedidosEmAtraso;\n";
+
+        getSetListaFormatados += "}\n\n";
+
+        return getSetListaFormatados;
+    }
+
+    public static String makeDeclaracaoGetSetCalculos(CalculoDeEntidade pCalculo) {
+
+        String getSetCalculoFormatados = "";
+
+        getSetCalculoFormatados += "public double getTotal() {\n";
+
+        getSetCalculoFormatados += "Object resultado = getRetornoSoma();\n";
+
+        getSetCalculoFormatados += "if (resultado != null) {\n";
+
+        getSetCalculoFormatados += "return (double) resultado;\n";
+
+        getSetCalculoFormatados += "} else {\n";
+
+        getSetCalculoFormatados += "return 0;\n";
+
+        getSetCalculoFormatados += "}\n\n";
+
+        return getSetCalculoFormatados;
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {
@@ -608,6 +643,24 @@ public class UtilSBGeradorDeCodigo {
             classeFormatada += makeDeclaracaoListas(pLista);
         }
 
+        for (CalculoDeEntidade pCalculo : pEstrutura.getCalculos()) {
+
+            classeFormatada += makeDeclaracaoCalculos(pCalculo);
+
+        }
+
+        for (ListaDeEntidade pLista : pEstrutura.getListas()) {
+
+            classeFormatada += makeDeclaracaoGetSetListas(pLista);
+
+        }
+
+        for (CalculoDeEntidade pCalculo : pEstrutura.getCalculos()) {
+
+            classeFormatada += makeDeclaracaoGetSetCalculos(pCalculo);
+
+        }
+
         // ADICIONA O CARACTER } PARA FECHAR A CLASSE
         classeFormatada += "}";
 
@@ -635,6 +688,11 @@ public class UtilSBGeradorDeCodigo {
          *
          *
          */
+        for (EstruturaDeEntidade pEntidade : entidades) {
+
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoArquivosClasse, makeEntidade(pEntidade));
+
+        }
     }
 
 }
