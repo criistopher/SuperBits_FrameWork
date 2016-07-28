@@ -5,18 +5,14 @@
 package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.Ips.Ips;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidadeController;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
@@ -177,7 +173,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                grupoGerenciar.setNome("Gerenciar grupos");
 //                grupoGerenciar.setIconeAcao("fa fa-users");
 //                grupoGerenciar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/grupo/gerenciarGrupo.xhtml");
-                  //return grupoGerenciar;
+                //return grupoGerenciar;
                 break;
             case GRUPO_FRM_NOVO:
 //                acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
@@ -197,7 +193,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                acaoListarGrupo.setIconeAcao("fa fa-users");
 //                acaoListarGrupo.setPrecisaPermissao(true);
 //                acaoListarGrupo.setIdDescritivoJira("UI026");
-
                 break;
             case GRUPO_FRM_EDITAR:
 
@@ -207,7 +202,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                acaoEditar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/grupo/editarGrupo.xhtml");
 //                acaoEditar.setPrecisaPermissao(true);
 //                acaoEditar.setIdDescritivoJira("UC021");
-
                 break;
             case GRUPO_FRM_VISUALIZAR:
 
@@ -218,7 +212,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                grpVisualizar.setNomeAcao("Ver Detalhe do Grupo");
 //                grpVisualizar.setPrecisaPermissao(true);
 //                grpVisualizar.setIdDescritivoJira("UI028");
-
                 break;
             case GRUPO_CTR_ALTERAR_STATUS:
 
@@ -228,7 +221,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                grpAlterarStatus.setIconeAcao("fa fa-retweet");
 //                grpAlterarStatus.setPrecisaPermissao(true);
 //                grpAlterarStatus.setIdDescritivoJira("UC021");
-
                 break;
 
             case GRUPO_FRM_LISTAR_USUARIOS:
@@ -242,7 +234,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                grpSalvarAlteracoes.setNomeAcao("Salvar Alterações");
 //                grpSalvarAlteracoes.setPrecisaPermissao(true);
 //                grpSalvarAlteracoes.setIdDescritivoJira("UC021");
-
                 break;
             case USUARIO_MB_GERENCIAR:
 
@@ -266,7 +257,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                usuarioNovo.setIconeAcao("fa fa-plus");
 //                usuarioNovo.setPrecisaPermissao(true);
 //                usuarioNovo.setIdDescritivoJira("UI031");
-
                 break;
             case USUARIO_FRM_LISTAR:
 
@@ -277,7 +267,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                usuarioListar.setIconeAcao("fa fa-users");
 //                usuarioListar.setPrecisaPermissao(true);
 //                usuarioListar.setIdDescritivoJira("UI030");
-
                 break;
             case USUARIO_CTR_SALVAR_MERGE:
 
@@ -286,7 +275,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                usuarioSalvar.setIconeAcao("fa fa-save");
 //                usuarioSalvar.setNomeAcao("Salvar Alterações");
 //                usuarioSalvar.setIdDescritivoJira("UC013");
-
                 break;
             case USUARIO_FRM_EDITAR:
 
@@ -303,7 +291,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                usuarioVisualizar.setDescricao("Mostra os detalhes do cadastro de usuario");
 //                usuarioVisualizar.setPrecisaPermissao(true);
 //                usuarioVisualizar.setIdDescritivoJira("UI032.0");
-
                 break;
             case USUARIO_CTR_ALTERAR_STATUS:
 
@@ -314,7 +301,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                usuarioAlterarStatus.setPrecisaPermissao(true);
 //                usuarioAlterarStatus.setIdDescritivoJira("UC013");
 //                usuarioAlterarStatus.setDescricao("Mostra os detalhes do cadastro de usuario");
-
                 break;
 
             case ACAO_CTR_INTERNA_DO_SISTEMA:
@@ -334,7 +320,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                acaoGestaoEntidade.setIconeAcao("fa fa-gears");
 //                acaoGestaoEntidade.setPrecisaPermissao(true);
 //                acaoGestaoEntidade.setIdDescritivoJira("");
-
                 break;
 
             case IP_FRM_NOVO:
@@ -344,7 +329,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                ipNovo.setDescricao("Cadastra um novo IP com autorizacao");
 //                ipNovo.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/editar.xhtml");
 //                ipNovo.setPrecisaPermissao(true);
-
                 break;
             case IP_CTR_SALVAR_MERGE:
 
@@ -353,7 +337,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                ipSalvar.setNomeAcao("Salvar IP");
 //                ipSalvar.setDescricao("Salva um novo IP cadastrado");
 //                ipSalvar.setPrecisaPermissao(true);
-
                 break;
             case IP_FRM_LISTAR:
 
@@ -362,7 +345,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                ipListar.setDescricao("Exibe lista de IP já autorizados");
 //                ipListar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/listar.xhtml");
 //                ipListar.setPrecisaPermissao(true);
-
                 break;
             case IP_FRM_EDITAR:
 
@@ -371,7 +353,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                ipEditar.setDescricao("Altera os dados de um IP autorizado");
 //                ipEditar.setXhtml("/resources/SBComp/SBSystemPages/seguranca/simples/ip/editar.xhtml");
 //                ipEditar.setPrecisaPermissao(true);
-
                 break;
             case IP_CTR_REMOVER:
 
@@ -380,7 +361,6 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 //                ipRemover.setDescricao("Remove um IP já autorizado");
 //                ipRemover.setPrecisaPermissao(true);
 //                ipRemover.setIconeAcao("fa fa-minus");
-
                 break;
 
             default:

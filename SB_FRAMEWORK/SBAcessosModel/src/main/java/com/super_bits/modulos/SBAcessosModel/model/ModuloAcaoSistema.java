@@ -47,6 +47,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     private List<AcaoDoSistema> acoes;
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
+    private boolean umModuloNativo = false;
 
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
@@ -134,6 +135,15 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
             }
         }
         return listaacaoGestao;
+    }
+
+    @Override
+    public boolean isUmModuloNativo() {
+        return umModuloNativo;
+    }
+
+    public void setUmModuloNativo(boolean umModuloNativo) {
+        this.umModuloNativo = umModuloNativo;
     }
 
 }

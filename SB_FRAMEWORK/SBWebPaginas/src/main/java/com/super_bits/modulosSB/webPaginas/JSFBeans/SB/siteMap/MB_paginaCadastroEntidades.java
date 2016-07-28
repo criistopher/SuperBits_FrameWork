@@ -18,7 +18,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 
 /**
  * ATENÇÃO A DOCUMENTAÇÃO DA CLASSE É OBRIGATÓRIA O JAVADOC DOS METODOS PUBLICOS
@@ -58,12 +57,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         ALTERAR, CRIAR, VISUALIZAR
     }
 
-    protected ItfAcaoDoSistema acaoSelecionada;
     protected boolean podeEditar;
     protected boolean novoRegistro;
-
-    @Inject
-    protected PgUtil paginaUtil;
 
     /**
      * Constructor simples para pagina de Entidades

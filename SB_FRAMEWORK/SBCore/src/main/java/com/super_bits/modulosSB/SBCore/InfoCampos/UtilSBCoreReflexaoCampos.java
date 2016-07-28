@@ -6,24 +6,34 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos;
 
+import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCamposOldReferencia.getCaminhoSemNomeClasse;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCamposOldReferencia.getNomeGrupoPorStrSeparador;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoSeparador;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import java.beans.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -35,6 +45,9 @@ public class UtilSBCoreReflexaoCampos {
     private static final Map<String, Class> CLASSE_ENTIDADE_BY_NOME = new HashMap<>();
     private static final Map<Class, CaminhoCampoReflexao> CAMPOS_DA_CLASSE = new HashMap<>();
     private static boolean TODAS_CLASSES_CONFIGURADAS = false;
+    public static CampoNaoImplementado CAMPO_NAO_IMPLEMENTADO = new CampoNaoImplementado();
+
+    private static final Pattern REGEX_REGISTRO_DA_LISTA = Pattern.compile("\\[(.\\d+)\\]");
     /**
      *
      * A TAG SEPARADOR É A TAG QUE IDENTIFICA UM NOME DE CAMPO COMO SEPARADOR
@@ -304,6 +317,130 @@ public class UtilSBCoreReflexaoCampos {
         return null;
     }
 
+    public static void buildListaCamposDeEntidadeFilho(ItfBeanSimples entidade, int pNivelAtual, int pNivelMaximo, List<CaminhoCampoReflexao> listarAnterior, String caminhoAnterior) {
+
+        if (pNivelAtual >= pNivelMaximo) {
+            return;
+        }
+        for (CaminhoCampoReflexao caminho : entidade.getEntidadesVinculadas()) {
+            Object itemEncontrado = entidade.getItemPorCaminhoCampo(caminho);
+            if (itemEncontrado != null) {
+                if (caminho.isUmCampoListavel()) {
+                    List<ItfBeanSimples> lista = (List) itemEncontrado;
+                    int ii = 0;
+                    for (ItfBeanSimples item : lista) {
+                        CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse().replaceAll("[]", "[" + ii + "]"));
+                        ii++;
+                    }
+                } else {
+                    CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
+                    listarAnterior.add(novoCaminho);
+                    buildListaCamposDeEntidadeFilho((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
+                }
+            }
+        }
+
+    }
+
+    public static List<CaminhoCampoReflexao> getCamposDeEntidadeInstanciado(ItfBeanSimples pEntidade, int pQuantidadeSubniveis) {
+
+        pEntidade.getEntidadesVinculadas();
+        List<CaminhoCampoReflexao> lista = new ArrayList<>();
+        buildListaCamposDeEntidadeFilho(pEntidade, 0, pQuantidadeSubniveis, lista, null);
+        lista = Lists.reverse(lista);
+        return lista;
+
+    }
+
+    public static TIPO_REGISTRO_CAMPO getTipoCampoLista(String pNomeCampo) {
+        if (pNomeCampo.contains("[]")) {
+            return TIPO_REGISTRO_CAMPO.LISTA;
+        }
+        final Pattern pattern = Pattern.compile("\\[(.\\d+)\\]");
+        final Matcher matcher = pattern.matcher(pNomeCampo);
+        if (matcher.find()) {
+            return TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA;
+        }
+        return TIPO_REGISTRO_CAMPO.ENTIDADE;
+
+    }
+
+    public static boolean isUmaStringNomeadaComoLista(String pLista) {
+
+        String[] campos = pLista.split("\\.");
+        String campo = campos[campos.length - 1];
+        if (campo.contains("[]")) {
+            return true;
+        } else {
+            final Matcher matcher = REGEX_REGISTRO_DA_LISTA.matcher(campo);
+            return matcher.find();
+        }
+    }
+
+    public static int getIdCampoDaLista(String pNomeDaLista) {
+        String[] campos = pNomeDaLista.split("\\.");
+        String campo = campos[campos.length - 1];
+        final Matcher matcher = REGEX_REGISTRO_DA_LISTA.matcher(campo);
+
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        return -1;
+
+    }
+
+    public static String getListaSemIndice(String parteNome) {
+        final Matcher matcher = REGEX_REGISTRO_DA_LISTA.matcher(parteNome);
+        String[] campos = parteNome.split("\\.");
+        if (campos.length > 1) {
+            throw new UnsupportedOperationException("Este método não suporta subCampos o valor enviado foi" + parteNome);
+        }
+        if (matcher.find()) {
+            return parteNome.replaceAll(parteNome, "[]");
+        } else {
+            throw new UnsupportedOperationException("O campo não parece ser uma lista com indice" + parteNome);
+        }
+
+    }
+
+    public static Map<String, CaminhoCampoReflexao> getCamposComSubCamposDaClasse(Class pClasse) {
+
+        if (pClasse == null) {
+            throw new UnsupportedOperationException("Tentativa de obter campos Anotados com manyToOne sem enviar a classe de referencia nula");
+        }
+        // TODO???? este método não alcança listas e calculos (Lembrando que ele é utilizado no persistir filhos, então deve existir as 2 opções
+        Map<String, CaminhoCampoReflexao> lista = new HashMap<>();
+        Class classeAtual = pClasse;
+
+        while (!isClasseBasicaSB(classeAtual)) {
+
+            if (classeAtual == null) {
+                throw new UnsupportedOperationException("Impossível percorrrer classes superiores de" + pClasse.getSimpleName());
+            }
+
+            Field[] fields = classeAtual.getDeclaredFields();
+
+            for (Field campo : fields) {
+                if (campo.isAnnotationPresent(ManyToOne.class
+                ) || campo.isAnnotationPresent(OneToMany.class)
+                        || campo.isAnnotationPresent(ManyToMany.class)) {
+                    if (!campo.isAnnotationPresent(Transient.class)) {
+                        String caminhocampo = pClasse.getSimpleName() + "." + campo.getName();
+                        CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo);
+                        lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
+
+                    }
+                }
+
+            }
+
+            classeAtual = classeAtual.getSuperclass();
+        }
+
+        return lista;
+
+    }
+
     /**
      *
      *
@@ -312,10 +449,11 @@ public class UtilSBCoreReflexaoCampos {
      * @param pClasse
      * @return
      */
+    @Deprecated
     public static Map<String, CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
         try {
 
-            return UtilSBCoreReflexaoCamposOldReferencia.makeCaminhosDeCamposDoTipoEntidadePossiveisDaClasse(pClasse);
+            throw new UnsupportedOperationException("Este tipo de ação está desatvada do sistema, por tempo indeterminado");
         } catch (Throwable t) {
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo Campos de entidade relacionados a classe " + pClasse, t);
@@ -406,7 +544,6 @@ public class UtilSBCoreReflexaoCampos {
      * @param pCampos Campos listados
      * @return Grupo Uma lista de grupos com os campos
      */
-    @Deprecated
     public static List<GrupoCampos> buildAgrupamentoCampos(List<CaminhoCampoReflexao> pCampos) {
         List<GrupoCampos> grupocampos = new ArrayList<>();
         if (pCampos != null) {

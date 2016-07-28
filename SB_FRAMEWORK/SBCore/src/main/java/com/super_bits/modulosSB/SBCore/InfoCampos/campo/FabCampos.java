@@ -550,7 +550,7 @@ public enum FabCampos implements ItfFabrica {
 
     }
 
-    public ItfCampo.TIPO_INPUT_PRIME getTipo_input_prime() {
+    public FabTipoVisualCampo getTipo_input_prime() {
         try {
             // TIPOS DE CAMPO QUE DEVEN USAR INPUT SIMPLES COM MASCARAS E REGEX
             switch (this) {
@@ -583,56 +583,56 @@ public enum FabCampos implements ItfFabrica {
                 case IMG_PEQUENA:
                 case IMG_MEDIA:
                 case IMG_GRANDE:
-                    return ItfCampo.TIPO_INPUT_PRIME.TEXTO_COM_FORMATACAO;
+                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT COM BARRA CONTENDO MINIMO E MAXIMO
                 case PERCENTUAL:
-                    return ItfCampo.TIPO_INPUT_PRIME.NUMERO_MINIMO_MAXIMO;
+                    return FabTipoVisualCampo.NUMERO_MINIMO_MAXIMO;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
                 case LISTA:
-                    return ItfCampo.TIPO_INPUT_PRIME.LISTAGEM;
+                    return FabTipoVisualCampo.LISTAGEM;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
                 case SENHA:
                 case SENHA_SEGURANCA_MAXIMA:
-                    return ItfCampo.TIPO_INPUT_PRIME.SENHA;
+                    return FabTipoVisualCampo.SENHA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CEP
                 case LCCEP:
-                    return ItfCampo.TIPO_INPUT_PRIME.CEP;// TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
+                    return FabTipoVisualCampo.CEP;// TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
                 case COR:
-                    return ItfCampo.TIPO_INPUT_PRIME.COR;
+                    return FabTipoVisualCampo.COR;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT DE HTML
                 case HTML:
-                    return ItfCampo.TIPO_INPUT_PRIME.HTML;
+                    return FabTipoVisualCampo.HTML;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT quantidade
                 case QUANTIDADE:
                 case LATITUDE:
                 case CHART_VALOR:
                 case Longitude:
-                    return ItfCampo.TIPO_INPUT_PRIME.QUANTIDADE;
+                    return FabTipoVisualCampo.QUANTIDADE;
                 case AAA_DESCRITIVO:
-                    return ItfCampo.TIPO_INPUT_PRIME.TEXTMO_MULTIPLAS_LINHAS;
+                    return FabTipoVisualCampo.TEXTMO_MULTIPLAS_LINHAS;
                 case MOEDA_REAL:
                 case MOEDA_DOLAR:
-                    return ItfCampo.TIPO_INPUT_PRIME.MOEDA;
+                    return FabTipoVisualCampo.MOEDA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT EMAIL
                 case EMAIL:
-                    return ItfCampo.TIPO_INPUT_PRIME.EMAIL;
+                    return FabTipoVisualCampo.EMAIL;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO APENAS DATA
                 case DATA:
                 case CALENDARIO:
-                    return ItfCampo.TIPO_INPUT_PRIME.DATA;
+                    return FabTipoVisualCampo.DATA;
                 //// TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO DATA E HORA
                 case REG_DATAALTERACAO:
                 case REG_DATAINSERCAO:
-                    return ItfCampo.TIPO_INPUT_PRIME.ENTIDADE_SIMPLES;
+                    return FabTipoVisualCampo.ENTIDADE_SIMPLES;
                 case DATAHORA:
                 case HORA:
-                    return ItfCampo.TIPO_INPUT_PRIME.DATA_HORA;
+                    return FabTipoVisualCampo.DATA_HORA;
 
                 case VERDADEIRO_FALSO:
                 case REG_ATIVO_INATIVO:
                 case SEGURANCA_ATIVA:
-                    return ItfCampo.TIPO_INPUT_PRIME.LIGADO_DESLIGADO;
+                    return FabTipoVisualCampo.LIGADO_DESLIGADO;
 
                 case LCUnidadeFederativa:
                 case REG_USUARIO_ALTERACAO:
@@ -641,7 +641,7 @@ public enum FabCampos implements ItfFabrica {
                 case LCBairro:
                 case LCCidade:
                 case LC_LOCALIZACAO:
-                    return ItfCampo.TIPO_INPUT_PRIME.ENTIDADE_SIMPLES;
+                    return FabTipoVisualCampo.ENTIDADE_SIMPLES;
                 default:
                     throw new AssertionError(this.name());
             }
