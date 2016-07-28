@@ -521,9 +521,9 @@ public class UtilSBGeradorDeCodigo {
 
         listaFormatada += "@Transient\n";
 
-        listaFormatada += "@Lista" + pLista.getEntidadeListada().getNomeEntidade() + "(lista = Listas" + pLista.getEntidadeListada().getNomeEntidade() + "." + pLista.getNomeEnum() + ")";
+        listaFormatada += "@Lista" + pLista.getEntidadeListada().getNomeEntidade() + "(lista = Listas" + pLista.getEntidadeListada().getNomeEntidade() + "." + pLista.getNomeEnum() + ")\n";
 
-        listaFormatada += "private List<" + pLista + "> pedidosConfirmados;";
+        listaFormatada += "private List<" + pLista.getNomeObjetoListado() + "> " + pLista.getNomeDeclaracao() + ";\n\n";
 
         return listaFormatada;
     }
@@ -564,6 +564,11 @@ public class UtilSBGeradorDeCodigo {
 
             classeFormatada += makeDeclaracaoMuitosParaMuitos(pLigacao);
 
+        }
+
+        for (ListaDeEntidade pLista : pEstrutura.getListas()) {
+
+            classeFormatada += makeDeclaracaoListas(pLista);
         }
 
         // ADICIONA O CARACTER } PARA FECHAR A CLASSE
