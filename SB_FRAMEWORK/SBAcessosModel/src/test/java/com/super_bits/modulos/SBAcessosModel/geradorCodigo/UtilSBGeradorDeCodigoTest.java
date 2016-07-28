@@ -54,27 +54,27 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ESTRUTURA_DE_ENTIDADE1.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
         ESTRUTURA_DE_ENTIDADE1.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
 
-        EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
+        EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoID.setNomeDeclarado("id");
         campoID.getMascara();
         ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoID);
 
-        EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro());
+        EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoNome.setNomeDeclarado("nome");
         campoNome.getMascara();
         ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoNome);
 
-        EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro());
+        EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoRazao.setNomeDeclarado("razaoSocial");
         campoRazao.getMascara();
         ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoRazao);
 
-        EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro());
+        EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoTelefoneNacional.setNomeDeclarado("telefone");
         campoTelefoneNacional.getMascara();
         ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoTelefoneNacional);
 
-        EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro());
+        EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         campoCnpj.setNomeDeclarado("cnpj");
         campoCnpj.getMascara();
         ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoCnpj);
@@ -105,7 +105,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido");
         ESTRUTURA_DE_ENTIDADE1.getListas().add(campoLista);
 
-        CalculoDeEntidade campoCalculo = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno");
+        CalculoDeEntidade campoCalculo = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
         ESTRUTURA_DE_ENTIDADE1.getCalculos().add(campoCalculo);
 
         //

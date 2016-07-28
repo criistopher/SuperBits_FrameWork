@@ -15,9 +15,19 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 public class EstruturaCampo extends Campo {
 
     private String nomeDeclarado;
+    private EstruturaDeEntidade estruturaPai;
 
-    public EstruturaCampo(Campo pTipo) {
+    public EstruturaCampo(Campo pTipo, EstruturaDeEntidade pEstrutura) {
         super(pTipo);
+        estruturaPai = pEstrutura;
+    }
+
+    public EstruturaDeEntidade getEstruturaPai() {
+        return estruturaPai;
+    }
+
+    public void setEstruturaPai(EstruturaDeEntidade estruturaPai) {
+        this.estruturaPai = estruturaPai;
     }
 
     public String getNomeDeclarado() {

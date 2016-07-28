@@ -576,9 +576,9 @@ public class UtilSBGeradorDeCodigo {
 
         String calculoFormatado = "";
 
-        calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo + ", label = \"" + pCalculo + "\", descricao = \"" + pCalculo + "\")\n";
+        calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo.getTipoCampo().toString() + ", label = \"" + pCalculo.getLabel() + "\", descricao = \"" + pCalculo.getDescricao() + "\")\n";
 
-        calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo + "." + pCalculo + ")\n";
+        calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo.getNome() + "." + pCalculo + ")\n";
 
         calculoFormatado += "private " + pCalculo + " " + pCalculo + ";\n\n";
 
