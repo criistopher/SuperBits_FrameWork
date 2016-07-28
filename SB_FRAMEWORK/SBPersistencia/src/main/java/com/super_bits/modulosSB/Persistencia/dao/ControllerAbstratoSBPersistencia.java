@@ -51,11 +51,10 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
 
     protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
 
-        if (true) {
-            pResp.addErro("Este metodo está em manutenção!!! ");
-            return;
-        }
-
+        //if (true) {
+        //   pResp.addErro("Este metodo está em manutenção!!! ");
+        //  return;
+        // }
         try {
             if (pEntidade == null) {
                 pResp.addErro("Ocorreu um erro ao salvar as informações");

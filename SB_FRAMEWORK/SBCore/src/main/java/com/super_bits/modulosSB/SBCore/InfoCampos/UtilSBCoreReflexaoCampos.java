@@ -314,6 +314,7 @@ public class UtilSBCoreReflexaoCampos {
      */
     public static Map<String, CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
         try {
+
             return UtilSBCoreReflexaoCamposOldReferencia.makeCaminhosDeCamposDoTipoEntidadePossiveisDaClasse(pClasse);
         } catch (Throwable t) {
 
