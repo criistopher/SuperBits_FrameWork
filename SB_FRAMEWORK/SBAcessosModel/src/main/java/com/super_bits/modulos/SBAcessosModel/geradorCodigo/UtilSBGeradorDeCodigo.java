@@ -556,7 +556,11 @@ public class UtilSBGeradorDeCodigo {
 
         String calculoFormatado = "";
 
-        calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo + ", label = \"Valor do Volume\", descricao = \"Valor do conjunto de unidades do produto(fardo)\")";
+        calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo + ", label = \"" + pCalculo + "\", descricao = \"" + pCalculo + "\")\n";
+
+        calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo + "." + pCalculo + ")\n";
+
+        calculoFormatado += "private " + pCalculo + " produtoValorPorVolume;";
 
         return calculoFormatado;
     }
