@@ -183,11 +183,8 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
-}
-
 //@Test
-public void testMakeEnumCalculos() {
-
+    public void testMakeEnumCalculos() {
 
     }
 
@@ -196,7 +193,7 @@ public void testMakeEnumCalculos() {
     }
 
     @Test
-        public void testMakeEntidade() {
+    public void testMakeEntidade() {
         try {
 
             String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(ESTRUTURA_DE_ENTIDADE);
