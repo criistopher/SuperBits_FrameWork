@@ -494,7 +494,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeListasAnotacao() {
 
         try {
-            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao();
+            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao(ESTRUTURA_DE_ENTIDADE1);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
@@ -505,7 +505,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     //@Test
     public void testMakeEnumCalculos() {
         try {
-            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao();
+            String codigoGerado = UtilSBGeradorDeCodigo.makeListasAnotacao(ESTRUTURA_DE_ENTIDADE1);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
         } catch (Throwable t) {
             lancarErroJUnit(t);
@@ -518,7 +518,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeCalculoAnotacaos();
+            String codigoGerado = UtilSBGeradorDeCodigo.makeCalculoAnotacaos(ESTRUTURA_DE_ENTIDADE1);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {

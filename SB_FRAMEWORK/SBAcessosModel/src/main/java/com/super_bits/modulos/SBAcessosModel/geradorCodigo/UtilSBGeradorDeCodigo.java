@@ -249,7 +249,7 @@ public class UtilSBGeradorDeCodigo {
     public static String makeClasseAnotacaoInfoAcao(ItfAcaoDoSistema pAcao) {
         // COnstroi uma anotação do tipo InfoAcaoNomeDoModulo
         //  TODO -> validar
-        String modulo = "[GENERICO]";
+        String modulo = pAcao.getNomeDominio();
         String infoAcao = "";
         infoAcao += "@Documented\n"
                 + "@Retention(RetentionPolicy.RUNTIME)\n";
@@ -268,18 +268,18 @@ public class UtilSBGeradorDeCodigo {
 //            int ultimoCaracter = stringcomtodosoosenuns.length() - 1;
 //            stringcomtodosoosenuns.replace(stringcomtodosoosenuns.substring(ultimoCaracter), ";\n");
 //        }
-        String classe = "[classeGenérica]";
+        String classe = pEntidade.getNomeEntidade();
         String enumGerado = "public enum Listas" + classe + " implements ItfListas {\n\n";
         enumGerado += stringcomtodosoosenuns + "\n\n";
-        enumGerado += "@Override\n"
-                + "    public List getLista() {\n\n"
+        enumGerado += "    @Override\n"
+                + "    public List getLista(ItfBeanSimples entidade) {\n\n"
                 + "    }\n";
         enumGerado += "\n}";
         return enumGerado;
     }
 
-    public static String makeListasAnotacao() {
-        String classe = "[ClasseGenérica]";
+    public static String makeListasAnotacao(EstruturaDeEntidade pEstrutura) {
+        String classe = pEstrutura.getNomeEntidade();
         String listaAnotacao = "";
         listaAnotacao += "@Documented\n"
                 + "@Retention(RetentionPolicy.RUNTIME)\n";
@@ -293,20 +293,16 @@ public class UtilSBGeradorDeCodigo {
     // refatorar este método para utilizar a EstruturaDeEntidade
     public static String makeEnumCalculos(EstruturaDeEntidade pEntidade) {
 
-        String classe = "[classeGenérica]";
+        String classe = pEntidade.getNomeEntidade();
         String enums = "";
-<<<<<<< HEAD
+
         String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n\n";
         String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n\n";
-        enums += declaracaoEnum + enumsCalculo + "}\n";
-=======
-        String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
-        String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n";
-        String metodoGetCalculos = "@Override\n"
-                + "public Object getValor(Object pEntidade) {\n"
-                + "}\n";
+        String metodoGetCalculos = "    @Override\n"
+                + "    public Object getValor(Object pEntidade) {\n\n"
+                + "    }\n\n";
         enums += declaracaoEnum + enumsCalculo + metodoGetCalculos + "}\n";
->>>>>>> 2aa235e2f3416ce938260ea23251724508a9ca86
+
         return enums;
     }
 
@@ -328,10 +324,10 @@ public class UtilSBGeradorDeCodigo {
         return listaEnumEntidade;
     }
 
-    public static String makeCalculoAnotacaos() {
+    public static String makeCalculoAnotacaos(EstruturaDeEntidade pEstrutura) {
 
         String anotacaoCalculos = "";
-        String classe = "[ClasseGenérica]";
+        String classe = pEstrutura.getNomeEntidade();
         anotacaoCalculos += "@Documented\n"
                 + "@Retention(RetentionPolicy.RUNTIME)\n";
         anotacaoCalculos += "public @interface Calculo" + classe + " {\n"
