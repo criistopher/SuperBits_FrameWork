@@ -141,7 +141,7 @@ public class UtilSBGeradorDeCodigo {
 
         }
 
-        // trocar ultimo caracter por ;
+        // trocar ultimo caracter por ; // trocar o método de substituição de , por ;
         if (enumGerado.endsWith(",")) {
             int ultimoCaracter = enumGerado.length() - 1;
             enumGerado.replace(enumGerado.substring(ultimoCaracter), ";\n");
@@ -271,18 +271,27 @@ public class UtilSBGeradorDeCodigo {
                 + "    public FabAcaoAdministrador acao();\n"
                 + "}";
 
+
         return infoAcao;
     }
 
     public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
 
+        String stringcomtodosoosenuns = makeEnumListasEntidade(pEntidade.getListas());
+                
+//        if (stringcomtodosoosenuns.endsWith(",\n")) {
+//            int ultimoCaracter = stringcomtodosoosenuns.length() - 1;
+//            stringcomtodosoosenuns.replace(stringcomtodosoosenuns.substring(ultimoCaracter), ";\n");
+//        }
+
         String classe = "[classeGenérica]";
-        String enumGerado = "public enum Listas" + classe + " implements ItfListas {";
-        enumGerado += getEnumDaEntidade(pEntidade.getListaEnum()) + "\n";
+        String enumGerado = "public enum Listas" + classe + " implements ItfListas {\n";
+        enumGerado += stringcomtodosoosenuns + "\n";
         enumGerado += "@Override\n"
                 + "    public Class getClasse() {\n"
                 + "        return " + classe + ".class;\n"
                 + "    }\n";
+
         enumGerado += "\n}";
 
         return enumGerado;
@@ -340,16 +349,21 @@ public class UtilSBGeradorDeCodigo {
         return tagsFormatadas;
     }
 
-    public static String getEnumDaEntidade(List<String> pEnum) {
+    public static String makeEnumListasEntidade(List<ListaDeEntidade> pEnum) {
 
         String enums = "";
-        for (String tempEnum : pEnum) {
-            enums += tempEnum;
-            enums += ",\n";
-        }
-        if (enums.endsWith(",")) {
-            int ultimoCaracter = enums.length() - 1;
-            enums.replace(enums.substring(ultimoCaracter), ";\n");
+        int i = 0;
+        for (ListaDeEntidade tempEnum : pEnum) {
+            enums += tempEnum.getJavaDoc();
+
+            enums += "\n";
+            enums += tempEnum.getNomeEnum();
+            i++;
+            if (i <= pEnum.size() - 1) {
+                enums += ",\n";
+            } else {
+                enums += ";\n";
+            }
         }
         return enums;
     }
