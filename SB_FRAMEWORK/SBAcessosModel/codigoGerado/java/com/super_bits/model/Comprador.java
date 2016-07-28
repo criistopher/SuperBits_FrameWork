@@ -62,4 +62,64 @@ return 0;
 
 }
 
+public int getid(){
+
+return id;
+
+}
+
+public void setid(int id) {
+
+this.id = id;
+
+}
+
+public String getnome(){
+
+return nome;
+
+}
+
+public void setnome(String nome) {
+
+this.nome = nome;
+
+}
+
+public String getrazaoSocial(){
+
+return razaoSocial;
+
+}
+
+public void setrazaoSocial(String razaoSocial) {
+
+this.razaoSocial = razaoSocial;
+
+}
+
+public String gettelefone(){
+
+return telefone;
+
+}
+
+public void settelefone(String telefone) {
+
+this.telefone = telefone;
+
+}
+
+public String getcnpj(){
+
+return cnpj;
+
+}
+
+public void setcnpj(String cnpj) {
+
+this.cnpj = cnpj;
+
+}
+
 }

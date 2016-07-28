@@ -141,10 +141,13 @@ public class UtilSBGeradorDeCodigo {
 
         }
 
-        // trocar ultimo caracter por ; // trocar o método de substituição de , por ;
-        if (enumGerado.endsWith(",")) {
-            int ultimoCaracter = enumGerado.length() - 1;
-            enumGerado.replace(enumGerado.substring(ultimoCaracter), ";\n");
+        for (int i = 0; i < enumGerado.length(); i++) {
+            // trocar ultimo caracter por ; // trocar o método de substituição de , por ;
+            if (i <= enumGerado.length() - 1) {
+                enumGerado += ",\n";
+            } else {
+                enumGerado += ";\n";
+            }
         }
 
         String metodoGetGestaoDeEntidade = "public AcaoGestaoEntidade getGestaodeEntidade() {\n"
@@ -271,19 +274,17 @@ public class UtilSBGeradorDeCodigo {
                 + "    public FabAcaoAdministrador acao();\n"
                 + "}";
 
-
         return infoAcao;
     }
 
     public static String makeEnumListas(EstruturaDeEntidade pEntidade) {
 
         String stringcomtodosoosenuns = makeEnumListasEntidade(pEntidade.getListas());
-                
+
 //        if (stringcomtodosoosenuns.endsWith(",\n")) {
 //            int ultimoCaracter = stringcomtodosoosenuns.length() - 1;
 //            stringcomtodosoosenuns.replace(stringcomtodosoosenuns.substring(ultimoCaracter), ";\n");
 //        }
-
         String classe = "[classeGenérica]";
         String enumGerado = "public enum Listas" + classe + " implements ItfListas {\n";
         enumGerado += stringcomtodosoosenuns + "\n";
@@ -366,6 +367,25 @@ public class UtilSBGeradorDeCodigo {
             }
         }
         return enums;
+    }
+
+    public static String makeDeclaracaoGetSetCampos(EstruturaCampo pCampo) {
+
+        String getSetCampoFormatado = "";
+
+        getSetCampoFormatado += "public " + pCampo.getTipoValor().getDeclaracaoJava() + " get" + pCampo.getNomeDeclarado() + "(){\n\n";
+
+        getSetCampoFormatado += "return " + pCampo.getNomeDeclarado() + ";\n\n";
+
+        getSetCampoFormatado += "}\n\n";
+
+        getSetCampoFormatado += "public void set" + pCampo.getNomeDeclarado() + "(" + pCampo.getTipoValor().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ") {\n\n";
+
+        getSetCampoFormatado += "this." + pCampo.getNomeDeclarado() + " = " + pCampo.getNomeDeclarado() + ";\n\n";
+
+        getSetCampoFormatado += "}\n\n";
+
+        return getSetCampoFormatado;
     }
 
     public static String makeDeclaracaoCampo(EstruturaCampo pCampo) {
@@ -687,6 +707,12 @@ public class UtilSBGeradorDeCodigo {
         for (CalculoDeEntidade pCalculo : pEstrutura.getCalculos()) {
 
             classeFormatada += makeDeclaracaoGetSetCalculos(pCalculo);
+
+        }
+
+        for (EstruturaCampo pCampo : pEstrutura.getCampos()) {
+
+            classeFormatada += makeDeclaracaoGetSetCampos(pCampo);
 
         }
 

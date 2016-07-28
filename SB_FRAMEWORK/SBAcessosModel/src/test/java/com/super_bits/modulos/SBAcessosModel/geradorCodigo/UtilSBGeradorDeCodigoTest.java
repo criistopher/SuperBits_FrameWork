@@ -43,19 +43,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     public void criarEstruturaDeEntidade() {
 
-<<<<<<< HEAD
-        EstruturaDeEntidade estruturaDeEntidade = new EstruturaDeEntidade();
-        ESTRUTURA_DE_ENTIDADE.setNomeEntidade("Comprador");
-        ESTRUTURA_DE_ENTIDADE.setIcone("fa fa-shopping-cart");
-        ESTRUTURA_DE_ENTIDADE.setPlural("Compradores");
-        ESTRUTURA_DE_ENTIDADE.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
-        ESTRUTURA_DE_ENTIDADE.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
-        ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "/* JavaDocTest* /"));
-        ESTRUTURA_DE_ENTIDADE.getCalculos().add(new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno"));
-        ESTRUTURA_DE_ENTIDADE.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
-
-        EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
-=======
         LISTA_ESTRUTURA_DE_ENTIDADE.add(ESTRUTURA_DE_ENTIDADE1);
 
         // INICIO DA CRIACAO DA ESTRUTURA DE ENTIDADE 1
@@ -69,7 +56,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ESTRUTURA_DE_ENTIDADE1.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
 
         EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro(), ESTRUTURA_DE_ENTIDADE1);
->>>>>>> 12d1d7d6360673da586f86d4f85fa0a45aac29aa
         campoID.setNomeDeclarado("id");
         campoID.getMascara();
         campoID.setLabel("Id");
@@ -127,7 +113,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ESTRUTURA_DE_ENTIDADE1.getMuitosParaMuitos().add(campoPermitidos);
 
-        ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido");
+        ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "");
         campoLista.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE1.getListas().add(campoLista);
 
