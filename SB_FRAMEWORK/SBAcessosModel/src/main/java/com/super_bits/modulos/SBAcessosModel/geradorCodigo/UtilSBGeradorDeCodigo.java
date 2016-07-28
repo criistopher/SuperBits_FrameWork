@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
@@ -350,7 +351,7 @@ public class UtilSBGeradorDeCodigo {
                     // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                     campoFormatado
                             // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormata
-                            += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+                            += "@InfoCampo(tipo = FabCampos." + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
 
                     // VERIFICA SE É UM CAMPO OBRIGATÓRIO
                     if (pCampo.isObrigatorio()) {
@@ -380,7 +381,7 @@ public class UtilSBGeradorDeCodigo {
                 // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                 campoFormatado
                         // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n"
+                        += "@InfoCampo(tipo = FabCampos." + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n"
                         // ADICIONA A STRING DE ANOTAÇÃO TEMPORAL NO CAMPO NA VARIAVEL ClasseFormatada
                         + "@Temporal(javax.persistence.TemporalType.DATE)\n";
 
@@ -410,7 +411,7 @@ public class UtilSBGeradorDeCodigo {
                 // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                 campoFormatado
                         // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                        += "@InfoCampo(tipo = " + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+                        += "@InfoCampo(tipo = FabCampos." + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
 
                 // VERIFICA SE É UM CAMPO OBRIGATÓRIO
                 if (pCampo.isObrigatorio()) {
@@ -445,7 +446,7 @@ public class UtilSBGeradorDeCodigo {
                 // VARIAVEL RECEBENDO A STRING DE CRIAÇÃO DO CAMPO
                 campoFormatado
                         // ADICIONA A STRING DE ANOTAÇÃO INFOCAMPO DO CAMPO NA VARIAVEL ClasseFormatada
-                        += "@InfoCampo(tipo =" + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
+                        += "@InfoCampo(tipo = FabCampos." + pCampo.getTipoCampo().toString() + ", label = \"" + pCampo.getLabel() + "\", descricao = \"" + pCampo.getDescricao() + "\")\n";
 
                 // VERIFICA SE É UM CAMPO OBRIGATÓRIO
                 if (pCampo.isObrigatorio()) {
@@ -537,6 +538,15 @@ public class UtilSBGeradorDeCodigo {
         listaFormatada += "private List<" + pLista.getNomeObjetoListado() + "> " + pLista.getNomeDeclaracao() + ";\n\n";
 
         return listaFormatada;
+    }
+
+    public static String makeDeclaracaoCalculos(CalculoDeEntidade pCalculo) {
+
+        String calculoFormatado = "";
+
+        calculoFormatado += "@InfoCampo(tipo = FabCampos." + pCalculo + ", label = \"Valor do Volume\", descricao = \"Valor do conjunto de unidades do produto(fardo)\")";
+
+        return calculoFormatado;
     }
 
     public static String makeEntidade(EstruturaDeEntidade pEstrutura) {

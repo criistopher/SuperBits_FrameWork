@@ -9,7 +9,7 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
  *
  * @author desenvolvedor
  */
-public class CalculoDeEntidade {
+public class CalculoDeEntidade extends EstruturaDeEntidade {
 
     public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno) {
         this.nomeEnum = nomeEnum;
@@ -29,7 +29,6 @@ public class CalculoDeEntidade {
         this.tipoRetorno = tipoRetorno;
     }
 
-
     public String getNomeEnum() {
         return nomeEnum;
     }
@@ -45,6 +44,5 @@ public class CalculoDeEntidade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
 
 }

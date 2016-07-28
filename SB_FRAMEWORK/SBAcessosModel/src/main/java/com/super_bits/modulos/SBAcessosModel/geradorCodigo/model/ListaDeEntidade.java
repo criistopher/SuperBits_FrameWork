@@ -9,7 +9,7 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
  *
  * @author desenvolvedor
  */
-public class ListaDeEntidade {
+public class ListaDeEntidade extends EstruturaDeEntidade {
 
     public ListaDeEntidade(String nomeEnum, String nomeDeclaracao, String nomeEntidade, String nomeObjetoListado) {
         this.nomeEnum = nomeEnum;
