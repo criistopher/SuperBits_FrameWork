@@ -33,68 +33,65 @@ import org.junit.Before;
  */
 public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
-    List<AcaoDoSistema> ACOES_PARA_TESTE;
-    EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE = new EstruturaDeEntidade();
+    List<ItfAcaoDoSistema> ACOES_PARA_TESTE = new ArrayList<>();
+    List<EstruturaDeEntidade> LISTA_ESTRUTURA_DE_ENTIDADE = new ArrayList<>();
 
-    @Before
-    public void criaSimulaco() {
+    EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE1 = new EstruturaDeEntidade();
+    EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE2 = new EstruturaDeEntidade();
+    EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE3 = new EstruturaDeEntidade();
 
-        ACOES_PARA_TESTE = new ArrayList<>();
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
-        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
+    public void criarEstruturaDeEntidade() {
 
-        EstruturaDeEntidade estruturaDeEntidade = new EstruturaDeEntidade();
-        ESTRUTURA_DE_ENTIDADE.setNomeEntidade("Comprador");
-        ESTRUTURA_DE_ENTIDADE.setIcone("fa fa-shopping-cart");
-        ESTRUTURA_DE_ENTIDADE.setPlural("Compradores");
-        ESTRUTURA_DE_ENTIDADE.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
-        ESTRUTURA_DE_ENTIDADE.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
-        ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido"));
-        ESTRUTURA_DE_ENTIDADE.getCalculos().add(new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno"));
-        ESTRUTURA_DE_ENTIDADE.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
+        LISTA_ESTRUTURA_DE_ENTIDADE.add(ESTRUTURA_DE_ENTIDADE1);
+
+        // INICIO DA CRIACAO DA ESTRUTURA DE ENTIDADE 1
+        //
+        //
+        ESTRUTURA_DE_ENTIDADE1.setNomeEntidade("Comprador");
+        ESTRUTURA_DE_ENTIDADE1.setIcone("fa fa-shopping-cart");
+        ESTRUTURA_DE_ENTIDADE1.setPlural("Compradores");
+        ESTRUTURA_DE_ENTIDADE1.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
+        ESTRUTURA_DE_ENTIDADE1.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
+        ESTRUTURA_DE_ENTIDADE1.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
 
         EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
         campoID.setNomeDeclarado("id");
         campoID.getMascara();
-        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoID);
+        ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoID);
 
         EstruturaCampo campoNome = new EstruturaCampo(FabCampos.AAA_DESCRITIVO.getRegistro());
         campoNome.setNomeDeclarado("nome");
         campoNome.getMascara();
-        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoNome);
+        ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoNome);
 
         EstruturaCampo campoRazao = new EstruturaCampo(FabCampos.TEXTO_SIMPLES.getRegistro());
         campoRazao.setNomeDeclarado("razaoSocial");
         campoRazao.getMascara();
-        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoRazao);
+        ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoRazao);
 
         EstruturaCampo campoTelefoneNacional = new EstruturaCampo(FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro());
         campoTelefoneNacional.setNomeDeclarado("telefone");
         campoTelefoneNacional.getMascara();
-        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoTelefoneNacional);
+        ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoTelefoneNacional);
 
         EstruturaCampo campoCnpj = new EstruturaCampo(FabCampos.CNPJ.getRegistro());
         campoCnpj.setNomeDeclarado("cnpj");
         campoCnpj.getMascara();
-        ESTRUTURA_DE_ENTIDADE.getCampos().add(campoCnpj);
+        ESTRUTURA_DE_ENTIDADE1.getCampos().add(campoCnpj);
 
         LigacaoUmParaMuitos campoFiliais = new LigacaoUmParaMuitos();
         campoFiliais.setLabel("Filiais");
         campoFiliais.setDescricao("Filiais do Comprador");
         campoFiliais.setNomeDeclarado("filiais");
         campoFiliais.setNomeEntidade("FilialComprador");
-        ESTRUTURA_DE_ENTIDADE.getUmParaMuitos().add(campoFiliais);
+        ESTRUTURA_DE_ENTIDADE1.getUmParaMuitos().add(campoFiliais);
 
         LigacaoMuitosParaUm campoFilialPrincipal = new LigacaoMuitosParaUm();
         campoFilialPrincipal.setLabel("Filial Principal");
         campoFilialPrincipal.setDescricao("Filial Principal do Comprador");
         campoFilialPrincipal.setNomeDeclarado("filialPrincipal");
         campoFilialPrincipal.setNomeEntidade("FilialComprador");
-        ESTRUTURA_DE_ENTIDADE.getMuitosParaUm().add(campoFilialPrincipal);
+        ESTRUTURA_DE_ENTIDADE1.getMuitosParaUm().add(campoFilialPrincipal);
 
         LigacaoMuitosParaMuitos campoPermitidos = new LigacaoMuitosParaMuitos();
         campoPermitidos.setJoinTableName("Compradores_Permitidos");
@@ -103,10 +100,33 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoPermitidos.setNomeDeclarado("compradoresPermitidos");
         campoPermitidos.setNomeEntidade("Comprador");
 
-        //    ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
-        ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
+        ESTRUTURA_DE_ENTIDADE1.getMuitosParaMuitos().add(campoPermitidos);
 
-        ListaDeEntidade campoLista;
+        ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido");
+        ESTRUTURA_DE_ENTIDADE1.getListas().add(campoLista);
+
+        CalculoDeEntidade campoCalculo = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno");
+        ESTRUTURA_DE_ENTIDADE1.getCalculos().add(campoCalculo);
+
+        //
+        //
+        // FINAL DA CRIAÇÃO DA ESTRUTURA DE ENTIDADE 1
+        //
+        //
+        //
+    }
+
+    @Before
+    public void criaSimulaco() {
+
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
+        ACOES_PARA_TESTE.add(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getAcaoDoSistema());
+
+        criarEstruturaDeEntidade();
 
     }
 
@@ -158,11 +178,11 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
-    @Test
+    //@Test
     public void testMakeEnumListas() {
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE);
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE1);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
@@ -186,7 +206,6 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     //@Test
     public void testMakeEnumCalculos() {
 
-
     }
 
     //@Test
@@ -207,7 +226,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeEntidade() {
         try {
 
-            String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(ESTRUTURA_DE_ENTIDADE);
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEntidade(ESTRUTURA_DE_ENTIDADE1);
             SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
 
         } catch (Throwable t) {
@@ -216,8 +235,10 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
-    //@Test
+    @Test
     public void testCriarArquivosDoSistema() {
+
+        UtilSBGeradorDeCodigo.criarArquivosDoSistema(LISTA_ESTRUTURA_DE_ENTIDADE, ACOES_PARA_TESTE);
     }
 
 }

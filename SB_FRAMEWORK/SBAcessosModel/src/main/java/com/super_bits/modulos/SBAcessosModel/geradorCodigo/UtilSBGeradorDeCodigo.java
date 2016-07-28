@@ -691,7 +691,7 @@ public class UtilSBGeradorDeCodigo {
 
         /// para obter o caminho da instalação deve se usar o seguinte diretorio:
         String caminhoCodigoGerado = SBCore.getCaminhoDesenvolvimento() + "/codigoGerado";
-        String caminhoArquivosClasse = caminhoCodigoGerado + "/java";
+        String caminhoArquivosClasse = caminhoCodigoGerado + "/java/com/super_bits/model/";
         String caminhoArquivosXHTML = caminhoCodigoGerado + "/web";
 
         // O script deve criar utilizando os metodos acima e a funcao UtilSBArquivos para gerar o código
@@ -709,7 +709,7 @@ public class UtilSBGeradorDeCodigo {
          */
         for (EstruturaDeEntidade pEntidade : entidades) {
 
-            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoArquivosClasse, makeEntidade(pEntidade));
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoArquivosClasse + pEntidade.getNomeEntidade() + ".java", makeEntidade(pEntidade));
 
         }
     }
