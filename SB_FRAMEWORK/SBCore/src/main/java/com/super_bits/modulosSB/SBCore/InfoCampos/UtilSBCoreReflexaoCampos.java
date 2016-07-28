@@ -47,7 +47,7 @@ public class UtilSBCoreReflexaoCampos {
     private static boolean TODAS_CLASSES_CONFIGURADAS = false;
     public static CampoNaoImplementado CAMPO_NAO_IMPLEMENTADO = new CampoNaoImplementado();
 
-    private static final Pattern REGEX_REGISTRO_DA_LISTA = Pattern.compile("\\[(.\\d+)\\]");
+    private static final Pattern REGEX_REGISTRO_DA_LISTA = Pattern.compile("\\[(\\d+)\\]");
     /**
      *
      * A TAG SEPARADOR É A TAG QUE IDENTIFICA UM NOME DE CAMPO COMO SEPARADOR
@@ -251,6 +251,27 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    public static String getSEgundoCampoDoCaminho(String pCaminhoCompleto) {
+        String[] partes = pCaminhoCompleto.split("\\.");
+
+        try {
+            int i = 0;
+            for (String parte : partes) {
+                if (!UtilSBCoreStrings.isPrimeiraApenasLetraMaiuscula(parte)) {
+                    if (i >= 1) {
+                        return parte;
+                    }
+                    i++;
+                }
+            }
+            throw new UnsupportedOperationException("Não foi possível determinar a primeira parte do caminho para o campo " + pCaminhoCompleto);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "", t);
+        }
+        return null;
+
+    }
+
     /**
      *
      *
@@ -317,7 +338,7 @@ public class UtilSBCoreReflexaoCampos {
         return null;
     }
 
-    public static void buildListaCamposDeEntidadeFilho(ItfBeanSimples entidade, int pNivelAtual, int pNivelMaximo, List<CaminhoCampoReflexao> listarAnterior, String caminhoAnterior) {
+    public static void buildListaSubEntidadesPersistiveis(ItfBeanSimples entidade, int pNivelAtual, int pNivelMaximo, List<CaminhoCampoReflexao> listarAnterior, String caminhoAnterior) {
 
         if (pNivelAtual >= pNivelMaximo) {
             return;
@@ -335,7 +356,7 @@ public class UtilSBCoreReflexaoCampos {
                 } else {
                     CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
                     listarAnterior.add(novoCaminho);
-                    buildListaCamposDeEntidadeFilho((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
+                    buildListaSubEntidadesPersistiveis((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
                 }
             }
         }
@@ -346,7 +367,7 @@ public class UtilSBCoreReflexaoCampos {
 
         pEntidade.getEntidadesVinculadas();
         List<CaminhoCampoReflexao> lista = new ArrayList<>();
-        buildListaCamposDeEntidadeFilho(pEntidade, 0, pQuantidadeSubniveis, lista, null);
+        buildListaSubEntidadesPersistiveis(pEntidade, 0, pQuantidadeSubniveis, lista, null);
         lista = Lists.reverse(lista);
         return lista;
 
@@ -356,9 +377,9 @@ public class UtilSBCoreReflexaoCampos {
         if (pNomeCampo.contains("[]")) {
             return TIPO_REGISTRO_CAMPO.LISTA;
         }
-        final Pattern pattern = Pattern.compile("\\[(.\\d+)\\]");
-        final Matcher matcher = pattern.matcher(pNomeCampo);
-        if (matcher.find()) {
+
+        Matcher m = REGEX_REGISTRO_DA_LISTA.matcher(pNomeCampo);
+        if (m.find()) {
             return TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA;
         }
         return TIPO_REGISTRO_CAMPO.ENTIDADE;
@@ -389,6 +410,10 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    public static String getListaSemColchete(String parteNome) {
+        return getListaSemIndice(parteNome).replaceAll("\\[]", "");
+    }
+
     public static String getListaSemIndice(String parteNome) {
         final Matcher matcher = REGEX_REGISTRO_DA_LISTA.matcher(parteNome);
         String[] campos = parteNome.split("\\.");
@@ -396,7 +421,9 @@ public class UtilSBCoreReflexaoCampos {
             throw new UnsupportedOperationException("Este método não suporta subCampos o valor enviado foi" + parteNome);
         }
         if (matcher.find()) {
-            return parteNome.replaceAll(parteNome, "[]");
+
+            String conteudoComColchete = "\\[" + matcher.group(1) + "\\]";
+            return parteNome.replaceAll(conteudoComColchete, "[]");
         } else {
             throw new UnsupportedOperationException("O campo não parece ser uma lista com indice" + parteNome);
         }

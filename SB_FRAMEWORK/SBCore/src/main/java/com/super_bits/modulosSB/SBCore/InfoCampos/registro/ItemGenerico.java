@@ -37,15 +37,11 @@ import javax.validation.constraints.NotNull;
 /**
  *
  *
- *
- *
- *
  * @author sfurbino
  */
 public abstract class ItemGenerico extends Object implements ItfBeanGenerico, ItfBeanReflexoes, Serializable {
 
     protected CampoMapValores camposEsperados;
-
     private Map<String, ItfCampoInstanciado> mapaCamposInstanciados;
     private Map<String, Field> mapaCampoPorAnotacao;
 
@@ -164,9 +160,12 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      */
     protected static Map<String, Field> analyze(Object object) {
         try {
+
             if (object == null) {
                 throw new NullPointerException("Erro obtendo análalise de propriedades da classe");
             }
+            String teste = "";
+            StringBuilder teaste = new StringBuilder();
 
             Map<String, Field> map = new TreeMap<>();
 
@@ -182,7 +181,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             }
 
             return map;
-        } catch (Throwable e) {
+        } catch (NullPointerException | SecurityException e) {
 
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro analizando propriedades da class", e);
             return new TreeMap<>();
@@ -252,8 +251,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      *
      * Cria um campo Esperado que não é obrigatório
      *
-     * @param name
-     * @return
+     *
+     * @param pCampo
      * @deprecated
      */
     @Deprecated
@@ -502,6 +501,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
         }
         boolean pesquisouanotacao = false;
+        pCampo = pCampo.replaceAll("\\[]", "");
         if (mapaCamposInstanciados.containsKey(pCampo)) {
             return mapaCamposInstanciados;
         } else {
@@ -537,6 +537,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     @Override
     public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNomeOuANotacao) {
+
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pNomeOuANotacao)) {
             return UtilSBCoreReflexaoCampos.getCampoSeparador(pNomeOuANotacao);
         }
@@ -555,12 +556,12 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             if (tipo.equals(TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA)) {
 
                 int idReflexao = UtilSBCoreReflexaoCampos.getIdCampoDaLista(nomeProximoObjeto);
-                String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemIndice(nomeProximoObjeto);
+                String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemColchete(nomeProximoObjeto);
                 ItfCampoInstanciado lista = getmapaCamposInstanciados(nomeCampoSemIndice).get(nomeCampoSemIndice);
-
                 ItfBeanSimples itemDaLista = (ItfBeanSimples) ((List) lista.getValor()).get(idReflexao);
+                String nomeProximoCAmpo = UtilSBCoreReflexaoCampos.getStrCaminhoCampoSemPrimeiroCampo(pNomeOuANotacao);
+                return itemDaLista.getCampoByNomeOuAnotacao(nomeProximoCAmpo);
 
-                return null;
             } else {
 
                 ItfCampoInstanciado itemAtual = getmapaCamposInstanciados(nomeProximoObjeto).get(nomeProximoObjeto);

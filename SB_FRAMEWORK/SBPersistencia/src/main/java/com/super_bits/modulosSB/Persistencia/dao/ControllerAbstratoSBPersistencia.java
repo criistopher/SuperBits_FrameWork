@@ -49,6 +49,10 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
         return resp;
     }
 
+    protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
+        persistirTodasEntidadesVinculadas(pResp, pEntidade, pEM, 3);
+    }
+
     protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM, int quantidadeDemanda) {
 
         //if (true) {

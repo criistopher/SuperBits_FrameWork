@@ -6,6 +6,8 @@ package com.super_bits.modulosSB.SBCore.testes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
 import org.junit.Test;
 
 /**
@@ -86,7 +88,12 @@ public class TestesCore {
 
     @Test
     public void teste() {
+        String lista = "asdasdas0dasdasd[0]";
 
+        TIPO_REGISTRO_CAMPO tp = UtilSBCoreReflexaoCampos.getTipoCampoLista(lista);
+
+        String listaSemNumero = UtilSBCoreReflexaoCampos.getListaSemIndice(lista);
+        String listaSemColchete = listaSemNumero.replaceAll("\\[]", "");
         String teste = "sdasdasdasdasd,\n";
         if (teste.endsWith(",\n")) {
             System.out.println("Funciona");
