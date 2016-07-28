@@ -1,6 +1,6 @@
 @Entity
 @InfoClasse(tags = {"Comprador", "Cliente", "Compra", "Colaborador", "Parceiro"}, icone = "fa fa-shopping-cart", plural = "Compradores")
-public class Comprador extends EntidadeContatoCorporativo {
+public class CompradorTest3 extends EntidadeContatoCorporativo {
 
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +39,7 @@ private List<Comprador>compradoresPermitidos;
 private List<Pedido> declarado;
 
 @InfoCampo(tipo = FabCampos.TELEFONE_FIXO_NACIONAL, label = "LABEL", descricao = "DESCRIÇÃO TESTE")
-@CalculoCampanha(calculo = CalculosComprador.ENUM_TESTE)
+@CalculoCampanha(calculo = CalculosCompradorTest3.ENUM_TESTE)
 private String calculoLeroLero;
 
 public List<Pedido> getdeclarado{

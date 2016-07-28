@@ -69,7 +69,7 @@ public class UtilSBGeradorDeCodigo {
         // nome da fabrica a ser incluida na declaração do enum
         String fabrica = "[NOMEDAFABRICA]";
         // inicial generica para o enum
-        String generico = "[GENÉRICO]";
+        String generico = "[DOMÍNIO]";
 
         // somente o infoModulos com os nomes de nome da aplicação
         String infoModulos = "@InfoModulos" + nomeAplicacao + "(modulo = FabModulo[" + nomeAplicacao + "].ADMINISTRATIVO)\n";
@@ -84,71 +84,69 @@ public class UtilSBGeradorDeCodigo {
             // colocar o MB a frente das outras ações do sistema
             if (acao.isUmaAcaoGestaoDominio()) {
                 // setar primeiro uma ação de gestão de domínio
-                enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_MB_GERENCIAR,\n";
+                enumGerado += makeAnotacaoDaAcao(acao) + generico + "_MB_GERENCIAR,\n";
 
-                for (ItfAcaoSecundaria action : acao.getComoGestaoEntidade().getAcoesVinculadas()) {
+            }
+            for (ItfAcaoDoSistema action : pAcoes) {
 
-                    switch (action.getTipoAcaoGenerica()) {
+                switch (action.getTipoAcaoGenerica()) {
 
-                        case FORMULARIO_NOVO_REGISTRO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_NOVO_REGISTRO,\n";
-                            break;
-                        case FORMULARIO_EDITAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_EDITAR,\n";
-                            break;
-                        case FORMULARIO_PERSONALIZADO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_PERSONALIZADO,\n";
-                            break;
-                        case FORMULARIO_VISUALIZAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_VISUALIZAR,\n";
-                            break;
-                        case FORMULARIO_LISTAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_LISTAR,\n";
-                            break;
-                        case FORMULARIO_MODAL:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_MODAL,\n";
-                            break;
-                        case SELECAO_DE_ACAO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_FRM_SELETOR,\n";
-                            break;
-                        case CONTROLLER_SALVAR_EDICAO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_SALVAR_EDICAO,\n";
-                            break;
-                        case CONTROLLER_SALVAR_NOVO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_SALVAR_NOVO,\n";
-                            break;
-                        case CONTROLLER_SALVAR_MODO_MERGE:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_SALVAR_MERGE,\n";
-                            break;
-                        case CONTROLLER_PERSONALIZADO:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_PERSONALIZADO,\n";
-                            break;
-                        case CONTROLLER_ATIVAR_DESATIVAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_ATIVAR_DESATIVAR,\n";
-                            break;
-                        case CONTROLLER_ATIVAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_ATIVAR,\n";
-                            break;
-                        case CONTROLLER_REMOVER:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_REMOVER,\n";
-                            break;
-                        case CONTROLLER_DESATIVAR:
-                            enumGerado += makeAnotacaoDaAcao(acao) + "[" + generico + "]_CTR_DESATIVAR,\n";
-                            break;
-                    }
+                    case FORMULARIO_NOVO_REGISTRO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_NOVO_REGISTRO,\n";
+                        break;
+                    case FORMULARIO_EDITAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_EDITAR,\n";
+                        break;
+                    case FORMULARIO_PERSONALIZADO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_PERSONALIZADO,\n";
+                        break;
+                    case FORMULARIO_VISUALIZAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_VISUALIZAR,\n";
+                        break;
+                    case FORMULARIO_LISTAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_LISTAR,\n";
+                        break;
+                    case FORMULARIO_MODAL:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_MODAL,\n";
+                        break;
+                    case SELECAO_DE_ACAO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_FRM_SELETOR,\n";
+                        break;
+                    case CONTROLLER_SALVAR_EDICAO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_SALVAR_EDICAO,\n";
+                        break;
+                    case CONTROLLER_SALVAR_NOVO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_SALVAR_NOVO,\n";
+                        break;
+                    case CONTROLLER_SALVAR_MODO_MERGE:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_SALVAR_MERGE,\n";
+                        break;
+                    case CONTROLLER_PERSONALIZADO:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_PERSONALIZADO,\n";
+                        break;
+                    case CONTROLLER_ATIVAR_DESATIVAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_ATIVAR_DESATIVAR,\n";
+                        break;
+                    case CONTROLLER_ATIVAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_ATIVAR,\n";
+                        break;
+                    case CONTROLLER_REMOVER:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_REMOVER,\n";
+                        break;
+                    case CONTROLLER_DESATIVAR:
+                        enumGerado += makeAnotacaoDaAcao(acao) + generico + "_CTR_DESATIVAR,\n";
+                        break;
                 }
             }
 
         }
 
-        for (int i = 0; i < enumGerado.length(); i++) {
-            // trocar ultimo caracter por ; // trocar o método de substituição de , por ;
-            if (i <= enumGerado.length() - 1) {
-                enumGerado += ",\n";
-            } else {
-                enumGerado += ";\n";
-            }
-        }
+        // trocar ultimo caracter por ; // trocar o método de substituição de , por ;
+        StringBuilder enumTreta = new StringBuilder(enumGerado);
+        enumTreta.delete(enumTreta.length() - 2, enumTreta.length() - 1);
+        enumTreta.append(";\n");
+
+        enumGerado = enumTreta.toString();
 
         String metodoGetGestaoDeEntidade = "public AcaoGestaoEntidade getGestaodeEntidade() {\n"
                 + "\n"
@@ -745,12 +743,27 @@ public class UtilSBGeradorDeCodigo {
          */
         for (EstruturaDeEntidade pEntidade : entidades) {
 
-            String caminhoFinal = caminhoArquivosClasse + pEntidade.getNomeEntidade() + ".java";
+            String caminhoDiretorio = caminhoArquivosClasse + pEntidade.getNomeEntidade() + "/";
+            String nomeArquivoEntidade = pEntidade.getNomeEntidade() + ".java";
+            String nomeArquivoLista = "Listas" + pEntidade.getNomeEntidade() + ".java";
+            String nomeCalculo = "Calculo" + pEntidade.getNomeEntidade() + ".java";
 
-            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoFinal);
-            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoFinal, makeEntidade(pEntidade));
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeArquivoEntidade);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoEntidade, makeEntidade(pEntidade));
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeArquivoLista);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoLista, makeEnumListas(pEntidade));
 
         }
+
+        for (ItfAcaoDoSistema pAcao : acoesDoSistema) {
+
+            String caminhoFinal = caminhoArquivosClasse + pAcao.getModulo() + "/" + pAcao.getModulo().getNome() + ".java";
+
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoFinal);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoFinal, makeEnumFabricaDeAcoes(acoesDoSistema, pAcao.getModulo()));
+
+        }
+
     }
 
 }
