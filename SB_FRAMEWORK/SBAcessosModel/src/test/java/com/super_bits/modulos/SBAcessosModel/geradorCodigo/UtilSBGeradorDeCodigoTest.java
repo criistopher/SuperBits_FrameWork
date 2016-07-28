@@ -55,6 +55,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ESTRUTURA_DE_ENTIDADE.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
         ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", estruturaDeEntidade));
         ESTRUTURA_DE_ENTIDADE.getCalculos().add(new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno"));
+        ESTRUTURA_DE_ENTIDADE.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
 
         EstruturaCampo campoID = new EstruturaCampo(FabCampos.ID.getRegistro());
         campoID.setNomeDeclarado("id");
@@ -156,6 +157,14 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     //@Test
     public void testMakeEnumListas() {
+        try {
+
+            String codigoGerado = UtilSBGeradorDeCodigo.makeEnumListas(ESTRUTURA_DE_ENTIDADE.getClass());
+            SBCore.getCentralDeMensagens().enviarMsgAlertaAoDesenvolvedor("Classe gerada \n" + codigoGerado);
+
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
+        }
     }
 
     //@Test

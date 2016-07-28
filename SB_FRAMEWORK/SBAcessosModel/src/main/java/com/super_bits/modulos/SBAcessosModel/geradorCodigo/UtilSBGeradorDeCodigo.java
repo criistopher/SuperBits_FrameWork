@@ -257,6 +257,7 @@ public class UtilSBGeradorDeCodigo {
     public static String makeClasseAnotacaoInfoAcao(ItfAcaoDoSistema pAcao) {
 
         // COnstroi uma anotação do tipo InfoAcaoNomeDoModulo
+        // validar
         String modulo = "[GENERICO]";
         String infoAcao = "";
         infoAcao += "@Documented\n"
@@ -272,6 +273,9 @@ public class UtilSBGeradorDeCodigo {
     }
 
     public static String makeEnumListas(Class pClasse) {
+        // TODO
+        String enumListas = "";
+
 
         return null;
     }
@@ -308,6 +312,14 @@ public class UtilSBGeradorDeCodigo {
         }
 
         return tagsFormatadas;
+    }
+
+    public static String getEnumDaEntidade(List<String> pEnum) {
+        String enums = "";
+        for (String tempEnum : pEnum) {
+
+        }
+        return null;
     }
 
     public static String makeDeclaracaoCampo(EstruturaCampo pCampo) {
