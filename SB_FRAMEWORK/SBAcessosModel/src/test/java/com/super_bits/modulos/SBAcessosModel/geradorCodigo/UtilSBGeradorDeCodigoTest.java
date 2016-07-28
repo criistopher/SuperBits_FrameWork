@@ -118,7 +118,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoLista.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE1.getListas().add(campoLista);
 
-        CalculoDeEntidade campoCalculo = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE1, "JAVA_DOC_TEST");
+        CalculoDeEntidade campoCalculo = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE1, "/*JAVA_DOC_TEST*/");
         campoCalculo.setLabel("LABEL");
         campoCalculo.setDescricao("DESCRIÇÃO TESTE");
         campoCalculo.setNomeDeclarado("calculoLeroLero");
@@ -201,7 +201,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoLista2.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE2.getListas().add(campoLista2);
 
-        CalculoDeEntidade campoCalculo2 = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE2, "JAVA_DOC_TEST2");
+        CalculoDeEntidade campoCalculo2 = new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno", FabCampos.TELEFONE_FIXO_NACIONAL.getRegistro(), ESTRUTURA_DE_ENTIDADE2, "/*JAVA_DOC_TEST2*/");
         campoCalculo2.setLabel("LABEL");
         campoCalculo2.setDescricao("DESCRIÇÃO TESTE");
         campoCalculo2.setNomeDeclarado("calculoLeroLero");
@@ -285,7 +285,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoLista3.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE3.getListas().add(campoLista3);
 
-        CalculoDeEntidade campoCalculo3 = new CalculoDeEntidade("CALCULA_TOTAL", "totalCalculado", "int", FabCampos.QUANTIDADE.getRegistro(), ESTRUTURA_DE_ENTIDADE3, "JAVA_DOC_TEST3");
+        CalculoDeEntidade campoCalculo3 = new CalculoDeEntidade("CALCULA_TOTAL", "totalCalculado", "int", FabCampos.QUANTIDADE.getRegistro(), ESTRUTURA_DE_ENTIDADE3, "/*JAVA_DOC_TEST3*/");
         campoCalculo3.setLabel("Total");
         campoCalculo3.setDescricao("Total Calculado");
         campoCalculo3.setNomeDeclarado("valorTotal");

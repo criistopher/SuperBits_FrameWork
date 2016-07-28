@@ -295,11 +295,12 @@ public class UtilSBGeradorDeCodigo {
 
         String classe = "[classeGenérica]";
         String enums = "";
-        String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n";
-        String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n";
+        String declaracaoEnum = "public enum Calculos" + classe + " implements ItfCalculos {\n\n";
+        String enumsCalculo = makeEnumCalculosEntidade(pEntidade.getCalculos()) + "\n\n";
         enums += declaracaoEnum + enumsCalculo + "}\n";
         return enums;
     }
+
     // utilizar este método no makeEnumCalculos
     public static String makeEnumCalculosEntidade(List<CalculoDeEntidade> pCalculoEntidade) {
         String listaEnumEntidade = "";
@@ -747,12 +748,14 @@ public class UtilSBGeradorDeCodigo {
             String caminhoDiretorio = caminhoArquivosClasse + pEntidade.getNomeEntidade() + "/";
             String nomeArquivoEntidade = pEntidade.getNomeEntidade() + ".java";
             String nomeArquivoLista = "Listas" + pEntidade.getNomeEntidade() + ".java";
-            String nomeCalculo = "Calculo" + pEntidade.getNomeEntidade() + ".java";
+            String nomeCalculo = "Calculos" + pEntidade.getNomeEntidade() + ".java";
 
             UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeArquivoEntidade);
             UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoEntidade, makeEntidade(pEntidade));
             UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeArquivoLista);
             UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeArquivoLista, makeEnumListas(pEntidade));
+            UtilSBCoreArquivoTexto.limparArquivoTexto(caminhoDiretorio + nomeCalculo);
+            UtilSBCoreArquivoTexto.escreverEmArquivo(caminhoDiretorio + nomeCalculo, makeEnumCalculos(pEntidade));
 
         }
 
