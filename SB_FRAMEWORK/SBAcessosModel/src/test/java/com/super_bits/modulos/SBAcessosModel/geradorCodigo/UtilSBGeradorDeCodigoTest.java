@@ -53,7 +53,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         ESTRUTURA_DE_ENTIDADE.setPlural("Compradores");
         ESTRUTURA_DE_ENTIDADE.adicionarTags("Comprador,Cliente,Compra,Colaborador,Parceiro");
         ESTRUTURA_DE_ENTIDADE.setTipoEntidade(FabTipoBeanSBGenerico.BEAN_CONTATO_CORPORATIVO);
-        ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", estruturaDeEntidade));
+        ESTRUTURA_DE_ENTIDADE.getListas().add(new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido"));
         ESTRUTURA_DE_ENTIDADE.getCalculos().add(new CalculoDeEntidade("ENUM_TESTE", "ENUM_TESTE", "tipoRetorno"));
         ESTRUTURA_DE_ENTIDADE.adicionarEnum("GRUPO_FRM_LISTAR,USUARIO_FRM_EDITAR,GRUPO_FRM_NOVO,GRUPO_FRM_VISUALIZAR,GRUPO_CTR_ALTERAR_STATUS,GRUPO_MB_GERENCIAR");
 
@@ -102,16 +102,16 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         campoPermitidos.setInverseJoinColumName("comprador_id");
         campoPermitidos.setNomeDeclarado("compradoresPermitidos");
         campoPermitidos.setNomeEntidade("Comprador");
-        //    ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
+        ESTRUTURA_DE_ENTIDADE.getMuitosParaMuitos().add(campoPermitidos);
 
+        ListaDeEntidade campoLista;
 
     }
 
     public UtilSBGeradorDeCodigoTest() {
     }
 
-    @Test
-
+    //@Test
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -130,7 +130,8 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo anotação da ação", t);
         }
     }
-    @Test
+    // @Test
+
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -179,7 +180,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     public void testMakeCalculoAnotacaos() {
     }
 
-    //@Test
+    @Test
     public void testMakeEntidade() {
         try {
 

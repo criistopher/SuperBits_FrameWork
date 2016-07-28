@@ -11,13 +11,14 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo.model;
  */
 public class ListaDeEntidade {
 
-    public ListaDeEntidade(String nomeEnum, String descricao, EstruturaDeEntidade entidade) {
+    public ListaDeEntidade(String nomeEnum, String nomeDeclaracao, String nomeEntidade, String nomeObjetoListado) {
         this.nomeEnum = nomeEnum;
-        this.nomeDeclaracao = descricao;
-        this.entidadeListada = entidade;
+        this.nomeDeclaracao = nomeDeclaracao;
+        this.nomeEntidade = nomeEntidade;
+        this.nomeObjetoListado = nomeObjetoListado;
     }
 
-    private EstruturaDeEntidade entidadeListada;
+    private String nomeEntidade;
     private String nomeEnum;
     private String nomeDeclaracao;
     private String nomeObjetoListado;
@@ -30,12 +31,12 @@ public class ListaDeEntidade {
         this.nomeObjetoListado = nomeObjetoListado;
     }
 
-    public EstruturaDeEntidade getEntidadeListada() {
-        return entidadeListada;
+    public String getNomeEntidade() {
+        return nomeEntidade;
     }
 
-    public void setEntidadeListada(EstruturaDeEntidade entidadeListada) {
-        this.entidadeListada = entidadeListada;
+    public void setNomeEntidade(String nomeEntidade) {
+        this.nomeEntidade = nomeEntidade;
     }
 
     public String getNomeEnum() {

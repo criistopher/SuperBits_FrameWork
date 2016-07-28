@@ -276,7 +276,6 @@ public class UtilSBGeradorDeCodigo {
         // TODO
         String enumListas = "";
 
-
         return null;
     }
 
@@ -533,7 +532,7 @@ public class UtilSBGeradorDeCodigo {
 
         listaFormatada += "@Transient\n";
 
-        listaFormatada += "@Lista" + pLista.getEntidadeListada().getNomeEntidade() + "(lista = Listas" + pLista.getEntidadeListada().getNomeEntidade() + "." + pLista.getNomeEnum() + ")\n";
+        listaFormatada += "@Lista" + pLista.getNomeEntidade() + "(lista = Listas" + pLista.getNomeEntidade() + "." + pLista.getNomeEnum() + ")\n";
 
         listaFormatada += "private List<" + pLista.getNomeObjetoListado() + "> " + pLista.getNomeDeclaracao() + ";\n\n";
 
