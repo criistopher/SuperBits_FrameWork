@@ -29,7 +29,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             codigoJira = "",
             precisaPermissao = false,
             entidade = GrupoUsuarioSB.class,
-            xhtmlDaAcao = "/resources/SBComp/seguranca/grupo.xhtml")
+            xhtmlDaAcao = "/resources/SBComp/SBSystemPages/seguranca/simples/grupo/gerenciarGrupo.xhtml")
     GRUPO_MB_GERENCIAR,
     @InfoTipoAcaoFormulario(nomeAcao = "Novo",
             descricao = "Permite criar um grupo de usuários para ser utilizado por administradores do VipKompras",

@@ -53,7 +53,7 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
     TESTES_CAMPO_FRM_LABORARATORIO,
     @InfoTipoAcaoFormulario(nomeAcao = "VER INSTRUÇÕES",
             xhtmlDaAcao = "/resources/SBComp/debug/campo/instrucoes.xhtml",
-            icone = "fa fa-map-o")
+            icone = "fa fa-map-marker")
     TESTES_CAMPO_FRM_INSTRUCOES,
     @InfoTipoAcaoFormulario(nomeAcao = "Inspecionar ids",
             xhtmlDaAcao = "/resources/SBComp/debug/campo/inspecionarIds.xhtml",
