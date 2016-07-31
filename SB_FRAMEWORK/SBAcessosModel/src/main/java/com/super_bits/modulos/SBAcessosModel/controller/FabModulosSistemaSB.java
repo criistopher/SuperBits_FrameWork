@@ -19,6 +19,7 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
     public ModuloAcaoSistema getModulo() {
 
         ModuloAcaoSistema modulo = new ModuloAcaoSistema();
+        modulo.setUmModuloNativo(true);
         switch (this) {
             case SEGURANCA:
                 modulo.setNome("Segurança");

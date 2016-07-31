@@ -26,24 +26,50 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
     DEMONSTRACAO_MB_COMPONENTE,
     DEMONSTRACAO_MB_VALIDACAO,
-    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/debug/conformidadeInputCampo.xhtml", icone = "fa fa-pencil-square-o")
+    @InfoTipoAcaoGestaoEntidade(
+            xhtmlDaAcao = "/resources/SBComp/debug/conformidadeInputCampo.xhtml",
+            icone = "fa fa-pencil-square-o")
     TESTES_CAMPO_MB,
-    @InfoTipoAcaoFormulario(nomeAcao = "Ficha técnica", xhtmlDaAcao = "/resources/SBComp/debug/fichaTecnica.xhtml", icone = "fa fa-cogs")
+    @InfoTipoAcaoFormulario(nomeAcao
+            = "Ficha técnica",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/inspecionarPropriedades.xhtml",
+            icone = "fa fa-cogs")
     TESTES_CAMPO_FRM_FICHATECNICA,
-    @InfoTipoAcaoFormulario(nomeAcao = "Ver campo", xhtmlDaAcao = "/resources/SBComp/debug/verCampo.xhtml", icone = "fa fa-eye")
+    @InfoTipoAcaoFormulario(nomeAcao = "Ver campo",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/verCampo.xhtml",
+            icone = "fa fa-eye")
     TESTES_CAMPO_FRM_VER_CAMPO,
-    @InfoTipoAcaoFormulario(nomeAcao = "Ver Campo em todos formatos", xhtmlDaAcao = "/resources/SBComp/debug/verCampoTodosFormatos.xhtml", icone = "fa fa-eye")
+    @InfoTipoAcaoFormulario(nomeAcao = "Ver Campo em todos formatos",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/verCampoTodosFormatos.xhtml",
+            icone = "fa fa-eye")
     TESTES_CAMPO_FRM_VER_CAMPO_EM_TODOS_FORMATOS,
-    @InfoTipoAcaoFormulario(nomeAcao = "Testar onChange", xhtmlDaAcao = "/resources/SBComp/debug/onChange.xhtml", icone = "fa fa-retweet")
+    @InfoTipoAcaoFormulario(nomeAcao = "Testar onChange",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/inspecionarOnChange.xhtml",
+            icone = "fa fa-retweet")
     TESTES_CAMPO_FRM_TESTAR_ONCHANGE,
-    @InfoTipoAcaoFormulario(nomeAcao = "Laboratório de criação ", xhtmlDaAcao
-            = "/resources/SBComp/debug/laboratorio.xhtml", icone = "fa fa-flask")
+    @InfoTipoAcaoFormulario(nomeAcao = "Laboratório de criação ",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/laboratorio.xhtml",
+            icone = "fa fa-flask")
     TESTES_CAMPO_FRM_LABORARATORIO,
-    @InfoTipoAcaoFormulario(nomeAcao = "VER INSTRUÇÕES", xhtmlDaAcao = "/resources/SBComp/debug/instrucoes.xhtml", icone = "fa fa-question-circle")
+    @InfoTipoAcaoFormulario(nomeAcao = "VER INSTRUÇÕES",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/instrucoes.xhtml",
+            icone = "fa fa-map-o")
     TESTES_CAMPO_FRM_INSTRUCOES,
-    @InfoTipoAcaoFormulario(nomeAcao = "VER CAMPOS DA AÇÃO", xhtmlDaAcao = "/resources/SBComp/debug/camposDaAcao.xhtml", icone = "fa fa-question-circle")
+    @InfoTipoAcaoFormulario(nomeAcao = "Inspecionar ids",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/inspecionarIds.xhtml",
+            icone = "fa fa-info")
+    TESTES_CAMPO_FRM_INSP_IDS,
+    @InfoTipoAcaoFormulario(nomeAcao = "Inspecionar posição",
+            xhtmlDaAcao = "/resources/SBComp/debug/campo/inspecionarPosicao.xhtml",
+            icone = "fa fa-question-circle")
+    TESTES_CAMPO_FRM_INSP_POSICOES,
+    @InfoTipoAcaoFormulario(nomeAcao = "VER CAMPOS DA AÇÃO",
+            xhtmlDaAcao = "/resources/SBComp/debug/camposDaAcao.xhtml",
+            icone = "fa fa-question-circle")
     TESTES_CAMPO_FRM_VER_CAMPOS_DA_ACAO_FORMULARIO,
-    @InfoTipoAcaoFormulario(nomeAcao = "CAMPOS DO AGRUPO", xhtmlDaAcao = "/resources/SBComp/debug/camposDoGrupo.xhtml", icone = "fa fa-question-circle")
+    @InfoTipoAcaoFormulario(nomeAcao = "CAMPOS DO AGRUPO",
+            xhtmlDaAcao = "/resources/SBComp/debug/camposDoGrupo.xhtml",
+            icone = "fa fa-question-circle")
     TESTES_CAMPO_FRM_VER_CAMPOS_DO_GRUPO_FORMULARIO;
 
     @Override

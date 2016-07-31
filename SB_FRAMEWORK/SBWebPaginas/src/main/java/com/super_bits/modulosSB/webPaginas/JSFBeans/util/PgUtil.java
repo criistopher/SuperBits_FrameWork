@@ -294,4 +294,15 @@ public class PgUtil implements Serializable {
         return camponaoImplementado;
     }
 
+    public boolean isTudoVerdadeiro(boolean... pCondicoes) {
+
+        for (boolean condicao : pCondicoes) {
+            if (!condicao) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

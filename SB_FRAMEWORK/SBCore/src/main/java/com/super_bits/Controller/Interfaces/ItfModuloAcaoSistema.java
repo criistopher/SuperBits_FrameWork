@@ -34,4 +34,6 @@ public interface ItfModuloAcaoSistema {
 
     public List<ItfAcaoDoSistema> getAcoesGestaoMB();
 
+    public boolean isUmModuloNativo();
+
 }
