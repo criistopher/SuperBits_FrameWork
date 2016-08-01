@@ -8,6 +8,8 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import org.junit.Assert;
 import org.junit.Before;
@@ -207,10 +209,36 @@ public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
     }
 
     @Test
+    public void testaPesquisa() {
+
+        String teste = "adsasdasd[123]";
+
+        String pLista = "asdasdasdcom";
+        String[] campos = pLista.split("\\.");
+        String campo = campos[campos.length - 1];
+        System.out.println(campo);
+        String teste1 = "fff[]";
+        String teste2 = "fff[123]";
+
+        final Pattern pattern = Pattern.compile("\\[(.\\d+)\\]");
+        final Matcher matcher = pattern.matcher(teste1);
+        final Matcher matcher2 = pattern.matcher(teste2);
+        if (matcher.find()) {
+            System.out.println("Encontrou no priiro");
+        }
+
+        if (matcher2.find()) {
+            System.out.println("Encontrou segundo");
+            System.out.println(matcher2.group(1));
+        }
+
+    }
+
+    // @Test
     public void testaRandomico() {
         JOptionPane.showMessageDialog(null, UtilSBCoreStrings.getStringRandomica(8));
     }

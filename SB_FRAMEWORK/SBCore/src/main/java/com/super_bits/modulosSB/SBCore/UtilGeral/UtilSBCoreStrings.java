@@ -62,6 +62,24 @@ public abstract class UtilSBCoreStrings {
 
     /**
      *
+     *
+     * Retorna a String entre 2 caracters, exemplo: "nomestringTeste[31]"
+     * retornaria 31
+     *
+     *
+     * @param pReferencia String onde o caracter será procurado
+     * @param pCaracter1 Caracter chave indicando inicio
+     * @param pCaracter2 Carácter chave indicando fim
+     * @return
+     */
+    public static String getStringEntreCaracters(String pReferencia, String pCaracter1, String pCaracter2) {
+
+        return pReferencia.substring(pReferencia.indexOf(pCaracter1) + 1, pReferencia.indexOf(pCaracter2));
+
+    }
+
+    /**
+     *
      * Retorna String entre determinados caracteres exemplo:
      *
      * texto= dfkjklaskdjf[parametroum] [parametro2] inicial=[ final= ]

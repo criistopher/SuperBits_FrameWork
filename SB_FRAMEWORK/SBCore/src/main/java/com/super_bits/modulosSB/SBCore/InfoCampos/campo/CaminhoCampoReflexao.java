@@ -33,6 +33,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     private boolean umaEntidade;
     private boolean umCampoSeparador;
     private boolean umCampoVinculado;
+    private TIPO_REGISTRO_CAMPO tipoRegistro;
 
     public void defineNomeCompleto(String pCaminho, Class pClasse) {
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
@@ -71,7 +72,6 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      *
      * @param pCaminho Caminho para encontrar o Campo, separado por . exemplo:
      * usuario.localizacao.bairro
-     * @param campo O Field obtido por reflecion
      */
     public CaminhoCampoReflexao(String pCaminho) {
 
@@ -85,10 +85,8 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     }
 
     public CaminhoCampoReflexao(String pCaminho, Class pClasse) {
-
         //setCaminho(pCaminho);
         defineNomeCompleto(pCaminho, pClasse);
-
         configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(pClasse));
         makePartesCaminho();
         id = caminhoComleto.hashCode();
@@ -118,9 +116,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      * @param campo
      */
     public CaminhoCampoReflexao(List<String> pPartesCaminho) {
-
         partesCaminho.addAll(pPartesCaminho);
-
         makeCaminhoCompleto();
         defineNomeCompleto(caminhoComleto);
         configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
@@ -140,17 +136,23 @@ public final class CaminhoCampoReflexao extends ItemSimples {
             if (pField.getType().getSimpleName().equals("List")) {
                 umCampoListavel = true;
                 umaEntidade = true;
-                if (caminhoComleto.endsWith("[]")) {
+                if (UtilSBCoreReflexaoCampos.isUmaStringNomeadaComoLista(getUtimoNome())) {
 
                 } else {
                     caminhoComleto += "[]";
                     makePartesCaminho();
                 }
+
+                tipoRegistro = UtilSBCoreReflexaoCampos.getTipoCampoLista(caminhoComleto);
             }
 
             if (pField.isAnnotationPresent(ManyToOne.class)) {
                 umaEntidade = true;
+                tipoRegistro = TIPO_REGISTRO_CAMPO.ENTIDADE;
+            } else {
+                tipoRegistro = TIPO_REGISTRO_CAMPO.CAMPO_SIMPLES;
             }
+
         } else {
 
             throw new UnsupportedOperationException("O campo vinculado não pode ser encontrado pelo caminho " + caminhoComleto);
@@ -286,6 +288,12 @@ public final class CaminhoCampoReflexao extends ItemSimples {
         return umCampoListavel;
     }
 
+    /**
+     * Verifica se o campo é um campo com outras propriedades, podendo ser ou
+     * não uma lista
+     *
+     * @return True quando o campo conter propriedades e for persistivel
+     */
     public boolean isUmaEntidade() {
         return umaEntidade;
     }
@@ -349,6 +357,10 @@ public final class CaminhoCampoReflexao extends ItemSimples {
 
         return "sem label";
 
+    }
+
+    public TIPO_REGISTRO_CAMPO getTipoRegistro() {
+        return tipoRegistro;
     }
 
 }

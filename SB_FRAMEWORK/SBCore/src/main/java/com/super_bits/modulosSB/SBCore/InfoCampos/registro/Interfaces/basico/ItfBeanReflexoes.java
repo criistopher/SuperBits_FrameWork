@@ -59,6 +59,8 @@ public interface ItfBeanReflexoes {
 
     public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho);
 
+    public List<ItfBeanSimples> getListaPorCaminhoCampo(CaminhoCampoReflexao pCaminho);
+
     /**
      *
      * Cria mensagens de campos inválidos para utilização em validação

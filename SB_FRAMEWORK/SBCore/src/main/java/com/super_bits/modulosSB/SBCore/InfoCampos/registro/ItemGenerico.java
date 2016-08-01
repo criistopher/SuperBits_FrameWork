@@ -9,9 +9,9 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoGenerico;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroObtendoValorDoCampoPorReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroSetandoValorDeCampoPorReflexao;
@@ -26,7 +26,6 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -548,19 +547,36 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             return getmapaCamposInstanciados(pNomeOuANotacao).get(pNomeOuANotacao);
 
         } else {
+
             String nomeProximoObjeto = UtilSBCoreReflexaoCampos.getStrPrimeiroCampoDoCaminhoCampo(pNomeOuANotacao);
 
-            ItfCampoInstanciado itemAtual = getmapaCamposInstanciados(pNomeOuANotacao).get(nomeProximoObjeto);
-            if (itemAtual == null) {
-                return new CampoNaoImplementado();
-            }
-            ItemGenerico itemSuperior = (ItemGenerico) itemAtual.getValor();
+            TIPO_REGISTRO_CAMPO tipo = UtilSBCoreReflexaoCampos.getTipoCampoLista(nomeProximoObjeto);
 
-            String nomeObjetoRetirandoProximoObjeto = UtilSBCoreReflexaoCampos.getStrCaminhoCampoSemPrimeiroCampo(pNomeOuANotacao);
-            if (itemSuperior == null) {
-                return new CampoNaoImplementado();
+            if (tipo.equals(TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA)) {
+
+                int idReflexao = UtilSBCoreReflexaoCampos.getIdCampoDaLista(nomeProximoObjeto);
+                String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemIndice(nomeProximoObjeto);
+                ItfCampoInstanciado lista = getmapaCamposInstanciados(nomeCampoSemIndice).get(nomeCampoSemIndice);
+
+                ItfBeanSimples itemDaLista = (ItfBeanSimples) ((List) lista.getValor()).get(idReflexao);
+
+                return null;
+            } else {
+
+                ItfCampoInstanciado itemAtual = getmapaCamposInstanciados(nomeProximoObjeto).get(nomeProximoObjeto);
+
+                if (itemAtual == null) {
+                    return UtilSBCoreReflexaoCampos.CAMPO_NAO_IMPLEMENTADO;
+                }
+
+                ItemGenerico itemSuperior = (ItemGenerico) itemAtual.getValor();
+
+                if (itemSuperior == null) {
+                    return UtilSBCoreReflexaoCampos.CAMPO_NAO_IMPLEMENTADO;
+                }
+                String nomeRestante = UtilSBCoreReflexaoCampos.getStrCaminhoCampoSemPrimeiroCampo(pNomeOuANotacao);
+                return itemSuperior.getCampoByNomeOuAnotacao(nomeRestante);
             }
-            return itemSuperior.getCampoByNomeOuAnotacao(nomeObjetoRetirandoProximoObjeto);
         }
     }
 
@@ -584,33 +600,18 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     @Override
+    @Deprecated
     public List<CampoInvalido> getCamposInvalidos() {
 
-        List<CampoInvalido> camposInvalidados = new ArrayList<>();
-        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados("TODodeprecated").entrySet()) {
-            if (campo.getValue().validarCampo()) {
-                CampoInvalido novoCampoInvalido = new CampoInvalido();
-                novoCampoInvalido.setNomeCampo(campo.getValue().getLabel());
-                novoCampoInvalido.setProblemaInvalidou(" não pode ser nulo");
-                camposInvalidados.add(novoCampoInvalido);
-            }
-        }
-        return camposInvalidados;
+        throw new UnsupportedOperationException("A lista de campos instanciaados está sob análise, sem tempo previsto para retorno do desenvolivmento");
 
     }
 
     @Override
+    @Deprecated
     public List<ItfCampoInstanciado> getCamposInstaciadosInvalidos() {
 
-        List<ItfCampoInstanciado> camposInstanciadosInvalidados = new ArrayList<>();
-        for (Entry<String, ItfCampoInstanciado> campo : getmapaCamposInstanciados("TODOdeprecated").entrySet()) {
-            if (campo.getValue().validarCampo()) {
-                camposInstanciadosInvalidados.add(campo.getValue());
-
-            }
-
-        }
-        return camposInstanciadosInvalidados;
+        throw new UnsupportedOperationException("A lista de campos instanciaados invalidos está sob análise, sem tempo previsto para retorno do desenvolivmento");
 
     }
 
@@ -643,21 +644,16 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      *
      * @return Todos os campos Instanciados do Objeto
      */
+    @Deprecated
     public List<ItfCampoInstanciado> getTodosCamposInstanciados() {
-        List<ItfCampoInstanciado> camposInstanciados = new ArrayList<>();
-        for (ItfCampoInstanciado campo : getmapaCamposInstanciados("TODODEprecated").values()) {
-            if (!camposInstanciados.contains(campo)) {
-                camposInstanciados.add(campo);
+        throw new UnsupportedOperationException("A lista de campos instanciaados está sob análise, sem tempo previsto para retorno do desenvolivmento");
 
-            }
-        }
-        return camposInstanciados;
     }
 
     @Override
     public List<CaminhoCampoReflexao> getEntidadesVinculadas() {
 
-        return Lists.newArrayList(UtilSBCoreReflexaoCampos.getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(this.getClass()).values());
+        return Lists.newArrayList(UtilSBCoreReflexaoCampos.getCamposComSubCamposDaClasse(this.getClass()).values());
 
     }
 
@@ -665,23 +661,19 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
         try {
 
-            int i = 0;
+            // to do substituir por acesso direto sem precisar instanciar o CampoInstanciado
+            return (ItfBeanSimples) getCampoByNomeOuAnotacao(pCaminho.getCaminhoSemNomeClasse()).getValor();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo", t);
+        }
+        return null;
+    }
 
-            ItfBeanSimples entidade = (ItfBeanSimples) this;
-            for (String caminho : pCaminho.getPartesCaminho()) {
+    @Override
+    public List<ItfBeanSimples> getListaPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+        try {
 
-                // pulando a primeira parte do caminho que refere a ele mesmo
-                if (i > 0) {
-                    entidade = ((ItfBeanSimples) entidade).getBeanSimplesPorNomeCampo(caminho);
-                    if (entidade == null) {
-                        return null;
-                    }
-                }
-                i++;
-
-            }
-
-            return entidade;
+            return (List) getCampoByNomeOuAnotacao(pCaminho.getCaminhoSemNomeClasse()).getValor();
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo", t);
         }

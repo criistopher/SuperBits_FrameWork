@@ -49,7 +49,7 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
         return resp;
     }
 
-    protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
+    protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM, int quantidadeDemanda) {
 
         //if (true) {
         //   pResp.addErro("Este metodo está em manutenção!!! ");
@@ -70,10 +70,21 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
             UtilSBPersistencia.iniciarTransacao(pEM);
 
             for (CaminhoCampoReflexao cm : pEntidade.getEntidadesVinculadas()) {
+
                 if (pEntidade.getItemPorCaminhoCampo(cm) != null) {
+
+                    if (cm.isUmCampoListavel()) {
+
+                    } else {
+
+                    }
+
+                    ItfBeanSimples entidade = pEntidade.getItemPorCaminhoCampo(cm);
+
                     if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm), pEM) == null) {
                         pResp.addErro("Ocorreu um erro ao Atualizar as informações de " + cm.getCampoFieldReflection().getType().getSimpleName());
                     }
+
                 }
 
             }
