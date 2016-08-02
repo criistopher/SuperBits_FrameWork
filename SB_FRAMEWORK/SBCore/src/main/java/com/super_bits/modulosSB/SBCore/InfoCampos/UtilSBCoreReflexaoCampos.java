@@ -122,7 +122,7 @@ public class UtilSBCoreReflexaoCampos {
                 List<Class> classesDaEntidade = UtilSBCoreReflexao.getClasseESubclassesAteClasseBaseDeEntidade(classe);
                 for (Class classeAtual : classesDaEntidade) {
                     try {
-                        campo = classeAtual.getDeclaredField(parte.replace("[]", ""));
+                        campo = classeAtual.getDeclaredField(UtilSBCoreReflexaoCampos.getListaSemColchete(parte));
                         if (campo != null) {
                             break;
                         }
@@ -378,16 +378,20 @@ public class UtilSBCoreReflexaoCampos {
                         List<ItfBeanSimples> lista = (List) itemEncontrado;
                         int ii = 0;
                         // construindo a string do caminho, como este
-                        String caminhoNovoCampo = caminho.getCaminhoSemNomeClasse().replaceAll("\\[]", "[" + ii + "]");
+
                         for (ItfBeanSimples item : lista) {
+                            String caminhoNovoCampo = caminho.getCaminhoSemNomeClasse().replaceAll("\\[]", "[" + ii + "]");
                             CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminhoNovoCampo);
                             ii++;
+                            listarAnterior.add(novoCaminho);
+
+                            buildListaSubEntidadesPersistiveis((ItfBeanSimples) item, pNivelAtual + 1, pNivelMaximo, listarAnterior, caminhoAnterior + "." + novoCaminho.getCaminhoSemNomeClasse());
                         }
                     } else {
 
                         CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
                         listarAnterior.add(novoCaminho);
-                        buildListaSubEntidadesPersistiveis((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
+                        buildListaSubEntidadesPersistiveis((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
                     }
                 }
 
@@ -462,7 +466,8 @@ public class UtilSBCoreReflexaoCampos {
             String conteudoComColchete = "\\[" + matcher.group(1) + "\\]";
             return parteNome.replaceAll(conteudoComColchete, "[]");
         } else {
-            throw new UnsupportedOperationException("O campo não parece ser uma lista com indice" + parteNome);
+            return parteNome;
+            // throw new UnsupportedOperationException("O campo não parece ser uma lista com indice" + parteNome);
         }
 
     }

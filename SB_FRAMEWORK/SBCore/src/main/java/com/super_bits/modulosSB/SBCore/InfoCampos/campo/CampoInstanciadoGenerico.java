@@ -16,6 +16,7 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
 
     protected final Field campoReflection;
     protected final InfoCampo infoCampo;
+    protected int indiceValorLista = -1;
 
     public CampoInstanciadoGenerico(Campo pcampo, Field pCampoReflection) {
         super(pcampo);
@@ -25,7 +26,6 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     }
 
     @Override
-
     public String getNomeCamponaClasse() {
         return campoReflection.getName();
     }
@@ -62,6 +62,16 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     @Override
     public String getLabelSlug() {
         return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
+    }
+
+    @Override
+    public int getIndiceValorLista() {
+        return indiceValorLista;
+    }
+
+    @Override
+    public void setIndiceValorLista(int pIndice) {
+        indiceValorLista = pIndice;
     }
 
 }

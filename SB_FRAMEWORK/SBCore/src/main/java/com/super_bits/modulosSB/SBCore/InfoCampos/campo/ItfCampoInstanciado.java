@@ -33,4 +33,8 @@ public interface ItfCampoInstanciado extends ItfCampo {
 
     public String getLabelSlug();
 
+    public int getIndiceValorLista();
+
+    public void setIndiceValorLista(int pIndice);
+
 }

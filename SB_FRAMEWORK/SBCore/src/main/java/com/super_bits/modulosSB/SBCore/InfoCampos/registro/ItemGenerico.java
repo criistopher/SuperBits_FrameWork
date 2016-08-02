@@ -79,20 +79,33 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         @Override
         public void setValor(Object pValor) {
             try {
-                System.out.println("Tipo campo=" + campoReflection.getType());
 
-                if (campoReflection.getType() == int.class) {
-                    int valor = (int) Integer.parseInt(pValor.toString());
-                    campoReflection.set(getInstancia(), valor);
+                if (indiceValorLista > 0) {
+                    List lista = (List) campoReflection.get(getInstancia());
+                    if (lista == null) {
+                        return;
+
+                    }
+                    if (indiceValorLista <= lista.size() - 1) {
+                        lista.set(indiceValorLista, pValor);
+                    }
+
+                } else {
+                    System.out.println("Tipo campo=" + campoReflection.getType());
+
+                    if (campoReflection.getType() == int.class) {
+                        int valor = (int) Integer.parseInt(pValor.toString());
+                        campoReflection.set(getInstancia(), valor);
+                    }
+
+                    if (campoReflection.getType() == Double.class
+                            || campoReflection.getType() == double.class) {
+                        double valor = (int) Double.parseDouble(pValor.toString());
+                        campoReflection.set(getInstancia(), valor);
+                    }
+
+                    campoReflection.set(getInstancia(), pValor);
                 }
-
-                if (campoReflection.getType() == Double.class
-                        || campoReflection.getType() == double.class) {
-                    double valor = (int) Double.parseDouble(pValor.toString());
-                    campoReflection.set(getInstancia(), valor);
-                }
-
-                campoReflection.set(getInstancia(), pValor);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro setando valor via CampoGenericoInstanciado", ex);
             }
@@ -102,14 +115,32 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         public Object getValor() {
             String infomensagemErro = "";
             try {
-                if (campoReflection == null) {
-                    throw new UnsupportedOperationException("O campo" + infoCampo + "não possui um Field configurado");
+
+                if (indiceValorLista > 0) {
+
+                    List lista = (List) campoReflection.get(getInstancia());
+                    if (lista == null) {
+                        return null;
+
+                    }
+                    if (indiceValorLista <= lista.size() - 1) {
+                        return lista.get(indiceValorLista);
+                    } else {
+                        return null;
+                    }
+
+                } else {
+
+                    if (campoReflection == null) {
+                        throw new UnsupportedOperationException("O campo" + infoCampo + "não possui um Field configurado");
+                    }
+
+                    infomensagemErro = campoReflection.getName();
+                    campoReflection.setAccessible(true);
+                    Object instancia = getInstancia();
+                    Field cp = campoReflection;
+                    return cp.get(instancia);
                 }
-                infomensagemErro = campoReflection.getName();
-                campoReflection.setAccessible(true);
-                Object instancia = getInstancia();
-                Field cp = campoReflection;
-                return cp.get(instancia);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, ex.getMessage() + "Erro obtendo valor do item Generico Instanciado" + infomensagemErro + " ", ex);
                 System.out.println(ex.getCause());
@@ -378,7 +409,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                 if (pCampoReflexao.getType().getName().equals("int")) {
+                {
+                    if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -395,6 +427,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
+                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
@@ -565,8 +598,27 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         int quantidade = UtilSBCoreReflexaoCampos.getQuantidadeSubCampos(pNomeOuANotacao);
 
         if (quantidade == 1) {
+            TIPO_REGISTRO_CAMPO tipo = UtilSBCoreReflexaoCampos.getTipoCampoLista(pNomeOuANotacao);
 
-            return getmapaCamposInstanciados(pNomeOuANotacao).get(pNomeOuANotacao);
+            switch (tipo) {
+                case ENTIDADE:
+                case CAMPO_SIMPLES:
+                    return getmapaCamposInstanciados(pNomeOuANotacao).get(pNomeOuANotacao);
+                case LISTA:
+                    String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemColchete(pNomeOuANotacao);
+                    return getmapaCamposInstanciados(nomeCampoSemIndice).get(nomeCampoSemIndice);
+
+                case REGISTRO_DA_LISTA:
+                    int idIndiceCampo = UtilSBCoreReflexaoCampos.getIdCampoDaLista(pNomeOuANotacao);
+                    String nomeCampoSemIndice2 = UtilSBCoreReflexaoCampos.getListaSemColchete(pNomeOuANotacao);
+                    ItfCampoInstanciado cp = getmapaCamposInstanciados(nomeCampoSemIndice2).get(nomeCampoSemIndice2);
+
+                    cp.setIndiceValorLista(idIndiceCampo);
+                    return cp;
+                default:
+                    throw new AssertionError(tipo.name());
+
+            }
 
         } else {
 

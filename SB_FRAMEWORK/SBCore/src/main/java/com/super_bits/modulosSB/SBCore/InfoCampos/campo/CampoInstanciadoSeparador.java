@@ -236,4 +236,14 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
         return UtilSBCoreStrings.makeStrUrlAmigavel(getLabel());
     }
 
+    @Override
+    public int getIndiceValorLista() {
+        throw new UnsupportedOperationException("Indice de calor não é compatível com separador."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setIndiceValorLista(int pIndice) {
+
+    }
+
 }

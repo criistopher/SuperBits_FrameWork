@@ -53,10 +53,10 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
     }
 
     protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM) {
-        persistirTodasEntidadesVinculadas(pResp, pEntidade, pEM, 3);
+        persistirEntidadeComEntidadesVinculadas(pResp, pEntidade, pEM, 3);
     }
 
-    protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM, int quantidadeDemanda) {
+    protected static void persistirEntidadeComEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM, int quantidadeDemanda) {
 
         try {
 
@@ -80,9 +80,17 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
                 Object novaEntidade = null;
                 try {
                     novaEntidade = pEntidade.getValorCampoByCaminhoCampo(campo);
-
+                    ItfBeanSimples entidade = null;
                     if (novaEntidade != null) {
-                        UtilSBPersistencia.mergeRegistro(novaEntidade, pEM);
+                        try {
+                            entidade = (ItfBeanSimples) novaEntidade;
+                        } catch (Throwable tt) {
+                            //System.out.println("Campo não é do tipo bean Simples TODO solução melhor para isso");
+                        }
+
+                        if (entidade != null) {
+                            UtilSBPersistencia.mergeRegistro(novaEntidade, pEM);
+                        }
                     }
                 } catch (Throwable t) {
 
