@@ -26,8 +26,8 @@ public enum FabTipoVisualCampo {
     LIGADO_DESLIGADO,
     ENTIDADE_SIMPLES;
 
-    public static final String PASTA_INPUTS = "/resources/tags/com/sb/";
-    public static final String CAMPO_INPUT_COM_MASCARA = PASTA_INPUTS + "tagInputCampo.xhtml";
+    public static final String PASTA_INPUTS = "/resources/SBComp/tagLib/tags/com/sb/";
+    public static final String CAMPO_INPUT_COM_MASCARA = PASTA_INPUTS + "inputSimples.xhtml";
 
     @Deprecated
     public String getStrOldStyle() {
