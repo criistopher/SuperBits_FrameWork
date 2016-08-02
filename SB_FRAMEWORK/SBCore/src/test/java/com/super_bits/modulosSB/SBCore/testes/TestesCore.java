@@ -89,6 +89,9 @@ public class TestesCore {
     @Test
     public void teste() {
         String lista = "asdasdas0dasdasd[0]";
+        String lista2 = "usuarios";
+
+        UtilSBCoreReflexaoCampos.isUmaStringNomeadaComoLista(lista2);
 
         TIPO_REGISTRO_CAMPO tp = UtilSBCoreReflexaoCampos.getTipoCampoLista(lista);
 

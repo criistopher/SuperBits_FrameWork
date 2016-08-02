@@ -10,10 +10,13 @@ import com.super_bits.Controller.Interfaces.ItfResposta;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.comunicacao.Resposta;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -55,52 +58,61 @@ public abstract class ControllerAbstratoSBPersistencia extends ControllerAppAbst
 
     protected static void persistirTodasEntidadesVinculadas(ItfResposta pResp, ItfBeanSimples pEntidade, EntityManager pEM, int quantidadeDemanda) {
 
-        //if (true) {
-        //   pResp.addErro("Este metodo está em manutenção!!! ");
-        //  return;
-        // }
         try {
-            if (pEntidade == null) {
-                pResp.addErro("Ocorreu um erro ao salvar as informações");
-                throw new UnsupportedOperationException("Enviou um objeto nulo para persistir todas entidades vinculadas");
+
+            try {
+                if (!UtilSBPersistencia.iniciarTransacao(pEM)) {
+                    throw new UnsupportedOperationException("Impossível iniciar tranzação");
+                }
+            } catch (Throwable t) {
+
+                pResp.addErro("Desculpe, a tentativa de conexão com o banco não foi bem sucedida");
+                return;
             }
-            if (pResp == null) {
-                throw new UnsupportedOperationException("Você precisa especificar o objeto de resposta ao persistir todas entidades vinculadas, para que a função possa adicionar a mensagem de erro");
+            String nomeRegistroEntidadePrincipal = pEntidade.getNomeDoObjeto();
+            String nomeOperacao = getAcaoDoMetodo().getNomeAcao();
+
+            List<CaminhoCampoReflexao> lista = new ArrayList<>();
+            if (!UtilSBCoreReflexaoCampos.buildListaSubEntidadesPersistiveis(pEntidade, 0, quantidadeDemanda, lista, null)) {
+                throw new UnsupportedOperationException("Erro Otendo Lista de entidades vinculadas executando" + nomeOperacao + " para o registro" + nomeRegistroEntidadePrincipal);
             }
-            if (pEM == null) {
-                throw new UnsupportedOperationException("é preciso enviar um Entity Manager para peristir todas entidades vinculadas");
-            }
+            for (CaminhoCampoReflexao campo : lista) {
+                Object novaEntidade = null;
+                try {
+                    novaEntidade = pEntidade.getValorCampoByCaminhoCampo(campo);
 
-            UtilSBPersistencia.iniciarTransacao(pEM);
+                    if (novaEntidade != null) {
+                        UtilSBPersistencia.mergeRegistro(novaEntidade, pEM);
+                    }
+                } catch (Throwable t) {
 
-            for (CaminhoCampoReflexao cm : pEntidade.getEntidadesVinculadas()) {
-
-                if (pEntidade.getItemPorCaminhoCampo(cm) != null) {
-
-                    if (cm.isUmCampoListavel()) {
-
-                    } else {
-
+                    String nomeEntidadeErro = "Registro indefinido";
+                    try {
+                        nomeEntidadeErro = ((ItfBeanSimples) novaEntidade).getNomeDoObjeto();
+                    } catch (Throwable tn) {
+                        SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo nome da entidade", tn);
                     }
 
-                    ItfBeanSimples entidade = pEntidade.getItemPorCaminhoCampo(cm);
-
-                    if (UtilSBPersistencia.mergeRegistro(pEntidade.getItemPorCaminhoCampo(cm), pEM) == null) {
-                        pResp.addErro("Ocorreu um erro ao Atualizar as informações de " + cm.getCampoFieldReflection().getType().getSimpleName());
-                    }
+                    pResp.addErro("Ouve um erro ao salvar um registro do tipo" + nomeEntidadeErro + " vinculado ao " + pEntidade.getNomeDoObjeto());
 
                 }
 
             }
 
-            if (UtilSBPersistencia.mergeRegistro(pEntidade, pEM) == null) {
-                pResp.addErro("Não foi possível salvar o registro " + pEntidade.getClass());
+            if (UtilSBPersistencia.finalizarTransacao(pEM)) {
+                pResp.addAviso("As informações sobre o registro " + nomeRegistroEntidadePrincipal + " foram armazenadas com sucesso");
+
+            } else {
+                pResp.addErro("A operação não foi realizada, Ouve um erro de consistencia nas informações do " + pEntidade.getNomeDoObjeto());
             }
 
-            if (!UtilSBPersistencia.finalizarTransacao(pEM)) {
-                pResp.addErro("Não foi possível salvar as alteções! " + pEntidade.getClass());
-            }
         } catch (Throwable t) {
+
+            pResp.addErro("Ocorreu durante tentativa de " + getAcaoDoMetodo().getNomeAcao() + ", os Desenvolvedores já foram informados. Pode ser que tentando fazer isso de outra forma o problema seja resolvido, mas não podemos garantir..");
+            if (pEM.getTransaction().isActive()) {
+                pEM.getTransaction().rollback();
+            }
+
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ocorreu um erro ao Peristir todas entidades vinculadas", t);
         }
 

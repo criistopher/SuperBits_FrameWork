@@ -49,6 +49,26 @@ public interface ItfBeanReflexoes {
 
     /**
      *
+     * O mesmo que isto @see ItfBeanReflexoes#getCampoByNomeOuAnotacao porém com
+     * paramentro caminhoCampo
+     *
+     * @param pNome
+     * @return
+     */
+    public ItfCampoInstanciado getCampoByCaminhoCampo(CaminhoCampoReflexao pNome);
+
+    /**
+     * Retorna os ->valores<- dos campos instanciados retornados nisto: @see
+     * ItfBeanReflexoes#getCampoByNomeOuAnotacao porém com
+     *
+     *
+     * @param pNome
+     * @return
+     */
+    public Object getValorCampoByCaminhoCampo(CaminhoCampoReflexao pNome);
+
+    /**
+     *
      * Retorna todas as entidades vinculadas ao bean para merg
      *
      * @return

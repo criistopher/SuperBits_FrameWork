@@ -259,7 +259,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
             return true;
         } catch (Throwable t) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao Iniciar a tranzação", t);
             return false;
         }
 
@@ -279,6 +279,13 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
             return true;
         } catch (Throwable t) {
+
+            try {
+                em.getTransaction().rollback();
+            } catch (Throwable tt) {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao executar o RollBack", t);
+            }
+
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
             return false;
         }
@@ -733,6 +740,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * Realizar Merg de Objeto (cria se o key primario não existir, e atualiza
      * caso exista).
      *
+     * *Enviando uma Entidade o sistema não irá gerenciar a tranção, ou seja,
+     * não vai abrir nem fechar
+     *
      * @param obj Objeto que será salvo em banco
      * @param pEm Entity manager que será utilizado
      * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra
@@ -747,6 +757,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     /**
      * Realizar Merg de Objeto (cria se o primario não existir, e atualiza caso
      * exista).
+     *
+     * *Este método irá criar um novo Entity Manager, e fechar em seguida
+     *
      *
      * @param object
      * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra

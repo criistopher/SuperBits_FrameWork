@@ -4,11 +4,13 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos.getFieldByNomeCompletoCaminho;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -74,14 +76,17 @@ public final class CaminhoCampoReflexao extends ItemSimples {
      * usuario.localizacao.bairro
      */
     public CaminhoCampoReflexao(String pCaminho) {
+        try {
+            //setCaminho(pCaminho);
+            defineNomeCompleto(pCaminho);
 
-        //setCaminho(pCaminho);
-        defineNomeCompleto(pCaminho);
-
-        configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
-        makePartesCaminho();
-        id = caminhoComleto.hashCode();
-
+            configuraInformacoesBasicasDoCampoPorReflexao(validaCampo(null));
+            makePartesCaminho();
+            id = caminhoComleto.hashCode();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ocorreu um erro criando o campo" + pCaminho, t);
+            throw new UnsupportedOperationException("Não foi possível executar o contructor para o caminhoCampoReflexão, utilizando o paramentro" + pCaminho);
+        }
     }
 
     public CaminhoCampoReflexao(String pCaminho, Class pClasse) {
@@ -136,7 +141,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
             if (pField.getType().getSimpleName().equals("List")) {
                 umCampoListavel = true;
                 umaEntidade = true;
-                if (UtilSBCoreReflexaoCampos.isUmaStringNomeadaComoLista(getUtimoNome())) {
+                if (UtilSBCoreReflexaoCampos.isUmaStringNomeadaComoLista(caminhoComleto)) {
 
                 } else {
                     caminhoComleto += "[]";

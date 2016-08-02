@@ -376,4 +376,14 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ItfCampoInstanciado getCampoByCaminhoCampo(CaminhoCampoReflexao pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getValorCampoByCaminhoCampo(CaminhoCampoReflexao pNome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

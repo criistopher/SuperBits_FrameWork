@@ -536,6 +536,27 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     @Override
+    public ItfCampoInstanciado getCampoByCaminhoCampo(CaminhoCampoReflexao pCaminhoCampo) {
+        return getCampoByNomeOuAnotacao(pCaminhoCampo.getCaminhoSemNomeClasse());
+    }
+
+    @Override
+    public Object getValorCampoByCaminhoCampo(CaminhoCampoReflexao pCaminhoCampo) {
+        try {
+            ItfCampoInstanciado campoInstanciado = getCampoByNomeOuAnotacao(pCaminhoCampo.getCaminhoSemNomeClasse());
+            if (campoInstanciado == UtilSBCoreReflexaoCampos.CAMPO_NAO_IMPLEMENTADO) {
+                return null;
+            }
+            Object resposta = campoInstanciado.getValor();
+            return resposta;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo valor de campo:" + pCaminhoCampo + " na classe " + this.getClass().getSimpleName(), t);
+            throw new UnsupportedOperationException("impossivel obter valor pelo caminho do campo");
+        }
+
+    }
+
+    @Override
     public ItfCampoInstanciado getCampoByNomeOuAnotacao(String pNomeOuANotacao) {
 
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pNomeOuANotacao)) {
@@ -658,6 +679,11 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     }
 
+    /**
+     *
+     * @param pCaminho
+     * @return
+     */
     @Override
     public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
         try {
@@ -665,7 +691,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             // to do substituir por acesso direto sem precisar instanciar o CampoInstanciado
             return (ItfBeanSimples) getCampoByNomeOuAnotacao(pCaminho.getCaminhoSemNomeClasse()).getValor();
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo" + pCaminho, t);
         }
         return null;
     }
@@ -676,7 +702,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
             return (List) getCampoByNomeOuAnotacao(pCaminho.getCaminhoSemNomeClasse()).getValor();
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando obter item por caminho do campo " + pCaminho, t);
         }
         return null;
     }
@@ -695,7 +721,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 cp.setAccessible(true);
                 ret = (ItfBeanSimples) cp.get(this);
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pNomeCampo, ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Campo: [" + pNomeCampo + "] não encontrado na classe : [" + getClass().getSimpleName() + "]", ex);
             }
             return ret;
         } catch (Throwable t) {

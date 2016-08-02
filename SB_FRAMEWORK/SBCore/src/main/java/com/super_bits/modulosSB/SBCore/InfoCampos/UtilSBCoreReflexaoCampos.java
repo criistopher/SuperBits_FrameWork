@@ -8,7 +8,6 @@ package com.super_bits.modulosSB.SBCore.InfoCampos;
 
 import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCamposOldReferencia.getCaminhoSemNomeClasse;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCamposOldReferencia.getNomeGrupoPorStrSeparador;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
@@ -338,28 +337,66 @@ public class UtilSBCoreReflexaoCampos {
         return null;
     }
 
-    public static void buildListaSubEntidadesPersistiveis(ItfBeanSimples entidade, int pNivelAtual, int pNivelMaximo, List<CaminhoCampoReflexao> listarAnterior, String caminhoAnterior) {
-
-        if (pNivelAtual >= pNivelMaximo) {
-            return;
-        }
-        for (CaminhoCampoReflexao caminho : entidade.getEntidadesVinculadas()) {
-            Object itemEncontrado = entidade.getItemPorCaminhoCampo(caminho);
-            if (itemEncontrado != null) {
-                if (caminho.isUmCampoListavel()) {
-                    List<ItfBeanSimples> lista = (List) itemEncontrado;
-                    int ii = 0;
-                    for (ItfBeanSimples item : lista) {
-                        CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse().replaceAll("[]", "[" + ii + "]"));
-                        ii++;
-                    }
-                } else {
-                    CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
-                    listarAnterior.add(novoCaminho);
-                    buildListaSubEntidadesPersistiveis((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
-                }
+    /**
+     *
+     * Com uma entidade instanciada, ele percorre todos os campos filhos de
+     * entidade, até o nivel maximo informado
+     *
+     * ex: pNivelMaximo 3 de uma entidade ficticia chamada avó, poderia retornar
+     * seguintes caminhos: avó.mãe.filho. e avó.mãe.amante <br>
+     * No pNivelMaximo 4 retornaria todos os acimas mais:
+     * avó.mãe.amante.filho_do_amante;
+     *
+     * @param entidade A entidade instanciada (os campos nulos não serão
+     * enviados)
+     * @param pNivelAtual O nível atual de pesquisa, este método se auto
+     * executa, incrementando o nivel a cada momento adequado
+     * @param pNivelMaximo O nivel máximo, (não pode passar de 7)
+     * @param listarAnterior A lista que será preenxida utilizando o formidacel
+     * recurso de passagem por referencia do Java
+     * @param caminhoAnterior
+     * @return True caso não aconteçam erros
+     */
+    public static boolean buildListaSubEntidadesPersistiveis(ItfBeanSimples entidade, int pNivelAtual, int pNivelMaximo, List<CaminhoCampoReflexao> listarAnterior, String caminhoAnterior) {
+        try {
+            if (pNivelMaximo > 7) {
+                pNivelMaximo = 7;
             }
+            if (pNivelAtual >= pNivelMaximo) {
+                return true;
+            }
+            if (caminhoAnterior == null) {
+                caminhoAnterior = entidade.getClass().getSimpleName();
+            }
+            List<CaminhoCampoReflexao> entidadesVinculadas = entidade.getEntidadesVinculadas();
+            for (CaminhoCampoReflexao caminho : entidadesVinculadas) {
+
+                //confirmação que o item foi instanciado
+                Object itemEncontrado = entidade.getValorCampoByCaminhoCampo(caminho);
+                if (itemEncontrado != null) {
+                    if (caminho.isUmCampoListavel()) {
+                        List<ItfBeanSimples> lista = (List) itemEncontrado;
+                        int ii = 0;
+                        // construindo a string do caminho, como este
+                        String caminhoNovoCampo = caminho.getCaminhoSemNomeClasse().replaceAll("\\[]", "[" + ii + "]");
+                        for (ItfBeanSimples item : lista) {
+                            CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminhoNovoCampo);
+                            ii++;
+                        }
+                    } else {
+
+                        CaminhoCampoReflexao novoCaminho = new CaminhoCampoReflexao(caminhoAnterior + "." + caminho.getCaminhoSemNomeClasse());
+                        listarAnterior.add(novoCaminho);
+                        buildListaSubEntidadesPersistiveis((ItfBeanSimples) itemEncontrado, pNivelAtual + 1, pNivelMaximo, listarAnterior, novoCaminho.getCaminhoSemNomeClasse());
+                    }
+                }
+
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo lista de entidades persistiveis", t);
+            return false;
         }
+        return true;
 
     }
 
@@ -430,6 +467,16 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    /**
+     *
+     * Retorna todas as entidades diretamente declaradas na entidade,<br>
+     * que não seja nula es estaja anotadas com @ManyToOne, @OneToMany, ou
+     *
+     * @ManyToMany
+     *
+     * @param pClasse
+     * @return
+     */
     public static Map<String, CaminhoCampoReflexao> getCamposComSubCamposDaClasse(Class pClasse) {
 
         if (pClasse == null) {
@@ -445,54 +492,50 @@ public class UtilSBCoreReflexaoCampos {
                 throw new UnsupportedOperationException("Impossível percorrrer classes superiores de" + pClasse.getSimpleName());
             }
 
-            Field[] fields = classeAtual.getDeclaredFields();
+            Field[] todoscampos = classeAtual.getDeclaredFields();
 
-            for (Field campo : fields) {
-                if (campo.isAnnotationPresent(ManyToOne.class
-                ) || campo.isAnnotationPresent(OneToMany.class)
-                        || campo.isAnnotationPresent(ManyToMany.class)) {
-                    if (!campo.isAnnotationPresent(Transient.class)) {
-                        String caminhocampo = pClasse.getSimpleName() + "." + campo.getName();
-                        CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhocampo);
-                        lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
+            List<Field> camposEntidade = Lists.newArrayList(todoscampos);
 
+            //  Se chegou até aqui, você deve estar pensando, porque instanciar duas vezes esta lista? <br>
+            //   O que é mais importante, um código legivel e debugavel ou um código rápido? o trabalho em equipe? ou o processaodor?
+            // Separando lista de campos de entidade do restante
+            for (Field campoEntidade : todoscampos) {
+                if (campoEntidade.isAnnotationPresent(ManyToOne.class
+                ) || campoEntidade.isAnnotationPresent(OneToMany.class)
+                        || campoEntidade.isAnnotationPresent(ManyToMany.class)) {
+                    if (campoEntidade.isAnnotationPresent(Transient.class)) {
+                        // caso seja transiente, ignora
+                        camposEntidade.remove(campoEntidade);
                     }
+
+                } else {
+                    //caso não contenha as anotações de chave extrangeira remove da lista
+                    camposEntidade.remove(campoEntidade);
                 }
-
             }
-
+            // para cada campo do tipo entidade persistivel retorna o valor
+            for (Field campoEntidade : camposEntidade) {
+                String caminhoCampo = null;
+                try {
+                    caminhoCampo = pClasse.getSimpleName() + "." + campoEntidade.getName();
+                    CaminhoCampoReflexao caminhoCR = new CaminhoCampoReflexao(caminhoCampo);
+                    lista.put(caminhoCR.getCaminhoCompletoString(), caminhoCR);
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro adicionando Campo: " + caminhoCampo, t);
+                    throw new UnsupportedOperationException("Impossivel determinar os campos com chave extrangeira da classe");
+                }
+            }
             classeAtual = classeAtual.getSuperclass();
         }
 
         return lista;
-
-    }
-
-    /**
-     *
-     *
-     * @deprecated Utilize GetCaminho por
-     * @see UtilSBCoreReflexaoCampos#getCaminhoCAmpoByString(java.lang.String)
-     * @param pClasse
-     * @return
-     */
-    @Deprecated
-    public static Map<String, CaminhoCampoReflexao> getTodosCamposItensSimplesDoItemEFilhosOrdemFilhoParaPai(Class pClasse) {
-        try {
-
-            throw new UnsupportedOperationException("Este tipo de ação está desatvada do sistema, por tempo indeterminado");
-        } catch (Throwable t) {
-
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo Campos de entidade relacionados a classe " + pClasse, t);
-            return null;
-        }
-
     }
 
     public static boolean isClasseBasicaSB(Class pClasse) {
 
         if (pClasse == null) {
             throw new UnsupportedOperationException("enviado null para verificação de classe Basica");
+
         }
 
         // todo Tratar EntidadeGenerica gerar trhow se Chegar no Object
@@ -578,7 +621,7 @@ public class UtilSBCoreReflexaoCampos {
                 GrupoCampos grupoatual = null;
 
                 if (pCampos.get(0).isUmCampoSeparador()) {
-                    grupoatual = new GrupoCampos(getCaminhoSemNomeClasse(pCampos.get(0).toString()));
+                    grupoatual = new GrupoCampos(getNomeGrupoPorStrSeparador(pCampos.get(0).getCaminhoCompletoString()));
                 } else {
                     grupoatual = new GrupoCampos();
                 }
