@@ -8,26 +8,49 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 
 /**
  *
+ *
+ *
  * @author salvioF
  */
-public enum FabTipoVisualCampo implements ItfFABTipoComponenteVisual {
+public enum FabTipoVisualCampo implements ItfFabTipoComponenteVisual {
 
+    @InfoComponenteVisual(nome = "Texto Com FOrmatacao", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "inputMascara.xhtml")
     TEXTO_COM_FORMATACAO,
+    @InfoComponenteVisual(nome = "Texto Sem Formatacao", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "inputSimples.xhtml")
     TEXTO_SEM_FORMATACAO,
+    @InfoComponenteVisual(nome = "Texto Grande com Formatacao", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "minimoEMaximo.xhtml")
+    TEXTO_GRANDE_COM_FORMATACAO,
+    @InfoComponenteVisual(nome = "Texto multiplas Linhas", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "descritivo.xhtml")
     TEXTMO_MULTIPLAS_LINHAS,
+    @InfoComponenteVisual(nome = "Valor com mínimo e Maximo", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "minimoEMaximo.xhtml")
     NUMERO_MINIMO_MAXIMO,
-    LISTAGEM,
+    @InfoComponenteVisual(nome = "Lista", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "seletorItens.xhtml")
+    LISTA_DE_ITENS,
+    @InfoComponenteVisual(nome = "Lista", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "seletor.xhtml")
+    LOOKUP_DE_ITENS,
+    @InfoComponenteVisual(nome = "Senha", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "senha.xhtml")
     SENHA,
+    @InfoComponenteVisual(nome = "Cep", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "cep.xhtml")
     CEP,
+    @InfoComponenteVisual(nome = "Cor", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "cor.xhtml")
     COR,
+    @InfoComponenteVisual(nome = "HTML", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "html.xhtml")
     HTML,
+    @InfoComponenteVisual(nome = "Quantidade", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "quantidade.xhtml")
     QUANTIDADE,
+    @InfoComponenteVisual(nome = "Moeda", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "moeda.xhtml")
     MOEDA,
+    @InfoComponenteVisual(nome = "Email", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "email.xhtml")
     EMAIL,
+    @InfoComponenteVisual(nome = "Data", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "data.xhtml")
     DATA,
+    @InfoComponenteVisual(nome = "Data Hora", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "dataHora.xhtml")
     DATA_HORA,
+    @InfoComponenteVisual(nome = "Ligado ou Desligado", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "verdadeiroOuFalso.xhtml")
     LIGADO_DESLIGADO,
+    @InfoComponenteVisual(nome = "Entidade Simples", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "entidadeSimples.xhtml")
     ENTIDADE_SIMPLES;
+    public static final String PASTA_CAMPOS = "input/";
 
     @Deprecated
     public String getStrOldStyle() {
@@ -38,7 +61,7 @@ public enum FabTipoVisualCampo implements ItfFABTipoComponenteVisual {
                 return FabCampos.AAA_DESCRITIVO.toString();
             case NUMERO_MINIMO_MAXIMO:
                 return NUMERO_MINIMO_MAXIMO.toString();
-            case LISTAGEM:
+            case LISTA_DE_ITENS:
                 return FabCampos.LOOKUP.toString();
             case SENHA:
                 return SENHA.toString();
@@ -72,81 +95,14 @@ public enum FabTipoVisualCampo implements ItfFABTipoComponenteVisual {
 
     }
 
-    public String getXhtml() {
-        switch (this) {
-            case TEXTO_COM_FORMATACAO:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "inputMascara.xhtml";
-            case TEXTMO_MULTIPLAS_LINHAS:
-            case NUMERO_MINIMO_MAXIMO:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "minimoEMaximo.xhtml";
-            case LISTAGEM:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "seletor.xhtml";
-            case SENHA:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "senha.xhtml";
-            case CEP:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "cep.xhtml";
-            case COR:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "cor.xhtml";
-            case HTML:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "html.xhtml";
-            case QUANTIDADE:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "quantidade.xhtml";
-            case MOEDA:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "moeda.xhtml";
-            case EMAIL:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "email.xhtml";
-            case DATA:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "data.xhtml";
-            case DATA_HORA:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "dataHora.xhtml";
-            case LIGADO_DESLIGADO:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "verdadeiroOuFalso.xhtml";
-            case ENTIDADE_SIMPLES:
-                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "entidadeSimples.xhtml";
-            case TEXTO_SEM_FORMATACAO:
-
-            default:
-                return ItfFABTipoComponenteVisual.CAMPO_INPUT_SIMPLES;
-
-        }
-
-    }
-
-    public String getIdPadraoComponente() {
-        switch (this) {
-
-            case LISTAGEM:
-                return "componenteInputDado:inputSB:seletor";
-
-            default:
-                return "componenteInputDado";
-
-        }
-    }
-
-    @Override
-    public String getXhtmlJsf() {
-        return getXhtml();
-    }
-
-    @Override
-    public String getXhtmlAndroid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getHtmlWordPress() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getNomeComponente() {
-        return this.toString();
-    }
-
     @Override
     public FabFamiliaCompVisual getFamilia() {
         return FabFamiliaCompVisual.INPUT;
+    }
+
+    @Override
+    public ComponenteVisualSB getComponente() {
+        return UtilSBFabricaComponenteVisual.getComponenteVisual(this);
     }
 
 }

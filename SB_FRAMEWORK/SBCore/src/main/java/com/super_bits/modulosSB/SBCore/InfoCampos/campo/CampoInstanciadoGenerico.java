@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB;
 import java.lang.reflect.Field;
 
 /**
@@ -86,12 +87,25 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
             case TEXTO_COM_FORMATACAO:
             case TEXTO_SEM_FORMATACAO:
                 if (isTemMascara()) {
-                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO.getXhtml();
+                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO.getComponente().getXhtmlJSF();
                 } else {
-                    return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getXhtml();
+                    return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
                 }
             default:
-                return getTipoCampo().getTipo_input_prime().getXhtml();
+                return getTipoCampo().getTipo_input_prime().getComponente().getXhtmlJSF();
+        }
+    }
+
+    @Override
+    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente) {
+
+        if (pComponente == null) {
+            return getTipoCampo().getTipo_input_prime().getFamilia().getXhtmlJSFPadrao();
+        }
+        if (getTipoCampo().getTipo_input_prime().getFamilia().equals(pComponente.getFamilia())) {
+            return pComponente.getXhtmlJSF();
+        } else {
+            return pComponente.getXhtmlJSF();
         }
     }
 

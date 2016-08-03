@@ -4,23 +4,25 @@
  */
 package com.super_bits.view;
 
+import com.super_bits.view.fabricasCompVisual.InfoComponenteVisual;
+
 /**
  *
  * @author desenvolvedor
  */
 public enum FabComponenteVisualSB {
 
-    @InfoComponenteVisual(nome = "Input", descricao = "Campo para input de Inforação", nomeXML = "input.xhml")
+    @InfoComponenteVisual(nome = "Input", descricao = "Campo para input de Inforação", xhtmlJSF = "input.xhml")
     INPUT,
-    @InfoComponenteVisual(nome = "Endereço", descricao = "Campo para input de Inforação", nomeXML = "input.xhml")
+    @InfoComponenteVisual(nome = "Endereço", descricao = "Campo para input de Inforação", xhtmlJSF = "input.xhml")
     ENDERECO,
-    @InfoComponenteVisual(nome = "Grafico", descricao = "Campo para input de Inforação", nomeXML = "input.xhml")
+    @InfoComponenteVisual(nome = "Grafico", descricao = "Campo para input de Inforação", xhtmlJSF = "input.xhml")
     GRAFICO,
-    @InfoComponenteVisual(nome = "Painal", descricao = "Campo para input de Inforação", nomeXML = "enderecp.xhml")
+    @InfoComponenteVisual(nome = "Painal", descricao = "Campo para input de Inforação", xhtmlJSF = "enderecp.xhml")
     PAINEL,
-    @InfoComponenteVisual(nome = "Menu", descricao = "Campo para input de Inforação", nomeXML = "menu.xhml")
+    @InfoComponenteVisual(nome = "Menu", descricao = "Campo para input de Inforação", xhtmlJSF = "menu.xhml")
     MENU,
-    @InfoComponenteVisual(nome = "Overlay ", descricao = "Componente para exibição em cima de outra tela", nomeXML = "overlay.xhtml")
+    @InfoComponenteVisual(nome = "Overlay ", descricao = "Componente para exibição em cima de outra tela", xhtmlJSF = "overlay.xhtml")
     OVERLAY;
 
 }

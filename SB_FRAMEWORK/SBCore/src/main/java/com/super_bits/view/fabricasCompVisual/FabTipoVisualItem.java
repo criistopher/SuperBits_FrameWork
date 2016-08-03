@@ -10,4 +10,12 @@ package com.super_bits.view.fabricasCompVisual;
  */
 public enum FabTipoVisualItem {
 
+    FEED_INFORMACAO_HORIZONTAL,
+    FEED_INFORMACAO_VERTICAL,
+    NOTICIA,
+    INFORMACAO3_POR_LINHA,
+    INFORMACAO9_POR_LINHA,
+    INFORMACAO_METADE_LINHA,
+    INFORMACAO_LINHA_INTEIRA
+
 }

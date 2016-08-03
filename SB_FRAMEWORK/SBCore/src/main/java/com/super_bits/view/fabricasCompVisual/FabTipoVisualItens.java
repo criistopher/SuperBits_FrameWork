@@ -8,6 +8,18 @@ package com.super_bits.view.fabricasCompVisual;
  *
  * @author salvioF
  */
-public enum FabTipoVisualItens {
+public enum FabTipoVisualItens implements ItfFabTipoComponenteVisual {
+
+    PICKLIST;
+
+    @Override
+    public FabFamiliaCompVisual getFamilia() {
+        return FabFamiliaCompVisual.ITENS_BEAN_SIMPLES;
+    }
+
+    @Override
+    public ComponenteVisualSB getComponente() {
+        return UtilSBFabricaComponenteVisual.getComponenteVisual(this);
+    }
 
 }

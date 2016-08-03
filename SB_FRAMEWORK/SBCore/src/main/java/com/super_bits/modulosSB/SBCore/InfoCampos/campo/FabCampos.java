@@ -591,7 +591,7 @@ public enum FabCampos implements ItfFabrica {
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
                 case LISTA:
-                    return FabTipoVisualCampo.LISTAGEM;
+                    return FabTipoVisualCampo.LISTA_DE_ITENS;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
                 case SENHA:
                 case SENHA_SEGURANCA_MAXIMA:

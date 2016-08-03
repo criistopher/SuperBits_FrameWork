@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -255,7 +256,13 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getXhtmlInput() {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getXhtml();
+        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
+
+    }
+
+    @Override
+    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente) {
+        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
 
     }
 
