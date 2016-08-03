@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;

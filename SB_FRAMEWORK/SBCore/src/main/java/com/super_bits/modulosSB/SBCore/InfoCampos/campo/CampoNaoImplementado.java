@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ public class CampoNaoImplementado extends CampoInstanciadoGenerico implements It
     public final String campoNaoImplementado = "TODO - CampoNão implementado";
     private Field fld;
 
-    private static final Field campoteste() {
+    private static Field campoteste() {
         try {
 
             Field cp = CampoNaoImplementado.class.getField("campoNaoImplementado");
@@ -60,6 +61,11 @@ public class CampoNaoImplementado extends CampoInstanciadoGenerico implements It
     @Override
     public void configIDPeloNome() {
         System.out.println("Config id pelo nome não se aplica ");
+    }
+
+    @Override
+    public String getXhtmlInput() {
+        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getXhtml();
     }
 
 }

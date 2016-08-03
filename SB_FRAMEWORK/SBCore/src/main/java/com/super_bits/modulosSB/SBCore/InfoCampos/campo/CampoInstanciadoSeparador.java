@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
-    private String nomeDoSeparador;
+    private final String nomeDoSeparador;
 
     public CampoInstanciadoSeparador(String pnome) {
         nomeDoSeparador = pnome;
@@ -243,6 +244,18 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public void setIndiceValorLista(int pIndice) {
+
+    }
+
+    @Override
+    public String getNomeUnicoParaIDHtml() {
+        // to do separador
+        return Integer.toString(toString().hashCode());
+    }
+
+    @Override
+    public String getXhtmlInput() {
+        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getXhtml();
 
     }
 

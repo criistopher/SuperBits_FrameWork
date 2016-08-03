@@ -2,15 +2,18 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
+package com.super_bits.view.fabricasCompVisual;
+
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 
 /**
  *
  * @author salvioF
  */
-public enum FabTipoVisualCampo {
+public enum FabTipoVisualCampo implements ItfFABTipoComponenteVisual {
 
     TEXTO_COM_FORMATACAO,
+    TEXTO_SEM_FORMATACAO,
     TEXTMO_MULTIPLAS_LINHAS,
     NUMERO_MINIMO_MAXIMO,
     LISTAGEM,
@@ -25,9 +28,6 @@ public enum FabTipoVisualCampo {
     DATA_HORA,
     LIGADO_DESLIGADO,
     ENTIDADE_SIMPLES;
-
-    public static final String PASTA_INPUTS = "/resources/SBComp/tagLib/tags/com/sb/";
-    public static final String CAMPO_INPUT_COM_MASCARA = PASTA_INPUTS + "inputSimples.xhtml";
 
     @Deprecated
     public String getStrOldStyle() {
@@ -62,6 +62,8 @@ public enum FabTipoVisualCampo {
                 return FabCampos.VERDADEIRO_FALSO.toString();
             case ENTIDADE_SIMPLES:
                 return FabCampos.LOOKUP.toString();
+            case TEXTO_SEM_FORMATACAO:
+                return FabCampos.TEXTO_SIMPLES.toString();
 
             default:
                 throw new AssertionError(this.name());
@@ -73,40 +75,41 @@ public enum FabTipoVisualCampo {
     public String getXhtml() {
         switch (this) {
             case TEXTO_COM_FORMATACAO:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "inputMascara.xhtml";
             case TEXTMO_MULTIPLAS_LINHAS:
-                break;
             case NUMERO_MINIMO_MAXIMO:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "minimoEMaximo.xhtml";
             case LISTAGEM:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "seletor.xhtml";
             case SENHA:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "senha.xhtml";
             case CEP:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "cep.xhtml";
             case COR:
-                return PASTA_INPUTS + "cor.xhtml";
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "cor.xhtml";
             case HTML:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "html.xhtml";
             case QUANTIDADE:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "quantidade.xhtml";
             case MOEDA:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "moeda.xhtml";
             case EMAIL:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "email.xhtml";
             case DATA:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "data.xhtml";
             case DATA_HORA:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "dataHora.xhtml";
             case LIGADO_DESLIGADO:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "verdadeiroOuFalso.xhtml";
             case ENTIDADE_SIMPLES:
-                break;
+                return ItfFABTipoComponenteVisual.PASTA_INPUTS + "entidadeSimples.xhtml";
+            case TEXTO_SEM_FORMATACAO:
+
             default:
-                throw new AssertionError(this.name());
+                return ItfFABTipoComponenteVisual.CAMPO_INPUT_SIMPLES;
 
         }
-        return CAMPO_INPUT_COM_MASCARA;
+
     }
 
     public String getIdPadraoComponente() {
@@ -120,4 +123,30 @@ public enum FabTipoVisualCampo {
 
         }
     }
+
+    @Override
+    public String getXhtmlJsf() {
+        return getXhtml();
+    }
+
+    @Override
+    public String getXhtmlAndroid() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getHtmlWordPress() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNomeComponente() {
+        return this.toString();
+    }
+
+    @Override
+    public FabFamiliaCompVisual getFamilia() {
+        return FabFamiliaCompVisual.INPUT;
+    }
+
 }

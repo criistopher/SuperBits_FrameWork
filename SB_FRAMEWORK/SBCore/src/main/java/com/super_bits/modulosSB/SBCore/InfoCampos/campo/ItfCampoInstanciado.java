@@ -37,4 +37,8 @@ public interface ItfCampoInstanciado extends ItfCampo {
 
     public void setIndiceValorLista(int pIndice);
 
+    public String getNomeUnicoParaIDHtml();
+
+    public String getXhtmlInput();
+
 }

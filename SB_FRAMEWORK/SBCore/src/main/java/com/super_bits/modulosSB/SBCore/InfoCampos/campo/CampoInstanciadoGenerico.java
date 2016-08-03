@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
@@ -72,6 +73,26 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     @Override
     public void setIndiceValorLista(int pIndice) {
         indiceValorLista = pIndice;
+    }
+
+    @Override
+    public String getNomeUnicoParaIDHtml() {
+        return campoReflection.getDeclaringClass().getSimpleName() + "_" + campoReflection.getName();
+    }
+
+    @Override
+    public String getXhtmlInput() {
+        switch (getTipoCampo().getTipo_input_prime()) {
+            case TEXTO_COM_FORMATACAO:
+            case TEXTO_SEM_FORMATACAO:
+                if (isTemMascara()) {
+                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO.getXhtml();
+                } else {
+                    return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getXhtml();
+                }
+            default:
+                return getTipoCampo().getTipo_input_prime().getXhtml();
+        }
     }
 
 }
