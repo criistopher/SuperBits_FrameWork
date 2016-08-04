@@ -17,7 +17,7 @@ public abstract class SBWebPaginas {
     private static String URLBASE = "";
     private static boolean configurado = false;
     private static Class siteMap;
-    private static Class inicioFim;
+
     private static List<ParametroURL> parametros;
     private static boolean parametroEmSubdominio;
 
@@ -32,7 +32,6 @@ public abstract class SBWebPaginas {
         siteMap = config.mapaSite();
         parametros = config.parametrosDeAplicacao();
         configurado = true;
-        inicioFim = config.inicioFim();
 
     }
 
@@ -138,10 +137,6 @@ public abstract class SBWebPaginas {
 
     public static String getCaminhoWebExemplorsDeveloper() {
         return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/resources/exemplos";
-    }
-
-    public static Class getInicioFim() {
-        return inicioFim;
     }
 
 }

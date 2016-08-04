@@ -48,8 +48,6 @@ public interface ItfConfigWebPagina {
 
     public abstract Class mapaSite();
 
-    public abstract Class inicioFim();
-
     public abstract List<ParametroURL> parametrosDeAplicacao();
 
     public abstract boolean parametroDeAplicacaoEmSubDominio();
