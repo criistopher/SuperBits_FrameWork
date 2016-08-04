@@ -44,6 +44,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     protected CampoMapValores camposEsperados;
     private Map<String, ItfCampoInstanciado> mapaCamposInstanciados;
     private Map<String, Field> mapaCampoPorAnotacao;
+    private boolean mapeouTodosOsCampos = false;
 
     // Descobrir um meio de obter o campo através da instancia (não pode se atravez do valor, precisa ser instancia para funcionar com campos com o mesmo valor
     //private Map<Object, Campo> mapaCamposByInstancia;
@@ -719,8 +720,18 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      */
     @Deprecated
     public List<ItfCampoInstanciado> getTodosCamposInstanciados() {
-        throw new UnsupportedOperationException("A lista de campos instanciaados está sob análise, sem tempo previsto para retorno do desenvolivmento");
 
+        if (mapeouTodosOsCampos) {
+            return Lists.newLinkedList(mapaCamposInstanciados.values());
+        }
+
+        for (Class classse : UtilSBCoreReflexao.getClasseESubclassesAteClasseBaseDeEntidade(classeModelo)) {
+            for (Field campo : classse.getDeclaredFields()) {
+                getCampoByNomeOuAnotacao(campo.getName());
+            }
+        }
+        mapeouTodosOsCampos = true;
+        return Lists.newLinkedList(mapaCamposInstanciados.values());
     }
 
     @Override

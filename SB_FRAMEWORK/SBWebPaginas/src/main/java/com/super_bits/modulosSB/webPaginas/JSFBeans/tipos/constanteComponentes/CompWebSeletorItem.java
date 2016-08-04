@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.constanteComponentes;
 
 import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
 import com.super_bits.view.fabricasCompVisual.FabTipoVisualSeletorItem;
+import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -13,9 +14,9 @@ import javax.enterprise.context.ApplicationScoped;
  * @author desenvolvedor
  */
 @ApplicationScoped
-public class CompWebSeletorItem {
+public class CompWebSeletorItem implements Serializable {
 
-    public ComponenteVisualSB padrao() {
+    public ComponenteVisualSB getPadrao() {
         return FabTipoVisualSeletorItem.COMBO.getComponente();
     }
 

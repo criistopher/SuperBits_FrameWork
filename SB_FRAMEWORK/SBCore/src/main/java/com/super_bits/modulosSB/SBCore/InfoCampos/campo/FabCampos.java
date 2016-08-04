@@ -4,12 +4,12 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
+import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import javax.validation.constraints.NotNull;
@@ -590,6 +590,7 @@ public enum FabCampos implements ItfFabrica {
                     return FabTipoVisualCampo.NUMERO_MINIMO_MAXIMO;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
+                    return FabTipoVisualCampo.LOOKUP_DE_ITEM;
                 case LISTA:
                     return FabTipoVisualCampo.LISTA_DE_ITENS;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA

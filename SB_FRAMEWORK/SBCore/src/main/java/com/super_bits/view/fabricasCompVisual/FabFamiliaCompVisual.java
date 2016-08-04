@@ -22,15 +22,20 @@ public enum FabFamiliaCompVisual implements ItfFabFamiliaComponenteVisual {
     ITENS_BEAN_SIMPLES;
 
     public String getXhtmlJSFPadrao() {
+
+        return getComponentePadrao().getXhtmlJSF();
+    }
+
+    public ComponenteVisualSB getComponentePadrao() {
         switch (this) {
             case INPUT:
-                return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
+                return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente();
             case MENU:
-                return FabTipoVisualMenu.MENU_SIMPLES_FONTANSOME.getComponente().getXhtmlJSF();
+                return FabTipoVisualMenu.MENU_SIMPLES_FONTANSOME.getComponente();
             case SELETOR_ITEM:
-                return FabTipoVisualSeletorItem.COMBO.getComponente().getXhtmlJSF();
+                return FabTipoVisualSeletorItem.COMBO.getComponente();
             case SELETOR_ITENS:
-                return FabTipoVisualItens.PICKLIST.getComponente().getXhtmlJSF();
+                return FabTipoVisualItens.PICKLIST.getComponente();
             default:
                 throw new AssertionError(this.name());
 

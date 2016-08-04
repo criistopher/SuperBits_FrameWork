@@ -17,9 +17,9 @@ public enum FabTipoVisualSeletorItem implements ItfFabTipoComponenteVisual {
     AUTO_COMPLETE,
     @InfoComponenteVisual(nome = "Grade", xhtmlJSF = FabTipoVisualSeletorItem.DIRETORIO_SELETOR_ITEM + "grade.xhmlt")
     GRADE,
-    @InfoComponenteVisual(nome = "Combo", xhtmlJSF = FabTipoVisualSeletorItem.DIRETORIO_SELETOR_ITEM + "combo.xhmlt")
+    @InfoComponenteVisual(nome = "Combo", xhtmlJSF = FabTipoVisualSeletorItem.DIRETORIO_SELETOR_ITEM + "combo.xhtml")
     COMBO,
-    @InfoComponenteVisual(nome = "radio", xhtmlJSF = FabTipoVisualSeletorItem.DIRETORIO_SELETOR_ITEM + "radio.xhmlt")
+    @InfoComponenteVisual(nome = "radio", xhtmlJSF = FabTipoVisualSeletorItem.DIRETORIO_SELETOR_ITEM + "radio.xhtml")
     RADIO;
 
     public static final String DIRETORIO_SELETOR_ITEM = "seletorItem/";

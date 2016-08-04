@@ -11,6 +11,7 @@ package com.super_bits.view.fabricasCompVisual;
 public interface ItfFabTipoComponenteVisual {
 
     public static final String JSF_COMPONENTE_NAO_IMPLEMENTADO = "sistema/visualizacaoNaoImplementada.xhtml";
+    public static final String JSF_COMPONENTE_INCOMPATIVEL = "sistema/visualizacaoAlteranativaIncompativel";
     public static final String ANDROID_COMPONENTE_NAO_IMPLEMENTADO = "naoImplementado.xhtml";
     public static final String WORDPRESS_COMPONENTE_NAO_IMPLEMENTADO = "naoImplementado.xhtml";
 

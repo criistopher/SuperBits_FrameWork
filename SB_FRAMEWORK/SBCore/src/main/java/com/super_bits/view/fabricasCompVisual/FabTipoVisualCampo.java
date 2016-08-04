@@ -26,8 +26,8 @@ public enum FabTipoVisualCampo implements ItfFabTipoComponenteVisual {
     NUMERO_MINIMO_MAXIMO,
     @InfoComponenteVisual(nome = "Lista", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "seletorItens.xhtml")
     LISTA_DE_ITENS,
-    @InfoComponenteVisual(nome = "Lista", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "seletor.xhtml")
-    LOOKUP_DE_ITENS,
+    @InfoComponenteVisual(nome = "Bem simples a artir de Lista", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "seletor.xhtml")
+    LOOKUP_DE_ITEM,
     @InfoComponenteVisual(nome = "Senha", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "senha.xhtml")
     SENHA,
     @InfoComponenteVisual(nome = "Cep", xhtmlJSF = FabTipoVisualCampo.PASTA_CAMPOS + "cep.xhtml")
@@ -87,12 +87,16 @@ public enum FabTipoVisualCampo implements ItfFabTipoComponenteVisual {
                 return FabCampos.LOOKUP.toString();
             case TEXTO_SEM_FORMATACAO:
                 return FabCampos.TEXTO_SIMPLES.toString();
+            case TEXTO_GRANDE_COM_FORMATACAO:
+                break;
+            case LOOKUP_DE_ITEM:
+                return FabCampos.LOOKUP.toString();
 
             default:
-                throw new AssertionError(this.name());
+                return FabCampos.TEXTO_SIMPLES.toString();
 
         }
-
+        return FabCampos.TEXTO_SIMPLES.toString();
     }
 
     @Override
