@@ -6,21 +6,15 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
 import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
