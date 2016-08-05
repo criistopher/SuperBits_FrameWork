@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +18,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -61,7 +59,7 @@ public abstract class UtilSBWP_JSFTools {
      * @return A whitespace-separated list of all absolute paths.
      * @see ComponentResolver#getAbsoluteComponentPath(UIComponent)
      */
-    private static String getAbsoluteComponentPaths(Collection<UIComponent> components) {
+    public static String getAbsoluteComponentPaths(Collection<UIComponent> components) {
         String paths = "";
         for (UIComponent c : components) {
 
@@ -111,7 +109,7 @@ public abstract class UtilSBWP_JSFTools {
      * @param currentComponent Arvore inicial onde o componente será localizado
      * @return Accumulation of all components that match the given id
      */
-    private static List<UIComponent> resolveList(String id, UIComponent currentComponent) {
+    public static List<UIComponent> resolveList(String id, UIComponent currentComponent) {
         List<UIComponent> accumulator = new LinkedList<UIComponent>();
         //   System.out.println("procurando por" + id + "em:" + currentComponent.getId() + currentComponent.getId());
         if (null != currentComponent.getId() && currentComponent.getId().equals(id)) {

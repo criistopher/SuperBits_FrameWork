@@ -18,7 +18,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
@@ -30,7 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
 
 /**
  *
@@ -80,7 +79,7 @@ public class SBCore {
             return;
         }
 
-        FabErro.PARA_TUDO.paraSistema("A configuração do Core não foi definido,  defina primento através do SBCore.configurar", null);
+        //   FabErro.PARA_TUDO.paraSistema("A configuração do Core não foi definido,  defina primento através do SBCore.configurar", null);
         try {
             throw new UnsupportedOperationException("CONFIG DO CORE NAO DEFINIDO");
         } catch (Exception e) {

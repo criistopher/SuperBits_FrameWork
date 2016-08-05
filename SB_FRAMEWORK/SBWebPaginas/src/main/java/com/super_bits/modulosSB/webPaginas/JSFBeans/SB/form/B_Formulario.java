@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -21,9 +18,8 @@ import org.primefaces.context.RequestContext;
  */
 public abstract class B_Formulario {
 
-    @Inject
-    private Conversation conversa;
-
+    //  @Inject
+    //  private Conversation conversa;
     private String caminhoFormulario;
 
     private String textoAcao;
@@ -51,7 +47,7 @@ public abstract class B_Formulario {
 
         Map<String, List<String>> pmView = new HashMap<>();
         List cid = new ArrayList();
-        cid.add(conversa.getId());
+        //       cid.add(conversa.getId());
         pmView.put("cid", cid);
         RequestContext.getCurrentInstance().openDialog(caminhoFormulario, options, pmView);
     }
@@ -59,7 +55,7 @@ public abstract class B_Formulario {
     public void executarAcao() {
         try {
             if (acaoForm()) {
-                fecharESair();
+                //            fecharESair();
             }
         } catch (Exception e) {
             //FabMensagens.enviarMensagemSistema("Erro executando ação de formulário", FabMensagens.AVISO);
@@ -74,16 +70,16 @@ public abstract class B_Formulario {
     }
 
     protected void iniciaConversa() {
-        if (!FacesContext.getCurrentInstance().isPostback()
-                && conversa.isTransient()) {
-            conversa.begin();
-
-        }
+        //       if (!FacesContext.getCurrentInstance().isPostback()
+//                && conversa.isTransient()) {
+        //        conversa.begin();
+//
+        //   }
     }
 
     public void fecharESair() {
         //conversa.end();
-        RequestContext.getCurrentInstance().closeDialog(caminhoFormulario);
+//        RequestContext.getCurrentInstance().closeDialog(caminhoFormulario);
     }
 
     public String getTextoAcao() {

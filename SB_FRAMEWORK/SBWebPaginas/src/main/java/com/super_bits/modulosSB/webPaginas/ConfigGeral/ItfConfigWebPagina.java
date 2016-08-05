@@ -10,33 +10,48 @@ import java.util.List;
 
 /**
  *
- * Interface de configurador de Webpagina (implemente, e chame em SBWebPaginas.configurar
- * 
- * 
+ * Interface de configurador de Webpagina (implemente, e chame em
+ * SBWebPaginas.configurar
+ *
+ *
  * @author Salvio
  */
 public interface ItfConfigWebPagina {
-    
-    
-    /** Endereço do host + porta exemplo: https://www.meuEnderecoOuIP.com.br:8080*/
+
+    /**
+     * Endereço do host + porta exemplo: https://www.meuEnderecoOuIP.com.br:8080
+     */
     public abstract String SITE_HOST();
 
-    /** Diretorio base principal onde ficarão os jpgs */
+    /**
+     * Diretorio base principal onde ficarão os jpgs
+     */
     public abstract String pastaImagens();
 
-    /** nome do pacote da aplição que corresponde ao url/aplicacao quando em desenvolvimento */
+    /**
+     * nome do pacote da aplição que corresponde ao url/aplicacao quando em
+     * desenvolvimento
+     */
     public abstract String nomePacoteProjeto();
 
-    /**  Titulo da aplicação (aparecerá no title da pagina caso nao seja setado um)  */
+    /**
+     * Titulo da aplicação (aparecerá no title da pagina caso nao seja setado
+     * um)
+     */
     public abstract String TituloAppWeb();
 
-    /** subdominios ou subdiretorios que estarão sempre presentes no endereço do site */
+    /**
+     * subdominios ou subdiretorios que estarão sempre presentes no endereço do
+     * site
+     */
     public abstract String URLBASE();
-    
+
     public abstract Class mapaSite();
-    
-    public abstract List<ParametroURL> parametrosDeAplicacao(); 
-    
+
+    public abstract Class inicioFim();
+
+    public abstract List<ParametroURL> parametrosDeAplicacao();
+
     public abstract boolean parametroDeAplicacaoEmSubDominio();
 
 }

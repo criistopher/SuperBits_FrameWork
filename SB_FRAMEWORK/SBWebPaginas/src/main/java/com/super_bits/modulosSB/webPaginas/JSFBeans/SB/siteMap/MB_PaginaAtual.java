@@ -13,7 +13,6 @@ import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import java.util.Date;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -24,7 +23,7 @@ public abstract class MB_PaginaAtual implements Serializable {
     private String nomePagina;
     private Date datahoraAbertura;
     private ItfB_Pagina infoPagina;
-    private Conversation conversa;
+    //   private Conversation conversa;
     @Inject
     private InfoErroCritico erroCriticoDoSistema;
 
@@ -66,10 +65,10 @@ public abstract class MB_PaginaAtual implements Serializable {
 
             } else {
                 infoPagina.abrePagina();
-                conversa = infoPagina.getConversa();
-                if (conversa == null) {
-                    //    iniciaConvesa();
-                }
+                //        conversa = infoPagina.getConversa();
+                //         if (conversa == null) {
+                //              //    iniciaConvesa();
+                //           }
                 System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getTagUsada());
             }
         } catch (Throwable t) {
@@ -87,14 +86,13 @@ public abstract class MB_PaginaAtual implements Serializable {
         try {
             FacesContext contexto = FacesContext.getCurrentInstance();
 
-            if (contexto == null) {
-                if (conversa == null) {
-                    conversa.begin();
-                }
-            } else if (!contexto.isPostback() && conversa.isTransient()) {
-                conversa.begin();
-            }
-
+            //     if (contexto == null) {
+//                if (conversa == null) {
+            //           conversa.begin();
+            //        }
+            //      } else if (!contexto.isPostback() && conversa.isTransient()) {
+            //           conversa.begin();
+            //      }
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro iniciando conversa de:" + this.getClass().getSimpleName(), e);
         }

@@ -9,37 +9,29 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class ConfigDeSessao implements Serializable{
-	private static final long serialVersionUID = 6360072868199574706L;
-	
-	private TemaPrimeFaces temaAtual ;
-	private List<TemaPrimeFaces> temas= TemasDisponiveis.instance().getThemes();
+public class ConfigDeSessao implements Serializable {
 
+    private TemaPrimeFaces temaAtual;
+    private List<TemaPrimeFaces> temas = TemasDisponiveis.instance().getThemes();
 
-public ConfigDeSessao() {
-	setTemaAtual(TemasDisponiveis.instance().getTheme("redmond"));
-}
+    public ConfigDeSessao() {
+        setTemaAtual(TemasDisponiveis.instance().getTheme("redmond"));
+    }
 
+    public TemaPrimeFaces getTemaAtual() {
+        return temaAtual;
+    }
 
-public TemaPrimeFaces getTemaAtual() {
-	return temaAtual;
-}
+    public void setTemaAtual(TemaPrimeFaces temaAtual) {
+        this.temaAtual = temaAtual;
+    }
 
+    public List<TemaPrimeFaces> getTemas() {
+        return temas;
+    }
 
-public void setTemaAtual(TemaPrimeFaces temaAtual) {
-	this.temaAtual = temaAtual;
-}
-
-
-public List<TemaPrimeFaces> getTemas() {
-	return temas;
-}
-
-
-public void setTemas(List<TemaPrimeFaces> temas) {
-	this.temas = temas;
-}
-
-
+    public void setTemas(List<TemaPrimeFaces> temas) {
+        this.temas = temas;
+    }
 
 }

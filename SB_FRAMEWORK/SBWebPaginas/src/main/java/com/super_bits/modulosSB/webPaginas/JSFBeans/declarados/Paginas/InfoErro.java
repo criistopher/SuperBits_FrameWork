@@ -9,7 +9,7 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBBasico;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.application.exceptionhandler.ExceptionInfo;

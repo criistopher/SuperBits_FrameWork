@@ -8,7 +8,6 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.Conversation;
 
 /**
  *
@@ -46,8 +45,7 @@ public interface ItfB_Pagina {
 
     public String getNomeParametroById(int pId);
 
-    public Conversation getConversa();
-
+    //public Conversation getConversa();
     public String getXhtmlAcaoAtual();
 
     /**

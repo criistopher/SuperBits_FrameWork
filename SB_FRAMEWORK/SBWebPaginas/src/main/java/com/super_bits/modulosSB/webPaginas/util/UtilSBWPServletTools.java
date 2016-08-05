@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.util;
 
+import com.sun.faces.mgbean.BeanManager;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCoreConfigGeral;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
@@ -13,10 +13,8 @@ import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaAtual;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
-import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,9 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -34,7 +29,6 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import org.jboss.weld.serialization.spi.helpers.SerializableContextualInstance;
 
 /**
  *
@@ -346,17 +340,13 @@ public class UtilSBWPServletTools {
                     if (nome.endsWith(".spi.BeanManager")) {
                         BeanManager testeBM = (BeanManager) beandeSessao;
 
-                        Bean bean = testeBM.getBeans("dados").iterator().next();
-
-                        @SuppressWarnings("unchecked")
-                        CreationalContext ctx = testeBM
-                                .createCreationalContext(bean); // could be inlined
+                        //     Bean bean = testeBM.gegetBeans("dados").iterator().next();
+                        //      CreationalContext ctx = testeBM
+                        //                .createCreationalContext(bean); // could be inlined
                         // below
-
-                        Object o = testeBM.getReference(bean, bean.getBeanClass(),
-                                ctx);
-
-                        return o;
+                        return testeBM;
+                        //          Object o = testeBM.get(, bean.getBeanClass(),
+                        //                ctx);
 
                     }
 
@@ -380,8 +370,7 @@ public class UtilSBWPServletTools {
             String nome = registro.getKey();
 
             if (nome.endsWith(pNomeBean)) {
-                return ((SerializableContextualInstance) registro.getValue())
-                        .getInstance();
+                return registro.getValue();
             }
 
         }

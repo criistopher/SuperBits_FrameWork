@@ -5,14 +5,12 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author sfurbino
  */
 @ApplicationScoped
-
 public enum FabVisualizacaoCampo {
 
     resumido, labelEsquerda, labelSuperior;

@@ -6,13 +6,11 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
-
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.CrudDataSet;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -24,7 +22,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -292,11 +289,6 @@ public class PgAcessos extends MB_PaginaConversation implements ItfPgAcessos {
 
     public CrudDataSet<GrupoUsuarioSB> getGrupoUsuariosCrud() {
         return grupoUsuariosCrud;
-    }
-
-    @Override
-    public Conversation getConversa() {
-        return getConversation();
     }
 
     public void setAcessoSelecionado(PermissaoSB acessoSelecionado) {

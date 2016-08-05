@@ -5,7 +5,6 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 
 public abstract class MB_PaginaSession extends MB_Pagina {
 
@@ -45,11 +44,6 @@ public abstract class MB_PaginaSession extends MB_Pagina {
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro fechando pagina " + this.getClass().getSimpleName(), e);
         }
-    }
-
-    @Override
-    public Conversation getConversa() {
-        return null;
     }
 
 }

@@ -14,7 +14,7 @@ import com.super_bits.modulosSB.SBCore.sessao.ControleDeSessaoAbstratoSBCore;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.el.ValueExpression;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -240,6 +240,12 @@ public class PgUtil implements Serializable {
         }
     }
 
+    public String buscaFilhoComEsteID(UIComponent componente, String atributo) {
+        String resultado = UtilSBWP_JSFTools.getAbsoluteComponentPaths(UtilSBWP_JSFTools.resolveList(atributo, componente));
+        return resultado.replace(":" + componente.getClientId(), resultado);
+
+    }
+
     /**
      *
      * @param component
@@ -303,6 +309,19 @@ public class PgUtil implements Serializable {
         }
 
         return true;
+    }
+
+    public String getNomeDoCompPai(UIComponent pComponente) {
+        return null;
+    }
+
+    public String getSufixoCaminhoAteAqui(UIComponent componente, String caminho) {
+        return null;
+    }
+
+    public String defineNomeDoFilho(UIComponent componente) {
+        System.out.println("Gerando id para" + componente.getClientId());
+        return "AssimVcFuncionaNumEDanada";
     }
 
 }
