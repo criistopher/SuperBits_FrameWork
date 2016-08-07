@@ -4,6 +4,7 @@
  */
 package com.super_bits.view.fabricasCompVisual;
 
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,7 +20,7 @@ public class FabTipoVisualCampoTest {
 
     @Test
     public void teste() {
-        for (FabTipoVisualCampo fabComponente : FabTipoVisualCampo.class.getEnumConstants()) {
+        for (FabCompVisualInputs fabComponente : FabCompVisualInputs.class.getEnumConstants()) {
             ComponenteVisualSB cp = fabComponente.getComponente();
             System.out.println(cp.getId());
             System.out.println(cp.getNome());

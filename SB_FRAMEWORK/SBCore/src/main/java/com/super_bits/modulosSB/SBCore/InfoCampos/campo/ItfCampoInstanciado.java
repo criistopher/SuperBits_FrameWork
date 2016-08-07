@@ -116,7 +116,7 @@ public interface ItfCampoInstanciado extends ItfCampo {
      *
      * @return O xhtml que representa a exibição do campo
      */
-    public String getXhtmlInput();
+    public ItfComponenteVisualSB getComponenteVisualPadrao();
 
     /**
      *
@@ -130,6 +130,6 @@ public interface ItfCampoInstanciado extends ItfCampo {
      * @param pComponente
      * @return
      */
-    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente);
+    public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente);
 
 }

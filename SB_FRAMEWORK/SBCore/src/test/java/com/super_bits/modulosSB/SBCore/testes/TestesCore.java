@@ -8,6 +8,8 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 
 /**
@@ -86,7 +88,7 @@ public class TestesCore {
         }
     }
 
-    @Test
+    // @Test
     public void teste() {
         String lista = "asdasdas0dasdasd[0]";
         String lista2 = "usuarios";
@@ -102,6 +104,19 @@ public class TestesCore {
             System.out.println("Funciona");
         } else {
             System.out.println("Não Funciona");
+        }
+
+    }
+
+    @Test
+    public void teste2() {
+
+        List<String> listateste = null;
+        listateste = new ArrayList<>();
+        listateste.add("sfdsdf");
+
+        if (listateste != null || !listateste.isEmpty()) {
+            System.out.println("Colé doidin");
         }
 
     }

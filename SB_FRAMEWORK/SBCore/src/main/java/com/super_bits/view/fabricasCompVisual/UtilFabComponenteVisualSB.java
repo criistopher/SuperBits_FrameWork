@@ -8,6 +8,6 @@ package com.super_bits.view.fabricasCompVisual;
  *
  * @author salvioF
  */
-public enum FabTipoVisualSeletorItens {
+public class UtilFabComponenteVisualSB {
 
 }

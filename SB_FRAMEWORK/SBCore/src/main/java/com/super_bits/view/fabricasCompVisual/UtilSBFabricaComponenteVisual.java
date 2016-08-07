@@ -22,7 +22,7 @@ public class UtilSBFabricaComponenteVisual {
 
             componente.setNome(infoAnotacao.nome());
             componente.setDescricao(infoAnotacao.descricao());
-
+            componente.setClasseCSS(infoAnotacao.classesCSS());
             String codigoId = pFabrica.getFamilia().ordinal() + String.valueOf(((Enum) pFabrica).ordinal());
             componente.setId(Integer.parseInt(codigoId));
             componente.setDescricao(infoAnotacao.descricao());

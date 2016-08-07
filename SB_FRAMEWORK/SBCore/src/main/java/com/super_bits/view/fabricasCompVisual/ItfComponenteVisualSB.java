@@ -19,49 +19,51 @@ public interface ItfComponenteVisualSB {
      *
      * @return Caminho relativo para acessar o ID
      */
-    String getCaminhoIdHTMLObjetoPrincipal();
+    public String getCaminhoIdHTMLObjetoPrincipal();
 
     /**
      *
      *
      * @return Descreve em palavras o formidabilidade de um componente
      */
-    String getDescricao();
+    public String getDescricao();
 
     /**
      *
      * @return Retorna a família do componente
      */
-    FabFamiliaCompVisual getFamilia();
+    public FabFamiliaCompVisual getFamilia();
 
     /**
      *
      * @return o Html para utilização do compoenente no Wordpress
      */
-    String getHtmlWordPress();
+    public String getHtmlWordPress();
 
     /**
      *
      * @return O componente em uma palavra, sucinta sintética precisa e lacônico
      */
-    String getNomeComponente();
+    public String getNomeComponente();
 
     /**
      *
      * @return Os parametros nescessários para exibição do componente
      */
-    List<Object> getParametros();
+    public List<Object> getParametros();
 
     /**
      *
      * @return O caminho para exibição deste componente no android
      */
-    String getXhtmlAndroid();
+    public String getXhtmlAndroid();
 
     /**
      *
      * @return O caminho para o xhtml desde compoenente para JSF
      */
-    String getXhtmlJSF();
+    public String getXhtmlJSF();
+
+    public String getClasseCSS();
 
 }

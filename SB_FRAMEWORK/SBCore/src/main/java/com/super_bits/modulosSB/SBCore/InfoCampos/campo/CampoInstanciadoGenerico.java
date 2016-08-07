@@ -6,9 +6,10 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
+import com.super_bits.view.fabricasCompVisual.FabFamiliaCompVisual;
 import com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB;
-import com.super_bits.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualSistema;
 import java.lang.reflect.Field;
 
 /**
@@ -83,37 +84,43 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     }
 
     @Override
-    public String getXhtmlInput() {
-        switch (getTipoCampo().getTipo_input_prime()) {
-            case TEXTO_COM_FORMATACAO:
-            case TEXTO_SEM_FORMATACAO:
-                if (isTemMascara()) {
-                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO.getComponente().getXhtmlJSF();
-                } else {
-                    return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
-                }
-            default:
-                return getTipoCampo().getTipo_input_prime().getComponente().getXhtmlJSF();
+    public ItfComponenteVisualSB getComponenteVisualPadrao() {
+
+        if (getTipoCampo().getTipo_input_prime().getFamilia().equals(FabFamiliaCompVisual.INPUT)) {
+            FabCompVisualInputs campoFamiliaInput = (FabCompVisualInputs) getTipoCampo().getTipo_input_prime();
+            switch (campoFamiliaInput) {
+                case TEXTO_COM_FORMATACAO:
+                case TEXTO_SEM_FORMATACAO:
+                    if (isTemMascara()) {
+                        return FabCompVisualInputs.TEXTO_COM_FORMATACAO.getComponente();
+                    } else {
+                        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
+                    }
+
+            }
         }
+
+        return getTipoCampo().getTipo_input_prime().getComponente();
+
     }
 
     @Override
-    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente) {
+    public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente) {
         //caso não tenha sido enviado um componente diferenciado, retorna o componente do campo
         if (pComponente == null) {
-            return getTipoCampo().getTipo_input_prime().getComponente().getXhtmlJSF();
+            return getComponenteVisualPadrao();
         }
 
         // caso o componente diferenciado seja igual ao componente padrão da familia de componentes, retorna o compoenente do campo
         if (pComponente.getXhtmlJSF().equals(getTipoCampo().getTipo_input_prime().getFamilia().getXhtmlJSFPadrao())) {
-            return getTipoCampo().getTipo_input_prime().getComponente().getXhtmlJSF();
+            return getComponenteVisualPadrao();
         }
 
         ///caso o componente enviado não seja da familia retornar o xhtml campo incompativel
-        if (getTipoCampo().getTipo_input_prime().getFamilia().equals(pComponente.getFamilia())) {
-            return pComponente.getXhtmlJSF();
+        if (getComponenteVisualPadrao().getFamilia().equals(pComponente.getFamilia())) {
+            return pComponente;
         } else {
-            return ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + ItfFabTipoComponenteVisual.JSF_COMPONENTE_INCOMPATIVEL;
+            return FabCompVisualSistema.INCOMPATIVEL.getComponente();
         }
     }
 

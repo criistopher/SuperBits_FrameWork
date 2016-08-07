@@ -4,12 +4,12 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -255,15 +255,14 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     }
 
     @Override
-    public String getXhtmlInput() {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
+    public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente) {
+        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
 
     }
 
     @Override
-    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente) {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
-
+    public ItfComponenteVisualSB getComponenteVisualPadrao() {
+        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
     }
 
 }

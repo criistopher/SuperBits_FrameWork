@@ -302,7 +302,7 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     public String getStrTipoInput() {
-        return tipoCampo.getStrTipoInputCampo();
+        return tipoCampo.getTipo_input_prime().getComponente().getXhtmlJSF();
     }
 
 }

@@ -16,13 +16,14 @@ import javax.inject.Named;
 
 /**
  *
- *
+ * Está depreciado, utilize layoutsSBCOmponente
  *
  *
  * @author sfurbino
  */
 @ApplicationScoped
 @Named
+@Deprecated
 public class Tipos implements Serializable {
 
     @Inject

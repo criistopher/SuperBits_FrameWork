@@ -33,7 +33,7 @@ public class TipoCampos extends ConstantesWeb {
 
     public static String getStrTipoCampoInput(FabCampos pCampo) {
 
-        return pCampo.getStrTipoInputCampo();
+        return pCampo.getTipo_input_prime().getComponente().toString();
 
     }
 

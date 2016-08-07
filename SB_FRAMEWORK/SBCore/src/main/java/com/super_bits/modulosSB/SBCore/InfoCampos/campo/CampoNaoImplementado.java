@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,13 +65,8 @@ public class CampoNaoImplementado extends CampoInstanciadoGenerico implements It
     }
 
     @Override
-    public String getXhtmlInput() {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
-    }
-
-    @Override
-    public String getXhtmlDiferenciado(ItfComponenteVisualSB pComponente) {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente().getXhtmlJSF();
+    public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente) {
+        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
     }
 
 }

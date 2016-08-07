@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.constanteComponentes;
 
 import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -17,11 +17,11 @@ import javax.enterprise.context.ApplicationScoped;
 public class CompWebCamposInput implements Serializable {
 
     public ComponenteVisualSB padrao() {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente();
+        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
     }
 
     public ComponenteVisualSB getTextoSemFormatacao() {
-        return FabTipoVisualCampo.TEXTO_SEM_FORMATACAO.getComponente();
+        return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
     }
 
 }

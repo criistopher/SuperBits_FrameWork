@@ -9,7 +9,10 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualCampo;
+import com.super_bits.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualSeletorItem;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualSeletorItens;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import javax.validation.constraints.NotNull;
@@ -551,7 +554,7 @@ public enum FabCampos implements ItfFabrica {
 
     }
 
-    public FabTipoVisualCampo getTipo_input_prime() {
+    public ItfFabTipoComponenteVisual getTipo_input_prime() {
         try {
             // TIPOS DE CAMPO QUE DEVEN USAR INPUT SIMPLES COM MASCARAS E REGEX
             switch (this) {
@@ -584,57 +587,57 @@ public enum FabCampos implements ItfFabrica {
                 case IMG_PEQUENA:
                 case IMG_MEDIA:
                 case IMG_GRANDE:
-                    return FabTipoVisualCampo.TEXTO_COM_FORMATACAO;
+                    return FabCompVisualInputs.TEXTO_COM_FORMATACAO;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT COM BARRA CONTENDO MINIMO E MAXIMO
                 case PERCENTUAL:
-                    return FabTipoVisualCampo.NUMERO_MINIMO_MAXIMO;
+                    return FabCompVisualInputs.NUMERO_MINIMO_MAXIMO;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
                 case LOOKUP:
-                    return FabTipoVisualCampo.LOOKUP_DE_ITEM;
+                    return FabCompVisualSeletorItem.COMBO;
                 case LISTA:
-                    return FabTipoVisualCampo.LISTA_DE_ITENS;
+                    return FabCompVisualSeletorItens.PICKLIST;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
                 case SENHA:
                 case SENHA_SEGURANCA_MAXIMA:
-                    return FabTipoVisualCampo.SENHA;
+                    return FabCompVisualInputs.SENHA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CEP
                 case LCCEP:
-                    return FabTipoVisualCampo.CEP;// TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
+                    return FabCompVisualInputs.CEP;// TIPOS DE CAMPO QUE DEVEN USAR INPUT SELETOR DE COR
                 case COR:
-                    return FabTipoVisualCampo.COR;
+                    return FabCompVisualInputs.COR;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT DE HTML
                 case HTML:
-                    return FabTipoVisualCampo.HTML;
+                    return FabCompVisualInputs.HTML;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT quantidade
                 case QUANTIDADE:
                 case LATITUDE:
                 case CHART_VALOR:
                 case Longitude:
-                    return FabTipoVisualCampo.QUANTIDADE;
+                    return FabCompVisualInputs.QUANTIDADE;
                 case AAA_DESCRITIVO:
-                    return FabTipoVisualCampo.TEXTMO_MULTIPLAS_LINHAS;
+                    return FabCompVisualInputs.TEXTMO_MULTIPLAS_LINHAS;
                 case MOEDA_REAL:
                 case MOEDA_DOLAR:
-                    return FabTipoVisualCampo.MOEDA;
+                    return FabCompVisualInputs.MOEDA;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT EMAIL
                 case EMAIL:
-                    return FabTipoVisualCampo.EMAIL;
+                    return FabCompVisualInputs.EMAIL;
                 // TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO APENAS DATA
                 case DATA:
                 case CALENDARIO:
-                    return FabTipoVisualCampo.DATA;
+                    return FabCompVisualInputs.DATA;
                 //// TIPOS DE CAMPO QUE DEVEN USAR INPUT CALENDAR  EXIBINDO DATA E HORA
                 case REG_DATAALTERACAO:
                 case REG_DATAINSERCAO:
-                    return FabTipoVisualCampo.ENTIDADE_SIMPLES;
+                    return FabCompVisualInputs.ENTIDADE_SIMPLES;
                 case DATAHORA:
                 case HORA:
-                    return FabTipoVisualCampo.DATA_HORA;
+                    return FabCompVisualInputs.DATA_HORA;
 
                 case VERDADEIRO_FALSO:
                 case REG_ATIVO_INATIVO:
                 case SEGURANCA_ATIVA:
-                    return FabTipoVisualCampo.LIGADO_DESLIGADO;
+                    return FabCompVisualInputs.LIGADO_DESLIGADO;
 
                 case LCUnidadeFederativa:
                 case REG_USUARIO_ALTERACAO:
@@ -643,7 +646,7 @@ public enum FabCampos implements ItfFabrica {
                 case LCBairro:
                 case LCCidade:
                 case LC_LOCALIZACAO:
-                    return FabTipoVisualCampo.ENTIDADE_SIMPLES;
+                    return FabCompVisualInputs.ENTIDADE_SIMPLES;
                 default:
                     throw new AssertionError(this.name());
             }
@@ -653,11 +656,6 @@ public enum FabCampos implements ItfFabrica {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ATENÇÃO erro determinando tipo de campo para:" + this.toString(), t);
         }
         return null;
-    }
-
-    public String getStrTipoInputCampo() {
-        return this.getTipo_input_prime().getStrOldStyle();
-
     }
 
     public ItfCampo.TIPOPRIMITIVO getTipoPrimitivo() {

@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.constanteComponentes;
 
 import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
-import com.super_bits.view.fabricasCompVisual.FabTipoVisualSeletorItem;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualSeletorItem;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -17,14 +17,14 @@ import javax.enterprise.context.ApplicationScoped;
 public class CompWebSeletorItem implements Serializable {
 
     public ComponenteVisualSB getPadrao() {
-        return FabTipoVisualSeletorItem.COMBO.getComponente();
+        return FabCompVisualSeletorItem.COMBO.getComponente();
     }
 
     public ComponenteVisualSB getCombo() {
-        return FabTipoVisualSeletorItem.COMBO.getComponente();
+        return FabCompVisualSeletorItem.COMBO.getComponente();
     }
 
     public ComponenteVisualSB getBotoesMenu() {
-        return FabTipoVisualSeletorItem.BOTOES_MENU.getComponente();
+        return FabCompVisualSeletorItem.BOTOES_MENU.getComponente();
     }
 }

@@ -24,17 +24,19 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     private List<Object> parametros;
 
-    public String xhtmlJSF;
+    private String xhtmlJSF;
 
-    public String xhtmlAndroid;
+    private String xhtmlAndroid;
 
-    public String htmlWordPress;
+    private String htmlWordPress;
 
-    public String nomeComponente;
+    private String nomeComponente;
 
-    public FabFamiliaCompVisual familia;
+    private FabFamiliaCompVisual familia;
 
-    public String caminhoIdHTMLObjetoPrincipal;
+    private String caminhoIdHTMLObjetoPrincipal;
+
+    private String ClasseCSS;
 
     @Override
     public String getNome() {
@@ -124,6 +126,15 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     public void setCaminhoIdHTMLObjetoPrincipal(String caminhoIdHTMLObjetoPrincipal) {
         this.caminhoIdHTMLObjetoPrincipal = caminhoIdHTMLObjetoPrincipal;
+    }
+
+    @Override
+    public String getClasseCSS() {
+        return ClasseCSS;
+    }
+
+    public void setClasseCSS(String ClasseCSS) {
+        this.ClasseCSS = ClasseCSS;
     }
 
 }

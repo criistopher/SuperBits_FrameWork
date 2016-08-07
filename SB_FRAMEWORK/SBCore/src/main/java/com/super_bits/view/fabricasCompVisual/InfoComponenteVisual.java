@@ -4,6 +4,7 @@
  */
 package com.super_bits.view.fabricasCompVisual;
 
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualSistema;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,16 +18,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface InfoComponenteVisual {
 
-    String nome() default "";
+    public String nome() default "";
 
-    String descricao() default "";
+    public String descricao() default "";
 
-    String xhtmlJSF() default ItfFabTipoComponenteVisual.JSF_COMPONENTE_NAO_IMPLEMENTADO;
+    public String xhtmlJSF() default FabCompVisualSistema.JSF_COMPONENTE_NAO_IMPLEMENTADO;
 
-    String xhtmlAndroi() default ItfFabTipoComponenteVisual.ANDROID_COMPONENTE_NAO_IMPLEMENTADO;
+    public String xhtmlAndroi() default FabCompVisualSistema.ANDROID_COMPONENTE_NAO_IMPLEMENTADO;
 
-    String htmlWordPress() default ItfFabTipoComponenteVisual.WORDPRESS_COMPONENTE_NAO_IMPLEMENTADO;
+    public String htmlWordPress() default FabCompVisualSistema.WORDPRESS_COMPONENTE_NAO_IMPLEMENTADO;
 
-    String caminhoIdHTMLObjetoPrincipal() default "";
+    public String classesCSS() default "";
+
+    public String caminhoIdHTMLObjetoPrincipal() default "";
 
 }
