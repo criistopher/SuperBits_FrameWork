@@ -23,6 +23,7 @@ public class LayoutsComponenteSB implements Serializable {
     private final LayoutInputCampo layoutCampo = new LayoutInputCampo();
     private final LayoutSeletorItem layoutSeletorItem = new LayoutSeletorItem();
     private final LayoutSeletorItens layoutItens = new LayoutSeletorItens();
+    private final LayoutBotoes layoutBotoes = new LayoutBotoes();
     private static final List<FamiliaComponente> FAMILIAS_COMPONENTE = new ArrayList<>();
 
     public LayoutsComponenteSB() {
@@ -47,6 +48,10 @@ public class LayoutsComponenteSB implements Serializable {
 
     public static List<FamiliaComponente> getFamiliasComponentes() {
         return FAMILIAS_COMPONENTE;
+    }
+
+    public LayoutBotoes getLayoutBotoes() {
+        return layoutBotoes;
     }
 
 }

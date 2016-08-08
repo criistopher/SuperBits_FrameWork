@@ -37,8 +37,18 @@ public class InfoWebApp implements Serializable {
      * @param pAcao
      * @return Ação managed Ben contendo a URL para acesso
      */
-    public AcaoComLink getAcaoManagedBean(String pAcao) {
-        return acoesManagedBens.get(pAcao);
+    public AcaoComLink getAcaoComLink(ItfAcaoDoSistema pAcao) {
+
+        for (String chave : acoesManagedBens.keySet()) {
+            System.out.println(chave);
+        }
+        if (pAcao.isUmaAcaoGestaoDominio()) {
+            System.out.println("ação de dominio, retornando url para" + pAcao.getNomeUnico());
+            return acoesManagedBens.get(pAcao.getNomeUnico());
+        } else {
+            System.out.println("ação secundaria, retornando url para" + pAcao.getComoSecundaria().getAcaoPrincipal().getNomeUnico());
+            return acoesManagedBens.get(pAcao.getComoSecundaria().getAcaoPrincipal().getNomeUnico());
+        }
     }
 
     public boolean isAceosMBConfiguradas() {

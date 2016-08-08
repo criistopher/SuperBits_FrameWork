@@ -16,28 +16,23 @@ import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
  */
 public enum FabCompVisualBotaoAcao implements ItfFabTipoComponenteVisual {
 
-    @InfoComponenteVisual(nome = "Link",
-            classesCSS = "btnLinkSB",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnLinkSB.xhtml"
-    )
-    LINK,
     @InfoComponenteVisual(nome = "Icone",
             classesCSS = "btnIcone",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIcone"
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnIcone"
     )
     ICONE,
     @InfoComponenteVisual(nome = "Icone e Nome",
             classesCSS = "btnIconeENome",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIconeENome")
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnIconeENome")
     ICONE_E_NOME,
     @InfoComponenteVisual(nome = "Nome",
             classesCSS = "btnNome",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnNome"
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnNome"
     )
     NOME,
     @InfoComponenteVisual(nome = "Icone Gigante",
-            classesCSS = "icone Gigante",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIconeGrande.xhtml")
+            classesCSS = "iconeGrande",
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnIconeGrande")
     ICONE_GIGANTE;
     public static final String PASTA_BOTOES = "botaoAcao/";
 

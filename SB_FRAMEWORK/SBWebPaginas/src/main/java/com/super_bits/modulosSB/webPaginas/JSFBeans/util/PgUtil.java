@@ -290,7 +290,7 @@ public class PgUtil implements Serializable {
     public String navegar(ItfAcaoDoSistema pAcao) {
 
         if (pAcao != null) {
-            return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
+            return infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
         } else {
             return null;
         }
