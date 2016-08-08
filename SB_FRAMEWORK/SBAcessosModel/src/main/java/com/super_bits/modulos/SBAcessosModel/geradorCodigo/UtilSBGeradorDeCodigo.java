@@ -378,13 +378,13 @@ public class UtilSBGeradorDeCodigo {
 
         String getSetCampoFormatado = "";
 
-        getSetCampoFormatado += "public " + pCampo.getTipoValor().getDeclaracaoJava() + " get" + pCampo.getNomeDeclarado() + "(){\n\n";
+        getSetCampoFormatado += "public " + pCampo.getTipoPrimitivoDoValor().getDeclaracaoJava() + " get" + pCampo.getNomeDeclarado() + "(){\n\n";
 
         getSetCampoFormatado += "return " + pCampo.getNomeDeclarado() + ";\n\n";
 
         getSetCampoFormatado += "}\n\n";
 
-        getSetCampoFormatado += "public void set" + pCampo.getNomeDeclarado() + "(" + pCampo.getTipoValor().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ") {\n\n";
+        getSetCampoFormatado += "public void set" + pCampo.getNomeDeclarado() + "(" + pCampo.getTipoPrimitivoDoValor().getDeclaracaoJava() + " " + pCampo.getNomeDeclarado() + ") {\n\n";
 
         getSetCampoFormatado += "this." + pCampo.getNomeDeclarado() + " = " + pCampo.getNomeDeclarado() + ";\n\n";
 
@@ -397,7 +397,7 @@ public class UtilSBGeradorDeCodigo {
 
         String campoFormatado = "";
 
-        switch (pCampo.getTipoValor()) {
+        switch (pCampo.getTipoPrimitivoDoValor()) {
 
             // INICIO DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO INTEIRO
             //
@@ -549,7 +549,7 @@ public class UtilSBGeradorDeCodigo {
             //
             // FIM DO MODELO GERAL DE CRIAÇÃO DE CAMPOS DO TIPO BOOLEAN
             default:
-                throw new AssertionError(pCampo.getTipoValor().name());
+                throw new AssertionError(pCampo.getTipoPrimitivoDoValor().name());
 
         }
 
@@ -619,7 +619,7 @@ public class UtilSBGeradorDeCodigo {
 
         calculoFormatado += "@CalculoCampanha(calculo = Calculos" + pCalculo.getEstruturaPai().getNomeEntidade() + "." + pCalculo.getNomeEnum() + ")\n";
 
-        calculoFormatado += "private " + pCalculo.getTipoValor().getDeclaracaoJava() + " " + pCalculo.getNomeDeclarado() + ";\n\n";
+        calculoFormatado += "private " + pCalculo.getTipoPrimitivoDoValor().getDeclaracaoJava() + " " + pCalculo.getNomeDeclarado() + ";\n\n";
 
         return calculoFormatado;
     }
@@ -641,13 +641,13 @@ public class UtilSBGeradorDeCodigo {
 
         String getSetCalculoFormatados = "";
 
-        getSetCalculoFormatados += "public " + pCalculo.getTipoValor().getDeclaracaoJava() + " get" + pCalculo.getNomeEnum().toLowerCase() + " {\n\n";
+        getSetCalculoFormatados += "public " + pCalculo.getTipoPrimitivoDoValor().getDeclaracaoJava() + " get" + pCalculo.getNomeEnum().toLowerCase() + " {\n\n";
 
         getSetCalculoFormatados += "Object resultado = getRetornoSoma();\n\n";
 
         getSetCalculoFormatados += "if (resultado != null) {\n\n";
 
-        getSetCalculoFormatados += "return (" + pCalculo.getTipoValor().getDeclaracaoJava() + ") resultado;\n\n";
+        getSetCalculoFormatados += "return (" + pCalculo.getTipoPrimitivoDoValor().getDeclaracaoJava() + ") resultado;\n\n";
 
         getSetCalculoFormatados += "} else {\n\n";
 

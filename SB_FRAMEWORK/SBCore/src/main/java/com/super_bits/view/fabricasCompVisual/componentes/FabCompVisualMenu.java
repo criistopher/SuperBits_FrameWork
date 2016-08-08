@@ -18,7 +18,9 @@ import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
  */
 public enum FabCompVisualMenu implements ItfFabTipoComponenteVisual {
 
-    @InfoComponenteVisual(nome = "Menu básico icones FontAnwsome")
+    @InfoComponenteVisual(nome = "Menu básico icones FontAnwsome",
+            classesCSS = "menuSimples"
+    )
     MENU_SIMPLES_FONTANSOME;
 
     @Override

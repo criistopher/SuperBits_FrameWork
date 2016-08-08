@@ -7,7 +7,7 @@ package com.super_bits.modulosSB.SBCore.testes;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -95,7 +95,7 @@ public class TestesCore {
 
         UtilSBCoreReflexaoCampos.isUmaStringNomeadaComoLista(lista2);
 
-        TIPO_REGISTRO_CAMPO tp = UtilSBCoreReflexaoCampos.getTipoCampoLista(lista);
+        TIPO_ORIGEM_VALOR_CAMPO tp = UtilSBCoreReflexaoCampos.getTipoCampoLista(lista);
 
         String listaSemNumero = UtilSBCoreReflexaoCampos.getListaSemIndice(lista);
         String listaSemColchete = listaSemNumero.replaceAll("\\[]", "");

@@ -17,7 +17,9 @@ import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
 public enum FabCompVisualItens implements ItfFabTipoComponenteVisual {
 
     @InfoComponenteVisual(nome = "Texto Com Formatacao",
-            xhtmlJSF = FabCompVisualItens.PATA_ITENS + "gradeIconeNome.xhtml")
+            xhtmlJSF = FabCompVisualItens.PATA_ITENS + "gradeIconeNome.xhtml",
+            classesCSS = "listagemEmGrade"
+    )
     LISTAGEM_EM_GRADE_NOME_E_IMAGEM;
     public static final String PATA_ITENS = "listaItem/";
 

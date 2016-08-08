@@ -11,7 +11,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroObtendoValorDoCampoPorReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroSetandoValorDeCampoPorReflexao;
@@ -603,17 +603,18 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         int quantidade = UtilSBCoreReflexaoCampos.getQuantidadeSubCampos(pNomeOuANotacao);
 
         if (quantidade == 1) {
-            TIPO_REGISTRO_CAMPO tipo = UtilSBCoreReflexaoCampos.getTipoCampoLista(pNomeOuANotacao);
+            TIPO_ORIGEM_VALOR_CAMPO tipoOrigem = UtilSBCoreReflexaoCampos.getTipoCampoLista(pNomeOuANotacao);
 
-            switch (tipo) {
-                case ENTIDADE:
-                case CAMPO_SIMPLES:
+            switch (tipoOrigem) {
+                case VALOR_COM_LISTA:
+                case VALOR_LIVRE:
                     return getmapaCamposInstanciados(pNomeOuANotacao).get(pNomeOuANotacao);
-                case LISTA:
+                case VALORES_COM_LISTA:
+                case VALORES_LIVRE:
                     String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemColchete(pNomeOuANotacao);
                     return getmapaCamposInstanciados(nomeCampoSemIndice).get(nomeCampoSemIndice);
 
-                case REGISTRO_DA_LISTA:
+                case REGISTRO_ESTATICO_DA_LISTA:
                     int idIndiceCampo = UtilSBCoreReflexaoCampos.getIdCampoDaLista(pNomeOuANotacao);
                     String nomeCampoSemIndice2 = UtilSBCoreReflexaoCampos.getListaSemColchete(pNomeOuANotacao);
                     ItfCampoInstanciado cp = getmapaCamposInstanciados(nomeCampoSemIndice2).get(nomeCampoSemIndice2);
@@ -621,7 +622,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     cp.setIndiceValorLista(idIndiceCampo);
                     return cp;
                 default:
-                    throw new AssertionError(tipo.name());
+                    throw new AssertionError(tipoOrigem.name());
 
             }
 
@@ -629,9 +630,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
             String nomeProximoObjeto = UtilSBCoreReflexaoCampos.getStrPrimeiroCampoDoCaminhoCampo(pNomeOuANotacao);
 
-            TIPO_REGISTRO_CAMPO tipo = UtilSBCoreReflexaoCampos.getTipoCampoLista(nomeProximoObjeto);
+            TIPO_ORIGEM_VALOR_CAMPO tipo = UtilSBCoreReflexaoCampos.getTipoCampoLista(nomeProximoObjeto);
 
-            if (tipo.equals(TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA)) {
+            if (tipo.equals(TIPO_ORIGEM_VALOR_CAMPO.REGISTRO_ESTATICO_DA_LISTA)) {
 
                 int idReflexao = UtilSBCoreReflexaoCampos.getIdCampoDaLista(nomeProximoObjeto);
                 String nomeCampoSemIndice = UtilSBCoreReflexaoCampos.getListaSemColchete(nomeProximoObjeto);

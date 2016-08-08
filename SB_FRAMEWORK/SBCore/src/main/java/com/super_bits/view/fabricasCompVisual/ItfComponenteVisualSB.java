@@ -19,7 +19,7 @@ public interface ItfComponenteVisualSB {
      *
      * @return Caminho relativo para acessar o ID
      */
-    public String getCaminhoIdHTMLObjetoPrincipal();
+    public String getIdHTMLObjetoPrincipal();
 
     /**
      *

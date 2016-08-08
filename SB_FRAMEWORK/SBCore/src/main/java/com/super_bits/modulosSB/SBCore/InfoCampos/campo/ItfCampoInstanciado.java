@@ -108,9 +108,12 @@ public interface ItfCampoInstanciado extends ItfCampo {
      *
      * Retorna o nome da classe + _ + nome da declaração do campo na classe
      *
+     * @param pComponente
      * @return um nome único para identificar o compoenente no html
      */
-    public String getNomeUnicoParaIDHtml();
+    public String getNomeUnicoParaIDHtml(ItfComponenteVisualSB pComponente);
+
+    public String getPrefixoUnicoParaIDHtml();
 
     /**
      *

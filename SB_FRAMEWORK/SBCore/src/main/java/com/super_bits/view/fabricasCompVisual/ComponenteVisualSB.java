@@ -5,6 +5,7 @@
 package com.super_bits.view.fabricasCompVisual;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
+@InfoClasse(tags = {"Componente visual SB"}, plural = "Componentes SB")
 public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisualSB {
 
     @InfoCampo(tipo = FabCampos.ID)
@@ -34,9 +36,9 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     private FabFamiliaCompVisual familia;
 
-    private String caminhoIdHTMLObjetoPrincipal;
+    private String idHTMLObjetoPrincipal;
 
-    private String ClasseCSS;
+    private String classeCSS;
 
     @Override
     public String getNome() {
@@ -120,21 +122,21 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
     }
 
     @Override
-    public String getCaminhoIdHTMLObjetoPrincipal() {
-        return caminhoIdHTMLObjetoPrincipal;
+    public String getIdHTMLObjetoPrincipal() {
+        return idHTMLObjetoPrincipal;
     }
 
-    public void setCaminhoIdHTMLObjetoPrincipal(String caminhoIdHTMLObjetoPrincipal) {
-        this.caminhoIdHTMLObjetoPrincipal = caminhoIdHTMLObjetoPrincipal;
+    public void setIdHTMLObjetoPrincipal(String idHTMLObjetoPrincipal) {
+        this.idHTMLObjetoPrincipal = idHTMLObjetoPrincipal;
     }
 
     @Override
     public String getClasseCSS() {
-        return ClasseCSS;
+        return classeCSS;
     }
 
     public void setClasseCSS(String ClasseCSS) {
-        this.ClasseCSS = ClasseCSS;
+        this.classeCSS = ClasseCSS;
     }
 
 }

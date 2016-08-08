@@ -14,6 +14,8 @@ public class Campo implements Serializable, ItfCampo {
 
     private TIPOPRIMITIVO tipoValor;
 
+    private TIPO_ORIGEM_VALOR_CAMPO tipoOrigemValor;
+
     private String tipoVisualizacao;
 
     private String mascara;
@@ -62,6 +64,7 @@ public class Campo implements Serializable, ItfCampo {
         setListaDeOpcoes(pCampo.getListaDeOpcoes());
         setValidacaoRegex(pCampo.getValidacaoRegex());
         setFraseValidacao(pCampo.getFraseValidacao());
+        setTipoOrigemValor(pCampo.getTipoCampo().getTipoOrigemPadrao());
 
     }
 
@@ -70,13 +73,17 @@ public class Campo implements Serializable, ItfCampo {
         return tipoCampo;
     }
 
+    private boolean isOrigemDeste(TIPO_ORIGEM_VALOR_CAMPO pOrigem) {
+        return tipoOrigemValor.equals(pOrigem);
+    }
+
     public final void setTipoCampo(FabCampos tipoCampo) {
 
         this.tipoCampo = tipoCampo;
     }
 
     @Override
-    public TIPOPRIMITIVO getTipoValor() {
+    public TIPOPRIMITIVO getTipoPrimitivoDoValor() {
         return tipoCampo.getTipoPrimitivo();
     }
 
@@ -303,6 +310,35 @@ public class Campo implements Serializable, ItfCampo {
 
     public String getStrTipoInput() {
         return tipoCampo.getTipo_input_prime().getComponente().getXhtmlJSF();
+    }
+
+    @Override
+    public TIPO_ORIGEM_VALOR_CAMPO getOrigemValor() {
+        return tipoOrigemValor;
+    }
+
+    @Override
+    public boolean isUmValorLivre() {
+        return isOrigemDeste(TIPO_ORIGEM_VALOR_CAMPO.VALORES_LIVRE);
+    }
+
+    @Override
+    public boolean iUmValorComLista() {
+        return isOrigemDeste(TIPO_ORIGEM_VALOR_CAMPO.VALOR_COM_LISTA);
+    }
+
+    @Override
+    public boolean isUmValorMultiploLivre() {
+        return isOrigemDeste(TIPO_ORIGEM_VALOR_CAMPO.VALORES_LIVRE);
+    }
+
+    @Override
+    public boolean isUmValorMultiploComLista() {
+        return isOrigemDeste(TIPO_ORIGEM_VALOR_CAMPO.VALORES_LIVRE);
+    }
+
+    public final void setTipoOrigemValor(TIPO_ORIGEM_VALOR_CAMPO tipoOrigemValor) {
+        this.tipoOrigemValor = tipoOrigemValor;
     }
 
 }

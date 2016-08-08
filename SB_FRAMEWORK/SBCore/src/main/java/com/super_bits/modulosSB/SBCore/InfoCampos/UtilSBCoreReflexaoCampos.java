@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoInstanciadoSeparado
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_REGISTRO_CAMPO;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -414,16 +414,16 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
-    public static TIPO_REGISTRO_CAMPO getTipoCampoLista(String pNomeCampo) {
+    public static TIPO_ORIGEM_VALOR_CAMPO getTipoCampoLista(String pNomeCampo) {
         if (pNomeCampo.contains("[]")) {
-            return TIPO_REGISTRO_CAMPO.LISTA;
+            return TIPO_ORIGEM_VALOR_CAMPO.VALORES_COM_LISTA;
         }
 
         Matcher m = REGEX_REGISTRO_DA_LISTA.matcher(pNomeCampo);
         if (m.find()) {
-            return TIPO_REGISTRO_CAMPO.REGISTRO_DA_LISTA;
+            return TIPO_ORIGEM_VALOR_CAMPO.REGISTRO_ESTATICO_DA_LISTA;
         }
-        return TIPO_REGISTRO_CAMPO.ENTIDADE;
+        return TIPO_ORIGEM_VALOR_CAMPO.VALOR_COM_LISTA;
 
     }
 

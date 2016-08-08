@@ -35,7 +35,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     private boolean umaEntidade;
     private boolean umCampoSeparador;
     private boolean umCampoVinculado;
-    private TIPO_REGISTRO_CAMPO tipoRegistro;
+    private TIPO_ORIGEM_VALOR_CAMPO tipoRegistro;
 
     public void defineNomeCompleto(String pCaminho, Class pClasse) {
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
@@ -147,15 +147,21 @@ public final class CaminhoCampoReflexao extends ItemSimples {
                     caminhoComleto += "[]";
                     makePartesCaminho();
                 }
-
+                // verifica se a referencia é de uma lista, ou sobre um valor específico da lista
+                //ex: Entidade.sublista[] ou Entidade.subLista[0]
                 tipoRegistro = UtilSBCoreReflexaoCampos.getTipoCampoLista(caminhoComleto);
             }
 
             if (pField.isAnnotationPresent(ManyToOne.class)) {
                 umaEntidade = true;
-                tipoRegistro = TIPO_REGISTRO_CAMPO.ENTIDADE;
+                tipoRegistro = TIPO_ORIGEM_VALOR_CAMPO.VALOR_COM_LISTA;
             } else {
-                tipoRegistro = TIPO_REGISTRO_CAMPO.CAMPO_SIMPLES;
+                try {
+                    InfoCampo anotacaoCampo = pField.getAnnotation(InfoCampo.class);
+                    tipoRegistro = anotacaoCampo.tipo().getTipoOrigemPadrao();
+                } catch (Throwable t) {
+                    tipoRegistro = TIPO_ORIGEM_VALOR_CAMPO.VALOR_LIVRE;
+                }
             }
 
         } else {
@@ -364,7 +370,7 @@ public final class CaminhoCampoReflexao extends ItemSimples {
 
     }
 
-    public TIPO_REGISTRO_CAMPO getTipoRegistro() {
+    public TIPO_ORIGEM_VALOR_CAMPO getTipoRegistro() {
         return tipoRegistro;
     }
 

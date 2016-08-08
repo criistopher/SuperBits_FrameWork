@@ -74,7 +74,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     }
 
     @Override
-    public TIPOPRIMITIVO getTipoValor() {
+    public TIPOPRIMITIVO getTipoPrimitivoDoValor() {
         return TIPOPRIMITIVO.LETRAS;
     }
 
@@ -249,12 +249,6 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     }
 
     @Override
-    public String getNomeUnicoParaIDHtml() {
-        // to do separador
-        return Integer.toString(toString().hashCode());
-    }
-
-    @Override
     public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente) {
         return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
 
@@ -263,6 +257,41 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     @Override
     public ItfComponenteVisualSB getComponenteVisualPadrao() {
         return FabCompVisualInputs.TEXTO_SEM_FORMATACAO.getComponente();
+    }
+
+    @Override
+    public TIPO_ORIGEM_VALOR_CAMPO getOrigemValor() {
+        return TIPO_ORIGEM_VALOR_CAMPO.VALOR_LIVRE;
+    }
+
+    @Override
+    public boolean isUmValorLivre() {
+        return true;
+    }
+
+    @Override
+    public boolean iUmValorComLista() {
+        return false;
+    }
+
+    @Override
+    public boolean isUmValorMultiploLivre() {
+        return false;
+    }
+
+    @Override
+    public boolean isUmValorMultiploComLista() {
+        return false;
+    }
+
+    @Override
+    public String getNomeUnicoParaIDHtml(ItfComponenteVisualSB pComponente) {
+        return "SEPARADOR";
+    }
+
+    @Override
+    public String getPrefixoUnicoParaIDHtml() {
+        return "SEPARADOR";
     }
 
 }

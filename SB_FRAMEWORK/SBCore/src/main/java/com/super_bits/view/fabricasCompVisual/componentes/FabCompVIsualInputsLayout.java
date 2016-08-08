@@ -19,25 +19,25 @@ public enum FabCompVIsualInputsLayout implements ItfFabTipoComponenteVisual {
     @InfoComponenteVisual(nome = "Resumido",
             descricao = "Exibe o campo, exibindo o label como marca-dagua, e tooltip",
             xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "resumido.xhtml",
-            caminhoIdHTMLObjetoPrincipal = "campoResumido"
+            classesCSS = "campoResumido"
     )
     LABEL_RESUMIDO,
     @InfoComponenteVisual(nome = "Superior",
             descricao = "Exibe o nome do campo (label) acima do campo",
             xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "resumido.xhtml",
-            caminhoIdHTMLObjetoPrincipal = "campoSuperior"
+            classesCSS = "campoSuperior"
     )
     LABEL_SUPERIOR,
     @InfoComponenteVisual(nome = "Esquerda",
             descricao = "Exibe o nome do campo (label) em frente ao campo",
             xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "esquerda.xhtml",
-            caminhoIdHTMLObjetoPrincipal = "campoEsquerda"
+            classesCSS = "campoEsquerda"
     )
     LABEL_ESQUEDA,
     @InfoComponenteVisual(nome = "Automático",
             descricao = "Exibe o campo com layout automático, em geral o automático utiliza o superior para desktop, e resumido para mobilie",
             xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "automatico.xhtml",
-            caminhoIdHTMLObjetoPrincipal = "campoAutomatico"
+            classesCSS = "campoAutomatico"
     )
     AUTOMATICO;
     public static final String PASTA_LAYOUT_INPUTS = "input/layouts/";

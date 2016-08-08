@@ -27,13 +27,15 @@ public class UtilSBFabricaComponenteVisual {
             componente.setId(Integer.parseInt(codigoId));
             componente.setDescricao(infoAnotacao.descricao());
             componente.setFamilia(FabFamiliaCompVisual.MENU);
-            componente.setCaminhoIdHTMLObjetoPrincipal(codigoId);
+            componente.setIdHTMLObjetoPrincipal(codigoId);
             componente.setXhtmlJSF(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.xhtmlJSF());
             componente.setXhtmlAndroid(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.xhtmlAndroi());
             componente.setHtmlWordPress(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.htmlWordPress());
             componente.setFamilia(pFabrica.getFamilia());
-            componente.setCaminhoIdHTMLObjetoPrincipal(infoAnotacao.caminhoIdHTMLObjetoPrincipal());
-
+            componente.setIdHTMLObjetoPrincipal(infoAnotacao.idHTMLObjetoPrincipal());
+            if (infoAnotacao.idHTMLObjetoPrincipal().isEmpty()) {
+                componente.setIdHTMLObjetoPrincipal(infoAnotacao.classesCSS());
+            }
         } catch (NoSuchFieldException | SecurityException ex) {
             Logger.getLogger(UtilSBFabricaComponenteVisual.class.getName()).log(Level.SEVERE, null, ex);
         }

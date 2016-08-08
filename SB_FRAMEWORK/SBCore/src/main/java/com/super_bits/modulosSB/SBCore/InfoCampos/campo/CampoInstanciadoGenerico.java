@@ -79,7 +79,16 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
     }
 
     @Override
-    public String getNomeUnicoParaIDHtml() {
+    public String getNomeUnicoParaIDHtml(ItfComponenteVisualSB pComponente) {
+        if (pComponente != null) {
+            return getPrefixoUnicoParaIDHtml() + "_" + pComponente.getClasseCSS();
+        } else {
+            return getPrefixoUnicoParaIDHtml() + "_" + campoReflection.getName();
+        }
+    }
+
+    @Override
+    public String getPrefixoUnicoParaIDHtml() {
         return campoReflection.getDeclaringClass().getSimpleName() + "_" + campoReflection.getName();
     }
 

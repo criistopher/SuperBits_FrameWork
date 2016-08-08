@@ -470,6 +470,78 @@ public enum FabCampos implements ItfFabrica {
 
     }
 
+    public TIPO_ORIGEM_VALOR_CAMPO getTipoOrigemPadrao() {
+        switch (this) {
+            case AAA_NOME:
+            case AAA_NOME_LONGO:
+            case AAA_DESCRITIVO:
+            case ID:
+            case LATITUDE:
+            case Longitude:
+            case LCLOGRADOURO:
+            case LCCEP:
+            case SENHA:
+            case LCComplemeto:
+            case LCCampoAberto:
+            case SENHA_SEGURANCA_MAXIMA:
+            case CHART_VALOR:
+            case CHART_LABEL:
+            case HTML:
+            case CHART_CATEGORIA:
+            case CALENDARIO:
+            case DATAHORA:
+            case DATA:
+            case HORA:
+            case TELEFONE_FIXO_NACIONAL:
+            case TELEFONE_FIXO_INTERNACIONAL:
+            case TELEFONE_GENERICO:
+            case TELEFONE_CELULAR:
+            case MOEDA_REAL:
+            case MOEDA_DOLAR:
+            case QUANTIDADE:
+            case TEXTO_SIMPLES:
+            case VERDADEIRO_FALSO:
+            case PERCENTUAL:
+            case EMAIL:
+            case COR:
+            case SITE:
+            case URL:
+            case RESPONSAVEL:
+            case NOME_COMPLETO:
+            case CNPJ:
+            case CPF:
+            case INSCRICAO_ESTADUAL:
+            case INSCRIACAO_MUNICIPAL:
+            case REG_DATAINSERCAO:
+            case REG_USUARIO_INSERCAO:
+            case REG_USUARIO_ALTERACAO:
+            case REG_DATAALTERACAO:
+            case REG_ATIVO_INATIVO:
+            case CODIGO_DE_BARRAS:
+            case ICONE:
+            case SEGURANCA_ATIVA:
+            case LC_LOCALIZACAO:
+            case CAMPO_SEPARADOR:
+                return TIPO_ORIGEM_VALOR_CAMPO.VALOR_LIVRE;
+            case LCBairro:
+            case LCCidade:
+            case LCUnidadeFederativa:
+            case LOOKUP:
+                return TIPO_ORIGEM_VALOR_CAMPO.VALOR_COM_LISTA;
+
+            case LOOKUPMULTIPLO:
+            case LISTA:
+                return TIPO_ORIGEM_VALOR_CAMPO.VALORES_COM_LISTA;
+            case IMG_PEQUENA:
+            case ARQUIVO_DE_ENTIDADE:
+            case IMG_MEDIA:
+            case IMG_GRANDE:
+                return TIPO_ORIGEM_VALOR_CAMPO.ARQUIVO;
+
+        }
+        return TIPO_ORIGEM_VALOR_CAMPO.VALOR_LIVRE;
+    }
+
     /**
      *
      * Retorna um tipo de campo padrão de acordo com a classe.

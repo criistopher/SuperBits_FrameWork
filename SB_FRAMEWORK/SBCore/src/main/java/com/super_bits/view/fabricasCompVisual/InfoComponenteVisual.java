@@ -28,8 +28,8 @@ public @interface InfoComponenteVisual {
 
     public String htmlWordPress() default FabCompVisualSistema.WORDPRESS_COMPONENTE_NAO_IMPLEMENTADO;
 
-    public String classesCSS() default "";
+    public String classesCSS();
 
-    public String caminhoIdHTMLObjetoPrincipal() default "";
+    public String idHTMLObjetoPrincipal() default "";
 
 }

@@ -55,7 +55,9 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
      *
      * @return Retorna o Valor do Campo
      */
-    public TIPOPRIMITIVO getTipoValor();
+    public TIPOPRIMITIVO getTipoPrimitivoDoValor();
+
+    public TIPO_ORIGEM_VALOR_CAMPO getOrigemValor();
 
     /**
      *
@@ -220,5 +222,32 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
      * @return A frase que vai aparecer caso a informação não seja validada
      */
     public String getFraseValidacao();
+
+    /**
+     *
+     * @return true caso o valor digitado seja criado pelo usuário
+     */
+    public boolean isUmValorLivre();
+
+    /**
+     *
+     * @return True caso uma lista de Opções seja enviada para escolha do
+     * usuário
+     */
+    public boolean iUmValorComLista();
+
+    /**
+     *
+     * @return true caso o usuário tenha que criar uma lista de valores a sua
+     * escolha
+     */
+    public boolean isUmValorMultiploLivre();
+
+    /**
+     *
+     * @return true caso o usuário tenha que selecionar diversos valores dentre
+     * detreminadas opções
+     */
+    public boolean isUmValorMultiploComLista();
 
 }
