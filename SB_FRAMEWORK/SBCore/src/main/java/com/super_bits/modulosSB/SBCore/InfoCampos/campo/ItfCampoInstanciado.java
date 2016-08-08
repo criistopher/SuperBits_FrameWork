@@ -135,4 +135,6 @@ public interface ItfCampoInstanciado extends ItfCampo {
      */
     public ItfComponenteVisualSB getComponenteDiferenciado(ItfComponenteVisualSB pComponente);
 
+    public boolean isTemDescricao();
+
 }

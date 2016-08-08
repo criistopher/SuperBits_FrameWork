@@ -133,4 +133,11 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         }
     }
 
+    @Override
+    public boolean isTemDescricao() {
+
+        return !(getDescricao() == null || getDescricao().isEmpty() || getDescricao().equals(getLabel()) || getDescricao().length() < 4);
+
+    }
+
 }

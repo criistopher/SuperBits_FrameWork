@@ -294,4 +294,9 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
         return "SEPARADOR";
     }
 
+    @Override
+    public boolean isTemDescricao() {
+        return false;
+    }
+
 }
