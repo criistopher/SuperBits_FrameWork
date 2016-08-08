@@ -68,6 +68,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             // criando mapa de recursos a partir das paginas
             mapaRecursos = new HashMap<>();
             mapaPaginas = new HashMap<>();
+            System.out.println("Foram encontradas " + paginas.keySet().size() + " paginas gerenciaveis");
             for (String key : paginas.keySet()) {
                 ItfB_Pagina pg = paginas.get(key);
                 List<String> tags = pg.getTags();
