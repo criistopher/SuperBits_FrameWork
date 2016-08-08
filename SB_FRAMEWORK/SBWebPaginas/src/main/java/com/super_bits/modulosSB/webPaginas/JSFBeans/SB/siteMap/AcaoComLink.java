@@ -33,20 +33,18 @@ import javax.persistence.Transient;
  * disponíveis logo após a criação de seus respectivos Managed Benas.
  *
  *
- *
- *
  * @author <a href="mailto:salviof@gmail.com">Salvio Furbino</a>
  * @since 30/01/2016
  * @version 1.0
  */
-public class AcaoManagedBean extends ItemGenerico implements ItfAcaoDoSistema {
+public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Transient
     private final ItfAcaoFormulario acaoOriginal;
     @Transient
     private final String urlDeAcesso;
 
-    public AcaoManagedBean(ItfAcaoFormulario pAcaoDoSistema, ItfB_Pagina pagina) {
+    public AcaoComLink(ItfAcaoFormulario pAcaoDoSistema, ItfB_Pagina pagina) {
         acaoOriginal = pAcaoDoSistema;
         urlDeAcesso = pagina.getUrlPadrao();
     }

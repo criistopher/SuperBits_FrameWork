@@ -12,7 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoManagedBean;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.B_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
@@ -85,7 +85,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                 try {
                     for (ItfB_Pagina pagina : mapaPaginas.values()) {
                         if (pagina.getAcaoVinculada() != null) {
-                            infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoManagedBean(pagina.getAcaoVinculada(), pagina));
+                            infoAplicacao.putNovoManagedBen(pagina.getAcaoVinculada(), new AcaoComLink(pagina.getAcaoVinculada(), pagina));
                         }
                     }
 

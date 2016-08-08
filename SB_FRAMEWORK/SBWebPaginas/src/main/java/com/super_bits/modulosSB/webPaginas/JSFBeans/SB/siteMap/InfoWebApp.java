@@ -22,13 +22,13 @@ import javax.inject.Named;
 @Named
 public class InfoWebApp implements Serializable {
 
-    private final Map<String, AcaoManagedBean> acoesManagedBens;
+    private final Map<String, AcaoComLink> acoesManagedBens;
 
     public InfoWebApp() {
         acoesManagedBens = new HashMap<>();
     }
 
-    public void putNovoManagedBen(ItfAcaoDoSistema pAcao, AcaoManagedBean pMBmanagedBen) {
+    public void putNovoManagedBen(ItfAcaoDoSistema pAcao, AcaoComLink pMBmanagedBen) {
         acoesManagedBens.put(pAcao.getNomeUnico(), pMBmanagedBen);
     }
 
@@ -37,7 +37,7 @@ public class InfoWebApp implements Serializable {
      * @param pAcao
      * @return Ação managed Ben contendo a URL para acesso
      */
-    public AcaoManagedBean getAcaoManagedBean(String pAcao) {
+    public AcaoComLink getAcaoManagedBean(String pAcao) {
         return acoesManagedBens.get(pAcao);
     }
 
@@ -45,9 +45,9 @@ public class InfoWebApp implements Serializable {
         return !acoesManagedBens.isEmpty();
     }
 
-    public List<AcaoManagedBean> getAcoesMB() {
-        List<AcaoManagedBean> acoes = new ArrayList<>();
-        for (AcaoManagedBean acao : acoesManagedBens.values()) {
+    public List<AcaoComLink> getAcoesMB() {
+        List<AcaoComLink> acoes = new ArrayList<>();
+        for (AcaoComLink acao : acoesManagedBens.values()) {
             acoes.add(acao);
         }
         return acoes;

@@ -23,6 +23,8 @@ public @interface InfoCalculo {
 
     public String nomeParametro();
 
+    public String descricao();
+
     public ParametroCalculo[] parametros() default {};
 
 }

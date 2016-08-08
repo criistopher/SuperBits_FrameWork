@@ -21,16 +21,16 @@ public enum FabCompVisualBotaoAcao implements ItfFabFamiliaComponenteVisual {
     LINK,
     @InfoComponenteVisual(nome = "Icone",
             classesCSS = "btnIcone",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIcone.xhtml"
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIcone"
     )
     ICONE,
     @InfoComponenteVisual(nome = "Icone e Nome",
             classesCSS = "btnIconeENome",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIconeENome.xhtml")
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnIconeENome")
     ICONE_E_NOME,
     @InfoComponenteVisual(nome = "Nome",
             classesCSS = "btnNome",
-            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnNome.xhtml"
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "/btnNome"
     )
     NOME,
     @InfoComponenteVisual(nome = "Icone Gigante",

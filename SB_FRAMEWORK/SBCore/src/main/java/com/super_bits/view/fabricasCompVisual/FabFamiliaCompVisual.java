@@ -29,7 +29,8 @@ public enum FabFamiliaCompVisual implements ItfFabFamiliaComponenteVisual, ItfFa
     SELETOR_ITENS,
     ITEM_BEAN_SIMPLES,
     ITENS_BEAN_SIMPLES,
-    COMPONENTE_SISTEMA;
+    COMPONENTE_SISTEMA,
+    BOTAO_DE_ACAO;
 
     public String getXhtmlJSFPadrao() {
 

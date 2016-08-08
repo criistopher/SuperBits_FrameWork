@@ -16,7 +16,7 @@ import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
  */
 public enum FabCompVisualItem implements ItfFabTipoComponenteVisual {
     @InfoComponenteVisual(nome = "Texto Com Formatacao",
-            xhtmlJSF = FabCompVisualItem.PATA_ITEM + "nomeEImagem.xhtml",
+            xhtmlJSF = FabCompVisualItem.PATA_ITEM + "nomeEImagem",
             classesCSS = "nome_e_imagem"
     )
     NOME_E_IMAGEM;
