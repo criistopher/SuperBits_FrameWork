@@ -4,15 +4,16 @@
  */
 package com.super_bits.view.fabricasCompVisual.componentes;
 
-import com.super_bits.view.fabricasCompVisual.FamiliaComponente;
+import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
+import com.super_bits.view.fabricasCompVisual.FabFamiliaCompVisual;
 import com.super_bits.view.fabricasCompVisual.InfoComponenteVisual;
-import com.super_bits.view.fabricasCompVisual.ItfFabFamiliaComponenteVisual;
+import com.super_bits.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
 
 /**
  *
  * @author salvioF
  */
-public enum FabCompVisualBotaoAcao implements ItfFabFamiliaComponenteVisual {
+public enum FabCompVisualBotaoAcao implements ItfFabTipoComponenteVisual {
 
     @InfoComponenteVisual(nome = "Link",
             classesCSS = "btnLinkSB",
@@ -40,22 +41,17 @@ public enum FabCompVisualBotaoAcao implements ItfFabFamiliaComponenteVisual {
     public static final String PASTA_BOTOES = "botaoAcao/";
 
     @Override
-    public Class getInterfaceCompativel() {
+    public FabFamiliaCompVisual getFamilia() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getNomeFAmilia() {
+    public ComponenteVisualSB getComponente() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Class getFabricaCamposPadrao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public FamiliaComponente getRegistro() {
+    public ComponenteVisualSB getRegistro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
