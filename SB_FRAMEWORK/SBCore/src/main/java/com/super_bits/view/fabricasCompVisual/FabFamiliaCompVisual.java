@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import com.super_bits.view.fabricasCompVisual.componentes.FabCompVIsualInputsLayout;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualBotaoAcao;
 import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualItem;
 import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualItens;
@@ -56,6 +57,9 @@ public enum FabFamiliaCompVisual implements ItfFabFamiliaComponenteVisual, ItfFa
                 return FabCompVisualItens.LISTAGEM_EM_GRADE_NOME_E_IMAGEM.getRegistro();
             case COMPONENTE_SISTEMA:
                 return FabCompVisualSistema.NAO_IMPLEMENTADO.getRegistro();
+            case BOTAO_DE_ACAO:
+                return FabCompVisualBotaoAcao.ICONE_E_NOME.getComponente();
+
             default:
                 return FabCompVisualItem.NOME_E_IMAGEM.getComponente();
 

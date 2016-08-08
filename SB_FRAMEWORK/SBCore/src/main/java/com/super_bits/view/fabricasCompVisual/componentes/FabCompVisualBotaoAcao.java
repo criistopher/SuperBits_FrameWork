@@ -8,6 +8,7 @@ import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
 import com.super_bits.view.fabricasCompVisual.FabFamiliaCompVisual;
 import com.super_bits.view.fabricasCompVisual.InfoComponenteVisual;
 import com.super_bits.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
+import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
 
 /**
  *
@@ -42,17 +43,17 @@ public enum FabCompVisualBotaoAcao implements ItfFabTipoComponenteVisual {
 
     @Override
     public FabFamiliaCompVisual getFamilia() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return FabFamiliaCompVisual.BOTAO_DE_ACAO;
     }
 
     @Override
     public ComponenteVisualSB getComponente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilSBFabricaComponenteVisual.getComponenteVisual(this);
     }
 
     @Override
     public ComponenteVisualSB getRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilSBFabricaComponenteVisual.getComponenteVisual(this);
     }
 
 }
