@@ -24,7 +24,7 @@ public enum FabCompVIsualInputsLayout implements ItfFabTipoComponenteVisual {
     LABEL_RESUMIDO,
     @InfoComponenteVisual(nome = "Superior",
             descricao = "Exibe o nome do campo (label) acima do campo",
-            xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "resumido.xhtml",
+            xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "superior.xhtml",
             classesCSS = "campoSuperior"
     )
     LABEL_SUPERIOR,
