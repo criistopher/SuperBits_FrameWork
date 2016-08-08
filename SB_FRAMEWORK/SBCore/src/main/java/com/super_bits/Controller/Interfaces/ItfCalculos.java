@@ -12,6 +12,6 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
  */
 public interface ItfCalculos {
 
-    public Object getValor(Object pEntidade);
+    public Object getValor(Object... pEntidade);
 
 }
