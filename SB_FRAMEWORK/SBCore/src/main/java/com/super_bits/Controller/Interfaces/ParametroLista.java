@@ -4,10 +4,16 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  *
  * @author desenvolvedor
  */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ParametroLista {
 
     public String nomeParametro();
