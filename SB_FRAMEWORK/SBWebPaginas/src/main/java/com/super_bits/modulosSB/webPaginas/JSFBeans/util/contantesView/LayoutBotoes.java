@@ -5,7 +5,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.contantesView;
 
 import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
-import com.super_bits.view.fabricasCompVisual.componentes.FabCompVIsualInputsLayout;
 import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualBotaoAcao;
 
 /**
