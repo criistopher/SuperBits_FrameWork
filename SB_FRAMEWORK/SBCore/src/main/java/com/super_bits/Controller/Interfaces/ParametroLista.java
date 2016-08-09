@@ -8,8 +8,12 @@ package com.super_bits.Controller.Interfaces;
  *
  * @author desenvolvedor
  */
-public interface ItfCalculos {
+public @interface ParametroLista {
 
-    public Object getValor(Object... pEntidade);
+    public String nomeParametro();
+
+    public Class classe();
+
+    public String valorPadrao();
 
 }

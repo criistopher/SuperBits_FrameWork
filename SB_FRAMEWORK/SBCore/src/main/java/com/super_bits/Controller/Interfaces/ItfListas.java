@@ -4,7 +4,6 @@
  */
 package com.super_bits.Controller.Interfaces;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public interface ItfListas {
 
-    public List getLista(ItfBeanSimples entidade);
+    public List getLista(Object... pObjeto);
 
     public Class getClasse();
 
