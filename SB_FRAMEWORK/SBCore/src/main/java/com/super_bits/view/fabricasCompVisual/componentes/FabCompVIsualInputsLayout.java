@@ -39,7 +39,9 @@ public enum FabCompVIsualInputsLayout implements ItfFabTipoComponenteVisual {
             xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "automatico.xhtml",
             classesCSS = "campoAutomatico"
     )
-    AUTOMATICO;
+    AUTOMATICO,
+    @InfoComponenteVisual(nome = "Sem Label", classesCSS = "inputSemLabel", xhtmlJSF = FabCompVIsualInputsLayout.PASTA_LAYOUT_INPUTS + "inputSemLabel.xhtml")
+    INPUTSEM_LABEL;
     public static final String PASTA_LAYOUT_INPUTS = "input/layouts/";
 
     @Override

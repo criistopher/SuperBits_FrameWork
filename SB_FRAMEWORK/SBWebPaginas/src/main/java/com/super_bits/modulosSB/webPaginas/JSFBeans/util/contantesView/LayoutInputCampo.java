@@ -16,6 +16,7 @@ public class LayoutInputCampo {
     private final ComponenteVisualSB resumido = FabCompVIsualInputsLayout.LABEL_RESUMIDO.getComponente();
     private final ComponenteVisualSB esquerda = FabCompVIsualInputsLayout.LABEL_ESQUEDA.getComponente();
     private final ComponenteVisualSB superior = FabCompVIsualInputsLayout.LABEL_SUPERIOR.getComponente();
+    private final ComponenteVisualSB semLabel = FabCompVIsualInputsLayout.INPUTSEM_LABEL.getComponente();
     private final ComponenteVisualSB automatico = FabCompVIsualInputsLayout.AUTOMATICO.getComponente();
 
     public ComponenteVisualSB getResumido() {
@@ -32,6 +33,10 @@ public class LayoutInputCampo {
 
     public ComponenteVisualSB getAutomatico() {
         return automatico;
+    }
+
+    public ComponenteVisualSB getSemLabel() {
+        return semLabel;
     }
 
 }

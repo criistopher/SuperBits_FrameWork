@@ -24,6 +24,7 @@ public class LayoutsComponenteSB implements Serializable {
     private final LayoutSeletorItem layoutSeletorItem = new LayoutSeletorItem();
     private final LayoutSeletorItens layoutItens = new LayoutSeletorItens();
     private final LayoutBotoes layoutBotoes = new LayoutBotoes();
+
     private static final List<FamiliaComponente> FAMILIAS_COMPONENTE = new ArrayList<>();
 
     public LayoutsComponenteSB() {

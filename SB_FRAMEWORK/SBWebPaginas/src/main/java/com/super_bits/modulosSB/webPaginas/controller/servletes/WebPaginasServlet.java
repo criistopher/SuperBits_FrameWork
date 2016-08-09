@@ -163,7 +163,8 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         }
 
         if (recurso == null) {
-            recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
+            //  recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
+            recurso = "/site/home.xhtml";
         }
         System.out.println("ForWard para" + recurso);
         RequestDispatcher wp = req.getRequestDispatcher(recurso);
@@ -175,11 +176,11 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
         } catch (Throwable erro) {
             System.out.println("Erro Reidenrizando pagina>>>" + recurso);
-            erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
+            //  erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando forward de Recurso " + recurso, erro);
             //    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro executando forward de Recurso" + recurso, erro);
+            //FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro executando forward de Recurso" + recurso, erro);
         }
 
     }
