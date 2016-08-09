@@ -366,8 +366,8 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case CPF:
                 //mascara(tipo primitivo numeral)
-                sbCampo.setMascara("###-###-###-##");
-                sbCampo.setValorMinimo(11);
+                sbCampo.setMascara("###.###.###-##");
+                sbCampo.setValorMinimo(12);
                 break;
             case INSCRICAO_ESTADUAL:
                 // mascara (tipo primitivo numeral)
