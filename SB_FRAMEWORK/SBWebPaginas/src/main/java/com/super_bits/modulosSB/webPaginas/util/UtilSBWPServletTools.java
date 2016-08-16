@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.webPaginas.util;
 
-import com.sun.faces.mgbean.BeanManager;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -22,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
