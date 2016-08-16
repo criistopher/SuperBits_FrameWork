@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=adamantium-theme-1.0.jar  -DgroupId=com.super_bits.view.primefaces  -DartifactId=adamantium   -Dpackaging=jar   -Dversion=1   -DgeneratePom=true   
