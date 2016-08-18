@@ -64,6 +64,7 @@ public class MapaTarefasProjeto {
     }
 
     public static List<TarefaSuperBits> getTodasTarefas() {
+        criarTarefas();
         return null;
     }
 

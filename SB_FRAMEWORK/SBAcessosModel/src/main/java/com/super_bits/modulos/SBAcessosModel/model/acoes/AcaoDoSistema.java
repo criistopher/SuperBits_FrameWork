@@ -425,4 +425,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         return getNomeUnico();
     }
 
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return getComoSecundaria().getAcaoPrincipal();
+    }
+
 }

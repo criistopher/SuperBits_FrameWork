@@ -65,7 +65,7 @@ public class Campo implements Serializable, ItfCampo {
         setValidacaoRegex(pCampo.getValidacaoRegex());
         setFraseValidacao(pCampo.getFraseValidacao());
         setTipoOrigemValor(pCampo.getTipoCampo().getTipoOrigemPadrao());
-
+        setListaDeOpcoes(pCampo.getListaDeOpcoes());
     }
 
     @Override

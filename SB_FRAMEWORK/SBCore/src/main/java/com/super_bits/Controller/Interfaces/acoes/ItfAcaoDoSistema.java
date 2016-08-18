@@ -192,6 +192,10 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public boolean isUmaAcaoSessaoMenu();
 
+    /**
+     *
+     * @return
+     */
     public boolean isUmaAcaoDeEntidade();
 
     /**
@@ -219,6 +223,10 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      */
     public ItfAcaoFormulario getComoFormulario();
 
+    /**
+     *
+     * @return
+     */
     public ItfAcaoFormularioEntidade getComoFormularioEntidade();
 
     /**
@@ -244,5 +252,11 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @return A ação como controller Entidade
      */
     public ItfAcaoControllerEntidade getComoControllerEntidade();
+
+    /**
+     *
+     * @return
+     */
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade();
 
 }

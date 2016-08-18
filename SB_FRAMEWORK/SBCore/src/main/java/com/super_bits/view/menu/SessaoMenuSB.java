@@ -343,47 +343,53 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
 
     @Override
     public ItfAcaoFormulario getComoFormulario() {
-        throw new UnsupportedOperationException("Uma ação de sessão não pode retornar um formulário"); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoFormulario();
     }
 
     @Override
     public ItfAcaoGerenciarEntidade getComoGestaoEntidade() {
-        throw new UnsupportedOperationException("Uma ação de sessao não pode ser retronada como gestao de entidade"); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoGestaoEntidade();
     }
 
     @Override
     public ItfAcaoController getComoController() {
-        throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo controller"); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoController();
     }
 
     @Override
     public ItfAcaoSecundaria getComoSecundaria() {
-        throw new UnsupportedOperationException("uma ação controller não pode ser retornarnada como ação do tipo Secundaria"); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoSecundaria();
+
     }
 
     @Override
     public ItfAcaoFormularioEntidade getComoFormularioEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoFormularioEntidade();
     }
 
     @Override
     public ItfAcaoControllerEntidade getComoControllerEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getComoControllerEntidade();
     }
 
     @Override
     public List<ItfBeanSimples> getListaPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getListaPorCaminhoCampo(pCaminho);
     }
 
     @Override
     public ItfCampoInstanciado getCampoByCaminhoCampo(CaminhoCampoReflexao pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getCampoByCaminhoCampo(pNome);
     }
 
     @Override
     public Object getValorCampoByCaminhoCampo(CaminhoCampoReflexao pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoSessao.getValorCampoByCaminhoCampo(pNome);
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return acaoSessao.getAcaoDeGestaoEntidade();
     }
 
 }

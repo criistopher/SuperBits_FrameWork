@@ -68,17 +68,17 @@ public enum FabCamposPersistencia {
         switch (sbCampo.getTipoCampo()) {
             case LOOKUP:
 
-                if (sbCampo.getListaDeOpcoes() != null) {
-                    if (sbCampo.getListaDeOpcoes().isEmpty()) {
-                        if (muitosParaUm != null) {
-                            try {
-                                Class classeOpcoes = muitosParaUm.targetEntity();
-                                sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
-                            } catch (Throwable t) {
-                                SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro obtendo lista de opções em banco de dados para o  campo" + campoReflexao.getDeclaringClass().getSimpleName() + "." + campoReflexao.getName(), t);
-                            }
+                if (sbCampo.getListaDeOpcoes() == null) {
+
+                    if (muitosParaUm != null) {
+                        try {
+                            Class classeOpcoes = muitosParaUm.targetEntity();
+                            sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+                        } catch (Throwable t) {
+                            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro obtendo lista de opções em banco de dados para o  campo" + campoReflexao.getDeclaringClass().getSimpleName() + "." + campoReflexao.getName(), t);
                         }
                     }
+
                 }
 
                 break;

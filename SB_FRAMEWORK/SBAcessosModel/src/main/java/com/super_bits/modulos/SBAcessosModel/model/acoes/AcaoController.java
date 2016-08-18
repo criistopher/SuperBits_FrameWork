@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.UtilSBController;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
@@ -65,6 +66,11 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     @Override
     public List<ParametroDeAcaoController> getParametros() {
         return parametros;
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return getComoSecundaria().getAcaoPrincipal();
     }
 
 }

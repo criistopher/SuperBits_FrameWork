@@ -144,4 +144,9 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
         return UtilSBCoreDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
     }
 
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return getComoSecundaria().getAcaoPrincipal();
+    }
+
 }

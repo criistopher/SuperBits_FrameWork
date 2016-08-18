@@ -5,6 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
@@ -67,6 +68,11 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
     @Override
     public FabTipoAcaoSistema getTipoAcaoSistema() {
         return super.getTipoAcaoSistema(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return getComoSecundaria().getAcaoPrincipal();
     }
 
 }

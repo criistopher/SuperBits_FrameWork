@@ -273,12 +273,17 @@ public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
 
     @Override
     public ItfAcaoFormularioEntidade getComoFormularioEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.getComoFormularioEntidade();
     }
 
     @Override
     public ItfAcaoControllerEntidade getComoControllerEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return acaoOriginal.getComoControllerEntidade();
+    }
+
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return acaoOriginal.getAcaoDeGestaoEntidade();
     }
 
 }

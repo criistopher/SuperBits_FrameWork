@@ -95,4 +95,9 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         this.enumAcoesVinculadas = enumAcoesVinculadas;
     }
 
+    @Override
+    public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
+        return this;
+    }
+
 }
