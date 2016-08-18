@@ -9,6 +9,8 @@ import com.atlassian.jira.rest.client.api.domain.User;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.UtilSBCoreJira;
 import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
@@ -29,18 +31,18 @@ public class MapaTarefasProjeto {
     private static void addTarefa(ItfAcaoDoSistema pAcao) {
         try {
             String chaveAcaoGestao = pAcao.getAcaoDeGestaoEntidade().getNomeUnico();
-
             if (!TAREFAS_PROJETO_ATUAL.containsKey(chaveAcaoGestao)) {
                 TAREFAS_PROJETO_ATUAL.put(chaveAcaoGestao, new ArrayList<>());
             }
-            //  TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
-            // MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.put(
-            //new TarefaSuperBits(tarefa)
-//  /          );
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(pAcao.getTipoAcaoGenerica())) {
+                TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, pAcao);
+                MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.get(chaveAcaoGestao).add(new TarefaSuperBits(tarefa));
+            }
 
         } catch (Throwable t) {
-
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro adicionando tarefa para ação" + pAcao.getNomeUnico(), t);
         }
+
     }
 
     private static synchronized void criarTarefas() {
@@ -62,20 +64,15 @@ public class MapaTarefasProjeto {
         }
 
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
-
-        for (Class entidade : entidades) {
-
+        //Percorrendo entidades criando ações refente a entidades;
+        entidades.stream().forEach((entidade) -> {
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
-
                 TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-
                 /*  if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
-
-                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
+                throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
                 } */
             }
-
-        }
+        });
 
         tarefasCriadas = true;
     }
