@@ -13,9 +13,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerencia
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes.TestePaginaEntidade;
 import config.ConfigPersistenciaTestesAcesso;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author desenvolvedor
