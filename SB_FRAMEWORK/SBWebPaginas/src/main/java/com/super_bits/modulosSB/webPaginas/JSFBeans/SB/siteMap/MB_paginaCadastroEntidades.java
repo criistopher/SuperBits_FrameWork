@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.google.common.collect.Lists;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -16,6 +17,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
+import java.security.cert.CRLReason;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,32 +86,39 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     ) {
         super();
         acoesRegistros = new ArrayList<>();
-        for (AcaoDoSistema acao : pAcoesRegistro) {
-            acoesRegistros.add((ItfAcaoDoSistema) acao);
-        }
 
         acaoNovoRegistro = pAcaoNovoRegistro;
         acaoListarRegistros = pAcaoListar;
         acaoSalvarAlteracoes = pAcaoSalvar;
         acaoSelecionada = (ItfAcaoDoSistema) acaoListarRegistros;
-        xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
+        try {
 
-        if (getAcaoVinculada() != null) {
-            classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
-        }
-        entidadesListadas = new ArrayList<>();
+            for (AcaoDoSistema acao : pAcoesRegistro) {
+                acoesRegistros.add((ItfAcaoDoSistema) acao);
+            }
 
-        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-            paginaUtil = new PgUtil();
-        }
+            xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
 
-        temPesquisa = pTempesquisa;
+            if (getAcaoVinculada() != null) {
+                classeDaEntidade = ((ItfAcaoEntidade) getAcaoVinculada()).getClasseRelacionada();
+            }
+            entidadesListadas = new ArrayList<>();
 
-        // se for uma subchamada deixa para configurar as ações depois
-        //  TODO verificar possibilidade de lançar uma exceção caso constate via
-        // reflection que este constructor seja chamado direto
-        if (!pSubChamadaDeConstructor) {
-            configuraAcoes();
+            if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+                paginaUtil = new PgUtil();
+            }
+
+            temPesquisa = pTempesquisa;
+
+            // se for uma subchamada deixa para configurar as ações depois
+            //  TODO verificar possibilidade de lançar uma exceção caso constate via
+            // reflection que este constructor seja chamado direto
+            if (!pSubChamadaDeConstructor) {
+                configuraAcoes();
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ouve um erro configurando as ações basica do MB de entidade" + this.getClass().getName(), t);
+
         }
     }
 
@@ -133,6 +142,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             boolean pTempesquisa
     ) {
         this(pAcoesRegistro, pAcaoNovoRegistro, pAcaoListar, pAcaoSalvar, pTempesquisa, false);
+
+    }
+
+    public MB_paginaCadastroEntidades(List pAcoesRegistro,
+            AcaoDoSistema pAcaoNovoRegistro,
+            AcaoDoSistema pAcaoListar,
+            AcaoDoSistema pAcaoSalvar,
+            boolean pTempesquisa) {
+        this((AcaoDoSistema[]) pAcoesRegistro.toArray(new AcaoDoSistema[pAcoesRegistro.size()]), pAcaoNovoRegistro.getComoFormularioEntidade(),
+                pAcaoListar.getComoFormularioEntidade(), pAcaoSalvar.getComoControllerEntidade(), pTempesquisa);
     }
 
     /**

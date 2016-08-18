@@ -26,6 +26,8 @@ public interface ItfAcaoFormulario extends ItfAcaoDoSistema {
 
     public String getXhtml();
 
+    public String getPastaXhtml();
+
     public void setXhtml(String pXhtml);
 
     public List<GrupoCampos> getGruposDeCampos();

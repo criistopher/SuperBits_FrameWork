@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,11 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
             return null;
         }
         return grupos.get(pID);
+    }
+
+    @Override
+    public String getPastaXhtml() {
+        return UtilSBCoreDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
     }
 
     public static enum VARIAVEIS_ACAO_DO_SISTEMA {

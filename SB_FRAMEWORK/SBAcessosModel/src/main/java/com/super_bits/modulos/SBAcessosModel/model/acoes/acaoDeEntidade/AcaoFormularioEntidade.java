@@ -17,6 +17,8 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.GrupoCampos;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +137,11 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
             return null;
         }
         return grupos.get(pID);
+    }
+
+    @Override
+    public String getPastaXhtml() {
+        return UtilSBCoreDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
     }
 
 }

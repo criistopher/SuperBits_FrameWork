@@ -27,9 +27,6 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public abstract class UtilSBCoreStrings {
 
-    public static String teste = "teste";
-    public static String teste2 = "teste";
-
     public enum TIPO_LOREN {
 
         PARAGRAFO, PALAVRAS

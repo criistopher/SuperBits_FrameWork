@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
 import java.util.List;
 
 /**
@@ -137,6 +138,14 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     public void setClasseCSS(String ClasseCSS) {
         this.classeCSS = ClasseCSS;
+    }
+
+    public String getCaminhoPastaXHTMLJSF() {
+        return UtilSBCoreDiretorios.getDiretorioMenosXCasas(getXhtmlJSF(), 1);
+    }
+
+    public String getNomeArquivoXHTMLJSF() {
+        return UtilSBCoreDiretorios.getNomeArquivo(getXhtmlJSF());
     }
 
 }
