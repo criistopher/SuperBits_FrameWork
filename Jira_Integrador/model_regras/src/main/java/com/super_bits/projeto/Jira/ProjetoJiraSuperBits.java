@@ -9,6 +9,7 @@ import com.atlassian.jira.rest.client.api.domain.User;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import java.util.List;
 
 /**
  *
@@ -115,7 +116,14 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
      *
      */
     public void buildAcoesJira() {
-        MapaTarefasProjeto.getTodasTarefas();
+
+        List<TarefaSuperBits> tarefas = MapaTarefasProjeto.getTodasTarefas();
+        tarefas.stream().forEach((tr) -> {
+            System.out.println("Tarefa" + tr.getTarefaJiraOrigem().getNomeTarefa());
+            System.out.println("Tempo esperado:" + tr.getTarefaJiraOrigem().getTempoEsperado());
+        });
+        System.out.println("");
+
     }
 
 }

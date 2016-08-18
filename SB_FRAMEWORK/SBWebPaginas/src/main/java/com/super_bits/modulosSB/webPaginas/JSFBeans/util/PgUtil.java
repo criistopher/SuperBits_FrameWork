@@ -267,6 +267,16 @@ public class PgUtil implements Serializable {
         }
     }
 
+    public String buscaIdDestaClasse(UIComponent componente, String atributo) {
+        List<UIComponent> componentesEncontrados = componente.getParent().getChildren();
+        for (UIComponent comp : componentesEncontrados) {
+            System.out.println(comp.getId());
+            System.out.println(comp.getAttributes().keySet());
+            System.out.println(comp.getAttributes().values());
+        }
+        return "Ainda não Implmentado";
+    }
+
     public String buscaFilhoComEsteID(UIComponent componente, String atributo) {
         String resultado = UtilSBWP_JSFTools.getAbsoluteComponentPaths(UtilSBWP_JSFTools.resolveList(atributo, componente));
         return resultado.replace(":" + componente.getClientId(), resultado);

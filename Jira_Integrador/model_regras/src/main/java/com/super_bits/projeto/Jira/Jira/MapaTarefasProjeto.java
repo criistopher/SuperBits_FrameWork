@@ -5,9 +5,8 @@
  */
 package com.super_bits.projeto.Jira.Jira;
 
-import com.atlassian.jira.rest.client.api.domain.User;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
@@ -16,6 +15,7 @@ import com.super_bits.projeto.Jira.UtilSBCoreJira;
 import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +79,19 @@ public class MapaTarefasProjeto {
 
     public static List<TarefaSuperBits> getTodasTarefas() {
         criarTarefas();
-        return null;
+        List<TarefaSuperBits> todasTarefas = new ArrayList<>();
+        TAREFAS_PROJETO_ATUAL.values().stream().forEach((List<TarefaSuperBits> tarefasDaGestao) -> {
+            tarefasDaGestao.stream().forEach((tr) -> {
+                todasTarefas.add(tr);
+            });
+        });
+
+        return todasTarefas;
+    }
+
+    public static List<TarefaSuperBits> getTarefasDaGestao(ItfAcaoGerenciarEntidade pAcaoGestao) {
+        criarTarefas();
+        return TAREFAS_PROJETO_ATUAL.get(pAcaoGestao.getNomeUnico());
     }
 
 }
