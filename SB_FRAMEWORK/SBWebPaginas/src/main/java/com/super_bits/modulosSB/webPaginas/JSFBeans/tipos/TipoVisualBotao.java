@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
+import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
+import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualBotaoAcao;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -22,48 +24,34 @@ import javax.enterprise.context.ApplicationScoped;
 public class TipoVisualBotao extends ConstantesWeb {
 
     public TipoVisualBotao() {
-        super(FabTipoVisualBotaoAcao.class);
+        super(FabCompVisualBotaoAcao.class);
     }
 
     @Override
     public String getPadrao() {
-        FabTipoVisualBotaoAcao botaoAcao = FabTipoVisualBotaoAcao.APENAS_ICONE;
-        switch (botaoAcao) {
-            case APENAS_ICONE:
-                break;
-            case ICONE_NOME:
-                break;
-            case BOTAO_GIGANTE:
-                break;
-            case APENAS_NOME:
-                break;
-            case APENAS_DESCRICAO:
-                break;
-            default:
-                throw new AssertionError(botaoAcao.name());
+        FabCompVisualBotaoAcao botaoAcao = FabCompVisualBotaoAcao.ICONE;
 
-        }
         return botaoAcao.toString();
     }
 
-    public String getApenasIcone() {
-        return FabTipoVisualBotaoAcao.APENAS_ICONE.toString();
+    public ComponenteVisualSB getApenasIcone() {
+        return FabCompVisualBotaoAcao.ICONE.getComponente();
     }
 
-    public String getIconeENome() {
-        return FabTipoVisualBotaoAcao.ICONE_NOME.toString();
+    public ComponenteVisualSB getIconeENome() {
+        return FabCompVisualBotaoAcao.ICONE_E_NOME.getComponente();
     }
 
-    public String getBotaoGigante() {
-        return FabTipoVisualBotaoAcao.BOTAO_GIGANTE.toString();
+    public ComponenteVisualSB getBotaoGigante() {
+        return FabCompVisualBotaoAcao.ICONE_GIGANTE.getComponente();
     }
 
-    public String getApenasNome() {
-        return FabTipoVisualBotaoAcao.APENAS_NOME.toString();
+    public ComponenteVisualSB getApenasNome() {
+        return FabCompVisualBotaoAcao.NOME.getComponente();
     }
 
-    public String getApenasDescricao() {
-        return FabTipoVisualBotaoAcao.BOTAO_GIGANTE.toString();
+    public ComponenteVisualSB getApenasDescricao() {
+        return FabCompVisualBotaoAcao.ICONE_GIGANTE.getComponente();
     }
 
 }

@@ -145,7 +145,34 @@ public class PgUtil implements Serializable {
         atualizaTelaPorID("mensagemUsuario");
     }
 
+    /**
+     *
+     * Procura pelos componentes com este id, e retorna o caminho completo do
+     * componente
+     *
+     *
+     * Ex. um componente com o id = areaParaAtualizacao pode durante a
+     * reinderização do jsf ficar com o nome
+     * conteudo.divDaEsquerda.jstdid12.areaparaAtualizacao
+     *
+     *
+     * @param pId O id de componente que deseja saber o caminho completo
+     *
+     *
+     *
+     *
+     * @return
+     */
     public String makeCaminhoCompletoID(String pId) {
+        if (pId == null) {
+            return null;
+        }
+        if (pId.length() == 0) {
+            return null;
+        }
+        if (pId.contains("@")) {
+            return pId;
+        }
         if (pId == null || pId.equals("")) {
             return null;
         }

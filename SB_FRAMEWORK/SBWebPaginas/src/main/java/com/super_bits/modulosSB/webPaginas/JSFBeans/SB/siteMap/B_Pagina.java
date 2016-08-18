@@ -743,4 +743,16 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         this.acaoSelecionada = acaoSelecionada;
     }
 
+    @Override
+    public ItfPaginaGerenciarEntidade<?> getComoPaginaEntidade() {
+        try {
+            ItfPaginaGerenciarEntidade paginaDeEntidade = (ItfPaginaGerenciarEntidade) this;
+            return paginaDeEntidade;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A pagina" + this.getClass().getSimpleName() + " não implementa Pagina de Entidade", t);
+            return null;
+        }
+
+    }
+
 }

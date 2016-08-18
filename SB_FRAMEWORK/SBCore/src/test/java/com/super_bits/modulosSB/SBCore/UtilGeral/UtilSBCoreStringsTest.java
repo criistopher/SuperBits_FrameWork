@@ -203,8 +203,16 @@ public class UtilSBCoreStringsTest extends TesteJunit {
     /**
      * Test of quebrarStringEmLinhas method, of class UtilSBCoreStrings.
      */
-    //@Test
+    @Test
     public void testQuebrarStringEmLinhas() {
+
+        String teste = "@asdasd";
+
+        if (teste.contains("@")) {
+            System.out.println("é até que tem um arroba ai...");
+        } else {
+            System.out.println("Tem não");
+        }
     }
 
     @Override
@@ -212,7 +220,6 @@ public class UtilSBCoreStringsTest extends TesteJunit {
         SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
     }
 
-    @Test
     public void testaPesquisa() {
 
         String teste = "adsasdasd[123]";

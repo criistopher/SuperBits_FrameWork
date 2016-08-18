@@ -93,4 +93,10 @@ public interface ItfB_Pagina {
      */
     public ItfAcaoDoSistema getAcaoSelecionada();
 
+    /**
+     *
+     * @return
+     */
+    public ItfPaginaGerenciarEntidade<?> getComoPaginaEntidade();
+
 }
