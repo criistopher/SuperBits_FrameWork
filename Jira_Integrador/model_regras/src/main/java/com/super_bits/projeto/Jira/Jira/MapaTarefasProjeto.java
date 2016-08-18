@@ -33,10 +33,10 @@ public class MapaTarefasProjeto {
             if (!TAREFAS_PROJETO_ATUAL.containsKey(chaveAcaoGestao)) {
                 TAREFAS_PROJETO_ATUAL.put(chaveAcaoGestao, new ArrayList<>());
             }
-
-            TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
-            MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.put(
-                    new TarefaSuperBits(tarefa));
+            //  TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
+            // MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.put(
+            //new TarefaSuperBits(tarefa)
+//  /          );
 
         } catch (Throwable t) {
 
