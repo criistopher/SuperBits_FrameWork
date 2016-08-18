@@ -6,11 +6,13 @@
 package com.super_bits.projeto.Jira.Jira;
 
 import com.atlassian.jira.rest.client.api.domain.User;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.UtilSBCoreJira;
 import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +23,25 @@ import java.util.Map;
  */
 public class MapaTarefasProjeto {
 
-    private static final Map<String, TarefaSuperBits> TAREFAS_PROJETO_ATUAL = new HashMap<>();
+    private static final Map<String, List<TarefaSuperBits>> TAREFAS_PROJETO_ATUAL = new HashMap<>();
     private static boolean tarefasCriadas = false;
+
+    private static void addTarefa(ItfAcaoDoSistema pAcao) {
+        try {
+            String chaveAcaoGestao = pAcao.getAcaoDeGestaoEntidade().getNomeUnico();
+
+            if (!TAREFAS_PROJETO_ATUAL.containsKey(chaveAcaoGestao)) {
+                TAREFAS_PROJETO_ATUAL.put(chaveAcaoGestao, new ArrayList<>());
+            }
+
+            TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
+            MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.put(
+                    new TarefaSuperBits(tarefa));
+
+        } catch (Throwable t) {
+
+        }
+    }
 
     private static synchronized void criarTarefas() {
         if (tarefasCriadas) {
@@ -37,10 +56,8 @@ public class MapaTarefasProjeto {
 
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
                 // identificando Ação de Gestão
-                TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
-                MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.put(
-                        tarefa.getAcaoVinculada().getComoSecundaria().getAcaoPrincipal().getNomeUnico(),
-                        new TarefaSuperBits(tarefa));
+                addTarefa(acao);
+
             }
         }
 

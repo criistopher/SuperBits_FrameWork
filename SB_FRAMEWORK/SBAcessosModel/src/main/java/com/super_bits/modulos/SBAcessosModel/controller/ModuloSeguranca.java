@@ -50,13 +50,14 @@ public class ModuloSeguranca extends ControllerAbstratoSBPersistencia {
     @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS, padraoBloqueado = false)
     public static ItfResposta grupoAlterarStatus(@NotNull GrupoUsuarioSB pGrupo) {
         ItfResposta resp = getNovaRespostaAutorizaChecaNulo(pGrupo);
+
         if (!resp.isSucesso()) {
             return resp.dispararMensagens();
         }
+
         EntityManager em = UtilSBPersistencia.getNovoEMIniciandoTransacao();
         if (pGrupo.isAtivo()) {
             if (pGrupo.isTipoGrupoNativo()) {
-
                 return resp.addMensagemAlertaDisparaERetorna("Este grupo é um grupo nativo do sistema, portanto não pode ser alterado");
             }
 

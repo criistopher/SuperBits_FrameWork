@@ -126,6 +126,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
         this.selecaoAcoes = SelecaoAcoes;
     }
 
+    @Override
     public List<ItfAcaoDoSistema> getAcoesGestaoMB() {
         List<ItfAcaoDoSistema> listaacaoGestao = new ArrayList<>();
 

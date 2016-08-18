@@ -6,14 +6,9 @@
 package com.super_bits.projeto.Jira;
 
 import com.atlassian.jira.rest.client.api.domain.User;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
-import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
-import java.util.List;
 
 /**
  *
