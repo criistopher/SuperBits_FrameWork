@@ -52,10 +52,10 @@ public class MapaTarefasProjeto {
 
                 TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
 
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
+                /*  if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
 
                     throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
-                }
+                } */
             }
 
         }
