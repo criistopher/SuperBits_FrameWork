@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,7 +102,16 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Iniciando servlet WP");
         buildMapaRecurso();
+        Cookie[] teste = req.getCookies();
 
+        for (Cookie cook : teste) {
+            System.out.println("______________");
+            System.out.println(cook.getDomain());
+            System.out.println(cook.getName());
+            System.out.println(cook.getSecure());
+            System.out.println(cook.getComment());
+            System.out.println(cook.getValue());
+        }
         ItfUsuario usuario = null;
         //  if (controleDeSessao != null) {
 
