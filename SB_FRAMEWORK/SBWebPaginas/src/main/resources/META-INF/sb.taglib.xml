@@ -6,15 +6,6 @@
     <namespace>http://superbitsframework/ui</namespace>
 
 
-
-
-
-
-
-
-
-
-
     <tag>
         <tag-name>botaoAcao</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoAcao.xhtml</source>
@@ -64,19 +55,11 @@
 
 
 
-
-
-
-
-
-
-
-
     <tag>
         <tag-name>inputSB</tag-name>
         <source>resources/tagLib/tags/com/sb/inputSB.xhtml</source>
         <attribute>
-            <description>Objeto do tipo campo instanciado</description>
+            <description> <![CDATA[ Objeto do tipo campo instanciado]]></description>
             <name>registro</name>
             <required>true</required>
             <type>com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado</type>
@@ -84,7 +67,7 @@
 
         <attribute>
             <description>
-                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+             <![CDATA[     O layout do campo, que podem ser: resumido,esquerda,superior,e automatico]]>
             </description>
             <name>layoutCampo</name>
             <required>false</required>
@@ -92,9 +75,9 @@
         </attribute>
 
         <attribute>
-            <description>
+            <description> <![CDATA[
                 Alguns campos possuem diversos Layouts especiais, como Seletor de Item,
-                que possui combo, grade, botoes e outos
+                que possui combo, grade, botoes e outos]]>
             </description>
             <name>layoutCampoEspecial</name>
             <required>false</required>
@@ -103,7 +86,8 @@
 
 
         <atribute>
-            <description> informa  o Label do input (nome do campo de entrada)
+            <description>
+            <![CDATA[informa  o Label do input (nome do campo de entrada)]]>
             </description>
             <name>label</name>
             <required>true</required>
@@ -111,7 +95,7 @@
         </atribute>
 
         <attribute>
-            <description>Se true desativiva a edição</description>
+            <description> <![CDATA[ Se true desativiva a edição]]></description>
             <name>desabilitarEdicao</name>
             <required>false</required>
             <type>java.lang.Boolean</type>
@@ -119,7 +103,7 @@
 
 
         <attribute>
-            <description>Se true desativiva a edição</description>
+            <description> <![CDATA[ Se true desativiva a edição]]></description>
             <name>possuiIDOnChange</name>
             <required>true</required>
             <type>java.lang.Boolean</type>
@@ -127,9 +111,10 @@
 
 
         <atribute>
-            <description>Informando um id para atualizar, quando acontecer
+            <description>
+                 <![CDATA[ Informando um id para atualizar, quando acontecer
                 uma alteração, acontecerá um ajax com os novos valores dos beans, na area selecionada,
-                Formidável não ?
+                Formidável não ?]]>
             </description>
             <name>idAtualizarOnChange</name>
             <required>false</required>
@@ -137,10 +122,10 @@
         </atribute>
 
         <atribute>
-            <description>Informando um metodo quando alterar, o método será executado,
+            <description> <![CDATA[ Informando um metodo quando alterar, o método será executado,
                 este metodo pode ser utilizado em conjunto com o idAtualizarOnChange,
                 para atualizar uma área específica no fim do método, ou vc pode chamar
-                o paginaUtil dentro do managedBean para atualizar
+                o paginaUtil dentro do managedBean para atualizar]]>
             </description>
             <name>metodoOnChange</name>
             <required>false</required>
@@ -150,7 +135,7 @@
 
 
         <attribute>
-            <description>Se true desativiva a edição</description>
+            <description> <![CDATA[ Se true desativiva a edição]]></description>
             <name>possuiMetodoOnChange</name>
             <required>true</required>
             <type>java.lang.Boolean</type>
@@ -164,7 +149,7 @@
         <tag-name>componenteSBItemSimples</tag-name>
         <source>tags/com/sb/componenteSBGenerico.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>componente</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
@@ -182,21 +167,21 @@
 
         <source>resources/tagLib/tags/com/sb/seletorItem.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>componente</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
         </atribute>
         <atribute>
             <description>
-                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+               <![CDATA[   O layout do campo, que podem ser: resumido,esquerda,superior,e automatico]]>
             </description>
             <name>layoutCampo</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
         </atribute>
         <atribute>
-            <description>O item que será exibido no componente</description>
+            <description> <![CDATA[ O item que será exibido no componente]]></description>
             <name>itemSelecionado</name>
             <required>true</required>
             <type>com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples</type>
@@ -215,14 +200,14 @@
         <tag-name>seletorItens</tag-name>
         <source>resources/tagLib/tags/com/sb/seletorItem.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>componente</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
         </atribute>
         <atribute>
             <description>
-                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+                <![CDATA[  O layout do campo, que podem ser: resumido,esquerda,superior,e automatico]]>
             </description>
             <name>layoutCampo</name>
             <required>true</required>
@@ -266,7 +251,7 @@
         <atribute>
 
             <name>layout</name>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
         </atribute>
@@ -286,7 +271,7 @@
         <tag-name>botaoFake</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoFake.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>layout</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
@@ -306,7 +291,7 @@
         <tag-name>botaoAcaoEntidadePaginaAtual</tag-name>
         <source>resources/tagLib/tags/com/sb/btEntidadePgAtual.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>layout</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
@@ -342,8 +327,8 @@
 
         <atribute>
             <description>
-                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
-                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+              <![CDATA[    Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate) ]]>
             </description>
             <name>idUpdate</name>
             <type>java.lang.String</type>
@@ -356,7 +341,7 @@
         <tag-name>botaoAcaoPaginaAtual</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoAcaoPg.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>layout</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
@@ -373,7 +358,7 @@
 
         <atribute>
             <description>
-                JavaScript que deve ser executado ao final do Ajax
+               <![CDATA[   JavaScript que deve ser executado ao final do Ajax]]>
             </description>
             <name>javaScriptOncomplete</name>
             <type>java.lang.String</type>
@@ -384,8 +369,8 @@
 
         <atribute>
             <description>
-                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
-                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+             <![CDATA[     Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)]]>
             </description>
             <name>idUpdate</name>
             <type>java.lang.String</type>
@@ -398,7 +383,7 @@
         <tag-name>botaoAcaoAcaoTarget</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoAcaoTarget.xhtml</source>
         <atribute>
-            <description>O componente utilizado para exibição</description>
+            <description> <![CDATA[ O componente utilizado para exibição]]></description>
             <name>layout</name>
             <required>true</required>
             <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
@@ -422,7 +407,7 @@
 
         <atribute>
             <description>
-                Ação vinculada ao botão
+               <![CDATA[   Ação vinculada ao botão]]>
             </description>
             <name>acao</name>
             <required>true</required>
@@ -442,8 +427,8 @@
 
         <atribute>
             <description>
-                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
-                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+               <![CDATA[   Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)]]>
             </description>
             <name>idUpdate</name>
             <type>java.lang.String</type>
