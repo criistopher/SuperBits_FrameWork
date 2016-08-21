@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib>
+    <namespace>http://superbitsframework/ui</namespace>
+
+
+
+
+
+
+
+
+
+
+
+    <tag>
+        <tag-name>botaoAcao</tag-name>
+        <source>resources/tagLib/tags/com/sb/botaoAcao.xhtml</source>
+        <atribute>
+            <name>layout</name>
+            <description><![CDATA[O componente utilizado para exibição]]></description>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+
+        <attribute>
+            <name>metodo</name>
+            <required>true</required>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+
+        <atribute>
+            <name>acao</name>
+            <description>
+               <![CDATA[ Ação vinculada ao botão]]>
+            </description>
+            <required>true</required>
+
+
+        </atribute>
+        <atribute>
+
+            <name>javaScriptOncomplete</name>
+            <description>
+              <![CDATA[  JavaScript que deve ser executado ao final do Ajax]]>
+            </description>
+            <type>java.lang.String</type>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+        <atribute>
+            <name>idUpdate</name>
+            <description>
+              <![CDATA[    Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate) ]]>
+            </description>
+
+            <type>java.lang.String</type>
+            <required>true</required>
+        </atribute>
+    </tag>
+
+
+
+
+
+
+
+
+
+
+
+    <tag>
+        <tag-name>inputSB</tag-name>
+        <source>resources/tagLib/tags/com/sb/inputSB.xhtml</source>
+        <attribute>
+            <description>Objeto do tipo campo instanciado</description>
+            <name>registro</name>
+            <required>true</required>
+            <type>com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+            </description>
+            <name>layoutCampo</name>
+            <required>false</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </attribute>
+
+        <attribute>
+            <description>
+                Alguns campos possuem diversos Layouts especiais, como Seletor de Item,
+                que possui combo, grade, botoes e outos
+            </description>
+            <name>layoutCampoEspecial</name>
+            <required>false</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </attribute>
+
+
+        <atribute>
+            <description> informa  o Label do input (nome do campo de entrada)
+            </description>
+            <name>label</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </atribute>
+
+        <attribute>
+            <description>Se true desativiva a edição</description>
+            <name>desabilitarEdicao</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+
+
+        <attribute>
+            <description>Se true desativiva a edição</description>
+            <name>possuiIDOnChange</name>
+            <required>true</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+
+
+        <atribute>
+            <description>Informando um id para atualizar, quando acontecer
+                uma alteração, acontecerá um ajax com os novos valores dos beans, na area selecionada,
+                Formidável não ?
+            </description>
+            <name>idAtualizarOnChange</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </atribute>
+
+        <atribute>
+            <description>Informando um metodo quando alterar, o método será executado,
+                este metodo pode ser utilizado em conjunto com o idAtualizarOnChange,
+                para atualizar uma área específica no fim do método, ou vc pode chamar
+                o paginaUtil dentro do managedBean para atualizar
+            </description>
+            <name>metodoOnChange</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </atribute>
+
+
+
+        <attribute>
+            <description>Se true desativiva a edição</description>
+            <name>possuiMetodoOnChange</name>
+            <required>true</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+
+
+
+    </tag>
+
+    <tag>
+        <tag-name>componenteSBItemSimples</tag-name>
+        <source>tags/com/sb/componenteSBGenerico.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>componente</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>itemSimples</name>
+            <required>true</required>
+            <type>com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples</type>
+        </atribute>
+    </tag>
+
+    <tag>
+        <tag-name>seletorItem</tag-name>
+
+        <source>resources/tagLib/tags/com/sb/seletorItem.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>componente</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>
+                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+            </description>
+            <name>layoutCampo</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>itemSelecionado</name>
+            <required>true</required>
+            <type>com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples</type>
+        </atribute>
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>opcoes</name>
+            <required>true</required>
+            <type>java.util.Collection</type>
+        </atribute>
+    </tag>
+
+
+
+    <tag>
+        <tag-name>seletorItens</tag-name>
+        <source>resources/tagLib/tags/com/sb/seletorItem.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>componente</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>
+                O layout do campo, que podem ser: resumido,esquerda,superior,e automatico
+            </description>
+            <name>layoutCampo</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>itensSelecionados</name>
+            <required>true</required>
+            <type>java.util.Collection</type>
+        </atribute>
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>opcoes</name>
+            <required>true</required>
+            <type>java.util.Collection</type>
+        </atribute>
+    </tag>
+
+    <tag>
+        <tag-name>parametroMetodo</tag-name>
+        <handler-class>org.super_bits.tags.metodo.MetodoComoParametro</handler-class>
+        <attribute>
+            <name>nome</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>valor</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+
+
+
+    <tag>
+        <tag-name>botaoLink</tag-name>
+        <source>resources/tagLib/tags/com/sb/botaoAcaoLink.xhtml</source>
+        <atribute>
+
+            <name>layout</name>
+            <description>O componente utilizado para exibição</description>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+
+        <atribute>
+            <name>acao</name>
+            <description>
+                Ação vinculada ao botão
+            </description>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+    </tag>
+
+
+    <tag>
+        <tag-name>botaoFake</tag-name>
+        <source>resources/tagLib/tags/com/sb/botaoFake.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>layout</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+
+        <atribute>
+            <description>
+                Ação vinculada ao botão
+            </description>
+            <name>acao</name>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+    </tag>
+
+    <tag>
+        <tag-name>botaoAcaoEntidadePaginaAtual</tag-name>
+        <source>resources/tagLib/tags/com/sb/btEntidadePgAtual.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>layout</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+        <atribute>
+            <description>
+                Registro vinculado a ação
+            </description>
+            <name>registro</name>
+            <required>true</required>
+        </atribute>
+
+        <atribute>
+            <description>
+                Ação vinculada ao botão
+            </description>
+            <name>acao</name>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+
+
+        <atribute>
+            <description>
+                JavaScript que deve ser executado ao final do Ajax
+            </description>
+            <name>javaScriptOncomplete</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+
+        </atribute>
+
+
+        <atribute>
+            <description>
+                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+            </description>
+            <name>idUpdate</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+        </atribute>
+    </tag>
+
+    <tag>
+
+        <tag-name>botaoAcaoPaginaAtual</tag-name>
+        <source>resources/tagLib/tags/com/sb/botaoAcaoPg.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>layout</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+
+        <atribute>
+            <description>
+                Ação vinculada ao botão
+            </description>
+            <name>acao</name>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+
+        <atribute>
+            <description>
+                JavaScript que deve ser executado ao final do Ajax
+            </description>
+            <name>javaScriptOncomplete</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+
+        </atribute>
+
+
+        <atribute>
+            <description>
+                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+            </description>
+            <name>idUpdate</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+        </atribute>
+
+    </tag>
+
+    <tag>
+        <tag-name>botaoAcaoAcaoTarget</tag-name>
+        <source>resources/tagLib/tags/com/sb/botaoAcaoTarget.xhtml</source>
+        <atribute>
+            <description>O componente utilizado para exibição</description>
+            <name>layout</name>
+            <required>true</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </atribute>
+
+        <atribute>
+            <description>
+                Origem
+            </description>
+            <name>origem</name>
+            <required>true</required>
+        </atribute>
+
+        <atribute>
+            <description>
+                Destino
+            </description>
+            <name>destino</name>
+
+        </atribute>
+
+        <atribute>
+            <description>
+                Ação vinculada ao botão
+            </description>
+            <name>acao</name>
+            <required>true</required>
+            <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
+        </atribute>
+
+        <atribute>
+            <description>
+                JavaScript que deve ser executado ao final do Ajax
+            </description>
+            <name>javaScriptOncomplete</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+
+        </atribute>
+
+
+        <atribute>
+            <description>
+                Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+                O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate)
+            </description>
+            <name>idUpdate</name>
+            <type>java.lang.String</type>
+            <required>true</required>
+        </atribute>
+
+    </tag>
+
+
+
+
+
+
+
+</facelet-taglib>

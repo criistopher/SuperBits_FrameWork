@@ -284,7 +284,7 @@ public class PgUtil implements Serializable {
             ValueExpression valor = component.getValueExpression(atributo);
             if (valor != null) {
                 if (valor.getExpressionString().length() > 3) {
-                    System.out.println("O v");
+                    System.out.println("O atributo:" + atributo + "de " + component.getId() + " foi preenchudo com " + valor);
                     return true;
                 }
                 System.out.println("o componente " + component.getId() + " não possui 3 caracteres no  " + atributo + " está nulo" + valor.getExpressionString());

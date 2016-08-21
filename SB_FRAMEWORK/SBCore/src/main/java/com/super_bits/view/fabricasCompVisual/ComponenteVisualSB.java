@@ -24,21 +24,14 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
-
     private List<Object> parametros;
-
     private String xhtmlJSF;
-
+    private String xhtmlJsfCaminhoRelativo;
     private String xhtmlAndroid;
-
     private String htmlWordPress;
-
     private String nomeComponente;
-
     private FabFamiliaCompVisual familia;
-
     private String idHTMLObjetoPrincipal;
-
     private String classeCSS;
 
     @Override
@@ -69,10 +62,12 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
         this.parametros = parametros;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -146,6 +141,14 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     public String getNomeArquivoXHTMLJSF() {
         return UtilSBCoreDiretorios.getNomeArquivo(getXhtmlJSF());
+    }
+
+    public String getXhtmlJsfCaminhoRelativo() {
+        return xhtmlJsfCaminhoRelativo;
+    }
+
+    public void setXhtmlJsfCaminhoRelativo(String xhtmlJsfCaminhoRelativo) {
+        this.xhtmlJsfCaminhoRelativo = xhtmlJsfCaminhoRelativo;
     }
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:commandLink
+
+        onmousedown="esconderTooltips();"
+
+        styleClass="Responsive btnIconeGrande Fs60"
+        style="text-align: center; "
+        action="#{prMetodo}"
+        update="#{pgUtil.makeCaminhoCompletoID(idUpdate)}"
+        oncomplete="#{javaScriptOncomplete}"
+        ajax="true"
+
+        >
+
+        <f:setPropertyActionListener target="#{destino}"
+                                     value="#{origem}"  />
+
+        <i class="#{acao.iconeAcao} "    ></i>
+    </p:commandLink>
+</html>
+
+

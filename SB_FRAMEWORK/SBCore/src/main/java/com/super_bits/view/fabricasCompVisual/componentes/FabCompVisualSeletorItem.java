@@ -37,7 +37,7 @@ public enum FabCompVisualSeletorItem implements ItfFabTipoComponenteVisual {
             classesCSS = "seletorRadio")
     RADIO;
 
-    public static final String DIRETORIO_SELETOR_ITEM = FabCompVisualInputs.PASTA_CAMPOS + "seletorItem/";
+    public static final String DIRETORIO_SELETOR_ITEM = "input/seletorItem/";
 
     @Override
     public FabFamiliaCompVisual getFamilia() {

@@ -6,7 +6,6 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoCampos;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoVisualBotao;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoVisualCampo;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.TipoVisualFormulario;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.tipos.constanteComponentes.CompsWeb;
 import java.io.Serializable;
@@ -28,8 +27,7 @@ public class Tipos implements Serializable {
 
     @Inject
     private TipoCampos tipoCampo;
-    @Inject
-    private TipoVisualCampo tipoVisualCampo;
+
     @Inject
     private TipoVisualBotao tipoVisualBotao;
     @Inject
@@ -44,10 +42,6 @@ public class Tipos implements Serializable {
 
     public TipoCampos getTipoCampo() {
         return tipoCampo;
-    }
-
-    public TipoVisualCampo getTipoVisualCampo() {
-        return tipoVisualCampo;
     }
 
     public TipoVisualBotao getTipoVisualBotao() {

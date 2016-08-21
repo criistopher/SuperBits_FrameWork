@@ -687,7 +687,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 if (!acaoSelecionada.getComoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
                     xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
                     paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                    System.out.println("Info: O XHTML foi alterado para" + xhtmlAcaoAtual + " com a execução de" + acaoSelecionada.getNomeUnico());
+                } else {
+                    System.out.println("Info: O Managebean já estava no estado da ação:" + acaoSelecionada.getNomeUnico());
                 }
+            } else {
+                System.out.println("Info: A ação " + acaoSelecionada.getNomeUnico() + "não é uma ação de formulário, portanto não possui XHTML vinlado");
             }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando ação selecionada da pagina" + this.getClass().getSimpleName(), t);

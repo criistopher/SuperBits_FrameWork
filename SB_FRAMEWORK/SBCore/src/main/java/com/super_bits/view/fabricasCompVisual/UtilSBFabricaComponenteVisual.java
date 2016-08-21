@@ -31,6 +31,7 @@ public class UtilSBFabricaComponenteVisual {
             componente.setXhtmlJSF(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.xhtmlJSF());
             componente.setXhtmlAndroid(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.xhtmlAndroi());
             componente.setHtmlWordPress(ItfFabTipoComponenteVisual.PASTA_TAG_LIBS + infoAnotacao.htmlWordPress());
+            componente.setXhtmlJsfCaminhoRelativo(infoAnotacao.xhtmlJSF());
             componente.setFamilia(pFabrica.getFamilia());
             componente.setIdHTMLObjetoPrincipal(infoAnotacao.idHTMLObjetoPrincipal());
             if (infoAnotacao.idHTMLObjetoPrincipal().isEmpty()) {

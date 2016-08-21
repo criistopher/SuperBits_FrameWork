@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:include
+        src="#{registro.getComponenteDiferenciado(layoutCampoEspecial).xhtmlJsfCaminhoRelativo}" >
+        <ui:param name="layout" value="#{layoutCampo}"/>
+        <ui:param name="registro" value="#{registro}" />
+        <ui:param name="componente" value="#{registro.getComponenteDiferenciado(layoutCampoEspecial)}"  />
+        <ui:param name="prefixoID" value="#{registro.prefixoUnicoParaIDHtml}"  />
+        <ui:param name="valor" value="#{registro.valor}"/>
+        <ui:param name="obrigatorio" value="#{registro.obrigatorio}"/>
+        <ui:param name="nomeItem" value="#{registro.label}"/>
+        <ui:param rendered="#{registro.umValorComLista}" name="lista" value="#{registro.listaDeOpcoes}"/>
+        <ui:param name="regex" value="#{registro.validacaoRegex}" rendered="#{registro.temValidacaoRegex}"/>
+        <ui:param name="valorMaximo" value="#{registro.valorMaximo}" rendered="#{registro.temValidacaoMaximo}"/>
+        <ui:param name="valorMinimo" value="#{registro.valorMinimo}" rendered="#{registro.temValidacaoMinimo}"/>
+        <ui:param name="mascara" value="#{registro.mascaraJqueryMode}" rendered="#{registro.temMascara}"/>
+    </ui:include>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

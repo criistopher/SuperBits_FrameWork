@@ -77,7 +77,8 @@ public enum FabCompVisualInputs implements ItfFabTipoComponenteVisual {
     @InfoComponenteVisual(nome = "Entidade Simples", xhtmlJSF = FabCompVisualInputs.PASTA_CAMPOS + "entidadeSimples.xhtml",
             classesCSS = "campoEntidadeSimples")
     ENTIDADE_SIMPLES;
-    public static final String PASTA_CAMPOS = "input/";
+    public static final String PASTA_CAMPOS = "input/campo/";
+    public static final String PASTA_SELETOR = "input/campo/";
 
     @Override
     public FabFamiliaCompVisual getFamilia() {
