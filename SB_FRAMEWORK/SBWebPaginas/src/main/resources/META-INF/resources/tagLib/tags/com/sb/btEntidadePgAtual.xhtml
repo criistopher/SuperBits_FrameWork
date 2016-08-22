@@ -7,13 +7,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <c:if test="#{layout!=null}">
-        <sb:parametroMetodo nome="prMetodo" valor="#{metodo}" />
+        <sb:parametroMetodo nome="prMetodo" valor="#{paginaAtual.infoPagina.comoPaginaEntidade.executarAcao(registro)}" />
         <ui:include
             src="botaoAcao_PgEntidade/#{layout.nomeArquivoXHTMLJSF}.xhtml"
             />
     </c:if>
     <c:if test="#{layout==null}">
-        Layout do botoã não enviado!
+        Layout do botão de entidade não enviado!
     </c:if>
 
 

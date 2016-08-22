@@ -9,7 +9,9 @@ import com.atlassian.jira.rest.client.api.domain.User;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
+import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
+import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
 import java.util.List;
 
@@ -78,70 +80,47 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
         this.analistaAndroid = getUsuario(pAnalistaAndroid);
     }
 
+    public User getUsuarioPorTipoDeAcao(TarefaJira pTarefa) {
+
+        switch (pTarefa.getTipoTarefa().getTipoProfissional()) {
+            case ANALISTA_BANCO_DE_DADOS:
+                return getAnalistaBancoDados();
+            case ANALISTA_LOGICA_TDD:
+                return getAnalistaTDD();
+            case ANALISTA_IMPLEMENTACAO:
+                return getAnalistaImplementacao();
+            case ANALISTA_TELAS:
+                return getAnalistaTelas();
+            case DESIGNER:
+                return getAnalistaTelas();
+            case ANALISTA_REQUISITOS:
+                return getAnalistaBancoDados();
+            case ANALISTA_ANDROID:
+                return getAnalistaTDD();
+            default:
+                throw new AssertionError(pTarefa.getTipoTarefa().getTipoProfissional().name());
+
+        }
+
+    }
+
+    public void atualizaAcoesJira() {
+
+        for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTodasTarefas()) {
+            if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa.getTarefaJiraOrigem(), getUsuarioPorTipoDeAcao(tarefa.getTarefaJiraOrigem()))) {
+                throw new UnsupportedOperationException("Erro criando ação para " + tarefa.getTarefaJiraOrigem().getAcaoVinculada().getNomeUnico());
+            }
+        }
+
+        fecharConexao();
+
+    }
+
     /**
      *
      */
     public void buildAcoesJira() {
-
-        MapaAcoesSistema mapaAcoes;
-
-        for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
-
-            if (acao.getTipoAcaoGenerica() == null) {
-
-                throw new UnsupportedOperationException("A ação generica para" + acao.getNomeUnico() + " não foi especificada");
-            }
-            User usuarioDaTarefa = getAnalistaTDD();
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
-
-                TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, acao);
-                switch (tarefa.getTipoTarefa()) {
-
-                    case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
-                    case ACAO_CRIAR_FORMULARIO:
-                    case ACAO_CRIAR_FORMULARIO_COMPLEXO:
-                    case ACAO_IMPLEMENTAR_CONTROLLER:
-                    case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
-                    case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
-                        usuarioDaTarefa = getAnalistaImplementacao();
-                        break;
-
-                    case ACAO_TESTES_ENTIDADE_CALCULO:
-                    case ACAO_TESTE_MANAGED_BEAN:
-                    case ACAO_TESTES_ENTIDADE_LISTAS:
-                    case ACAO_TESTE_CONTROLLER:
-                    case ACAO_TESTE_CONTROLLER_COMPLEXO:
-                        usuarioDaTarefa = getAnalistaTDD();
-                        break;
-                    default:
-
-                }
-
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa, usuarioDaTarefa)) {
-
-                    throw new UnsupportedOperationException("Erro criando ação para " + acao.getNomeUnico());
-                }
-            }
-
-        }
-
-        List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
-
-        for (Class entidade : entidades) {
-
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
-
-                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-
-                if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
-
-                    throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
-                }
-            }
-
-        }
-
-        fecharConexao();
+        MapaTarefasProjeto.getTodasTarefas();
     }
 
 }

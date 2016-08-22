@@ -115,10 +115,6 @@ public class PgProjetoSBVisaoGeral extends MB_PaginaConversation {
         return acaoVisisaoGeral;
     }
 
-    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada) {
-        this.acaoSelecionada = acaoSelecionada;
-    }
-
     public List<ItfAcaoGerenciarEntidade> getAcoesGestaoDoModulo() {
         return acoesGestaoDoModulo;
     }
