@@ -244,6 +244,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             }
 
+            renovarEMPagina();
             listarDados();
 
             paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
