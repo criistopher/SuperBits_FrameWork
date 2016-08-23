@@ -267,14 +267,69 @@ public class PgUtil implements Serializable {
         }
     }
 
-    public String buscaIdDestaClasse(UIComponent componente, String atributo) {
-        List<UIComponent> componentesEncontrados = componente.getParent().getChildren();
-        for (UIComponent comp : componentesEncontrados) {
-            System.out.println(comp.getId());
-            System.out.println(comp.getAttributes().keySet());
-            System.out.println(comp.getAttributes().values());
+    private boolean isComponentDeInput(UIComponent comp) {
+
+        return comp.getRendererType().contains("org.primefaces.component.InputTextRenderer")
+                || comp.getRendererType().contains("org.primefaces.component.SelectOneMenuRenderer")
+                || comp.getRendererType().contains("Input")
+                || comp.getRendererType().contains("ColorPicker")
+                || comp.getRendererType().contains("Calendar")
+                || comp.getRendererType().contains("CkEditor")
+                || comp.getRendererType().contains("Slider")
+                || comp.getRendererType().contains("Password")
+                || comp.getRendererType().contains("select");
+    }
+
+    public String getNomeIdComponenteInput(UIComponent componente) {
+        try {
+            for (UIComponent comp : componente.getParent().getChildren()) {
+
+                if (isComponentDeInput(comp)) {
+                    return comp.getId();
+                }
+                for (UIComponent compNivel2 : comp.getChildren()) {
+                    if (isComponentDeInput(compNivel2)) {
+                        return compNivel2.getId();
+                    }
+
+                }
+            }
+            throw new UnsupportedOperationException();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo id do input " + componente.getId(), t);
+
+            return null;
         }
-        return "Ainda não Implmentado";
+    }
+
+    public String getIDComponenteFilhoPorCordenada(UIComponent componente, int... indices) {
+        if (componente == null) {
+            System.out.println("Enviado componente nulo buscando id por cordenada");
+            return null;
+        }
+        try {
+            UIComponent componenteAtual = componente;
+
+            for (int id : indices) {
+                componenteAtual = componente.getChildren().get(id);
+            }
+            return componenteAtual.getId();
+        } catch (Throwable t) {
+            System.out.println("Inposível encontrar componente pela cordenada " + indices);
+            return componente.getId();
+        }
+    }
+
+    public String buscaIdDestaClasse(UIComponent componente, String atributo) {
+        UIComponent comp = componente.getChildren().get(3).getChildren().get(1);
+
+        System.out.println(comp.getId());
+        System.out.println(comp.getAttributes().keySet());
+        System.out.println(comp.getAttributes().values());
+        System.out.println(comp.getFamily());
+        System.out.println(comp.getRendererType());
+
+        return "Ainda não Implmentado mas o id é:" + comp.getId();
     }
 
     public String buscaFilhoComEsteID(UIComponent componente, String atributo) {

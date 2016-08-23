@@ -4,17 +4,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
+
+        <br/>COMPID=#{component.id}
+
+
         <p:panelGrid columns="2"  class="inputCampo"
                      columnClasses="colunaLabel,colunaResponsiva">
-            <p:outputLabel  value="#{label}"
-                            />
+            <p:outputLabel  value="#{label} IDDD::#{pgUtil.getNomeIdComponenteInput(component)}"
+                            for="#{pgUtil.getNomeIdComponenteInput(component)}"  />
 
-            <br/>COMPID=#{component.id}
-            <br/>#{pgUtil.buscaIdDestaClasse(component, 'teste')}
 
             <ui:insert name="input" />
             <p:tooltip  rendered="#{registro.temDescricao}"
-                        for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"
+
                         value="Info: #{registro.descricao}"
                         />
             <!--<p:message for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"/>-->

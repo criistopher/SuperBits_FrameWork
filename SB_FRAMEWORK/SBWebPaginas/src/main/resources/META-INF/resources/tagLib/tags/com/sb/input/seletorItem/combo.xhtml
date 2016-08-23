@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:decorate   template="../layouts/inputSemLabel.xhtml">
+    <ui:decorate   template="../layouts/esquerda.xhtml">
 
 
         <ui:define name="input">
@@ -14,7 +14,7 @@
             <p:selectOneMenu
 
                 class=" seletorResponsivo  TexAlCenter #{componenteVisual.classeCSS}"
-                id="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"
+
                 disabled="#{desabilitarEdicao}"
                 required="#{obrigatorio}"
                 value="#{valor}"
