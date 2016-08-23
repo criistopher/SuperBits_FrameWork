@@ -163,6 +163,7 @@ public class UtilSBCoreJira {
                     throw new AssertionError(this.name());
 
             }
+
         }
 
         public TarefaJira getTarefaInssueJira() {
@@ -170,55 +171,55 @@ public class UtilSBCoreJira {
             switch (this) {
 
                 case ACAO_TESTE_MANAGED_BEAN:
-                    tarefa.setTempoEsperado("6 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("6h");
                     break;
                 case ACAO_TESTES_AMBIENTE_DE_DADOS:
-                    tarefa.setTempoEsperado("6 h");
+                    tarefa.setTempoEsperado("6h");
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
-                    tarefa.setTempoEsperado("48 h");
+                    tarefa.setTempoEsperado("16h");
                     break;
                 case ACAO_BANCO_TESTES_TIPOS:
-                    tarefa.setTempoEsperado("8 h");
+                    tarefa.setTempoEsperado("6h");
                     break;
                 case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("6h");
                     break;
                 case ACAO_TESTES_ENTIDADE_CALCULO:
-                    tarefa.setTempoEsperado("8 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_TESTES_ENTIDADE_LISTAS:
-                    tarefa.setTempoEsperado("8 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_TESTE_CONTROLLER:
-                    tarefa.setTempoEsperado("6 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_CRIAR_FORMULARIO:
-                    tarefa.setTempoEsperado("6 h");
+                    tarefa.setTempoEsperado("1h");
                     break;
                 case ACAO_CRIAR_FORMULARIO_COMPLEXO:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("8h");
                     break;
                 case ACAO_ENTIDADE_CRIAR_CALCULOS:
-                    tarefa.setTempoEsperado("48 h");
+                    tarefa.setTempoEsperado("3h");
                     break;
                 case ACAO_ENTIDADE_CRIAR_LISTAS:
-                    tarefa.setTempoEsperado("48 h");
+                    tarefa.setTempoEsperado("3h");
                     break;
                 case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
-                    tarefa.setTempoEsperado("24 h");
+                    tarefa.setTempoEsperado("12h");
                     break;
                 case ACAO_TESTE_CONTROLLER_COMPLEXO:
-                    tarefa.setTempoEsperado("12 h");
+                    tarefa.setTempoEsperado("4h");
                     break;
                 case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
-                    tarefa.setTempoEsperado("3 h");
+                    tarefa.setTempoEsperado("3h");
                     break;
                 default:
                     throw new AssertionError(this.name());

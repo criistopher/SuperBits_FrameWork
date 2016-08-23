@@ -15,7 +15,6 @@ import com.super_bits.projeto.Jira.UtilSBCoreJira;
 import static com.super_bits.projeto.Jira.UtilSBCoreJira.getTarefaJiraAcaoDoSistema;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +44,23 @@ public class MapaTarefasProjeto {
 
     }
 
+    private static void addTarefaBancoDeDAdos(Class pEntidade) {
+
+        if (!TAREFAS_PROJETO_ATUAL.containsKey(pEntidade.getSimpleName())) {
+            TAREFAS_PROJETO_ATUAL.put(pEntidade.getSimpleName(), new ArrayList<>());
+        }
+
+        for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(pEntidade)) {
+            TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, pEntidade);
+
+            MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.get(pEntidade.getSimpleName()).add(new TarefaSuperBits(tarefaEntidade));
+            /*  if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
+                throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
+                } */
+        }
+
+    }
+
     private static synchronized void criarTarefas() {
         if (tarefasCriadas) {
             return;
@@ -66,12 +82,8 @@ public class MapaTarefasProjeto {
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades();
         //Percorrendo entidades criando ações refente a entidades;
         entidades.stream().forEach((entidade) -> {
-            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorEntidade(entidade)) {
-                TarefaJira tarefaEntidade = UtilSBCoreJira.getTarefaJiraEntidade(tipoTarefa, entidade);
-                /*  if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefaEntidade, getAnalistaBancoDados())) {
-                throw new UnsupportedOperationException("Erro criando ação para " + entidade.getSimpleName());
-                } */
-            }
+            addTarefaBancoDeDAdos(entidade);
+
         });
 
         tarefasCriadas = true;

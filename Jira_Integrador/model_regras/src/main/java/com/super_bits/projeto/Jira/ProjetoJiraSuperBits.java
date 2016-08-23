@@ -118,11 +118,17 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
     public void buildAcoesJira() {
 
         List<TarefaSuperBits> tarefas = MapaTarefasProjeto.getTodasTarefas();
-        tarefas.stream().forEach((tr) -> {
+
+        int minutosTotais = 0;
+        for (TarefaSuperBits tr : tarefas) {
             System.out.println("Tarefa" + tr.getTarefaJiraOrigem().getNomeTarefa());
             System.out.println("Tempo esperado:" + tr.getTarefaJiraOrigem().getTempoEsperado());
-        });
-        System.out.println("");
+            minutosTotais += tr.getMinutosPrevistosTrabalho();
+            System.out.println("tempo esperado long" + tr.getMinutosPrevistosTrabalho());
+
+        }
+
+        System.out.println("Mitutos totais=" + minutosTotais);
 
     }
 

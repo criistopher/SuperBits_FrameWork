@@ -35,7 +35,6 @@ public class UtilSBCoreDataHora {
     }
 
     public static SimpleDateFormat datahoraSistemaFr = new SimpleDateFormat("dd-MM-yy [HH-mm-ssss]");
-
     public static SimpleDateFormat horaUsuarioFr = new SimpleDateFormat("HH:mm:ss");
 
     public static String getDataSTRFormatoUsuario(Date pData) {
