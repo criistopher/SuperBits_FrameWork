@@ -23,6 +23,7 @@ public class TipoProfissional extends ItemSimples implements ItfBeanSimples {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
     private int valorHoraTecnica;
+    private FabTipoProfissional fabrica;
 
     @Override
     public int getId() {
@@ -58,6 +59,10 @@ public class TipoProfissional extends ItemSimples implements ItfBeanSimples {
 
     public void setValorHoraTecnica(int valorHoraTecnica) {
         this.valorHoraTecnica = valorHoraTecnica;
+    }
+
+    public FabTipoProfissional getFabrica() {
+        return fabrica;
     }
 
 }

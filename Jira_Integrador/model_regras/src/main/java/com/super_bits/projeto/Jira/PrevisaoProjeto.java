@@ -5,6 +5,7 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.util.List;
 
 /**
@@ -13,9 +14,32 @@ import java.util.List;
  */
 public class PrevisaoProjeto {
 
-    private FabTipoProfissional tipoProfissional;
-
     private List<PrevisaoEntidade> entidadesPrevistas;
     private List<PrevisaoGestaoEntidade> gestoesPrevista;
+
+    private List<TarefaSuperBits> tarefasProximaVersao;
+    private List<TarefaSuperBits> todasTarefas;
+
+    private AmbienteDesenvolvimento ambienteDesenvolvimento;
+
+    public AmbienteDesenvolvimento getAmbienteDesenvolvimento() {
+        return ambienteDesenvolvimento;
+    }
+
+    public List<PrevisaoEntidade> getEntidadesPrevistas() {
+        return entidadesPrevistas;
+    }
+
+    public void setEntidadesPrevistas(List<PrevisaoEntidade> entidadesPrevistas) {
+        this.entidadesPrevistas = entidadesPrevistas;
+    }
+
+    public List<PrevisaoGestaoEntidade> getGestoesPrevista() {
+        return gestoesPrevista;
+    }
+
+    public void setGestoesPrevista(List<PrevisaoGestaoEntidade> gestoesPrevista) {
+        this.gestoesPrevista = gestoesPrevista;
+    }
 
 }
