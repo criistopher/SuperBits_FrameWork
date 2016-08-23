@@ -10,16 +10,16 @@
 
         <p:panelGrid columns="2"  class="inputCampo"
                      columnClasses="colunaLabel,colunaResponsiva">
-            <p:outputLabel  value="#{label} IDDD::#{pgUtil.getNomeIdComponenteInput(component)}"
+            <p:outputLabel  value="#{label}"
                             for="#{pgUtil.getNomeIdComponenteInput(component)}"  />
 
 
             <ui:insert name="input" />
             <p:tooltip  rendered="#{registro.temDescricao}"
-
+                        for="#{pgUtil.getNomeIdComponenteInput(component)}"
                         value="Info: #{registro.descricao}"
                         />
-            <!--<p:message for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"/>-->
+            <p:message for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"/>
 
         </p:panelGrid>
     </ui:composition>

@@ -5,9 +5,9 @@
       xmlns:p="http://primefaces.org/ui">
     <p:panelGrid columns="1" styleClass="inputCampo" >
         <p:outputLabel  value="#{label}"
-                        for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"  />
+                        for="#{pgUtil.getNomeIdComponenteInput(component)}"  />
         <ui:insert name="input" />
-        <p:message for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"  />
+        <p:message for="#{pgUtil.getNomeIdComponenteInput(component)}"  />
     </p:panelGrid>
 </html>
 
