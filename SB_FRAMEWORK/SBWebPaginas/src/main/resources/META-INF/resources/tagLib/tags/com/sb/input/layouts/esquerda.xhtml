@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
 
-        <br/>COMPID=#{component.id}
+
 
 
         <p:panelGrid columns="2"  class="inputCampo"
@@ -19,7 +19,7 @@
                         for="#{pgUtil.getNomeIdComponenteInput(component)}"
                         value="Info: #{registro.descricao}"
                         />
-            <p:message for="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"/>
+            <p:message  for="#{pgUtil.getNomeIdComponenteInput(component)}"/>
 
         </p:panelGrid>
     </ui:composition>
