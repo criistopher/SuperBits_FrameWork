@@ -5,41 +5,94 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Map;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
+import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-public class PrevisaoProjeto {
+public class PrevisaoProjeto implements Serializable {
 
-    private List<PrevisaoEntidade> entidadesPrevistas;
-    private List<PrevisaoGestaoEntidade> gestoesPrevista;
-
-    private List<TarefaSuperBits> tarefasProximaVersao;
-    private List<TarefaSuperBits> todasTarefas;
+    private final List<TarefaSuperBits> tarefasProximaVersao;
+    private final List<TarefaSuperBits> todasTarefas;
+    private CustosProjeto custoProjetoProximaVersao;
+    private CustosProjeto custoProjetoCompleto;
+    private HashMap<ItfModuloAcaoSistema, ModuloPrevisto> modulosPrevistos = new HashMap<>();
 
     private AmbienteDesenvolvimento ambienteDesenvolvimento;
+
+    public PrevisaoProjeto(List<TarefaSuperBits> ptodasTarefas) {
+        this.tarefasProximaVersao = new ArrayList<>();
+        todasTarefas = ptodasTarefas;
+        defineModulosPrevistros();
+        calcularValores();
+    }
+
+    public final void defineModulosPrevistros() {
+
+        for (ItfModuloAcaoSistema modulo : MapaAcoesSistema.getModulos()) {
+            List<PrevisaoEntidade> previsoesEntidade = new ArrayList<>();
+            List<PrevisaoGestaoEntidade> previsoesGestaoEntidade = new ArrayList<>();
+
+            for (ItfAcaoGerenciarEntidade acaoGestao : MapaAcoesSistema.getAcoesGestaoByModulo(modulo)) {
+                List<TarefaSuperBits> tarefasGestao = MapaTarefasProjeto.getTarefasDaGestao(acaoGestao);
+                PrevisaoGestaoEntidade prevGestao = new PrevisaoGestaoEntidade(acaoGestao, tarefasGestao);
+                List<TarefaSuperBits> tarefasTabela = MapaTarefasProjeto.getTarefasDaTabela(acaoGestao.getClasseRelacionada());
+                PrevisaoEntidade prevEntidade
+                        = new PrevisaoEntidade(modulo, tarefasTabela, acaoGestao.getClasseRelacionada());
+                previsoesEntidade.add(prevEntidade);
+                previsoesGestaoEntidade.add(prevGestao);
+            }
+
+            ModuloPrevisto modPrev = new ModuloPrevisto(previsoesGestaoEntidade, previsoesEntidade);
+            modulosPrevistos.put(modulo, modPrev);
+        }
+
+    }
+
+    public final void calcularValores() {
+        custoProjetoProximaVersao = new CustosProjeto(tarefasProximaVersao, ambienteDesenvolvimento);
+        custoProjetoCompleto = new CustosProjeto(todasTarefas, ambienteDesenvolvimento);
+    }
+
+    public void adicionarGestaoEntidadeEmProximaVersao(PrevisaoGestaoEntidade pPrevisao) {
+        pPrevisao.getTarefasVinculadas().stream().filter((tr)
+                -> (!tarefasProximaVersao.contains(tr))).forEach((tr) -> {
+            tarefasProximaVersao.add(tr);
+        });
+    }
+
+    public void removerGestaoEntidadeEmProximaVersao(PrevisaoGestaoEntidade pPrevisao) {
+        pPrevisao.getTarefasVinculadas().stream().filter((tr) -> (tarefasProximaVersao.contains(tr))).forEach((tr) -> {
+            tarefasProximaVersao.remove(tr);
+        });
+    }
 
     public AmbienteDesenvolvimento getAmbienteDesenvolvimento() {
         return ambienteDesenvolvimento;
     }
 
-    public List<PrevisaoEntidade> getEntidadesPrevistas() {
-        return entidadesPrevistas;
+    public CustosProjeto getCustoProjetoProximaVersao() {
+        return custoProjetoProximaVersao;
     }
 
-    public void setEntidadesPrevistas(List<PrevisaoEntidade> entidadesPrevistas) {
-        this.entidadesPrevistas = entidadesPrevistas;
+    public CustosProjeto getCustoProjetoCompleto() {
+        return custoProjetoCompleto;
     }
 
-    public List<PrevisaoGestaoEntidade> getGestoesPrevista() {
-        return gestoesPrevista;
-    }
-
-    public void setGestoesPrevista(List<PrevisaoGestaoEntidade> gestoesPrevista) {
-        this.gestoesPrevista = gestoesPrevista;
+    public HashMap<ItfModuloAcaoSistema, ModuloPrevisto> getModulosPrevistos() {
+        return modulosPrevistos;
     }
 
 }

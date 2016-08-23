@@ -42,8 +42,20 @@ public class AmbienteDesenvolvimento {
         return getDetalhesProfissionalByTipo(FabTipoProfissional.ANALISTA_REQUISITOS);
     }
 
+    public TipoProfissional getDetalhesProfissionalAndroid() {
+        return getDetalhesProfissionalByTipo(FabTipoProfissional.ANALISTA_ANDROID);
+    }
+
     public TipoProfissional getDetalhesProfissionalTelas() {
         return getDetalhesProfissionalByTipo(FabTipoProfissional.ANALISTA_TELAS);
+    }
+
+    public TipoProfissional getDetalhesProfissionalBancoDeDados() {
+        return getDetalhesProfissionalByTipo(FabTipoProfissional.ANALISTA_BANCO_DE_DADOS);
+    }
+
+    public TipoProfissional getDetalhesProfissionalDesigner() {
+        return getDetalhesProfissionalByTipo(FabTipoProfissional.DESIGNER);
     }
 
     public int getTaxaAdminsitrativa() {

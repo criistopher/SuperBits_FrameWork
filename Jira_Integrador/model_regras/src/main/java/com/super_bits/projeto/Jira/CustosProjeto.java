@@ -27,31 +27,38 @@ public class CustosProjeto {
     private int minutosTotalAnalistaRequisitos;
     private int minutosTotalAnalistaAndroid;
     private int horasTotal;
-    private List<TarefaSuperBits> tarefas;
-    private AmbienteDesenvolvimento ambienteDesenvolvimento;
+    private final List<TarefaSuperBits> tarefas;
+    private final AmbienteDesenvolvimento ambienteDesenvolvimento;
 
     public int getValorGastoAnalistaBancoDeDados() {
-        return getHorasTotalAnalistaBancoDeDados() * getAmbienteDesenvolvimento().ge;
+        return getHorasTotalAnalistaBancoDeDados() * getAmbienteDesenvolvimento().getDetalhesProfissionalTelas().getValorHoraTecnica();
     }
 
-    public int getValorGastoAnalistaLogica() {
-        return getHorasTotalAnalistaLogicaTDD() *
+    public CustosProjeto(List<TarefaSuperBits> pTarefas, AmbienteDesenvolvimento pAmbiente) {
+        tarefas = pTarefas;
+        ambienteDesenvolvimento = pAmbiente;
+        atualizaValores();
+
+    }
+
+    public int getValorGastoAnalistaTDD() {
+        return getHorasTotalAnalistaLogicaTDD() * getAmbienteDesenvolvimento().getDetalhesProfissionalTDD().getValorHoraTecnica();
     }
 
     public int getValorGastoAnalistaTelas() {
-
+        return getHorasTotalAlanlistaTelas() * getAmbienteDesenvolvimento().getDetalhesProfissionalTelas().getValorHoraTecnica();
     }
 
     public int getValorGastoAnalistaDesigner() {
-
+        return getHorasTotalAnalistaDesigner() * getAmbienteDesenvolvimento().getDetalhesProfissionalDesigner().getValorHoraTecnica();
     }
 
     public int getValorGastroAnalistaRequisito() {
-
+        return getHorasTotalAnalistaRequisitos() * getAmbienteDesenvolvimento().getDetalhesProfissionalRequistos().getValorHoraTecnica();
     }
 
     public int getValorGastoAnalistaAndroid() {
-
+        return getHorasTotalAnalistaBancoDeDados() * getAmbienteDesenvolvimento().getDetalhesProfissionalAndroid().getValorHoraTecnica();
     }
 
     public int getHorasTotalAnalistaBancoDeDados() {
@@ -60,6 +67,10 @@ public class CustosProjeto {
 
     public int getHorasTotalAnalistaLogicaTDD() {
         return minutosTotalAnalistaLogicaTDD / 60;
+    }
+
+    public int getHorasTotalAnalistaDesigner() {
+        return minutosTotalAnalistaDesiger / 60;
     }
 
     public int getHorasTotalAnalistaImplementacao() {

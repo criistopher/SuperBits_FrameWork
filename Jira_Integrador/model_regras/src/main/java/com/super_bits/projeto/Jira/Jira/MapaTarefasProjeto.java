@@ -106,4 +106,9 @@ public class MapaTarefasProjeto {
         return TAREFAS_PROJETO_ATUAL.get(pAcaoGestao.getNomeUnico());
     }
 
+    public static List<TarefaSuperBits> getTarefasDaTabela(Class pEntidade) {
+        criarTarefas();
+        return TAREFAS_PROJETO_ATUAL.get(pEntidade.getSimpleName());
+    }
+
 }

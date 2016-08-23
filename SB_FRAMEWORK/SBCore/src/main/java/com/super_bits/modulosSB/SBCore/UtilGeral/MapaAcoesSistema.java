@@ -201,6 +201,10 @@ public abstract class MapaAcoesSistema {
 
     }
 
+    public static List<ItfAcaoGerenciarEntidade> getAcoesGestaoByModulo(ItfModuloAcaoSistema pModulo) {
+        return (List) ACOES_MANAGED_BEAN_BY_MODULO.get(pModulo);
+    }
+
     /**
      *
      * Retorna todas as ações de Controller a partir da referencia de uma
