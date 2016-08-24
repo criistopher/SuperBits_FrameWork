@@ -5,15 +5,12 @@
  */
 package com.super_bits.configSBFW.acessos;
 
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSB;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfUsuario;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Controller.ConfigAcessoAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+
 import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
 import com.super_bits.sbProjetos.Model.GerenteProjeto;
