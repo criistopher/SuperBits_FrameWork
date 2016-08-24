@@ -6,14 +6,14 @@
 package com.super_bits.sbProjetos;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
+import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
-import com.super_bits.modulosSB.SBCore.Controller.anotacoes.InfoAcesso;
+
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+
 import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.ConfigPersistenciaSBProject;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
@@ -33,12 +33,7 @@ import javax.persistence.EntityManager;
  *
  * @author Salvio
  */
-public class SBProjectController extends ControllerAppAbstratoSBCore {
-
-    public static void configCoreEPersistenciaBasicos() {
-        SBCore.configurar(new ConfigCoreDeveloper());
-        SBPersistencia.configuraJPA(new ConfigPersistenciaSBProject());
-    }
+public class SBProjectController extends ControllerAbstratoSBPersistencia {
 
     public static Trabalho iniciarTrabalho(Desenvolvedor pDesenvolvedor, Requisito requisito) {
 
@@ -54,7 +49,7 @@ public class SBProjectController extends ControllerAppAbstratoSBCore {
             return trabalhoAtual;
         } catch (Exception e) {
 
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro controler iniciando trabalho", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro controler iniciando trabalho", e);
             return null;
         }
 
@@ -71,7 +66,7 @@ public class SBProjectController extends ControllerAppAbstratoSBCore {
             return (Trabalho) UtilSBPersistencia.mergeRegistro(ptrabalhoAtual, em);
 
         } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro Finalizando trabalho", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Finalizando trabalho", e);
             if (em != null) {
                 em.getTransaction().rollback();
                 em.close();
@@ -116,12 +111,7 @@ public class SBProjectController extends ControllerAppAbstratoSBCore {
         return new ArrayList<>();
     }
 
-    @Override
-    protected List<ItfAcesso> carregaAcessos() {
-        return SBCore.getConfiguradorDeAcessos().configuraAcessos();
-    }
-
-    @InfoAcesso(padraoBloqueado = true, nomeAmigavel = "Promover Requisito")
+    @InfoTipo
     public static boolean promoverRequisito(Requisito req) {
 
         System.out.println("verificando autorizacao para promover");
@@ -239,7 +229,7 @@ public class SBProjectController extends ControllerAppAbstratoSBCore {
     }
 
     public static boolean criarCliente(Cliente pCliente) {
-       // if (!autorizar()) {
+        // if (!autorizar()) {
 
         //       return false;
         //   }

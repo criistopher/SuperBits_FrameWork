@@ -6,6 +6,7 @@
 package com.super_bits.sbProjetos.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.sbProjetos.Model.Projeto;
@@ -31,7 +32,7 @@ public class UtilSBProjetos {
         File pastaSourceTemporaria = new File(p.getPastaSource() + "/" + nomeProjetoBase);
 
         if (pastadoProjeto.exists()) {
-            SBCore.enviarMensagemUsuario("Não foi possível criar o projeto, A pasta do projeto já existe (apague e tente novamente)", ItfCentralMensagens.TP_MENSAGEM.AVISO);
+            SBCore.enviarMensagemUsuario("Não foi possível criar o projeto, A pasta do projeto já existe (apague e tente novamente)", FabMensagens.AVISO);
             return;
         }
 

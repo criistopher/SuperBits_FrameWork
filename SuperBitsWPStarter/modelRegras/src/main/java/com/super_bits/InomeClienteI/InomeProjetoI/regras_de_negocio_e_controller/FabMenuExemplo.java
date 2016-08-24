@@ -52,7 +52,7 @@ public enum FabMenuExemplo implements ItfFabricaMenu {
                 AcaoDoSistema acaosessao = new AcaoDoSistema();
                 acaosessao.setNome("Permissões ");
                 SessaoMenuSB adminUsuario = new SessaoMenuSB(acaosessao);
-                adminUsuario.addAcao(FabAcaoSeguranca.GRUPOS_MB_GERENCIAR.getRegistro());
+                adminUsuario.addAcao(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getRegistro());
                 adminUsuario.addAcao(FabAcaoSeguranca.USUARIO_MB_GERENCIAR.getRegistro());
                 menu.addSessao(adminUsuario);
                 return menu;
