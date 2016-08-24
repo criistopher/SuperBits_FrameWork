@@ -10,7 +10,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgDemoComponente;
+
 import com.super_bits.view.menu.ItfFabricaMenu;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
@@ -34,12 +34,9 @@ public class SiteMap extends MB_SiteMapa {
     private PgCadastroUsuarios usuarios;
     @Inject
     private PgAcessos congrolePermissao;
-    @Inject
-    private PgDemoComponente demoComponente;
 
     /// Injete aqui todas as Paginas que extendem o objeto MB_pagina
     @Override
-
     protected Map<String, ItfB_Pagina> buildPaginas() {
         Map<String, ItfB_Pagina> paginasSimples = buildSystemPages();
 
