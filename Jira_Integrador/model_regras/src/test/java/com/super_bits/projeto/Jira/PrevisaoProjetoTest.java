@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
+import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,10 +31,18 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
 
         for (ModuloPrevisto mp : novaPrevisao.getModulosPrevistos().values()) {
             for (PrevisaoEntidade previsao : mp.getEntidadesPrevistas()) {
-                System.out.println("Tarefas da entidade:" + previsao.getTarefasVinculadas());
+                System.out.println("Tarefas da entidade:" + previsao.getEntidadeVinculada());
+
+                // for (TarefaSuperBits tf : previsao.getTarefasVinculadas()) {
+                //   System.out.println("Tarefa de entidade :" + tf.getTarefaJiraOrigem().getNomeTarefa());
+                //}
             }
             for (PrevisaoGestaoEntidade gestao : mp.getGestoesPrevistas()) {
-                System.out.println("Tarefas da gestao" + gestao.getTarefasVinculadas());
+                System.out.println("Tarefas da gestao" + gestao.getGestao().getNome());
+
+                for (TarefaSuperBits tf : gestao.getTarefasVinculadas()) {
+                    System.out.println("Tarefa de gestao:" + tf.getTarefaJiraOrigem().getAcaoVinculada().getNomeAcao());
+                }
             }
         }
 

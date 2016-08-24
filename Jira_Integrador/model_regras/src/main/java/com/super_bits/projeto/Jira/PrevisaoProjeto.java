@@ -5,11 +5,8 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Map;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
@@ -56,6 +53,10 @@ public class PrevisaoProjeto implements Serializable {
             }
 
             ModuloPrevisto modPrev = new ModuloPrevisto(previsoesGestaoEntidade, previsoesEntidade);
+
+            System.out.println("Previsto modulo " + modulo);
+            System.out.println("O modulo " + modulo + " possui" + modPrev.getEntidadesPrevistas().size() + "Etidades com ações previstas");
+            System.out.println("O modulo " + modulo + " possui" + modPrev.getGestoesPrevistas().size() + "Gestões com ações previstas");
             modulosPrevistos.put(modulo, modPrev);
         }
 
