@@ -10,7 +10,7 @@ if [ ! -d $DIRETORIO_WEBAPP_SERVLET ]; then
   exit 1
 fi
 cd ..
-cd ..
-git submodule add https://github.com/salviof/WEB-INF.github $DIRETORIO_WEBAPP_SERVLET/WEB-INF
+git submodule add https://github.com/salviof/WEB-INF.git $DIRETORIO_WEBAPP_SERVLET/WEB-INF
+git submodule add https://github.com/salviof/WEB-INF.git $DIRETORIO_RESOURCES/SBComp
 #cd resources
 
