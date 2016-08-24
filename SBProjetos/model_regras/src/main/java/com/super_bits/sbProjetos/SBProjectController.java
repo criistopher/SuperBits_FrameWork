@@ -5,7 +5,6 @@
  */
 package com.super_bits.sbProjetos;
 
-import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 
@@ -15,7 +14,6 @@ import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
 import com.super_bits.sbProjetos.Model.Cliente;
-import com.super_bits.sbProjetos.Model.ConfigPersistenciaSBProject;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.Projeto_Desenvolvedor;
