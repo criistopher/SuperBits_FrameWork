@@ -5,32 +5,37 @@
  */
 package com.super_bits.sbProjetos.util;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
+import com.super_bits.sbProjetos.Model.FabSBProjectClientes;
+import com.super_bits.sbProjetos.Model.Projeto;
+import com.super_bits.sbProjetos.configAppp.ConfigCoreInomeProjetoI;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author desenvolvedor
  */
-public class UtilSBProjetosTest {
+public class UtilSBProjetosTest extends TesteJunit {
 
     public UtilSBProjetosTest() {
     }
 
     @Test
     public void testCriarNovoProjeto() {
+
+        Projeto projetoTeste = new Projeto();
+
+        projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
+        projetoTeste.setNome("Controle de Clientes");
+
+        UtilSBProjetos.criarNovoProjeto(projetoTeste);
+
     }
 
-    @Test
-    public void testLimparPastaDoProjeto() {
-    }
-
-    @Test
-    public void testEfetuarCheckout() {
-    }
-
-    @Test
-    public void testAdicionarArquivosSourcenoRepositorio() {
+    @Override
+    protected void configAmbienteDesevolvimento() {
+        SBCore.configurar(new ConfigCoreInomeProjetoI(), true);
     }
 
 }

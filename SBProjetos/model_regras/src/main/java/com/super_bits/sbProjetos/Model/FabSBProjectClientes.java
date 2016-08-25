@@ -5,41 +5,42 @@
  */
 package com.super_bits.sbProjetos.Model;
 
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
 /**
  *
  * @author sfurbino
  */
-public enum FabSBProjectClientes {
+public enum FabSBProjectClientes implements ItfFabrica {
+    SUPERBITS, VIP, GUIASE, SANTA_CLARA, AQUA_QUALIT;
 
-    SUPERBITS {
+    @Override
+    public Cliente getRegistro() {
 
-                @Override
-                public Cliente getCliente() {
-                    Cliente novoCliente = new Cliente();
-                    novoCliente.setNome("Super Bits");
-                    return novoCliente;
+        Cliente novoCliente = new Cliente();
+        novoCliente.setId(this.ordinal());
+        switch (this) {
+            case SUPERBITS:
+                novoCliente.setNome("Super Bits");
+                break;
+            case VIP:
+                novoCliente.setNome("Vip");
 
-                }
-            }, VIP {
+                break;
+            case GUIASE:
+                novoCliente.setNome("Guia-se");
+                break;
+            case SANTA_CLARA:
+                novoCliente.setNome("Santa Clara");
+                break;
+            case AQUA_QUALIT:
+                novoCliente.setNome("Aqua Quality");
+                break;
+            default:
+                throw new AssertionError(this.name());
 
-                @Override
-                public Cliente getCliente() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            }, SPHERA {
+        }
+        return novoCliente;
 
-                @Override
-                public Cliente getCliente() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            }, GUIASE {
-
-                @Override
-                public Cliente getCliente() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };
-
-    public abstract Cliente getCliente();
-
+    }
 }

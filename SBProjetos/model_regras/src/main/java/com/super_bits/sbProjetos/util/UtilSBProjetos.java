@@ -25,11 +25,13 @@ import org.junit.Assert;
  */
 public class UtilSBProjetos {
 
+    public static final String NOME_PROJETO_BASE = "SuperBitsWPStarter";
+
     public static void criarNovoProjeto(Projeto p) {
-        String nomeProjetoBase = "SuperBitsWPStarter";
+
         File pastadoProjeto = new File(p.getPastaDoProjetoSource());
         File pastaSourceCliente = new File(p.getPastaSource());
-        File pastaSourceTemporaria = new File(p.getPastaSource() + "/" + nomeProjetoBase);
+        File pastaSourceTemporaria = new File(p.getPastaSource() + "/" + NOME_PROJETO_BASE);
 
         if (pastadoProjeto.exists()) {
             SBCore.enviarMensagemUsuario("Não foi possível criar o projeto, A pasta do projeto já existe (apague e tente novamente)", FabMensagens.AVISO);
@@ -44,13 +46,13 @@ public class UtilSBProjetos {
         Assert.assertTrue("pasta do SOURCE  cliente não encontrada", pastaSourceCliente.exists());
 
         Comando copiarPastaNovoProjeto = TIPOCMD.LNXDIR_COPIAR_PASTA.getComando();
-        copiarPastaNovoProjeto.configParametro("pastaCopOri", "/home/superBits/projetos/superbits/modulos/" + nomeProjetoBase + "/");
+        copiarPastaNovoProjeto.configParametro("pastaCopOri", "/home/superBits/projetos/superbits/modulos/" + NOME_PROJETO_BASE + "/");
         copiarPastaNovoProjeto.configParametro("pastaCopDest", p.getPastaSource());
         copiarPastaNovoProjeto.executarComando();
         Assert.assertTrue("pasta temporaria não encontrada", pastaSourceTemporaria.exists());
 
         Comando renomearPasta = TIPOCMD.LNXDIR_MOVERPASTA.getComando();
-        renomearPasta.configParametro("pastaMovOri", p.getPastaSource() + "/" + nomeProjetoBase);
+        renomearPasta.configParametro("pastaMovOri", p.getPastaSource() + "/" + NOME_PROJETO_BASE);
         renomearPasta.configParametro("pastaMovDest", p.getPastaDoProjetoSource());
         renomearPasta.executarComando();
         Assert.assertTrue("pasta source do cliente não encontrada", pastadoProjeto.exists());
@@ -63,14 +65,12 @@ public class UtilSBProjetos {
 
         limparPastaDoProjeto(p);
 
-        efetuarCheckout(p);
-
+        //  efetuarCheckout(p);
         adicionarArquivosSourcenoRepositorio(p);
 
         //sincronizarSVN.configParametro("pasta", p.getPastaDoProjetoSource());
         //sincronizarSVN.configParametro("endCheckout", p.getLinkSVNSource());
         //sincronizarSVN.configParametro("usuario", "SBAdmin");
-        //sincronizarSVN.configParametro("senha", "123321@aA");
         System.out.println("pasta do projeto=" + p.getPastaDoProjetoSource());
 
         List<Comando> comandos = new ArrayList();

@@ -36,7 +36,6 @@ public class TesteConexao {
             System.out.println(rq.getNome());
 
         }
-
     }
 
 }
