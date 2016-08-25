@@ -14,6 +14,8 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 public enum FabSBProjectClientes implements ItfFabrica {
     SUPERBITS, VIP, GUIASE, SANTA_CLARA, AQUA_QUALIT;
 
+    public static String SERVIDOR_OFICIAL_SUPER_BITS = "git@consultoriaguiase.com.br";
+
     @Override
     public Cliente getRegistro() {
 
@@ -22,16 +24,23 @@ public enum FabSBProjectClientes implements ItfFabrica {
         switch (this) {
             case SUPERBITS:
                 novoCliente.setNome("Super Bits");
+                novoCliente.setServicorGitRelease("");
+                novoCliente.setServidorGitHomologacao("");
                 break;
             case VIP:
                 novoCliente.setNome("Vip");
-
+                novoCliente.setServicorGitRelease("");
+                novoCliente.setServidorGitHomologacao("");
                 break;
             case GUIASE:
                 novoCliente.setNome("Guia-se");
+                novoCliente.setServicorGitRelease("");
+                novoCliente.setServidorGitHomologacao("");
                 break;
             case SANTA_CLARA:
                 novoCliente.setNome("Santa Clara");
+                novoCliente.setServicorGitRelease("");
+                novoCliente.setServidorGitHomologacao("");
                 break;
             case AQUA_QUALIT:
                 novoCliente.setNome("Aqua Quality");

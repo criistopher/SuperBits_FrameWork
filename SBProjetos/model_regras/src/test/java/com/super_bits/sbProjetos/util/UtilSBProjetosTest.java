@@ -26,7 +26,11 @@ public class UtilSBProjetosTest extends TesteJunit {
         Projeto projetoTeste = new Projeto();
         projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         projetoTeste.setNome("Sistema Santa Clara");
-        UtilSBProjetos.criarNovoProjeto(projetoTeste);
+        //   UtilSBProjetos.criarNovoProjeto(projetoTeste);
+
+        UtilSBProjetos.configurarPastaCliente(projetoTeste.getCliente());
+        UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+
     }
 
     @Override

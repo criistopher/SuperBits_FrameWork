@@ -30,6 +30,9 @@ public class Cliente extends EntidadeSimples implements Serializable {
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
+    private String servidorGitCodigoFonte;
+    private String servidorGitHomologacao;
+    private String servicorGitRelease;
 
     @OneToMany(mappedBy = "cliente")
     private List<Projeto> projetos;
@@ -69,6 +72,30 @@ public class Cliente extends EntidadeSimples implements Serializable {
 
     public void setProjetos(List<Projeto> projetos) {
         this.projetos = projetos;
+    }
+
+    public String getServidorGitCodigoFonte() {
+        return servidorGitCodigoFonte;
+    }
+
+    public void setServidorGitCodigoFonte(String servidorGitCodigoFonte) {
+        this.servidorGitCodigoFonte = servidorGitCodigoFonte;
+    }
+
+    public String getServidorGitHomologacao() {
+        return servidorGitHomologacao;
+    }
+
+    public void setServidorGitHomologacao(String servidorGitHomologacao) {
+        this.servidorGitHomologacao = servidorGitHomologacao;
+    }
+
+    public String getServicorGitRelease() {
+        return servicorGitRelease;
+    }
+
+    public void setServicorGitRelease(String servicorGitRelease) {
+        this.servicorGitRelease = servicorGitRelease;
     }
 
 }

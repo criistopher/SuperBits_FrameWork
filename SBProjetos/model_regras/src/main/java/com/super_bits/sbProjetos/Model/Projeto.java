@@ -61,6 +61,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
     private String descricao;
     private String linkSVNSource;
     private String linkSVNRelease;
+    private String enderecoHomologacao;
     private String pastaDoProjetoSource;
     private String pastaDoProjetoRelease;
     @ManyToOne
@@ -432,6 +433,14 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     public void setLinkSVNRelease(String linkSVNRelease) {
         this.linkSVNRelease = linkSVNRelease;
+    }
+
+    public String getEnderecoHomologacao() {
+        return enderecoHomologacao;
+    }
+
+    public void setEnderecoHomologacao(String enderecoHomologacao) {
+        this.enderecoHomologacao = enderecoHomologacao;
     }
 
 }
