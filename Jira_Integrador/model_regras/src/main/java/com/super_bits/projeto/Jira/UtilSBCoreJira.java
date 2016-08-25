@@ -602,41 +602,32 @@ public class UtilSBCoreJira {
 
                 break;
             case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
-                tarefa.setNomeTarefa("Implementar Managed Bean de " + pAcao.getNomeAcao());
-                tarefa.setDescricaoTarefa("Implementar o código atendendo os requisitos do teste de fluxo do Junit");
+                tarefa.setNomeTarefa("Implementar Managed Bean para " + pAcao.getNomeAcao());
+                tarefa.setDescricaoTarefa("Implementar o código atendendo os requisitos do teste de fluxo criado pelo desenvolvedor TDD");
                 break;
             case ACAO_CRIAR_FORMULARIO:
-                tarefa.setNomeTarefa("Criar formulario " + pAcao.getNomeAcao());
+                tarefa.setNomeTarefa("Criar formulario para " + pAcao.getNomeAcao());
                 tarefa.setDescricaoTarefa("Criar o XHTML para " + pAcao.getDescricao() + " <br> não esqueça da responsividade,"
                         + " e da criatividade do usuário que clicará em tudo e ficará triste com erros, deixe o usuário ser feliz!");
                 break;
             case ACAO_CRIAR_FORMULARIO_COMPLEXO:
-                tarefa.setNomeTarefa("Criar formulario Complexo para:" + pAcao.getNomeAcao());
+                tarefa.setNomeTarefa("Criar formulario Complexo para " + pAcao.getNomeAcao());
                 tarefa.setDescricaoTarefa("Criar o XHTML Complexo para pagina descrita como: " + pAcao.getDescricao() + " <br> não esqueça da responsividade,"
                         + " e da criatividade do usuário que clicará em tudo e ficará triste com erros, deixe o usuário ser feliz!"
-                        + " <br> Atenção! por se um formulário complexo, é recomendável que você altere o tempo previsto ");
+                        + " <br> Atenção! por se um formulário complexo, é recomendável que você altere o tempo previsto, lembre-se conseguir prever a data de entrega está atrelado a honra dos programadore super-bits ");
                 break;
             case ACAO_TESTES_AMBIENTE_DE_DADOS:
-
             case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
-
             case ACAO_BANCO_TESTES_TIPOS:
-
             case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
-
             case ACAO_TESTES_ENTIDADE_CALCULO:
-
             case ACAO_TESTES_ENTIDADE_LISTAS:
-
             case ACAO_ENTIDADE_CRIAR_CALCULOS:
-
             case ACAO_ENTIDADE_CRIAR_LISTAS:
                 throw new UnsupportedOperationException("Algo está errado, Esta tarefa é referente a ação do sistema, mas o tipo esta setado como" + pTipoTarefaJira.name());
             case ACAO_IMPLEMENTAR_CONTROLLER:
                 tarefa.setNomeTarefa("Implementação de código para " + pAcao.getNomeAcao());
-                tarefa.setDescricaoTarefa("Cria os testes pensando na metodologia TDD, para ação descrita como " + pAcao.getNomeAcao() + " um bom teste deve testar a evocação do métod em todas as opções possíveis, verificando  via comandos de assert o resultado esperado, um bom teste considera não só as opções disponíveis para o usuaŕio, "
-                        + "como também aqueles possíveis de serem cometidas por programadores e clientes de api");
-
+                tarefa.setDescricaoTarefa("Implementar codigo e complementos do teste de acordo com a especificaçao do analista TDD");
                 break;
             case ACAO_TESTE_CONTROLLER:
                 tarefa.setNomeTarefa("Teste TDD para" + pAcao.getNomeAcao());
@@ -644,12 +635,11 @@ public class UtilSBCoreJira {
                         + "como também aqueles possíveis de serem cometidas por programadores e clientes de api");
             case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
                 tarefa.setNomeTarefa("Implemetação código para " + pAcao.getNome());
-                tarefa.setDescricaoTarefa("A implementação do código da ação descrita como " + pAcao.getDescricao() + ", por ser uma ação  complexa é recomendavel alterar o tempo previsto...  dica: F6 para testar, control F6 para debugar, e um atalho pode ser criado para executar o método de teste focado antes iniciar a implementação leia o fluxo do teste, o teste vai te dar uma visão ainda mais clara sobre o que este método faz, além disso se você der uma re-lida na documentação pode evitar re-trabalho e tristeza");
+                tarefa.setDescricaoTarefa("A implementação do código da ação descrita como " + pAcao.getDescricao() + ",dica: F6 para testar, control F6 para debugar, e um atalho pode ser criado para executar o método de teste focado antes iniciar a implementação leia o fluxo do teste, o teste vai te dar uma visão ainda mais clara sobre o que este método faz, além disso se você der uma re-lida na documentação pode evitar re-trabalho e tristeza");
                 break;
             case ACAO_TESTE_CONTROLLER_COMPLEXO:
-                tarefa.setNomeTarefa("Implemetação código para " + pAcao.getNome());
-                tarefa.setDescricaoTarefa("A implementação do código da ação descrita como " + pAcao.getDescricao() + ",dica: F6 para testar, control F6 para debugar, e um atalho pode ser criado para executar o método de teste focado antes iniciar a implementação leia o fluxo do teste, o teste vai te dar uma visão ainda mais clara sobre o que este método faz, além disso se você der uma re-lida na documentação pode evitar re-trabalho e tristeza");
-
+                tarefa.setNomeTarefa("Criar testes TDD para " + pAcao.getNome());
+                tarefa.setDescricaoTarefa("O bom desenvolvimento do TDD para controller complexo deve ser realizado com muito cuidado, pois todas as possibilidades devem ser pensadas, nesta etapa é normal detectar a nescessidade de criar novos campos e implementações nos objtos esse trabalho precisa ser realizado pelo TDD, qualquer desuido aqui poderá gerar grandes retrabalhos e perda de tempo na implementação, por ser uma ação  complexa é recomendavel alterar o tempo previsto... (lembrando que a nossa honra está em jogo quando falamos de tempo previsto ");
                 break;
             default:
                 throw new AssertionError("A regra de negocio para O tipo de tarefa:" + pTipoTarefaJira.name() + "não foi definda");

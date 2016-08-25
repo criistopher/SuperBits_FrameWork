@@ -29,13 +29,18 @@ public class MapaTarefasProjeto {
 
     private static void addTarefa(ItfAcaoDoSistema pAcao) {
         try {
-            String chaveAcaoGestao = pAcao.getAcaoDeGestaoEntidade().getNomeUnico();
+            String chaveAcaoGestao;
+            chaveAcaoGestao = pAcao.getAcaoDeGestaoEntidade().getNomeUnico();
             if (!TAREFAS_PROJETO_ATUAL.containsKey(chaveAcaoGestao)) {
                 TAREFAS_PROJETO_ATUAL.put(chaveAcaoGestao, new ArrayList<>());
             }
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(pAcao.getTipoAcaoGenerica())) {
                 TarefaJira tarefa = getTarefaJiraAcaoDoSistema(tipoTarefa, pAcao);
-                MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.get(chaveAcaoGestao).add(new TarefaSuperBits(tarefa));
+                TarefaSuperBits novaTarefa = new TarefaSuperBits(tarefa);
+                if (!MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.get(chaveAcaoGestao).contains(novaTarefa)) {
+                    MapaTarefasProjeto.TAREFAS_PROJETO_ATUAL.get(chaveAcaoGestao).add(new TarefaSuperBits(tarefa));
+                }
+
             }
 
         } catch (Throwable t) {

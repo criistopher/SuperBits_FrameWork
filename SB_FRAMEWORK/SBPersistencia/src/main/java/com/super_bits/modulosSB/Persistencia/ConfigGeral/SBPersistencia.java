@@ -75,13 +75,10 @@ public abstract class SBPersistencia {
             if (!entidade.getJavaType().getSimpleName().contains("Acao")) {
                 classesDeEntidades.add(entidade.getJavaType());
             }
-
         }
         if (pCriarTodosCampos) {
             UtilSBCoreReflexaoCampos.configurarTodasAsClasses(classesDeEntidades);
-
             System.out.println("Campos de entidade configurados com sucesso" + classesDeEntidades);
-
         }
 
     }

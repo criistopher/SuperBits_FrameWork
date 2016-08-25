@@ -6,6 +6,10 @@
 package com.super_bits.projeto.Jira.Jira;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.tempo.DataUtilJira;
 import com.super_bits.projeto.Jira.Jira.tempo.InvalidDurationException;
@@ -17,9 +21,15 @@ import com.super_bits.projeto.Jira.TipoProfissional;
  *
  * @author salvioF
  */
-public class TarefaSuperBits implements ItfTarefaSuperBitsFW {
+public class TarefaSuperBits extends ItemSimples implements ItfTarefaSuperBitsFW {
+
+    @InfoCampo(tipo = FabCampos.ID)
+    private final int id;
 
     private final TarefaJira tarefaJiraOrigem;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    private final String nomeTarefa;
+    private final TipoProfissional tipoProfissional;
 
     @Override
     public int getMinutosPrevistosTrabalho() {
@@ -55,17 +65,21 @@ public class TarefaSuperBits implements ItfTarefaSuperBitsFW {
     }
 
     public TarefaSuperBits(TarefaJira tarefaJiraOrigem) {
+
         this.tarefaJiraOrigem = tarefaJiraOrigem;
+        tipoProfissional = getTarefaJiraOrigem().getTipoTarefa().getTipoProfissional().getRegistro();
+        id = tarefaJiraOrigem.getAcaoVinculada().getNomeUnico().hashCode();
+        nomeTarefa = tarefaJiraOrigem.getNomeTarefa();
     }
 
     @Override
-    public TarefaJira getTarefaJiraOrigem() {
+    public final TarefaJira getTarefaJiraOrigem() {
         return tarefaJiraOrigem;
     }
 
     @Override
     public TipoProfissional getTipoProfissionalNescessario() {
-        return getTarefaJiraOrigem().getTipoTarefa().getTipoProfissional().getRegistro();
+        return tipoProfissional;
     }
 
 }
