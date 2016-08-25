@@ -5,8 +5,9 @@
  */
 package com.super_bits.sbProjetos.Model;
 
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Projeto_Desenvolvedor extends EntidadeSimples {
     @ManyToOne
     private Projeto projeto;
     @ManyToOne
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private Desenvolvedor desenvolvedor;
 
     private int horasDia;

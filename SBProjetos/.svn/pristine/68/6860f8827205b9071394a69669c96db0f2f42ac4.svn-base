@@ -1,8 +1,0 @@
-body{
-    margin:0;
-    padding:0;
-    font-size:70%;
-    font-family:verdana, Arial, Helvetica;
-    color:  #{pgutil.cores.corPrincipal};
-    background-color: #{pgUtil.cores.corBackground};
-}

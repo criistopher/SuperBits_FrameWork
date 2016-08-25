@@ -5,16 +5,20 @@
  */
 package com.super_bits.sbProjetos.configAppp;
 
+import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.configSBFW.acessos.ConfigAcessos;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.CentralMensagemArqTexto;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.sbProjetos.controller.getaoProjeto.FabAcaoGestaoProjetos;
 
 /**
  *
@@ -28,7 +32,7 @@ public class ConfigCoreInomeProjetoI implements ItfConfiguradorCore {
     }
 
     @Override
-    public Class<? extends ErroSB> getClasseErro() {
+    public Class<? extends ErroSBCoreFW> getClasseErro() {
         return ErroSBCoreFW.class;
     }
 
@@ -40,11 +44,6 @@ public class ConfigCoreInomeProjetoI implements ItfConfiguradorCore {
     @Override
     public Class<? extends ItfCentralEventos> getCentralDeEventos() {
         return CentralLogEventosArqTextoGenerica.class;
-    }
-
-    @Override
-    public SBCore.ESTADO_APP estadoApp() {
-        return SBCore.ESTADO_APP.PRODUCAO;
     }
 
     @Override
@@ -65,6 +64,26 @@ public class ConfigCoreInomeProjetoI implements ItfConfiguradorCore {
     @Override
     public String getGrupoProjeto() {
         return "modulos";
+    }
+
+    @Override
+    public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
+        return ConfigAcessos.class;
+    }
+
+    @Override
+    public SBCore.ESTADO_APP getEstadoApp() {
+        return SBCore.ESTADO_APP.DESENVOLVIMENTO;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return new Class[]{FabAcaoGestaoProjetos.class};
+    }
+
+    @Override
+    public String getUrlJira() {
+        return "http://jira.projetoSB.consultoriaguiase.com.br1";
     }
 
 }

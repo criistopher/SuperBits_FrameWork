@@ -6,11 +6,14 @@
 package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
+
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
@@ -45,14 +48,14 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @InfoCampo(tipo = InfoCampo.TC.ID)
+    @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataPrevista;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
 
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeProjeto;
     @Column(length = 1000)
     private String descricao;
@@ -362,7 +365,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
             return dataEntrega;
         } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro calculando contagem regressiva do projeto", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro calculando contagem regressiva do projeto", e);
             return null;
         }
 

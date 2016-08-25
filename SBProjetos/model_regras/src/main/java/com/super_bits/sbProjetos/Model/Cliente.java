@@ -5,8 +5,9 @@
  */
 package com.super_bits.sbProjetos.Model;
 
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,9 @@ public class Cliente extends EntidadeSimples implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @InfoCampo(tipo = InfoCampo.TC.ID)
+    @InfoCampo(tipo = FabCampos.ID)
     private int id;
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
     @OneToMany(mappedBy = "cliente")
