@@ -23,14 +23,10 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Test
     public void testCriarNovoProjeto() {
-
         Projeto projetoTeste = new Projeto();
-
         projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         projetoTeste.setNome("Sistema Santa Clara");
-
         UtilSBProjetos.criarNovoProjeto(projetoTeste);
-
     }
 
     @Override
