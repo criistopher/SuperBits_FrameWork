@@ -68,8 +68,22 @@ public class TarefaSuperBits extends ItemSimples implements ItfTarefaSuperBitsFW
 
         this.tarefaJiraOrigem = tarefaJiraOrigem;
         tipoProfissional = getTarefaJiraOrigem().getTipoTarefa().getTipoProfissional().getRegistro();
-        id = tarefaJiraOrigem.getAcaoVinculada().getNomeUnico().hashCode();
+        String strDifIDtipoTarefa = tarefaJiraOrigem.getTipoTarefa().getSigla();
         nomeTarefa = tarefaJiraOrigem.getNomeTarefa();
+        switch (tarefaJiraOrigem.getTipoOrigem()) {
+            case BANCO_DE_DADOS:
+                id = (tarefaJiraOrigem.getTabelaVinculada().getName() + strDifIDtipoTarefa).hashCode();
+
+                break;
+            case ACAO_DO_SISTEMA:
+                id = (tarefaJiraOrigem.getAcaoVinculada().getNomeUnico() + strDifIDtipoTarefa).hashCode();
+
+                break;
+            default:
+                throw new AssertionError(tarefaJiraOrigem.getTipoOrigem().name());
+
+        }
+
     }
 
     @Override
