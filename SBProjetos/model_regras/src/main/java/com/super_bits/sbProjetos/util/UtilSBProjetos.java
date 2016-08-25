@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.shellcommands.model.Comando;
 import com.super_bits.shellcommands.model.SvnStatusArquivosRepositorio;
@@ -119,6 +120,18 @@ public class UtilSBProjetos {
         deletarPastaTemporaria.configParametro("pastaRecursiva", p.getPastaDoProjetoSource());
         deletarPastaTemporaria.configParametro("nomePastaExclusao", "target");
         deletarPastaTemporaria.executarComando();
+    }
+
+    public static void configurarPastaCliente(Cliente pCliente) {
+
+        // Criar a pasta se não existir
+        // Criar arquivo cliente.info em Source contendo o servidor de gitHUB ex:SERVIDOR_GIT_SOURCE=https://github.com/salviof
+        // criar o arquivo cliente.info em release contendo o endereco do servidor de homologacao ex
+        //SERVIDOR_GIT_RELEASE=https://github.com/salviof/NAO_IMPLEMENTADO
+    }
+
+    public static void configurarPastaProjeto(Projeto pProjeto) {
+
     }
 
     public static void efetuarCheckout(Projeto p) {
