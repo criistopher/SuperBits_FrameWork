@@ -5,9 +5,13 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 
@@ -20,6 +24,24 @@ import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
  */
 public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
 
+    @Override
+    public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
+        return classeConfigPermissao;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return acoesDoSistema;
+    }
+
+    @Override
+    public String getUrlJira() {
+        return urlJira;
+    }
+
+    public static enum TIPOS_CONFIG {
+        CORE_DEVELOPER_PADRAO, WEBPAGINAS_DEVELOPER_PADRAO
+    };
     private Class<? extends ItfCentralMensagens> centralMEnsagens;
     private Class<? extends InfoErroSBComAcoes> classeErro;
     private Class<? extends ItfControleDeSessao> controleDeSessao;
@@ -32,6 +54,46 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
     private String diretorioBase = "";
     private Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
     private String urlJira;
+
+    public ConfigCoreCustomizavel() {
+    }
+
+    public ConfigCoreCustomizavel(TIPOS_CONFIG pTipoConfig, String pNomeCliente, String pNomeProjeto, String pNomeGrupoProjeto, Class< ? extends ConfigPermissaoAbstratoSBCore> pPermissao,
+            Class... fabricasDeAcoes) {
+
+        switch (pTipoConfig) {
+            case CORE_DEVELOPER_PADRAO:
+
+                setCliente(pNomeCliente);
+                setGrupoProjeto(pNomeGrupoProjeto);
+                setNomeProjeto(pNomeProjeto);
+
+                setDiretorioBase("SuperBits_FrameWork");
+                setUrlJira("https://santaClara.atlassian.net");
+                setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
+                setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
+                setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+                setClasseConfigPermissao(pPermissao);
+                setFabricaDeAcoes(fabricasDeAcoes);
+                setControleDeSessao(ControleDeSessaoPadrao.class);
+
+                break;
+            case WEBPAGINAS_DEVELOPER_PADRAO:
+                setCliente(pNomeCliente);
+                setGrupoProjeto("SuperBits_FrameWork");
+                setNomeProjeto(pNomeProjeto);
+                setDiretorioBase("SB_FRAMEWORK");
+                setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
+
+                setClasseErro(ErroSBCoreFW.class);
+                setControleDeSessao(ControleDeSessaoPadrao.class);
+                break;
+            default:
+                throw new AssertionError(pTipoConfig.name());
+
+        }
+
+    }
 
     @Override
     public Class<? extends ItfCentralMensagens> getCentralDeMensagens() {
@@ -81,20 +143,24 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
         return grupoProjeto;
     }
 
-    public void setCentralMEnsagens(Class<? extends ItfCentralMensagens> centralMEnsagens) {
+    public final ConfigCoreCustomizavel setCentralMEnsagens(Class<? extends ItfCentralMensagens> centralMEnsagens) {
         this.centralMEnsagens = centralMEnsagens;
+        return this;
     }
 
-    public void setClasseErro(Class<? extends InfoErroSBComAcoes> classeErro) {
+    public final ConfigCoreCustomizavel setClasseErro(Class<? extends InfoErroSBComAcoes> classeErro) {
         this.classeErro = classeErro;
+        return this;
     }
 
-    public void setControleDeSessao(Class<? extends ItfControleDeSessao> controleDeSessao) {
+    public final ConfigCoreCustomizavel setControleDeSessao(Class<? extends ItfControleDeSessao> controleDeSessao) {
         this.controleDeSessao = controleDeSessao;
+        return this;
     }
 
-    public void setCentralDeEventos(Class<? extends ItfCentralEventos> centralDeEventos) {
+    public final ConfigCoreCustomizavel setCentralDeEventos(Class<? extends ItfCentralEventos> centralDeEventos) {
         this.centralDeEventos = centralDeEventos;
+        return this;
     }
 
     /**
@@ -102,21 +168,26 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
      * O nome do projeto identifica a pasta onde o projeto se encontra
      *
      * @param nomeProjeto
+     * @return
      */
-    public void setNomeProjeto(String nomeProjeto) {
+    public final ConfigCoreCustomizavel setNomeProjeto(String nomeProjeto) {
         this.nomeProjeto = nomeProjeto;
+        return this;
     }
 
-    public void setEstadoAPP(SBCore.ESTADO_APP estadoAPP) {
+    public ConfigCoreCustomizavel setEstadoAPP(SBCore.ESTADO_APP estadoAPP) {
         this.estadoAPP = estadoAPP;
+        return this;
     }
 
-    public void setCliente(String cliente) {
+    public final ConfigCoreCustomizavel setCliente(String cliente) {
         this.cliente = cliente;
+        return this;
     }
 
-    public void setGrupoProjeto(String grupoProjeto) {
+    public final ConfigCoreCustomizavel setGrupoProjeto(String grupoProjeto) {
         this.grupoProjeto = grupoProjeto;
+        return this;
     }
 
     /**
@@ -125,36 +196,26 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
      * source, agrupando diversos projetos
      *
      * @param diretorioBase
+     * @return
      */
-    public void setDiretorioBase(String diretorioBase) {
+    public final ConfigCoreCustomizavel setDiretorioBase(String diretorioBase) {
         this.diretorioBase = diretorioBase;
+        return this;
     }
 
-    public void setClasseConfigPermissao(Class<? extends ConfigPermissaoAbstratoSBCore> pConfigPermissao) {
+    public final ConfigCoreCustomizavel setClasseConfigPermissao(Class<? extends ConfigPermissaoAbstratoSBCore> pConfigPermissao) {
         classeConfigPermissao = pConfigPermissao;
+        return this;
     }
 
-    @Override
-    public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
-        return classeConfigPermissao;
-    }
-
-    @Override
-    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
-        return acoesDoSistema;
-    }
-
-    public void setFabricaDeAcoes(Class<? extends ItfFabricaAcoes>[] pAcoes) {
+    public final ConfigCoreCustomizavel setFabricaDeAcoes(Class<? extends ItfFabricaAcoes>[] pAcoes) {
         acoesDoSistema = pAcoes;
+        return this;
     }
 
-    @Override
-    public String getUrlJira() {
-        return urlJira;
-    }
-
-    public void setUrlJira(String urlJira) {
+    public final ConfigCoreCustomizavel setUrlJira(String urlJira) {
         this.urlJira = urlJira;
+        return this;
     }
 
 }

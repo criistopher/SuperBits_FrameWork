@@ -7,16 +7,16 @@ package com.super_bits.sbProjetos.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.sbProjetos.Model.Projeto;
-import com.super_bits.shellcommands.linux.scripts.Script;
 import com.super_bits.shellcommands.model.Comando;
 import com.super_bits.shellcommands.model.SvnStatusArquivosRepositorio;
 import com.super_bits.shellcommands.model.TIPOCMD;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.Assert;
 
 /**
@@ -46,7 +46,7 @@ public class UtilSBProjetos {
         Assert.assertTrue("pasta do SOURCE  cliente não encontrada", pastaSourceCliente.exists());
 
         Comando copiarPastaNovoProjeto = TIPOCMD.LNXDIR_COPIAR_PASTA.getComando();
-        copiarPastaNovoProjeto.configParametro("pastaCopOri", "/home/superBits/projetos/superbits/modulos/" + NOME_PROJETO_BASE + "/");
+        copiarPastaNovoProjeto.configParametro("pastaCopOri", "/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/" + NOME_PROJETO_BASE + "/");
         copiarPastaNovoProjeto.configParametro("pastaCopDest", p.getPastaSource());
         copiarPastaNovoProjeto.executarComando();
         Assert.assertTrue("pasta temporaria não encontrada", pastaSourceTemporaria.exists());
@@ -57,33 +57,56 @@ public class UtilSBProjetos {
         renomearPasta.executarComando();
         Assert.assertTrue("pasta source do cliente não encontrada", pastadoProjeto.exists());
 
-        Comando renomearNomesProjeto = TIPOCMD.LNXSUBSTITUIR_PALAVRA_EM_ARQUIVOS.getComando();
-        renomearNomesProjeto.configParametro("pastaRecursiva", p.getPastaDoProjetoSource());
-        renomearNomesProjeto.configParametro("novoTexto", UtilSBCoreStrings.makeStrUrlAmigavel(p.getNomeProjeto()));
-        renomearNomesProjeto.configParametro("textoAntigo", "InomeProjetoI");
-        renomearNomesProjeto.executarComando();
+        String extensoesEditaveis[] = new String[]{"*.java", "*.xml"};
+
+        Map<String, String> mapaPalavras = new HashMap<>();
+
+        mapaPalavras.put("InomeProjetoI", UtilSBCoreStrings.makeStrUrlAmigavel(p.getNomeProjeto()));
+        mapaPalavras.put("InomeClienteI", UtilSBCoreStrings.makeStrUrlAmigavel(p.getCliente().getNome()));
+
+        for (String extencaoArquivos : extensoesEditaveis) {
+
+            for (String nomeParametro : mapaPalavras.keySet()) {
+
+                Comando renomearNomesProjetoArqJava = TIPOCMD.LNXSUBSTITUIR_PALAVRA_EM_ARQUIVOS.getComando();
+                renomearNomesProjetoArqJava.configParametro("pastaRecursiva", p.getPastaDoProjetoSource());
+                renomearNomesProjetoArqJava.configParametro("novoTexto", mapaPalavras.get(nomeParametro));
+                renomearNomesProjetoArqJava.configParametro("textoAntigo", nomeParametro);
+                renomearNomesProjetoArqJava.configParametro("arquivosPesquisados", extencaoArquivos);
+                renomearNomesProjetoArqJava.executarComando();
+            }
+        }
+
+        List<String> subpastaras = UtilSBCoreDiretorios.getDiretoriosRecursivoOrdemMaoirArvore(new File(p.getPastaDoProjetoSource()));
+        for (String subpasta : subpastaras) {
+            for (String nomeAntigo : mapaPalavras.keySet()) {
+
+                Comando renomearNomesProjetoArqJava = TIPOCMD.LNX_RENOMEAR_TODOS_ARQUIVOS_E_PASTAS_DO_DIRETORIO_.getComando();
+                renomearNomesProjetoArqJava.configParametro("diretorio", subpasta);
+                renomearNomesProjetoArqJava.configParametro("novoTexto", mapaPalavras.get(nomeAntigo));
+                renomearNomesProjetoArqJava.configParametro("textoAntigo", nomeAntigo);
+                //   renomearNomesProjetoArqJava.configParametro("arquivosPesquisados", "*");
+                renomearNomesProjetoArqJava.executarComando();
+            }
+        }
 
         limparPastaDoProjeto(p);
-
         //  efetuarCheckout(p);
-        adicionarArquivosSourcenoRepositorio(p);
+        //     adicionarArquivosSourcenoRepositorio(p);
 
         //sincronizarSVN.configParametro("pasta", p.getPastaDoProjetoSource());
         //sincronizarSVN.configParametro("endCheckout", p.getLinkSVNSource());
         //sincronizarSVN.configParametro("usuario", "SBAdmin");
-        System.out.println("pasta do projeto=" + p.getPastaDoProjetoSource());
-
-        List<Comando> comandos = new ArrayList();
-        comandos.add(criarPasta);
-        comandos.add(copiarPastaNovoProjeto);
-        comandos.add(renomearPasta);
-        comandos.add(renomearNomesProjeto);
+        //    System.out.println("pasta do projeto=" + p.getPastaDoProjetoSource());
+        //  List<Comando> comandos = new ArrayList();
+        //  comandos.add(criarPasta);
+        //  comandos.add(copiarPastaNovoProjeto);
+        //  comandos.add(renomearPasta);
+        //  comandos.add(renomearNomesClienteArqJAva);
         // comandos.add(sincronizarSVN);
-        Script criarNovoProjeto = new Script(comandos);
-
-//        criarNovoProjeto.executarScript();
-        System.out.println("ResultadoExecucao=" + criarNovoProjeto.getResultadoExecucao());
-
+        // Script criarNovoProjeto = new Script(comandos);
+        //        criarNovoProjeto.executarScript();
+        //System.out.println("ResultadoExecucao=" + criarNovoProjeto.getResultadoExecucao());
     }
 
     public static void limparPastaDoProjeto(Projeto p) {

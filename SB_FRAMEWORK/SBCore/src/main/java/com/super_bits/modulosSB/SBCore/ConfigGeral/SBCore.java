@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
@@ -133,7 +134,7 @@ public class SBCore {
             nomeProjeto = configuracoes.getNomeProjeto();
             controleDeSessao = configuracoes.getControleDeSessao();
             grupoProjeto = configuracoes.getGrupoProjeto();
-            cliente = configuracoes.getCliente();
+            cliente = UtilSBCoreStrings.makeStrUrlAmigavel(configuracoes.getCliente());
             // central de eventos e config de permissao podem ser definidos logo após a chamada do configurar
             ambienteExecucaoConfigurado = true;
             acoesDoSistema = configuracoes.getFabricaDeAcoes();

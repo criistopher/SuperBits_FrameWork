@@ -1,5 +1,5 @@
 #!/bin/bash
-cd :pastaRecursiva 
-find ./ -name '*.xml' -exec perl -i -p -e 's/:textoAntigo/:novoTexto/ig;' {} +
- 
+cd :pastaRecursiva
+find ./ -name ':arquivosPesquisados' -exec perl -i -p -e 's/:textoAntigo/:novoTexto/ig;' {} +
+
 

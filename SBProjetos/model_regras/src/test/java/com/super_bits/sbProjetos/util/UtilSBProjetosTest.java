@@ -7,9 +7,9 @@ package com.super_bits.sbProjetos.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
+import com.super_bits.sbProjetos.FabConfigCoreSBProjetosModel;
 import com.super_bits.sbProjetos.Model.FabSBProjectClientes;
 import com.super_bits.sbProjetos.Model.Projeto;
-import com.super_bits.sbProjetos.configAppp.ConfigCoreInomeProjetoI;
 import org.junit.Test;
 
 /**
@@ -27,7 +27,7 @@ public class UtilSBProjetosTest extends TesteJunit {
         Projeto projetoTeste = new Projeto();
 
         projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
-        projetoTeste.setNome("Controle de Clientes");
+        projetoTeste.setNome("Sistema Santa Clara");
 
         UtilSBProjetos.criarNovoProjeto(projetoTeste);
 
@@ -35,7 +35,7 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreInomeProjetoI(), true);
+        SBCore.configurar(FabConfigCoreSBProjetosModel.DESENVOLVIMENTO.getConfiguracao(), true);
     }
 
 }
