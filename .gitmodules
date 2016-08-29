@@ -3,7 +3,7 @@
 	url = https://github.com/salviof/WEB-INF.git
 [submodule "/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/webApp/src/main/webapp/resources/SBComp"]
 	path = /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/webApp/src/main/webapp/resources/SBComp
-	url = https://github.com/salviof/WEB-INF.git
+	url = https://github.com/salviof/SBComp.git
 [submodule "/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/webAppRequisitos/src/main/webapp/WEB-INF"]
 	path = /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/webAppRequisitos/src/main/webapp/WEB-INF
 	url = https://github.com/salviof/WEB-INF.git
