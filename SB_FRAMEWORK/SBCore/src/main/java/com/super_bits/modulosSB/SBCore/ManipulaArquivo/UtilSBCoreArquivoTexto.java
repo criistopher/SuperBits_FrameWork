@@ -152,6 +152,41 @@ public abstract class UtilSBCoreArquivoTexto {
 
     /**
      *
+     * @param pArquivo
+     * @param pLinhas
+     * @return
+     */
+    public static synchronized boolean escreveLinhasEmNovoArquivo(String pArquivo, List<String> pLinhas) {
+
+        try {
+            criarSeArquivoSeNaoExistir(pArquivo);
+            limparArquivoTexto(pArquivo);
+        } catch (IOException ex) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando arquivo" + pArquivo, ex);
+            return false;
+        }
+
+        PrintWriter output;
+
+        try {
+            output = new PrintWriter(new FileWriter(pArquivo, true));
+            for (String linha : pLinhas) {
+                output.println(linha);
+            }
+
+            output.flush();
+            output.close();
+            return true;
+
+        } catch (IOException ex) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando arquivo" + pArquivo, ex);
+            return false;
+        }
+
+    }
+
+    /**
+     *
      * Limpa o contaúdo do arquivo
      *
      * @param pCaminhoArquivo caminho absoluto do arquivo

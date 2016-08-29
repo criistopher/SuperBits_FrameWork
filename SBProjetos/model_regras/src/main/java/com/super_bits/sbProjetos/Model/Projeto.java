@@ -57,13 +57,18 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeProjeto;
+    private String nomeComercial;
     @Column(length = 1000)
     private String descricao;
     private String linkSVNSource;
     private String linkSVNRelease;
     private String enderecoHomologacao;
-    private String pastaDoProjetoSource;
-    private String pastaDoProjetoRelease;
+    private String enderecoRequisitos;
+    private String caminhoPastaDoProjetoSourceLocal;
+    private String caminhoPastaDoProjetoReleaseLocal;
+    private String nomePastaProjeto;
+    private String nomeArquivoInfo;
+
     @ManyToOne
     private Cliente cliente;
 
@@ -92,6 +97,9 @@ public class Projeto extends EntidadeSimples implements Serializable {
     @Where(clause = "statusRequisito_id = 3")
     private List<Requisito> requisitosProximaVersao;
 
+    private String pastaGitRelease;
+    private String pastaGitSource;
+
     public Projeto(int id, Date dataPrevista, Date dataCriacao, String nomeProjeto, String descricao, String linkSVN, String pastaDoProjeto, Cliente cliente, List<Desenvolvedor> desenvolvedores, List<GerenteProjeto> gerentesDeProjetos, List<Requisito> requisitos, List<Requisito> requisitosProximaVersao) {
         this();
 
@@ -101,7 +109,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         this.nomeProjeto = nomeProjeto;
         this.descricao = descricao;
         this.linkSVNSource = linkSVN;
-        this.pastaDoProjetoSource = pastaDoProjeto;
+        this.caminhoPastaDoProjetoSourceLocal = pastaDoProjeto;
         this.cliente = cliente;
         this.desenvolvedores = desenvolvedores;
         this.gerentesDeProjetos = gerentesDeProjetos;
@@ -130,7 +138,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         if (cliente != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return Desenvolvedor.PASTADEVELOPER + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getCliente().getNome());
+                    return getCliente().getCaminhoPastaClinte();
                 }
             }
 
@@ -139,12 +147,16 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     }
 
-    public String getPastaSource() {
+    public String getNomeLikeUrlAmigavel() {
+        return UtilSBCoreStrings.makeStrUrlAmigavel(nomeProjeto);
+    }
+
+    public String getCaminhoPastaDoProjetoSourceLocal() {
 
         if (getPastaCliente() != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return getPastaCliente() + "/" + "source";
+                    return getPastaCliente() + "/" + "source/" + getNomePastaProjeto();
                 }
             }
 
@@ -158,7 +170,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         if (getPastaCliente() != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return getPastaCliente() + "/" + "release/";
+                    return getPastaCliente() + "/" + "release/" + getNomePastaProjeto();
                 }
             }
 
@@ -167,36 +179,34 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     }
 
-    public String getPastaDoProjetoSource() {
-        if (pastaDoProjetoSource == null) {
-            if (getPastaSource() != null) {
-
-                return getPastaSource() + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
-
-            } else {
-                return null;
-            }
-        } else {
-            return pastaDoProjetoSource;
+    public String getNomePastaProjeto() {
+        if (nomePastaProjeto == null || nomePastaProjeto.length() == 0) {
+            nomePastaProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
         }
+
+        return nomePastaProjeto;
     }
 
-    public String getPastaDoProjetoRelease() {
-        if (pastaDoProjetoRelease == null) {
-            if (getPastaSource() != null) {
+    public void setNomePastaProjeto(String nomePastaProjeto) {
+        this.nomePastaProjeto = nomePastaProjeto;
+    }
 
-                return getPastaRelease() + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
+    public String getCaminhoPastaDoProjetoReleaseLocal() {
+        if (caminhoPastaDoProjetoReleaseLocal == null) {
+            if (getCaminhoPastaDoProjetoSourceLocal() != null) {
+
+                return getPastaRelease() + getNomePastaProjeto();
 
             } else {
                 return null;
             }
         } else {
-            return pastaDoProjetoSource;
+            return caminhoPastaDoProjetoSourceLocal;
         }
     }
 
     public void setPastaDoProjeto(String pastaDoProjeto) {
-        this.pastaDoProjetoSource = pastaDoProjeto;
+        this.caminhoPastaDoProjetoSourceLocal = pastaDoProjeto;
     }
 
     public Date getDataPrevista() {
@@ -230,7 +240,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
             return linkSVNSource;
         }
 
-        return VariaveisSBProject.diretorioSevidorSVNSource + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto()) + "/trunk/";
+        return VariaveisSBProject.diretorioSevidorSVNSource + "/" + getNomePastaProjeto() + "/trunk/";
 
     }
 
@@ -441,6 +451,52 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     public void setEnderecoHomologacao(String enderecoHomologacao) {
         this.enderecoHomologacao = enderecoHomologacao;
+    }
+
+    public String getNomeComercial() {
+        return nomeComercial;
+    }
+
+    public void setNomeComercial(String nomeComercial) {
+        this.nomeComercial = nomeComercial;
+    }
+
+    public String getEnderecoRequisitos() {
+        return enderecoRequisitos;
+    }
+
+    public void setEnderecoRequisitos(String enderecoRequisitos) {
+        this.enderecoRequisitos = enderecoRequisitos;
+    }
+
+    public String getPastaGitRelease() {
+        if (pastaGitRelease == null || caminhoPastaDoProjetoReleaseLocal.length() < 2) {
+            pastaGitRelease = getNomePastaProjeto() + ".git";
+        }
+        return pastaGitRelease;
+    }
+
+    public void setPastaGitRelease(String pastaGitRelease) {
+        this.pastaGitRelease = pastaGitRelease;
+    }
+
+    public String getPastaGitSource() {
+        if (pastaGitSource == null || caminhoPastaDoProjetoReleaseLocal.length() < 2) {
+            pastaGitSource = getNomePastaProjeto() + ".git";
+        }
+        return pastaGitSource;
+    }
+
+    public void setPastaGitSource(String pastaGitSource) {
+        this.pastaGitSource = pastaGitSource;
+    }
+
+    public String getNomeArquivoInfo() {
+        return nomeArquivoInfo;
+    }
+
+    public void setNomeArquivoInfo(String nomeArquivoInfo) {
+        this.nomeArquivoInfo = nomeArquivoInfo;
     }
 
 }

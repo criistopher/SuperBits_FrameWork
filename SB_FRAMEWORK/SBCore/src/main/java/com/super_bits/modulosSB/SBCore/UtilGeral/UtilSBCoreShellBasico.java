@@ -4,7 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 /**
@@ -38,6 +41,35 @@ public abstract class UtilSBCoreShellBasico {
         }
 
         return output.toString();
+
+    }
+
+    public static void abrirScriptEmConsole(String... pScripteParametros) {
+
+        File arquivo = new File(pScripteParametros[0]);
+        String comandoCompleto = "";
+        int i = 0;
+        for (String linha : pScripteParametros) {
+            if (i > 0) {
+                comandoCompleto += " " + linha;
+            } else {
+                comandoCompleto = linha;
+            }
+            i++;
+        }
+        if (!arquivo.exists()) {
+            throw new UnsupportedOperationException("O script " + arquivo + " não foi encontrado ");
+        }
+        System.out.println("Executando " + comandoCompleto + " em console");
+        String command[] = {"/bin/sh", "-c",
+            "gnome-terminal -e \"" + comandoCompleto + "\""};
+        Runtime rt = Runtime.getRuntime();
+        try {
+            rt.exec(command);
+
+        } catch (Exception ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando executar" + pScripteParametros, ex);
+        }
 
     }
 

@@ -25,7 +25,7 @@ public enum FabConfigCoreSBProjetosModel {
 
         ConfigCoreCustomizavel novaConfig = new ConfigCoreCustomizavel(
                 ConfigCoreCustomizavel.TIPOS_CONFIG.CORE_DEVELOPER_PADRAO,
-                FabSBProjectClientes.SUPERBITS.getRegistro().getNome(),
+                FabSBProjectClientes.SUPERBITS_OPEN_SOURCE.getRegistro().getNome(),
                 "model_regras", "SBProjetos", ConfigAcessos.class, FabAcaoGestaoProjetos.class
         );
 

@@ -5,6 +5,8 @@
  */
 package com.super_bits.shellcommands.model;
 
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
 /**
  *
  * Todos os comandos e scripts devem ser cadastrados neste facture
@@ -18,7 +20,7 @@ package com.super_bits.shellcommands.model;
  *
  * @author sfurbino
  */
-public enum TIPOCMD {
+public enum TIPOCMD implements ItfFabrica {
 
     /**
      *
@@ -296,12 +298,17 @@ public enum TIPOCMD {
 
         @Override
         public Comando getComando() {
-            Comando moverPasta = new Comando(Comando.TIPO_EXECUCAO.DIRETO, "mv :pastaMovOri :pastaMovDest ");
+            Comando moverPasta = new Comando(Comando.TIPO_EXECUCAO.DIRETO, "mv :pastaMovOri :pastaMovDest --force");
             return moverPasta;
         }
 
     };
 
     public abstract Comando getComando();
+
+    @Override
+    public Comando getRegistro() {
+        return this.getComando();
+    }
 
 }

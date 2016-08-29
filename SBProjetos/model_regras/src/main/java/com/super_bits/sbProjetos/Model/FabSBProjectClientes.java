@@ -12,38 +12,60 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
  * @author sfurbino
  */
 public enum FabSBProjectClientes implements ItfFabrica {
-    SUPERBITS, VIP, GUIASE, SANTA_CLARA, AQUA_QUALIT;
+    SUPERBITS_OPEN_SOURCE,
+    FACULDADE_JAVA,
+    VIP,
+    GUIASE,
+    SANTA_CLARA,
+    AQUA_QUALIT,
+    CASA_NOVA_MARKETING_DIGITAL,
+    MINAS_DRILL, ACOMAR;
 
-    public static String SERVIDOR_OFICIAL_SUPER_BITS = "git@consultoriaguiase.com.br";
+    public static String SERVIDOR_RELEASE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/release";
+    public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/source";
+    public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS_ORG = "https://github.com/salviof/";
 
     @Override
     public Cliente getRegistro() {
 
         Cliente novoCliente = new Cliente();
         novoCliente.setId(this.ordinal());
+        novoCliente.setServicorGitRelease(SERVIDOR_RELEASE_OFICIAL_SUPER_BITS);
+        novoCliente.setServidorGitCodigoFonte(SERVIDOR_SOURCE_OFICIAL_SUPER_BITS);
+
         switch (this) {
-            case SUPERBITS:
+            case SUPERBITS_OPEN_SOURCE:
                 novoCliente.setNome("Super Bits");
-                novoCliente.setServicorGitRelease("");
-                novoCliente.setServidorGitHomologacao("");
+                novoCliente.setServicorGitRelease(SERVIDOR_SOURCE_OFICIAL_SUPER_BITS_ORG);
+
                 break;
             case VIP:
-                novoCliente.setNome("Vip");
-                novoCliente.setServicorGitRelease("");
-                novoCliente.setServidorGitHomologacao("");
+                novoCliente.setNome("vip");
+                novoCliente.setServicorGitRelease(SERVIDOR_RELEASE_OFICIAL_SUPER_BITS);
+                novoCliente.setServidorGitCodigoFonte("https://bitbucket.org/superkompras");
                 break;
             case GUIASE:
                 novoCliente.setNome("Guia-se");
-                novoCliente.setServicorGitRelease("");
-                novoCliente.setServidorGitHomologacao("");
                 break;
             case SANTA_CLARA:
                 novoCliente.setNome("Santa Clara");
-                novoCliente.setServicorGitRelease("");
-                novoCliente.setServidorGitHomologacao("");
                 break;
             case AQUA_QUALIT:
                 novoCliente.setNome("Aqua Quality");
+                break;
+            case CASA_NOVA_MARKETING_DIGITAL:
+                novoCliente.setNome("Casa Nova");
+
+                break;
+            case MINAS_DRILL:
+                novoCliente.setNome("Minas drill");
+                break;
+            case ACOMAR:
+                novoCliente.setNome("Açomar");
+                break;
+            case FACULDADE_JAVA:
+                novoCliente.setNome("Faculdade Java");
+
                 break;
             default:
                 throw new AssertionError(this.name());
