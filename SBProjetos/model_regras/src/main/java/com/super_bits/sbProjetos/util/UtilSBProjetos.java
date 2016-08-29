@@ -121,19 +121,25 @@ public class UtilSBProjetos {
 
         Comando copiarPastaNovoProjeto = TIPOCMD.LNXDIR_COPIAR_PASTA.getComando();
         copiarPastaNovoProjeto.configParametro("pastaCopOri", caminhoPastaModelo);
-
         copiarPastaNovoProjeto.configParametro("pastaCopDest", caminhoPastaSourceCliente);
         copiarPastaNovoProjeto.executarComando();
         Assert.assertTrue("pasta temporaria não encontrada", pastaSourceTemporaria.exists());
-        Comando renomearPasta = TIPOCMD.LNXDIR_MOVERPASTA.getComando();
-        renomearPasta.configParametro("pastaMovOri", caminhoPastaSourceTemporaria);
-        renomearPasta.configParametro("pastaMovDest", caminhoPastaSourceProjeto);
+
+        Comando moverpastaOficial = new Comando(Comando.TIPO_EXECUCAO.CRIAR_SCRIPTLNX, "moverPastaOficial.sh");
+        String arquivosPastaTemporarias = caminhoPastaSourceTemporaria + "/*";
+        moverpastaOficial.configParametro("pastaCopOri", arquivosPastaTemporarias);
+        moverpastaOficial.configParametro("pastaCopDest", caminhoPastaSourceProjeto + "/");
+        moverpastaOficial.setTipoRespostaEsperada(Comando.TIPO_RESPOSTA_ESPERADA.SEMRESPOSTA);
 
         System.out.println("Caminho temp::" + caminhoPastaModelo);
         System.out.println("Caminho source::" + caminhoPastaSourceProjeto);
 
-        renomearPasta.executarComando();
-        Assert.assertTrue("pasta source do cliente não encontrada", pastadoProjeto.exists());
+        RespostaCMD resp = moverpastaOficial.executarComando();
+        if (resp.getResultado().equals(RespostaCMD.RESULTADOCMD.OK)) {
+            throw new UnsupportedOperationException("Erro copiando arquivo para diretorio");
+        }
+        System.out.println(resp.getRetorno());
+        //Assert.assertTrue("pasta source do cliente não encontrada", pastadoProjeto.exists());
 
         String extensoesEditaveis[] = new String[]{"*.java", "*.xml"};
 
@@ -305,6 +311,12 @@ public class UtilSBProjetos {
         deletarPastaTemporaria.configParametro("pastaRecursiva", p.getCaminhoPastaDoProjetoSourceLocal());
         deletarPastaTemporaria.configParametro("nomePastaExclusao", "target");
         deletarPastaTemporaria.executarComando();
+
+        Comando deletarPastaTemporaria2 = TIPOCMD.LNX_REMOVER_TODAS_PASTAS_COM_ESTE_NOME.getComando();
+        deletarPastaTemporaria2.configParametro("pastaRecursiva", p.getPastaCliente() + "/source");
+        deletarPastaTemporaria2.configParametro("nomePastaExclusao", NOME_PROJETO_BASE);
+        deletarPastaTemporaria2.executarComando();
+
     }
 
     public static void configurarPastaProjeto(Projeto pProjeto) {

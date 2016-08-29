@@ -29,6 +29,13 @@ public enum TIPOCMD implements ItfFabrica {
      * [arquivoExecucao]
      *
      */
+    /**
+     *
+     * Atribui chmod + x a um arquivo, parametro:
+     *
+     * [arquivoExecucao]
+     *
+     */
     LNXPERMICAO_EXECUTAR {
 
         @Override
@@ -298,7 +305,24 @@ public enum TIPOCMD implements ItfFabrica {
 
         @Override
         public Comando getComando() {
-            Comando moverPasta = new Comando(Comando.TIPO_EXECUCAO.DIRETO, "mv :pastaMovOri :pastaMovDest --force");
+            Comando moverPasta = new Comando(Comando.TIPO_EXECUCAO.DIRETO, "mv :pastaMovOri :pastaMovDest ");
+            return moverPasta;
+        }
+
+    },
+    /**
+     * MOVE PASTA PARA UM OUTRO DIRETORIO (CERTIFIQUE QUE A SUBPASTA DO NOVO
+     * DIRETORIO EXISTA)
+     *
+     * [pastaMovOri] [pastaMovDest]
+     *
+     *
+     */
+    LNXDIR_MOVER_SUBSTITUINDO {
+
+        @Override
+        public Comando getComando() {
+            Comando moverPasta = new Comando(Comando.TIPO_EXECUCAO.DIRETO, " rsync -a :pastaMovOri :pastaMovDest --remove-sent-files --ignore-existing --whole-file ");
             return moverPasta;
         }
 
