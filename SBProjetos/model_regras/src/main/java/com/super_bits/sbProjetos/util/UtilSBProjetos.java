@@ -84,8 +84,8 @@ public class UtilSBProjetos {
             return false;
         }
 
-        if (resp.getRetorno().contains(".pom")) {
-            encontrouUmPom = false;
+        if (resp.getRetorno().contains("pom.xml")) {
+            encontrouUmPom = true;
         }
 
         if (encontrouUmPom) {
@@ -135,7 +135,7 @@ public class UtilSBProjetos {
         System.out.println("Caminho source::" + caminhoPastaSourceProjeto);
 
         RespostaCMD resp = moverpastaOficial.executarComando();
-        if (resp.getResultado().equals(RespostaCMD.RESULTADOCMD.OK)) {
+        if (!resp.getResultado().equals(RespostaCMD.RESULTADOCMD.OK)) {
             throw new UnsupportedOperationException("Erro copiando arquivo para diretorio");
         }
         System.out.println(resp.getRetorno());
@@ -218,8 +218,9 @@ public class UtilSBProjetos {
             return;
         }
         configurarPastaProjeto(p);
-
-        copiarArquivosNovoProjeto(p, true);
+        if (verificarCondicoesSubstituirTodosArquivosParaNovoProjeto(p)) {
+            copiarArquivosNovoProjeto(p, true);
+        }
 
         //  efetuarCheckout(p);
         //     adicionarArquivosSourcenoRepositorio(p);

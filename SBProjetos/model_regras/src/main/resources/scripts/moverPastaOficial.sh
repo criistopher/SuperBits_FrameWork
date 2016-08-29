@@ -1,2 +1,2 @@
 #!/bin/bash
-mv :pastaCopOri :pastaCopDest -r
+cp :pastaCopOri :pastaCopDest -r
