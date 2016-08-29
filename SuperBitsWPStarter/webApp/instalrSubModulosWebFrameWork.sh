@@ -11,8 +11,8 @@ if [ ! -d $DIRETORIO_WEBAPP_SERVLET ]; then
 fi
 cd ..
 cd ..
-rm $DIRETORIO_WEBAPP_SERVLET/WEB-INF -f -d -r
-rm $DIRETORIO_RESOURCES/SBComp -f -d -r
+rm $DIRETORIO_WEBAPP_SERVLET/WEB-INF -f -d 
+rm $DIRETORIO_RESOURCES/SBComp -f -d 
 git submodule add https://github.com/salviof/WEB-INF.git $DIRETORIO_WEBAPP_SERVLET/WEB-INF
 git submodule add https://github.com/salviof/SBComp.git $DIRETORIO_RESOURCES/SBComp
 #cd resources
