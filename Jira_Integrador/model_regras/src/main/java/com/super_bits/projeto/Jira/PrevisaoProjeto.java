@@ -5,8 +5,10 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.google.common.collect.Lists;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
@@ -19,6 +21,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
+@InfoClasse(tags = {"Previsao Projeto"}, plural = "Previsões de Projeto")
 public class PrevisaoProjeto implements Serializable {
 
     private final List<TarefaSuperBits> tarefasProximaVersao;
@@ -92,8 +95,12 @@ public class PrevisaoProjeto implements Serializable {
         return custoProjetoCompleto;
     }
 
-    public HashMap<ItfModuloAcaoSistema, ModuloPrevisto> getModulosPrevistos() {
+    public HashMap<ItfModuloAcaoSistema, ModuloPrevisto> getModuloPrevistosPorModulo() {
         return modulosPrevistos;
+    }
+
+    public List<ModuloPrevisto> getModulosPrevistos() {
+        return Lists.newArrayList(getModuloPrevistosPorModulo().values());
     }
 
 }

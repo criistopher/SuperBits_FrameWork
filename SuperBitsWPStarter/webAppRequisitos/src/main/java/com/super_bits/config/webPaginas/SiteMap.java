@@ -6,10 +6,13 @@
 package com.super_bits.config.webPaginas;
 
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
+import com.super_bits.InomeProjetoI.paginas.PgHomeRequisito;
+import com.super_bits.InomeProjetoI.paginas.PgRequisitosVisaoGeral;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgProjetoSBVisaoGeral;
 
 import com.super_bits.view.menu.ItfFabricaMenu;
 import java.util.Map;
@@ -34,9 +37,16 @@ public class SiteMap extends MB_SiteMapa {
     private PgCadastroUsuarios usuarios;
     @Inject
     private PgAcessos congrolePermissao;
+    @Inject
+    private PgProjetoSBVisaoGeral visaoGeralOld;
+    @Inject
+    private PgRequisitosVisaoGeral requisitosProjetoAtual;
+    @Inject
+    private PgHomeRequisito pghome;
 
     /// Injete aqui todas as Paginas que extendem o objeto MB_pagina
     @Override
+
     protected Map<String, ItfB_Pagina> buildPaginas() {
         Map<String, ItfB_Pagina> paginasSimples = buildSystemPages();
 

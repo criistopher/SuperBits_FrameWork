@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.tempo.DataUtilJira;
 import com.super_bits.projeto.Jira.Jira.tempo.InvalidDurationException;
+import com.super_bits.projeto.Jira.TipoProfissional;
 
 /**
  *
@@ -16,10 +17,11 @@ import com.super_bits.projeto.Jira.Jira.tempo.InvalidDurationException;
  *
  * @author salvioF
  */
-public class TarefaSuperBits {
+public class TarefaSuperBits implements ItfTarefaSuperBitsFW {
 
     private final TarefaJira tarefaJiraOrigem;
 
+    @Override
     public int getMinutosPrevistosTrabalho() {
 
         try {
@@ -56,8 +58,14 @@ public class TarefaSuperBits {
         this.tarefaJiraOrigem = tarefaJiraOrigem;
     }
 
+    @Override
     public TarefaJira getTarefaJiraOrigem() {
         return tarefaJiraOrigem;
+    }
+
+    @Override
+    public TipoProfissional getTipoProfissionalNescessario() {
+        return getTarefaJiraOrigem().getTipoTarefa().getTipoProfissional().getRegistro();
     }
 
 }

@@ -13,6 +13,7 @@ import javax.servlet.ServletContextListener;
  */
 /**
  *
+ *
  * @author Salvio
  */
 public class ContextoWebPaginas implements ServletContextListener {
@@ -22,6 +23,9 @@ public class ContextoWebPaginas implements ServletContextListener {
         System.out.println("Iniciando contexto");
         try {
             Class classeInicioFim = UtilSBCoreReflexao.getClasseQueEstendeIsto(ItfInicioFimAppWP.class, "com.super_bits.config.webPaginas");
+
+            System.out.println("A classe de inicio e fim de contexto encontrada foi" + classeInicioFim.getName());
+
             ItfInicioFimAppWP inicio = (ItfInicioFimAppWP) classeInicioFim.newInstance();
             inicio.inicio();
             // ServiceLoader<ItfInicioFimAppWP> services = ServiceLoader.load(ItfInicioFimAppWP.class);

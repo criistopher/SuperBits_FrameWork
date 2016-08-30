@@ -5,10 +5,12 @@
  */
 package com.super_bits.config.webPaginas;
 
+import com.super_bits.mc.FabAcaoPrevisaoProjeto;
 import com.super_bits.InomeClienteI.InomeProjetoI.model.config.ConfigPersistenciaInomeProjetoI;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.configSBFW.acessos.ConfigAcessos;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
@@ -18,6 +20,7 @@ import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgSt
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfConfigWebPagina;
+import com.super_bits.modulosSB.webPaginas.controller.paginasDoSistema.FabAcaoPaginasDoSistema;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
 
 /**
@@ -36,21 +39,28 @@ import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
  *
  * @author desenvolvedor
  */
-public enum FabConfiguracoesDeAmbienteWebExemplo {
+public enum FabConfiguracoesDeAmbienteInomeProjetoIRequisitos {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
     public ItfConfiguradorCore getConfiguracao() {
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");
-        cfg.setGrupoProjeto("SuperBits_FrameWork");
-        cfg.setNomeProjeto("webApp");
-        cfg.setDiretorioBase("SuperBitsWPStarter");
+        // TODO ALTERAR GRUPO DO PROJETO AO INICIAR NOVO PROJETO
+        cfg.setGrupoProjeto("SuperBitsWPStarter");
+        cfg.setNomeProjeto("webAppRequisitos");
+        cfg.setDiretorioBase("SuperBits_FrameWork");
         cfg.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         cfg.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
         cfg.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
         cfg.setControleDeSessao(ControleDeSessaoPadrao.class);
-        cfg.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class, FabAcaoAcessoRestritoExemplo.class});
+        cfg.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class,
+            FabAcaoAcessoRestritoExemplo.class,
+            FabAcaoPrevisaoProjeto.class,
+            FabAcaoPaginasDoSistema.class,
+            FabAcaoPrevisaoProjeto.class,
+            FabAcaoProjetoSB.class
+        });
         cfg.setClasseConfigPermissao(ConfigAcessos.class);
 
         switch (this) {

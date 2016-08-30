@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class PrevisaoGestaoEntidade {
+public class PrevisaoGestaoEntidade implements ItfPrevisaoGestaoEntidade {
 
     private ItfAcaoGerenciarEntidade gestao;
     private ItfModuloAcaoSistema modulo;
@@ -44,6 +44,7 @@ public class PrevisaoGestaoEntidade {
 
     }
 
+    @Override
     public void adicionarTarefa(TarefaSuperBits tr) {
         if (!tarefasVinculadas.contains(tr)) {
             tarefasVinculadas.add(tr);
@@ -51,6 +52,7 @@ public class PrevisaoGestaoEntidade {
 
     }
 
+    @Override
     public final void atualizaHorasProgramadas() {
 
         int minutosPrevistos = 0;
@@ -60,38 +62,47 @@ public class PrevisaoGestaoEntidade {
         horasProgramadas = minutosPrevistos / 60;
     }
 
+    @Override
     public ItfAcaoGerenciarEntidade getGestao() {
         return gestao;
     }
 
+    @Override
     public void setGestao(ItfAcaoGerenciarEntidade gestao) {
         this.gestao = gestao;
     }
 
+    @Override
     public ItfModuloAcaoSistema getModulo() {
         return modulo;
     }
 
+    @Override
     public void setModulo(ItfModuloAcaoSistema modulo) {
         this.modulo = modulo;
     }
 
+    @Override
     public List<TarefaSuperBits> getTarefasVinculadas() {
         return tarefasVinculadas;
     }
 
+    @Override
     public Class getEntidadeVinculada() {
         return entidadeVinculada;
     }
 
+    @Override
     public int getQtdAcoesDeFormulario() {
         return qtdAcoesDeFormulario;
     }
 
+    @Override
     public int getQtdAoesDeController() {
         return qtdAoesDeController;
     }
 
+    @Override
     public int getHorasProgramadas() {
 
         return horasProgramadas;

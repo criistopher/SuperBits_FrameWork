@@ -16,7 +16,8 @@ echo "_____________________________"
 echo "$DIRETORIO_RESOURCES"
 rm $DIRETORIO_WEBAPP_SERVLET/WEB-INF -f -d 
 rm $DIRETORIO_RESOURCES/SBComp -f -d 
-git submodule add https://github.com/salviof/WEB-INF.git $DIRETORIO_WEBAPP_SERVLET/WEB-INF --force
-git submodule add https://github.com/salviof/SBComp.git $DIRETORIO_RESOURCES/SBComp --force
+
+git submodule add https://github.com/salviof/WEB-INF.git $DIRETORIO_WEBAPP_SERVLET/WEB-INF 
+git submodule add https://github.com/salviof/SBComp.git $DIRETORIO_RESOURCES/SBComp 
 #cd resources
 

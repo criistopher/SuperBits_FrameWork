@@ -19,7 +19,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InfoAcaoDoSistemaSB {
+public @interface InfoAcaoDemonstracaoSB {
 
     public boolean padraoBloqueado() default true;
 

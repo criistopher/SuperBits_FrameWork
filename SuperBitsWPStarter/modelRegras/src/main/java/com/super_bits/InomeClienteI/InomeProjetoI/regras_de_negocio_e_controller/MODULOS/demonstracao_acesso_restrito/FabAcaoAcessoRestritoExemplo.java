@@ -5,6 +5,7 @@
  */
 package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito;
 
+import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabModulosIProjetoTesteI;
@@ -78,7 +79,7 @@ public enum FabAcaoAcessoRestritoExemplo implements ItfFabricaAcoes {
      * @see
      * UtilFabricaDeAcoesAcessosModel#getTipoAcaoByNome(com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes)
      */
-    @InfoTipoAcaoFormulario(campos = {"id", "nomeAcao", "dataCriacao", "ativo"}, icone = "fa fa-save", entidade = AcaoDoSistema.class)
+    @InfoTipoAcaoController(icone = "fa fa-save", entidade = AcaoDoSistema.class)
     RECURSO_RESTRITO_CTR_SALVAR_MERGE;
 
     @Override

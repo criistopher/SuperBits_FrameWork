@@ -18,9 +18,10 @@ public class InicioFimContextoWebPagina implements ItfInicioFimAppWP {
 
     @Override
     public void inicio() {
-        SBCore.configurar(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracao());
-        SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracaoPersistencia());
-        SBWebPaginas.configurar(FabConfiguracoesDeAmbienteWebExemplo.HOMOLOGACAO.getConfiguracaoWebPaginas());
+        System.out.println("Inicio Contexto");
+        SBCore.configurar(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.HOMOLOGACAO.getConfiguracao());
+        SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.HOMOLOGACAO.getConfiguracaoPersistencia());
+        SBWebPaginas.configurar(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.HOMOLOGACAO.getConfiguracaoWebPaginas());
     }
 
     @Override

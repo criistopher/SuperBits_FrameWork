@@ -29,7 +29,7 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
         System.out.println("Existem " + MapaTarefasProjeto.getTodasTarefas().size() + " tarefas cadastradas");
         PrevisaoProjeto novaPrevisao = new PrevisaoProjeto(MapaTarefasProjeto.getTodasTarefas());
 
-        for (ModuloPrevisto mp : novaPrevisao.getModulosPrevistos().values()) {
+        for (ModuloPrevisto mp : novaPrevisao.getModuloPrevistosPorModulo().values()) {
             for (PrevisaoEntidade previsao : mp.getEntidadesPrevistas()) {
                 System.out.println("Tarefas da entidade:" + previsao.getEntidadeVinculada());
 

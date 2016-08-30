@@ -14,6 +14,10 @@ import javax.inject.Named;
 /**
  *
  *
+ *
+ *
+ *
+ *
  * Anotação Named para o Managed bean ficar acessivel direto nos XHTML <br>
  * Anotação ViewScoped indica que o ciclo de vida da instancia do objeto limita
  * a aba do navegador <br>
@@ -26,7 +30,7 @@ import javax.inject.Named;
 @ViewScoped
 @Named
 @InfoAcaoAcessoRestritoExemplo(acao = FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_MB_GERENCIAR)
-public class Pg_paginaInicial extends MB_PaginaConversation {
+public class Pg_exemploPaginaRestrita extends MB_PaginaConversation {
 
     private String beanExemplo;
 

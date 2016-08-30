@@ -28,12 +28,12 @@ public class ConfigWPInomeProjetoI implements ItfConfigWebPagina {
 
     @Override
     public String nomePacoteProjeto() {
-        return "SuperBitsWebPaginasDemo";
+        return "InomeProjetoI";
     }
 
     @Override
     public String TituloAppWeb() {
-        return "Super Bits WebPaginas Demo ShowCase";
+        return "InomeProjetoI";
     }
 
     @Override

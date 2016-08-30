@@ -10,7 +10,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

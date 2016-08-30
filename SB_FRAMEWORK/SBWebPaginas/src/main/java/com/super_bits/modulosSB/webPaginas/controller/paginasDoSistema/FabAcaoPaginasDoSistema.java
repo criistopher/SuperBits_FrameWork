@@ -17,7 +17,7 @@ import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
-public enum FabAcoesPaginasDoSistema implements ItfFabricaAcoes {
+public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
 
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_MB_HOME,

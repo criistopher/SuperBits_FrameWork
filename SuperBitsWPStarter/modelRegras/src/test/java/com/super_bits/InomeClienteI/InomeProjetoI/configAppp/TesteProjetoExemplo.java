@@ -5,10 +5,10 @@
  */
 package com.super_bits.InomeClienteI.InomeProjetoI.configAppp;
 
-import com.super_bits.configSBFW.FabConfiguracoesDeAmbienteModelExemplo;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.suwper_bits.configSBFW.FabConfiguracoesDeAmbienteModelExemplo;
 import org.junit.Test;
 
 /**

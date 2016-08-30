@@ -9,7 +9,6 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
-import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.InfoAcaoDoSistemaSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -27,12 +26,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.InfoAcaoDemonstracaoSB;
 
 /**
  *
  * @author salvioF
  */
-@InfoAcaoDoSistemaSB(acao = FabAcaoDemonstracaoSB.TESTES_CAMPO_MB)
+@InfoAcaoDemonstracaoSB(acao = FabAcaoDemonstracaoSB.TESTES_CAMPO_MB)
 @InfoPagina(nomeCurto = "TESTESCAMPO", tags = "Testes e desenvolvimento de Campos para Input")
 @ViewScoped()
 @Named()

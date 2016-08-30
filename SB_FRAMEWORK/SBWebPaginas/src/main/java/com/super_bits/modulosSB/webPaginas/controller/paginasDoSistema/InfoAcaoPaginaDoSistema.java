@@ -14,9 +14,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InfoAcoesPaginaDoSistema {
+public @interface InfoAcaoPaginaDoSistema {
 
-    FabAcoesPaginasDoSistema acao();
+    FabAcaoPaginasDoSistema acao();
 
     public boolean padraoBloqueado() default false;
 }
