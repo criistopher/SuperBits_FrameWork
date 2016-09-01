@@ -132,7 +132,12 @@
             <type>java.lang.String</type>
         </attribute>
 
-
+        <attribute>
+            <description>O item que será exibido no componente</description>
+            <name>opcoes</name>
+            <required>false</required>
+            <type>java.util.Collection</type>
+        </attribute>
 
         <attribute>
             <description> <![CDATA[ Se true desativiva a edição]]></description>
@@ -140,6 +145,8 @@
             <required>true</required>
             <type>java.lang.Boolean</type>
         </attribute>
+
+
 
 
 
