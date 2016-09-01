@@ -192,6 +192,50 @@
             <required>true</required>
             <type>java.util.Collection</type>
         </atribute>
+
+
+        <atribute>
+            <description>O item que será exibido no componente</description>
+            <name>opcoes</name>
+            <required>true</required>
+            <type>java.util.Collection</type>
+        </atribute>
+
+        <atribute>
+            <description> <![CDATA[ ]]></description>
+            <name>possuiIDOnChange</name>
+            <required>true</required>
+            <type>java.lang.Boolean</type>
+        </atribute>
+
+        <atribute>
+            <description> <![CDATA[ O item que será exibido no componente]]></description>
+            <name>idAtualizarOnChange</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </atribute>
+
+        <atribute>
+            <description> <![CDATA[ O item que será exibido no componente]]></description>
+            <name>possuiMetodoOnChange</name>
+            <required>true</required>
+            <type>java.lang.Boolean</type>
+        </atribute>
+
+        <atribute>
+            <description> <![CDATA[ O item que será exibido no componente]]></description>
+            <name>metodoOnChange</name>
+            <required>false</required>
+            <type>javax.el.MethodExpression</type>
+        </atribute>
+
+
+
+
+
+
+
+
     </tag>
 
 

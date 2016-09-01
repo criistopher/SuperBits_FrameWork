@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+
       xmlns:SBrec="http://xmlns.jcp.org/jsf/composite/SBComp/requisitos"
       xmlns:SBComp="http://xmlns.jcp.org/jsf/composite/SBComp"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
@@ -16,40 +17,17 @@
 
         <ui:define name="divConteudo">
 
-            [menu ações disponiveissss]
-
-            Custo Horas completo : #{pgRequisitosVisaoGeral.previsaoProjeto.custoProjetoCompleto.horasTotal}
-
-
-            #{pgRequisitosVisaoGeral.previsaoProjeto.modulosPrevistos}
-            #{pgRequisitosVisaoGeral.previsaoProjeto.ambienteDesenvolvimento.desenvolvedores}
-
-            }
-            <c:forEach items="#{pgRequisitosVisaoGeral.previsaoProjeto.modulosPrevistos}" var="modulo" >
-
-                <br/> GESTAO DO MODULO??
-                <c:forEach items="#{modulo.gestoesPrevistas}"  var="gestao">
-
-                    <SBrec:infoGestao previsaoGestao="#{gestao}"/>
-                    <br/>
-
-                    <br/>
-                </c:forEach>
-                Entidades do modulo
-
-                <c:forEach items="#{modulo.entidadesPrevistas}" var="entidade">
-                    #{entidade}
-                </c:forEach>
-
-
-
-
-            </c:forEach>
-
             <br/>
 
+            <h:form>
 
-
+                #{pgRequisitosVisaoGeral.acoesPrincipal}
+                <SBComp:seletorItem itemSelecionado="#{pgRequisitosVisaoGeral.acaoSelecionada}"
+                                    lista="#{pgRequisitosVisaoGeral.acoesPrincipal}"
+                                    metodoOnChange ="#{pgRequisitosVisaoGeral.executarAcaoSelecionada()}"
+                                    />
+                <p:commandButton value="Atualizar" update="@form" />
+            </h:form>
             <h:panelGroup id="#{pgRequisitosVisaoGeral.idAreaExbicaoAcaoSelecionada}">
 
 

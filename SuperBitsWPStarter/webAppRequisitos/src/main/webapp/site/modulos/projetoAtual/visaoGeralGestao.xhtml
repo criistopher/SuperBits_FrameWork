@@ -3,15 +3,33 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-
+      xmlns:SBrec="http://xmlns.jcp.org/jsf/composite/SBComp/requisitos"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:SBComp="http://xmlns.jcp.org/jsf/composite/SBComp"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition >
+        <c:forEach items="#{pgRequisitosVisaoGeral.previsaoProjeto.modulosPrevistos}" var="modulo" >
 
-        [Visão geral Gestao]
+
+            <c:forEach items="#{modulo.gestoesPrevistas}"  var="gestao">
+
+                <SBrec:infoGestao previsaoGestao="#{gestao}"/>
+                <br/>
+
+                <br/>
+            </c:forEach>
+
+
+            <c:forEach items="#{modulo.entidadesPrevistas}" var="entidade">
+                #{entidade.entidadeVinculada.simpleName}
+            </c:forEach>
+
+
+
+
+        </c:forEach>
     </ui:composition>
 </html>
 

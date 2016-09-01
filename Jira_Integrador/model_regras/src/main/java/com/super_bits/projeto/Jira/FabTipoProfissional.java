@@ -24,7 +24,7 @@ public enum FabTipoProfissional implements ItfFabrica {
     @Override
     public TipoProfissional getRegistro() {
 
-        TipoProfissional profissional = new TipoProfissional();
+        TipoProfissional profissional = new TipoProfissional(this);
         profissional.setId(this.ordinal());
         switch (this) {
             case ANALISTA_BANCO_DE_DADOS:

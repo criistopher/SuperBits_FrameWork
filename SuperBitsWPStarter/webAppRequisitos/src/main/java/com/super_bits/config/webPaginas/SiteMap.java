@@ -46,7 +46,6 @@ public class SiteMap extends MB_SiteMapa {
 
     /// Injete aqui todas as Paginas que extendem o objeto MB_pagina
     @Override
-
     protected Map<String, ItfB_Pagina> buildPaginas() {
         Map<String, ItfB_Pagina> paginasSimples = buildSystemPages();
 

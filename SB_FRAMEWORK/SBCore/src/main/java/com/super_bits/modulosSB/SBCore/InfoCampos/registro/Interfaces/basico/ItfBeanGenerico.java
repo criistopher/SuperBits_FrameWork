@@ -46,4 +46,9 @@ public interface ItfBeanGenerico {
 
     public String getNomeDoObjeto();
 
+    /**
+     *
+     * @param nomeDaLista
+     */
+    public void adicionarItemNaLista(String nomeDaLista);
 }

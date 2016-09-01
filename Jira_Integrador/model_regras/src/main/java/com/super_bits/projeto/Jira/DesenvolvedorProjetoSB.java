@@ -5,16 +5,34 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+
 /**
  *
  * @author desenvolvedor
  */
-public class DesenvolvedorProjetoSB {
+public class DesenvolvedorProjetoSB extends ItemSimples {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
     private TipoProfissional tipoProfissional;
     private int horasSemanais;
 
+    public DesenvolvedorProjetoSB() {
+    }
+
+    public DesenvolvedorProjetoSB(String nome, TipoProfissional tipoProfissional, int horasSemanais) {
+
+        this.nome = nome;
+        this.tipoProfissional = tipoProfissional;
+        this.horasSemanais = horasSemanais;
+    }
+
+    @Override
     public String getNome() {
         return nome;
     }

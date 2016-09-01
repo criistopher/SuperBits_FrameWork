@@ -26,12 +26,15 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -414,8 +417,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                {
-                    if (pCampoReflexao.getType().getName().equals("int")) {
+                 if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -432,7 +434,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
-                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
@@ -802,6 +803,34 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     @Override
     public String getNomeDoObjeto() {
         return UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(this.getClass());
+    }
+
+    /**
+     *
+     * Adiciona um novo item na em uma lista da entidade ex:
+     *
+     * uma classe chamada EntidadeParanormal contendo private List<Pedidos>
+     * meusPedidos;
+     *
+     * ao chamar adicionarItemNaLista("meusPedidos") um novo pedido é adicionado
+     * na lista
+     *
+     * @param nomeDaLista
+     */
+    @Override
+    public void adicionarItemNaLista(String nomeDaLista) {
+        nomeDaLista = nomeDaLista.replace("[]", "");
+        try {
+            Field campo = this.getClass().getDeclaredField(nomeDaLista);
+            campo.setAccessible(true);
+            List lista = (List) campo.get(this);
+            Class classeTipo = UtilSBCoreReflexaoCampos.getClasseGenerica(campo);
+
+            lista.add(classeTipo.newInstance());
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro adicionando registro em  lista:" + nomeDaLista, ex);
+        }
+
     }
 
 }

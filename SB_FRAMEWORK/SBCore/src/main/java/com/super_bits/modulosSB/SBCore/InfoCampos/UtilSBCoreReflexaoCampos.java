@@ -164,6 +164,16 @@ public class UtilSBCoreReflexaoCampos {
 
     }
 
+    /**
+     * Retorna o generico da classe, ex: List<Tabela> retorna Tabela.class
+     *
+     * @param pCampoReflexao Field reflexão
+     * @return
+     */
+    public static Class getClasseGenerica(Field pCampoReflexao) {
+        return getClassePrincipalDoCampo(pCampoReflexao);
+    }
+
     public static boolean isUmCampoSeparador(String pNomeSeparador) {
         return pNomeSeparador.contains(TAG_SEPARADOR);
     }

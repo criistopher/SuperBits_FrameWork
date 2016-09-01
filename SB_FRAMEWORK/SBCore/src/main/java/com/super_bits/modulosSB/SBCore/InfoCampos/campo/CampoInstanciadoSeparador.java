@@ -299,4 +299,9 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
         return false;
     }
 
+    @Override
+    public void adicionarItemNaLista(String nomeDaLista) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

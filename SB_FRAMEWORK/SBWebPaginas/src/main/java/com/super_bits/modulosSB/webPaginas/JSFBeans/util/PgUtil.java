@@ -345,6 +345,7 @@ public class PgUtil implements Serializable {
      * @return
      */
     public boolean isAtributoPreenchidoComExpressao(UIComponent component, String atributo) {
+
         try {
             ValueExpression valor = component.getValueExpression(atributo);
             if (valor != null) {

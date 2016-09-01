@@ -57,6 +57,15 @@ public class SBCore {
         DESENVOLVIMENTO, PRODUCAO, HOMOLOGACAO
     }
 
+    private static enum TIPO_APLICATIVO {
+        JAR_MODELAGEM_REGRAS,
+        WEB_SERVICE,
+        JAR_WEB_SERVICE_CLIENTE,
+        WEB_PAGINAS,
+        APP_DESKTOP,
+        APP_MOBILE;
+    }
+
     private static ESTADO_APP estadoAplicativo;
     private static boolean ambienteExecucaoConfigurado = false;
     private static boolean informacoesProjetoConfigurado = false;

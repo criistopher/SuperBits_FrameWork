@@ -113,6 +113,15 @@ public class CustosProjeto {
 
     }
 
+    public double getValorTotal() {
+        return getValorGastoAnalistaAndroid()
+                + getValorGastoAnalistaBancoDeDados()
+                + getValorGastoAnalistaDesigner()
+                + getValorGastoAnalistaTDD()
+                + getValorGastoAnalistaTelas()
+                + getValorGastroAnalistaRequisito();
+    }
+
     public int getMinutosTotalAnalistaBancoDeDados() {
         return minutosTotalAnalistaBancoDeDados;
     }

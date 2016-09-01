@@ -53,9 +53,7 @@ public class InfoWebApp implements Serializable {
     }
 
     public String getUrlPagina() {
-
         return SBWebPaginas.getSiteURL();
-
     }
 
 }

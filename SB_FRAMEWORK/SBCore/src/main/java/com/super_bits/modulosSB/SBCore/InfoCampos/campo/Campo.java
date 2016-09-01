@@ -341,4 +341,9 @@ public class Campo implements Serializable, ItfCampo {
         this.tipoOrigemValor = tipoOrigemValor;
     }
 
+    @Override
+    public void adicionarItemNaLista(String nomeDaLista) {
+        throw new UnsupportedOperationException("O metodo adicionar Item na lista não é suportado em Beans do tipo campo"); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -5,21 +5,32 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-public class AmbienteDesenvolvimento {
+public class AmbienteDesenvolvimento extends ItemSimples {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+    private String nomeAmbiente = "Ambiente Padrão";
     private int taxaAdminsitrativa = 20;
     private int adicionalHoraExtra = 50;
     private int adicionalEntregaAntecipada = 40;
     private int valorPadraoHorasDiarias = 6;
     private List<DesenvolvedorProjetoSB> desenvolvedores;
     private final List<TipoProfissional> tiposProfissional = UtilSBCoreFabrica.getListaTodosRegistrosDaFabrica(FabTipoProfissional.class);
+
+    public AmbienteDesenvolvimento() {
+        desenvolvedores = new ArrayList<>();
+    }
 
     private TipoProfissional getDetalhesProfissionalByTipo(FabTipoProfissional pTipo) {
         for (TipoProfissional p : tiposProfissional) {

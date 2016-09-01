@@ -30,13 +30,17 @@ public class PrevisaoProjeto implements Serializable {
     private CustosProjeto custoProjetoCompleto;
     private HashMap<ItfModuloAcaoSistema, ModuloPrevisto> modulosPrevistos = new HashMap<>();
 
-    private AmbienteDesenvolvimento ambienteDesenvolvimento;
+    private final AmbienteDesenvolvimento ambienteDesenvolvimento;
 
     public PrevisaoProjeto(List<TarefaSuperBits> ptodasTarefas) {
         this.tarefasProximaVersao = new ArrayList<>();
         todasTarefas = ptodasTarefas;
         defineModulosPrevistros();
         calcularValores();
+        ambienteDesenvolvimento = new AmbienteDesenvolvimento();
+        custoProjetoCompleto = new CustosProjeto(ptodasTarefas, ambienteDesenvolvimento);
+        custoProjetoProximaVersao = new CustosProjeto(new ArrayList<>(), ambienteDesenvolvimento);
+
     }
 
     public final void defineModulosPrevistros() {

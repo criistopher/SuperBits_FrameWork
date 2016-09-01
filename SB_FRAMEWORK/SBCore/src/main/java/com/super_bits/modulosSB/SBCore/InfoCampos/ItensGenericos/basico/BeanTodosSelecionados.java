@@ -55,4 +55,9 @@ public class BeanTodosSelecionados implements ItfBeanSimplesSomenteLeitura {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void adicionarItemNaLista(String nomeDaLista) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

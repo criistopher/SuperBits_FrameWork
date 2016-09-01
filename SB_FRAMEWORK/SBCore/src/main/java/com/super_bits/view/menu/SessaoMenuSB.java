@@ -392,4 +392,9 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         return acaoSessao.getAcaoDeGestaoEntidade();
     }
 
+    @Override
+    public void adicionarItemNaLista(String nomeDaLista) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

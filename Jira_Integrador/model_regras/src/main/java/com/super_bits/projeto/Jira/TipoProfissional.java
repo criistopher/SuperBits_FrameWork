@@ -23,7 +23,12 @@ public class TipoProfissional extends ItemSimples implements ItfBeanSimples {
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
     private int valorHoraTecnica;
-    private FabTipoProfissional fabrica;
+    private final FabTipoProfissional fabrica;
+
+    public TipoProfissional(FabTipoProfissional fabrica) {
+        id = fabrica.ordinal();
+        this.fabrica = fabrica;
+    }
 
     @Override
     public int getId() {
@@ -63,6 +68,12 @@ public class TipoProfissional extends ItemSimples implements ItfBeanSimples {
 
     public FabTipoProfissional getFabrica() {
         return fabrica;
+    }
+
+    @Override
+    public String getImgPequena() {
+        String pastaImagens = "/resources/img/profissionais/";
+        return pastaImagens + this.getFabrica().name() + ".svg";
     }
 
 }
