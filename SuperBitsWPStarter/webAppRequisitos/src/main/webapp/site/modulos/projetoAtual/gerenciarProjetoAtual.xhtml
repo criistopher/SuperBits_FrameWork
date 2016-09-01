@@ -12,16 +12,9 @@
 
 
     <ui:composition template="/resources/SBComp/template/basico/modeloAnonimo.xhtml">
-
-
-
         <ui:define name="divConteudo">
-
             <br/>
-
             <h:form>
-
-                #{pgRequisitosVisaoGeral.acoesPrincipal}
                 <SBComp:seletorItem itemSelecionado="#{pgRequisitosVisaoGeral.acaoSelecionada}"
                                     lista="#{pgRequisitosVisaoGeral.acoesPrincipal}"
                                     metodoOnChange ="#{pgRequisitosVisaoGeral.executarAcaoSelecionada()}"

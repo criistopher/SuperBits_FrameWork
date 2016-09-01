@@ -46,7 +46,7 @@ mas por enquanto temos este exemplo, que permite você iniciar uma aplicação n
 Todos as classes do projeto foram comentadas com explicações seguindo o padrão JAVADOC,
 boa sorte para criar sua primeira solução com o SuperBits Framework
 
-*Recomendamos o Netbeans com Tomcat8 para trabalhar neste módulo
+*Recomendamos o Netbeans com Jetty para trabalhar neste módulo
 
 
 

@@ -48,21 +48,21 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
     /**
      *
      */
-    @InfoTipoAcaoFormulario(nomeAcao = "Visão Geral do Banco de Dados", icone = "fa fa-bars",
+    @InfoTipoAcaoFormulario(nomeAcao = "Banco de Dados", icone = "fa fa-bars",
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "visaoGeralBanco.xhtml"
     )
     ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS,
     /**
      *
      */
-    @InfoTipoAcaoFormulario(nomeAcao = "Visão Geral Gestão do Sistema", icone = "fa fa-bars",
+    @InfoTipoAcaoFormulario(nomeAcao = "Gestão do Sistema", icone = "fa fa-bars",
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "visaoGeralGestao.xhtml"
     )
     ACAO_PREVISAO_FRM_VISAO_GERAL_GESTAO,
     /**
      *
      */
-    @InfoTipoAcaoFormulario(nomeAcao = "Visão geral Modulos", icone = "fa fa-bars",
+    @InfoTipoAcaoFormulario(nomeAcao = "Modulos", icone = "fa fa-bars",
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "visaoGeralModulos.xhtml"
     )
     ACAO_PREVISAO_FRM_VISAO_GERAL_MODULOS,

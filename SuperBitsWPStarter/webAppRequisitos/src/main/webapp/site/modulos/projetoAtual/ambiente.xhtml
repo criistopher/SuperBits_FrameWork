@@ -12,32 +12,21 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition >
-
         <h:form>
-
-
-
-
             <c:forEach items="#{pgRequisitosVisaoGeral.tiposProfissionais}" var="tipoProfissional">
                 <p:commandLink action="#{pgRequisitosVisaoGeral.adicionarNovoProfissional()}"  update="@form">
                     <f:setPropertyActionListener target="#{pgRequisitosVisaoGeral.tipoProfissionalSelecionado}" value="#{tipoProfissional}" />
                     <div class="Container20 Responsive " >
                         <div class="w3-display-container">
-
                             <SBRec:tipoProfissional tipoProfissional="#{tipoProfissional}" />
-
                             <div class="w3-display-topright w3-container">
                                 <i class="fa Fs20  fa-plus-circle Blue"/>
                             </div>
-
                         </div>
                     </div>
-
                 </p:commandLink>
             </c:forEach>
-
             <div class="SeparatorFull" />
-
             <div class="Container55 Responsive " >
                 <p:fieldset legend="Dados Totais, projeto completo" >
                     <p:panelGrid columns="2" >
@@ -53,8 +42,6 @@
                     </p:panelGrid>
                 </p:fieldset>
             </div>
-
-
             <div class="Container55 Responsive " >
                 <p:fieldset legend="Dados Totais, proxima versão" >
                     <p:panelGrid columns="2" >
@@ -64,17 +51,12 @@
                                     value="#{pgRequisitosVisaoGeral.previsaoProjeto.custoProjetoCompleto.dataFimProjeto}"/>
                         <p:outputLabel value="Horas Totais Trabalhadas" />
                         <p:outputLabel value="#{pg}" />
-
-
                     </p:panelGrid>
                 </p:fieldset>
             </div>
-
-
             <c:forEach items="#{pgRequisitosVisaoGeral.ambienteDesenvolvimento.desenvolvedores}" var="desenvolvedor" >
                 #{desenvolvedor.tipoProfissional.nome}
                 #{desenvolvedor.horasSemanais}
-
             </c:forEach>
 
             <p:commandButton value="Atualizar" actionListener="#{pgRequisitosVisaoGeral.recarregarValores()}" />
