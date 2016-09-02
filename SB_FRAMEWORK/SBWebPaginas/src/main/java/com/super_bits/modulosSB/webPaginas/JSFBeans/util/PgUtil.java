@@ -14,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
@@ -417,4 +418,19 @@ public class PgUtil implements Serializable {
         return "AssimVcFuncionaNumEDanada";
     }
 
+    public String getLorrenIpsUmaPalavra() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
+    }
+
+    public String getLorrenIpsUmaFrase() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
+    }
+
+    public String getLorrenIpsUmParagrafo() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
+    }
+
+    public String getLorrenIps3Paragrafos() {
+        return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
+    }
 }
