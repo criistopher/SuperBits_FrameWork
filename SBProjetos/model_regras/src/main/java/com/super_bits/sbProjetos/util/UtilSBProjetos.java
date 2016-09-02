@@ -321,6 +321,7 @@ public class UtilSBProjetos {
     }
 
     public static void configurarPastaProjeto(Projeto pProjeto) {
+
         configurarPastaCliente(pProjeto.getCliente());
         String pastaSourceDoProjeto = pProjeto.getCaminhoPastaDoProjetoSourceLocal();
         String pastaReleaseDoProjeto = pProjeto.getPastaRelease();

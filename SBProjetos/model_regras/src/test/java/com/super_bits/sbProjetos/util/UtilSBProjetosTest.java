@@ -12,8 +12,6 @@ import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import com.super_bits.sbProjetos.FabConfigCoreSBProjetosModel;
 
 import com.super_bits.sbProjetos.Model.Projeto;
-import com.super_bits.shellcommands.model.Comando;
-import com.super_bits.shellcommands.model.RespostaCMD;
 import java.io.File;
 import java.util.Map;
 import org.junit.Test;
@@ -63,7 +61,7 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Test
     public void testCriarNovoProjeto() {
-        Projeto projetoTeste = FabSBProjectProjetos.SISTEMA_SANTA_CLARA.getRegistro();
+        Projeto projetoTeste = FabSBProjectProjetos.INTRANET_CASA_NOVA.getRegistro();
         //   projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         //  UtilSBProjetos.criarNovoProjeto(projetoTeste);
         //   UtilSBProjetos.configurarPastaProjeto(projetoTeste);
