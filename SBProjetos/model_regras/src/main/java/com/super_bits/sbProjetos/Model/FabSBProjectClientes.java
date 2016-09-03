@@ -19,7 +19,8 @@ public enum FabSBProjectClientes implements ItfFabrica {
     SANTA_CLARA,
     AQUA_QUALIT,
     CASA_NOVA_MARKETING_DIGITAL,
-    MINAS_DRILL, ACOMAR;
+    MINAS_DRILL,
+    ACOMAR;
 
     public static String SERVIDOR_RELEASE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/release";
     public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/source";

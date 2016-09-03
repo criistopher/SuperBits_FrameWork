@@ -9,6 +9,7 @@
     <tag>
         <tag-name>botaoAcao</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoAcao.xhtml</source>
+<<<<<<< HEAD
 
 
         <attribute>
@@ -20,6 +21,8 @@
         </attribute>
 
 
+=======
+>>>>>>> 0dc1ac8c99f59c2dd1d21ec02794293c666beced
         <attribute>
             <name>layout</name>
             <description><![CDATA[O componente utilizado para exibição]]></description>
@@ -35,6 +38,18 @@
         </attribute>
 
         <attribute>
+<<<<<<< HEAD
+=======
+            <name>acao</name>
+            <description>
+               <![CDATA[ Ação vinculada ao botão]]>
+            </description>
+            <required>true</required>
+
+
+        </attribute>
+        <attribute>
+>>>>>>> 0dc1ac8c99f59c2dd1d21ec02794293c666beced
 
             <name>javaScriptOncomplete</name>
             <description>
@@ -134,8 +149,17 @@
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0dc1ac8c99f59c2dd1d21ec02794293c666beced
 
+        <attribute>
+            <description>O item que será exibido no componente</description>
+            <name>opcoes</name>
+            <required>false</required>
+            <type>java.util.Collection</type>
+        </attribute>
 
         <attribute>
             <description> <![CDATA[ Se true desativiva a edição]]></description>
@@ -143,6 +167,8 @@
             <required>true</required>
             <type>java.lang.Boolean</type>
         </attribute>
+
+
 
 
 
@@ -470,6 +496,16 @@
             <required>true</required>
 
         </attribute>
+<<<<<<< HEAD
+=======
+
+        <attribute>
+            <name>metodo</name>
+            <required>false</required>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+
+>>>>>>> 0dc1ac8c99f59c2dd1d21ec02794293c666beced
 
 
         <attribute>
@@ -481,6 +517,7 @@
             <type>java.lang.String</type>
             <required>true</required>
         </attribute>
+<<<<<<< HEAD
 
         <attribute>
             <name>metodo</name>
@@ -488,6 +525,8 @@
             <required>true</required>
             <type>javax.el.MethodExpression</type>
         </attribute>
+=======
+>>>>>>> 0dc1ac8c99f59c2dd1d21ec02794293c666beced
 
     </tag>
 

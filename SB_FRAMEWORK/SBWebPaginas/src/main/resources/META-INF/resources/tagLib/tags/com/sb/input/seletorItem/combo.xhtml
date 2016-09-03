@@ -12,14 +12,12 @@
         <ui:define name="input">
 
             <p:selectOneMenu
-
                 class=" seletorResponsivo  TexAlCenter #{componenteVisual.classeCSS}"
-
                 disabled="#{desabilitarEdicao}"
                 required="#{obrigatorio}"
                 value="#{valor}"
-                validatorMessage="O valor informado no campo #{label} não é valido! "
-                requiredMessage="O campo #{label} não foi informado! "
+                validatorMessage="O valor informado no campo #{label} não é valido!"
+                requiredMessage="O campo #{label} não foi informado!"
                 autoWidth="true"
                 styleClass="seletorResponsivo #{componente.classeCSS}"
                 converter="conversorGenerico"
