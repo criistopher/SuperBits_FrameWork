@@ -5,15 +5,16 @@
  */
 package com.super_bits.projeto.Jira.Jira;
 
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.tempo.DataUtilJira;
 import com.super_bits.projeto.Jira.Jira.tempo.InvalidDurationException;
 import com.super_bits.projeto.Jira.TipoProfissional;
+import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
 
 /**
  *
@@ -94,6 +95,52 @@ public class TarefaSuperBits extends ItemSimples implements ItfTarefaSuperBitsFW
     @Override
     public TipoProfissional getTipoProfissionalNescessario() {
         return tipoProfissional;
+    }
+
+    @Override
+    public ItfAcaoFormulario getFormularioDetalhes() {
+        switch (tarefaJiraOrigem.getTipoTarefa()) {
+            case ACAO_TESTE_MANAGED_BEAN:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_GESTAO.getAcaoDoSistema();
+
+            case ACAO_IMPLEMENTACAO_MANAGED_BEAN:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_GESTAO.getAcaoDoSistema();
+
+            case ACAO_CRIAR_FORMULARIO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_FORMULARIO.getAcaoDoSistema();
+            case ACAO_CRIAR_FORMULARIO_COMPLEXO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_FORMULARIO.getAcaoDoSistema();
+            case ACAO_IMPLEMENTAR_CONTROLLER:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_CONTROLLER.getAcaoDoSistema();
+            case ACAO_TESTE_CONTROLLER:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_CONTROLLER.getAcaoDoSistema();
+            case ACAO_IMPLEMENTAR_CONTROLLER_COMPLEXO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_CONTROLLER.getAcaoDoSistema();
+            case ACAO_TESTE_CONTROLLER_COMPLEXO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_CONTROLLER.getAcaoDoSistema();
+            case ACAO_TESTES_AMBIENTE_DE_DADOS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_BANCO_IMPLEMENTACAO_AMBIENTE_DE_DADOS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_BANCO_TESTES_TIPOS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_BANCO_IMPLEMENTACAO_TIPOS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_TESTES_ENTIDADE_CALCULO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_TESTES_ENTIDADE_LISTAS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_ENTIDADE_CRIAR_CALCULOS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_ENTIDADE_CRIAR_LISTAS:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+            case ACAO_ENTIDADE_VALIDAR_CAMPOS_REQUISITO:
+                return (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+
+            default:
+                throw new AssertionError(tarefaJiraOrigem.getTipoTarefa().name());
+
+        }
     }
 
 }

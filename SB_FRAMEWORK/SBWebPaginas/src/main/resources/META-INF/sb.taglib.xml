@@ -9,9 +9,6 @@
     <tag>
         <tag-name>botaoAcao</tag-name>
         <source>resources/tagLib/tags/com/sb/botaoAcao.xhtml</source>
-
-
-
         <attribute>
             <name>acao</name>
             <description>
@@ -19,7 +16,6 @@
             <required>true</required>
             <type>com.super_bits.Controller.Interfaces.acoes</type>
         </attribute>
-
 
         <attribute>
             <name>layout</name>
@@ -36,8 +32,6 @@
         </attribute>
 
         <attribute>
-
-
             <name>javaScriptOncomplete</name>
             <description>
               <![CDATA[  JavaScript que deve ser executado ao final do Ajax]]>
@@ -52,10 +46,19 @@
               <![CDATA[    Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
                 O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate) ]]>
             </description>
-
             <type>java.lang.String</type>
             <required>true</required>
         </attribute>
+
+        <attribute>
+            <description>
+            <![CDATA[informa  o Label do input (nome do campo de entrada)]]>
+            </description>
+            <name>label</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+
     </tag>
 
 
@@ -69,7 +72,6 @@
             <required>true</required>
             <type>com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado</type>
         </attribute>
-
         <attribute>
             <description>
              <![CDATA[     O layout do campo, que podem ser: resumido,esquerda,superior,e automatico]]>
@@ -322,6 +324,15 @@
             <required>true</required>
             <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
         </attribute>
+
+        <attribute>
+            <name>label</name>
+            <description>
+             <![CDATA[Label do Botãpo]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
 
 
@@ -343,6 +354,28 @@
             <required>true</required>
             <type>com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema</type>
         </attribute>
+
+        <attribute>
+            <name>label</name>
+            <description>
+             <![CDATA[Label do Botãpo]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <name>icone</name>
+            <description>
+             <![CDATA[Icone do botão]]>
+            </description>
+
+            <type>java.lang.String</type>
+        </attribute>
+
+
+
+
     </tag>
 
     <tag>
@@ -392,6 +425,26 @@
             <type>java.lang.String</type>
             <required>true</required>
         </attribute>
+
+        <attribute>
+            <name>label</name>
+            <description>
+             <![CDATA[Label do Botãpo]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>icone</name>
+            <description>
+             <![CDATA[Icone do botão]]>
+            </description>
+
+            <type>java.lang.String</type>
+        </attribute>
+
+
+
     </tag>
 
     <tag>
@@ -425,6 +478,7 @@
         </attribute>
 
 
+
         <attribute>
             <description>
              <![CDATA[     Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
@@ -434,6 +488,24 @@
             <type>java.lang.String</type>
             <required>true</required>
         </attribute>
+
+        <attribute>
+            <name>label</name>
+            <description>
+             <![CDATA[Label do Botãpo]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>icone</name>
+            <description>
+             <![CDATA[Icone do botão]]>
+            </description>
+
+            <type>java.lang.String</type>
+        </attribute>
+
 
     </tag>
 
@@ -490,7 +562,23 @@
         </attribute>
 
 
+        <attribute>
+            <name>icone</name>
+            <description>
+             <![CDATA[Icone do botão]]>
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
 
+
+
+        <attribute>
+            <name>label</name>
+            <description>
+             <![CDATA[Label do Botãpo]]>
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
 
         <attribute>
             <description>

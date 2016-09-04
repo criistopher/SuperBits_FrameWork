@@ -3,11 +3,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:SBRec="http://xmlns.jcp.org/jsf/composite/SBComp/requisitos"
       >
 
     <ui:composition >
-        [Gestão detalhes]
+
+
+
+        <SBRec:infoGestao
+            previsaoGestao="#{pgRequisitosVisaoGeral.prevGestaoSelecionado}"
+            />
+
+        <div class="SeparatorFull"/>
+
+        <SBRec:listaBotoesTarefas
+            destinoTarefaSelecionada="#{pgRequisitosVisaoGeral.tarefaDetalhesSelecionado}" tarefas="#{pgRequisitosVisaoGeral.prevGestaoSelecionado.tarefasVinculadas}"/>
+
     </ui:composition>
+
+
+
+
 </html>
 
 

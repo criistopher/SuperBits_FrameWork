@@ -3,25 +3,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:SBrec="http://xmlns.jcp.org/jsf/composite/SBComp/requisitos"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:SBComp="http://xmlns.jcp.org/jsf/composite/SBComp"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition >
         <c:forEach items="#{pgRequisitosVisaoGeral.previsaoProjeto.modulosPrevistos}" var="modulo" >
-
-
             <c:forEach items="#{modulo.gestoesPrevistas}"  var="gestao">
-                <SBrec:infoGestao previsaoGestao="#{gestao}"/>
-                <br/>
+                <div class="Container30" >
+                    <h:form>
+                        <SBComp:botaoDeAcao_Pagina_ComTarget acao="#{pgRequisitosVisaoGeral.acaoDetalhesGestao}"
+                                                             origem="#{gestao}"
+                                                             destino="#{pgRequisitosVisaoGeral.prevGestaoSelecionado}"
+                                                             tipoVisualizacao="#{layoutsComponenteSB.layoutBotoes.cardResponsivo}"
+                                                             />
+                    </h:form>
+                </div>
+
             </c:forEach>
 
 
-            <c:forEach items="#{modulo.entidadesPrevistas}" var="entidade">
-                #{entidade.entidadeVinculada.simpleName}
-            </c:forEach>
+
 
 
 

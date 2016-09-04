@@ -15,7 +15,9 @@
         >
         <f:setPropertyActionListener target="#{paginaAtual.infoPagina.acaoSelecionada}"
                                      value="#{acao}"  />
-        <i class="#{acao.iconeAcao} "    ></i>
+        <i class="#{acao.iconeAcao} "    >
+            #{label}
+        </i>
     </p:commandLink>
 </html>
 

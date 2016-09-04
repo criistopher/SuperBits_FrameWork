@@ -6,8 +6,9 @@
 package com.super_bits.InomeProjetoI.paginas;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.mc.FabAcaoPrevisaoProjeto;
-import com.super_bits.mc.InfoAcaoPrevisaoProjeto;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
+import com.super_bits.projeto.controller.InfoAcaoPrevisaoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
@@ -15,7 +16,12 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaSession;
 import com.super_bits.projeto.Jira.AmbienteDesenvolvimento;
 import com.super_bits.projeto.Jira.DesenvolvedorProjetoSB;
 import com.super_bits.projeto.Jira.FabTipoProfissional;
+import com.super_bits.projeto.Jira.Jira.ItfTarefaSuperBitsFW;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
+import com.super_bits.projeto.Jira.ModuloPrevisto;
+import com.super_bits.projeto.Jira.PrevisaoEntidade;
+import com.super_bits.projeto.Jira.PrevisaoGestaoEntidade;
+
 import com.super_bits.projeto.Jira.PrevisaoProjeto;
 import com.super_bits.projeto.Jira.TipoProfissional;
 import java.util.ArrayList;
@@ -35,6 +41,20 @@ import javax.inject.Named;
 public class PgRequisitosVisaoGeral extends MB_PaginaSession {
 
     private PrevisaoProjeto previsaoProjeto;
+    private PrevisaoGestaoEntidade prevGestaoSelecionado;
+    private PrevisaoGestaoEntidade prevEntidadeSelecionada;
+
+    private ItfTarefaSuperBitsFW tarefaDetalhesSelecionado;
+
+    private ModuloPrevisto prevMooduloSelecionado;
+
+    private ItfAcaoFormulario acaoVisaoGeralGestao;
+    private ItfAcaoFormulario acaoDetalhesGestao;
+    private ItfAcaoFormulario acaoDetalhesTabela;
+
+    private ItfAcaoFormulario acaoVisaoGeralModulos;
+    private ItfAcaoFormulario acaoVisaoGeralTabelas;
+    private ItfAcaoFormulario acaoDetalheModulo;
 
     private final List<ItfAcaoDoSistema> acoesPrincipal;
 
@@ -68,8 +88,14 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
         acoesPrincipal.add(FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_MODULOS.getAcaoDoSistema());
         acoesPrincipal.add(FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_RESUMO_GERAL.getRegistro());
         acoesPrincipal.add((FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_AMBIENTE_DESENVOLVIMENTO.getAcaoDoSistema()));
-
+        acaoVisaoGeralGestao = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+        acaoDetalhesGestao = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_GESTAO.getAcaoDoSistema();
+        acaoDetalhesTabela = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_ACAO_GESTAO.getAcaoDoSistema();
+        acaoVisaoGeralGestao = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_GESTAO.getAcaoDoSistema();
+        acaoVisaoGeralTabelas = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_VISAO_GERAL_BANCO_DE_DADOS.getAcaoDoSistema();
+        acaoDetalheModulo = (ItfAcaoFormulario) FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_DETALHES_MODULO.getAcaoDoSistema();
         acaoSelecionada = FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_RESUMO_GERAL.getRegistro();
+
         xhtmlAcaoAtual = FabAcaoPrevisaoProjeto.ACAO_PREVISAO_FRM_RESUMO_GERAL.getRegistro().getComoFormulario().getXhtml();
 
         tiposProfissionais = UtilSBCoreFabrica.getListaTodosRegistrosDaFabrica(FabTipoProfissional.class);
@@ -111,6 +137,66 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
 
     public void setTipoProfissionalSelecionado(TipoProfissional tipoProfissionalSelecionado) {
         this.tipoProfissionalSelecionado = tipoProfissionalSelecionado;
+    }
+
+    public PrevisaoGestaoEntidade getPrevGestaoSelecionado() {
+        return prevGestaoSelecionado;
+    }
+
+    public void setPrevGestaoSelecionado(PrevisaoGestaoEntidade prevGestaoSelecionado) {
+        this.prevGestaoSelecionado = prevGestaoSelecionado;
+    }
+
+    public ModuloPrevisto getPrevMooduloSelecionado() {
+        return prevMooduloSelecionado;
+    }
+
+    public void setPrevMooduloSelecionado(ModuloPrevisto prevMooduloSelecionado) {
+        this.prevMooduloSelecionado = prevMooduloSelecionado;
+    }
+
+    public PrevisaoGestaoEntidade getPrevEntidadeSelecionada() {
+        return prevEntidadeSelecionada;
+    }
+
+    public void setPrevEntidadeSelecionada(PrevisaoGestaoEntidade prevEntidadeSelecionada) {
+        this.prevEntidadeSelecionada = prevEntidadeSelecionada;
+    }
+
+    public ItfAcaoFormulario getAcaoVisaoGeralGestao() {
+        return acaoVisaoGeralGestao;
+    }
+
+    public ItfAcaoFormulario getAcaoDetalhesGestao() {
+        return acaoDetalhesGestao;
+    }
+
+    public ItfAcaoFormulario getAcaoDetalhesTabela() {
+        return acaoDetalhesTabela;
+    }
+
+    public ItfAcaoFormulario getAcaoVisaoGeralModulos() {
+        return acaoVisaoGeralModulos;
+    }
+
+    public ItfAcaoFormulario getAcaoVisaoGeralTabelas() {
+        return acaoVisaoGeralTabelas;
+    }
+
+    public ItfAcaoFormulario getAcaoDetalheModulo() {
+        return acaoDetalheModulo;
+    }
+
+    public void setAcaoDetalheModulo(ItfAcaoFormulario acaoDetalheModulo) {
+        this.acaoDetalheModulo = acaoDetalheModulo;
+    }
+
+    public ItfTarefaSuperBitsFW getTarefaDetalhesSelecionado() {
+        return tarefaDetalhesSelecionado;
+    }
+
+    public void setTarefaDetalhesSelecionado(ItfTarefaSuperBitsFW tarefaDetalhesSelecionado) {
+        this.tarefaDetalhesSelecionado = tarefaDetalhesSelecionado;
     }
 
 }

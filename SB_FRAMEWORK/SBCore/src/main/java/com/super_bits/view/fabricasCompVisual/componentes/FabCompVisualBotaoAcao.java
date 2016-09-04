@@ -33,7 +33,11 @@ public enum FabCompVisualBotaoAcao implements ItfFabTipoComponenteVisual {
     @InfoComponenteVisual(nome = "Icone Gigante",
             classesCSS = "iconeGrande",
             xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnIconeGrande")
-    ICONE_GIGANTE;
+    ICONE_GIGANTE,
+    @InfoComponenteVisual(nome = "Botao Card Responsivo",
+            classesCSS = "btnCardResoponsivo",
+            xhtmlJSF = FabCompVisualBotaoAcao.PASTA_BOTOES + "btnCardResoponsivo")
+    BOTAO_CARD_RESPONSIVO;
     public static final String PASTA_BOTOES = "botaoAcao/";
 
     @Override

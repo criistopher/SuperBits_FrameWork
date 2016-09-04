@@ -17,10 +17,14 @@
 
         >
 
+        <f:setPropertyActionListener target="#{paginaAtual.infoPagina.acaoSelecionada}"
+                                     value="#{acao}"  />
+
         <f:setPropertyActionListener target="#{destino}"
                                      value="#{origem}"  />
 
         <i class="#{acao.iconeAcao} "    ></i>
+        <span class="Fs14" >#{label}</span>
     </p:commandLink>
 </html>
 

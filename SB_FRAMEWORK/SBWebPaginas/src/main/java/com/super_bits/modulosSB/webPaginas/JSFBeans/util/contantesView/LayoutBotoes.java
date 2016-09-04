@@ -17,6 +17,7 @@ public class LayoutBotoes {
     private final ComponenteVisualSB iconeENome = FabCompVisualBotaoAcao.ICONE_E_NOME.getComponente();
     private final ComponenteVisualSB nome = FabCompVisualBotaoAcao.NOME.getComponente();
     private final ComponenteVisualSB gigante = FabCompVisualBotaoAcao.ICONE_GIGANTE.getComponente();
+    private final ComponenteVisualSB cardResponsivo = FabCompVisualBotaoAcao.BOTAO_CARD_RESPONSIVO.getComponente();
 
     public ComponenteVisualSB getIcone() {
         return icone;
@@ -32,6 +33,10 @@ public class LayoutBotoes {
 
     public ComponenteVisualSB getGigante() {
         return gigante;
+    }
+
+    public ComponenteVisualSB getCardResponsivo() {
+        return cardResponsivo;
     }
 
 }

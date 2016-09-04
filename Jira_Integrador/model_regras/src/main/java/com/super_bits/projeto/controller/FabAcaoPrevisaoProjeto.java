@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.mc;
+package com.super_bits.projeto.controller;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
@@ -73,6 +73,12 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoControllerDetalhes.xhtml"
     )
     ACAO_PREVISAO_FRM_DETALHES_ACAO_CONTROLLER,
+    @InfoTipoAcaoFormulario(nomeAcao = "Detalhes ação do sistema", icone = "fa fa-bars",
+            xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoControllerDetalhes.xhtml"
+    )
+
+    ACAO_PREVISAO_FRM_DETALHES_ACAO_NOVA_TECNOLOGIA,
+    ACAO_PREVISAO_FRM_DETALHES_ACAO_INTEGRACAO,
     /**
      *
      */
@@ -80,6 +86,14 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoGestaoDetalhes.xhtml"
     )
     ACAO_PREVISAO_FRM_DETALHES_ACAO_GESTAO,
+    /**
+     *
+     */
+    @InfoTipoAcaoFormulario(nomeAcao = "Detalhes sistema do Modulo", icone = "fa fa-bars",
+            xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "detalhesModulo.xhtml"
+    )
+    ACAO_PREVISAO_FRM_DETALHES_MODULO,
+    ACAO_PREVISAO_FRM_DETALHES_TABELA_BANCO_DADDOS,
     /**
      *
      */

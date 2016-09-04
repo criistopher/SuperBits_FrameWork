@@ -35,11 +35,14 @@ public enum FabTipoProfissional implements ItfFabrica {
                 break;
             case ANALISTA_LOGICA_TDD:
                 profissional.setNome("Analista de Lógica TDD");
-                profissional.setDescricao(" Um analista de testes TDD deve ter vivencia com programação orientada a objetos"
-                        + "habilidade de lógica de algorítimo avançada, sendo recomendavel que tenha muitas horas de prátia de programação já exercida, "
+                profissional.setDescricao(" "
+                        + "Um analista de testes TDD deve ter vivencia com programação orientada a objetos"
+                        + " habilidade de lógica de algorítimo avançada, sendo recomendavel que tenha muitas horas de prátia de programação já exercida, "
                         + " ele definirá o que deve ser programado, e pensar e definir todos os testes que certifiquem que "
                         + "a progamação foi implementada  com sucesso."
-                        + "é desejavel que tenha conhecimento de JPA ");
+                        + "é desejavel que tenha conhecimento de JPA "
+                        + " <a href='https://pt.wikipedia.org/wiki/Test_Driven_Development' target='aprender'> Quero saber tudo sobre TDD (Desenvolvimento Dirigito por Testes). </a> "
+                );
                 profissional.setValorHoraTecnica(60);
                 break;
             case ANALISTA_IMPLEMENTACAO:

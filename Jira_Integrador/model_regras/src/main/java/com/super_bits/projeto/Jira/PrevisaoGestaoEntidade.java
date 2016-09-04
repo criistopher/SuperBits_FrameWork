@@ -8,20 +8,25 @@ package com.super_bits.projeto.Jira;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author desenvolvedor
  */
-public class PrevisaoGestaoEntidade implements ItfPrevisaoGestaoEntidade {
+public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGestaoEntidade {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
+    private String descricao;
     private ItfAcaoGerenciarEntidade gestao;
     private ItfModuloAcaoSistema modulo;
     private final List<TarefaSuperBits> tarefasVinculadas;
-
     private final Class entidadeVinculada;
     private int qtdAcoesDeFormulario;
     private int qtdAoesDeController;
@@ -31,6 +36,8 @@ public class PrevisaoGestaoEntidade implements ItfPrevisaoGestaoEntidade {
         this.gestao = pAcaoGEstao;
         entidadeVinculada = pAcaoGEstao.getClasseRelacionada();
         modulo = pAcaoGEstao.getModulo();
+        descricao = "Previsão de desenvolvimento para " + pAcaoGEstao.getNomeAcao();
+        id = descricao.hashCode();
         for (ItfAcaoDoSistema acao : pAcaoGEstao.getAcoesVinculadas()) {
             if (acao.isUmaAcaoController()) {
                 qtdAoesDeController++;
@@ -41,7 +48,6 @@ public class PrevisaoGestaoEntidade implements ItfPrevisaoGestaoEntidade {
         }
         tarefasVinculadas = pTarefasVinculadas;
         atualizaHorasProgramadas();
-
     }
 
     @Override
@@ -106,6 +112,24 @@ public class PrevisaoGestaoEntidade implements ItfPrevisaoGestaoEntidade {
     public int getHorasProgramadas() {
 
         return horasProgramadas;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 }

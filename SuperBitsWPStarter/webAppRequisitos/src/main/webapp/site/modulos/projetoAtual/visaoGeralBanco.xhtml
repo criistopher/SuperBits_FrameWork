@@ -3,11 +3,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      >
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition >
 
-        [Visão geral Banco]
+
+        <div class="Container50">
+            #{pgRequisitosVisaoGeral.prevMooduloSelecionado}
+            <c:forEach items="#{pgRequisitosVisaoGeral.prevMooduloSelecionado}" >
+
+            </c:forEach>
+
+        </div>
+
+        <div class="Container50">
+
+
+        </div>
+
+
+
     </ui:composition>
 </html>
 

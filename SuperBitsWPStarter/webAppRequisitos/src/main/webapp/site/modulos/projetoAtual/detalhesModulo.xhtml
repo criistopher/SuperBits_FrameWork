@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:SBComp="http://xmlns.jcp.org/jsf/composite/SBComp"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition >
+
+
+        <div class="Container40" >
+            <p:fieldset legend="Gestões do sistema PLanejadas">
+                <c:forEach items="#{pgRequisitosVisaoGeral.prevMooduloSelecionado.gestoesPrevistas}" var="gestao" >
+                    <div class="Container20" >
+                        <h:form>
+                            <SBComp:botaoDeAcao_Pagina_ComTarget acao="#{pgRequisitosVisaoGeral.acaoDetalhesGestao}"
+                                                                 label="#{gestao.gestao.nomeAcao}"
+                                                                 tipoVisualizacao="#{layoutsComponenteSB.layoutBotoes.gigante}"
+                                                                 origem="#{gestao}"
+                                                                 destino="#{pgRequisitosVisaoGeral.prevGestaoSelecionado}"
+                                                                 />
+
+                        </h:form>
+                    </div>
+                </c:forEach>
+            </p:fieldset>
+
+        </div>
+
+        <div class="Container40" >
+            <p:fieldset legend="Dados Vinculados planejados">
+                <c:forEach items="#{pgRequisitosVisaoGeral.prevMooduloSelecionado.entidadesPrevistas}" var="tabela" >
+                    <div class="Container20" >
+                        <h:form>
+                            <SBComp:botaoDeAcao_Pagina_ComTarget acao="#{pgRequisitosVisaoGeral.acaoDetalhesTabela}"
+                                                                 label="#{tabela.entidadeVinculada.simpleName}"
+
+                                                                 origem="#{tabela}"
+                                                                 destino="#{pgRequisitosVisaoGeral.prevEntidadeSelecionada}"
+                                                                 />
+                        </h:form>
+
+                    </div>
+                </c:forEach>
+
+            </p:fieldset>
+        </div>
+
+
+    </ui:composition>
+</html>
+
+
+
+
+
+
+
+
+
+

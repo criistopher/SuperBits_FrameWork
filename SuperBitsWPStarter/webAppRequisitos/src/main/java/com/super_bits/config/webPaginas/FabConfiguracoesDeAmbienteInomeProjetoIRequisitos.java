@@ -5,7 +5,7 @@
  */
 package com.super_bits.config.webPaginas;
 
-import com.super_bits.mc.FabAcaoPrevisaoProjeto;
+import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
 import com.super_bits.InomeClienteI.InomeProjetoI.model.config.ConfigPersistenciaInomeProjetoI;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.configSBFW.acessos.ConfigAcessos;

@@ -5,6 +5,7 @@
  */
 package com.super_bits.projeto.Jira.Jira;
 
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.projeto.Jira.TipoProfissional;
 
 /**
@@ -18,5 +19,7 @@ public interface ItfTarefaSuperBitsFW {
     TarefaJira getTarefaJiraOrigem();
 
     public TipoProfissional getTipoProfissionalNescessario();
+
+    public ItfAcaoFormulario getFormularioDetalhes();
 
 }
