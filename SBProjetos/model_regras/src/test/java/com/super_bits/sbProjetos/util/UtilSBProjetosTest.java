@@ -61,12 +61,13 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Test
     public void testCriarNovoProjeto() {
-        Projeto projetoTeste = FabSBProjectProjetos.INTRANET_CASA_NOVA.getRegistro();
+        Projeto projetoTeste = FabSBProjectProjetos.SUPER_KOMPRAS.getRegistro();
         //   projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         //  UtilSBProjetos.criarNovoProjeto(projetoTeste);
         //   UtilSBProjetos.configurarPastaProjeto(projetoTeste);
 
-        UtilSBProjetos.criarNovoProjeto(projetoTeste);
+        UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+        //UtilSBProjetos.criarNovoProjeto(projetoTeste);
 
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.System.out.println("__________________EXISTE PASTA RELEASE__________________");
