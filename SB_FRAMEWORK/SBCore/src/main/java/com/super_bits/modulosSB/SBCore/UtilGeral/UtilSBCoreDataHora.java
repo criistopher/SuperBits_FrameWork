@@ -7,7 +7,10 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * Classe de UTILITÀRIOS (Métodos EStáticos commmente Utilizados)____________
@@ -219,6 +222,21 @@ public class UtilSBCoreDataHora {
         } else {
             return null;
         }
+
+    }
+
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
+     * @return Retorna o intervalo de tempo em dias de uma data inicial até uma
+     * data final
+     */
+    public static long intervaloTempoDias(Date pDataInicial, Date pDataFinal) {
+        Date dataInicial = pDataInicial;
+        Date dataFinal = pDataFinal;
+        long diferencaEmDias = (dataFinal.getTime() - dataInicial.getTime()) / (1000 * 60 * 60 * 24);
+        return diferencaEmDias;
 
     }
 
