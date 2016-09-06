@@ -7,6 +7,8 @@
         <class>com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas</class>
         <class>com.super_bits.modulos.SBAcessosModel.model.UsuarioSB</class>
         <class>com.super_bits.modulos.SBAcessosModel.model.PermissaoSB</class>
+        <class>com.super_bits.modulos.SBAcessosModel.model.Ips.Ips</class>
+        <class>com.super_bits.modulos.SBAcessosModel.model.Ips.TipoIp</class>
         <class>com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB</class>
         <class>com.super_bits.modulos.SBAcessosModel.model.Negado_Usuarios</class>
         <class>com.super_bits.modulos.SBAcessosModel.model.Negado_Grupos</class>

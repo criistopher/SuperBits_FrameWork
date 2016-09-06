@@ -13,7 +13,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -30,7 +29,7 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
         PrevisaoProjeto novaPrevisao;
         novaPrevisao = new PrevisaoProjeto(MapaTarefasProjeto.getTodasTarefas());
 
-        for (ModuloPrevisto mp : novaPrevisao.getModuloPrevistosPorModulo().values()) {
+        for (PrevisaoModulo mp : novaPrevisao.getModuloPrevistosPorModulo().values()) {
             for (PrevisaoEntidade previsao : mp.getEntidadesPrevistas()) {
                 System.out.println("Tarefas da entidade:" + previsao.getEntidadeVinculada());
 
@@ -48,6 +47,8 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
         }
 
         novaPrevisao.calcularValores();
+        novaPrevisao.getCustoProjetoCompleto().getHorasTotal();
+        novaPrevisao.getCustoProjetoCompleto().getValorTotal();
         System.out.println("Horas Total proxima Versao " + novaPrevisao.getCustoProjetoProximaVersao().getHorasTotalAlanlistaTelas());
         System.out.println("Horas total tudo" + novaPrevisao.getCustoProjetoCompleto().getHorasTotal());
 

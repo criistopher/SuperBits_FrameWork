@@ -31,8 +31,10 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
     private int qtdAcoesDeFormulario;
     private int qtdAoesDeController;
     private int horasProgramadas;
+    private final PrevisaoProjeto previsaoProjeto;
+    private final CustosDesenvolvimento custoDesenvolvimento;
 
-    public PrevisaoGestaoEntidade(ItfAcaoGerenciarEntidade pAcaoGEstao, List<TarefaSuperBits> pTarefasVinculadas) {
+    public PrevisaoGestaoEntidade(ItfAcaoGerenciarEntidade pAcaoGEstao, List<TarefaSuperBits> pTarefasVinculadas, PrevisaoProjeto pPrevisaoProjeto) {
         this.gestao = pAcaoGEstao;
         entidadeVinculada = pAcaoGEstao.getClasseRelacionada();
         modulo = pAcaoGEstao.getModulo();
@@ -48,6 +50,22 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
         }
         tarefasVinculadas = pTarefasVinculadas;
         atualizaHorasProgramadas();
+        previsaoProjeto = pPrevisaoProjeto;
+        custoDesenvolvimento = new CustosDesenvolvimento(getTarefasVinculadas(), getPrevisaoProjeto().getAmbienteDesenvolvimento());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public final CustosDesenvolvimento getCustoDesenvolvimento() {
+        return custoDesenvolvimento;
+    }
+
+    @Override
+    public final PrevisaoProjeto getPrevisaoProjeto() {
+        return previsaoProjeto;
     }
 
     @Override
@@ -89,7 +107,7 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
     }
 
     @Override
-    public List<TarefaSuperBits> getTarefasVinculadas() {
+    public final List<TarefaSuperBits> getTarefasVinculadas() {
         return tarefasVinculadas;
     }
 

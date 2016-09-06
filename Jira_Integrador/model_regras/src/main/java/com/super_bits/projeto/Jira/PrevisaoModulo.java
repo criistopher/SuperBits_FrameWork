@@ -16,20 +16,27 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class ModuloPrevisto extends ItemSimples {
+public class PrevisaoModulo extends ItemSimples {
 
     @InfoCampo(tipo = FabCampos.ID)
-    private int id;
+    private final int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
-    private String nome;
+    private final String nome;
     private final List<PrevisaoGestaoEntidade> gestoesPrevistas;
     private final List<PrevisaoEntidade> entidadesPrevistas;
+    private final PrevisaoProjeto previsaoProjeto;
 
-    public ModuloPrevisto(List<PrevisaoGestaoEntidade> gestoesPrevistas, List<PrevisaoEntidade> entidadesPrevistas) {
+    public PrevisaoModulo(List<PrevisaoGestaoEntidade> gestoesPrevistas,
+            List<PrevisaoEntidade> entidadesPrevistas, PrevisaoProjeto pPrevisaoProjeto) {
         this.gestoesPrevistas = gestoesPrevistas;
         this.entidadesPrevistas = entidadesPrevistas;
         nome = getModuloAssociado().getNome();
         id = nome.hashCode();
+        previsaoProjeto = pPrevisaoProjeto;
+    }
+
+    public PrevisaoProjeto getPrevisaoProjeto() {
+        return previsaoProjeto;
     }
 
     public List<PrevisaoGestaoEntidade> getGestoesPrevistas() {

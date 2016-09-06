@@ -26,20 +26,21 @@ public class PrevisaoProjeto implements Serializable {
 
     private final List<TarefaSuperBits> tarefasProximaVersao;
     private final List<TarefaSuperBits> todasTarefas;
-    private CustosProjeto custoProjetoProximaVersao;
-    private CustosProjeto custoProjetoCompleto;
-    private HashMap<ItfModuloAcaoSistema, ModuloPrevisto> modulosPrevistos = new HashMap<>();
+    private CustosDesenvolvimento custoProjetoProximaVersao;
+    private CustosDesenvolvimento custoProjetoCompleto;
+    private final HashMap<ItfModuloAcaoSistema, PrevisaoModulo> modulosPrevistos = new HashMap<>();
 
     private final AmbienteDesenvolvimento ambienteDesenvolvimento;
 
     public PrevisaoProjeto(List<TarefaSuperBits> ptodasTarefas) {
         this.tarefasProximaVersao = new ArrayList<>();
+        ambienteDesenvolvimento = new AmbienteDesenvolvimento();
         todasTarefas = ptodasTarefas;
         defineModulosPrevistros();
         calcularValores();
-        ambienteDesenvolvimento = new AmbienteDesenvolvimento();
-        custoProjetoCompleto = new CustosProjeto(ptodasTarefas, ambienteDesenvolvimento);
-        custoProjetoProximaVersao = new CustosProjeto(new ArrayList<>(), ambienteDesenvolvimento);
+
+        custoProjetoCompleto = new CustosDesenvolvimento(ptodasTarefas, ambienteDesenvolvimento);
+        custoProjetoProximaVersao = new CustosDesenvolvimento(new ArrayList<>(), ambienteDesenvolvimento);
 
     }
 
@@ -51,15 +52,19 @@ public class PrevisaoProjeto implements Serializable {
 
             for (ItfAcaoGerenciarEntidade acaoGestao : MapaAcoesSistema.getAcoesGestaoByModulo(modulo)) {
                 List<TarefaSuperBits> tarefasGestao = MapaTarefasProjeto.getTarefasDaGestao(acaoGestao);
-                PrevisaoGestaoEntidade prevGestao = new PrevisaoGestaoEntidade(acaoGestao, tarefasGestao);
-                List<TarefaSuperBits> tarefasTabela = MapaTarefasProjeto.getTarefasDaTabela(acaoGestao.getClasseRelacionada());
-                PrevisaoEntidade prevEntidade
-                        = new PrevisaoEntidade(modulo, tarefasTabela, acaoGestao.getClasseRelacionada());
-                previsoesEntidade.add(prevEntidade);
+                PrevisaoGestaoEntidade prevGestao = new PrevisaoGestaoEntidade(acaoGestao, tarefasGestao, this);
+                Class classeRelacionada = acaoGestao.getClasseRelacionada();
                 previsoesGestaoEntidade.add(prevGestao);
+                List<TarefaSuperBits> tarefasTabela = MapaTarefasProjeto.getTarefasDaTabela(classeRelacionada);
+                if (tarefasTabela != null) {
+
+                    PrevisaoEntidade prevEntidade = new PrevisaoEntidade(modulo, tarefasTabela, acaoGestao.getClasseRelacionada(), this);
+                    previsoesEntidade.add(prevEntidade);
+                }
+
             }
 
-            ModuloPrevisto modPrev = new ModuloPrevisto(previsoesGestaoEntidade, previsoesEntidade);
+            PrevisaoModulo modPrev = new PrevisaoModulo(previsoesGestaoEntidade, previsoesEntidade, this);
 
             System.out.println("Previsto modulo " + modulo);
             System.out.println("O modulo " + modulo + " possui" + modPrev.getEntidadesPrevistas().size() + "Etidades com ações previstas");
@@ -70,8 +75,8 @@ public class PrevisaoProjeto implements Serializable {
     }
 
     public final void calcularValores() {
-        custoProjetoProximaVersao = new CustosProjeto(tarefasProximaVersao, ambienteDesenvolvimento);
-        custoProjetoCompleto = new CustosProjeto(todasTarefas, ambienteDesenvolvimento);
+        custoProjetoProximaVersao = new CustosDesenvolvimento(tarefasProximaVersao, ambienteDesenvolvimento);
+        custoProjetoCompleto = new CustosDesenvolvimento(todasTarefas, ambienteDesenvolvimento);
     }
 
     public void adicionarGestaoEntidadeEmProximaVersao(PrevisaoGestaoEntidade pPrevisao) {
@@ -91,19 +96,19 @@ public class PrevisaoProjeto implements Serializable {
         return ambienteDesenvolvimento;
     }
 
-    public CustosProjeto getCustoProjetoProximaVersao() {
+    public CustosDesenvolvimento getCustoProjetoProximaVersao() {
         return custoProjetoProximaVersao;
     }
 
-    public CustosProjeto getCustoProjetoCompleto() {
+    public CustosDesenvolvimento getCustoProjetoCompleto() {
         return custoProjetoCompleto;
     }
 
-    public HashMap<ItfModuloAcaoSistema, ModuloPrevisto> getModuloPrevistosPorModulo() {
+    public HashMap<ItfModuloAcaoSistema, PrevisaoModulo> getModuloPrevistosPorModulo() {
         return modulosPrevistos;
     }
 
-    public List<ModuloPrevisto> getModulosPrevistos() {
+    public List<PrevisaoModulo> getModulosPrevistos() {
         return Lists.newArrayList(getModuloPrevistosPorModulo().values());
     }
 

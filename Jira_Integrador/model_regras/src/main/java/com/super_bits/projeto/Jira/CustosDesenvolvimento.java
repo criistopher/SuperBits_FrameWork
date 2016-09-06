@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class CustosProjeto {
+public class CustosDesenvolvimento {
 
     private int minutosTotalAnalistaBancoDeDados;
     private int minutosTotalAnalistaLogicaTDD;
@@ -34,34 +34,47 @@ public class CustosProjeto {
         return getHorasTotalAnalistaBancoDeDados() * getAmbienteDesenvolvimento().getDetalhesProfissionalTelas().getValorHoraTecnica();
     }
 
-    public CustosProjeto(List<TarefaSuperBits> pTarefas, AmbienteDesenvolvimento pAmbiente) {
+    public CustosDesenvolvimento(List<TarefaSuperBits> pTarefas, AmbienteDesenvolvimento pAmbiente) {
+        if (pTarefas == null) {
+            throw new UnsupportedOperationException("as tarefas precisam ser definidas para calculo de custos");
+        }
         tarefas = pTarefas;
         ambienteDesenvolvimento = pAmbiente;
+        if (ambienteDesenvolvimento == null) {
+            throw new UnsupportedOperationException("O ambiente de desenvolvimento não pode ser nulo");
+        }
         atualizaValores();
 
     }
 
-    public int getValorGastoAnalistaTDD() {
+    public double getValorGastoAnalistaTDD() {
         return getHorasTotalAnalistaLogicaTDD() * getAmbienteDesenvolvimento().getDetalhesProfissionalTDD().getValorHoraTecnica();
     }
 
-    public int getValorGastoAnalistaTelas() {
+    public double getValorGastoAnalistaTelas() {
         return getHorasTotalAlanlistaTelas() * getAmbienteDesenvolvimento().getDetalhesProfissionalTelas().getValorHoraTecnica();
     }
 
-    public int getValorGastoAnalistaDesigner() {
+    public double getValorGastoAnalistaDesigner() {
         return getHorasTotalAnalistaDesigner() * getAmbienteDesenvolvimento().getDetalhesProfissionalDesigner().getValorHoraTecnica();
     }
 
-    public int getValorGastroAnalistaRequisito() {
+    public double getValorGastroAnalistaRequisito() {
         return getHorasTotalAnalistaRequisitos() * getAmbienteDesenvolvimento().getDetalhesProfissionalRequistos().getValorHoraTecnica();
     }
 
-    public int getValorGastoAnalistaAndroid() {
-        return getHorasTotalAnalistaBancoDeDados() * getAmbienteDesenvolvimento().getDetalhesProfissionalAndroid().getValorHoraTecnica();
+    public double getValorGastoAnalistaAndroid() {
+        TipoProfissional tipoProfissional = getAmbienteDesenvolvimento().getDetalhesProfissionalAndroid();
+
+        double valorHoratecnica = tipoProfissional.getValorHoraTecnica();
+        return getHorasTotalAnalistaAndroid() * valorHoratecnica;
     }
 
     public int getHorasTotalAnalistaBancoDeDados() {
+        return minutosTotalAnalistaBancoDeDados / 60;
+    }
+
+    public int getHorasTotalAnalistaAndroid() {
         return minutosTotalAnalistaBancoDeDados / 60;
     }
 
@@ -185,7 +198,7 @@ public class CustosProjeto {
     private void atualizaValores() {
 
         int minutosTotal = 0;
-        for (TarefaSuperBits tr : MapaTarefasProjeto.getTodasTarefas()) {
+        for (TarefaSuperBits tr : tarefas) {
 
             switch (tr.getTarefaJiraOrigem().getTipoTarefa().getTipoProfissional()) {
                 case ANALISTA_BANCO_DE_DADOS:

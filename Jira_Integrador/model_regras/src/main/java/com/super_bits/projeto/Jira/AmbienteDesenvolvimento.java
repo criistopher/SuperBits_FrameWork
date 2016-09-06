@@ -14,17 +14,22 @@ import java.util.List;
 
 /**
  *
+ *
+ *
  * @author desenvolvedor
  */
 public class AmbienteDesenvolvimento extends ItemSimples {
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeAmbiente = "Ambiente Padrão";
     private int taxaAdminsitrativa = 20;
     private int adicionalHoraExtra = 50;
     private int adicionalEntregaAntecipada = 40;
     private int valorPadraoHorasDiarias = 6;
+    private int fatorProdutividade = 1;
+
     private List<DesenvolvedorProjetoSB> desenvolvedores;
     private final List<TipoProfissional> tiposProfissional = UtilSBCoreFabrica.getListaTodosRegistrosDaFabrica(FabTipoProfissional.class);
 
@@ -107,6 +112,22 @@ public class AmbienteDesenvolvimento extends ItemSimples {
 
     public void setDesenvolvedores(List<DesenvolvedorProjetoSB> desenvolvedores) {
         this.desenvolvedores = desenvolvedores;
+    }
+
+    public String getNomeAmbiente() {
+        return nomeAmbiente;
+    }
+
+    public void setNomeAmbiente(String nomeAmbiente) {
+        this.nomeAmbiente = nomeAmbiente;
+    }
+
+    public int getFatorProdutividade() {
+        return fatorProdutividade;
+    }
+
+    public void setFatorProdutividade(int fatorProdutividade) {
+        this.fatorProdutividade = fatorProdutividade;
     }
 
 }

@@ -18,8 +18,7 @@ import com.super_bits.projeto.Jira.DesenvolvedorProjetoSB;
 import com.super_bits.projeto.Jira.FabTipoProfissional;
 import com.super_bits.projeto.Jira.Jira.ItfTarefaSuperBitsFW;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
-import com.super_bits.projeto.Jira.ModuloPrevisto;
-import com.super_bits.projeto.Jira.PrevisaoEntidade;
+import com.super_bits.projeto.Jira.PrevisaoModulo;
 import com.super_bits.projeto.Jira.PrevisaoGestaoEntidade;
 
 import com.super_bits.projeto.Jira.PrevisaoProjeto;
@@ -46,7 +45,7 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
 
     private ItfTarefaSuperBitsFW tarefaDetalhesSelecionado;
 
-    private ModuloPrevisto prevMooduloSelecionado;
+    private PrevisaoModulo prevMooduloSelecionado;
 
     private ItfAcaoFormulario acaoVisaoGeralGestao;
     private ItfAcaoFormulario acaoDetalhesGestao;
@@ -72,8 +71,6 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
                         tipoProfissionalSelecionado, 5));
         previsaoProjeto.calcularValores();
     }
-
-    private AmbienteDesenvolvimento ambienteDesenvolvimento;
 
     public PgRequisitosVisaoGeral() {
         this.acoesPrincipal = new ArrayList<>();
@@ -104,7 +101,7 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
 
     public void recarregarValores() {
         previsaoProjeto = new PrevisaoProjeto(MapaTarefasProjeto.getTodasTarefas());
-        ambienteDesenvolvimento = new AmbienteDesenvolvimento();
+
     }
 
     public PrevisaoProjeto getPrevisaoProjeto() {
@@ -116,11 +113,7 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
     }
 
     public AmbienteDesenvolvimento getAmbienteDesenvolvimento() {
-        return ambienteDesenvolvimento;
-    }
-
-    public void setAmbienteDesenvolvimento(AmbienteDesenvolvimento ambienteDesenvolvimento) {
-        this.ambienteDesenvolvimento = ambienteDesenvolvimento;
+        return getPrevisaoProjeto().getAmbienteDesenvolvimento();
     }
 
     public List<ItfAcaoDoSistema> getAcoesPrincipal() {
@@ -147,11 +140,11 @@ public class PgRequisitosVisaoGeral extends MB_PaginaSession {
         this.prevGestaoSelecionado = prevGestaoSelecionado;
     }
 
-    public ModuloPrevisto getPrevMooduloSelecionado() {
+    public PrevisaoModulo getPrevMooduloSelecionado() {
         return prevMooduloSelecionado;
     }
 
-    public void setPrevMooduloSelecionado(ModuloPrevisto prevMooduloSelecionado) {
+    public void setPrevMooduloSelecionado(PrevisaoModulo prevMooduloSelecionado) {
         this.prevMooduloSelecionado = prevMooduloSelecionado;
     }
 

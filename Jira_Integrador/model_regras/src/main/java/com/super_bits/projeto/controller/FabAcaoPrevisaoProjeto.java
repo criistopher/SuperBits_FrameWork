@@ -76,8 +76,10 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
     @InfoTipoAcaoFormulario(nomeAcao = "Detalhes ação do sistema", icone = "fa fa-bars",
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoControllerDetalhes.xhtml"
     )
-
     ACAO_PREVISAO_FRM_DETALHES_ACAO_NOVA_TECNOLOGIA,
+    @InfoTipoAcaoFormulario(nomeAcao = "Integração do sistema", icone = "fa fa-bars",
+            xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoControllerDetalhes.xhtml"
+    )
     ACAO_PREVISAO_FRM_DETALHES_ACAO_INTEGRACAO,
     /**
      *
@@ -93,6 +95,9 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "detalhesModulo.xhtml"
     )
     ACAO_PREVISAO_FRM_DETALHES_MODULO,
+    @InfoTipoAcaoFormulario(nomeAcao = "Detalhes da Tabela", icone = "fa fa-bars",
+            xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "detalhesTabela.xhtml"
+    )
     ACAO_PREVISAO_FRM_DETALHES_TABELA_BANCO_DADDOS,
     /**
      *

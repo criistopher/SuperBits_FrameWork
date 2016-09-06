@@ -38,4 +38,7 @@ public interface ItfPrevisaoGestaoEntidade {
 
     void setModulo(ItfModuloAcaoSistema modulo);
 
+    public CustosDesenvolvimento getCustoDesenvolvimento();
+
+    public PrevisaoProjeto getPrevisaoProjeto();
 }
