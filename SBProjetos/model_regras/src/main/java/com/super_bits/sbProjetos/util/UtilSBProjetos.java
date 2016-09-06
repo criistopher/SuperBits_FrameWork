@@ -274,7 +274,7 @@ public class UtilSBProjetos {
         return resp.getResultado().equals(RespostaCMD.RESULTADOCMD.OK);
     }
 
-    private static boolean criarREpositorioReleaseDoProjetoNoServidor(Projeto p) {
+    public static boolean criarREpositorioReleaseDoProjetoNoServidor(Projeto p) {
         System.out.println("Criando repositorio release em Servidor para" + p.getNomeComercial());
         System.out.println("________________________________________________________________");
         Comando novoComando = new Comando(Comando.TIPO_EXECUCAO.CRIAR_SCRIPTLNX, UtilSBProjetos.SCRIPT_CHAMADA_REMOTA_EM_PROJETO);

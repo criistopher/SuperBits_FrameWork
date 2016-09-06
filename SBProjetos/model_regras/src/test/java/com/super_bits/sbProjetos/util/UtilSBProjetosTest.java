@@ -14,6 +14,7 @@ import com.super_bits.sbProjetos.FabConfigCoreSBProjetosModel;
 import com.super_bits.sbProjetos.Model.Projeto;
 import java.io.File;
 import java.util.Map;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
 /**
@@ -61,14 +62,15 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Test
     public void testCriarNovoProjeto() {
+
         Projeto projetoTeste = FabSBProjectProjetos.SUPER_KOMPRAS.getRegistro();
-        //   projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
-        //  UtilSBProjetos.criarNovoProjeto(projetoTeste);
-        //   UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+        // projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
+        // UtilSBProjetos.criarNovoProjeto(projetoTeste);
+        // UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+        // UtilSBProjetos.criarREpositorioReleaseDoProjetoNoServidor(projetoTeste);
 
-        UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+        //       UtilSBProjetos.configurarPastaProjeto(projetoTeste);
         //UtilSBProjetos.criarNovoProjeto(projetoTeste);
-
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.System.out.println("__________________EXISTE PASTA RELEASE__________________");
         //  verificaExistenciaDoProjetoRelease(projetoTeste);
