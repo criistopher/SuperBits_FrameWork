@@ -46,7 +46,9 @@ public class ArquivoConfiguracaoDistribuicao {
         }
 
         if (propriedadesImplantacao == null) {
-            throw new UnsupportedOperationException("Nenhum arquivo de implantação foi encontrado, isto não é importante se você não pretende implantar este projeto, caso prentenda certifique de configurar o arquivo" + getCaminhoArquivoReleaseLocal());
+            System.out.println("Nenhum arquivo de implantação foi encontrado,(Nem em pastas de desenvolvimento, nem em pastas de produção) isto não é importante se você não pretende implantar este projeto, caso prentenda certifique de configurar o arquivo" + getCaminhoArquivoReleaseLocal());
+
+            return;
         }
         SERVIDOR_HOMOLOGACAO = propriedadesImplantacao.getProperty("SERVIDOR_HOMOLOGACAO");
         if (SERVIDOR_HOMOLOGACAO == null) {

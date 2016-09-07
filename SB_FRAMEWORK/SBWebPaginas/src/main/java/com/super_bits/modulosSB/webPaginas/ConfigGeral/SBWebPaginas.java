@@ -37,19 +37,18 @@ public abstract class SBWebPaginas {
         ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoDistribuicao();
 
         if (distribuicao == null) {
-            throw new UnsupportedOperationException("Para executar um projeto Web, você deve configurar o arquivo de implantação na pasta release");
-        }
-        if (distribuicao.isTemArquivoImplantacao()) {
-            String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
-        }
+            System.out.println("O arquivo de implantação ainda não foi configurado, esta aplicação rodara no modo localhost:8080/" + nomePacoteProjeto);
+        } else {
 
-        //    if (distribuicao.isEmAmbienteDeProducao()) {
-        // SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
-        //      SITE_URL = SITE_HOST;
-        // } else {
-        //       SITE_URL = SITE_HOST + "/" + nomePacoteProjeto;
-        //       System.out.println("siteURL=" + SITE_URL);
-        // }
+            if (distribuicao.isTemArquivoImplantacao()) {
+                String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+            }
+
+            if (distribuicao.isEmAmbienteDeProducao()) {
+                SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
+                SITE_URL = SITE_HOST;
+            }
+        }
     }
 
     private static void validaConfigurado() {
