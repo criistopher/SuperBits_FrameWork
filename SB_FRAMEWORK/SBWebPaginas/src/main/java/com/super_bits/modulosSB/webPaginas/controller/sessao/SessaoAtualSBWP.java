@@ -25,7 +25,6 @@ public class SessaoAtualSBWP extends SessaoOffline implements ItfSessao, Seriali
     private boolean tipoViewDefinido = false;
     private ItfTipoView tipoView;
     private ItfModuloAcaoSistema moduloSelecionado;
-
     private MenusDaSessao menusDaSessao;
 
     public MenusDaSessao getMenusDaSessao() {
