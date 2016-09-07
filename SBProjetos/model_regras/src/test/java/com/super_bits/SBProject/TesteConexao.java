@@ -9,9 +9,9 @@ import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.sbProjetos.ConfiguradorCoreSBProjetosModel;
 import com.super_bits.sbProjetos.Model.ConfigPersistenciaSBProject;
 import com.super_bits.sbProjetos.Model.Requisito;
-import com.super_bits.sbProjetos.configAppp.ConfigCoreInomeProjetoI;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class TesteConexao {
 
     @Before
     public void configuracao() {
-        SBCore.configurar(new ConfigCoreInomeProjetoI());
+        SBCore.configurar(new ConfiguradorCoreSBProjetosModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaSBProject());
     }
 

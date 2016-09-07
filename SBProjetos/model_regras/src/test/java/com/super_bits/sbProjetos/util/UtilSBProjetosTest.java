@@ -9,12 +9,11 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
-import com.super_bits.sbProjetos.FabConfigCoreSBProjetosModel;
+import com.super_bits.sbProjetos.ConfiguradorCoreSBProjetosModel;
 
 import com.super_bits.sbProjetos.Model.Projeto;
 import java.io.File;
 import java.util.Map;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
 /**
@@ -68,7 +67,8 @@ public class UtilSBProjetosTest extends TesteJunit {
         Projeto moduloCriadorCodigo = FabSBProjectProjetos.CRIADOR_CODIGO.getRegistro();
         Projeto moduloSeguranca = FabSBProjectProjetos.CONTROLE_USUARIOS_BASICO.getRegistro();
         Projeto sistemaSantaClara = FabSBProjectProjetos.SISTEMA_SANTA_CLARA.getRegistro();
-        UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
+        //    UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
+        UtilSBProjetos.configurarPastaProjeto(moduloRequisitos);
 //        UtilSBProjetos.criarNovoProjetoOffline(sistemaSantaClara);
         // projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
@@ -79,11 +79,11 @@ public class UtilSBProjetosTest extends TesteJunit {
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.System.out.println("__________________EXISTE PASTA RELEASE__________________");
         //  verificaExistenciaDoProjetoRelease(projetoTeste);
-        System.out.println("_______________________EXISTE PASTA SOURCE_____________");
+        System.out.println("_______________________EXISTE PASTA SOURCE______________");
         //   verificaExistenciaDoProjetoSource(projetoTeste);
-        System.out.println("_______________CRIA REPOSITORIO RELEASE_____________________");
+        System.out.println("_______________CRIA REPOSITORIO RELEASE_________________");
         //   criarREpositorioDoProjetoRelease(projetoTeste);
-        System.out.println("________________CRIA REPOSITORIO SOURCE____________________");
+        System.out.println("________________CRIA REPOSITORIO SOURCE_________________");
         //    criarREpositorioDoProjetoSource(projetoTeste);
         System.out.println("____________________________________");
 
@@ -97,7 +97,7 @@ public class UtilSBProjetosTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBProjetosModel.DESENVOLVIMENTO.getConfiguracao(), true);
+        SBCore.configurar(new ConfiguradorCoreSBProjetosModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }
