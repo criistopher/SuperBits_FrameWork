@@ -14,14 +14,14 @@ import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfConfigWebPagina;
 import com.super_bits.modulosSB.webPaginas.controller.paginasDoSistema.FabAcaoPaginasDoSistema;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -43,7 +43,7 @@ public enum FabConfiguracoesDeAmbienteInomeProjetoIRequisitos {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
-    public ItfConfiguradorCore getConfiguracao() {
+    public ItfConfiguracaoCoreSomenteLeitura getConfiguracao() {
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");
         // TODO ALTERAR GRUPO DO PROJETO AO INICIAR NOVO PROJETO

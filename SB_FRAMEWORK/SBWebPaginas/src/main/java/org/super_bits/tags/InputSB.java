@@ -5,7 +5,7 @@
  */
 package org.super_bits.tags;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCampoInstanciado;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;

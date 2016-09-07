@@ -5,11 +5,11 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfRegiao;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -43,11 +43,11 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao", descricao = "Nome da região(ex: Triângulo Mineiro)")
     private String nomeRegiao;
 
-    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Cidade", descricao = "Lista das cidades que compõem o estado selecionado")
+    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Cidade", descricao = "Lista das cidades que compõem o estado selecionado")
     @ManyToMany
     private List<Cidade> cidades;
 
-    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Bairros", descricao = "Bairros de uma dada região")
+    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Bairros", descricao = "Bairros de uma dada região")
     @ManyToMany
     private List<Bairro> bairros;
 

@@ -5,13 +5,16 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +40,13 @@ public class PrevisaoEntidade extends ItemSimples implements ItfPrevisaoEntidade
         this.modulo = modulo;
         this.tarefasVinculadas = pTarefasVinculadas;
         this.entidadeVinculada = entidadeVinculada;
+        try {
+            ItemGenerico item = (ItemGenerico) entidadeVinculada.newInstance();
+            estruturaDeEntidade = item.getEstruturaDaEntidade();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(PrevisaoEntidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         nome = entidadeVinculada.getSimpleName();
         id = nome.hashCode();
         previsaoProjeto = pPrevisaoProjeto;
@@ -76,6 +86,31 @@ public class PrevisaoEntidade extends ItemSimples implements ItfPrevisaoEntidade
     @Override
     public EstruturaDeEntidade getEstruturaDeEntidade() {
         return estruturaDeEntidade;
+    }
+
+    @Override
+    public int getHorasProgramadas() {
+        return getCustoDesenvolvimento().getHorasTotal();
+    }
+
+    @Override
+    public String getNomeDoAgrupamento() {
+        return estruturaDeEntidade.getTags().get(0);
+    }
+
+    @Override
+    public String getIcone() {
+        return estruturaDeEntidade.getIcone();
+    }
+
+    @Override
+    public String getDescricao() {
+        return estruturaDeEntidade.getDescricao();
+    }
+
+    @Override
+    public TipoGrupoTarefa getTipoGrupoTarefa() {
+        return FabTipoGrupoTarefa.TABELA.getRegistro();
     }
 
 }

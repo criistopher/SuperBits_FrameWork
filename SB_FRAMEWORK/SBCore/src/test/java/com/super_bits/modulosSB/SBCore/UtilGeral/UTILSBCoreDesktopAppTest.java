@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabTipoUsuarioInteracao;
-import com.super_bits.modulosSB.SBCore.Mensagens.Mensagem;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabTipoUsuarioInteracao;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.Mensagem;
 import org.junit.Test;
 
 /**

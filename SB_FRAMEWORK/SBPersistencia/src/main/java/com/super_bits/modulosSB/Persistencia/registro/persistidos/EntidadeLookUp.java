@@ -1,7 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoLookUp;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoLookUp;
 
 public class EntidadeLookUp extends EntidadeSimples {
 

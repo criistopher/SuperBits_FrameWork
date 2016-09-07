@@ -5,8 +5,8 @@
  */
 package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 
 /**

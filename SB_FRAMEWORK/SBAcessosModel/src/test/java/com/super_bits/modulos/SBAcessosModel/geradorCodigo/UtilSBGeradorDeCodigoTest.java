@@ -5,23 +5,25 @@
  */
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.UtilSBGeradorDeCodigo;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.CalculoDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.LigacaoMuitosParaMuitos;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.LigacaoMuitosParaUm;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.ListaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;

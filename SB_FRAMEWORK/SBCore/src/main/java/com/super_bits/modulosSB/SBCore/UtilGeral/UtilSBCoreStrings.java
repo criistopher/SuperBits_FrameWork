@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -104,6 +104,9 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String removeCaracteresEspeciais(String param) {
+        if (param == null) {
+            return null;
+        }
         param = Normalizer.normalize(param, Normalizer.Form.NFD);
         param = param.replaceAll("[^\\p{ASCII}]", "");
         return param;
@@ -120,6 +123,9 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String makeStrUrlAmigavel(String param) {
+        if (param == null) {
+            return null;
+        }
         String resposta = removeCaracteresEspeciais(param);
         resposta = resposta.replace(" ", "_");
         resposta = resposta.replace(":", "-");
@@ -630,6 +636,20 @@ public abstract class UtilSBCoreStrings {
         }
         return true;
 
+    }
+
+    public static boolean isNuloOuEmbranco(String pString) {
+        if (pString == null) {
+            return true;
+        }
+        return pString.isEmpty();
+    }
+
+    public static boolean isNAO_NuloNemBranco(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        return !pString.isEmpty();
     }
 
 }

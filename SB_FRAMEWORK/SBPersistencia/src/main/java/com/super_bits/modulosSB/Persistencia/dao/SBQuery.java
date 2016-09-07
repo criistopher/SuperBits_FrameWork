@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.Persistencia.dao;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;

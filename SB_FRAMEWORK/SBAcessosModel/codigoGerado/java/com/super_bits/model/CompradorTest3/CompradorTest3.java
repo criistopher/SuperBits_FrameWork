@@ -22,11 +22,11 @@ private String telefone;
 @Column(length = 0, nullable = false)
 private String cnpj;
 
-@InfoCampo(tipo = FabCampos.LISTA, label = "Filiais", descricao = "Filiais do Comprador")
+@InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Filiais", descricao = "Filiais do Comprador")
 @OneToMany(targetEntity = FilialComprador.class, cascade = CascadeType.ALL, orphanRemoval = true)
 private List<FilialComprador>filiais;
 
-@InfoCampo(tipo = FabCampos.LOOKUP, label = "Filial Principal", descricao = "Filial Principal do Comprador")
+@InfoCampo(tipo = FabCampos.OBJETO_DE_UMA_LISTA, label = "Filial Principal", descricao = "Filial Principal do Comprador")
 @OneToMany(targetEntity = FilialComprador)
 private List<FilialComprador>filialPrincipal;
 

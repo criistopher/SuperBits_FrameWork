@@ -1,13 +1,13 @@
 package com.super_bits.modulosSB.Persistencia.InjecaoPorReflexao;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.ValorAceito;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
-import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeFormatoDoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeInjecao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.excecao.ErroDeMapaDeCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.CampoMapValores;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.ValorAceito;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.util.ErrorMessages;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.excecao.ErroDeFormatoDoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.excecao.ErroDeInjecao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.excecao.ErroDeMapaDeCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.CampoMapValores;
 import java.lang.reflect.Field;
 import java.util.Date;
 

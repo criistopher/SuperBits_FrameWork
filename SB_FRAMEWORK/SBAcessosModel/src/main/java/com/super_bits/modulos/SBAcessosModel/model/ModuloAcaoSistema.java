@@ -5,13 +5,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +48,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
     private boolean umModuloNativo = false;
+    private String iconeDaClasse = "fa fa-puzzle-piece";
 
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
@@ -145,6 +146,15 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
 
     public void setUmModuloNativo(boolean umModuloNativo) {
         this.umModuloNativo = umModuloNativo;
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return iconeDaClasse;
+    }
+
+    public void setIconeDaClasse(String iconeDaClasse) {
+        this.iconeDaClasse = iconeDaClasse;
     }
 
 }

@@ -6,7 +6,7 @@
 package com.super_bits.modulos.SBAcessosModel.fabricas;
 
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *

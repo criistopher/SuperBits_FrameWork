@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import aux.FabConfigCoreSBSBAcessosModel;
+import aux.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
@@ -32,7 +32,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

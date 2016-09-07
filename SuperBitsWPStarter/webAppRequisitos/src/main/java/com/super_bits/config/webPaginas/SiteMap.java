@@ -6,15 +6,16 @@
 package com.super_bits.config.webPaginas;
 
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
-import com.super_bits.InomeProjetoI.paginas.PgHomeRequisito;
-import com.super_bits.InomeProjetoI.paginas.PgRequisitosVisaoGeral;
+import com.super_bits.modulos.paginas.Monitor_de_Requisito.PgHomeRequisito;
+import com.super_bits.modulos.paginas.Monitor_de_Requisito.PgRequisitosVisaoGeral;
+
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgProjetoSBVisaoGeral;
 
-import com.super_bits.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;

@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

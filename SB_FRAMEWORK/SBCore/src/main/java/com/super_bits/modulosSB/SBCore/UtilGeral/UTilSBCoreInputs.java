@@ -4,7 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -209,7 +210,15 @@ public abstract class UTilSBCoreInputs {
     }
 
     public static InputStream getStreamByLocalFile(String pCaminhoLocal) {
-        throw new UnsupportedOperationException("NÃO FOI IMPLEMENTADO");
+
+        try {
+            File arquivo = new File(pCaminhoLocal);
+            FileInputStream input = new FileInputStream(arquivo);
+            return input;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro obtendo InputStream do arquivo local" + pCaminhoLocal, t);
+            return null;
+        }
     }
 
     /**

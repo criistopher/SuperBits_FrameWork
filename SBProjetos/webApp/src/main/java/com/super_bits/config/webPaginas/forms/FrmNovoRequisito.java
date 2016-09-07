@@ -5,7 +5,7 @@
 package com.super_bits.config.webPaginas.forms;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.form.B_Formulario;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.form.InfoForm;
 import com.super_bits.sbProjetos.Model.Projeto;

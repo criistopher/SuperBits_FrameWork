@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBBasico;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBBasico;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.PostConstruct;

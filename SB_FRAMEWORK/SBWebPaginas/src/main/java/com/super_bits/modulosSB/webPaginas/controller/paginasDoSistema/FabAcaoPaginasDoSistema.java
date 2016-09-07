@@ -9,8 +9,8 @@ import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 
 /**
  *

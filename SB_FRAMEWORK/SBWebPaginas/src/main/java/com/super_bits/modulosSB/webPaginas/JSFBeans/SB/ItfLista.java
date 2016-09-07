@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanNormal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanNormal;
 import java.util.List;
 
 /**

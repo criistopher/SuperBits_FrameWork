@@ -5,7 +5,7 @@
  */
 package com.super_bits.sbProjetos.controller.gestaoCliente;
 
-import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.Persistencia.dao.ControllerAbstratoSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.sbProjetos.Model.Cliente;

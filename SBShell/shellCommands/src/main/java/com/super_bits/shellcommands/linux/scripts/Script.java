@@ -5,7 +5,7 @@
  */
 package com.super_bits.shellcommands.linux.scripts;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.shellcommands.model.Comando;
 import com.super_bits.shellcommands.model.RespostaCMD;
 import java.util.ArrayList;

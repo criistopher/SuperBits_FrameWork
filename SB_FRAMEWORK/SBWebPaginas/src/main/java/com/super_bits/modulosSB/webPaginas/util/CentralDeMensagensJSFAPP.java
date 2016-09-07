@@ -2,8 +2,8 @@ package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.CentralDeMensagemAbstrata;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentralDeMensagemAbstrata;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCriticoSQL;

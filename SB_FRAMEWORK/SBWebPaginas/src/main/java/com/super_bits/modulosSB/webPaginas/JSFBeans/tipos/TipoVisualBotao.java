@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
-import com.super_bits.view.fabricasCompVisual.ComponenteVisualSB;
-import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualBotaoAcao;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualBotaoAcao;
 import javax.enterprise.context.ApplicationScoped;
 
 /**

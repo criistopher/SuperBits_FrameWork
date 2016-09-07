@@ -1,7 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;

@@ -5,9 +5,11 @@
  */
 package com.super_bits.modulosSB.Persistencia.util;
 
-import aux.FabConfigCoreSBSBpersistencia;
+import aux.ConfiguradorCoreSBSBpersistencia;
+import com.super_bits.modulosSB.Persistencia.ConfigGeral.ConfigPersistenciaExemplo;
+import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +38,8 @@ public class UtilSBPersistenciaFabricasTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBpersistencia.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(new ConfiguradorCoreSBSBpersistencia(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
+        SBPersistencia.configuraJPA(new ConfigPersistenciaExemplo());
     }
 
 }

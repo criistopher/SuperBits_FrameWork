@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:SBRec="http://xmlns.jcp.org/jsf/composite/SBComp/requisitos"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition  template="#{layoutsPaginas.formularioAcaoAtual.xhtmlVinculado}">
+
+        <ui:define name="conteudoDireita">
+
+            []
+
+        </ui:define>
+
+
+        <ui:define name="conteudoCard">
+            <div class="Container100" >
+                <p:fieldset legend="Gestões do sistema PLanejadas">
+                    <c:forEach items="#{pgRequisitosVisaoGeral.prevMooduloSelecionado.gestoesPrevistas}" var="gestao" >
+
+                        <h:form>
+                            <SBRec:botaoCardGestao gestaoPrevista="#{gestao}"
+                                                   destino="#{pgRequisitosVisaoGeral.prevGestaoSelecionado}"
+
+                                                   />
+
+
+                        </h:form>
+
+                    </c:forEach>
+                </p:fieldset>
+
+            </div>
+
+            <div class="Container100" >
+                <p:fieldset legend="Dados Vinculados planejados">
+                    <c:forEach items="#{pgRequisitosVisaoGeral.prevMooduloSelecionado.entidadesPrevistas}" var="tabela" >
+
+
+                        <h:form>
+                            <SBRec:botaoCardTabelaPrevista tabelaPrevista="#{tabela}"
+                                                           destino="#{pgRequisitosVisaoGeral.prevEntidadeSelecionada}"
+                                                           />
+
+                        </h:form>
+
+
+                    </c:forEach>
+
+                </p:fieldset>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+</html>
+
+
+
+
+
+
+
+
+
+

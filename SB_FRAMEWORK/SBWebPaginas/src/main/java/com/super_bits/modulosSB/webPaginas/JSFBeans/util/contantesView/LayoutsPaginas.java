@@ -30,6 +30,13 @@ public class LayoutsPaginas implements Serializable {
         return FabModelosPagina.MODELO_GERAL_ANONIMO.getRegistro();
     }
 
+    /**
+     *
+     * Exibe um formulário modelo CARD, contendo, icone, titulo, subtitulo da
+     * ação atual e 2 areas para definir: conteudoDireita e conteudoCard
+     *
+     * @return
+     */
     public ModeloPagina getFormularioAcaoAtual() {
         return FabModelosPagina.FORMULARIO_PG_ACAO_ATUAL.getRegistro();
     }

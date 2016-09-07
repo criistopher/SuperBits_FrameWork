@@ -8,13 +8,14 @@ package com.super_bits.projeto.Jira;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.config.ConfigPersistenciaIntegrador;
-import com.super_bits.config.FabConfiguracoesDeAmbienteModelExemplo;
+import com.super_bits.config.ConfiguradorJiraIntegradorModel;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
+
 import org.junit.Test;
 
 /**
@@ -51,9 +52,8 @@ public class ProjetoJiraSuperBitsTest extends TesteJunitSBPersistencia {
         AcaoDoSistema acaoTeste3 = (AcaoDoSistema) FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_FRM_EDITAR.getAcaoDoSistema();
         acaoTeste3.getComoFormulario().getCampos();
 
-        SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao());
+        SBCore.configurar(new ConfiguradorJiraIntegradorModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaIntegrador());
-
     }
 
 }

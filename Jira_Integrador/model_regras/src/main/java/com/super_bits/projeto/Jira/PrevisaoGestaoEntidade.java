@@ -5,12 +5,12 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.util.List;
 
@@ -148,6 +148,21 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String getNomeDoAgrupamento() {
+        return getGestao().getNomeAcao();
+    }
+
+    @Override
+    public String getIcone() {
+        return getGestao().getIconeAcao();
+    }
+
+    @Override
+    public TipoGrupoTarefa getTipoGrupoTarefa() {
+        return FabTipoGrupoTarefa.GESTAO.getRegistro();
     }
 
 }

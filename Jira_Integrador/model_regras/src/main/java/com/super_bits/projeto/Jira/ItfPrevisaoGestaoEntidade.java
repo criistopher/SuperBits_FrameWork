@@ -5,8 +5,8 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author salvioF
  */
-public interface ItfPrevisaoGestaoEntidade {
+public interface ItfPrevisaoGestaoEntidade extends ItfGrupoDeTarefas {
 
     void adicionarTarefa(TarefaSuperBits tr);
 
@@ -24,21 +24,14 @@ public interface ItfPrevisaoGestaoEntidade {
 
     ItfAcaoGerenciarEntidade getGestao();
 
-    int getHorasProgramadas();
-
     ItfModuloAcaoSistema getModulo();
 
     int getQtdAcoesDeFormulario();
 
     int getQtdAoesDeController();
 
-    List<TarefaSuperBits> getTarefasVinculadas();
-
     void setGestao(ItfAcaoGerenciarEntidade gestao);
 
     void setModulo(ItfModuloAcaoSistema modulo);
 
-    public CustosDesenvolvimento getCustoDesenvolvimento();
-
-    public PrevisaoProjeto getPrevisaoProjeto();
 }

@@ -4,9 +4,9 @@
  */
 package com.super_bits.view.fabricasCompVisual;
 
-import com.super_bits.view.fabricasCompVisual.componentes.FabCompVisualInputs;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

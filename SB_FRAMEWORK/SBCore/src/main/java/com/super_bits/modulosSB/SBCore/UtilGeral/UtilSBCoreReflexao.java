@@ -4,13 +4,13 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -384,6 +384,22 @@ public abstract class UtilSBCoreReflexao {
 
             InfoClasse info = (InfoClasse) pClasse.getAnnotation(InfoClasse.class);
             return info.icone();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "", t);
+            return null;
+        }
+
+    }
+
+    public static InfoClasse getInfoClasseObjeto(Class pClasse) {
+
+        try {
+            if (!pClasse.isAnnotationPresent(InfoClasse.class)) {
+                throw new UnsupportedOperationException("A classe " + pClasse + " não foi anotada com InfoClasse");
+            }
+
+            InfoClasse info = (InfoClasse) pClasse.getAnnotation(InfoClasse.class);
+            return info;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "", t);
             return null;

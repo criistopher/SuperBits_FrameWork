@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.ClasseTipada;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.MensagensJSF;
 import java.lang.reflect.ParameterizedType;

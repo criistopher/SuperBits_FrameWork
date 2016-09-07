@@ -8,9 +8,9 @@ package com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controlle
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.view.menu.ItfFabricaMenu;
-import com.super_bits.view.menu.MenuSBFW;
-import com.super_bits.view.menu.SessaoMenuSB;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenuSBFW;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.SessaoMenuSB;
 import java.util.ArrayList;
 import java.util.List;
 

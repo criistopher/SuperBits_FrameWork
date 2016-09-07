@@ -11,12 +11,12 @@ import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.api.domain.User;
 import com.google.common.collect.Lists;
 import com.super_bits.config.ConfigPersistenciaIntegrador;
-import com.super_bits.config.FabConfiguracoesDeAmbienteModelExemplo;
+import com.super_bits.config.ConfiguradorJiraIntegradorModel;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.util.List;
@@ -63,7 +63,7 @@ public class UtilSBCoreJiraTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao());
+        SBCore.configurar(new ConfiguradorJiraIntegradorModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaIntegrador());
     }
 

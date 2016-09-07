@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.controller;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import java.util.List;
 
 /**

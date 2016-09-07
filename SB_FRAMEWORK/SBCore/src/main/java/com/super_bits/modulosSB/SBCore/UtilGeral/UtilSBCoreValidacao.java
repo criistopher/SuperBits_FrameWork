@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 
 /**
  *
@@ -64,9 +64,9 @@ public abstract class UtilSBCoreValidacao {
 
             case MOEDA_REAL:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LOOKUP:
+            case OBJETO_DE_UMA_LISTA:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LOOKUPMULTIPLO:
+            case LISTA_OBJETOS:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
 
             case COR:

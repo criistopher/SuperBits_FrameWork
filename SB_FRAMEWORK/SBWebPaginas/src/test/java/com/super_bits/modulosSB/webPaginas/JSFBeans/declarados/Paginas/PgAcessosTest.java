@@ -3,7 +3,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import aux.FabConfigCoreSBSBWebPaginas;
+import aux.ConfiguradorSBCoreWebPaginaTestes;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +19,8 @@ public class PgAcessosTest {
 
     @Before
     public void setUp() {
+        SBCore.configurar(new ConfiguradorSBCoreWebPaginaTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
 
-        SBCore.configurar(FabConfigCoreSBSBWebPaginas.DESENVOLVIMENTO.getConfigurador());
         PgAcessos pgAcesso = new PgAcessos();
     }
 

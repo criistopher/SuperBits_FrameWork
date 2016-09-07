@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -54,7 +54,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getLOOKUPMULTIPLO() {
-        return getStrTipoCampoInput(FabCampos.LOOKUPMULTIPLO);
+        return getStrTipoCampoInput(FabCampos.LISTA_OBJETOS);
     }
 
     public String getTEXTO_SIMPLES() {
@@ -164,7 +164,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getLOOKUP() {
-        return getStrTipoCampoInput(FabCampos.LOOKUP);
+        return getStrTipoCampoInput(FabCampos.OBJETO_DE_UMA_LISTA);
     }
 
     public String getCOR() {

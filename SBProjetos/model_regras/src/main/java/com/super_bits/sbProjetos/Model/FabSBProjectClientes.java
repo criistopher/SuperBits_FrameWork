@@ -5,7 +5,7 @@
  */
 package com.super_bits.sbProjetos.Model;
 
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *
@@ -13,6 +13,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
  */
 public enum FabSBProjectClientes implements ItfFabrica {
     SUPERBITS_OPEN_SOURCE,
+    SUPER_BITS_CORP,
     FACULDADE_JAVA,
     VIP,
     GUIASE,
@@ -66,6 +67,10 @@ public enum FabSBProjectClientes implements ItfFabrica {
                 break;
             case FACULDADE_JAVA:
                 novoCliente.setNome("Faculdade Java");
+
+                break;
+            case SUPER_BITS_CORP:
+                novoCliente.setNome("superBitsCorp");
 
                 break;
             default:

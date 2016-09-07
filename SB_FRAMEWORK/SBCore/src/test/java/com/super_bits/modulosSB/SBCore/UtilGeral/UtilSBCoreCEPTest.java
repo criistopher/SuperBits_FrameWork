@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.cep.ItemLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.cep.ItemLocal;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class UtilSBCoreCEPTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }
