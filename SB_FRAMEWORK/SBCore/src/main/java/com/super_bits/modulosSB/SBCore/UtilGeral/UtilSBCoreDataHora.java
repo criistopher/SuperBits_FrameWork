@@ -439,16 +439,7 @@ public class UtilSBCoreDataHora {
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
         if (diferenca != null) {
 
-<<<<<<< HEAD
-            Integer[] resp = new Integer[4];
-
-            resp[3] = new Long(diferenca / 1000L % 60L).intValue(); // segundos
-            resp[2] = new Long(diferenca / (60L * 1000L) % 60).intValue(); // Minutos
-            resp[1] = new Long(diferenca / (60L * 60L * 1000L) % 24L).intValue(); // Horas
-            resp[0] = new Long(diferenca / (24L * 60L * 60L * 1000L)).intValue();// Dias
-=======
             Integer[] resp = new Integer[6];
->>>>>>> 04a981a6a7ca028b6280332983d49dc126d9af43
 
             resp[5] = new Long((diferenca / QTDMILISEGUNDOSSEGUNDO) % MINUTOSHORA).intValue(); // segundos
             resp[4] = new Long(diferenca / (SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) % MINUTOSHORA).intValue(); // Minutos
@@ -476,13 +467,8 @@ public class UtilSBCoreDataHora {
         if (pMinutos == 0) {
             return pData;
         }
-        long novadata;
+        long novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
 
-<<<<<<< HEAD
-        novadata = pData.getTime() - pMinutos * 60L * 1000L;
-=======
-        novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
->>>>>>> 04a981a6a7ca028b6280332983d49dc126d9af43
         return new Date(novadata);
     }
 
