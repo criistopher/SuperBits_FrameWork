@@ -119,7 +119,12 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
      */
     @Override
     public final void setControleDeSessao(Class<? extends ItfControleDeSessao> controleDeSessao) {
-        this.controleDeSessao = controleDeSessao;
+
+        if (this.controleDeSessao == null) {
+            this.controleDeSessao = controleDeSessao;
+        } else {
+            System.out.println("Ouve uma tentatidade de configurar o controle de sessão duas vezes!!!! ");
+        }
 
     }
 

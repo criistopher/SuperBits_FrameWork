@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
         <ui:define name="input">
 
@@ -26,7 +27,24 @@
                          requiredMessage="O campo #{label} não foi informado! "
                          >
 
+
+                <c:if test="#{possuiMetodoOnChange}">
+                    <p:ajax rendered="#{possuiMetodoOnChange}"
+                            global="true"
+                            event="valueChange"
+                            listener="#{metodoOnChange}"/>
+                </c:if>
+
+                <c:if test="#{possuiIDOnChange}" >
+                    <p:ajax
+                        rendered="#{possuiIDOnChange}"
+                        global="true"
+                        event="valueChange"
+                        listener="#{pgUtil.atualizaTelaPorID(idAtualizacao)}" />
+                </c:if>
+
                 <f:validateLength minimum="6" />
+
             </p:password>
 
         </ui:define>
