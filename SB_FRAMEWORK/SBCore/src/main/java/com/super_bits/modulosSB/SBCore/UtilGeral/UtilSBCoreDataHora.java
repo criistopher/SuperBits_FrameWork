@@ -45,7 +45,6 @@ public class UtilSBCoreDataHora {
     }
 
     public static int segundosEntre(Date pDatainicial, Date pDatafinal) {
-
         return 1;
     }
 
@@ -254,10 +253,10 @@ public class UtilSBCoreDataHora {
 
             Integer[] resp = new Integer[4];
 
-            resp[3] = new Long(diferenca / 1000 % 60).intValue(); // segundos
-            resp[2] = new Long(diferenca / (60 * 1000) % 60).intValue(); // Minutos
-            resp[1] = new Long(diferenca / (60 * 60 * 1000) % 24).intValue(); // Horas
-            resp[0] = new Long(diferenca / (24 * 60 * 60 * 1000)).intValue();// Dias
+            resp[3] = new Long(diferenca / 1000L % 60L).intValue(); // segundos
+            resp[2] = new Long(diferenca / (60L * 1000L) % 60).intValue(); // Minutos
+            resp[1] = new Long(diferenca / (60L * 60L * 1000L) % 24L).intValue(); // Horas
+            resp[0] = new Long(diferenca / (24L * 60L * 60L * 1000L)).intValue();// Dias
 
             return resp;
         } else {
@@ -281,7 +280,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() - pMinutos * 60 * 1000;
+        novadata = pData.getTime() - pMinutos * 60L * 1000L;
         return new Date(novadata);
     }
 
