@@ -6,10 +6,15 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.time.DateUtils;
 
 /**
@@ -21,6 +26,13 @@ import org.apache.commons.lang3.time.DateUtils;
  *
  */
 public class UtilSBCoreDataHora {
+
+    public final static Long HORASDIA = 24L;
+    public final static Long MESESANO = 12L;
+    public final static Long MINUTOSHORA = 60L;
+    public final static Long SEGUNDOSMINUTO = 60L;
+    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
+    public final static Long DIASMES = 30L;
 
     public static enum FORMATO_TEMPO {
 
@@ -169,7 +181,6 @@ public class UtilSBCoreDataHora {
     public static Long intervaloTempoMileSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
         if (pDatahoraInicio == null || pDatahoraFim == null) {
             return null;
-
         }
         return pDatahoraFim.getTime() - pDatahoraInicio.getTime();
     }
@@ -180,13 +191,15 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim Data Final
      * @return Retorna a quantidade de segundos entre um tempo e outro
      */
-    public static Long intervaloTempoSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static int intervaloTempoSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
+        Long intervalo;
         if (diferenca != null) {
-            return diferenca / 1000;
+            intervalo = diferenca / QTDMILISEGUNDOSSEGUNDO;
+            return intervalo.intValue();
         } else {
-            return null;
+            return 0;
         }
 
     }
@@ -197,13 +210,15 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim
      * @return
      */
-    public static Long intervaloTempoMinutos(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static int intervaloTempoMinutos(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
+        Long intervalo;
         if (diferenca != null) {
-            return diferenca / 1000 % 60;
+            intervalo = (diferenca / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO));
+            return intervalo.intValue();
         } else {
-            return null;
+            return 0;
         }
 
     }
@@ -214,13 +229,15 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim Data Final
      * @return Retorna a quantidade de horas
      */
-    public static Long intervaloTempoHoras(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static int intervaloTempoHoras(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
+        Long intervalo;
         if (diferenca != null) {
-            return diferenca / 1000 % 60;
+            intervalo = (diferenca) / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA);
+            return intervalo.intValue();
         } else {
-            return null;
+            return 0;
         }
 
     }
@@ -232,11 +249,43 @@ public class UtilSBCoreDataHora {
      * @return Retorna o intervalo de tempo em dias de uma data inicial até uma
      * data final
      */
-    public static long intervaloTempoDias(Date pDataInicial, Date pDataFinal) {
-        Date dataInicial = pDataInicial;
-        Date dataFinal = pDataFinal;
-        long diferencaEmDias = (dataFinal.getTime() - dataInicial.getTime()) / (1000 * 60 * 60 * 24);
-        return diferencaEmDias;
+    public static int intervaloTempoDias(Date pDataInicial, Date pDataFinal) {
+
+        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+        Long intervalo;
+        if (diferenca != null) {
+            intervalo = (diferenca) / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA);
+            return intervalo.intValue();
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static Integer intervaloTempoMeses(Date pDataInicial, Date pDataFinal) {
+
+        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+        Long intervalo;
+
+        if (diferenca != null) {
+            intervalo = (diferenca) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES;
+            return intervalo.intValue();
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static Integer intervaloTempoAnos(Date pDataInicial, Date pDataFinal) {
+
+        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+        Long intervalo;
+        if (diferenca != null) {
+            intervalo = ((diferenca) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES) / MESESANO;
+            return intervalo.intValue();
+        } else {
+            return 0;
+        }
 
     }
 
@@ -254,7 +303,7 @@ public class UtilSBCoreDataHora {
 
             Integer[] resp = new Integer[4];
 
-            resp[3] = new Long(diferenca / 1000 % 60).intValue(); // segundos
+            resp[3] = new Long((diferenca / 1000) % 60).intValue(); // segundos
             resp[2] = new Long(diferenca / (60 * 1000) % 60).intValue(); // Minutos
             resp[1] = new Long(diferenca / (60 * 60 * 1000) % 24).intValue(); // Horas
             resp[0] = new Long(diferenca / (24 * 60 * 60 * 1000)).intValue();// Dias
@@ -264,6 +313,26 @@ public class UtilSBCoreDataHora {
             return null;
         }
 
+    }
+
+    public static Integer intervaloTempoDiasHorasMinutosSegundos(Date pDataInicial, Date pDataFinal) {
+
+//        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+//        if (diferenca != null) {
+//
+//            Integer intervaloDias = intervaloTempoDias(pDataInicial, pDataFinal);
+//            SimpleDateFormat intervalo = new SimpleDateFormat("HH:mm:ss");
+//
+//            try {
+//                Integer intervaloConvertido = Integer.parseInt(intervalo.parse(diferenca.toString()).toString());// convertendo date em string
+//
+//                return intervaloConvertido;
+//            } catch (ParseException ex) {
+//                Logger.getLogger(UtilSBCoreDataHora.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        }
+        return 0;
     }
 
     /**
@@ -281,7 +350,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() - pMinutos * 60 * 1000;
+        novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
         return new Date(novadata);
     }
 
@@ -298,9 +367,10 @@ public class UtilSBCoreDataHora {
         if (pDias == 0) {
             return pData;
         }
+
         long novadata;
 
-        novadata = novadata = pData.getTime() - pDias * 24 * 60 * 60 * 1000;
+        novadata = novadata = pData.getTime() - pDias * (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA);
         return new Date(novadata);
 
     }
@@ -317,8 +387,11 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pNumeroDias * 24 * 60 * 60 * 1000;
-        return new Date(novadata);
+        long dataAntiga = pData.getTime();
+        long incremento = (pNumeroDias * (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA));
+        novadata = (dataAntiga + incremento);
+        Date dataRetorno = new Date(novadata);
+        return dataRetorno;
     }
 
     /**
@@ -333,7 +406,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pSegundos * 1000;
+        novadata = pData.getTime() + pSegundos * QTDMILISEGUNDOSSEGUNDO;
         return new Date(novadata);
     }
 
@@ -349,7 +422,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pHoras * 60 * 60 * 1000;
+        novadata = pData.getTime() + pHoras * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
         return new Date(novadata);
     }
 
@@ -365,7 +438,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pMinutos * 60 * 1000;
+        novadata = pData.getTime() + pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
         return new Date(novadata);
     }
 
