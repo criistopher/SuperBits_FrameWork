@@ -105,13 +105,19 @@ public enum FabAcaoPrevisaoProjeto implements ItfFabricaAcoes {
     @InfoTipoAcaoFormulario(nomeAcao = "Detalhes do formulário", icone = "fa fa-bars",
             xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "acaoFormularioDetalhes.xhtml"
     )
-    ACAO_PREVISAO_FRM_DETALHES_ACAO_FORMULARIO;
+    ACAO_PREVISAO_FRM_DETALHES_ACAO_FORMULARIO,
+    @InfoTipoAcaoFormulario(nomeAcao = "Tipo Navegacao", icone = "fa fa-bars",
+            xhtmlDaAcao = FabAcaoPrevisaoProjeto.ARQUIVOS_DE_FORMULARIO + "tipoNavegacao.xhtml"
+    )
+    ACAO_PREVISAO_FRM_ESCOLHER_TIPO_NAVEGACAO;
+    ;
+
+
     public static final String ARQUIVOS_DE_FORMULARIO = "/site/modulos/projetoAtual/";
 
     @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {
         AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
-
         return acao;
     }
 
