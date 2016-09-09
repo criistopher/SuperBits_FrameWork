@@ -191,7 +191,7 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim Data Final
      * @return Retorna a quantidade de segundos entre um tempo e outro
      */
-    public static int intervaloTempoSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static Integer intervaloTempoSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
         Long intervalo;
@@ -210,7 +210,7 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim
      * @return
      */
-    public static int intervaloTempoMinutos(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static Integer intervaloTempoMinutos(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
         Long intervalo;
@@ -229,7 +229,7 @@ public class UtilSBCoreDataHora {
      * @param pDatahoraFim Data Final
      * @return Retorna a quantidade de horas
      */
-    public static int intervaloTempoHoras(Date pDatahoraInicio, Date pDatahoraFim) {
+    public static Integer intervaloTempoHoras(Date pDatahoraInicio, Date pDatahoraFim) {
 
         Long diferenca = intervaloTempoMileSegundos(pDatahoraInicio, pDatahoraFim);
         Long intervalo;
@@ -249,7 +249,7 @@ public class UtilSBCoreDataHora {
      * @return Retorna o intervalo de tempo em dias de uma data inicial até uma
      * data final
      */
-    public static int intervaloTempoDias(Date pDataInicial, Date pDataFinal) {
+    public static Integer intervaloTempoDias(Date pDataInicial, Date pDataFinal) {
 
         Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
         Long intervalo;
@@ -273,7 +273,6 @@ public class UtilSBCoreDataHora {
         } else {
             return 0;
         }
-
     }
 
     public static Integer intervaloTempoAnos(Date pDataInicial, Date pDataFinal) {
@@ -286,7 +285,6 @@ public class UtilSBCoreDataHora {
         } else {
             return 0;
         }
-
     }
 
     /**
@@ -392,6 +390,15 @@ public class UtilSBCoreDataHora {
         novadata = (dataAntiga + incremento);
         Date dataRetorno = new Date(novadata);
         return dataRetorno;
+    }
+
+    public static Integer interTempContRegSegundos(Date pDataInicial, Date pDataFinal) {
+
+        Integer diferencaSegundos = intervaloTempoSegundos(pDataInicial, pDataFinal);
+        while (diferencaSegundos > 59 || diferencaSegundos % 60 == 0) {
+            diferencaSegundos--;
+        }
+        return diferencaSegundos;
     }
 
     /**

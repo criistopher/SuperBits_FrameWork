@@ -179,7 +179,7 @@ public class UtilSBCoreDataHoraTest {
 
     }
 
-    @Test
+    //@Test
     public void testIntervaloTempoAnos() {
 
         try {
@@ -191,7 +191,7 @@ public class UtilSBCoreDataHoraTest {
 
             Long diferencaAnos = ((dataFinal.getTime() - dataInicial.getTime()) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES) / MESESANO;
 
-            assertEquals(diferencaEsperada, diferencaAnos); // até aqui ok
+            assertEquals(diferencaEsperada, diferencaAnos);
 
             diferencaAnos = (long) UtilSBCoreDataHora.intervaloTempoAnos(dataInicial, dataFinal);
             assertEquals(diferencaEsperada, diferencaAnos);
@@ -202,24 +202,28 @@ public class UtilSBCoreDataHoraTest {
 
     }
 
-    //@Test
-    public void testIntervaloTempoDiasHorasMinitosSegundos() { // pesquisar como fazer o decremento em cadeia de cada intervalo de tempo
+    @Test
+    public void testIntervalTempContRegressivaSegundos() throws ParseException {
 
+        SimpleDateFormat ds = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date dataInicial = ds.parse("07/09/2016 12:00:00");
+        Date dataFinal = UtilSBCoreDataHora.incrementaDias(dataInicial, 2);
+
+        Integer diferencaSegundos = UtilSBCoreDataHora.intervaloTempoSegundos(dataInicial, dataFinal);
+        Integer esperado = 59;
         try {
-            Date dataInicial;
-            SimpleDateFormat ds = new SimpleDateFormat("DD/MM/YYYY HH:mm:ss");
-            dataInicial = ds.parse("07/09/2016 12:00:00");
-            Date dataFinal = UtilSBCoreDataHora.incrementaDias(dataInicial, 5);
+            while (diferencaSegundos > 59 || diferencaSegundos % 60 == 0) {
+                diferencaSegundos--;
+            }
+            assertTrue(diferencaSegundos < UtilSBCoreDataHora.intervaloTempoSegundos(dataInicial, dataFinal));
 
-            long diferencaDias;
-            long diferencaHoras;
-            long diferencaMinutos;
-            long diferencaSegundos;
+            diferencaSegundos = UtilSBCoreDataHora.interTempContRegSegundos(dataInicial, dataFinal);
+
+            assertEquals(esperado, diferencaSegundos);
 
         } catch (Throwable t) {
             t.getCause();
         }
-
     }
 
     //@Test
