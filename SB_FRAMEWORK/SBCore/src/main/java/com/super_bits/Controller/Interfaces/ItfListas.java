@@ -17,6 +17,4 @@ public interface ItfListas {
 
     public Class getClasse();
 
-    public ListaDeEntidade getEstruturaLista();
-
 }
