@@ -6,16 +6,8 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * Classe de UTILITÀRIOS (Métodos EStáticos commmente Utilizados)____________
@@ -311,26 +303,6 @@ public class UtilSBCoreDataHora {
             return null;
         }
 
-    }
-
-    public static Integer intervaloTempoDiasHorasMinutosSegundos(Date pDataInicial, Date pDataFinal) {
-
-//        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
-//        if (diferenca != null) {
-//
-//            Integer intervaloDias = intervaloTempoDias(pDataInicial, pDataFinal);
-//            SimpleDateFormat intervalo = new SimpleDateFormat("HH:mm:ss");
-//
-//            try {
-//                Integer intervaloConvertido = Integer.parseInt(intervalo.parse(diferenca.toString()).toString());// convertendo date em string
-//
-//                return intervaloConvertido;
-//            } catch (ParseException ex) {
-//                Logger.getLogger(UtilSBCoreDataHora.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        }
-        return 0;
     }
 
     /**
