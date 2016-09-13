@@ -286,4 +286,9 @@ public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
         return acaoOriginal.getAcaoDeGestaoEntidade();
     }
 
+    @Override
+    public String getIconeDaClasse() {
+        return "fa fa-link";
+    }
+
 }

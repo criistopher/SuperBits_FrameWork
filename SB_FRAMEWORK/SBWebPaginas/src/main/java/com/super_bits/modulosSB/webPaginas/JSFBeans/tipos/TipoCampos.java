@@ -54,7 +54,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getLOOKUPMULTIPLO() {
-        return getStrTipoCampoInput(FabCampos.LOOKUPMULTIPLO);
+        return getStrTipoCampoInput(FabCampos.LISTA_OBJETOS);
     }
 
     public String getTEXTO_SIMPLES() {
@@ -164,7 +164,7 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getLOOKUP() {
-        return getStrTipoCampoInput(FabCampos.LOOKUP);
+        return getStrTipoCampoInput(FabCampos.OBJETO_DE_UMA_LISTA);
     }
 
     public String getCOR() {

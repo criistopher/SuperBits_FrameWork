@@ -20,9 +20,9 @@ public class TestaJPA extends TesteJunitSBPersistencia {
 
         EnderecoLuciano enderecoPrincipal = new EnderecoLuciano();
         //  enderecoPrincipal.setCidadeEndereco(cidade);
-        enderecoPrincipal.setLogradouro2("teste");
+        enderecoPrincipal.setLogradouro222("teste");
         //  enderecoPrincipal.setNro("Numerooo");
-        enderecoPrincipal.setLogradouro2("eNDEREÇO TESTE");
+        enderecoPrincipal.setLogradouro222("eNDEREÇO TESTE");
         PessoaLuciano pessoa = new PessoaLuciano();
         pessoa.setEnderecoPrincipal(enderecoPrincipal);
         UtilSBPersistencia.persistirRegistro(pessoa);

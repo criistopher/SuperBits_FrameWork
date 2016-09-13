@@ -12,7 +12,9 @@ public class Campo implements Serializable, ItfCampo {
     @InfoCampo(tipo = FabCampos.ID)
     private FabCampos tipoCampo;
 
-    private TIPOPRIMITIVO tipoValor;
+    private TIPO_DECLARACAO tipoDeclaracao;
+
+    private TIPO_PRIMITIVO tipoValor;
 
     private TIPO_ORIGEM_VALOR_CAMPO tipoOrigemValor;
 
@@ -83,7 +85,7 @@ public class Campo implements Serializable, ItfCampo {
     }
 
     @Override
-    public TIPOPRIMITIVO getTipoPrimitivoDoValor() {
+    public TIPO_PRIMITIVO getTipoPrimitivoDoValor() {
         return tipoCampo.getTipoPrimitivo();
     }
 
@@ -219,7 +221,7 @@ public class Campo implements Serializable, ItfCampo {
 
     @Override
     public boolean isNumeral() {
-        return tipoValor == TIPOPRIMITIVO.INTEIRO;
+        return tipoValor == TIPO_PRIMITIVO.INTEIRO;
     }
 
     @Override
@@ -344,6 +346,20 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public void adicionarItemNaLista(String nomeDaLista) {
         throw new UnsupportedOperationException("O metodo adicionar Item na lista não é suportado em Beans do tipo campo"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TIPO_DECLARACAO getTipoDeclaracao() {
+        return tipoDeclaracao;
+    }
+
+    public void setTipoDeclaracao(TIPO_DECLARACAO tipoDeclaracao) {
+        this.tipoDeclaracao = tipoDeclaracao;
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return "fa-pencil-square-o";
     }
 
 }

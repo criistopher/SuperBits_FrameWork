@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.Controller.Interfaces.ItfCalculos;
+import com.super_bits.Controller.Interfaces.ItfListas;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
@@ -11,12 +12,9 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -65,7 +63,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     public List<CampoMultiplo> getLookupMultuplo() {
-        List<CampoMultiplo> resp = new ArrayList<CampoMultiplo>();
+        List<CampoMultiplo> resp = new ArrayList<>();
         for (Field campo : getCamposUmParaMuitos()) {
             try {
                 campo.setAccessible(true);
@@ -127,7 +125,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     protected static List<Field> getCamposUmParaMuitos() {
-        List<Field> resposta = new ArrayList<Field>();
+        List<Field> resposta = new ArrayList<>();
         Field[] fields = getClasseModelo().getDeclaredFields();
 
         for (Field field : fields) {
@@ -141,7 +139,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     protected static List<Field> getCamposMuitosParaUm() {
-        List<Field> resposta = new ArrayList<Field>();
+        List<Field> resposta = new ArrayList<>();
         Field[] fields = getClasseModelo().getDeclaredFields();
 
         for (Field field : fields) {
@@ -158,42 +156,87 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    protected List getListaDaEtidade(boolean pAtualizarSempre) {
+
+        String nomeCampo;
+        String nomeMetodo = "Metodo não encontrado (este metodo só deve ser chamado dentro metodo get padrão pojo ex:   entidade.getValorDoCalculo();";
+        try {
+
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+            nomeMetodo = stackTraceElements[2].getMethodName();
+            nomeCampo = nomeMetodo.substring(3);
+            nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando atributo de  lista atravez do metodo " + nomeMetodo + " na classe " + this.getClass().getSimpleName(), t);
+            return null;
+        }
+
+        Field campo;
+
+        try {
+
+            ItfListas lista;
+            campo = this.getClass().getDeclaredField(nomeCampo);
+            lista = UtilSBCoreReflecaoIEstruturaEntidade.getListaByField(campo);
+
+            List valorAnteriorLista = (List) campo.get(this);
+            if (valorAnteriorLista != null) {
+                if (valorAnteriorLista.size() > 0) {
+                    if (pAtualizarSempre) {
+                        campo.set(lista.getLista(this), this);
+                    }
+                }
+            } else {
+                campo.set(lista.getLista(this), this);
+            }
+            return (List) campo.get(this);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando calculo para o campo" + nomeCampo + " na tabela " + this.getClass().getSimpleName(), ex);
+            return null;
+        }
+
+    }
+
+    /**
+     *
+     * Este metodo deve ser chamado em metodos padrão POJO do tipo get, ele
+     * buscará o atributo referente ao método, e atravéz
+     *
+     * @return
+     */
     protected Object getRetornoSoma() {
         // Obtem a anotação por reflexao do nome do metodo por atributo
         // seta o valor no atrbuto, e retorna o valor obtido
-        ItfCalculos calculo = null;
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-
-        String nomeMetodo = stackTraceElements[2].getMethodName();
-        String nomeCampo = nomeMetodo.substring(3);
-        nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
+        String nomeCampo;
+        String nomeMetodo = "Metodo não encontrado (este metodo só deve ser chamado dentro metodo get padrão pojo ex:   entidade.getValorDoCalculo();";
         try {
-            Field campo = this.getClass().getDeclaredField(nomeCampo);
-            campo.setAccessible(true);
-            Annotation anotacao = UtilSBCoreReflexao.getAnotacaoComEsteMetodo(campo.getAnnotations(), "calculo");
 
-            Method metodoCalculo = anotacao.annotationType().getMethod("calculo");
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
 
-            calculo = (ItfCalculos) metodoCalculo.invoke(anotacao);
+            nomeMetodo = stackTraceElements[2].getMethodName();
+            nomeCampo = nomeMetodo.substring(3);
+            nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
 
-            return calculo.getValor(this);
-
-            //anotacaoCalculo.get
-        } catch (NoSuchFieldException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não Enconcontrou o campo " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
-        } catch (SecurityException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha de segurança ao tentar modificar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
-        } catch (IllegalAccessException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Acesso ilegal tentando identificar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
-        } catch (IllegalArgumentException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Argumento ilegal tentando configurar o campo: " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
-        } catch (InvocationTargetException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro chamando método calculo na tentativa de obter a Fabrica de ação do campo " + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
-        } catch (NoSuchMethodException ex) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "O metodo calculo não foi encontrado na anotação do campo" + nomeCampo + " em " + this.getClass().getSimpleName(), ex);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando atributo de  calculo atravez do metodo " + nomeMetodo + " na classe " + this.getClass().getSimpleName(), t);
+            return null;
         }
 
-        return null;//calculo.getValor((ItfBeanSimples) this);
+        Field campo;
+        try {
+
+            ItfCalculos calculo;
+            campo = this.getClass().getDeclaredField(nomeCampo);
+            calculo = UtilSBCoreReflecaoIEstruturaEntidade.getCalculoByField(campo);
+            campo.set(calculo.getValor(this), this);
+            return campo.get(this);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando calculo para o campo" + nomeCampo + " na tabela " + this.getClass().getSimpleName(), ex);
+            return null;
+        }
+
     }
 
 }

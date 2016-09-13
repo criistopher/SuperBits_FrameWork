@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.lang.reflect.Field;
 import java.rmi.UnexpectedException;
@@ -216,6 +217,11 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     @Override
     public String getNomeUnicoSlug() {
         return getNomeCurto() + "-" + getId();
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return UtilSBCoreReflexao.getIconeDoObjeto(this.getClass());
     }
 
 }

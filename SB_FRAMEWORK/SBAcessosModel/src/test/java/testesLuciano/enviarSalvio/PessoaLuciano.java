@@ -1,5 +1,6 @@
 package testesLuciano.enviarSalvio;
 
+import java.io.Serializable;
 import javax.persistence.AssociationOverride;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -12,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class PessoaLuciano {
+public class PessoaLuciano implements Serializable {
 
     @Id
     @GeneratedValue
@@ -45,7 +46,8 @@ public class PessoaLuciano {
 
     @Embedded()
     @AttributeOverrides({
-        @AttributeOverride(name = "LOGRADOURO_TESTE", column = @Column(name = "logradouroPrincipal", columnDefinition = "tttt"))
+        @AttributeOverride(name = "logradouro222",
+                column = @Column(name = "logradouroPrincipal"))
     })
     public EnderecoLuciano getEnderecoPrincipal() {
         return enderecoPrincipal;
@@ -56,7 +58,7 @@ public class PessoaLuciano {
     }
 
     @AttributeOverrides({
-        @AttributeOverride(name = "LOGRADOURO_TESTE", column = @Column(name = "entrega"))
+        @AttributeOverride(name = "logradouro222", column = @Column(name = "entrega"))
     })
     public EnderecoLuciano getEnderecossecundario() {
         return enderecossecundario;

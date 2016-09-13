@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.util.ErrorMessages;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
@@ -21,8 +22,13 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.Itf
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.CalculoDeEntidade;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaCampo;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.ListaDeEntidade;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -830,6 +836,44 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException ex) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro adicionando registro em  lista:" + nomeDaLista, ex);
         }
+    }
+
+    public EstruturaDeEntidade getEstruturaDaEntidade() {
+
+        EstruturaDeEntidade estruturaDaEntidade = new EstruturaDeEntidade();
+        Class classeEtrutura = this.getClass();
+        InfoClasse infoClasse = UtilSBCoreReflexao.getInfoClasseObjeto(classeEtrutura);
+
+        estruturaDaEntidade.setNomeEntidade(classeEtrutura.getSimpleName());
+        estruturaDaEntidade.setIcone(infoClasse.icone());
+        estruturaDaEntidade.setPlural(infoClasse.plural());
+        estruturaDaEntidade.setDescricao(infoClasse.description());
+        estruturaDaEntidade.setTags(Lists.newArrayList(infoClasse.tags()));
+
+        for (Field campo : UtilSBCoreReflexao.getCamposRecursivodaClasseAteConterNomeObjetoFinal(this.getClass(), "Entidade", "Item")) {
+            Campo campoSB = getCampoByFieldReflexao(campo);
+            EstruturaCampo cp = new EstruturaCampo(campoSB, estruturaDaEntidade);
+
+            switch (campoSB.getTipoDeclaracao()) {
+
+                case VALOR_CALCULADO:
+                    CalculoDeEntidade calculo = UtilSBCoreReflecaoIEstruturaEntidade.getCalculoEstruturaByField(campo, campoSB, estruturaDaEntidade);
+                    estruturaDaEntidade.getCalculos().add(calculo);
+                    break;
+                case LISTA_DINIMICA:
+                    ListaDeEntidade lista = UtilSBCoreReflecaoIEstruturaEntidade.getListaEstruturaByField(campo);
+                    estruturaDaEntidade.getListas().add(lista);
+                    break;
+                case OBJETO_TRANSIENTE:
+                    break;
+                default:
+                    estruturaDaEntidade.getCampos().add(cp);
+
+            }
+
+        }
+
+        return estruturaDaEntidade;
 
     }
 

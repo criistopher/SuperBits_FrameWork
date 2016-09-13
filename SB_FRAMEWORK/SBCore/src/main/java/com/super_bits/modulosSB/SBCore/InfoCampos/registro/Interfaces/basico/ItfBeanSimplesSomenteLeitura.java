@@ -14,4 +14,6 @@ public interface ItfBeanSimplesSomenteLeitura extends ItfBeanIDUnicoSomenteLeitu
 
     public String getNome();
 
+    public String getIconeDaClasse();
+
 }

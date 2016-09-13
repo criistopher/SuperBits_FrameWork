@@ -2,13 +2,13 @@ package com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes;
 
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabModoExibicaoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampo;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_PRIMITIVO;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -125,7 +125,7 @@ public @interface InfoCampo {
      *
      * @return
      */
-    ItfCampo.TIPOPRIMITIVO tipoPrimitivo() default ItfCampo.TIPOPRIMITIVO.LETRAS;
+    TIPO_PRIMITIVO tipoPrimitivo() default TIPO_PRIMITIVO.LETRAS;
 
     /**
      *

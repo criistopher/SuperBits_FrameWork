@@ -27,6 +27,34 @@ public enum FabCampos implements ItfFabrica {
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
+    /**
+     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
+     * anotação é obrigatória em um Item Simples
+     */
     AAA_NOME,
     /**
      * Indica um nome completo do Item
@@ -170,18 +198,12 @@ public enum FabCampos implements ItfFabrica {
     /**
      * Campo que apresenta um conjunto de Opçoes a serem selecionadas
      */
-    LOOKUP,
+    OBJETO_DE_UMA_LISTA,
     /**
      * Campo que apresenta um conjunto de Opçoes a serem adicionadas em uma
      * lista
      */
-    LOOKUPMULTIPLO,
-    /**
-     *
-     *
-     * Representa uma lista de objetos
-     */
-    LISTA,
+    LISTA_OBJETOS,
     /**
      * Texto simples
      */
@@ -335,9 +357,9 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setSeparadorMilhar('.');
                 sbCampo.setNumeroDeCasasDecimais(2);
                 break;
-            case LOOKUP:
+            case OBJETO_DE_UMA_LISTA:
                 break;
-            case LOOKUPMULTIPLO:
+            case LISTA_OBJETOS:
 
                 break;
             case COR: //regex
@@ -449,8 +471,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case ICONE:
                 break;
-            case LISTA:
-                break;
+
             case SEGURANCA_ATIVA:
                 break;
             case ARQUIVO_DE_ENTIDADE:
@@ -526,11 +547,11 @@ public enum FabCampos implements ItfFabrica {
             case LCBairro:
             case LCCidade:
             case LCUnidadeFederativa:
-            case LOOKUP:
+            case OBJETO_DE_UMA_LISTA:
                 return TIPO_ORIGEM_VALOR_CAMPO.VALOR_COM_LISTA;
 
-            case LOOKUPMULTIPLO:
-            case LISTA:
+            case LISTA_OBJETOS:
+
                 return TIPO_ORIGEM_VALOR_CAMPO.VALORES_COM_LISTA;
             case IMG_PEQUENA:
             case ARQUIVO_DE_ENTIDADE:
@@ -618,7 +639,16 @@ public enum FabCampos implements ItfFabrica {
             sbCampo.setObrigatorio(true);
         }
 
+        sbCampo.setTipoDeclaracao(TIPO_DECLARACAO.SIMPLES);
         for (Annotation anotacao : outrasAnotacoes) {
+
+            if (anotacao.toString().contains("@Calculo")) {
+                sbCampo.setTipoDeclaracao(TIPO_DECLARACAO.VALOR_CALCULADO);
+            }
+            if (anotacao.toString().contains("@Lista")) {
+                sbCampo.setTipoDeclaracao(TIPO_DECLARACAO.LISTA_DINIMICA);
+            }
+
             // Verificar outras anotacoes
         }
 
@@ -637,7 +667,6 @@ public enum FabCampos implements ItfFabrica {
                 case LCLOGRADOURO:
                 case LCComplemeto:
                 case LCCampoAberto:
-                case LOOKUPMULTIPLO:
                 case TEXTO_SIMPLES:
                 case SITE:
                 case URL:
@@ -664,9 +693,9 @@ public enum FabCampos implements ItfFabrica {
                 case PERCENTUAL:
                     return FabCompVisualInputs.NUMERO_MINIMO_MAXIMO;
                 // TIPOS DE CAMPO ONDE OPÇÕES DE ESCOLHA SERÃO EXIBIDOS
-                case LOOKUP:
+                case OBJETO_DE_UMA_LISTA:
                     return FabCompVisualSeletorItem.COMBO;
-                case LISTA:
+                case LISTA_OBJETOS:
                     return FabCompVisualSeletorItens.PICKLIST;
                 // TIPOS DE CAMPO VALIDAÇÃO DE SENHA
                 case SENHA:
@@ -730,7 +759,7 @@ public enum FabCampos implements ItfFabrica {
         return null;
     }
 
-    public ItfCampo.TIPOPRIMITIVO getTipoPrimitivo() {
+    public TIPO_PRIMITIVO getTipoPrimitivo() {
 
         switch (this) {
             case AAA_NOME:
@@ -769,7 +798,7 @@ public enum FabCampos implements ItfFabrica {
             case IMG_PEQUENA:
             case IMG_MEDIA:
             case IMG_GRANDE:
-                return ItfCampo.TIPOPRIMITIVO.LETRAS;
+                return TIPO_PRIMITIVO.LETRAS;
 
             case ID:
             case LATITUDE:
@@ -777,7 +806,7 @@ public enum FabCampos implements ItfFabrica {
             case CHART_VALOR:
             case QUANTIDADE:
             case CODIGO_DE_BARRAS:
-                return ItfCampo.TIPOPRIMITIVO.INTEIRO;
+                return TIPO_PRIMITIVO.INTEIRO;
 
             case CALENDARIO:
             case DATAHORA:
@@ -785,25 +814,24 @@ public enum FabCampos implements ItfFabrica {
             case HORA:
             case REG_DATAALTERACAO:
             case REG_DATAINSERCAO:
-                return ItfCampo.TIPOPRIMITIVO.DATAS;
+                return TIPO_PRIMITIVO.DATAS;
 
             case MOEDA_REAL:
             case MOEDA_DOLAR:
             case PERCENTUAL:
-                return ItfCampo.TIPOPRIMITIVO.DECIMAL;
+                return TIPO_PRIMITIVO.DECIMAL;
 
             case VERDADEIRO_FALSO:
             case REG_ATIVO_INATIVO:
             case SEGURANCA_ATIVA:
-                return ItfCampo.TIPOPRIMITIVO.BOOLEAN;
+                return TIPO_PRIMITIVO.BOOLEAN;
 
             case REG_USUARIO_ALTERACAO:
             case REG_USUARIO_INSERCAO:
             case LC_LOCALIZACAO:
-            case LOOKUP:
-            case LOOKUPMULTIPLO:
-            case LISTA:
-                return ItfCampo.TIPOPRIMITIVO.ENTIDADE;
+            case OBJETO_DE_UMA_LISTA:
+
+                return TIPO_PRIMITIVO.ENTIDADE;
 
             default:
                 throw new AssertionError(this.name());

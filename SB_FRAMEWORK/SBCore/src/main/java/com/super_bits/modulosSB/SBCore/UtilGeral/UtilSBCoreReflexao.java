@@ -391,6 +391,22 @@ public abstract class UtilSBCoreReflexao {
 
     }
 
+    public static InfoClasse getInfoClasseObjeto(Class pClasse) {
+
+        try {
+            if (!pClasse.isAnnotationPresent(InfoClasse.class)) {
+                throw new UnsupportedOperationException("A classe " + pClasse + " não foi anotada com InfoClasse");
+            }
+
+            InfoClasse info = (InfoClasse) pClasse.getAnnotation(InfoClasse.class);
+            return info;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "", t);
+            return null;
+        }
+
+    }
+
     /**
      *
      *

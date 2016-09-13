@@ -116,7 +116,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         } catch (Throwable e) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação vinculada a pagina" + this.getClass().getSimpleName(), e);
         }
-        return null;
+        return acaoVinculada;
     }
 
     public EntityManager getEMPagina() {

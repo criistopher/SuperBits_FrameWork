@@ -150,4 +150,19 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
         this.descricao = descricao;
     }
 
+    @Override
+    public String getNomeDoAgrupamento() {
+        return getGestao().getNomeAcao();
+    }
+
+    @Override
+    public String getIcone() {
+        return getGestao().getIconeAcao();
+    }
+
+    @Override
+    public TipoGrupoTarefa getTipoGrupoTarefa() {
+        return FabTipoGrupoTarefa.GESTAO.getRegistro();
+    }
+
 }

@@ -28,9 +28,16 @@
 
         <dependency>
             <groupId>com.super_bits</groupId>
+            <artifactId>SBMonitorProjetoWebApp</artifactId>
+            <version>1.5.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.super_bits</groupId>
             <artifactId>SBWebPaginas</artifactId>
             <version>1.5.2-SNAPSHOT</version>
         </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
@@ -66,6 +73,14 @@
                         <contextPath>/InomeProjetoI</contextPath>
                     </webAppConfig>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
+
+                    <!--   <webResources>
+                    <resource>
+                       this is relative to the pom.xml directory
+                        <directory>resource2</directory>
+                    </resource>
+                      </webResources>
+                    -->
                 </configuration>
             </plugin>
         </plugins>

@@ -6,17 +6,13 @@
 package com.super_bits.projeto.Jira;
 
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
-import java.util.List;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaDeEntidade;
 
 /**
  *
  * @author desenvolvedor
  */
-public interface ItfPrevisaoEntidade {
-
-    CustosDesenvolvimento getCustoDesenvolvimento();
+public interface ItfPrevisaoEntidade extends ItfGrupoDeTarefas {
 
     Class getEntidadeVinculada();
 
@@ -25,9 +21,5 @@ public interface ItfPrevisaoEntidade {
     int getHorasTrabalhasdas();
 
     ItfModuloAcaoSistema getModulo();
-
-    PrevisaoProjeto getPrevisaoProjeto();
-
-    List<TarefaSuperBits> getTarefasVinculadas();
 
 }

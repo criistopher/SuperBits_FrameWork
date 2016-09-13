@@ -394,7 +394,12 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
 
     @Override
     public void adicionarItemNaLista(String nomeDaLista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("O método adicionar item em listas do item não foi implementado para sessão de menu "); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return "fa fa-sitemap";
     }
 
 }

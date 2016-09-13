@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author salvioF
  */
-public interface ItfPrevisaoGestaoEntidade {
+public interface ItfPrevisaoGestaoEntidade extends ItfGrupoDeTarefas {
 
     void adicionarTarefa(TarefaSuperBits tr);
 
@@ -24,21 +24,14 @@ public interface ItfPrevisaoGestaoEntidade {
 
     ItfAcaoGerenciarEntidade getGestao();
 
-    int getHorasProgramadas();
-
     ItfModuloAcaoSistema getModulo();
 
     int getQtdAcoesDeFormulario();
 
     int getQtdAoesDeController();
 
-    List<TarefaSuperBits> getTarefasVinculadas();
-
     void setGestao(ItfAcaoGerenciarEntidade gestao);
 
     void setModulo(ItfModuloAcaoSistema modulo);
 
-    public CustosDesenvolvimento getCustoDesenvolvimento();
-
-    public PrevisaoProjeto getPrevisaoProjeto();
 }

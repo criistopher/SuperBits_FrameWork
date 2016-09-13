@@ -51,4 +51,5 @@ public interface ItfBeanGenerico {
      * @param nomeDaLista
      */
     public void adicionarItemNaLista(String nomeDaLista);
+
 }

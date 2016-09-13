@@ -39,8 +39,6 @@ import org.hibernate.annotations.Where;
 /**
  *
  *
- *
- *
  * @author Salvio
  */
 @Entity

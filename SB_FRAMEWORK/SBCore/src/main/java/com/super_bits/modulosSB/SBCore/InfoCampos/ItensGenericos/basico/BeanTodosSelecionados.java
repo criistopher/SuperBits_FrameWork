@@ -52,12 +52,17 @@ public class BeanTodosSelecionados implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public String getNomeDoObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Todos Selecionados"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void adicionarItemNaLista(String nomeDaLista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Impossivel adicionar item na lista do item TodosSelecionadoss"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        throw new UnsupportedOperationException("fa fa-list"); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

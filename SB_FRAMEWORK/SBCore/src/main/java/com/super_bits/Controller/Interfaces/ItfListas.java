@@ -4,6 +4,7 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.ListaDeEntidade;
 import java.util.List;
 
 /**
@@ -15,5 +16,7 @@ public interface ItfListas {
     public List getLista(Object... pObjeto);
 
     public Class getClasse();
+
+    public ListaDeEntidade getEstruturaLista();
 
 }

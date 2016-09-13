@@ -4,6 +4,8 @@
  */
 package com.super_bits.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.CalculoDeEntidade;
+
 /**
  *
  * @author desenvolvedor
@@ -11,5 +13,7 @@ package com.super_bits.Controller.Interfaces;
 public interface ItfCalculos {
 
     public Object getValor(Object... pEntidade);
+
+    public CalculoDeEntidade getEstruturaCalculo();
 
 }

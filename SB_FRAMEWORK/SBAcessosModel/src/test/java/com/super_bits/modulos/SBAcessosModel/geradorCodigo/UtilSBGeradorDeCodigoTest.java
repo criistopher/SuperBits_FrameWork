@@ -5,17 +5,18 @@
  */
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
+import com.super_bits.modulosSB.SBCore.geradorCodigo.UtilSBGeradorDeCodigo;
 import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.CalculoDeEntidade;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaCampo;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaMuitos;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoMuitosParaUm;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.LigacaoUmParaMuitos;
-import com.super_bits.modulos.SBAcessosModel.geradorCodigo.model.ListaDeEntidade;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.CalculoDeEntidade;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaCampo;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.LigacaoMuitosParaMuitos;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.LigacaoMuitosParaUm;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.LigacaoUmParaMuitos;
+import com.super_bits.modulosSB.SBCore.geradorCodigo.model.ListaDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;

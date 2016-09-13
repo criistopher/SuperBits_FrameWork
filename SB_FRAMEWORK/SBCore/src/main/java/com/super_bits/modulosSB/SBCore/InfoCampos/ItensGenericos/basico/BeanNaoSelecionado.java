@@ -52,12 +52,17 @@ public class BeanNaoSelecionado implements ItfBeanSimplesSomenteLeitura {
 
     @Override
     public String getNomeDoObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Item não Selecionado";
     }
 
     @Override
     public void adicionarItemNaLista(String nomeDaLista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Ipossível adicionar um item de lista em um Bean Não Selecionado"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        throw new UnsupportedOperationException("fa fa-square-o"); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

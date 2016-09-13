@@ -63,12 +63,17 @@ public class UtilSBProjetosTest extends TesteJunit {
     @Test
     public void testCriarNovoProjeto() {
 
-        Projeto projetoTeste = FabSBProjectProjetos.SUPER_KOMPRAS.getRegistro();
+        Projeto moduloRequisitos = FabSBProjectProjetos.MONITOR_REQUISITOS.getRegistro();
+        Projeto moduloGestaoArquivos = FabSBProjectProjetos.GESTAO_ARQUIVOS.getRegistro();
+        Projeto moduloCriadorCodigo = FabSBProjectProjetos.CRIADOR_CODIGO.getRegistro();
+        Projeto moduloSeguranca = FabSBProjectProjetos.CONTROLE_USUARIOS_BASICO.getRegistro();
+
+        UtilSBProjetos.criarNovoProjeto(moduloCriadorCodigo);
+        UtilSBProjetos.criarNovoProjetoOffline(moduloSeguranca);
         // projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.configurarPastaProjeto(projetoTeste);
         // UtilSBProjetos.criarREpositorioReleaseDoProjetoNoServidor(projetoTeste);
-
         //       UtilSBProjetos.configurarPastaProjeto(projetoTeste);
         //UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
@@ -82,16 +87,6 @@ public class UtilSBProjetosTest extends TesteJunit {
         //    criarREpositorioDoProjetoSource(projetoTeste);
         System.out.println("____________________________________");
 
-        System.out.println("Pasta cliente Local" + projetoTeste.getPastaCliente());
-        System.out.println("Pasta cliente Remota" + projetoTeste.getPastaCliente());
-
-        System.out.println("Pasta cliente Repositorio Remoto" + projetoTeste.getPastaCliente());
-        System.out.println("Pasta cliente Repositorio Source Remoto" + projetoTeste.getPastaCliente());
-
-        System.out.println("Pasta projeto Repositorio Release Remoto" + projetoTeste.getPastaCliente());
-        System.out.println("Pasta projeto Repositorio Source Remoto" + projetoTeste.getPastaCliente());
-
-        System.out.println("Pasta projeto Repositorio Source Remoto" + projetoTeste.getPastaCliente());
         System.out.println("Pasta Projeto Local");
         System.out.println("Pasta Projeto Local");
 

@@ -20,31 +20,6 @@ import java.util.List;
  */
 public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
 
-    public static enum TIPOPRIMITIVO {
-
-        INTEIRO, LETRAS, DATAS, BOOLEAN, DECIMAL, ENTIDADE;
-
-        public String getDeclaracaoJava() {
-
-            switch (this) {
-                case INTEIRO:
-                    return "int";
-                case LETRAS:
-                    return "String";
-                case DATAS:
-                    return "Date";
-                case BOOLEAN:
-                    return "boolean";
-                case DECIMAL:
-                    return "double";
-                case ENTIDADE:
-                    return "entidade";
-                default:
-                    throw new AssertionError(this.name());
-            }
-        }
-    }
-
     /**
      *
      * @return enum do Tipo de campo conhecido (em FabCampo)
@@ -55,9 +30,11 @@ public interface ItfCampo extends ItfBeanSimplesSomenteLeitura {
      *
      * @return Retorna o Valor do Campo
      */
-    public TIPOPRIMITIVO getTipoPrimitivoDoValor();
+    public TIPO_PRIMITIVO getTipoPrimitivoDoValor();
 
     public TIPO_ORIGEM_VALOR_CAMPO getOrigemValor();
+
+    public TIPO_DECLARACAO getTipoDeclaracao();
 
     /**
      *

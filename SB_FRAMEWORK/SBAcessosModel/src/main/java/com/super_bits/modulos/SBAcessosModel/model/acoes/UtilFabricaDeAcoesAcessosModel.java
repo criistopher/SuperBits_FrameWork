@@ -291,6 +291,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             if (anotacaoGerenciar != null) {
                 if (anotacaoGerenciar.icone().length() > 2) {
                     pAcao.setIconeAcao(anotacaoGerenciar.icone());
+                } else {
+                    pAcao.setIconeAcao(UtilSBCoreReflexao.getIconeDoObjeto(entidadeDaAcao));
                 }
                 if (anotacaoGerenciar.nomeAcao().length() > 2) {
                     pAcao.setNomeAcao(anotacaoGerenciar.nomeAcao());
@@ -414,7 +416,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save (alias)");
+                    novaAcao.setIconeAcao("fa fa-save");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
 
                     break;

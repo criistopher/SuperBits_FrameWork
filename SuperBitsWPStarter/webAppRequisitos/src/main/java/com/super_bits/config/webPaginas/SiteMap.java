@@ -5,9 +5,10 @@
  */
 package com.super_bits.config.webPaginas;
 
+import com.superBits.monitorProjeto.paginas.PgHomeRequisito;
+import com.superBits.monitorProjeto.paginas.PgRequisitosVisaoGeral;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
-import com.super_bits.InomeProjetoI.paginas.PgHomeRequisito;
-import com.super_bits.InomeProjetoI.paginas.PgRequisitosVisaoGeral;
+
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;

@@ -8,6 +8,7 @@ package com.super_bits.projeto.Jira;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
+import com.super_bits.modulosSB.SBCore.tempo.ContagemRegressivaQtdTempo;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.util.Date;
@@ -124,6 +125,11 @@ public class CustosDesenvolvimento {
             return null;
         }
 
+    }
+
+    public ContagemRegressivaQtdTempo getContagemRegressiva() {
+        ContagemRegressivaQtdTempo contagem = new ContagemRegressivaQtdTempo();
+        return contagem;
     }
 
     public double getValorTotal() {

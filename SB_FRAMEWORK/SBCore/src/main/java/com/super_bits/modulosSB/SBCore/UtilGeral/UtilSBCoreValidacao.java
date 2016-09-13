@@ -64,9 +64,9 @@ public abstract class UtilSBCoreValidacao {
 
             case MOEDA_REAL:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LOOKUP:
+            case OBJETO_DE_UMA_LISTA:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
-            case LOOKUPMULTIPLO:
+            case LISTA_OBJETOS:
                 throw new UnsupportedClassVersionError("Ainda Não implementado");
 
             case COR:

@@ -15,7 +15,7 @@ public @interface InfoClasse {
 
     String[] tags();
 
-    String icone() default "";
+    String icone() default "fa fa-table";
 
     String plural();
 

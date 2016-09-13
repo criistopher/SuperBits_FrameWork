@@ -43,11 +43,11 @@ public class Regiao extends EntidadeSimples implements ItfRegiao {
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Nome regiao", descricao = "Nome da região(ex: Triângulo Mineiro)")
     private String nomeRegiao;
 
-    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Cidade", descricao = "Lista das cidades que compõem o estado selecionado")
+    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Cidade", descricao = "Lista das cidades que compõem o estado selecionado")
     @ManyToMany
     private List<Cidade> cidades;
 
-    @InfoCampo(tipo = FabCampos.LOOKUPMULTIPLO, label = "Bairros", descricao = "Bairros de uma dada região")
+    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Bairros", descricao = "Bairros de uma dada região")
     @ManyToMany
     private List<Bairro> bairros;
 

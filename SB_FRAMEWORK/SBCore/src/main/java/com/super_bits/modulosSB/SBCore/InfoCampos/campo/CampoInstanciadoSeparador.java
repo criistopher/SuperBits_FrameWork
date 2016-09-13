@@ -74,8 +74,8 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     }
 
     @Override
-    public TIPOPRIMITIVO getTipoPrimitivoDoValor() {
-        return TIPOPRIMITIVO.LETRAS;
+    public TIPO_PRIMITIVO getTipoPrimitivoDoValor() {
+        return TIPO_PRIMITIVO.LETRAS;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getIdComponente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Id do componente não é suportadno em campo Instanciado separador"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -100,7 +100,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
 
     @Override
     public String getMascara() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Mascaras não são suportadas em campos intanciado Separador"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -302,6 +302,16 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     @Override
     public void adicionarItemNaLista(String nomeDaLista) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TIPO_DECLARACAO getTipoDeclaracao() {
+        return TIPO_DECLARACAO.SIMPLES;
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return "fa fa-minus";
     }
 
 }

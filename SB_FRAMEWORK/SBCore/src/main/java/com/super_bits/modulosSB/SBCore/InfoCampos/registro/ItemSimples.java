@@ -4,6 +4,7 @@ import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.lang.reflect.Field;
 
 public class ItemSimples extends ItemGenerico implements
@@ -121,6 +122,11 @@ public class ItemSimples extends ItemGenerico implements
     @Override
     public String getNomeUnicoSlug() {
         return getNomeCurto() + "-" + getId();
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return UtilSBCoreReflexao.getIconeDoObjeto(this.getClass());
     }
 
 }

@@ -48,6 +48,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;
     private boolean umModuloNativo = false;
+    private String iconeDaClasse = "fa fa-puzzle-piece";
 
     @Transient
     private List<AcaoDoSistema> selecaoAcoes;
@@ -145,6 +146,15 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
 
     public void setUmModuloNativo(boolean umModuloNativo) {
         this.umModuloNativo = umModuloNativo;
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return iconeDaClasse;
+    }
+
+    public void setIconeDaClasse(String iconeDaClasse) {
+        this.iconeDaClasse = iconeDaClasse;
     }
 
 }
