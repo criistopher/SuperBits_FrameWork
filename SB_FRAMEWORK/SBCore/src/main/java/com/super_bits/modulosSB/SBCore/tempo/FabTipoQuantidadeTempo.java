@@ -4,13 +4,14 @@
  */
 package com.super_bits.modulosSB.SBCore.tempo;
 
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.util.Date;
 
 /**
  *
  * @author salvioF
  */
-public enum FabTipoQuantidadeTempo {
+public enum FabTipoQuantidadeTempo implements ItfFabrica {
 
     ANOS,
     MESES,
@@ -117,6 +118,11 @@ public enum FabTipoQuantidadeTempo {
 
         }
         return 0;
+    }
+
+    @Override
+    public TipoQuantidadeTempo getRegistro() {
+        return getTipoQuantidade();
     }
 
 }

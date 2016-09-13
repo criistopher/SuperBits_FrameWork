@@ -12,25 +12,25 @@ public class QuantidadeTempo {
 
     private final TipoQuantidadeTempo tipoQuantidade;
     private long valorEmMileSegundos;
-    private FabTipoQuantidadeTempo baseCalculo = FabTipoQuantidadeTempo.ANOS;
+    private FabTipoQuantidadeTempo divisorMaximo = FabTipoQuantidadeTempo.ANOS;
     private long quantidade = Long.parseLong("0");
     private boolean ignorarSemana = true;
     private String nome;
 
-    public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade) {
+    public QuantidadeTempo(Long pValorEmMileSegundos, FabTipoQuantidadeTempo pTipoQuantidade) {
         valorEmMileSegundos = pValorEmMileSegundos;
-        tipoQuantidade = pTipoQuantidade;
+        tipoQuantidade = pTipoQuantidade.getTipoQuantidade();
     }
 
     public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade, FabTipoQuantidadeTempo pBaseCalculo) {
         valorEmMileSegundos = pValorEmMileSegundos;
-        baseCalculo = pBaseCalculo;
+        divisorMaximo = pBaseCalculo;
         tipoQuantidade = pTipoQuantidade;
 
     }
 
     private void atualizarQuantidade() {
-        tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, baseCalculo, ignorarSemana);
+        tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
         quantidade = 0;
     }
 
@@ -43,12 +43,12 @@ public class QuantidadeTempo {
         return quantidade;
     }
 
-    public FabTipoQuantidadeTempo getBaseCalculo() {
-        return baseCalculo;
+    public FabTipoQuantidadeTempo getDivisorMaximo() {
+        return divisorMaximo;
     }
 
-    public void setBaseCalculo(FabTipoQuantidadeTempo baseCalculo) {
-        this.baseCalculo = baseCalculo;
+    public void setDivisorMaximo(FabTipoQuantidadeTempo divisorMaximo) {
+        this.divisorMaximo = divisorMaximo;
     }
 
     public boolean isIgnorarSemana() {

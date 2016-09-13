@@ -85,9 +85,9 @@ public class ContagemRegressivaQtdTempo {
         /// Valor temporario para testes de visualização
         List<QuantidadeTempo> quantidade = new ArrayList<>();
 
-        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.MESES.getTipoQuantidade()));
-        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.DIAS.getTipoQuantidade()));
-        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.HORAS.getTipoQuantidade()));
+        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.MESES));
+        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.DIAS));
+        quantidade.add(new QuantidadeTempo(Long.parseLong("0"), FabTipoQuantidadeTempo.HORAS));
         return quantidade;
     }
 
