@@ -59,7 +59,12 @@ public class ContagemRegressivaQtdTempo {
      * @param pDataFinal
      */
     public ContagemRegressivaQtdTempo(Date pDataFinal) {
-        iniciarContagem();
+
+    }
+
+    public ContagemRegressivaQtdTempo(Long pQuantidadeTotal) {
+
+        valorQuantidade = pQuantidadeTotal;
     }
 
     /**
@@ -75,7 +80,7 @@ public class ContagemRegressivaQtdTempo {
 
     }
 
-    public List<QuantidadeTempo> getQuantidadeTempo() {
+    public List<QuantidadeTempo> getQuantidadesTempo() {
 
         /// Valor temporario para testes de visualização
         List<QuantidadeTempo> quantidade = new ArrayList<>();
