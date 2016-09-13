@@ -202,30 +202,6 @@ public class UtilSBCoreDataHoraTest {
 
     }
 
-    @Test
-    public void testIntervalTempContRegressivaSegundos() throws ParseException {
-
-        SimpleDateFormat ds = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date dataInicial = ds.parse("07/09/2016 12:00:00");
-        Date dataFinal = UtilSBCoreDataHora.incrementaDias(dataInicial, 2);
-
-        Integer diferencaSegundos = UtilSBCoreDataHora.intervaloTempoSegundos(dataInicial, dataFinal);
-        Integer esperado = 59;
-        try {
-            while (diferencaSegundos > 59 || diferencaSegundos % 60 == 0) {
-                diferencaSegundos--;
-            }
-            assertTrue(diferencaSegundos < UtilSBCoreDataHora.intervaloTempoSegundos(dataInicial, dataFinal));
-
-            diferencaSegundos = UtilSBCoreDataHora.interTempContRegSegundos(dataInicial, dataFinal);
-
-            assertEquals(esperado, diferencaSegundos);
-
-        } catch (Throwable t) {
-            t.getCause();
-        }
-    }
-
     //@Test
     public void testDecrementaMinutos() {
     }
