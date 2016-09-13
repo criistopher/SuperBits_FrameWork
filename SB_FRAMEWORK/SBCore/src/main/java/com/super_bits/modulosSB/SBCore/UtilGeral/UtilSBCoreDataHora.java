@@ -200,7 +200,7 @@ public class UtilSBCoreDataHora {
      *
      * @param pDatahoraInicio
      * @param pDatahoraFim
-     * @return
+     * @return intervalo entre duas datas em minutos
      */
     public static Integer intervaloTempoMinutos(Date pDatahoraInicio, Date pDatahoraFim) {
 
@@ -219,7 +219,7 @@ public class UtilSBCoreDataHora {
      *
      * @param pDatahoraInicio Data inicial (que será subitraida da Data Final)
      * @param pDatahoraFim Data Final
-     * @return Retorna a quantidade de horas
+     * @return Retorna a quantidade de horas entre duas datas
      */
     public static Integer intervaloTempoHoras(Date pDatahoraInicio, Date pDatahoraFim) {
 
@@ -254,6 +254,12 @@ public class UtilSBCoreDataHora {
 
     }
 
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
+     * @return quantidade de meses entre duas datas
+     */
     public static Integer intervaloTempoMeses(Date pDataInicial, Date pDataFinal) {
 
         Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
@@ -267,6 +273,12 @@ public class UtilSBCoreDataHora {
         }
     }
 
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
+     * @return quantidade de meses entre duas datas
+     */
     public static Integer intervaloTempoAnos(Date pDataInicial, Date pDataFinal) {
 
         Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
