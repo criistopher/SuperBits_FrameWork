@@ -18,20 +18,23 @@ public class QuantidadeTempo {
     private String nome;
 
     public QuantidadeTempo(Long pValorEmMileSegundos, FabTipoQuantidadeTempo pTipoQuantidade) {
+
         valorEmMileSegundos = pValorEmMileSegundos;
         tipoQuantidade = pTipoQuantidade.getTipoQuantidade();
     }
 
     public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade, FabTipoQuantidadeTempo pBaseCalculo) {
-        valorEmMileSegundos = pValorEmMileSegundos;
+
+        this.valorEmMileSegundos = pValorEmMileSegundos;
         divisorMaximo = pBaseCalculo;
         tipoQuantidade = pTipoQuantidade;
 
     }
 
     private void atualizarQuantidade() {
-        tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
-        quantidade = 0;
+        //tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
+        //quantidade = 0;
+        quantidade = tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
     }
 
     public void setValorEmMileSegundos(long valorEmMileSegundos, boolean pIgnorarSemana) {

@@ -73,6 +73,7 @@ public class ContagemRegressivaQtdTempo {
      * @param pDatafinal
      */
     public ContagemRegressivaQtdTempo(Date pDataInicial, Date pDatafinal) {
+
         iniciarContagem();
     }
 

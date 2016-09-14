@@ -5,10 +5,13 @@
 package com.super_bits.modulosSB.SBCore.tempo;
 
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
-import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
+
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+import org.joda.time.DateTime;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -29,7 +32,7 @@ public class ContagemRegressivaQtdTempoTest {
         //
 
         FabTipoQuantidadeTempo divisorMaximo = pQuantidadeTempo.getDivisorMaximo();
-        String infoTeste = "Calculando " + pQuantidadeTempo.getTipoQuantidade().getNomePlural() + " com divisor Maximo" + divisorMaximo.toString();
+        String infoTeste = "Calculando " + pQuantidadeTempo.getTipoQuantidade().getNomePlural() + " com divisor Maximo " + divisorMaximo.toString();
         // Em cada caso do tipo da quantidade, faz um assert para cada tipo de divisor maximo, com o resultado esperado
         switch (pQuantidadeTempo.getTipoQuantidade().getTipoInformacao()) {
             //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
@@ -207,7 +210,6 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 4);
                         break;
                     case DIAS:
-
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 4);
 
                         break;
@@ -241,7 +243,6 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case DIAS:
-
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
 
                         break;
@@ -305,7 +306,13 @@ public class ContagemRegressivaQtdTempoTest {
         // Setar uma variavel Long, correspontente a 1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  e em caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso ***********************
-        long valorVariavel = 0;
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        DateTime datainicial = dtf.parseDateTime("01/01/2016 12:00:00");
+        DateTime dataFinal = dtf.parseDateTime("17/03/2017 16:02:15");
+
+        Long diferenca = dataFinal.getMillis() - datainicial.getMillis();
+        long valorVariavel;
+        valorVariavel = diferenca;
 
         // Testes Iniciais (Testando o Objeto Quantidade Tempo)...
         QuantidadeTempo quantidadeEmAnos = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.ANOS);
