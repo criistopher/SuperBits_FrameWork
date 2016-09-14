@@ -67,7 +67,7 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
         switch (this) {
             case ANOS:
                 // A base de Calculos sempre será anual
-                valor = (valor / (1000L * 60L * 60L * 24L) / 30L) / 12L;
+                valor = (valor / (1000L * 60L * 60L * 24L) / 30L) / 12L;  // mesmo após o calculo o método calcular Quantidade retorna 0
                 return valor;
 
             case MESES:

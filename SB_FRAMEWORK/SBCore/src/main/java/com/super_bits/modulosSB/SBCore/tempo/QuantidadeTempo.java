@@ -34,6 +34,8 @@ public class QuantidadeTempo {
     private void atualizarQuantidade() {
         //tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
         //quantidade = 0;
+
+        /// acessando o método calcularQuantidade abaixo, dentro de FabTipoQuantidadeTempo tento setar o cálculo para retornar a quantidade de anos do argumento Valor, porém mesmo assim retorna 0
         quantidade = tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
     }
 

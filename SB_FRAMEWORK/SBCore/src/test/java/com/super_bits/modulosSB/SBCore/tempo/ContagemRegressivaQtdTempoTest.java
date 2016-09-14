@@ -314,6 +314,7 @@ public class ContagemRegressivaQtdTempoTest {
         long valorVariavel;
         valorVariavel = diferenca;
 
+        // Valor variável irá ser utilizado para setar o valor da diferença em milisegundos em QuantidadeTempo e o cálculo deste valor está feito acima e testado
         // Testes Iniciais (Testando o Objeto Quantidade Tempo)...
         QuantidadeTempo quantidadeEmAnos = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.ANOS);
         testeQuantidadeTesteSimples(quantidadeEmAnos);
