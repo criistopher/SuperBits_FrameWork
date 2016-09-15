@@ -25,11 +25,10 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-
         <dependency>
-            <groupId>com.super_bits</groupId>
-            <artifactId>SBMonitorProjetoWebApp</artifactId>
-            <version>1.5.2-SNAPSHOT</version>
+            <groupId>com.super_bits.modulos</groupId>
+            <artifactId>modWebMonitor_de_RequisitoswebApp</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

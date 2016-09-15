@@ -36,7 +36,7 @@ import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
  *
  * @author desenvolvedor
  */
-public enum FabConfiguracoesDeAmbienteWebExemplo {
+public enum FabConfiguracoesDeAmbienteWebInomeProjetoI {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 

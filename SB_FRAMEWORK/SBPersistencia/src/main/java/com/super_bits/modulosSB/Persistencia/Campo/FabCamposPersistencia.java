@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LISTA_OBJETOS;
+import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LISTA_OBJETOS_OBJETOS;
 import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.OBJETO_DE_UMA_LISTA;
 import javax.persistence.ManyToMany;
 
@@ -70,7 +70,7 @@ public enum FabCamposPersistencia {
 
             switch (tipoDeclaracaoPersistencia) {
                 case MUITOS_PARA_MUITOS:
-                    sbCampo.setTipoCampo(FabCampos.LISTA_OBJETOS);
+                    sbCampo.setTipoCampo(FabCampos.LISTA_OBJETOS_OBJETOS);
                     break;
                 case MUITOS_PARA_MUITOS_COM_REPETICAO:
                     sbCampo.setTipoCampo(LISTA_OBJETOS);

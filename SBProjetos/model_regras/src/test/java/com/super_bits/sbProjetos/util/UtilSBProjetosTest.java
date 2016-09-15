@@ -67,9 +67,9 @@ public class UtilSBProjetosTest extends TesteJunit {
         Projeto moduloGestaoArquivos = FabSBProjectProjetos.GESTAO_ARQUIVOS.getRegistro();
         Projeto moduloCriadorCodigo = FabSBProjectProjetos.CRIADOR_CODIGO.getRegistro();
         Projeto moduloSeguranca = FabSBProjectProjetos.CONTROLE_USUARIOS_BASICO.getRegistro();
-
-        UtilSBProjetos.criarNovoProjeto(moduloCriadorCodigo);
-        UtilSBProjetos.criarNovoProjetoOffline(moduloSeguranca);
+        Projeto sistemaSantaClara = FabSBProjectProjetos.SISTEMA_SANTA_CLARA.getRegistro();
+        UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
+//        UtilSBProjetos.criarNovoProjetoOffline(sistemaSantaClara);
         // projetoTeste.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.configurarPastaProjeto(projetoTeste);

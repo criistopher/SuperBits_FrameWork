@@ -34,7 +34,7 @@ import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGener
  *
  * @author desenvolvedor
  */
-public enum FabConfiguracoesDeAmbienteModelExemplo {
+public enum FabConfiguracoesSBModelInomeProjetoI {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 

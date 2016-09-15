@@ -555,7 +555,7 @@ public class UtilSBGeradorDeCodigo {
 
         String umParaMuitosDeclarado = "";
 
-        umParaMuitosDeclarado += "@InfoCampo(tipo = FabCampos.LISTA, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+        umParaMuitosDeclarado += "@InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
 
         umParaMuitosDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ".class, cascade = CascadeType.ALL, orphanRemoval = true)\n";
 
@@ -568,7 +568,7 @@ public class UtilSBGeradorDeCodigo {
 
         String muitosParaUmDeclarado = "";
 
-        muitosParaUmDeclarado += "@InfoCampo(tipo = FabCampos.LOOKUP, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
+        muitosParaUmDeclarado += "@InfoCampo(tipo = FabCampos.OBJETO_DE_UMA_LISTA, label = \"" + pEstrutura.getLabel() + "\", descricao = \"" + pEstrutura.getDescricao() + "\")\n";
 
         muitosParaUmDeclarado += "@OneToMany(targetEntity = " + pEstrutura.getNomeEntidade() + ")\n";
 

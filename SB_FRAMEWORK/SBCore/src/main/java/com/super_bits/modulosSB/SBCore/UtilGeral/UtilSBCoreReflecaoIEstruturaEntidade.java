@@ -17,6 +17,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.super_bits.Controller.Interfaces.InfoLista;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 
 /**
  *
@@ -37,6 +40,19 @@ public class UtilSBCoreReflecaoIEstruturaEntidade {
 
     public static ListaDeEntidade getListaEstruturaByField(Field pCampoReflection) {
         return null;
+    }
+
+    public static InfoLista getInfoListaByEnum(ItfListas pLista) {
+        Field campo;
+        try {
+            campo = pLista.getClass().getField(pLista.toString());
+            InfoLista infolista = campo.getAnnotation(InfoLista.class);
+            return infolista;
+        } catch (NoSuchFieldException | SecurityException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A  anotação de info Lista não pode ser recuperada em: " + pLista.toString(), ex);
+            return null;
+        }
+
     }
 
     public static InfoCalculo getAnotacaoCalulo(Field pCampo) {
@@ -73,7 +89,7 @@ public class UtilSBCoreReflecaoIEstruturaEntidade {
         try {
             ItfListas lista = null;
             pCampo.setAccessible(true);
-            Annotation anotacao = UtilSBCoreReflexao.getAnotacaoComEsteMetodo(pCampo.getAnnotations(), "calculo");
+            Annotation anotacao = UtilSBCoreReflexao.getAnotacaoComEsteMetodo(pCampo.getAnnotations(), "lista");
             Method metodoCalculo = anotacao.annotationType().getMethod("lista");
             lista = (ItfListas) metodoCalculo.invoke(anotacao);
             return lista;

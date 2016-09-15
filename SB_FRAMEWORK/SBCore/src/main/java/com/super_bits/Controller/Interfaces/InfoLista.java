@@ -14,12 +14,14 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface infoLista {
+public @interface InfoLista {
 
     public String nomeParametro();
 
     public String descricao();
 
     public ParametroLista[] parametros() default {};
+
+    public Class tipoObjetoListado() default Void.class;
 
 }

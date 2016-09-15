@@ -5,9 +5,9 @@
  */
 package com.super_bits.config.webPaginas;
 
-import com.superBits.monitorProjeto.paginas.PgHomeRequisito;
-import com.superBits.monitorProjeto.paginas.PgRequisitosVisaoGeral;
 import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.FabMenuExemplo;
+import com.super_bits.modulos.paginas.Monitor_de_Requisito.PgHomeRequisito;
+import com.super_bits.modulos.paginas.Monitor_de_Requisito.PgRequisitosVisaoGeral;
 
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;

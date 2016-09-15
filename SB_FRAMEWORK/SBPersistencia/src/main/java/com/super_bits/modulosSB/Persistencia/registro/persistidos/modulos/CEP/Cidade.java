@@ -43,7 +43,7 @@ public class Cidade extends EntidadeNormal implements Serializable, ItfCidade {
     private UnidadeFederativa unidadeFederativa;
 
     //bi-directional many-to-one association to Bairro
-    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS, label = "Bairros", descricao = "Bairros da Cidade")
+    @InfoCampo(tipo = FabCampos.LISTA_OBJETOS_OBJETOS, label = "Bairros", descricao = "Bairros da Cidade")
     @OneToMany(mappedBy = "cidade")
     private List<Bairro> bairros;
 

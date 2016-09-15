@@ -8,7 +8,7 @@ package com.super_bits.InomeClienteI.InomeProjetoI.configAppp;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.suwper_bits.configSBFW.FabConfiguracoesDeAmbienteModelExemplo;
+import com.suwper_bits.configSBFW.FabConfiguracoesSBModelInomeProjetoI;
 import org.junit.Test;
 
 /**
@@ -37,8 +37,8 @@ public class TesteProjetoExemplo extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao());
-        SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracaoPersistencia());
+        SBCore.configurar(FabConfiguracoesSBModelInomeProjetoI.DESENVOLVIMENTO.getConfiguracao());
+        SBPersistencia.configuraJPA(FabConfiguracoesSBModelInomeProjetoI.DESENVOLVIMENTO.getConfiguracaoPersistencia());
     }
 
     @Test

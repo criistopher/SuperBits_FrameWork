@@ -32,8 +32,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
         novoProjeto.setId(this.ordinal());
         switch (this) {
             case SISTEMA_SANTA_CLARA:
-                novoProjeto.setNomeProjeto("Sistema Santa Clara");
-                novoProjeto.setNomeComercial("Sistema de gestão funeraria, Santa Clara");
+                novoProjeto.setNomeProjeto("Grupo Santa Clara");
+                novoProjeto.setNomeComercial("Sistema de gestão funeraria, grupo Santa Clara");
                 novoProjeto.setCliente(FabSBProjectClientes.SANTA_CLARA.getRegistro());
 
                 break;
