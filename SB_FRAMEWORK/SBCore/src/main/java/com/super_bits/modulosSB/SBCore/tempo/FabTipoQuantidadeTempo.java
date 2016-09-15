@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.tempo;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
     SEGUNDOS;
 
     public TipoQuantidadeTempo getTipoQuantidade() {
+
         TipoQuantidadeTempo tipoQuantidade = new TipoQuantidadeTempo();
         tipoQuantidade.setTipoInformacao(this);
         switch (this) {
@@ -60,16 +62,29 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
         return tipoQuantidade;
     }
 
-    public long calcularQuantidade(Long valor, FabTipoQuantidadeTempo tipoBaseCalculo, boolean ignorarSemanas) {
+    public long calcularQuantidade(Long valor, FabTipoQuantidadeTempo divisorMaximo, boolean ignorarSemanas) {
 
         switch (this) {
             case ANOS:
                 // A base de Calculos sempre será anual
-
-                break;
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return UtilSBCoreDataHora.intervaloTempoAnos(valor);
+                    default:
+                        return 0;
+                }
             case MESES:
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor);
+                    case MESES:
 
+                        break;
+                    default:
+                        return 0;
+
+                }
                 break;
             case SEMANAS:
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas
@@ -115,8 +130,8 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 break;
             default:
                 throw new AssertionError(this.name());
-
         }
+
         return 0;
     }
 

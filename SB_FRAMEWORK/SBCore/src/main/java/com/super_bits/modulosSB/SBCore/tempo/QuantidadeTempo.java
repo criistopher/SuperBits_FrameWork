@@ -18,20 +18,24 @@ public class QuantidadeTempo {
     private String nome;
 
     public QuantidadeTempo(Long pValorEmMileSegundos, FabTipoQuantidadeTempo pTipoQuantidade) {
+
         valorEmMileSegundos = pValorEmMileSegundos;
         tipoQuantidade = pTipoQuantidade.getTipoQuantidade();
+        atualizarQuantidade();
     }
 
     public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade, FabTipoQuantidadeTempo pBaseCalculo) {
-        valorEmMileSegundos = pValorEmMileSegundos;
+
+        this.valorEmMileSegundos = pValorEmMileSegundos;
         divisorMaximo = pBaseCalculo;
         tipoQuantidade = pTipoQuantidade;
+        atualizarQuantidade();
 
     }
 
     private void atualizarQuantidade() {
-        tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
-        quantidade = 0;
+
+        quantidade = tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
     }
 
     public void setValorEmMileSegundos(long valorEmMileSegundos, boolean pIgnorarSemana) {
@@ -39,10 +43,27 @@ public class QuantidadeTempo {
         atualizarQuantidade();
     }
 
+    /**
+     * Exemplo : tipoQuantidade minutos e Divisor maximo Dias, retorna dias = 0
+     * e o restante todo em minutos 60 minutos em dias = 0 dias e 60 minutos
+     *
+     * Exemplo: tipoQuantidade segundos e DivisorMaximo ano, se tenho 300
+     * segundos, retorno 0 anos e 300 segundos. Quando o DivisorMaximo for maior
+     * que o TipoQuantidade retorno o valor na mesma unidade do tipo quantidade
+     *
+     * @return quantidade de tempo de acordo com o tipoQuantidade e divisor
+     * máximo
+     */
     public long getQuantidade() {
         return quantidade;
     }
 
+    /**
+     * EXEMPLO: Anos, Dias, Minutos etc.
+     *
+     * @return A unidade máxima em que a quantidade pode ser dividida,
+     *
+     */
     public FabTipoQuantidadeTempo getDivisorMaximo() {
         return divisorMaximo;
     }
@@ -59,10 +80,19 @@ public class QuantidadeTempo {
         this.ignorarSemana = ignorarSemana;
     }
 
+    /**
+     *
+     * @return tipo de quantidade de tempo, anos, meses, semanas, dias, horas,
+     * minutos e segundos
+     */
     public TipoQuantidadeTempo getTipoQuantidade() {
         return tipoQuantidade;
     }
 
+    /**
+     *
+     * @return quantidade de tempo em milesegundos
+     */
     public long getValorEmMileSegundos() {
         return valorEmMileSegundos;
     }

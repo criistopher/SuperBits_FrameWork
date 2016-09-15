@@ -5,10 +5,13 @@
 package com.super_bits.modulosSB.SBCore.tempo;
 
 import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
-import com.super_bits.view.fabricasCompVisual.UtilSBFabricaComponenteVisual;
+
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+import org.joda.time.DateTime;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,13 +26,12 @@ public class ContagemRegressivaQtdTempoTest {
 
     private void testeQuantidadeTesteSimples(QuantidadeTempo pQuantidadeTempo) {
         // asserts refentes a esta quantidade de tempo:
-        //
         //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //
 
         FabTipoQuantidadeTempo divisorMaximo = pQuantidadeTempo.getDivisorMaximo();
-        String infoTeste = "Calculando " + pQuantidadeTempo.getTipoQuantidade().getNomePlural() + " com divisor Maximo" + divisorMaximo.toString();
+        String infoTeste = "Calculando " + pQuantidadeTempo.getTipoQuantidade().getNomePlural() + " com divisor Maximo " + divisorMaximo.toString();
         // Em cada caso do tipo da quantidade, faz um assert para cada tipo de divisor maximo, com o resultado esperado
         switch (pQuantidadeTempo.getTipoQuantidade().getTipoInformacao()) {
             //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
@@ -105,11 +107,11 @@ public class ContagemRegressivaQtdTempoTest {
             //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
             case SEMANAS:
                 if (pQuantidadeTempo.isIgnorarSemana()) {
-                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no sert ignoraraSemana da quantidade)");
+                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no set ignoraraSemana da quantidade)");
                 }
                 switch (divisorMaximo) {
                     case ANOS:
-                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 1);
+                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case MESES:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
@@ -207,13 +209,12 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 4);
                         break;
                     case DIAS:
-
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 4);
 
                         break;
                     case HORAS:
                         //356x24 (um ano)+ 60 x 24 + 4
-                        long emHoras = (Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + 4;
+                        long emHoras = (Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + (Long.parseLong("16") * 24) + 4;
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), emHoras);
                         break;
                     case MINUTOS:
@@ -241,7 +242,6 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case DIAS:
-
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
 
                         break;
@@ -250,7 +250,7 @@ public class ContagemRegressivaQtdTempoTest {
                         break;
                     case MINUTOS:
                         //em horas vezes 60
-                        long emMinutos = ((Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + 4) * 60;
+                        long emMinutos = ((Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + (Long.parseLong("16") * 24) + 4) * 60;
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), emMinutos);
                         break;
                     case SEGUNDOS:
@@ -305,8 +305,15 @@ public class ContagemRegressivaQtdTempoTest {
         // Setar uma variavel Long, correspontente a 1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  e em caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso ***********************
-        long valorVariavel = 0;
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        DateTime datainicial = dtf.parseDateTime("01/01/2016 12:00:00");
+        DateTime dataFinal = dtf.parseDateTime("17/03/2017 16:02:15");
 
+        Long diferenca = dataFinal.getMillis() - datainicial.getMillis();
+        long valorVariavel;
+        valorVariavel = diferenca;
+
+        // Valor variável irá ser utilizado para setar o valor da diferença em milisegundos em QuantidadeTempo e o cálculo deste valor está feito acima e testado
         // Testes Iniciais (Testando o Objeto Quantidade Tempo)...
         QuantidadeTempo quantidadeEmAnos = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.ANOS);
         testeQuantidadeTesteSimples(quantidadeEmAnos);

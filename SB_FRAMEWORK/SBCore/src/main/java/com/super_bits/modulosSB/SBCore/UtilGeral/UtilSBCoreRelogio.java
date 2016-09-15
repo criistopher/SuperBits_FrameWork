@@ -87,6 +87,15 @@ public class UtilSBCoreRelogio extends UtilSBCoreDataHora {
         this.segundos = segundos;
     }
 
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
+     * @return Lista de Long contendo intervalos de tempo predefinidos, primeiro
+     * índice anos, segundo meses, terceiro dias, quarto horas, quinto minutos e
+     * sexto segundos
+     * @throws ParseException
+     */
     public static List<Long> intervalTempDatas(DateTime pDataInicial, DateTime pDataFinal) throws ParseException {
 
         DateTime dataInicial = pDataInicial;
