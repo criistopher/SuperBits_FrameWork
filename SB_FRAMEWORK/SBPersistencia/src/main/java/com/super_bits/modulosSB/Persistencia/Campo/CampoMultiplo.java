@@ -15,7 +15,7 @@ public class CampoMultiplo extends Campo {
     private List<ItfBeanSimples> selecao;
 
     public CampoMultiplo(Field pCampo, String PvalorPadrao, Object tabelaLigacao) {
-        super(FabCampos.LISTA_OBJETOS_OBJETOS);
+        super(FabCampos.LISTA_OBJETOS);
 
         List<ItfTabelaLigacao> tabLigacao = (List<ItfTabelaLigacao>) tabelaLigacao;
 
