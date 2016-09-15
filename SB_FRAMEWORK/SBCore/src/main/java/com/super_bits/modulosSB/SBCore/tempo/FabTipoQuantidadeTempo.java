@@ -62,17 +62,29 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
         return tipoQuantidade;
     }
 
-    public long calcularQuantidade(Long valor, FabTipoQuantidadeTempo tipoBaseCalculo, boolean ignorarSemanas) {
+    public long calcularQuantidade(Long valor, FabTipoQuantidadeTempo divisorMaximo, boolean ignorarSemanas) {
 
         switch (this) {
             case ANOS:
                 // A base de Calculos sempre será anual
-                valor = (valor / (1000L * 60L * 60L * 24L) / 30L) / 12L;  // mesmo após o calculo o método calcular Quantidade retorna 0
-                return valor;
-
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return UtilSBCoreDataHora.intervaloTempoAnos(valor);
+                    default:
+                        return 0;
+                }
             case MESES:
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor);
+                    case MESES:
 
+                        break;
+                    default:
+                        return 0;
+
+                }
                 break;
             case SEMANAS:
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas

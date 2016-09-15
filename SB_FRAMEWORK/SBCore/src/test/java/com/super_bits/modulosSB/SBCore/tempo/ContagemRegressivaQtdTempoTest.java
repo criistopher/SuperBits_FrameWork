@@ -26,7 +26,6 @@ public class ContagemRegressivaQtdTempoTest {
 
     private void testeQuantidadeTesteSimples(QuantidadeTempo pQuantidadeTempo) {
         // asserts refentes a esta quantidade de tempo:
-        //
         //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //
@@ -108,11 +107,11 @@ public class ContagemRegressivaQtdTempoTest {
             //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
             case SEMANAS:
                 if (pQuantidadeTempo.isIgnorarSemana()) {
-                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no sert ignoraraSemana da quantidade)");
+                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no set ignoraraSemana da quantidade)");
                 }
                 switch (divisorMaximo) {
                     case ANOS:
-                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 1);
+                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case MESES:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
@@ -215,7 +214,7 @@ public class ContagemRegressivaQtdTempoTest {
                         break;
                     case HORAS:
                         //356x24 (um ano)+ 60 x 24 + 4
-                        long emHoras = (Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + 4;
+                        long emHoras = (Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + (Long.parseLong("16") * 24) + 4;
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), emHoras);
                         break;
                     case MINUTOS:
@@ -251,7 +250,7 @@ public class ContagemRegressivaQtdTempoTest {
                         break;
                     case MINUTOS:
                         //em horas vezes 60
-                        long emMinutos = ((Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + 4) * 60;
+                        long emMinutos = ((Long.parseLong("356") * Long.parseLong("24")) + (Long.parseLong("60") * 24) + (Long.parseLong("16") * 24) + 4) * 60;
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), emMinutos);
                         break;
                     case SEGUNDOS:
