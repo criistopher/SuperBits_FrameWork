@@ -46,8 +46,8 @@ public class UtilSBCoreReflecaoIEstruturaEntidade {
         Field campo;
         try {
             campo = pLista.getClass().getField(pLista.toString());
-            InfoLista infolista = campo.getAnnotation(InfoLista.class);
-            return infolista;
+            InfoLista InfoLista = campo.getAnnotation(InfoLista.class);
+            return InfoLista;
         } catch (NoSuchFieldException | SecurityException ex) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A  anotação de info Lista não pode ser recuperada em: " + pLista.toString(), ex);
             return null;
