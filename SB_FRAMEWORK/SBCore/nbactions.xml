@@ -25,4 +25,18 @@
                 <skipTests>true</skipTests>
             </properties>
         </action>
+        <action>
+            <actionName>test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <maven.jar.forceCreation>true</maven.jar.forceCreation>
+            </properties>
+        </action>
     </actions>

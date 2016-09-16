@@ -10,6 +10,9 @@ import com.super_bits.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.Controller.UtilSBController;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
 import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
@@ -26,6 +29,7 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +52,9 @@ import java.util.Map;
  *
  */
 public class SBCore {
+
+    public static String CAMINHO_BASE_DESENVOLVIMENTO = "/home/superBits";
+    public static String CAMINHO_BASE_PROJETOS = "/home/superBits/projetos";
 
     /**
      * INDICA O ESTADO DA APLICAÇÃO: DESENVOLVIMENTO, HOMOLOGACAO, E PRODUÇÃO
@@ -83,8 +90,28 @@ public class SBCore {
     private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
     private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
     private static String urlJira;
+    private static ArquivoConfiguracaoBase arquivoConfigBase;
+    private static ArquivoConfiguracaoCliente arquivoConfigCliente;
+    private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
+    private static boolean ignorarConfigurcoesDePermissao;
 
-    private static void ValidaConfigurado() {
+    public static boolean isTemArqConfigBasico() {
+        return arquivoConfigBase != null;
+    }
+
+    public static boolean isTemArqConfigCliente() {
+        return arquivoConfigCliente != null;
+    }
+
+    public static boolean isTemArqConfigDistribuicao() {
+        return arquivoConfigDistribuicao != null;
+    }
+
+    public static ArquivoConfiguracaoDistribuicao getArquivoConfigDistribuicao() {
+        return arquivoConfigDistribuicao;
+    }
+
+    private static void confimaFoiConfigurado() {
         if (ambienteExecucaoConfigurado) {
             return;
         }
@@ -119,6 +146,80 @@ public class SBCore {
         configurar(configuracoes, false);
     }
 
+    private static boolean validaConfiguracoes() {
+        try {
+
+            //     SBCore.enviarAvisoAoUsuario(SBCore.getCaminhoDesenvolvimento());
+            if (centralMensagens == null) {
+                throw new UnsupportedOperationException("Central de mensagens não configurada");
+
+            }
+            if (estadoAplicativo == null) {
+                throw new UnsupportedOperationException("Estado do aplicativo não configurado");
+
+            }
+            if (classeErro == null) {
+                throw new UnsupportedOperationException("Classe Erro não configurada");
+
+            }
+            if (diretorioBase == null) {
+                throw new UnsupportedOperationException("Diretorio base não configurado");
+
+            }
+            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
+                File pastaTemp = new File("/home/developer/temp/servlet");
+                pastaTemp.mkdirs();
+            }
+
+            if (!ignorarConfigurcoesDePermissao) {
+                if (acoesDoSistema == null) {
+                    throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
+                }
+                MapaAcoesSistema.makeMapaAcoesSistema();
+
+                try {
+                    // Definindo configuração de acessos
+                    if (classeConfigPermissoes == null) {
+                        Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+                        configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
+                    } else {
+                        configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+                    }
+
+                } catch (Throwable t) {
+                    if (ignorarConfigurcoesDePermissao) {
+                        System.out.println("A Classe de permissões não foi definida");
+                    } else {
+                        throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
+                    }
+
+                }
+
+                informacoesProjetoConfigurado = true;
+            }
+
+            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
+                String arquivoPomDoProjeto = SBCore.getCaminhoDesenvolvimento() + "/pom.xml";
+                if (!UtilSBCoreArquivos.isArquivoExiste(arquivoPomDoProjeto)) {
+
+                    throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
+                }
+            }
+            System.out.println("COnfigurando Mapa de Ações do sistema");
+            if (!ignorarConfigurcoesDePermissao) {
+
+                if (MapaAcoesSistema.isMapaCriado()) {
+                    System.out.println("Mapa de ações criado com sucesso!");
+                }
+            }
+
+            return true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro validação de configurações do projeto (SBCore)", t);
+            return false;
+        }
+    }
+
     /**
      *
      *
@@ -128,6 +229,7 @@ public class SBCore {
      * permissoes?
      */
     public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
+
         try {
 
             if (ambienteExecucaoConfigurado) {
@@ -152,69 +254,41 @@ public class SBCore {
             acoesDoSistema = configuracoes.getFabricaDeAcoes();
             urlJira = configuracoes.getUrlJira();
 
-            //     SBCore.enviarAvisoAoUsuario(SBCore.getCaminhoDesenvolvimento());
-            if (centralMensagens == null) {
-                throw new UnsupportedOperationException("Central de mensagens não configurada");
+            try {
 
-            }
-            if (estadoAplicativo == null) {
-                throw new UnsupportedOperationException("Estado do aplicativo não configurado");
-
-            }
-            if (classeErro == null) {
-                throw new UnsupportedOperationException("Classe Erro não configurada");
-
-            }
-            if (diretorioBase == null) {
-                throw new UnsupportedOperationException("Diretorio base não configurado");
-
-            }
-            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
-                File pastaTemp = new File("/home/developer/temp/servlet");
-                pastaTemp.mkdirs();
-            }
-
-            if (!pIgnorarClassePermissao) {
-                if (acoesDoSistema == null) {
-                    throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
+                arquivoConfigBase = new ArquivoConfiguracaoBase(configuracoes);
+                nomeProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getNOME_PROJETO());
+                cliente = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getNOME_CLIENTE());
+                grupoProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getGRUPO_PROJETO());
+                if (arquivoConfigBase.getDIRETORIO_BASE() != null) {
+                    diretorioBase = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getDIRETORIO_BASE());
                 }
-                MapaAcoesSistema.makeMapaAcoesSistema();
+
+            } catch (UnsupportedOperationException | IOException t) {
+                System.out.println("SBCoreInfo: Erro lendo propriedade do arquivo de configuração ");
+                System.out.println("SBCoreInfo: certifique que o arquivo SBProjeto.prop esteja na pasta src/main/resource do projeto, e que o seu arquivo pom contenha as tags de resources configuradas no build");
+                System.out.println("SBCoreInfo: duvidas utilize o projeto SBCore como referencia");
+                System.out.println("SBCoreInfo: *** Sem o arquivo de configuração basico, não é possível carregar o arquivo de configuração de produção");
+            }
+
+            if (isTemArqConfigBasico()) {
+                try {
+                    arquivoConfigCliente = new ArquivoConfiguracaoCliente(arquivoConfigBase);
+                } catch (Throwable t) {
+                    System.out.println("SBCoreInfo: O arquivo de configuração do cliente não foi encontrado, Você poderá ter dificuldades para implantar e intgrar seu sistema com o Jira");
+                }
 
                 try {
-                    // Definindo configuração de acessos
-                    if (classeConfigPermissoes == null) {
-                        Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
-                        configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
-                    } else {
-                        configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
-                    }
-
+                    arquivoConfigDistribuicao = new ArquivoConfiguracaoDistribuicao(arquivoConfigBase);
                 } catch (Throwable t) {
-                    if (pIgnorarClassePermissao) {
-                        System.out.println("A Classe de permissões não foi definida");
-                    } else {
-                        throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
-                    }
-
+                    System.out.println("SBCoreInfo: O arquivo de distribuilção não foi encontrado, isto em normal em ambiente de desenvolvimento");
                 }
 
-                informacoesProjetoConfigurado = true;
-            }
-
-            if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
-                String arquivoPomDoProjeto = SBCore.getCaminhoDesenvolvimento() + "/pom.xml";
-                if (!UtilSBCoreArquivos.isArquivoExiste(arquivoPomDoProjeto)) {
-
-                    throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
+                if (!validaConfiguracoes()) {
+                    throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
                 }
             }
-            System.out.println("COnfigurando Mapa de Ações do sistema");
-            if (!pIgnorarClassePermissao) {
 
-                if (MapaAcoesSistema.isMapaCriado()) {
-                    System.out.println("Mapa de ações criado com sucesso!");
-                }
-            }
         } catch (Throwable t) {
             ambienteExecucaoConfigurado = true;
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
@@ -230,7 +304,7 @@ public class SBCore {
     }
 
     public static String getNomeProjeto() {
-        ValidaConfigurado();
+        confimaFoiConfigurado();
         return nomeProjeto;
     }
 
@@ -250,7 +324,7 @@ public class SBCore {
      * @param pErroJava O exception que gerou esse relato de erro
      */
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
-        ValidaConfigurado();
+        confimaFoiConfigurado();
         try {
             if (classeErro == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
@@ -278,7 +352,7 @@ public class SBCore {
      * @param pErroJava O exception que gerou esse relato de erro
      */
     public static void RelatarErroAoUsuario(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
-        ValidaConfigurado();
+        confimaFoiConfigurado();
         try {
             if (classeErro == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
@@ -568,15 +642,14 @@ public class SBCore {
         return acoesDoSistema;
     }
 
-    public static void soutInfoDebug(String pInfo) {
-        if (getEstadoAPP() != ESTADO_APP.PRODUCAO) {
-            System.out.println("DebugInfo: " + pInfo);
-        }
-
-    }
-
     public static String getUrlJira() {
         return urlJira;
+    }
+
+    public static void soutInfoDebug(String pInfo) {
+        if (estadoAplicativo != ESTADO_APP.PRODUCAO) {
+            System.out.println("SBCoreInfo:" + pInfo);
+        }
     }
 
 }

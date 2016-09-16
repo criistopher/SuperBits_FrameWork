@@ -6,7 +6,9 @@
 package com.super_bits.modulosSB.SBCore.ManipulaArquivo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import static com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente.NOME_ARQUIVO_CLIENTE;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,8 +16,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -233,6 +237,35 @@ public abstract class UtilSBCoreArquivoTexto {
         }
 
         return false;
+    }
+
+    public static Properties getPropriedadesNoArquivo(String pCaminhoArquivo) {
+        Properties proppriedades = new Properties();
+        InputStream arqPropriedadesSource = UTilSBCoreInputs.getStreamByLocalFile(pCaminhoArquivo);
+        if (arqPropriedadesSource == null) {
+            throw new UnsupportedOperationException("Arquivo " + pCaminhoArquivo + " não encontrado na pasta resources");
+        }
+        try {
+            proppriedades.load(arqPropriedadesSource);
+            return proppriedades;
+        } catch (IOException ex) {
+            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static Properties getPropriedadesNoArquivoRessource(String pArquivo, Class pClasseReferencia) {
+
+        Properties proppriedadesBasicas = new Properties();
+
+        InputStream stream = pClasseReferencia.getClassLoader().getResourceAsStream(pArquivo);
+        try {
+            proppriedadesBasicas.load(stream);
+            return proppriedadesBasicas;
+        } catch (IOException ex) {
+            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

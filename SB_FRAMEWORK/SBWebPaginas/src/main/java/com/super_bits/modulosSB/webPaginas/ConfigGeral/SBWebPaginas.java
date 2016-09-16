@@ -1,6 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import java.util.List;
@@ -10,6 +11,7 @@ public abstract class SBWebPaginas {
     // variaveis temporarias apenas para compatibilidade
     // VARIAVEIS DE ARQUIVAR_LOG
     private static String SITE_HOST;
+    private static Integer porta = 8080;
     private static String pastaImagens;
     private static String nomePacoteProjeto;
     private static String SITE_URL;
@@ -32,6 +34,11 @@ public abstract class SBWebPaginas {
         siteMap = config.mapaSite();
         parametros = config.parametrosDeAplicacao();
         configurado = true;
+        ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoConfigDistribuicao();
+        if (distribuicao != null) {
+            SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
+            SITE_URL = SITE_HOST;
+        }
 
     }
 
