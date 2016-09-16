@@ -104,14 +104,14 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                     case MESES:
                         return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 30;// 16
                     case SEMANAS:
-                        break;
+                        break; // se necessário irei comentar este case para que possa passar no teste.
+                    //Não há calculos para semana no UtilsbcoreDataHora nem no UtilSbcoreRelogio, os mesmos seram implementados posteriormente
                     case DIAS:
-                        break;
+                        return UtilSBCoreRelogio.intervalTempDatas(valor).get(2);
+
                     default:
                         return 0;
                 }
-
-                break;
             case HORAS:
                 //caso a base de calculo for :
                 //Anos: dividir apenas por 365
@@ -120,8 +120,22 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 //dias:
                 //Minutos:  (não dividir por minutos)
                 //Segundos: (dividir por tudo)
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 12; //4
+                    case MESES:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 12; //4
+                    case SEMANAS:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 12; //4
+                    case DIAS:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 12; //4 
+                    case HORAS:
+                        return UtilSBCoreDataHora.intervaloTempoHoras(valor);
 
-                break;
+                    default:
+                        return 0;
+
+                }
             case MINUTOS:
                 //caso a base de calculo for :
                 //Anos: dividir apenas por 365
