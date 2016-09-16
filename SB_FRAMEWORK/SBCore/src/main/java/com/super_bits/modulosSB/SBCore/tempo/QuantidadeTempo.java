@@ -22,6 +22,7 @@ public class QuantidadeTempo {
         valorEmMileSegundos = pValorEmMileSegundos;
         tipoQuantidade = pTipoQuantidade.getTipoQuantidade();
         atualizarQuantidade();
+
     }
 
     public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade, FabTipoQuantidadeTempo pBaseCalculo) {
@@ -78,6 +79,7 @@ public class QuantidadeTempo {
 
     public void setIgnorarSemana(boolean ignorarSemana) {
         this.ignorarSemana = ignorarSemana;
+
     }
 
     /**

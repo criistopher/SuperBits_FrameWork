@@ -384,7 +384,7 @@ public class UtilSBCoreDataHora {
 
     public static List<Long> intervaloTempoBaseAnos(Long pIntervaloTempo) {
 
-        // terminar 
+        // Dúvida, se este método é necessário ou se posso utilizar os resultados dos outros métodos e calcular sobre estes os valores que preciso
         List<Long> intevalos = new ArrayList<>();
 
         Long meses = (intervaloTempoAnos(pIntervaloTempo) % MESESANO) + intervaloTempoMeses(pIntervaloTempo);

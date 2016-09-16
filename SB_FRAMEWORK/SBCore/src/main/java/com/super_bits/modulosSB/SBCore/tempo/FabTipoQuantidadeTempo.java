@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.tempo;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreRelogio;
 import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
 import java.util.Date;
 
@@ -77,15 +78,13 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
                 switch (divisorMaximo) {
                     case ANOS:
-                        return UtilSBCoreDataHora.intervaloTempoMeses(valor);
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor) % 12;
                     case MESES:
-
-                        break;
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor);
                     default:
                         return 0;
-
                 }
-                break;
+
             case SEMANAS:
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas
                 // caso ignorar semanas, retornar -1
@@ -99,6 +98,19 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 //dias:
                 //Minutos:
                 //Segundos:
+                switch (divisorMaximo) {
+                    case ANOS:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 30;// 16
+                    case MESES:
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365) % 30;// 16
+                    case SEMANAS:
+                        break;
+                    case DIAS:
+                        break;
+                    default:
+                        return 0;
+                }
+
                 break;
             case HORAS:
                 //caso a base de calculo for :

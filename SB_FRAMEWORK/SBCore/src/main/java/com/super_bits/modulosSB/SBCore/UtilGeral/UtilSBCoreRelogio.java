@@ -7,13 +7,10 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Months;
+
 import org.joda.time.ReadableInstant;
 import org.joda.time.Seconds;
 
@@ -124,6 +121,35 @@ public class UtilSBCoreRelogio extends UtilSBCoreDataHora {
         intervalTime.add(segundosLong);
 
         return intervalTime;
+
+    }
+
+    public static List<Long> intervalTempDatas(Long pIntervaloTempo) {
+
+        BigDecimal segundos = new BigDecimal(intervaloTempoSegundos(pIntervaloTempo));
+
+        BigDecimal minutos = segundos.divide(new BigDecimal("60"), 0, RoundingMode.HALF_DOWN);
+        BigDecimal horas = minutos.divide(new BigDecimal("60"), 0, RoundingMode.HALF_DOWN);
+        BigDecimal dias = horas.divide(new BigDecimal("24"), 0, RoundingMode.HALF_DOWN);
+        BigDecimal meses = dias.divide(new BigDecimal("30"), 0, RoundingMode.HALF_DOWN);
+        BigDecimal anos = meses.divide(new BigDecimal("365"), 0, RoundingMode.HALF_DOWN);
+
+        Long segundosLong = segundos.longValue();
+        Long minutosLong = minutos.longValue();
+        Long horasLong = horas.longValue();
+        Long diasLong = dias.longValue();
+        Long mesesLong = meses.longValue();
+        Long anosLong = anos.longValue();
+
+        List<Long> intervalos = new ArrayList<>();
+        intervalos.add(anosLong);
+        intervalos.add(mesesLong);
+        intervalos.add(diasLong);
+        intervalos.add(horasLong);
+        intervalos.add(minutosLong);
+        intervalos.add(segundosLong);
+
+        return intervalos;
 
     }
 
