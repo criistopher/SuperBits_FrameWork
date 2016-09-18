@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoNaoImplementado;
 import org.junit.Before;
 import org.junit.Test;
 

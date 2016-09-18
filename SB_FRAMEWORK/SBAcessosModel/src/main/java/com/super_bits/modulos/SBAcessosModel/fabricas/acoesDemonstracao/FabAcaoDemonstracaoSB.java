@@ -4,16 +4,16 @@
  */
 package com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 /**
  *

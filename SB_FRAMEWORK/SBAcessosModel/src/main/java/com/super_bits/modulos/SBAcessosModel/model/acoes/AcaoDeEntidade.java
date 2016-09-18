@@ -4,12 +4,12 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 

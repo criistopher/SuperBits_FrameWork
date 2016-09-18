@@ -4,11 +4,12 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -58,8 +59,7 @@ public class ArquivoConfiguracaoBase {
         if (TIPO_PROJETO == null) {
             throw new UnsupportedOperationException("O tipo do  do projeto ${pom.packaging} não foi encontrado no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
-
-        String NOME_CLIENTE = (String) proppriedadesBasicas.get("NOME_CLIENTE");
+        NOME_CLIENTE = (String) proppriedadesBasicas.get("NOME_CLIENTE");
         System.out.println("nome cliente" + NOME_CLIENTE);
         if (NOME_CLIENTE == null) {
             throw new UnsupportedOperationException("O nome do cliente não foi encontrado no projeto");

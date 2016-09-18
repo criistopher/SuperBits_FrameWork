@@ -4,10 +4,9 @@
 package com.super_bits.modulos.SBAcessosModel.model.Ips;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import java.lang.reflect.Field;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

@@ -6,10 +6,11 @@
 package com.super_bits.modulos.SBAcessosModel.fabricas;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
+
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ProjetoAtual extends ItemSimples {
     }
 
     public String getNomeCliente() {
-        return SBCore.getCliente();
+        return SBCore.getInfoAplicacao().getCliente();
     }
 
 }

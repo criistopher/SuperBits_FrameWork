@@ -5,10 +5,10 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemSimples;
-import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
 import java.util.ArrayList;
 import java.util.List;
 

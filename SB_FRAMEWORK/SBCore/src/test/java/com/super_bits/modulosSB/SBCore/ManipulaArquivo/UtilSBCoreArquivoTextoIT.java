@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.ManipulaArquivo;
 
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;

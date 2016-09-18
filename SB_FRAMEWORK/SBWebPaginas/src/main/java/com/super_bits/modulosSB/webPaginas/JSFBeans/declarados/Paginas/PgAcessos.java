@@ -3,7 +3,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
@@ -11,9 +11,9 @@ import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.CrudDataSet;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.BP_PickList;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;

@@ -7,7 +7,7 @@ package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.CampoMapValores;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.CampoMapValores;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 

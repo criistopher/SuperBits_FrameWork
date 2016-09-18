@@ -6,9 +6,9 @@
 package com.super_bits.projeto.Jira;
 
 import com.google.common.collect.Lists;
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;

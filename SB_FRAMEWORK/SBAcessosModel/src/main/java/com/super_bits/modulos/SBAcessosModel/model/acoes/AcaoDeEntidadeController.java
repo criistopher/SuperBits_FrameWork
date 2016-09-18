@@ -4,19 +4,19 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.Controller.Interfaces.acoes.ParametroDeAcaoController;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.Controller.UtilSBController;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ParametroDeAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.Entity;

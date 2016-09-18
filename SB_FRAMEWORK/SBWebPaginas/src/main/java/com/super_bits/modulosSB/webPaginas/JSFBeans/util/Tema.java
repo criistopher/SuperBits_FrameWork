@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas.TemaPrimeFaces;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas.TemasDisponiveis;

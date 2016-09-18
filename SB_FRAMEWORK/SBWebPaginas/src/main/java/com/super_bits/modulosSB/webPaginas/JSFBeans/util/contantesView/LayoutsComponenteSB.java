@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.contantesView;
 
-import com.super_bits.view.fabricasCompVisual.FabFamiliaCompVisual;
-import com.super_bits.view.fabricasCompVisual.FamiliaComponente;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.FabFamiliaCompVisual;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.FamiliaComponente;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

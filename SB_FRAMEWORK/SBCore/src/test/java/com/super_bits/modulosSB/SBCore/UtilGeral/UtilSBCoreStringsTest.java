@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.regex.Matcher;
@@ -98,7 +98,7 @@ public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Before
     public void init() {
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
     /**
@@ -217,7 +217,7 @@ public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
     public void testaPesquisa() {

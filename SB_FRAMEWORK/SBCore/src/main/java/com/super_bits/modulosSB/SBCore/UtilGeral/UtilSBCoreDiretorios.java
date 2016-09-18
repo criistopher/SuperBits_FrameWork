@@ -6,7 +6,7 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

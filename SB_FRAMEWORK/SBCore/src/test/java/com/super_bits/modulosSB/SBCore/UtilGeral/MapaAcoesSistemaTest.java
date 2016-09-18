@@ -4,8 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
 import org.junit.Test;
 
 /**
@@ -19,70 +20,10 @@ public class MapaAcoesSistemaTest {
 
     @Test
     public void testMakeMapaAcoesSistema() {
-
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         System.out.println(SBCore.getCaminhoDesenvolvimento());
         MapaAcoesSistema.makeMapaAcoesSistema();
 
-    }
-
-    @Test
-    public void testGetAcoesByEntidade() {
-    }
-
-    @Test
-    public void testGetAcoesByDominioEModulo() {
-    }
-
-    @Test
-    public void testGetAcoesControllersByEntidade() {
-    }
-
-    @Test
-    public void testGetAcoesControllerByEntidadeEModulo() {
-    }
-
-    @Test
-    public void testGetAcoesListagemByEntidadeEModulo() {
-    }
-
-    @Test
-    public void testGetAcaoDoSistema() {
-    }
-
-    @Test
-    public void testGetAcaoDeEntidade() {
-    }
-
-    @Test
-    public void testGetAcaoEntidadeFormulario() {
-    }
-
-    @Test
-    public void testGetAcaoEntidadeController() {
-    }
-
-    @Test
-    public void testGetAcaoController() {
-    }
-
-    @Test
-    public void testGeAcaoGerenciarEntidade() {
-    }
-
-    @Test
-    public void testGetEntidadeDominio() {
-    }
-
-    @Test
-    public void testGetNomeModulo() {
-    }
-
-    @Test
-    public void testGetRegistro() {
-    }
-
-    public class MapaAcoesSistemaImpl extends MapaAcoesSistema {
     }
 
 }

@@ -1,8 +1,8 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeEndereco;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanEndereco;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanEndereco;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.B_ItemGenerico;
 import java.io.Serializable;
 import java.util.ArrayList;

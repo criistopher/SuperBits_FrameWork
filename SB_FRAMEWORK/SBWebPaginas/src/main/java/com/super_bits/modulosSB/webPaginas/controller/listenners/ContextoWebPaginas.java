@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.controller.listenners;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfInicioFimAppWP;
 import javax.servlet.ServletContextEvent;

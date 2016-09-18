@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import java.io.IOException;
 import java.util.Properties;
 

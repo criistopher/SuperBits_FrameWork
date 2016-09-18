@@ -6,9 +6,10 @@ package com.super_bits.modulosSB.Persistencia.util;
 
 import com.super_bits.editorImagem.util.UtilSBImagemEdicao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

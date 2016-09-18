@@ -1,11 +1,11 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.util.HashMap;

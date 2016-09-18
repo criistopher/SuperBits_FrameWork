@@ -3,7 +3,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.filtro.old;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.CSBNQ;
 import com.super_bits.modulosSB.Persistencia.dao.DaoGenerico;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.ClasseTipada;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import java.io.Serializable;

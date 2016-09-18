@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtual;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.apiClients.UtilWebService.cep.WebServiceCepRepublicaVirtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
 import java.util.ArrayList;
 import java.util.List;
 

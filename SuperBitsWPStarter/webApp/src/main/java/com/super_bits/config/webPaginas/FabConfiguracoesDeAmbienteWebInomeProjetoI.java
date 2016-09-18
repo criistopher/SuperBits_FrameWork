@@ -12,13 +12,13 @@ import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfConfigWebPagina;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -40,7 +40,7 @@ public enum FabConfiguracoesDeAmbienteWebInomeProjetoI {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
-    public ItfConfiguradorCore getConfiguracao() {
+    public ItfConfiguracaoCoreSomenteLeitura getConfiguracao() {
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");
         cfg.setGrupoProjeto("SuperBits_FrameWork");

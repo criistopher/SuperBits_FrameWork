@@ -1,8 +1,8 @@
 package com.super_bits.modulosSB.Persistencia.dao;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

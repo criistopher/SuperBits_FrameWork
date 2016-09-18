@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgProjetoSBVisaoGeral;
 
-import com.super_bits.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;

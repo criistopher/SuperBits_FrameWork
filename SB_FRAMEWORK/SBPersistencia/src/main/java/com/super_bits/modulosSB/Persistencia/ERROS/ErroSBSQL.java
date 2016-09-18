@@ -1,10 +1,8 @@
 package com.super_bits.modulosSB.Persistencia.ERROS;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
 
 public class ErroSBSQL extends InfoErroSBComAcoes {
-
-    private static final long serialVersionUID = 1L;
 
     @Override
     public void lancarExcecao() {

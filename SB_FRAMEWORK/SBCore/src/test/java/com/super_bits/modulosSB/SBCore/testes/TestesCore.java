@@ -4,10 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.testes;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class TestesCore {
 
     public void testaConfigEErroRElat() {
         System.out.println("Teste relato de Erro");
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         //   SBCore.LancarErro(InfoErroSB.FabErro.USUARIO, "Executa Alerta Usuario");
         System.out.println("Relato de Erro OK");
     }

@@ -6,8 +6,8 @@
 package com.super_bits.sbProjetos.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;

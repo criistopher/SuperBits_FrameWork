@@ -7,7 +7,7 @@ package com.super_bits.modulosSB.webPaginas.controller.servletes;
 import com.super_bits.editorImagem.ItfResolucao;
 import com.super_bits.editorImagem.Resolucao;
 import com.super_bits.editorImagem.util.UtilSBImagemEdicao;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ArquivoDeSessao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.GestaoDeArquivoSessao;
 import java.awt.image.BufferedImage;

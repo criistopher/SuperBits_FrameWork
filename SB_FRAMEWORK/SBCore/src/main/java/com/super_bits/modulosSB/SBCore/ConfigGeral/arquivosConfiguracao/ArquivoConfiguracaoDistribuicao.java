@@ -4,8 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import java.io.File;
 import java.util.Properties;
 
@@ -15,7 +14,7 @@ import java.util.Properties;
  */
 public class ArquivoConfiguracaoDistribuicao {
 
-    public static String CAMINHO_ARQUIVO_CONFIG_DISTRIBUICAO = "/home/git/publicados" + SBCore.getNomeProjeto();
+    public static String CAMINHO_PASTA_DISTRIBUICOES = "/home/git/publicados";
 
     private boolean temArquivoImplantacao;
     private boolean temArquivoDesenvolvimento;
@@ -25,36 +24,18 @@ public class ArquivoConfiguracaoDistribuicao {
     private String PASTA_GIT_SOURCE;
     private String NOME_PASTA_PROJETO;
 
-    private final ArquivoConfiguracaoBase configuracaoBase;
+    private ArquivoConfiguracaoBase configuracaoBase = null;
 
-    private final boolean emAmbienteDeProducao;
+    private boolean emAmbienteDeProducao;
 
-    private String getCaminhoReleaseImplantado() {
-        return CAMINHO_ARQUIVO_CONFIG_DISTRIBUICAO + "/" + configuracaoBase.getNOME_PROJETO() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
-    }
+    public ArquivoConfiguracaoDistribuicao(ArquivoConfiguracaoBase pConfigBase) {
 
-    private String getCaminhoArquivoReleaseLocal() {
-        return configuracaoBase.getCaminhoPastaProjetoRelease() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
-
-    }
-
-    private boolean checaArquivoReleaseLocal() {
-        File arquivoRelease = new File(getCaminhoArquivoReleaseLocal());
-        return arquivoRelease.exists();
-    }
-
-    private void checaArquivoReleaseImplantado() {
-        File arquivoRelease = new File(getCaminhoReleaseImplantado());
-        temArquivoImplantacao = arquivoRelease.exists();
-    }
-
-    public ArquivoConfiguracaoDistribuicao(ArquivoConfiguracaoBase configBase) {
-        configuracaoBase = configBase;
+        configuracaoBase = pConfigBase;
         checaArquivoReleaseImplantado();
         checaArquivoReleaseLocal();
         Properties propriedadesImplantacao = null;
         if (temArquivoImplantacao) {
-            propriedadesImplantacao = UtilSBCoreArquivoTexto.getPropriedadesNoArquivo(getCaminhoReleaseImplantado());
+            propriedadesImplantacao = UtilSBCoreArquivoTexto.getPropriedadesNoArquivo(getCaminhoArquivoReleaseImplantado());
             emAmbienteDeProducao = true;
         } else {
             emAmbienteDeProducao = false;
@@ -86,6 +67,25 @@ public class ArquivoConfiguracaoDistribuicao {
             throw new UnsupportedOperationException("A propriedade NOME_PASTA_PROJETO não foi implementada");
         }
 
+    }
+
+    private String getCaminhoArquivoReleaseImplantado() {
+        return CAMINHO_PASTA_DISTRIBUICOES + "/" + configuracaoBase.getNOME_PROJETO() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
+    }
+
+    private String getCaminhoArquivoReleaseLocal() {
+        return configuracaoBase.getCaminhoPastaProjetoRelease() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
+
+    }
+
+    private boolean checaArquivoReleaseLocal() {
+        File arquivoRelease = new File(getCaminhoArquivoReleaseLocal());
+        return arquivoRelease.exists();
+    }
+
+    private void checaArquivoReleaseImplantado() {
+        File arquivoRelease = new File(getCaminhoArquivoReleaseImplantado());
+        temArquivoImplantacao = arquivoRelease.exists();
     }
 
     public boolean isTemArquivoImplantacao() {
@@ -123,5 +123,4 @@ public class ArquivoConfiguracaoDistribuicao {
     public boolean isEmAmbienteDeProducao() {
         return emAmbienteDeProducao;
     }
-
 }

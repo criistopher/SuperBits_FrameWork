@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 
 /**
  *

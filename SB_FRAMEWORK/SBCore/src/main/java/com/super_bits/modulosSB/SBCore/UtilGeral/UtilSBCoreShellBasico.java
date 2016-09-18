@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;

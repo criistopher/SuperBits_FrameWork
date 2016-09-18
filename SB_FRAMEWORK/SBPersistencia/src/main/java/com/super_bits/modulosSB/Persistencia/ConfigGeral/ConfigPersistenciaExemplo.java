@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *

@@ -5,14 +5,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import aux.FabConfigCoreSBSBAcessosModel;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
-import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import aux.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,7 +25,7 @@ public class UtilFabricaDeAcoesTest {
 
     @Before
     public void configAmbiente() {
-        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
 
     }
 

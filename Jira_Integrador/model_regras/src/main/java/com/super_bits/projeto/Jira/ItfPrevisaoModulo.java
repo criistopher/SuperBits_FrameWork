@@ -5,7 +5,7 @@
  */
 package com.super_bits.projeto.Jira;
 
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import java.util.List;
 
 /**

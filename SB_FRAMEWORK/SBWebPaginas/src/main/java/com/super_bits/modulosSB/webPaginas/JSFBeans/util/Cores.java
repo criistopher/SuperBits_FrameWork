@@ -4,8 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

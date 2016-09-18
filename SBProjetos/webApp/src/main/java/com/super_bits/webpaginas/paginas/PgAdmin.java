@@ -7,7 +7,7 @@ package com.super_bits.webpaginas.paginas;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;

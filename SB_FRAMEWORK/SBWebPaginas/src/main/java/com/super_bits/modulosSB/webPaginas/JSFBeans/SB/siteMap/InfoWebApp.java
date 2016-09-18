@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.WebPaginasServlet;
 import java.io.Serializable;

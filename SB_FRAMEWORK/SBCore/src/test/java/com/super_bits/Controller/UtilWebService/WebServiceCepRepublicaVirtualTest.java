@@ -4,7 +4,7 @@
  */
 package com.super_bits.Controller.UtilWebService;
 
-import com.super_bits.Controller.UtilWebService.cep.WebServiceCepRepublicaVirtual;
+import com.super_bits.modulosSB.SBCore.apiClients.UtilWebService.cep.WebServiceCepRepublicaVirtual;
 import org.junit.Before;
 import org.junit.Test;
 

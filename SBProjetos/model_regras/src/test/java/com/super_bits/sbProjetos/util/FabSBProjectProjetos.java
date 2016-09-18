@@ -5,7 +5,7 @@
  */
 package com.super_bits.sbProjetos.util;
 
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.sbProjetos.Model.FabSBProjectClientes;
 import com.super_bits.sbProjetos.Model.Projeto;
 

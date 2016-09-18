@@ -5,8 +5,9 @@
 package com.super_bits.modulosSB.Persistencia.ERROS;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
+
 import javax.persistence.EntityManager;
 
 /**

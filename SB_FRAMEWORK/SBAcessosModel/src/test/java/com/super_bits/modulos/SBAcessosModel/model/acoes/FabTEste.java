@@ -5,16 +5,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 /**
  *

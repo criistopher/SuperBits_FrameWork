@@ -1,7 +1,7 @@
 package com.super_bits.modulosSB.Persistencia.Campo;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import java.lang.reflect.Field;
 
 public class CampoVerdadeiroFalso extends Campo {

@@ -5,7 +5,7 @@
  */
 package com.super_bits.projeto.Jira.Jira;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.projeto.Jira.TipoProfissional;
 
 /**

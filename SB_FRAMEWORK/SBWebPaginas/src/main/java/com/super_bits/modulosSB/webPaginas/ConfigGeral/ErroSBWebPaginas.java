@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.InfoErro;
 
 /**

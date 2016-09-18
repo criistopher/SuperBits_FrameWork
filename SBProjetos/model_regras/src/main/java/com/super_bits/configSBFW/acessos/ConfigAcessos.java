@@ -8,7 +8,7 @@ package com.super_bits.configSBFW.acessos;
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 
 import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
@@ -16,7 +16,7 @@ import com.super_bits.sbProjetos.Model.GerenteProjeto;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.StatusRequisito;
 import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
-import com.super_bits.view.menu.MenusDaSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenusDaSessao;
 
 /**
  *

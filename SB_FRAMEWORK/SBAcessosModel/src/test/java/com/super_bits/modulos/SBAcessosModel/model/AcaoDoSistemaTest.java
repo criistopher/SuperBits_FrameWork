@@ -5,10 +5,11 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import aux.FabConfigCoreSBSBAcessosModel;
+import aux.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+
 import config.ConfigPersistenciaTestesAcesso;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class AcaoDoSistemaTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 }

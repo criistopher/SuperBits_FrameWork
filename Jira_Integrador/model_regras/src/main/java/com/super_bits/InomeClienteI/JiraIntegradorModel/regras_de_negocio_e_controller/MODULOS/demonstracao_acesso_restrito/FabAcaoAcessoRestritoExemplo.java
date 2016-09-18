@@ -5,15 +5,15 @@
  */
 package com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito;
 
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoController;
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoFormulario;
-import com.super_bits.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.FabModulosIProjetoTesteI;
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.InfoModuloInomeProjetoI;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 /**
  *

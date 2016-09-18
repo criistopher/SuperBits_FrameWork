@@ -5,8 +5,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

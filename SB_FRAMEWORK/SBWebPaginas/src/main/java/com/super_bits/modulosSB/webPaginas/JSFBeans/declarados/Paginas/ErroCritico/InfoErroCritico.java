@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.UtilSBCoreErros;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.UtilSBCoreErros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.PrintWriter;
 import java.io.Serializable;

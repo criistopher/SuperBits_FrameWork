@@ -5,7 +5,7 @@
  */
 package com.super_bits.shellcommands.model;
 
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *

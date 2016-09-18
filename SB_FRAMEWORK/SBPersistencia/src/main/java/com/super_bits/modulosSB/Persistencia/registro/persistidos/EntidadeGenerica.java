@@ -1,18 +1,20 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
-import com.super_bits.Controller.Interfaces.ItfCalculos;
-import com.super_bits.Controller.Interfaces.ItfListas;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfListas;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;

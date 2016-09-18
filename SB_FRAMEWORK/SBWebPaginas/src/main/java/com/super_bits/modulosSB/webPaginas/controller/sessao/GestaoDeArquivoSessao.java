@@ -5,7 +5,7 @@
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import java.awt.image.BufferedImage;

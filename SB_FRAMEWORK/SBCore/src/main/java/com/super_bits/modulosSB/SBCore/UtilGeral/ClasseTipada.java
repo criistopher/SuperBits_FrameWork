@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.lang.reflect.ParameterizedType;
 
 /// Toda Classe do TIPO <T> extende dessa classe, ela possui m[etodo de constructor expecificando o tipo, e expecificacao por reflexao, que

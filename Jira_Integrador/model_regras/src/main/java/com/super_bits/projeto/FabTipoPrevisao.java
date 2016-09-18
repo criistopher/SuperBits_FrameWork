@@ -5,11 +5,11 @@
  */
 package com.super_bits.projeto;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfRegiao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfRegiao;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
-import com.super_bits.view.formulario.ItfFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.view.formulario.ItfFormulario;
 
 /**
  *

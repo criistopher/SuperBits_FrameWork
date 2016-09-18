@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import javax.swing.JOptionPane;
 
 /**

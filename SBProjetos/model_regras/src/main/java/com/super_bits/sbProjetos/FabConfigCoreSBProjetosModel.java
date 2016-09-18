@@ -5,13 +5,13 @@
  */
 package com.super_bits.sbProjetos;
 
-import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
 import com.super_bits.configSBFW.acessos.ConfigAcessos;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.sbProjetos.Model.FabSBProjectClientes;
 import com.super_bits.sbProjetos.controller.getaoProjeto.FabAcaoGestaoProjetos;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -21,7 +21,7 @@ public enum FabConfigCoreSBProjetosModel {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
-    public ItfConfiguradorCore getConfiguracao() {
+    public ItfConfiguracaoCoreSomenteLeitura getConfiguracao() {
 
         ConfigCoreCustomizavel novaConfig = new ConfigCoreCustomizavel(
                 ConfigCoreCustomizavel.TIPOS_CONFIG.CORE_DEVELOPER_PADRAO,

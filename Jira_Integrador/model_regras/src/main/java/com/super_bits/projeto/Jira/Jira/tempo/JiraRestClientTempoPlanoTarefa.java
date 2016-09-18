@@ -13,7 +13,7 @@ import com.atlassian.jira.rest.client.internal.async.AbstractAsynchronousRestCli
 import com.atlassian.jira.rest.client.internal.json.BasicProjectsJsonParser;
 import com.atlassian.jira.rest.client.internal.json.SessionJsonParser;
 import com.atlassian.util.concurrent.Promise;
-import com.super_bits.modulosSB.SBCore.Mensagens.MensagemUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.MensagemUsuario;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import java.net.URI;
 import java.util.Iterator;

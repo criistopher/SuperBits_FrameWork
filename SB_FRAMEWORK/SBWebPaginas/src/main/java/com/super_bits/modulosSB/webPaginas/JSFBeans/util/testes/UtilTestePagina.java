@@ -4,12 +4,12 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.PaginaSimples;

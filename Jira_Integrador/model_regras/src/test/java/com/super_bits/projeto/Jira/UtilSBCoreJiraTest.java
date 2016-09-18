@@ -16,7 +16,7 @@ import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.MensagemProgramador;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.MensagemProgramador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTILSBCoreDesktopApp;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.util.List;

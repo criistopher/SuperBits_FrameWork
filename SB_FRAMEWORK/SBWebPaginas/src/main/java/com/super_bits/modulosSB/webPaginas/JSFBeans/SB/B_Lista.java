@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.ClasseTipada;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;

@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import javax.enterprise.context.ApplicationScoped;
 
 /**

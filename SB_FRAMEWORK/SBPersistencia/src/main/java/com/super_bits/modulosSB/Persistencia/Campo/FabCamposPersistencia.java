@@ -7,19 +7,29 @@ package com.super_bits.modulosSB.Persistencia.Campo;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.TIPO_DECLARACAO;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos.LISTA_OBJETOS;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos.OBJETO_DE_UMA_LISTA;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.CAMPO_TRANSIENTE;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.LISTA_DINIMICA;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_MUITOS;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_MUITOS_COM_REPETICAO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_UM;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.OBJETO_EMBUTIDO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.OBJETO_TRANSIENTE;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.SIMPLES;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.VALOR_CALCULADO;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LISTA_OBJETOS;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.OBJETO_DE_UMA_LISTA;
-import javax.persistence.ManyToMany;
 
 /**
  *

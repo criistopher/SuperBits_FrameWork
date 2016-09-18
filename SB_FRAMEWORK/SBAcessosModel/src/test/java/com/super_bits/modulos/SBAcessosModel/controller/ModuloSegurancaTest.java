@@ -5,15 +5,18 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
-import aux.FabConfigCoreSBSBAcessosModel;
-import com.super_bits.Controller.Interfaces.ItfResposta;
+import aux.ConfiguradorCoreSBAcessosModelTestes;
+
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfSessao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+
 import config.ConfigPersistenciaTestesAcesso;
 
 import org.junit.Test;
@@ -64,7 +67,7 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBAcessosModel.DESENVOLVIMENTO.getConfigurador());
+        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 

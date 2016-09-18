@@ -4,7 +4,11 @@
  */
 package com.super_bits.modulosSB.SBCore.tempo;
 
-import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.ContagemRegressivaQtdTempo;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.QuantidadeTempo;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
 
 import java.util.ArrayList;
 import java.util.List;

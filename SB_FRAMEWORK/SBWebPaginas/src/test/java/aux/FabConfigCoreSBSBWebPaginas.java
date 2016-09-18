@@ -6,13 +6,13 @@ package aux;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.CentramMensagemProgramadorMsgStop;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreFW;
-import com.super_bits.modulosSB.SBCore.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -22,7 +22,7 @@ public enum FabConfigCoreSBSBWebPaginas {
 
     DESENVOLVIMENTO, HOMOLOGACAO, PRODUCAO;
 
-    public ItfConfiguradorCore getConfigurador() {
+    public ItfConfiguracaoCoreSomenteLeitura getConfigurador() {
 
         ConfigCoreCustomizavel cfg = new ConfigCoreCustomizavel();
         cfg.setCliente("Super_Bits");

@@ -7,7 +7,7 @@ package com.super_bits.projeto.Jira;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.IOException;
 
 /**

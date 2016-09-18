@@ -7,9 +7,9 @@ package config;
 
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.view.menu.MenuSBFW;
-import com.super_bits.view.menu.MenusDaSessao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenuSBFW;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenusDaSessao;
 
 /**
  *

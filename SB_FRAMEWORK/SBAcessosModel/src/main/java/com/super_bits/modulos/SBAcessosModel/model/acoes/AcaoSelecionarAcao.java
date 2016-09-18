@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;

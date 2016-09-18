@@ -6,8 +6,8 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import aux.FabConfigCoreSBSBWebPaginas;
-import com.super_bits.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;

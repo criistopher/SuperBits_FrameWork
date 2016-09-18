@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;

@@ -5,31 +5,30 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
-import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
-import com.super_bits.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
-import com.super_bits.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSBComAcoes;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ItfInfoErroSBComAcoes;
+
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfCfgPermissoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ItfInfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
-import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
+import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
 import java.io.File;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,12 +55,21 @@ public class SBCore {
     public static String CAMINHO_BASE_DESENVOLVIMENTO = "/home/superBits";
     public static String CAMINHO_BASE_PROJETOS = "/home/superBits/projetos";
 
+    private static boolean ambienteExecucaoConfigurado = false;
+
+    private static ESTADO_APP estadoAplicativo;
+    private static boolean ignorarConfigurcoesDePermissao = false;
+    private static boolean ignorarConfigurcoesDeAcoes = false;
+    private static ItfCfgPermissoes configuradorDePermissao;
+    private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
+
     /**
      * INDICA O ESTADO DA APLICAÇÃO: DESENVOLVIMENTO, HOMOLOGACAO, E PRODUÇÃO
      */
     public static enum ESTADO_APP {
 
-        DESENVOLVIMENTO, PRODUCAO, HOMOLOGACAO
+        DESENVOLVIMENTO, PRODUCAO, HOMOLOGACAO;
+
     }
 
     private static enum TIPO_APLICATIVO {
@@ -73,96 +81,55 @@ public class SBCore {
         APP_MOBILE;
     }
 
-    private static ESTADO_APP estadoAplicativo;
-    private static boolean ambienteExecucaoConfigurado = false;
-    private static boolean informacoesProjetoConfigurado = false;
-    private static Class<? extends InfoErroSBComAcoes> classeErro;
-    private static Class<? extends ItfCentralMensagens> centralMensagens;
-    private static Class<? extends ItfControleDeSessao> controleDeSessao;
-    private static Class<? extends ItfCentralEventos> centralEventos;
-    private static String diretorioBase;
-    private static String nomeProjeto;
-    private static Class<? extends ItfCfgPermissoes> classeConfigPermissoes;
-    private static ItfCfgPermissoes configuradorDePermissao;
-    private static String cliente = "SuperBits";
-    private static String grupoProjeto = "";
-    private static boolean controleDeAcessosDefinido;
-    private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
-    private static Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
-    private static String urlJira;
+    private static ItfConfiguracaoCoreSomenteLeitura infoAplicacao;
     private static ArquivoConfiguracaoBase arquivoConfigBase;
     private static ArquivoConfiguracaoCliente arquivoConfigCliente;
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
-    private static boolean ignorarConfigurcoesDePermissao;
 
-    public static boolean isTemArqConfigBasico() {
-        return arquivoConfigBase != null;
-    }
-
-    public static boolean isTemArqConfigCliente() {
-        return arquivoConfigCliente != null;
-    }
-
-    public static boolean isTemArqConfigDistribuicao() {
-        return arquivoConfigDistribuicao != null;
-    }
-
-    public static ArquivoConfiguracaoDistribuicao getArquivoConfigDistribuicao() {
-        return arquivoConfigDistribuicao;
+    public static ItfConfiguracaoCoreSomenteLeitura getInfoAplicacao() {
+        return infoAplicacao;
     }
 
     private static void confimaFoiConfigurado() {
         if (ambienteExecucaoConfigurado) {
             return;
         }
-
-        //   FabErro.PARA_TUDO.paraSistema("A configuração do Core não foi definido,  defina primento através do SBCore.configurar", null);
-        try {
-            throw new UnsupportedOperationException("CONFIG DO CORE NAO DEFINIDO");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        soutInfoDebug("É nescessário executar a configuração do core, antes de proceguir ;)");
+        soutInfoDebug("Para configurar o core basta chamar o método SBCore.configurar(configurador) ");
+        soutInfoDebug("Obs: A classe configurador deve se encontrar dentro do pacote principal do projeto");
+        soutInfoDebug("na pasta resources do jar principal deve ser criado o arquivo SBProjeto.prop");
         System.exit(0);
 
-    }
-
-    public static String getCliente() {
-        return cliente;
-    }
-
-    public static boolean isControleDeAcessoDefinido() {
-        return controleDeAcessosDefinido;
-    }
-
-    public static void configurar(ItfConfiguradorCore configuracoes) {
-
-        if (ambienteExecucaoConfigurado) {
-            System.out.println("Ocorreu uma tentativa de reconfigurar o core");
-            return;
-            //throw new UnsupportedOperationException("A configuração do core só pode ser executada uma única vez");
-        }
-
-        configurar(configuracoes, false);
     }
 
     private static boolean validaConfiguracoes() {
         try {
 
+            if (infoAplicacao == null) {
+                throw new UnsupportedOperationException("A aplicação  não foi configurado");
+            }
+
+            if (UtilSBCoreStrings.isNuloOuEmbranco(infoAplicacao.getNomeProjeto())) {
+                throw new UnsupportedOperationException("O nome do projeto não foi configurado");
+            }
+
+            if (UtilSBCoreStrings.isNuloOuEmbranco(infoAplicacao.getCliente())) {
+                throw new UnsupportedOperationException("O cliente não foi configurado");
+            }
             //     SBCore.enviarAvisoAoUsuario(SBCore.getCaminhoDesenvolvimento());
-            if (centralMensagens == null) {
+            if (infoAplicacao.getCentralDeMensagens() == null) {
                 throw new UnsupportedOperationException("Central de mensagens não configurada");
 
             }
-            if (estadoAplicativo == null) {
+            if (infoAplicacao.getEstadoApp() == null) {
                 throw new UnsupportedOperationException("Estado do aplicativo não configurado");
 
             }
-            if (classeErro == null) {
+            if (infoAplicacao.getClasseErro() == null) {
                 throw new UnsupportedOperationException("Classe Erro não configurada");
 
             }
-            if (diretorioBase == null) {
+            if (infoAplicacao.getDiretorioBase() == null) {
                 throw new UnsupportedOperationException("Diretorio base não configurado");
 
             }
@@ -172,21 +139,21 @@ public class SBCore {
             }
 
             if (!ignorarConfigurcoesDePermissao) {
-                if (acoesDoSistema == null) {
+                if (infoAplicacao.getFabricaDeAcoes() == null) {
                     throw new UnsupportedOperationException("As Açoes do Sistema não foram configuradas");
                 }
                 MapaAcoesSistema.makeMapaAcoesSistema();
 
                 try {
-                    // Definindo configuração de acessos
-                    if (classeConfigPermissoes == null) {
-                        Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoAbstratoSBCore.class, "com.super_bits.configSBFW.acessos");
+                    // Caso a classe não tenha sido definida na mão, utilizando primeira classe encontrada que extenda ConfigPermissaoSBCoreAbstrato
+                    if (infoAplicacao.getConfigPermissoes() == null) {
+                        Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoSBCoreAbstrato.class, "com.super_bits.configSBFW.acessos");
                         configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
                     } else {
-                        configuradorDePermissao = (ItfCfgPermissoes) classeConfigPermissoes.newInstance();
+                        configuradorDePermissao = (ItfCfgPermissoes) infoAplicacao.getConfigPermissoes().newInstance();
                     }
 
-                } catch (Throwable t) {
+                } catch (InstantiationException | IllegalAccessException t) {
                     if (ignorarConfigurcoesDePermissao) {
                         System.out.println("A Classe de permissões não foi definida");
                     } else {
@@ -195,7 +162,6 @@ public class SBCore {
 
                 }
 
-                informacoesProjetoConfigurado = true;
             }
 
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
@@ -206,29 +172,35 @@ public class SBCore {
                 }
             }
             System.out.println("COnfigurando Mapa de Ações do sistema");
-            if (!ignorarConfigurcoesDePermissao) {
+            if (!ignorarConfigurcoesDeAcoes) {
 
                 if (MapaAcoesSistema.isMapaCriado()) {
                     System.out.println("Mapa de ações criado com sucesso!");
                 }
             }
-
+            ambienteExecucaoConfigurado = true;
             return true;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro validação de configurações do projeto (SBCore)", t);
+            ambienteExecucaoConfigurado = false;
             return false;
         }
+    }
+
+    public static boolean isControleDeAcessoDefinido() {
+        return infoAplicacao.getConfigPermissoes() != null;
+
     }
 
     /**
      *
      *
      *
-     * @param configuracoes Confugração do ambiente
-     * @param pIgnorarClassePermissao Deve ignorar a configuração relativa a
-     * permissoes?
+     * @param configurador
+     * @param pEstado
+     *
      */
-    public static void configurar(ItfConfiguradorCore configuracoes, boolean pIgnorarClassePermissao) {
+    public static void configurar(ItfConfiguradorCore configurador, ESTADO_APP pEstado) {
 
         try {
 
@@ -236,57 +208,20 @@ public class SBCore {
                 //throw new UnsupportedOperationException("A configuração do ambiente de execução só pode ser realizada uma vez");
                 System.out.println("ATENÇÃO, OCORREU UMA TENTATIVA DUPLA  DE CONFIGURAR O CORE, ESTA AÇÃO IRÁ GERAR UMA ERRO PARA_TUDO NAS PROXIMAS VERSÕES");
                 // return;
+                return;
             }
-
+            ignorarConfigurcoesDeAcoes = configurador.isIgnorarConfiguracaoAcoesDoSistema();
+            ignorarConfigurcoesDePermissao = configurador.isIgnorarConfiguracaoPermissoes();
+            ItfConfiguracaoCoreSomenteLeitura configuracoes = configurador.getConfiguracaoCore(pEstado);
+            infoAplicacao = configuracoes;
             estadoAplicativo = configuracoes.getEstadoApp();
-            centralMensagens = configuracoes.getCentralDeMensagens();
-            classeErro = configuracoes.getClasseErro();
-            diretorioBase = configuracoes.getDiretorioBase();
-            nomeProjeto = configuracoes.getNomeProjeto();
-            controleDeSessao = configuracoes.getControleDeSessao();
-            grupoProjeto = configuracoes.getGrupoProjeto();
-            cliente = UtilSBCoreStrings.makeStrUrlAmigavel(configuracoes.getCliente());
-            // central de eventos e config de permissao podem ser definidos logo após a chamada do configurar
-            ambienteExecucaoConfigurado = true;
-            acoesDoSistema = configuracoes.getFabricaDeAcoes();
-            centralEventos = configuracoes.getCentralDeEventos();
-            classeConfigPermissoes = configuracoes.getConfigPermissoes();
-            acoesDoSistema = configuracoes.getFabricaDeAcoes();
-            urlJira = configuracoes.getUrlJira();
+            arquivoConfigBase = configurador.getArquivoConfiguradorBase();
+            arquivoConfigCliente = configurador.getArquivoConfiguradorCliente();
+            arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
 
-            try {
-
-                arquivoConfigBase = new ArquivoConfiguracaoBase(configuracoes);
-                nomeProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getNOME_PROJETO());
-                cliente = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getNOME_CLIENTE());
-                grupoProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getGRUPO_PROJETO());
-                if (arquivoConfigBase.getDIRETORIO_BASE() != null) {
-                    diretorioBase = UtilSBCoreStrings.makeStrUrlAmigavel(arquivoConfigBase.getDIRETORIO_BASE());
-                }
-
-            } catch (UnsupportedOperationException | IOException t) {
-                System.out.println("SBCoreInfo: Erro lendo propriedade do arquivo de configuração ");
-                System.out.println("SBCoreInfo: certifique que o arquivo SBProjeto.prop esteja na pasta src/main/resource do projeto, e que o seu arquivo pom contenha as tags de resources configuradas no build");
-                System.out.println("SBCoreInfo: duvidas utilize o projeto SBCore como referencia");
-                System.out.println("SBCoreInfo: *** Sem o arquivo de configuração basico, não é possível carregar o arquivo de configuração de produção");
-            }
-
-            if (isTemArqConfigBasico()) {
-                try {
-                    arquivoConfigCliente = new ArquivoConfiguracaoCliente(arquivoConfigBase);
-                } catch (Throwable t) {
-                    System.out.println("SBCoreInfo: O arquivo de configuração do cliente não foi encontrado, Você poderá ter dificuldades para implantar e intgrar seu sistema com o Jira");
-                }
-
-                try {
-                    arquivoConfigDistribuicao = new ArquivoConfiguracaoDistribuicao(arquivoConfigBase);
-                } catch (Throwable t) {
-                    System.out.println("SBCoreInfo: O arquivo de distribuilção não foi encontrado, isto em normal em ambiente de desenvolvimento");
-                }
-
-                if (!validaConfiguracoes()) {
-                    throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
-                }
+            ambienteExecucaoConfigurado = validaConfiguracoes();
+            if (!ambienteExecucaoConfigurado) {
+                throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
             }
 
         } catch (Throwable t) {
@@ -305,11 +240,11 @@ public class SBCore {
 
     public static String getNomeProjeto() {
         confimaFoiConfigurado();
-        return nomeProjeto;
+        return infoAplicacao.getNomeProjeto();
     }
 
     public static String getDiretorioBase() {
-        return diretorioBase;
+        return infoAplicacao.getDiretorioBase();
     }
 
     /**
@@ -326,11 +261,11 @@ public class SBCore {
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
         confimaFoiConfigurado();
         try {
-            if (classeErro == null) {
+            if (infoAplicacao.getClasseErro() == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
-                classeErro = ErroSBCoreDeveloperSopMessagem.class;
+
             }
-            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) classeErro.newInstance();
+            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) infoAplicacao.getClasseErro().newInstance();
 
             erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(pMensagem), pTipoErro, pErroJava);
 
@@ -354,11 +289,11 @@ public class SBCore {
     public static void RelatarErroAoUsuario(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
         confimaFoiConfigurado();
         try {
-            if (classeErro == null) {
+            if (infoAplicacao.getClasseErro() == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
-                classeErro = ErroSBCoreDeveloperSopMessagem.class;
+
             }
-            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) classeErro.newInstance();
+            ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) infoAplicacao.getClasseErro().newInstance();
 
             erro.configurar(FabMensagens.ERRO.getMsgUsuario(pMensagem), pTipoErro, pErroJava);
 
@@ -484,7 +419,7 @@ public class SBCore {
 
     public static ItfCentralMensagens getCentralDeMensagens() {
         try {
-            return centralMensagens.newInstance();
+            return infoAplicacao.getCentralDeMensagens().newInstance();
         } catch (Throwable ex) {
 
             FabErro.PARA_TUDO.paraSistema("ERRO CRIANDO CENTRAL DE MENSAGENS", ex);
@@ -495,7 +430,7 @@ public class SBCore {
     public static ItfCentralEventos getCentralDeEventos() {
 
         try {
-            return centralEventos.newInstance();
+            return infoAplicacao.getCentralDeEventos().newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             FabErro.PARA_TUDO.paraSistema("ERRO CRIANDO CENTRAL DE EVENTOS", ex);
         }
@@ -509,7 +444,7 @@ public class SBCore {
 
     public static ItfControleDeSessao getControleDeSessao() {
         try {
-            return controleDeSessao.newInstance();
+            return infoAplicacao.getControleDeSessao().newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             FabErro.PARA_TUDO.paraSistema("Erro Criando controle de Sessao", ex);
         }
@@ -525,56 +460,31 @@ public class SBCore {
 
     public static String getCaminhoGrupoProjeto() {
 
-        String caminhoDiretorioBase = "";
-        String separadorCaminhodiretorioBase = "";
+        String caminho = "";
+        boolean temCaminhoDiretorioBase = UtilSBCoreStrings.isNAO_NuloNemBranco(getDiretorioBase());
+        boolean temCaminhoGrupoProjeto = UtilSBCoreStrings.isNAO_NuloNemBranco(getGrupoProjeto());
 
-        boolean temCaminhoDiretorioBase = false;
-        boolean temCaminhoGrupoProjeto = false;
+        caminho = arquivoConfigBase.getCaminhoPastaCliente();
 
-        if (getGrupoProjeto() != null) {
-            if (!getGrupoProjeto().isEmpty()) {
-                temCaminhoGrupoProjeto = true;
-            }
-        }
-
-        if (diretorioBase != null) {
-            if (!diretorioBase.isEmpty()) {
-                temCaminhoDiretorioBase = true;
-            }
-        }
         if (temCaminhoDiretorioBase) {
-            caminhoDiretorioBase = diretorioBase + "/";
-
+            caminho = caminho + "/" + infoAplicacao.getDiretorioBase();
         }
 
         if (!temCaminhoGrupoProjeto) {
-
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/";
+            return caminho + "/" + infoAplicacao.getNomeProjeto();
         } else {
-
-            return "/home/superBits/projetos/" + getCliente() + "/source/" + caminhoDiretorioBase + "/" + getGrupoProjeto();
-
+            return caminho + "/" + getGrupoProjeto() + "/" + infoAplicacao.getNomeProjeto();
         }
-
     }
 
     public static String getCaminhoDesenvolvimento() {
-        boolean temCaminhoGrupoProjeto = false;
-        if (getGrupoProjeto() != null) {
-            if (!getGrupoProjeto().isEmpty()) {
-                temCaminhoGrupoProjeto = true;
-            }
-        }
-        if (!temCaminhoGrupoProjeto) {
-            return getCaminhoGrupoProjeto();
-        } else {
-            return getCaminhoGrupoProjeto() + "/" + nomeProjeto;
-        }
+
+        return arquivoConfigBase.getCaminhoPastaProjetoSource();
 
     }
 
     public static String getGrupoProjeto() {
-        return grupoProjeto;
+        return infoAplicacao.getGrupoProjeto();
     }
 
     // Atalhos de acesso
@@ -602,7 +512,7 @@ public class SBCore {
 
         ENUMACAO_BY_NOMEUNICO.clear();
 
-        for (Class fabrica : acoesDoSistema) {
+        for (Class fabrica : infoAplicacao.getFabricaDeAcoes()) {
 
             for (Object objAcao : fabrica.getEnumConstants()) {
                 ItfFabricaAcoes acao = (ItfFabricaAcoes) objAcao;
@@ -639,11 +549,11 @@ public class SBCore {
     }
 
     public static Class<? extends ItfFabricaAcoes>[] getFabricasDeAcaoDoSistema() {
-        return acoesDoSistema;
+        return infoAplicacao.getFabricaDeAcoes();
     }
 
     public static String getUrlJira() {
-        return urlJira;
+        return infoAplicacao.getUrlJira();
     }
 
     public static void soutInfoDebug(String pInfo) {

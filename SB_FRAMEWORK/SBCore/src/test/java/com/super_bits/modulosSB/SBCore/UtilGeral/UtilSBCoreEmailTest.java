@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.FabConfigCoreSBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class UtilSBCoreEmailTest {
 
     @Test
     public void testEnviaGmailporSSL() {
-        SBCore.configurar(FabConfigCoreSBCore.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         UtilSBCoreEmail.enviaGmailporSSL(
                 "guiasemktdigitalcontagem@gmail.com",
                 "",

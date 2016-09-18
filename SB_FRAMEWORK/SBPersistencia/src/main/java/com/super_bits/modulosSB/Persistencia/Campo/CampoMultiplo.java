@@ -2,9 +2,10 @@ package com.super_bits.modulosSB.Persistencia.Campo;
 
 import com.super_bits.modulosSB.Persistencia.dao.DaoGenerico;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ItfTabelaLigacao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

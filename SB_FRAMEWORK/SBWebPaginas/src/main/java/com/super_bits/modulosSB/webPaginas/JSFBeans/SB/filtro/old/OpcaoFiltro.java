@@ -2,8 +2,8 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.filtro.old;
 
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import java.io.Serializable;
 
 @Deprecated

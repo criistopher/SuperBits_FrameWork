@@ -5,7 +5,7 @@
 package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.sbProjetos.controller.getaoProjeto.FabAcaoGestaoProjetos;
 
 /**

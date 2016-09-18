@@ -14,7 +14,7 @@
 
     <artifactId>SBCore</artifactId>
     <packaging>jar</packaging>
-    <name>SBCore SuperBits-FrameWork</name>
+    <name>SBCore</name>
 
 
 
@@ -168,11 +168,8 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-
                     <include>**/*.prop</include>
-
                 </includes>
-
             </resource>
         </resources>
 
