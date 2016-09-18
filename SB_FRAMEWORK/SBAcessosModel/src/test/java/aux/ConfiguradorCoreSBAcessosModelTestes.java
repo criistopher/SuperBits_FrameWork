@@ -16,10 +16,15 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizav
  */
 public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProjetoJarAbstrato {
 
+    public ConfiguradorCoreSBAcessosModelTestes() {
+        setIgnorarConfiguracaoPermissoes(true);
+    }
+
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
         pConfig.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class});
         pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
+
     }
 
 }

@@ -34,7 +34,10 @@ public abstract class SBWebPaginas {
         siteMap = config.mapaSite();
         parametros = config.parametrosDeAplicacao();
         configurado = true;
-        ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoConfigDistribuicao();
+        ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoDistribuicao();
+
+        String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+
         if (distribuicao != null) {
             SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
             SITE_URL = SITE_HOST;
