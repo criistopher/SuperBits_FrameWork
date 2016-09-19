@@ -78,7 +78,7 @@ public class ContagemRegressivaQtdTempoTest {
             case MESES:
                 switch (divisorMaximo) {
                     case ANOS:
-                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2); // passou
+                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case MESES:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 14);
@@ -104,39 +104,39 @@ public class ContagemRegressivaQtdTempoTest {
                         break;
                     default:
                         throw new AssertionError(divisorMaximo.name());
-
                 }
                 break;
             //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
             //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
             case SEMANAS:
-//                if (pQuantidadeTempo.isIgnorarSemana()) {
-//                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no set ignoraraSemana da quantidade)");
-//                }
-//                switch (divisorMaximo) {
-//                    case ANOS:
-//                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
-//                        break;
-//                    case MESES:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
-//                        break;
-//                    case SEMANAS:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 56);
-//                        break;
-//                    case DIAS:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
-//                        break;
-//                    case HORAS:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
-//                        break;
-//                    case MINUTOS:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
-//                        break;
-//                    case SEGUNDOS:
-//                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
-//                        break;
-//                    default:
-//                        throw new AssertionError(divisorMaximo.name());
+                if (pQuantidadeTempo.isIgnorarSemana()) {
+                    throw new UnsupportedOperationException("Ao construir uma quantidade do tipo semana o isignorar semana deve ser setado como FALSE (implementar isso no contructor, e no set ignoraraSemana da quantidade)");
+                }
+                switch (divisorMaximo) {
+                    case ANOS:
+                        assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
+                        break;
+                    case MESES:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
+                        break;
+                    case SEMANAS:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 60); // um ano e dois meses são 60 semanas antes estava 56
+                        break;
+                    case DIAS:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
+                        break;
+                    case HORAS:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
+                        break;
+                    case MINUTOS:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
+                        break;
+                    case SEGUNDOS:
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
+                        break;
+                    default:
+                        throw new AssertionError(divisorMaximo.name());
+                }
                 break;
             //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
             //  caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
@@ -330,7 +330,6 @@ public class ContagemRegressivaQtdTempoTest {
         testeQuantidadeTesteSimples(quantidadeEmDiass);
 
         QuantidadeTempo quantidadeEmHoras = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.HORAS);
-
         testeQuantidadeTesteSimples(quantidadeEmHoras);
 
         QuantidadeTempo quantidadeEmMinutos = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.MINUTOS);
@@ -339,13 +338,16 @@ public class ContagemRegressivaQtdTempoTest {
         QuantidadeTempo quantidadeEmSegundos = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.SEGUNDOS);
         testeQuantidadeTesteSimples(quantidadeEmSegundos);
 
+        quantidadeEmDiass.setIgnorarSemana(false);
+
+        testeQuantidadeTesteSimples(quantidadeEmDiass);
+
         /// criando array de quantidades para testes de DivisorMaximo
         List<QuantidadeTempo> quantidadesATestar = new ArrayList<>();
 
         quantidadesATestar.add(quantidadeEmAnos);
         quantidadesATestar.add(quantidadeEmMeses);
         quantidadesATestar.add(quantidadeEmSemanas);
-
         quantidadesATestar.add(quantidadeEmDiass);
         quantidadesATestar.add(quantidadeEmHoras);
         quantidadesATestar.add(quantidadeEmMinutos);

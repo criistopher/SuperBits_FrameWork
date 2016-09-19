@@ -6,10 +6,13 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.Weeks;
 
 /**
  * Classe de UTILITÀRIOS (Métodos EStáticos commmente Utilizados)____________
@@ -27,6 +30,7 @@ public class UtilSBCoreDataHora {
     public final static Long SEGUNDOSMINUTO = 60L;
     public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
     public final static Long DIASMES = 30L;
+    public final static Long DIASSEMANA = 7L;
 
     public static enum FORMATO_TEMPO {
 
@@ -315,6 +319,38 @@ public class UtilSBCoreDataHora {
             return intervalo;
         }
         return 0;
+    }
+
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
+     * @return quantidade em semanas entre duas datas
+     */
+    public static long intervaloTempoSemanas(Date pDataInicial, Date pDataFinal) {
+
+        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+        if (diferenca != null) {
+            return intervaloTempoSemanas(diferenca);
+        } else {
+            return 0L;
+        }
+    }
+
+    /**
+     *
+     * @param pIntervalo
+     * @return diferença de tempo em semanas de um dado intervalo de tempo Long
+     * passado como parâmetro
+     */
+    public static long intervaloTempoSemanas(Long pIntervalo) {
+
+        Long intervalo;
+        if (pIntervalo != null) {
+            intervalo = pIntervalo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * DIASSEMANA);
+            return intervalo;
+        }
+        return 0L;
     }
 
     /**
