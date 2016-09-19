@@ -94,7 +94,11 @@ public class SBCore {
         return arquivoConfigDistribuicao;
     }
 
-    private static void confimaFoiConfigurado() {
+    private static boolean isAmbienteExecucaoConfigurado() {
+        return ambienteExecucaoConfigurado;
+    }
+
+    private static void fecharSistemaCasoNaoCOnfigurado() {
         if (ambienteExecucaoConfigurado) {
             return;
         }
@@ -185,7 +189,9 @@ public class SBCore {
             ambienteExecucaoConfigurado = true;
             return true;
         } catch (Throwable t) {
+
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro validação de configurações do projeto (SBCore)", t);
+
             ambienteExecucaoConfigurado = false;
             return false;
         }
@@ -243,7 +249,7 @@ public class SBCore {
     }
 
     public static String getNomeProjeto() {
-        confimaFoiConfigurado();
+        fecharSistemaCasoNaoCOnfigurado();
         return infoAplicacao.getNomeProjeto();
     }
 
@@ -263,11 +269,20 @@ public class SBCore {
      * @param pErroJava O exception que gerou esse relato de erro
      */
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
-        confimaFoiConfigurado();
+
+        if (!isAmbienteExecucaoConfigurado()) {
+            soutInfoDebug("O sistema encontrou um erro antes de configurar a classe que lida com erros");
+            soutInfoDebug("O erro encontrado foi:");
+            soutInfoDebug(pErroJava.getMessage());
+            soutInfoDebug(pErroJava.getLocalizedMessage());
+
+            fecharSistemaCasoNaoCOnfigurado();
+        }
+
         try {
             if (infoAplicacao.getClasseErro() == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
-
+                fecharSistemaCasoNaoCOnfigurado();
             }
             ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) infoAplicacao.getClasseErro().newInstance();
 
@@ -291,7 +306,7 @@ public class SBCore {
      * @param pErroJava O exception que gerou esse relato de erro
      */
     public static void RelatarErroAoUsuario(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
-        confimaFoiConfigurado();
+        fecharSistemaCasoNaoCOnfigurado();
         try {
             if (infoAplicacao.getClasseErro() == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
@@ -348,7 +363,7 @@ public class SBCore {
         return configuradorDePermissao;
     }
 
-    public static String getCaminhoGrupoProjeto() {
+    public static String getCaminhoGrupoProjetoSource() {
 
         String caminho = "";
         boolean temCaminhoDiretorioBase = UtilSBCoreStrings.isNAO_NuloNemBranco(getDiretorioBase());
@@ -361,9 +376,9 @@ public class SBCore {
         }
 
         if (!temCaminhoGrupoProjeto) {
-            return caminho + "/" + infoAplicacao.getNomeProjeto();
+            return caminho + "/source/" + infoAplicacao.getNomeProjeto();
         } else {
-            return caminho + "/" + getGrupoProjeto() + "/" + infoAplicacao.getNomeProjeto();
+            return caminho + "/source/" + getGrupoProjeto();
         }
     }
 

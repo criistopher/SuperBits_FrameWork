@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -29,48 +28,76 @@ public class ArquivoConfiguracaoBase {
     private String TIPO_PROJETO;
     private String GRUPO_PROJETO;
     private String DIRETORIO_BASE;
-
     private String NOME_CLIENTE;
 
-    public ArquivoConfiguracaoBase(ItfConfiguradorCore pConfigurador) throws UnsupportedOperationException, IOException {
-
-        Properties proppriedadesBasicas = new Properties();
-
-        String arquivoDeConfiguacao = "SBProjeto.prop";
-        InputStream stream = pConfigurador.getClass().getClassLoader().getResourceAsStream(arquivoDeConfiguacao);
-        if (stream == null) {
-            throw new UnsupportedOperationException("Arquivo SBProjeto.prop não encontrado na pasta resources");
-        }
-        proppriedadesBasicas.load(stream);
-        stream.close();
-        VERSAO = (String) proppriedadesBasicas.get("VERSAO");
+    public final void carregarPropriedadesArquivoConfiguradorBase(Properties pPropriedades) {
+        VERSAO = (String) pPropriedades.get("VERSAO");
         if (VERSAO == null) {
             throw new UnsupportedOperationException("A versão do projeto não foi encontrada no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
-        NOME_PROJETO = (String) proppriedadesBasicas.get("NOME_PROJETO");
+        NOME_PROJETO = (String) pPropriedades.get("NOME_PROJETO");
         if (NOME_PROJETO == null) {
             throw new UnsupportedOperationException("O nome  do projeto não foi encontrado no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
-        NOME_SOCIAL = (String) proppriedadesBasicas.get("NOME_SOCIAL");
+        NOME_SOCIAL = (String) pPropriedades.get("NOME_SOCIAL");
         if (NOME_SOCIAL == null) {
             throw new UnsupportedOperationException("O nome social  do projeto não foi encontrado no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
-        TIPO_PROJETO = (String) proppriedadesBasicas.get("TIPO_PROJETO");
+        TIPO_PROJETO = (String) pPropriedades.get("TIPO_PROJETO");
         if (TIPO_PROJETO == null) {
             throw new UnsupportedOperationException("O tipo do  do projeto ${pom.packaging} não foi encontrado no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
-        NOME_CLIENTE = (String) proppriedadesBasicas.get("NOME_CLIENTE");
+        NOME_CLIENTE = (String) pPropriedades.get("NOME_CLIENTE");
         System.out.println("nome cliente" + NOME_CLIENTE);
         if (NOME_CLIENTE == null) {
             throw new UnsupportedOperationException("O nome do cliente não foi encontrado no projeto");
         }
 
-        GRUPO_PROJETO = proppriedadesBasicas.getProperty("GRUPO_PROJETO");
+        GRUPO_PROJETO = pPropriedades.getProperty("GRUPO_PROJETO");
         if (GRUPO_PROJETO == null) {
             throw new UnsupportedOperationException("O gropo do projeto não foi encontrado no ArquivoDeConfiguraçãoBase (SBProjeto)");
         }
 
-        DIRETORIO_BASE = proppriedadesBasicas.getProperty("DIRETORIO_BASE");
+        DIRETORIO_BASE = pPropriedades.getProperty("DIRETORIO_BASE");
+
+    }
+
+    /**
+     *
+     * Carrega o arquivo SBProjeto.prop direto a partir do objeto Properties
+     *
+     * @param pPropriedades
+     */
+    public ArquivoConfiguracaoBase(Properties pPropriedades) {
+        carregarPropriedadesArquivoConfiguradorBase(pPropriedades);
+    }
+
+    /**
+     *
+     * Carrega o SBProjeto localizado em /mail/src/resource/ A classe
+     * configurador deve estar localizada no mesmo pacote jar onde o resource
+     * faz parte...
+     *
+     * O arquivo pom também deve ser configurado para adicionar este arquivo
+     * como resource do projeto., Duvidas utilize o projeto padrão como exemplo
+     *
+     * @param pConfigurador
+     * @throws UnsupportedOperationException
+     * @throws IOException
+     */
+    public ArquivoConfiguracaoBase(ItfConfiguradorCore pConfigurador) throws UnsupportedOperationException, IOException {
+
+        Properties proppriedadesBasicas = new Properties();
+
+        String arquivoDeConfiguacao = "SBProjeto.prop";
+        Class classeDoResource = pConfigurador.getClass();
+        InputStream stream = classeDoResource.getClassLoader().getResourceAsStream(arquivoDeConfiguacao);
+        if (stream == null) {
+            throw new UnsupportedOperationException("Arquivo SBProjeto.prop não encontrado na pasta resources");
+        }
+        proppriedadesBasicas.load(stream);
+        stream.close();
+        carregarPropriedadesArquivoConfiguradorBase(proppriedadesBasicas);
         // diretorio base não é obrigatório...
     }
 
@@ -152,15 +179,15 @@ public class ArquivoConfiguracaoBase {
 
     public String getCaminhoPastaProjetoRelease() {
         if (isTemDiretorioBase()) {
-            return getCaminhoPastaClienteRelease() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
+            return getCaminhoPastaClienteRelease() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO;
         } else {
-            return getCaminhoPastaClienteRelease() + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
+            return getCaminhoPastaClienteRelease() + "/" + GRUPO_PROJETO;
         }
     }
 
     public String getCaminhoPastaProjetoSource() {
         if (isTemDiretorioBase()) {
-            return getCaminhoPastaClienteSource() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
+            return getCaminhoPastaClienteSource() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO;
         } else {
             return getCaminhoPastaClienteSource() + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
         }

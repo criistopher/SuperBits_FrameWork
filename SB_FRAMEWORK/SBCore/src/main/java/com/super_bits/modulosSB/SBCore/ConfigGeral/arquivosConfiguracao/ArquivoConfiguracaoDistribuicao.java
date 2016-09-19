@@ -26,7 +26,7 @@ public class ArquivoConfiguracaoDistribuicao {
 
     private ArquivoConfiguracaoBase configuracaoBase = null;
 
-    private boolean emAmbienteDeProducao;
+    protected boolean emAmbienteDeProducao;
 
     public ArquivoConfiguracaoDistribuicao(ArquivoConfiguracaoBase pConfigBase) {
 
@@ -78,9 +78,10 @@ public class ArquivoConfiguracaoDistribuicao {
 
     }
 
-    private boolean checaArquivoReleaseLocal() {
+    private void checaArquivoReleaseLocal() {
         File arquivoRelease = new File(getCaminhoArquivoReleaseLocal());
-        return arquivoRelease.exists();
+        temArquivoDesenvolvimento = arquivoRelease.exists();
+
     }
 
     private void checaArquivoReleaseImplantado() {

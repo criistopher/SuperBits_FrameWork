@@ -1,7 +1,9 @@
 package com.super_bits.modulosSB.webPaginas.controller.listenners;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.ConfiguradorCoreDeProjetoWebWarAbstrato;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfInicioFimAppWP;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -27,6 +29,8 @@ public class ContextoWebPaginas implements ServletContextListener {
             System.out.println("A classe de inicio e fim de contexto encontrada foi" + classeInicioFim.getName());
 
             ItfInicioFimAppWP inicio = (ItfInicioFimAppWP) classeInicioFim.newInstance();
+
+            ConfiguradorCoreDeProjetoWebWarAbstrato.contextoDoServlet = sce.getServletContext();
             inicio.inicio();
             // ServiceLoader<ItfInicioFimAppWP> services = ServiceLoader.load(ItfInicioFimAppWP.class);
 

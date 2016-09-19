@@ -63,7 +63,7 @@ public interface ItfConfiguradorCore {
 
     public class UtilConfiguracaoCore {
 
-        public static void setclassesPadraoJar(ConfigCoreCustomizavel pConfig, SBCore.ESTADO_APP pEstadoApp) {
+        public static void setclassesPadraoJar(ItfConfiguracaoCoreCustomizavel pConfig) {
             pConfig.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
             pConfig.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);

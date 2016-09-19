@@ -36,11 +36,19 @@ public abstract class SBWebPaginas {
         configurado = true;
         ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoDistribuicao();
 
-        String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+        if (distribuicao == null) {
+            throw new UnsupportedOperationException("Para executar um projeto Web, você deve configurar o arquivo de implantação na pasta release");
+        }
+        if (distribuicao.isTemArquivoImplantacao()) {
+            String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+        }
 
-        if (distribuicao != null) {
+        if (distribuicao.isEmAmbienteDeProducao()) {
             SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
             SITE_URL = SITE_HOST;
+        } else {
+            SITE_URL = SITE_HOST + "/" + nomePacoteProjeto;
+            System.out.println("siteURL=" + SITE_URL);
         }
 
     }

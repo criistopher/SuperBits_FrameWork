@@ -95,6 +95,7 @@ public abstract class UtilTestePagina {
         if (pAcao.getXhtml().equals(AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString())) {
             throw new UnsupportedOperationException("O xhtml da ação" + pAcao.getNomeUnico() + " está definido como não implementado");
         }
+
         Contracts.assertTrue(UtilSBCoreArquivos.isArquivoExiste(SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml()),
                 "O arquivo xhtml da ação " + pAcao.getNomeUnico() + " não foi encontrado em " + SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml());
 

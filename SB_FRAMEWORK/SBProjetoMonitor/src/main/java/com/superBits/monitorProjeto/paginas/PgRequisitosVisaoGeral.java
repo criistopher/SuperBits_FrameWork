@@ -5,25 +5,24 @@
  */
 package com.superBits.monitorProjeto.paginas;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
-import com.super_bits.projeto.controller.InfoAcaoPrevisaoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.fabrica.UtilSBCoreFabrica;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaSession;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.projeto.Jira.AmbienteDesenvolvimento;
 import com.super_bits.projeto.Jira.DesenvolvedorProjetoSB;
 import com.super_bits.projeto.Jira.FabTipoProfissional;
 import com.super_bits.projeto.Jira.Jira.ItfTarefaSuperBitsFW;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.PrevisaoEntidade;
-import com.super_bits.projeto.Jira.PrevisaoModulo;
 import com.super_bits.projeto.Jira.PrevisaoGestaoEntidade;
-
+import com.super_bits.projeto.Jira.PrevisaoModulo;
 import com.super_bits.projeto.Jira.PrevisaoProjeto;
 import com.super_bits.projeto.Jira.TipoProfissional;
+import com.super_bits.projeto.controller.FabAcaoPrevisaoProjeto;
+import com.super_bits.projeto.controller.InfoAcaoPrevisaoProjeto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

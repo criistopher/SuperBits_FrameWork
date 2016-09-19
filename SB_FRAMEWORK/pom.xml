@@ -18,7 +18,7 @@
         <module>SBAcessosModel</module>
         <module>SBWebPaginas</module>
         <module>SBController/SBController</module>
- 	<module>SBProjetoMonitor</module>
+ 	
     </modules>
 
 

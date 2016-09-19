@@ -4,19 +4,86 @@
  */
 package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreAbstrato;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
+import java.io.InputStream;
+import java.util.Properties;
+import javax.servlet.ServletContext;
 
 /**
  *
  * @author salvioF
  */
-public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends ConfiguradorCoreDeProjetoJarAbstrato {
+public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends ConfiguradorCoreAbstrato {
+
+    public static ServletContext contextoDoServlet;
+
+    public ConfiguradorCoreDeProjetoWebWarAbstrato(ServletContext contexto) {
+        super(false);
+
+        try {
+
+            arquivoConfiguradorBase = new ArquivoConfiguracaoBase(getPropriedadesArquivoConfiguracaoWar(contexto));
+            //
+            arquivoConfiguradorDistribuicao =
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "O Core não pôde ser configurado", t);
+        }
+
+    }
+
+    public ConfiguradorCoreDeProjetoWebWarAbstrato(boolean modoDesenvolvimento) {
+
+        super(modoDesenvolvimento);
+    }
+
+    protected final Properties getPropriedadesArquivoClienteWar(ServletContext contexto) {
+
+    }
+
+    protected final Properties getPropriedadesArquivoDistroWar(ServletContext contexto) {
+
+    }
+
+    protected final Properties getPropriedadesArquivoConfiguracaoWar(ServletContext contexto) {
+
+        try {
+            Properties pPropriedadesArquivoSBProjeto = new Properties();
+            InputStream input = contexto.getResourceAsStream("/WEB-INF/classes/SBProjeto.prop");
+            pPropriedadesArquivoSBProjeto.load(input);
+            return pPropriedadesArquivoSBProjeto;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando encontrar arquivo SBProjeto no war, certifique a conformidade dos parametros de buid\resources do seu pom, e a existencia do mesmo na pasta main/src/resourceresource do projeto", t);
+            return null;
+        }
+    }
 
     @Override
-    public ItfConfiguracaoCoreSomenteLeitura getConfiguracaoCore(SBCore.ESTADO_APP pEstadoApp) {
-        return super.getConfiguracaoCore(pEstadoApp); //To change body of generated methods, choose Tools | Templates.
+    public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {
+        aplicarDadosArquivoConfiguracao(pConfiguracao);
+        pConfiguracao.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
+        pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
+        pConfiguracao.setClasseErro(ErroSBCoreFW.class);
+        pConfiguracao.setControleDeSessao(ControleDeSessaoPadrao.class);
+
+        switch (pConfiguracao.getEstadoApp()) {
+            case DESENVOLVIMENTO:
+                pConfiguracao.setEstadoAPP(SBCore.ESTADO_APP.DESENVOLVIMENTO);
+                pConfiguracao.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
+                pConfiguracao.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+                break;
+
+        }
     }
 
 }

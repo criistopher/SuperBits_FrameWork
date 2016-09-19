@@ -18,6 +18,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAc
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ItfInfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
+import java.io.File;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,7 +100,12 @@ public abstract class SBPersistencia {
         if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             throw new UnsupportedOperationException("A limpeza do banco só pode ser realizada em modo desenvolvimento");
         }
-        String respApagaBanco = UtilSBCoreShellBasico.executeCommand(SBCore.getCaminhoGrupoProjeto() + "/apagaBanco.sh");
+        String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/apagaBanco.sh");
+        File script = new File(caminhosScript);
+        if (!script.exists()) {
+            throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
+        }
+        String respApagaBanco = UtilSBCoreShellBasico.executeCommand(caminhosScript);
         if (!respApagaBanco.contains("dropped")) {
             throw new UnsupportedOperationException("A palavra dropped não apareceu no retorno do comando apagaBanco.sh que integra as boas práticas de Devops do frameWork" + respApagaBanco);
         }

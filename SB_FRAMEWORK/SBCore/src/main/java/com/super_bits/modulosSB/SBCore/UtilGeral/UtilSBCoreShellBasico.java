@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -15,14 +16,13 @@ import java.io.InputStreamReader;
  * Funcções basicas relativas ao Shell, para funções mais avançadas importe o
  * SuperBits Shell Command
  *
- *
  * @author desenvolvedor
  */
 public abstract class UtilSBCoreShellBasico {
 
     public static String executeCommand(String command) {
 
-        StringBuffer output = new StringBuffer();
+        StringBuilder output = new StringBuilder();
 
         Process p;
         try {
@@ -31,13 +31,14 @@ public abstract class UtilSBCoreShellBasico {
             BufferedReader reader
                     = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            String line = "";
+            String line;
+
             while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
+                output.append(line).append("\n");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, command, e);
         }
 
         return output.toString();

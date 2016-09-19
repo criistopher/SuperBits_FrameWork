@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import aux.FabConfigCoreSBSBWebPaginas;
+import aux.ConfiguradorSBCoreWebPaginaTestes;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 
@@ -50,7 +50,7 @@ public class PgProjetoSBVisaoGeralTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBWebPaginas.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorSBCoreWebPaginaTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }

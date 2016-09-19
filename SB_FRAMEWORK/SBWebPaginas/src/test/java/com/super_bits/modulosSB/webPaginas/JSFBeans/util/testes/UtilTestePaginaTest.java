@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 
-import aux.FabConfigCoreSBSBWebPaginas;
+import aux.ConfiguradorSBCoreWebPaginaTestes;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
@@ -35,7 +35,7 @@ public class UtilTestePaginaTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfigCoreSBSBWebPaginas.DESENVOLVIMENTO.getConfigurador(), true);
+        SBCore.configurar(new ConfiguradorSBCoreWebPaginaTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }

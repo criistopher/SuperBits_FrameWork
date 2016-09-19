@@ -6,7 +6,7 @@
 package com.super_bits.projeto.Jira;
 
 import com.super_bits.config.ConfigPersistenciaIntegrador;
-import com.super_bits.config.FabConfiguracoesDeAmbienteModelExemplo;
+import com.super_bits.config.ConfiguradorJiraIntegradorModel;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
@@ -62,7 +62,7 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(FabConfiguracoesDeAmbienteModelExemplo.DESENVOLVIMENTO.getConfiguracao(), false);
+        SBCore.configurar(new ConfiguradorJiraIntegradorModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaIntegrador());
     }
 
