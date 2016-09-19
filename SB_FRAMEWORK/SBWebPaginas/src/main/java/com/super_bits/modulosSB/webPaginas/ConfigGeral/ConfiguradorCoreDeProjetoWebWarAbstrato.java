@@ -9,7 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
@@ -34,8 +34,8 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
         try {
 
             arquivoConfiguradorBase = new ArquivoConfiguracaoBase(getPropriedadesArquivoConfiguracaoWar(contexto));
-            //
-            arquivoConfiguradorDistribuicao =
+            //O arquivo cliente não é nessessário em caso de distribuicao
+            arquivoConfiguradorDistribuicao = new ArquivoConfiguracaoDistribuicao(arquivoConfiguradorBase);
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "O Core não pôde ser configurado", t);
         }
@@ -45,14 +45,6 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
     public ConfiguradorCoreDeProjetoWebWarAbstrato(boolean modoDesenvolvimento) {
 
         super(modoDesenvolvimento);
-    }
-
-    protected final Properties getPropriedadesArquivoClienteWar(ServletContext contexto) {
-
-    }
-
-    protected final Properties getPropriedadesArquivoDistroWar(ServletContext contexto) {
-
     }
 
     protected final Properties getPropriedadesArquivoConfiguracaoWar(ServletContext contexto) {

@@ -18,6 +18,7 @@ public class ArquivoConfiguracaoDistribuicao {
 
     private boolean temArquivoImplantacao;
     private boolean temArquivoDesenvolvimento;
+
     private String SERVIDOR_HOMOLOGACAO;
     private String SERVIDOR_REQUISITOS;
     private String PASTA_GIT_RELEASE;
@@ -85,6 +86,7 @@ public class ArquivoConfiguracaoDistribuicao {
     }
 
     private void checaArquivoReleaseImplantado() {
+
         File arquivoRelease = new File(getCaminhoArquivoReleaseImplantado());
         temArquivoImplantacao = arquivoRelease.exists();
     }
