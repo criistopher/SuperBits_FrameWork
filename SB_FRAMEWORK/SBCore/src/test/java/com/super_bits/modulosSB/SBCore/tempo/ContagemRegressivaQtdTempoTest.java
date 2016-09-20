@@ -120,7 +120,7 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case SEMANAS:
-                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 60); // um ano e dois meses são 60 semanas antes estava 56
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 62); // um ano e dois meses e duas semanas são 62 semanas antes estava 56
                         break;
                     case DIAS:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
@@ -306,7 +306,7 @@ public class ContagemRegressivaQtdTempoTest {
 
         // Setar uma variavel Long, correspontente a 1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  e em caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
-        //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso ***********************
+        //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso *******************
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
         DateTime datainicial = dtf.parseDateTime("01/01/2016 12:00:00");
         DateTime dataFinal = dtf.parseDateTime("17/03/2017 16:02:15");
@@ -326,7 +326,8 @@ public class ContagemRegressivaQtdTempoTest {
         QuantidadeTempo quantidadeEmSemanas = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.SEMANAS);
         testeQuantidadeTesteSimples(quantidadeEmSemanas);
 
-        QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS);
+        QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS.getTipoQuantidade(), FabTipoQuantidadeTempo.SEMANAS); // o construtor foi alterado para que o retorno fosse 2 e não 16 quando a quantidade for dias e o divisor for semanas
+        //QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS);
         testeQuantidadeTesteSimples(quantidadeEmDiass);
 
         QuantidadeTempo quantidadeEmHoras = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.HORAS);

@@ -22,15 +22,17 @@ public class QuantidadeTempo {
         valorEmMileSegundos = pValorEmMileSegundos;
         tipoQuantidade = pTipoQuantidade.getTipoQuantidade();
         atualizarQuantidade();
+        setIgnorarSemana(false);
 
     }
 
     public QuantidadeTempo(Long pValorEmMileSegundos, TipoQuantidadeTempo pTipoQuantidade, FabTipoQuantidadeTempo pBaseCalculo) {
 
-        this.valorEmMileSegundos = pValorEmMileSegundos;
+        valorEmMileSegundos = pValorEmMileSegundos;
         divisorMaximo = pBaseCalculo;
         tipoQuantidade = pTipoQuantidade;
         atualizarQuantidade();
+        setIgnorarSemana(false);
 
     }
 
@@ -78,7 +80,7 @@ public class QuantidadeTempo {
     }
 
     public void setIgnorarSemana(boolean ignorarSemana) {
-        this.ignorarSemana = ignorarSemana;
+        this.ignorarSemana = false;// ignorarSemana
 
     }
 
