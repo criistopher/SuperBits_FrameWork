@@ -73,6 +73,7 @@ public class QuantidadeTempo {
 
     public void setDivisorMaximo(FabTipoQuantidadeTempo divisorMaximo) {
         this.divisorMaximo = divisorMaximo;
+        atualizarQuantidade();
     }
 
     public boolean isIgnorarSemana() {

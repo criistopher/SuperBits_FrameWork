@@ -69,8 +69,15 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 switch (divisorMaximo) {
                     case ANOS:
                         return UtilSBCoreDataHora.intervaloTempoAnos(valor);
+                    case MESES:
+                    case SEMANAS:
+                    case DIAS:
+                    case HORAS:
+                    case MINUTOS:
+                    case SEGUNDOS:
+                        return 0L;
                     default:
-                        return 0;
+                        return 0L;
                 }
             case MESES:
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
@@ -80,17 +87,23 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                     case MESES:
                         return UtilSBCoreDataHora.intervaloTempoMeses(valor);
                     default:
-                        return 0;
+                        return 0L;
                 }
 
             case SEMANAS:
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas
-                // caso ignorar semanas, retornar -1
+                //caso ignorar semanas, retornar -1
                 switch (divisorMaximo) {
+
                     case ANOS://2
-                        return (UtilSBCoreDataHora.intervaloTempoSemanas(valor) - 52L) % 3; //
+                        Double intervaloSemanas = (double) UtilSBCoreDataHora.intervaloTempoSemanas(valor);
+                        intervaloSemanas = Math.floor(intervaloSemanas);// arrredondamento para baixo com somente uma casa decimal
+                        Double semanasAno = 52.1429D;
+                        semanasAno = Math.floor(semanasAno);// arredondamento para baixo com uma casa decimal somente
+                        Double diferenca = intervaloSemanas - semanasAno;
+                        return diferenca.longValue();
                     case MESES:
-                        return (UtilSBCoreDataHora.intervaloTempoSemanas(valor) - 52L) % 3; //
+
                     case SEMANAS:
                         return UtilSBCoreDataHora.intervaloTempoSemanas(valor);
                     default:
@@ -109,11 +122,11 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                     case ANOS:
                         //long diasAno = 365L;
                         //long semanasAno = 52L;
-                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365L) % 30L; // 16  // só retorna 16
+                        return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365L) % 30L; // 16
                     case MESES:
                         return (UtilSBCoreDataHora.intervaloTempoDias(valor) - 365L) % 30L; // 16
                     case SEMANAS:
-                        return (UtilSBCoreDataHora.intervaloTempoSemanas(valor) - 52L) % 3; // 2
+                    //return (UtilSBCoreDataHora.intervaloTempoSemanas(valor) - 52L) % 3; // 2
                     case DIAS:
                         return UtilSBCoreDataHora.intervaloTempoDias(valor);
                     default:

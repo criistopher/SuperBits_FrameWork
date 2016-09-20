@@ -46,7 +46,7 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 1);
                         break;
                     case MESES:
-                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0); // retornando 1 ??
                         break;
                     case SEMANAS:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
@@ -326,7 +326,7 @@ public class ContagemRegressivaQtdTempoTest {
         QuantidadeTempo quantidadeEmSemanas = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.SEMANAS);
         testeQuantidadeTesteSimples(quantidadeEmSemanas);
 
-        QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS.getTipoQuantidade(), FabTipoQuantidadeTempo.SEMANAS); // o construtor foi alterado para que o retorno fosse 2 e não 16 quando a quantidade for dias e o divisor for semanas
+        QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS.getTipoQuantidade(), FabTipoQuantidadeTempo.SEMANAS); // O construtor foi alterado para que o retorno fosse 2 e não 16 quando a quantidade for dias e o divisor for semanas
         //QuantidadeTempo quantidadeEmDiass = new QuantidadeTempo(valorVariavel, FabTipoQuantidadeTempo.DIAS);
         testeQuantidadeTesteSimples(quantidadeEmDiass);
 

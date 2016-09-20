@@ -63,7 +63,6 @@ public class ContagemRegressivaQtdTempo {
     }
 
     public ContagemRegressivaQtdTempo(Long pQuantidadeTotal) {
-
         valorQuantidade = pQuantidadeTotal;
     }
 
