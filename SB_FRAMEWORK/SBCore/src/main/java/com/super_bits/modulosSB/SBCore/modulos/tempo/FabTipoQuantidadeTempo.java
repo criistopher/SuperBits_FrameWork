@@ -63,6 +63,28 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
         return tipoQuantidade;
     }
 
+    /**
+     *
+     * @param pMedidaTempoCOmparada Medida que será comparada
+     * @return 0 se igual, -1 se inferior a medida comparada, e 1 se superior a
+     * medida comparada
+     */
+    public int maiorQueMedidaDeTempo(FabTipoQuantidadeTempo pMedidaTempoCOmparada) {
+
+        Integer idThis = this.ordinal();
+        Integer idMedidaComparada = pMedidaTempoCOmparada.ordinal();
+
+        if (idThis.equals(pMedidaTempoCOmparada.ordinal())) {
+            return 0;
+        }
+        if (idThis > idMedidaComparada) {
+            return 1;
+        } else {
+            return -1;
+        }
+
+    }
+
     public long calcularQuantidade(Long valor, FabTipoQuantidadeTempo divisorMaximo, boolean ignorarSemanas) {
 
         switch (this) {

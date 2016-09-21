@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.tempo;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.ContagemRegressivaQtdTempo;
@@ -11,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.modulos.tempo.QuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.joda.time.DateTime;
 
@@ -36,6 +38,7 @@ public class ContagemRegressivaQtdTempoTest {
 
         FabTipoQuantidadeTempo divisorMaximo = pQuantidadeTempo.getDivisorMaximo();
         String infoTeste = "Calculando " + pQuantidadeTempo.getTipoQuantidade().getNomePlural() + " com divisor Maximo " + divisorMaximo.toString();
+
         // Em cada caso do tipo da quantidade, faz um assert para cada tipo de divisor maximo, com o resultado esperado
         switch (pQuantidadeTempo.getTipoQuantidade().getTipoInformacao()) {
             //  correspontente                      1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
@@ -308,12 +311,38 @@ public class ContagemRegressivaQtdTempoTest {
         //  e em caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso ***********************
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        DateTime datainicial = dtf.parseDateTime("01/01/2016 12:00:00");
-        DateTime dataFinal = dtf.parseDateTime("17/03/2017 16:02:15");
+        DateTime datainicial = dtf.parseDateTime("01/01/2016 00:00:00");
+        DateTime dataFinal = dtf.parseDateTime("17/03/2017 04:02:15");
+        long umanoMileSegundos = 356l * 24l * 60l * 60l * 1000l;
+        long doisMesesMilesegundos = 2 * 30 * 24l * 60l * 60l * 1000l;
+        long dezesseisDiasMilesegundos = 16 * 30 * 24l * 60l * 60l * 1000l;
+        long quatrohorasMilesegundos = 4l * 60l * 60l * 1000l;
+        long doisMinutosMilesegundos = 2l * 60l * 1000l;
+        long quinseSegundosMilesegundo = 15l * 1000l;
+        Long diferenca = umanoMileSegundos
+                + doisMesesMilesegundos + dezesseisDiasMilesegundos + quatrohorasMilesegundos
+                + doisMinutosMilesegundos + quinseSegundosMilesegundo;
 
-        Long diferenca = dataFinal.getMillis() - datainicial.getMillis();
         long valorVariavel;
         valorVariavel = diferenca;
+
+        long diffSeconds = valorVariavel / 1000 % 60;
+        long diffMinutes = valorVariavel / (60 * 1000) % 60;
+        long diffHours = valorVariavel / ((60 * 60 * 1000) - 1) % 24;
+        long diffDays = valorVariavel / (24 * 60 * 60 * 1000);
+
+        System.out.print(diffDays + " days, ");
+        System.out.print(diffHours + " hours, ");
+        System.out.print(diffMinutes + " minutes, ");
+        System.out.print(diffSeconds + " seconds.");
+
+        long resultadoSeg = UtilSBCoreDataHora.quantidadeTempoEmSegundos(valorVariavel, FabTipoQuantidadeTempo.ANOS);
+        long resultadoDiasFalse = UtilSBCoreDataHora.quantidadeTempoEmDias(valorVariavel, FabTipoQuantidadeTempo.ANOS, true);
+        long resultadoHoras = UtilSBCoreDataHora.quantidadeTempoEmHoras(valorVariavel, FabTipoQuantidadeTempo.ANOS);
+        long resultadoMeses = UtilSBCoreDataHora.quantidadeTempoEmMeses(valorVariavel, FabTipoQuantidadeTempo.ANOS);
+        long resultadoMinutos = UtilSBCoreDataHora.quantidadeTempoEmMinutos(valorVariavel, FabTipoQuantidadeTempo.ANOS);
+        long resultadoSegundos = UtilSBCoreDataHora.quantidadeTempoEmSegundos(valorVariavel, FabTipoQuantidadeTempo.ANOS);
+        long resultadoAnos = UtilSBCoreDataHora.quantidadeTempoEmAnos(valorVariavel, FabTipoQuantidadeTempo.ANOS);
 
         // Valor variável irá ser utilizado para setar o valor da diferença em milisegundos em QuantidadeTempo e o cálculo deste valor está feito acima e testado
         // Testes Iniciais (Testando o Objeto Quantidade Tempo)...

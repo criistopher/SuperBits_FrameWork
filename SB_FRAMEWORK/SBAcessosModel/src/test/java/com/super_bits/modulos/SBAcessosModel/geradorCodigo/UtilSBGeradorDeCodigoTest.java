@@ -116,7 +116,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ESTRUTURA_DE_ENTIDADE1.getMuitosParaMuitos().add(campoPermitidos);
 
-        ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "");
+        ListaDeEntidade campoLista = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "", ESTRUTURA_DE_ENTIDADE1);
         campoLista.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE1.getListas().add(campoLista);
 
@@ -199,7 +199,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ESTRUTURA_DE_ENTIDADE2.getMuitosParaMuitos().add(campoPermitidos2);
 
-        ListaDeEntidade campoLista2 = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "");
+        ListaDeEntidade campoLista2 = new ListaDeEntidade("ENUM_TESTE", "ENUM_TESTE", "Campanha", "Pedido", "", ESTRUTURA_DE_ENTIDADE2);
         campoLista2.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE2.getListas().add(campoLista2);
 
@@ -283,7 +283,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
         ESTRUTURA_DE_ENTIDADE3.getMuitosParaMuitos().add(campoPermitidos);
 
-        ListaDeEntidade campoLista3 = new ListaDeEntidade("LISTA_PEDIDOS_CAMPANHA", "pedidosCampanha", "Campanha", "Pedido", "/*Retorna lista com todos os pedidos de uma Campanha.*/");
+        ListaDeEntidade campoLista3 = new ListaDeEntidade("LISTA_PEDIDOS_CAMPANHA", "pedidosCampanha", "Campanha", "Pedido", "/*Retorna lista com todos os pedidos de uma Campanha.*/", ESTRUTURA_DE_ENTIDADE3);
         campoLista3.setNomeDeclaracao("declarado");
         ESTRUTURA_DE_ENTIDADE3.getListas().add(campoLista3);
 

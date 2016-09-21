@@ -174,7 +174,7 @@
             <description>O item que será exibido no componente</description>
             <name>itemSimples</name>
             <required>true</required>
-            <type>com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples</type>
+            <type>com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples</type>
         </attribute>
     </tag>
 
@@ -200,7 +200,7 @@
             <description> <![CDATA[ O item que será exibido no componente]]></description>
             <name>itemSelecionado</name>
             <required>true</required>
-            <type>com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples</type>
+            <type>com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples</type>
         </attribute>
         <attribute>
             <description>O item que será exibido no componente</description>

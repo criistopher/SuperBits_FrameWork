@@ -4,10 +4,11 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model;
 
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.FabTipoBeanSBGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,13 @@ import java.util.List;
  *
  * @author salvioF
  */
+@InfoClasse(plural = "Dados Estruturados", tags = {"Estrutura de Tabela"})
 public class EstruturaDeEntidade extends ItemSimples {
 
+    @InfoCampo(tipo = FabCampos.ID)
+    private int id;
     private List<String> listaEnum;
-
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeEntidade;
 
     private List<EstruturaCampo> campos;
@@ -77,10 +81,12 @@ public class EstruturaDeEntidade extends ItemSimples {
 
     public String getNomeEntidade() {
         return nomeEntidade;
+
     }
 
     public void setNomeEntidade(String nomeEntidade) {
         this.nomeEntidade = nomeEntidade;
+        id = nomeEntidade.hashCode();
     }
 
     public FabTipoBeanSBGenerico getTipoEntidade() {

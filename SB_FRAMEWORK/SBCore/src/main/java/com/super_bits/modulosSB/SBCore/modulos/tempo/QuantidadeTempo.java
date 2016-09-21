@@ -35,8 +35,11 @@ public class QuantidadeTempo {
     }
 
     private void atualizarQuantidade() {
-
-        quantidade = tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
+        if (valorEmMileSegundos == 0) {
+            quantidade = 0;
+        } else {
+            quantidade = tipoQuantidade.getTipoInformacao().calcularQuantidade(valorEmMileSegundos, divisorMaximo, ignorarSemana);
+        }
     }
 
     public void setValorEmMileSegundos(long valorEmMileSegundos, boolean pIgnorarSemana) {

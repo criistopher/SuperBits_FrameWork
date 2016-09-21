@@ -5,12 +5,14 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
 
 /**
  *
  * @author desenvolvedor
  */
+@InfoClasse(tags = "Calculo de Entidade", plural = "Calculos")
 public class CalculoDeEntidade extends EstruturaCampo {
 
     public CalculoDeEntidade(String nomeEnum, String descricao, String tipoRetorno, Campo pCampo, EstruturaDeEntidade pEstrutura, String javaDoc) {
@@ -28,7 +30,6 @@ public class CalculoDeEntidade extends EstruturaCampo {
     private String nomeEnum;
     private String descricao;
     private String javaDoc;
-
 
     public String getTipoRetorno() {
         return tipoRetorno;
@@ -57,6 +58,5 @@ public class CalculoDeEntidade extends EstruturaCampo {
     public void setJavaDoc(String javaDoc) {
         this.javaDoc = javaDoc;
     }
-
 
 }

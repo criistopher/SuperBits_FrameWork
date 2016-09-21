@@ -6,7 +6,6 @@
 package com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model;
 
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 
 /**
  *

@@ -717,6 +717,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             List<Field> camposDeAcao = UtilSBCoreReflexao.getCamposRecursivoPorInterface(this.getClass(), ItfAcaoDoSistema.class, B_Pagina.class, MB_PaginaConversation.class);
             for (Field cp : camposDeAcao) {
+                cp.setAccessible(true);
                 acoesDaPagina.add((ItfAcaoDoSistema) cp.get(this));
             }
         } catch (Throwable t) {

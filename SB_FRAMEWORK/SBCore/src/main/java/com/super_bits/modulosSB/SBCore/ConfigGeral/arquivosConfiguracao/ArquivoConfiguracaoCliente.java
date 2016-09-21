@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import java.io.IOException;
 import java.util.Properties;
@@ -22,6 +21,7 @@ public class ArquivoConfiguracaoCliente {
     private String SERVIDOR_GIT_SOURCE;
 
     private void confgurar(Properties propriedadesClienteSource, Properties proPriedadesClienteRelease) {
+
         SERVIDOR_GIT_SOURCE = propriedadesClienteSource.getProperty("SERVIDOR_GIT_SOURCE");
         if (SERVIDOR_GIT_SOURCE == null) {
             throw new UnsupportedOperationException("O caminho para o servidor git da aplicaçao não foi cinfigurado, crie um arquivo chamado cliente.info na pasta source do cliente, com o conteúdo: SERVIDOR_GIT_SOURCE=seuServidorGit");

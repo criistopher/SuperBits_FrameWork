@@ -6,6 +6,8 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
+import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +23,12 @@ import java.util.List;
  */
 public class UtilSBCoreDataHora {
 
-    public final static Long HORASDIA = 24L;
-    public final static Long MESESANO = 12L;
-    public final static Long MINUTOSHORA = 60L;
-    public final static Long SEGUNDOSMINUTO = 60L;
-    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
-    public final static Long DIASMES = 30L;
+    public final static Long QTD_HORAS_EM1DIA = 24L;
+    public final static Long QTD_MESESEM1ANO = 12L;
+    public final static Long QTD_MINUTOS_EM1HORA = 60L;
+    public final static Long QTD_SEGUNDOS_EM1MINUTO = 60L;
+    public final static Long QTD_MILISEGUNDOS_EM1SEGUNDO = 1000L;
+    public final static Long QTD_DIASEM1MES = 30L;
 
     public static enum FORMATO_TEMPO {
 
@@ -206,7 +208,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = pIntervaloTempo / QTDMILISEGUNDOSSEGUNDO;
+            intervalo = pIntervaloTempo / QTD_MILISEGUNDOS_EM1SEGUNDO;
             return intervalo;
         }
         return 0;
@@ -240,7 +242,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = pIntervaloTempo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO);
+            intervalo = pIntervaloTempo / (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_SEGUNDOS_EM1MINUTO);
             return intervalo;
         }
         return 0;
@@ -276,7 +278,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = pIntervaloTempo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA);
+            intervalo = pIntervaloTempo / (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_SEGUNDOS_EM1MINUTO * QTD_MINUTOS_EM1HORA);
             return intervalo;
         }
         return 0;
@@ -311,7 +313,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = pIntervaloTempo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA);
+            intervalo = pIntervaloTempo / (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_SEGUNDOS_EM1MINUTO * QTD_MINUTOS_EM1HORA * QTD_HORAS_EM1DIA);
             return intervalo;
         }
         return 0;
@@ -343,7 +345,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = pIntervaloTempo / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES;
+            intervalo = pIntervaloTempo / (QTD_HORAS_EM1DIA * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO) / QTD_DIASEM1MES;
             return intervalo;
         }
         return 0;
@@ -376,7 +378,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervaloTempo != null) {
-            intervalo = ((pIntervaloTempo) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES) / MESESANO;
+            intervalo = ((pIntervaloTempo) / (QTD_HORAS_EM1DIA * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO) / QTD_DIASEM1MES) / QTD_MESESEM1ANO;
             return intervalo;
         }
         return 0;
@@ -387,7 +389,7 @@ public class UtilSBCoreDataHora {
         // Dúvida, se este método é necessário ou se posso utilizar os resultados dos outros métodos e calcular sobre estes os valores que preciso
         List<Long> intevalos = new ArrayList<>();
 
-        Long meses = (intervaloTempoAnos(pIntervaloTempo) % MESESANO) + intervaloTempoMeses(pIntervaloTempo);
+        Long meses = (intervaloTempoAnos(pIntervaloTempo) % QTD_MESESEM1ANO) + intervaloTempoMeses(pIntervaloTempo);
         intevalos.add(meses);
         return intevalos;
     }
@@ -406,16 +408,135 @@ public class UtilSBCoreDataHora {
 
             Integer[] resp = new Integer[6];
 
-            resp[5] = new Long((diferenca / QTDMILISEGUNDOSSEGUNDO) % MINUTOSHORA).intValue(); // segundos
-            resp[4] = new Long(diferenca / (SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) % MINUTOSHORA).intValue(); // Minutos
-            resp[3] = new Long(diferenca / (SEGUNDOSMINUTO * MINUTOSHORA * QTDMILISEGUNDOSSEGUNDO) % HORASDIA).intValue(); // Horas
-            resp[2] = new Long(diferenca / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO)).intValue();// Dias
-            resp[1] = new Long(diferenca / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES).intValue(); // Meses
-            resp[0] = new Long(((diferenca) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES) / MESESANO).intValue(); // Anos
+            resp[5] = new Long((diferenca / QTD_MILISEGUNDOS_EM1SEGUNDO) % QTD_SEGUNDOS_EM1MINUTO).intValue(); // segundos
+            resp[4] = new Long(diferenca / (QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO) % QTD_MINUTOS_EM1HORA).intValue(); // Minutos
+            resp[3] = new Long(diferenca / (QTD_SEGUNDOS_EM1MINUTO * QTD_MINUTOS_EM1HORA * QTD_MILISEGUNDOS_EM1SEGUNDO) % QTD_HORAS_EM1DIA).intValue(); // Horas
+            resp[2] = new Long(diferenca / (QTD_HORAS_EM1DIA * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO)).intValue();// Dias
+            resp[1] = new Long(diferenca / (QTD_HORAS_EM1DIA * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO) / QTD_DIASEM1MES).intValue(); // Meses
+            resp[0] = new Long(((diferenca) / (QTD_HORAS_EM1DIA * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO) / QTD_DIASEM1MES) / QTD_MESESEM1ANO).intValue(); // Anos
             return resp;
         } else {
             return null;
         }
+
+    }
+
+    public static Long quantidadeTempoEmSegundos(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+        switch (FabTipoQuantidadeTempo.SEGUNDOS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                return valor / 1000 % 60;
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+    }
+
+    public static Long quantidadeTempoEmMinutos(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+        switch (FabTipoQuantidadeTempo.MINUTOS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                return valor / (60 * 1000) % 60;
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+    }
+
+    public static Long quantidadeTempoEmHoras(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+        switch (FabTipoQuantidadeTempo.HORAS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                //um dia em milesegundos
+                return Math.abs(((valor / (60 * 60 * 1000))) % 24);
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+    }
+
+    public static Long quantidadeTempoEmDias(long valor, FabTipoQuantidadeTempo divisorMaximo, boolean contabilizarSemanas) {
+        switch (FabTipoQuantidadeTempo.DIAS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                long qtdAnos = (356 * 24L * 60L * 60L * 1000L);
+                long qtdMeses = (30 * 24L * 60L * 60L * 1000L);
+                if (valor > qtdAnos) {
+                    long resultado = Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                    if (!contabilizarSemanas) {
+                        return resultado;
+                    } else {
+                        return resultado % 7;
+                    }
+
+                }
+
+                if (valor > qtdMeses) {
+                    long resultado = Math.abs(valor / (30 * 24L * 60L * 60L * 1000L));
+                    if (!contabilizarSemanas) {
+                        return resultado;
+                    } else {
+                        return resultado % 7;
+                    }
+                }
+
+                long resultado = Math.abs(valor / (24L * 60L * 60L * 1000L));
+                if (!contabilizarSemanas) {
+                    return resultado;
+                } else {
+                    return resultado % 7;
+                }
+
+            // se quantidade maior que quantidade de anos
+            // se quantidade menor que quantidade de meses
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+    }
+
+    public static Long quantidadeTempoEmMeses(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+
+        switch (FabTipoQuantidadeTempo.MESES.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60;
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+
+    }
+
+    public static Long quantidadeTempoEmSemanas(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+
+        switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                return Math.abs(valor / (24 * 60 * 60 * 1000 * 7));
+            case 0:
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+            case -1:
+                return 0L;
+        }
+        return null;
+    }
+
+    public static Long quantidadeTempoEmAnos(long valor, FabTipoQuantidadeTempo divisorMaximo) {
+
+        switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
+            case 1:
+                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+            case 0:
+                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+            case -1:
+                return 0L;
+        }
+        return null;
 
     }
 
@@ -434,7 +555,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
+        novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
         return new Date(novadata);
     }
 
@@ -454,7 +575,7 @@ public class UtilSBCoreDataHora {
 
         long novadata;
 
-        novadata = novadata = pData.getTime() - pDias * (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA);
+        novadata = novadata = pData.getTime() - pDias * (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_SEGUNDOS_EM1MINUTO * QTD_MINUTOS_EM1HORA * QTD_HORAS_EM1DIA);
         return new Date(novadata);
 
     }
@@ -472,7 +593,7 @@ public class UtilSBCoreDataHora {
         long novadata;
 
         long dataAntiga = pData.getTime();
-        long incremento = (pNumeroDias * (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA));
+        long incremento = (pNumeroDias * (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_SEGUNDOS_EM1MINUTO * QTD_MINUTOS_EM1HORA * QTD_HORAS_EM1DIA));
         novadata = (dataAntiga + incremento);
         Date dataRetorno = new Date(novadata);
         return dataRetorno;
@@ -499,7 +620,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pSegundos * QTDMILISEGUNDOSSEGUNDO;
+        novadata = pData.getTime() + pSegundos * QTD_MILISEGUNDOS_EM1SEGUNDO;
         return new Date(novadata);
     }
 
@@ -515,7 +636,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pHoras * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
+        novadata = pData.getTime() + pHoras * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
         return new Date(novadata);
     }
 
@@ -531,7 +652,7 @@ public class UtilSBCoreDataHora {
         }
         long novadata;
 
-        novadata = pData.getTime() + pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
+        novadata = pData.getTime() + pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
         return new Date(novadata);
     }
 
