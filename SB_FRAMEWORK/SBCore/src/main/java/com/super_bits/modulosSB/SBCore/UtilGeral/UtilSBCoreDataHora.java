@@ -542,7 +542,7 @@ public class UtilSBCoreDataHora {
 
         switch (FabTipoQuantidadeTempo.MESES.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60;
+                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60; // retornando tempo em segundos correto, mas deveria retornar tempo em meses não ???
             case 0:
                 return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
             case -1:
