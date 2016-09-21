@@ -5,10 +5,6 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.DIASSEMANA;
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.HORASDIA;
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.MINUTOSHORA;
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.QTDMILISEGUNDOSSEGUNDO;
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.SEGUNDOSMINUTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -181,7 +177,7 @@ public class UtilSBCoreDataHoraTest {
 
     }
 
-    //@Test
+    @Test
     public void testIntervaloTempoAnos() {
 
         try {
@@ -192,7 +188,6 @@ public class UtilSBCoreDataHoraTest {
             Long diferencaEsperada = 1L;
 
             Long diferencaAnos = ((dataFinal.getTime() - dataInicial.getTime()) / (HORASDIA * MINUTOSHORA * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO) / DIASMES) / MESESANO;
-
             assertEquals(diferencaEsperada, diferencaAnos);
 
             diferencaAnos = (long) UtilSBCoreDataHora.intervaloTempoAnos(dataInicial, dataFinal);
@@ -268,7 +263,7 @@ public class UtilSBCoreDataHoraTest {
     public void testIntervaloTempoDias_Long() {
     }
 
-    @Test
+    //@Test
     public void testIntervaloTempoSemanas_Date_Date() throws ParseException {
 
         try {

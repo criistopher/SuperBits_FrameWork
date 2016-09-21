@@ -116,7 +116,6 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas
                 //caso ignorar semanas, retornar -1
                 switch (divisorMaximo) {
-
                     case ANOS://2
                         Double intervaloSemanas = (double) UtilSBCoreDataHora.intervaloTempoSemanas(valor);
                         intervaloSemanas = Math.floor(intervaloSemanas);// arrredondamento para baixo com somente uma casa decimal
@@ -124,7 +123,7 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                         semanasAno = Math.floor(semanasAno);// arredondamento para baixo com uma casa decimal somente
                         Double diferenca = intervaloSemanas - semanasAno;
                         return diferenca.longValue();
-                    case MESES:
+                    case MESES://2
 
                     case SEMANAS:
                         return UtilSBCoreDataHora.intervaloTempoSemanas(valor);

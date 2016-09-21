@@ -426,7 +426,6 @@ public class UtilSBCoreDataHora {
 
     public static List<Long> intervaloTempoBaseAnos(Long pIntervaloTempo) {
 
-        // Dúvida, se este método é necessário ou se posso utilizar os resultados dos outros métodos e calcular sobre estes os valores que preciso
         List<Long> intevalos = new ArrayList<>();
 
         Long meses = (intervaloTempoAnos(pIntervaloTempo) % QTD_MESESEM1ANO) + intervaloTempoMeses(pIntervaloTempo);
@@ -438,8 +437,8 @@ public class UtilSBCoreDataHora {
      *
      * @param pDatahoraInicio Data inicial (que será subitraida da Data Final)
      * @param pDatahoraFim Data Final
-     * @return Rorna um Array com de integer sendo anos->[0] meses->=[1] e assim
-     * sucessivamente
+     * @return Retorna um Array com de integer sendo anos->[0] meses->=[1] e
+     * assim sucessivamente
      */
     public static Integer[] intervaloTempoDiasHorasMinitosSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
 
@@ -501,10 +500,10 @@ public class UtilSBCoreDataHora {
     public static Long quantidadeTempoEmDias(long valor, FabTipoQuantidadeTempo divisorMaximo, boolean contabilizarSemanas) {
         switch (FabTipoQuantidadeTempo.DIAS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                long qtdAnos = (356 * 24L * 60L * 60L * 1000L);
+                long qtdAnos = (365 * 24L * 60L * 60L * 1000L);
                 long qtdMeses = (30 * 24L * 60L * 60L * 1000L);
                 if (valor > qtdAnos) {
-                    long resultado = Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                    long resultado = Math.abs(valor / (365 * 24L * 60L * 60L * 1000L));
                     if (!contabilizarSemanas) {
                         return resultado;
                     } else {
