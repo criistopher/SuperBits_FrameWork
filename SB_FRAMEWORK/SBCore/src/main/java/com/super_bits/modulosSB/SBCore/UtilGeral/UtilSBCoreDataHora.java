@@ -6,12 +6,18 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+<<<<<<< HEAD
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
+=======
+import java.math.BigDecimal;
+>>>>>>> bacf0f26731673bd545685af991940dabb4d832e
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.Weeks;
 
 /**
  * Classe de UTILITÀRIOS (Métodos EStáticos commmente Utilizados)____________
@@ -23,12 +29,22 @@ import java.util.List;
  */
 public class UtilSBCoreDataHora {
 
+<<<<<<< HEAD
     public final static Long QTD_HORAS_EM1DIA = 24L;
     public final static Long QTD_MESESEM1ANO = 12L;
     public final static Long QTD_MINUTOS_EM1HORA = 60L;
     public final static Long QTD_SEGUNDOS_EM1MINUTO = 60L;
     public final static Long QTD_MILISEGUNDOS_EM1SEGUNDO = 1000L;
     public final static Long QTD_DIASEM1MES = 30L;
+=======
+    public final static Long HORASDIA = 24L;
+    public final static Long MESESANO = 12L;
+    public final static Long MINUTOSHORA = 60L;
+    public final static Long SEGUNDOSMINUTO = 60L;
+    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
+    public final static Long DIASMES = 30L;
+    public final static Long DIASSEMANA = 7L;
+>>>>>>> bacf0f26731673bd545685af991940dabb4d832e
 
     public static enum FORMATO_TEMPO {
 
@@ -53,7 +69,6 @@ public class UtilSBCoreDataHora {
     }
 
     public static int segundosEntre(Date pDatainicial, Date pDatafinal) {
-
         return 1;
     }
 
@@ -323,6 +338,38 @@ public class UtilSBCoreDataHora {
      *
      * @param pDataInicial
      * @param pDataFinal
+     * @return quantidade em semanas entre duas datas
+     */
+    public static long intervaloTempoSemanas(Date pDataInicial, Date pDataFinal) {
+
+        Long diferenca = intervaloTempoMileSegundos(pDataInicial, pDataFinal);
+        if (diferenca != null) {
+            return intervaloTempoSemanas(diferenca);
+        } else {
+            return 0L;
+        }
+    }
+
+    /**
+     *
+     * @param pIntervalo
+     * @return diferença de tempo em semanas de um dado intervalo de tempo Long
+     * passado como parâmetro
+     */
+    public static long intervaloTempoSemanas(Long pIntervalo) {
+
+        Long intervalo;
+        if (pIntervalo != null) {
+            intervalo = pIntervalo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * DIASSEMANA);
+            return intervalo;
+        }
+        return 0L;
+    }
+
+    /**
+     *
+     * @param pDataInicial
+     * @param pDataFinal
      * @return quantidade de meses entre duas datas
      */
     public static long intervaloTempoMeses(Date pDataInicial, Date pDataFinal) {
@@ -553,9 +600,12 @@ public class UtilSBCoreDataHora {
         if (pMinutos == 0) {
             return pData;
         }
-        long novadata;
+        long novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
 
+<<<<<<< HEAD
         novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
+=======
+>>>>>>> bacf0f26731673bd545685af991940dabb4d832e
         return new Date(novadata);
     }
 

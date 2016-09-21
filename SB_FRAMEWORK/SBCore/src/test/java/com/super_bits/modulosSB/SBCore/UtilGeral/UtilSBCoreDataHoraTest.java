@@ -4,12 +4,14 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.DIASSEMANA;
+import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.HORASDIA;
+import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.MINUTOSHORA;
+import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.QTDMILISEGUNDOSSEGUNDO;
+import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.SEGUNDOSMINUTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -234,8 +236,87 @@ public class UtilSBCoreDataHoraTest {
     public void testIncrementaDiaHorasMinutosSegundosDiasUteis() {
     }
 
-    @Test
+    //@Test
     public void testIntervaloTempoDiasHorasMinutosSegundos() {
+    }
+
+    //@Test
+    public void testIntervaloTempoSegundos_Date_Date() {
+    }
+
+    ///@Test
+    public void testIntervaloTempoSegundos_Long() {
+    }
+
+    //@Test
+    public void testIntervarlTempoMinutos() {
+    }
+
+    //@Test
+    public void testIntervaloTempoHoras_Date_Date() {
+    }
+
+    //@Test
+    public void testIntervaloTempoHoras_Long() {
+    }
+
+    //@Test
+    public void testIntervaloTempoDias_Date_Date() {
+    }
+
+    //@Test
+    public void testIntervaloTempoDias_Long() {
+    }
+
+    @Test
+    public void testIntervaloTempoSemanas_Date_Date() throws ParseException {
+
+        try {
+            SimpleDateFormat ds = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date dataInicial = ds.parse("07/09/2016 12:00:00");
+            Date dataFinal = UtilSBCoreDataHora.incrementaDias(dataInicial, 365);
+
+            Long diferencaEsperada = 52L;
+            Long diferencaSemanas = ((dataFinal.getTime() - dataInicial.getTime()) / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * DIASSEMANA));
+            assertEquals(diferencaEsperada, diferencaSemanas);
+
+            diferencaSemanas = UtilSBCoreDataHora.intervaloTempoSemanas(dataInicial, dataFinal);
+            assertEquals(diferencaEsperada, diferencaSemanas);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    //@Test
+    public void testIntervaloTempoSemanas_Long() {
+    }
+
+    //@Test
+    public void testIntervaloTempoMeses_Date_Date() {
+    }
+
+    //@Test
+    public void testIntervaloTempoMeses_Long() {
+    }
+
+    //@Test
+    public void testIntervaloTempoAnos_Date_Date() {
+    }
+
+    //@Test
+    public void testIntervaloTempoAnos_Long() {
+    }
+
+    //@Test
+    public void testIntervaloTempoBaseAnos() {
+    }
+
+    //@Test
+    public void testIntervaloTempoDiasHorasMinitosSegundos() {
+    }
+
+    //@Test
+    public void testInterTempContRegSegundos() {
     }
 
 }
