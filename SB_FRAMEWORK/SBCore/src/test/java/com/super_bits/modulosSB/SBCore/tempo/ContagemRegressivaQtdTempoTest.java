@@ -10,13 +10,8 @@ import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.ContagemRegressivaQtdTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.QuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
-
 import java.util.ArrayList;
 import java.util.List;
-import org.joda.time.DateTime;
-
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -314,7 +309,8 @@ public class ContagemRegressivaQtdTempoTest {
 //        DateTime dataFinal = dtf.parseDateTime("17/03/2017 04:02:15");
         long umanoMileSegundos = 365l * 24l * 60l * 60l * 1000l;
         long doisMesesMilesegundos = 2l * 30l * 24l * 60l * 60l * 1000l;
-        long dezesseisDiasMilesegundos = 16l * 30l * 24l * 60l * 60l * 1000l;
+        //long dezesseisDiasMilesegundos = 16l * 30l * 24l * 60l * 60l * 1000l;
+        long dezesseisDiasMilesegundos = 16l * 24l * 60l * 60l * 1000l;
         long quatrohorasMilesegundos = 4l * 60l * 60l * 1000l;
         long doisMinutosMilesegundos = 2l * 60l * 1000l;
         long quinseSegundosMilesegundo = 15l * 1000l;

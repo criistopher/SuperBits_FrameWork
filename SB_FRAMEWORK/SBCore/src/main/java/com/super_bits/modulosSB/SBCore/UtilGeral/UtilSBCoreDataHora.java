@@ -569,9 +569,9 @@ public class UtilSBCoreDataHora {
 
         switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                return Math.abs(valor / (365L * 24L * 60L * 60L * 1000L));
             case 0:
-                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                return Math.abs(valor / (365L * 24L * 60L * 60L * 1000L));
             case -1:
                 return 0L;
         }
