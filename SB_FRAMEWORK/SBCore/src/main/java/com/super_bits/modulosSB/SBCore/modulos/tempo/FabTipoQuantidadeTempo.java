@@ -106,8 +106,8 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
                 switch (divisorMaximo) {
                     case ANOS:
-                        return UtilSBCoreDataHora.quantidadeTempoEmMeses(valor, FabTipoQuantidadeTempo.ANOS);
-                    //return UtilSBCoreDataHora.intervaloTempoMeses(valor) % 12L;
+                        //return UtilSBCoreDataHora.quantidadeTempoEmMeses(valor, FabTipoQuantidadeTempo.ANOS);
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor) % 12L; // optei por utilizar o cálculo antigo devido ao retorno inesperado no calculo quantidadeTempoMeses acima
                     case MESES:
                         return UtilSBCoreDataHora.quantidadeTempoEmMeses(valor, divisorMaximo);
                     //return UtilSBCoreDataHora.intervaloTempoMeses(valor);
@@ -120,11 +120,12 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 //caso ignorar semanas, retornar -1
                 switch (divisorMaximo) {
                     case ANOS://2
-
+                        return UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, FabTipoQuantidadeTempo.ANOS);
                     case MESES://2
-
+                    //return UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, FabTipoQuantidadeTempo.MESES);
                     case SEMANAS:
-                        return UtilSBCoreDataHora.intervaloTempoSemanas(valor);
+                        //return UtilSBCoreDataHora.intervaloTempoSemanas(valor
+                        UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, divisorMaximo);
                     default:
                         return 0L;
                 }

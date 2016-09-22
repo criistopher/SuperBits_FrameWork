@@ -325,6 +325,10 @@ public class ContagemRegressivaQtdTempoTest {
         long diffMinutes = valorVariavel / (60 * 1000) % 60;
         long diffHours = valorVariavel / ((60 * 60 * 1000) - 1) % 24;
         long diffDays = valorVariavel / (24 * 60 * 60 * 1000);
+//        long difDaysMOD30 = valorVariavel / (24 * 60 * 60 * 1000) % 30; // somente se precisar de dias dentro do período de um mês
+//        long diffMonthsTotal = (valorVariavel / (1000 * 60 * 60 * 24) / 30);
+//        long difMonthsMOD12 = (valorVariavel / (1000 * 60 * 60 * 24) / 30) % 12; // somente se precisar de meses dentro do período de um ano
+//        long difYearsTotal = ((valorVariavel / (1000 * 60 * 60 * 24) / 30) / 12);
 
         System.out.print(diffDays + " days, ");
         System.out.print(diffHours + " hours, ");

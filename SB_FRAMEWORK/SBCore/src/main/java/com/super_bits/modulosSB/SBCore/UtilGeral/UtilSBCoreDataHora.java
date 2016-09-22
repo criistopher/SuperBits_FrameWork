@@ -457,13 +457,12 @@ public class UtilSBCoreDataHora {
         } else {
             return null;
         }
-
     }
 
     public static Long quantidadeTempoEmSegundos(long valor, FabTipoQuantidadeTempo divisorMaximo) {
         switch (FabTipoQuantidadeTempo.SEGUNDOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return valor / 1000 % 60;
+                return (valor / 1000) % 60;
             case 0:
                 return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
             case -1:
@@ -542,23 +541,22 @@ public class UtilSBCoreDataHora {
 
         switch (FabTipoQuantidadeTempo.MESES.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60; // retornando tempo em segundos correto, mas deveria retornar tempo em meses não ???
+                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60; // retornando tempo em segundos correto. Deveria retornar tempo em meses não ???
             case 0:
-                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);// deveria retornar o valor integral em meses do intervalo de tempo ??
             case -1:
                 return 0L;
         }
         return null;
-
     }
 
     public static Long quantidadeTempoEmSemanas(long valor, FabTipoQuantidadeTempo divisorMaximo) {
 
         switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return Math.abs(valor / (24 * 60 * 60 * 1000 * 7));
+                return Math.abs(valor / (24L * 60L * 60L * 1000L * 7L));
             case 0:
-                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);// deveria retornar o valor integral em semanas  do intervalo de tempo ?
             case -1:
                 return 0L;
         }
