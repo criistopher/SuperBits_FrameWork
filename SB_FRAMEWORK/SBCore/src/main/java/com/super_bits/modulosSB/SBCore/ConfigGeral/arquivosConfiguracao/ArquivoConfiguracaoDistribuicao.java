@@ -75,7 +75,7 @@ public class ArquivoConfiguracaoDistribuicao {
     }
 
     private String getCaminhoArquivoReleaseLocal() {
-        return configuracaoBase.getCaminhoPastaProjetoRelease() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
+        return configuracaoBase.getCaminhoPastaClienteRelease() + "/" + configuracaoBase.getGRUPO_PROJETO() + "/" + configuracaoBase.getGRUPO_PROJETO() + ".info";
 
     }
 
