@@ -71,7 +71,7 @@ public class ArquivoConfiguracaoDistribuicao {
     }
 
     private String getCaminhoArquivoReleaseImplantado() {
-        return CAMINHO_PASTA_DISTRIBUICOES + "/" + configuracaoBase.getNOME_PROJETO() + "/" + configuracaoBase.getNOME_PROJETO() + ".info";
+        return CAMINHO_PASTA_DISTRIBUICOES + "/" + configuracaoBase.getGRUPO_PROJETO() + "/" + configuracaoBase.getGRUPO_PROJETO() + ".info";
     }
 
     private String getCaminhoArquivoReleaseLocal() {
@@ -88,6 +88,8 @@ public class ArquivoConfiguracaoDistribuicao {
     private void checaArquivoReleaseImplantado() {
 
         File arquivoRelease = new File(getCaminhoArquivoReleaseImplantado());
+        System.out.println("Verificando existencia de arquivo de implantação em:");
+        System.out.println(getCaminhoArquivoReleaseImplantado());
         temArquivoImplantacao = arquivoRelease.exists();
     }
 

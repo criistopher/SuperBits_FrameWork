@@ -6,12 +6,8 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-<<<<<<< HEAD
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
-import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
-=======
-import java.math.BigDecimal;
->>>>>>> bacf0f26731673bd545685af991940dabb4d832e
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,22 +25,12 @@ import org.joda.time.Weeks;
  */
 public class UtilSBCoreDataHora {
 
-<<<<<<< HEAD
     public final static Long QTD_HORAS_EM1DIA = 24L;
     public final static Long QTD_MESESEM1ANO = 12L;
     public final static Long QTD_MINUTOS_EM1HORA = 60L;
     public final static Long QTD_SEGUNDOS_EM1MINUTO = 60L;
     public final static Long QTD_MILISEGUNDOS_EM1SEGUNDO = 1000L;
     public final static Long QTD_DIASEM1MES = 30L;
-=======
-    public final static Long HORASDIA = 24L;
-    public final static Long MESESANO = 12L;
-    public final static Long MINUTOSHORA = 60L;
-    public final static Long SEGUNDOSMINUTO = 60L;
-    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
-    public final static Long DIASMES = 30L;
-    public final static Long DIASSEMANA = 7L;
->>>>>>> bacf0f26731673bd545685af991940dabb4d832e
 
     public static enum FORMATO_TEMPO {
 
@@ -360,7 +346,7 @@ public class UtilSBCoreDataHora {
 
         Long intervalo;
         if (pIntervalo != null) {
-            intervalo = pIntervalo / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * DIASSEMANA);
+            intervalo = pIntervalo / (QTD_MILISEGUNDOS_EM1SEGUNDO * QTD_MINUTOS_EM1HORA * QTD_SEGUNDOS_EM1MINUTO * QTD_HORAS_EM1DIA * 7);
             return intervalo;
         }
         return 0L;
@@ -600,12 +586,8 @@ public class UtilSBCoreDataHora {
         if (pMinutos == 0) {
             return pData;
         }
-        long novadata = pData.getTime() - pMinutos * SEGUNDOSMINUTO * QTDMILISEGUNDOSSEGUNDO;
+        long novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
 
-<<<<<<< HEAD
-        novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
-=======
->>>>>>> bacf0f26731673bd545685af991940dabb4d832e
         return new Date(novadata);
     }
 
