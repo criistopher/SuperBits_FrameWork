@@ -43,14 +43,13 @@ public abstract class SBWebPaginas {
             String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
         }
 
-        if (distribuicao.isEmAmbienteDeProducao()) {
-            SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
-            SITE_URL = SITE_HOST;
-        } else {
-            SITE_URL = SITE_HOST + "/" + nomePacoteProjeto;
-            System.out.println("siteURL=" + SITE_URL);
-        }
-
+        //    if (distribuicao.isEmAmbienteDeProducao()) {
+        // SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
+        //      SITE_URL = SITE_HOST;
+        // } else {
+        //       SITE_URL = SITE_HOST + "/" + nomePacoteProjeto;
+        //       System.out.println("siteURL=" + SITE_URL);
+        // }
     }
 
     private static void validaConfigurado() {
