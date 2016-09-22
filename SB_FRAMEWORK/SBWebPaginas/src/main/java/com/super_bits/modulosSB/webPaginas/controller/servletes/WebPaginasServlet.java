@@ -127,6 +127,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         for (String parteUrl : partes) {
 
             recurso = mapaRecursos.get(parteUrl);
+
             if (recurso != null) {
                 try {
                     B_Pagina pagina = (B_Pagina) MAPA_PAGINAS.get(recurso);

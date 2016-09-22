@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.DIASSEMANA;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -272,7 +271,7 @@ public class UtilSBCoreDataHoraTest {
             Date dataFinal = UtilSBCoreDataHora.incrementaDias(dataInicial, 365);
 
             Long diferencaEsperada = 52L;
-            Long diferencaSemanas = ((dataFinal.getTime() - dataInicial.getTime()) / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * DIASSEMANA));
+            Long diferencaSemanas = ((dataFinal.getTime() - dataInicial.getTime()) / (QTDMILISEGUNDOSSEGUNDO * SEGUNDOSMINUTO * MINUTOSHORA * HORASDIA * 24));
             assertEquals(diferencaEsperada, diferencaSemanas);
 
             diferencaSemanas = UtilSBCoreDataHora.intervaloTempoSemanas(dataInicial, dataFinal);
