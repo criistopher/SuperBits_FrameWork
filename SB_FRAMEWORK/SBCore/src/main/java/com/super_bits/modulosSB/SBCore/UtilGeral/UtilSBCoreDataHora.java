@@ -6,10 +6,7 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-<<<<<<< HEAD
-=======
 
->>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
 
 import java.text.SimpleDateFormat;
@@ -33,17 +30,6 @@ public class UtilSBCoreDataHora {
     public final static Long QTD_SEGUNDOS_EM1MINUTO = 60L;
     public final static Long QTD_MILISEGUNDOS_EM1SEGUNDO = 1000L;
     public final static Long QTD_DIASEM1MES = 30L;
-<<<<<<< HEAD
-=======
-
-    public final static Long HORASDIA = 24L;
-    public final static Long MESESANO = 12L;
-    public final static Long MINUTOSHORA = 60L;
-    public final static Long SEGUNDOSMINUTO = 60L;
-    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
-    public final static Long DIASMES = 30L;
-    public final static Long DIASSEMANA = 7L;
->>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
 
     public static enum FORMATO_TEMPO {
 
@@ -598,11 +584,6 @@ public class UtilSBCoreDataHora {
         }
         long novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
 
-<<<<<<< HEAD
-=======
-        novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
-
->>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
         return new Date(novadata);
     }
 

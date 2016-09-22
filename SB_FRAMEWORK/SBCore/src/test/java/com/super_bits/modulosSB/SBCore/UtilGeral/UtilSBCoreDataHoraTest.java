@@ -4,10 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-<<<<<<< HEAD
-=======
-import static com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora.DIASSEMANA;
->>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
