@@ -6,14 +6,16 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.joda.time.DateTime;
-import org.joda.time.Weeks;
 
 /**
  * Classe de UTILITÀRIOS (Métodos EStáticos commmente Utilizados)____________
@@ -31,6 +33,17 @@ public class UtilSBCoreDataHora {
     public final static Long QTD_SEGUNDOS_EM1MINUTO = 60L;
     public final static Long QTD_MILISEGUNDOS_EM1SEGUNDO = 1000L;
     public final static Long QTD_DIASEM1MES = 30L;
+<<<<<<< HEAD
+=======
+
+    public final static Long HORASDIA = 24L;
+    public final static Long MESESANO = 12L;
+    public final static Long MINUTOSHORA = 60L;
+    public final static Long SEGUNDOSMINUTO = 60L;
+    public final static Long QTDMILISEGUNDOSSEGUNDO = 1000L;
+    public final static Long DIASMES = 30L;
+    public final static Long DIASSEMANA = 7L;
+>>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
 
     public static enum FORMATO_TEMPO {
 
@@ -419,7 +432,6 @@ public class UtilSBCoreDataHora {
 
     public static List<Long> intervaloTempoBaseAnos(Long pIntervaloTempo) {
 
-        // Dúvida, se este método é necessário ou se posso utilizar os resultados dos outros métodos e calcular sobre estes os valores que preciso
         List<Long> intevalos = new ArrayList<>();
 
         Long meses = (intervaloTempoAnos(pIntervaloTempo) % QTD_MESESEM1ANO) + intervaloTempoMeses(pIntervaloTempo);
@@ -431,8 +443,8 @@ public class UtilSBCoreDataHora {
      *
      * @param pDatahoraInicio Data inicial (que será subitraida da Data Final)
      * @param pDatahoraFim Data Final
-     * @return Rorna um Array com de integer sendo anos->[0] meses->=[1] e assim
-     * sucessivamente
+     * @return Retorna um Array com de integer sendo anos->[0] meses->=[1] e
+     * assim sucessivamente
      */
     public static Integer[] intervaloTempoDiasHorasMinitosSegundos(Date pDatahoraInicio, Date pDatahoraFim) {
 
@@ -451,13 +463,12 @@ public class UtilSBCoreDataHora {
         } else {
             return null;
         }
-
     }
 
     public static Long quantidadeTempoEmSegundos(long valor, FabTipoQuantidadeTempo divisorMaximo) {
         switch (FabTipoQuantidadeTempo.SEGUNDOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return valor / 1000 % 60;
+                return (valor / 1000) % 60;
             case 0:
                 return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
             case -1:
@@ -494,10 +505,10 @@ public class UtilSBCoreDataHora {
     public static Long quantidadeTempoEmDias(long valor, FabTipoQuantidadeTempo divisorMaximo, boolean contabilizarSemanas) {
         switch (FabTipoQuantidadeTempo.DIAS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                long qtdAnos = (356 * 24L * 60L * 60L * 1000L);
+                long qtdAnos = (365 * 24L * 60L * 60L * 1000L);
                 long qtdMeses = (30 * 24L * 60L * 60L * 1000L);
                 if (valor > qtdAnos) {
-                    long resultado = Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                    long resultado = Math.abs(valor / (365 * 24L * 60L * 60L * 1000L));
                     if (!contabilizarSemanas) {
                         return resultado;
                     } else {
@@ -536,23 +547,22 @@ public class UtilSBCoreDataHora {
 
         switch (FabTipoQuantidadeTempo.MESES.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60;
+                return quantidadeTempoEmSegundos(valor, FabTipoQuantidadeTempo.SEGUNDOS) % 60; // retornando tempo em segundos correto. Deveria retornar tempo em meses não ???
             case 0:
-                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);// deveria retornar o valor integral em meses do intervalo de tempo ??
             case -1:
                 return 0L;
         }
         return null;
-
     }
 
     public static Long quantidadeTempoEmSemanas(long valor, FabTipoQuantidadeTempo divisorMaximo) {
 
         switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return Math.abs(valor / (24 * 60 * 60 * 1000 * 7));
+                return Math.abs(valor / (24L * 60L * 60L * 1000L * 7L));
             case 0:
-                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);
+                return (valor / QTD_MILISEGUNDOS_EM1SEGUNDO);// deveria retornar o valor integral em semanas  do intervalo de tempo ?
             case -1:
                 return 0L;
         }
@@ -563,9 +573,9 @@ public class UtilSBCoreDataHora {
 
         switch (FabTipoQuantidadeTempo.ANOS.maiorQueMedidaDeTempo(divisorMaximo)) {
             case 1:
-                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                return Math.abs(valor / (365L * 24L * 60L * 60L * 1000L));
             case 0:
-                return Math.abs(valor / (356 * 24L * 60L * 60L * 1000L));
+                return Math.abs(valor / (365L * 24L * 60L * 60L * 1000L));
             case -1:
                 return 0L;
         }
@@ -588,6 +598,11 @@ public class UtilSBCoreDataHora {
         }
         long novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
 
+<<<<<<< HEAD
+=======
+        novadata = pData.getTime() - pMinutos * QTD_SEGUNDOS_EM1MINUTO * QTD_MILISEGUNDOS_EM1SEGUNDO;
+
+>>>>>>> 8b503c12e47ae2bc02b14f6b196cc814d5d13ef1
         return new Date(novadata);
     }
 

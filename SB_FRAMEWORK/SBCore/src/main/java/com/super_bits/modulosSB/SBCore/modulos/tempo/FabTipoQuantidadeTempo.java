@@ -90,7 +90,8 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 // A base de Calculos sempre será anual
                 switch (divisorMaximo) {
                     case ANOS:
-                        return UtilSBCoreDataHora.intervaloTempoAnos(valor);
+                        return UtilSBCoreDataHora.quantidadeTempoEmAnos(valor, divisorMaximo);
+                    //return UtilSBCoreDataHora.intervaloTempoAnos(valor);
                     case MESES:
                     case SEMANAS:
                     case DIAS:
@@ -105,9 +106,11 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 // Caso a base de calulos seja abaixo de Anos, não dividir por 12
                 switch (divisorMaximo) {
                     case ANOS:
-                        return UtilSBCoreDataHora.intervaloTempoMeses(valor) % 12L;
+                        //return UtilSBCoreDataHora.quantidadeTempoEmMeses(valor, FabTipoQuantidadeTempo.ANOS);
+                        return UtilSBCoreDataHora.intervaloTempoMeses(valor) % 12L; // optei por utilizar o cálculo antigo devido ao retorno inesperado no calculo quantidadeTempoMeses acima
                     case MESES:
-                        return UtilSBCoreDataHora.intervaloTempoMeses(valor);
+                        return UtilSBCoreDataHora.quantidadeTempoEmMeses(valor, divisorMaximo);
+                    //return UtilSBCoreDataHora.intervaloTempoMeses(valor);
                     default:
                         return 0L;
                 }
@@ -116,18 +119,13 @@ public enum FabTipoQuantidadeTempo implements ItfFabrica {
                 //Caso a base de calculos seja abaixo de meses não dividir o mês em semanas
                 //caso ignorar semanas, retornar -1
                 switch (divisorMaximo) {
-
                     case ANOS://2
-                        Double intervaloSemanas = (double) UtilSBCoreDataHora.intervaloTempoSemanas(valor);
-                        intervaloSemanas = Math.floor(intervaloSemanas);// arrredondamento para baixo com somente uma casa decimal
-                        Double semanasAno = 52.1429D;
-                        semanasAno = Math.floor(semanasAno);// arredondamento para baixo com uma casa decimal somente
-                        Double diferenca = intervaloSemanas - semanasAno;
-                        return diferenca.longValue();
-                    case MESES:
-
+                        return UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, FabTipoQuantidadeTempo.ANOS);
+                    case MESES://2
+                    //return UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, FabTipoQuantidadeTempo.MESES);
                     case SEMANAS:
-                        return UtilSBCoreDataHora.intervaloTempoSemanas(valor);
+                        //return UtilSBCoreDataHora.intervaloTempoSemanas(valor
+                        UtilSBCoreDataHora.quantidadeTempoEmSemanas(valor, divisorMaximo);
                     default:
                         return 0L;
                 }

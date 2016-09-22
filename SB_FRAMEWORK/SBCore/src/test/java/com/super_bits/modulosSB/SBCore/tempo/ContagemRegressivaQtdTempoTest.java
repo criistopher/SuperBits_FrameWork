@@ -10,14 +10,8 @@ import com.super_bits.modulosSB.SBCore.modulos.tempo.TipoQuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.ContagemRegressivaQtdTempo;
 import com.super_bits.modulosSB.SBCore.modulos.tempo.QuantidadeTempo;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import org.joda.time.DateTime;
-
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -49,7 +43,7 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente  :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 1);
                         break;
                     case MESES:
-                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0); // retornando 1 ??
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
                         break;
                     case SEMANAS:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
@@ -310,12 +304,13 @@ public class ContagemRegressivaQtdTempoTest {
         // Setar uma variavel Long, correspontente a 1 ano, 2 meses, 16 dias, 4 horas, 2 minutos, 15 segundos
         //  e em caso de ignorar semana = a false:   1 ano, 2 meses, 2 semanas ,2 dias, 4 horas, 2 minutos, 15 segundos
         //                                  ************ Obs: 16 dias se tornaram 2 semanas e 2 dias no segundo caso *******************
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        DateTime datainicial = dtf.parseDateTime("01/01/2016 00:00:00");
-        DateTime dataFinal = dtf.parseDateTime("17/03/2017 04:02:15");
-        long umanoMileSegundos = 356l * 24l * 60l * 60l * 1000l;
-        long doisMesesMilesegundos = 2 * 30 * 24l * 60l * 60l * 1000l;
-        long dezesseisDiasMilesegundos = 16 * 30 * 24l * 60l * 60l * 1000l;
+//        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+//        DateTime datainicial = dtf.parseDateTime("01/01/2016 00:00:00");
+//        DateTime dataFinal = dtf.parseDateTime("17/03/2017 04:02:15");
+        long umanoMileSegundos = 365l * 24l * 60l * 60l * 1000l;
+        long doisMesesMilesegundos = 2l * 30l * 24l * 60l * 60l * 1000l;
+        //long dezesseisDiasMilesegundos = 16l * 30l * 24l * 60l * 60l * 1000l;
+        long dezesseisDiasMilesegundos = 16l * 24l * 60l * 60l * 1000l;
         long quatrohorasMilesegundos = 4l * 60l * 60l * 1000l;
         long doisMinutosMilesegundos = 2l * 60l * 1000l;
         long quinseSegundosMilesegundo = 15l * 1000l;
@@ -330,6 +325,10 @@ public class ContagemRegressivaQtdTempoTest {
         long diffMinutes = valorVariavel / (60 * 1000) % 60;
         long diffHours = valorVariavel / ((60 * 60 * 1000) - 1) % 24;
         long diffDays = valorVariavel / (24 * 60 * 60 * 1000);
+//        long difDaysMOD30 = valorVariavel / (24 * 60 * 60 * 1000) % 30; // somente se precisar de dias dentro do período de um mês
+//        long diffMonthsTotal = (valorVariavel / (1000 * 60 * 60 * 24) / 30);
+//        long difMonthsMOD12 = (valorVariavel / (1000 * 60 * 60 * 24) / 30) % 12; // somente se precisar de meses dentro do período de um ano
+//        long difYearsTotal = ((valorVariavel / (1000 * 60 * 60 * 24) / 30) / 12);
 
         System.out.print(diffDays + " days, ");
         System.out.print(diffHours + " hours, ");
