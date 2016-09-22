@@ -117,7 +117,7 @@ public class ContagemRegressivaQtdTempoTest {
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 2);
                         break;
                     case SEMANAS:
-                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 62); // um ano e dois meses e duas semanas são 62 semanas antes estava 56
+                        assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 62);
                         break;
                     case DIAS:
                         assertEquals("Esperado um resultado diferente :( em:" + infoTeste, pQuantidadeTempo.getQuantidade(), 0);
