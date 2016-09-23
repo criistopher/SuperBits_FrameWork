@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDevel
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
 import java.io.InputStream;
 import java.util.Properties;
@@ -66,7 +67,7 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
         pConfiguracao.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
         pConfiguracao.setClasseErro(ErroSBCoreFW.class);
-        pConfiguracao.setControleDeSessao(ControleDeSessaoPadrao.class);
+        pConfiguracao.setControleDeSessao(ControleDeSessaoWeb.class);
 
         switch (pConfiguracao.getEstadoApp()) {
             case DESENVOLVIMENTO:
