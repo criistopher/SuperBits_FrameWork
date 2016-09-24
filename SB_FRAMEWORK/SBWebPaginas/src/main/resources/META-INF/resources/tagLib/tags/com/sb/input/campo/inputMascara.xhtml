@@ -23,6 +23,24 @@
                 <c:if test="#{registro.temValidacaoRegex}">
                     <f:validateRegex pattern="#{regex}"/>
                 </c:if>
+
+
+
+                <c:if test="#{possuiMetodoOnChange}">
+                    <p:ajax rendered="#{possuiMetodoOnChange}"
+                            global="true"
+                            event="valueChange"
+                            listener="#{metodoOnChange}"/>
+                </c:if>
+
+                <c:if test="#{possuiIDOnChange}" >
+                    <p:ajax
+                        rendered="#{possuiIDOnChange}"
+                        global="true"
+                        event="valueChange"
+                        listener="#{pgUtil.atualizaTelaPorID(idAtualizacao)}" />
+                </c:if>
+
             </p:inputMask>
 
 

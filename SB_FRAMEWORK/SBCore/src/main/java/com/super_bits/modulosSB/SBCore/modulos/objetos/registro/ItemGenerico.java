@@ -31,16 +31,14 @@ import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEn
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.ListaDeEntidade;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -150,10 +148,27 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     }
 
                     infomensagemErro = campoReflection.getName();
-                    campoReflection.setAccessible(true);
-                    Object instancia = getInstancia();
-                    Field cp = campoReflection;
-                    return cp.get(instancia);
+                    char primeiraLetra = campoReflection.getName().charAt(0);
+                    String marcador = Character.toString(primeiraLetra);
+                    String nomeMetodo = campoReflection.getName().replaceFirst("", marcador);
+
+                    try {
+
+                        Method metodo = this.getClass().getMethod(nomeMetodo);
+
+                        if (metodo != null) {
+                            metodo.invoke(this);
+                        }
+
+                    } catch (Throwable t) {
+
+                        campoReflection.setAccessible(true);
+                        Object instancia = getInstancia();
+                        Field cp = campoReflection;
+                        return cp.get(instancia);
+
+                    }
+
                 }
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, ex.getMessage() + "Erro obtendo valor do item Generico Instanciado" + infomensagemErro + " ", ex);
