@@ -14,9 +14,7 @@
                 value="#{valor}"
                 validatorMessage="O valor informado no campo #{label} não é valido! "
                 requiredMessage="O campo #{label} não foi informado! "
-<<<<<<< HEAD
-                />
-=======
+
 
                 >
 
@@ -33,11 +31,11 @@
                         rendered="#{possuiIDOnChange}"
                         global="true"
                         event="valueChange"
-                        listener="#{pgUtil.atualizaTelaPorID(idAtualizacao)}" />
+                        listener="#{pgUtil.atualizaTelaPorID(idAtualizarOnChange)}" />
                 </c:if>
 
             </p:inputNumber>
->>>>>>> 48b18f3f48a8c27f0617f64cf6dc29c7000bbfce
+
 
         </ui:define>
     </ui:decorate>
