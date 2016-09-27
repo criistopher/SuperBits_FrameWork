@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreResources;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
@@ -141,20 +142,18 @@ public abstract class SBPersistencia {
     private static boolean houveAlteracaoHomologacaoBanco() {
         long codigoAlteracao = 0;
         for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
-            codigoAlteracao += getHashCaminhoArquivoModelJava(entidade);
+            codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(entidade);
         }
         for (Class fabrica : fabricasRegistrosIniciais) {
-            codigoAlteracao += getHashCaminhoArquivoModelJava(fabrica);
-
+            codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(fabrica);
         }
-
         if (!new File(DESTINO_ARQUIVO_HASH_BANCO).exists()) {
             UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, "0000");
         }
-
         //      UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, provaTXT);
         String alteracaoAnterior = UTilSBCoreInputs.getStringByArquivoLocal(DESTINO_ARQUIVO_HASH_BANCO);
         Long altAnterior = Long.parseLong(alteracaoAnterior.replaceAll("[^\\d.]", ""), 10);
+        codigoAlteracao = Math.abs(codigoAlteracao);
         long diferenca = codigoAlteracao - altAnterior;
         if (diferenca == 0) {
             return false;
@@ -173,7 +172,6 @@ public abstract class SBPersistencia {
         //UtilSBCore String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/compilaBanco.sh");
 
         File arquivoApaBanco = new File(DESTINO_ARQUIVO_APAGA_BANCO);
-
         if (!arquivoApaBanco.exists()) {
             Class classeDoResource = pConfigurador.getClass();
 
@@ -191,7 +189,6 @@ public abstract class SBPersistencia {
         if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             throw new UnsupportedOperationException("o carregamento automatico do banco só pode ser realizado em modo desenvolvimento");
         }
-
         //  IO.co tring teste;
         File script = new File(DESTINO_ARQUIVO_APAGA_BANCO);
         if (!script.exists()) {
@@ -207,7 +204,6 @@ public abstract class SBPersistencia {
         if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             throw new UnsupportedOperationException("A compilação do banco só pode ser realizada em modo desenvolvimento");
         }
-
         //  IO.co tring teste;
         File script = new File(DESTINO_ARQUIVO_APAGA_BANCO);
         if (!script.exists()) {
@@ -233,7 +229,6 @@ public abstract class SBPersistencia {
         configurado = true;
         Map<String, Object> propriedades = new HashMap<>();
         criaScriptsBancoDeDAdos(configurador);
-
         if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)) {
             // desabilitando criação de banco de dados no início caso o banco seja o mesmo
             propriedades.put("hibernate.hbm2ddl.auto", null);
@@ -258,7 +253,7 @@ public abstract class SBPersistencia {
                 if (fabricasRegistrosIniciais != null) {
                     UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(fabricasRegistrosIniciais.getClass(), emFacturePadrao.createEntityManager(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
                 }
-
+                configurador.criarBancoInicial();
                 compilaBanco();
 
                 //senão houve alterção no banco
@@ -329,11 +324,8 @@ public abstract class SBPersistencia {
             System.out.println("CONFIG DO SBPERSISTENCIA NAO DEFINIDO !!");
             throw new UnsupportedOperationException("Erro o config da persistencia não foi defido");
         } catch (Throwable t) {
-
             ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) new ErroSBCoreDeveloperSopMessagem();
-
             erro.configurar(FabMensagens.ERRO.getMsgDesenvolvedor(t.getMessage()), FabErro.PARA_TUDO, t);
-
             erro.executarErro();
 
         }

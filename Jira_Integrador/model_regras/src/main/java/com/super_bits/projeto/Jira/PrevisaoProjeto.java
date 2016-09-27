@@ -5,6 +5,7 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.projeto.Jira.ambienteDesenvolvimento.AmbienteDesenvolvimento;
 import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -120,6 +121,10 @@ public class PrevisaoProjeto implements Serializable {
 
     public List<PrevisaoModulo> getModulosPrevistos() {
         return Lists.newArrayList(getModuloPrevistosPorModulo().values());
+    }
+
+    public void setCustosDesenvolvimento(CustosDesenvolvimento custosDesenvolvimento) {
+        this.custosDesenvolvimento = custosDesenvolvimento;
     }
 
 }

@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.projeto.Jira;
+package com.super_bits.projeto.Jira.ambienteDesenvolvimento;
 
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
+import com.super_bits.projeto.Jira.DesenvolvedorProjetoSB;
+import com.super_bits.projeto.Jira.FabTipoProfissional;
+import com.super_bits.projeto.Jira.TipoProfissional;
 import java.util.ArrayList;
 import java.util.List;
 
