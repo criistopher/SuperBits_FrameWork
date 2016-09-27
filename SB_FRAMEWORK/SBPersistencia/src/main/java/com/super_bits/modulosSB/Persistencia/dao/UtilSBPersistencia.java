@@ -43,6 +43,24 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     private static EntityManagerFactory emFacturePadrao;
     private static final int MAXIMO_REGISTROS = 2000;
+    private static Map<String, Object> configuracoesPeristenciaPadrao = new HashMap<>();
+
+    /**
+     *
+     * Temporário, nescessário para não criar dois entitymanager durante o modo
+     * desenvolvedor
+     *
+     * Será substituído na versão 1.5 do modulo de persistencia do sistema
+     *
+     * @param fabrica
+     * @param propriedades
+     * @deprecated
+     */
+    @Deprecated
+    public static void defineFabricaEntityManager(EntityManagerFactory fabrica, Map<String, Object> propriedades) {
+        emFacturePadrao = fabrica;
+        configuracoesPeristenciaPadrao = propriedades;
+    }
 
     /**
      *
@@ -117,7 +135,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     }
 
-    private static Map<String, EntityManagerFactory> bancoExtra = new HashMap<String, EntityManagerFactory>();
+    private static final Map<String, EntityManagerFactory> BANCO_EXTRA = new HashMap<>();
 
     /**
      *
@@ -139,7 +157,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         }
 
         try {
-            EntityManagerFactory fabrica = bancoExtra.get(pNomeBanco);
+
+            EntityManagerFactory fabrica = BANCO_EXTRA.get(pNomeBanco);
 
             if (fabrica == null) {
                 System.out.println("Criando EMF" + pNomeBanco);
@@ -148,7 +167,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 if (fabrica == null) {
                     SBCore.RelatarErro(FabErro.PARA_TUDO, " Erro criando EntityFactury" + pNomeBanco, null);
                 }
-                bancoExtra.put(pNomeBanco, fabrica);
+                BANCO_EXTRA.put(pNomeBanco, fabrica);
             }
             if (fabrica != null) {
                 fabrica.getCache().evictAll();
@@ -179,7 +198,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         try {
             if (emFacturePadrao == null) {
 
-                emFacturePadrao = Persistence.createEntityManagerFactory(SBPersistencia.getNomeBancoPadrao());
+                emFacturePadrao = Persistence.createEntityManagerFactory(SBPersistencia.getNomeBancoPadrao(), configuracoesPeristenciaPadrao);
             }
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando criar entitymanagerFacturePAdrão=" + SBPersistencia.getNomeBancoPadrao(), e);
@@ -1122,6 +1141,21 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static List<Class> getTodasEntidades() {
         EntityManager em = UtilSBPersistencia.getNovoEM();
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = em.getMetamodel().getEntities();
+        List<Class> entidades = new ArrayList<>();
+        for (EntityType<?> entidade : lista) {
+            System.out.println(entidade.getJavaType().toString());
+            Class<?> classe = entidade.getJavaType();
+            System.out.println(entidade.getClass().getName());
+            entidades.add(entidade.getJavaType());
+        }
+        em.close();
+        return entidades;
+    }
+
+    public static List<Class> getTodasEntidades(String nomePersistenceUnit) {
+        EntityManager em = UtilSBPersistencia.getNovoEM(nomePersistenceUnit);
         //((Dados) BeansUtil.getAppBean("dados")).getEm();
         Set<EntityType<?>> lista = em.getMetamodel().getEntities();
         List<Class> entidades = new ArrayList<>();

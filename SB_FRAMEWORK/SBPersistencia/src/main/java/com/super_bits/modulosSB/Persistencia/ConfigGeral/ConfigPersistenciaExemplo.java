@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
@@ -19,7 +20,7 @@ public class ConfigPersistenciaExemplo implements ItfConfigSBPersistencia {
 
     @Override
     public String bancoPrincipal() {
-        return "sbPersistencia";
+        return "bancoModelo";
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ConfigPersistenciaExemplo implements ItfConfigSBPersistencia {
 
     @Override
     public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SBCore.getFabricasDeAcaoDoSistema();
     }
 
 }

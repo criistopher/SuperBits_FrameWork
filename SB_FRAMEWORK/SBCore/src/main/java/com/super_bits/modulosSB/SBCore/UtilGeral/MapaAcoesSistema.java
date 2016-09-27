@@ -8,20 +8,14 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAc
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilFabricaDeAcoesBasico;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -29,43 +23,9 @@ import java.util.Map;
  */
 public abstract class MapaAcoesSistema {
 
-    private static final Map<String, ItfAcaoDoSistema> ACAO_BY_NOME_UNICO = new HashMap<>();
-    private static final Map<ItfFabricaAcoes, ItfAcaoDoSistema> ACAO_BY_ENUM = new HashMap<>();
-    private static final Map<Class, List<ItfAcaoDoSistema>> ACOES_BY_CLASSE = new HashMap<>();
-    private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_BY_MODULO = new HashMap<>();
-    private static final Map<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> ACOES_MANAGED_BEAN_BY_MODULO = new HashMap<>();
-    private static final Map<ItfAcaoGerenciarEntidade, List<ItfAcaoSecundaria>> SUBACOES_BY_ACAO_GERENCIAR_MB = new HashMap<>();
+    private static MapaDeAcoes mapaAcoes;
 
-    private static final Map<String, List<ItfAcaoDoSistema>> ACOES_BY_DOMINIO = new HashMap<>();
     private static boolean mapaCriado = false;
-
-    /// cria mapeamentos relacionais dos Objetos todos os (OneToMany) Ex: adiciona as açoes do modulo no objeto Modulo
-    private static void buildRelacoes() {
-
-        for (ItfModuloAcaoSistema modulosEncontrado : ACOES_BY_MODULO.keySet()) {
-            if (modulosEncontrado.getAcoes().isEmpty()) {
-                modulosEncontrado.getAcoes().addAll(ACOES_BY_MODULO.get(modulosEncontrado));
-            }
-        }
-
-        for (ItfAcaoGerenciarEntidade acao : SUBACOES_BY_ACAO_GERENCIAR_MB.keySet()) {
-            if (acao.getAcoesVinculadas().isEmpty()) {
-                acao.setAcoesVinculadas(SUBACOES_BY_ACAO_GERENCIAR_MB.get(acao));
-            }
-        }
-
-    }
-
-    public static void limparTudo() {
-        ACAO_BY_NOME_UNICO.clear();
-        ACAO_BY_ENUM.clear();
-        ACOES_BY_CLASSE.clear();
-        ACOES_BY_MODULO.clear();
-        ACOES_MANAGED_BEAN_BY_MODULO.clear();
-        SUBACOES_BY_ACAO_GERENCIAR_MB.clear();
-        ACOES_BY_DOMINIO.clear();
-        System.gc();
-    }
 
     public static void makeMapaAcoesSistema() {
         if (mapaCriado) {
@@ -75,78 +35,12 @@ public abstract class MapaAcoesSistema {
         if (SBCore.getFabricasDeAcaoDoSistema() == null) {
             throw new UnsupportedOperationException("O mapa de ações não pode ser definido, pos as Fabricas de ações do core não foram definidas");
         }
-
-        for (Class fabrica : SBCore.getFabricasDeAcaoDoSistema()) {
-
-            for (Object objAcao : fabrica.getEnumConstants()) {
-                ItfFabricaAcoes fabricaAcao = (ItfFabricaAcoes) objAcao;
-
-                try {
-                    ItfAcaoDoSistema acao = fabricaAcao.getAcaoDoSistema();
-
-                    List<ItfAcaoDoSistema> acoesDoModulo = ACOES_BY_MODULO.get(acao.getModulo());
-                    List<ItfAcaoDoSistema> acoesManagedBeansDoModulo = ACOES_MANAGED_BEAN_BY_MODULO.get(acao.getModulo());
-                    UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
-                    /// ADICIONANDO MAPAS SIMPLES
-                    ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
-                    ACAO_BY_ENUM.put(fabricaAcao, acao);
-
-                    if (acoesDoModulo == null) {
-                        acoesDoModulo = new ArrayList();
-                        acoesManagedBeansDoModulo = new ArrayList<>();
-                        ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
-                        ACOES_MANAGED_BEAN_BY_MODULO.put(acao.getModulo(), acoesManagedBeansDoModulo);
-                    }
-
-                    acoesDoModulo.add(acao);
-                    if (acao.isUmaAcaoGestaoDominio()) {
-                        acoesManagedBeansDoModulo.add(acao);
-
-                    } else if (acao.isTemAcaoPrincipal()) {
-                        ItfAcaoGerenciarEntidade acaoprincipal = (ItfAcaoGerenciarEntidade) ACAO_BY_ENUM.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal().getEnumAcaoDoSistema());
-                        if (acaoprincipal == null) {
-                            throw new UnsupportedOperationException(
-                                    "A acaoPrincipal: " + ((ItfAcaoSecundaria) acao).getAcaoPrincipal().getNomeUnico() + "deve ser declarada antes de " + acao.getNomeUnico() + " no enum (Coloque as açoes _MB na frente das subAções, "
-                                    + "e certifique que o dominio e o inicio do nome da ação estão sendo coincidentes entre ações e subações)");
-                        }
-                        if (SUBACOES_BY_ACAO_GERENCIAR_MB.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal()) == null) {
-                            List<ItfAcaoSecundaria> subacoesDomodulo = new ArrayList();
-                            SUBACOES_BY_ACAO_GERENCIAR_MB.put(acaoprincipal, subacoesDomodulo);
-
-                        }
-
-                        SUBACOES_BY_ACAO_GERENCIAR_MB.get(acaoprincipal).add((ItfAcaoSecundaria) acao);
-                    }
-
-                    if (ACOES_BY_DOMINIO.get(acao.getNomeDominio()) == null) {
-                        List<ItfAcaoDoSistema> acoesporDominio = new ArrayList<>();
-                        ACOES_BY_DOMINIO.put(acao.getNomeDominio(), acoesporDominio);
-
-                    }
-                    ACOES_BY_DOMINIO.get(acao.getNomeDominio()).add(acao);
-
-                    if (acao.isUmaAcaoDeEntidade()) {
-                        ItfAcaoEntidade acaodeEntidade = (ItfAcaoEntidade) acao;
-                        Class classeRelacionada = acaodeEntidade.getClasseRelacionada();
-                        List<ItfAcaoDoSistema> acoesDaEntidade = ACOES_BY_CLASSE.get(classeRelacionada);
-                        if (acoesDaEntidade == null) {
-                            acoesDaEntidade = new ArrayList<>();
-                            ACOES_BY_CLASSE.put(classeRelacionada, acoesDaEntidade);
-
-                        }
-                        acoesDaEntidade.add(acao);
-
-                    }
-
-                } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabrica.toString(), t);
-                }
-
-            }
-
+        try {
+            mapaAcoes = new MapaDeAcoes(SBCore.getFabricasDeAcaoDoSistema());
+            mapaCriado = true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando mapa de ações do sistema atual", t);
         }
-        buildRelacoes();
-        mapaCriado = true;
     }
 
     /**
@@ -158,7 +52,7 @@ public abstract class MapaAcoesSistema {
      * @return Todas as ações da Entidade
      */
     public static List<ItfAcaoDoSistema> getAcoesByEntidade(Class pEntidade) {
-        return ACOES_BY_CLASSE.get(pEntidade);
+        return mapaAcoes.getAcoesByEntidade(pEntidade);
     }
 
     /**
@@ -170,14 +64,8 @@ public abstract class MapaAcoesSistema {
      * @return Todas as ações da Entidade
      */
     public static List<ItfAcaoGerenciarEntidade> getAcoesDeGestaoByEntidade(Class pEntidade) {
-        List<ItfAcaoDoSistema> acoes = ACOES_BY_CLASSE.get(pEntidade);
-        List<ItfAcaoGerenciarEntidade> acoesDeGestao = new ArrayList<>();
-        for (ItfAcaoDoSistema acao : acoes) {
-            if (acao.isUmaAcaoGestaoDominio()) {
-                acoesDeGestao.add((ItfAcaoGerenciarEntidade) acao);
-            }
-        }
-        return acoesDeGestao;
+
+        return mapaAcoes.getAcoesDeGestaoByEntidade(pEntidade);
     }
 
     /**
@@ -191,18 +79,14 @@ public abstract class MapaAcoesSistema {
      * @return Todas as ações que possuem o dominio enviado
      */
     public static List<ItfAcaoDoSistema> getAcoesByDominioEModulo(String pDominio, ItfModuloAcaoSistema modulo) {
-        List<ItfAcaoDoSistema> lista = new ArrayList<>();
-        for (ItfAcaoDoSistema acao : ACOES_BY_DOMINIO.get(pDominio)) {
-            if (acao.getModulo().equals(acao.getModulo())) {
-                lista.add(acao);
-            }
-        }
-        return lista;
+
+        return mapaAcoes.getAcoesByDominioEModulo(pDominio, modulo);
 
     }
 
     public static List<ItfAcaoGerenciarEntidade> getAcoesGestaoByModulo(ItfModuloAcaoSistema pModulo) {
-        return (List) ACOES_MANAGED_BEAN_BY_MODULO.get(pModulo);
+        return mapaAcoes.getAcoesGestaoByModulo(pModulo);
+
     }
 
     /**
@@ -214,13 +98,8 @@ public abstract class MapaAcoesSistema {
      * @return todas as ações controller da entidade
      */
     public static List<ItfAcaoController> getAcoesControllersByEntidade(Class pEntidade) {
-        List<ItfAcaoController> lista = new ArrayList<>();
-        for (ItfAcaoDoSistema acao : ACOES_BY_CLASSE.get(pEntidade)) {
-            if (acao.isUmaAcaoController()) {
-                lista.add((ItfAcaoController) acao);
-            }
-        }
-        return lista;
+        return mapaAcoes.getAcoesControllersByEntidade(pEntidade);
+
     }
 
     /**
@@ -234,13 +113,8 @@ public abstract class MapaAcoesSistema {
      * referenciados
      */
     public static List<ItfAcaoController> getAcoesControllerByEntidadeEModulo(Class pEntidade, ItfModuloAcaoSistema pModulo) {
-        List<ItfAcaoController> lista = new ArrayList<>();
-        for (ItfAcaoDoSistema acao : ACOES_BY_CLASSE.get(pEntidade)) {
-            if (acao.getModulo().equals(pModulo)) {
-                lista.add((ItfAcaoController) acao);
-            }
-        }
-        return lista;
+
+        return mapaAcoes.getAcoesControllerByEntidadeEModulo(pEntidade, pModulo);
     }
 
     /**
@@ -253,15 +127,8 @@ public abstract class MapaAcoesSistema {
      * modulo
      */
     public static List<ItfAcaoFormulario> getAcoesListagemByEntidadeEModulo(Class pEntidade, ItfModuloAcaoSistema pModulo) {
-        List<ItfAcaoFormulario> lista = new ArrayList<>();
-        for (ItfAcaoDoSistema acao : ACOES_BY_CLASSE.get(pEntidade)) {
-            if (acao.isUmaAcaoFormulario()) {
-                if (acao.getTipoAcaoGenerica() == FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR) {
-                    lista.add((ItfAcaoFormulario) acao);
-                }
-            }
-        }
-        return lista;
+
+        return mapaAcoes.getAcoesListagemByEntidadeEModulo(pEntidade, pModulo);
     }
 
     /**
@@ -272,7 +139,18 @@ public abstract class MapaAcoesSistema {
      * @return Ação do Sistema instanciada
      */
     public static ItfAcaoDoSistema getAcaoDoSistema(ItfFabricaAcoes pFabAcao) {
-        return ACAO_BY_ENUM.get(pFabAcao);
+        return mapaAcoes.getAcaoDoSistema(pFabAcao);
+    }
+
+    /**
+     *
+     * Retorna a ação a partir do nome unico
+     *
+     * @param pFabAcao Fabrica refencia
+     * @return Ação do Sistema instanciada
+     */
+    public static ItfAcaoDoSistema getAcaoDoSistemaByNomeUnico(String pFabAcao) {
+        return mapaAcoes.getAcaoDoSistemaByNomeUnico(pFabAcao);
     }
 
     /**
@@ -285,63 +163,40 @@ public abstract class MapaAcoesSistema {
      */
     public ItfAcaoEntidade getAcaoDeEntidade(ItfFabricaAcoes pFabAcao) {
 
-        try {
-            return (ItfAcaoEntidade) ACAO_BY_ENUM.get(pFabAcao);
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação de entidade", t);
-        }
-        return null;
+        return mapaAcoes.getAcaoDeEntidade(pFabAcao);
 
     }
 
     public ItfAcaoFormularioEntidade getAcaoEntidadeFormulario(ItfFabricaAcoes pFabAcao) {
-        try {
-            return (ItfAcaoFormularioEntidade) ACAO_BY_ENUM.get(pFabAcao);
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação de Entidade Formulario", t);
-        }
-        return null;
+
+        return mapaAcoes.getAcaoEntidadeFormulario(pFabAcao);
     }
 
     public ItfAcaoControllerEntidade getAcaoEntidadeController(ItfFabricaAcoes pFabAcao) {
-        try {
-            return (ItfAcaoControllerEntidade) ACAO_BY_ENUM.get(pFabAcao);
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação de entidade", t);
-        }
-        return null;
+
+        return mapaAcoes.getAcaoEntidadeController(pFabAcao);
     }
 
     public ItfAcaoController getAcaoController(ItfFabricaAcoes pFabAcao) {
-        try {
-            return (ItfAcaoController) ACAO_BY_ENUM.get(pFabAcao);
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação de entidade", t);
-        }
-        return null;
+
+        return mapaAcoes.getAcaoController(pFabAcao);
     }
 
     public ItfAcaoGerenciarEntidade geAcaoGerenciarEntidade(ItfFabricaAcoes pFabAcao) {
-        try {
-            return (ItfAcaoGerenciarEntidade) ACAO_BY_ENUM.get(pFabAcao);
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação de entidade", t);
-        }
-        return null;
+
+        return mapaAcoes.geAcaoGerenciarEntidade(pFabAcao);
+
     }
 
     public static List<ItfModuloAcaoSistema> getModulos() {
 
-        List<ItfModuloAcaoSistema> modulosEncontrados = new ArrayList<>();
-        modulosEncontrados.addAll(ACOES_BY_MODULO.keySet());
-
-        return modulosEncontrados;
+        return mapaAcoes.getModulos();
 
     }
 
     public static List<ItfAcaoDoSistema> getListaTodasAcoes() {
 
-        return new ArrayList<>(ACAO_BY_ENUM.values());
+        return mapaAcoes.getListaTodasAcoes();
     }
 
     /**

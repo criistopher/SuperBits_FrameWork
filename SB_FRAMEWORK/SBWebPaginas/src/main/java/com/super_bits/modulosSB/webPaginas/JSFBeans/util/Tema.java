@@ -59,7 +59,7 @@ public class Tema {
 
             UtilSBCoreArquivos.descompactar(pastaArquivos + "/tema.zip", pastaArquivos.getAbsolutePath());
             String pastaTema = pastaArquivos.getAbsolutePath() + "/jquery-ui-1.11.4.custom";
-            List<String> css = UTilSBCoreInputs.getStringsByLocalFile(pastaTema
+            List<String> css = UTilSBCoreInputs.getStringsByArquivoLocal(pastaTema
                     + "/jquery-ui.css");
             if (css == null) {
                 FabMensagens.enviarMensagemUsuario("Erro lendo arquivo CSS, certifique ter enviado um arquivo versão 1.11.2 ", FabMensagens.ERRO);

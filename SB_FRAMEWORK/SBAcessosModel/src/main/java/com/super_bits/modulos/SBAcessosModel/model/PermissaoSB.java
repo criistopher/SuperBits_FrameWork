@@ -60,25 +60,25 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Transient
     private List<ItfGrupoUsuario> listaTodosGruposUsuarios;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Permitido_Usuarios",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<UsuarioSB> usuariosPermitidos;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Negado_Usuarios",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<UsuarioSB> usuariosNegados;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Permitido_Grupos",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private List<GrupoUsuarioSB> gruposPermitidos;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Negado_Grupos",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))

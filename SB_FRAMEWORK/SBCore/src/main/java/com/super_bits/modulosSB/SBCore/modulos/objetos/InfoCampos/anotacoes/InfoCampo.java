@@ -146,4 +146,5 @@ public @interface InfoCampo {
     public String caminhoParaLista() default "";
 
     String descricao() default "";
+
 }

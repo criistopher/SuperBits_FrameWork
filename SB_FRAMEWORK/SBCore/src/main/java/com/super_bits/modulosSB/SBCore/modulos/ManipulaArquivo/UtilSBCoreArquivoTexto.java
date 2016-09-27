@@ -56,6 +56,31 @@ public abstract class UtilSBCoreArquivoTexto {
 
     /**
      *
+     * Cria , ou substitui o arquivo, e adiciona o conteudo
+     *
+     * @param pCaminhoArquivo Caminho do arquivo
+     * @param pLinha Conteúdo da linha que será escrita
+     * @return Verdadeiro -> suecesso da operação, Falso falha na operação
+     *
+     */
+    public synchronized static boolean escreverEmArquivoSubstituindoArqAnterior(String pCaminhoArquivo, String pLinha) {
+
+        try {
+            FileWriter f = new FileWriter(pCaminhoArquivo);
+
+            f.write(pLinha);
+            f.close();
+
+            return true;
+        } catch (IOException e) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro esrevendo no arquivo", e);
+            System.out.println("errp" + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     *
      * Cria uma nova linha no arquivo, e escreve o conteúdo possui tratamento
      * para criação do arquivo caso não exista
      *
@@ -65,21 +90,19 @@ public abstract class UtilSBCoreArquivoTexto {
      *
      */
     public synchronized static boolean escreverEmArquivo(String pCaminhoArquivo, String pLinha) {
-
         try {
             criarSeArquivoSeNaoExistir(pCaminhoArquivo);
         } catch (IOException ex) {
-
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor(pLinha, ex);
             return false;
         }
-
         System.out.println("Escrevendo em arquivo" + pCaminhoArquivo);
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(pCaminhoArquivo, true)))) {
             out.println(pLinha);
             out.close();
             return true;
         } catch (IOException e) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro esrevendo no arquivo", e);
             System.out.println("errp" + e.getMessage());
             return false;
         }
@@ -228,12 +251,16 @@ public abstract class UtilSBCoreArquivoTexto {
                 linhaAtual = operador.readLine().toLowerCase();
                 if (linhaAtual.contains(pPalavra.toLowerCase())) {
                     return true;
+
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilSBCoreArquivoTexto.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (IOException ex) {
-            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilSBCoreArquivoTexto.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
@@ -248,8 +275,10 @@ public abstract class UtilSBCoreArquivoTexto {
         try {
             proppriedades.load(arqPropriedadesSource);
             return proppriedades;
+
         } catch (IOException ex) {
-            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilSBCoreArquivoTexto.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -262,8 +291,10 @@ public abstract class UtilSBCoreArquivoTexto {
         try {
             proppriedadesBasicas.load(stream);
             return proppriedadesBasicas;
+
         } catch (IOException ex) {
-            Logger.getLogger(UtilSBCoreArquivoTexto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilSBCoreArquivoTexto.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

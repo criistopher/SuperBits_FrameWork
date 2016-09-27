@@ -37,25 +37,44 @@ public abstract class UTilSBCoreInputs {
     private static final int timeoutDeConexaoPadrao = 500;
     private static final int timeoutDeLeituraPadrao = 50000;
 
-    public static List<String> getStringsByLocalFile(String pLocalFile) {
-        File arquivo = new File(pLocalFile);
+    /**
+     *
+     * Nesta lista cada String é uma linha do arquivo
+     *
+     * @param pCaminhoArquivoLocal Diretorio do arquivo Local
+     * @return Uma lista de Strings,
+     */
+    public static List<String> getStringsByArquivoLocal(String pCaminhoArquivoLocal) {
+        File arquivo = new File(pCaminhoArquivoLocal);
         List<String> conteudo = new ArrayList();
         try (Scanner scanner = new Scanner(arquivo)) {
-
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 conteudo.add(line);
-
             }
-
             scanner.close();
             return conteudo;
         } catch (IOException e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro lendo arquivo:" + pLocalFile, e);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro lendo arquivo:" + pCaminhoArquivoLocal, e);
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("", e);
             return null;
         }
 
+    }
+
+    public static String getStringByArquivoLocal(String pCaminhoArquivoLocal) {
+        File arquivo = new File(pCaminhoArquivoLocal);
+        String conteudo = "";
+        File file = new File(pCaminhoArquivoLocal);
+        try (FileInputStream fis = new FileInputStream(file)) {
+            int content;
+            while ((content = fis.read()) != -1) {
+                conteudo += ((char) content);
+            }
+        } catch (IOException e) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro lendo arquivo" + pCaminhoArquivoLocal, e);
+        }
+        return conteudo;
     }
 
     /**

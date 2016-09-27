@@ -82,6 +82,10 @@ public class SBCore {
     private static ArquivoConfiguracaoCliente arquivoConfigCliente;
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
 
+    public static boolean isEmModoDesenvolvimento() {
+        return getEstadoAPP().equals(ESTADO_APP.DESENVOLVIMENTO);
+    }
+
     public static ItfConfiguracaoCoreSomenteLeitura getInfoAplicacao() {
         return infoAplicacao;
     }

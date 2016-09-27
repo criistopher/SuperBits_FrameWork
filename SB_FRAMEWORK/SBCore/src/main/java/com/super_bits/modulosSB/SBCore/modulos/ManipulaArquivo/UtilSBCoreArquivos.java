@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -199,5 +201,28 @@ public abstract class UtilSBCoreArquivos {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro lendo arquivos do diretorio:" + pDiretorio, t);
         }
         return arquivos;
+    }
+
+    /**
+     *
+     * Copia um arquivo do pacote jar para um destino externo
+     *
+     *
+     * @param classeDoResource Classe referencia para encontrar o arquivo
+     * (Qualquer classe que esteja dentro do mesmo pacote .Jar)
+     * @param caminhoArquivoResource Caminho relativo a pasta resource
+     * @param destinoArquivo destino onde o arquivo será copiado
+     * @return
+     */
+    public static boolean copiarArquivoResourceJar(Class classeDoResource, String caminhoArquivoResource, String destinoArquivo) {
+        try {
+            InputStream streamCompilaBanco = classeDoResource.getClassLoader().getResourceAsStream(caminhoArquivoResource);
+            FileUtils.copyInputStreamToFile(streamCompilaBanco, new File(destinoArquivo));
+            return true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, destinoArquivo, t);
+            return false;
+        }
+
     }
 }

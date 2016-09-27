@@ -23,13 +23,15 @@ public class ItemSimples extends ItemGenerico implements
 
     @Override
     public String getImgPequena() {
-        throw new UnsupportedOperationException("O método para obter Imagem Pequena não foi implementado");
+        throw new UnsupportedOperationException("O método para obter imagem Pequena não foi implementado.");
 
     }
 
     @Override
     public String getNomeCurto() {
+
         return (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+
         /**
          *
          * TODO String nome = (String)
@@ -43,7 +45,7 @@ public class ItemSimples extends ItemGenerico implements
     }
 
     public String getNomeCurtoURLAmigavel() {
-        return "não implementado";
+        return "url amigavel para Item simples não foi implementado";
         //String nomeCurto = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME_CURTO);
         // return UtilSBCoreStrings.makeStrUrlAmigavel(nomeCurto);
     }

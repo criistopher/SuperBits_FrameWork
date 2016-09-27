@@ -763,23 +763,17 @@ public abstract class UtilSBCoreReflexao {
      * @return
      */
     public static List<Field> getCamposRecursivoPorInterface(Class pclasse, Class pItf, Class... pObjetosFinal) {
-
         List<Field> camposEncontrados = new ArrayList<>();
-
         for (Class classe : getClassesComHierarquiaAteObjetoFinal(pclasse, pObjetosFinal)) {
             for (Field cp : classe.getDeclaredFields()) {
-
                 for (Class itf : cp.getType().getInterfaces()) {
                     if (itf.equals(pItf)) {
                         camposEncontrados.add(cp);
                     }
                 }
-
             }
         }
-
         return camposEncontrados;
-
     }
 
 }

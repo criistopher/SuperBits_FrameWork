@@ -53,12 +53,46 @@ public class UtilSBCoreDiretorios {
         return resultado;
     }
 
+    /**
+     * *(ele não certifica se o ultimo nome é um arquivo ou diretorio,
+     * simplismente retorna a ultima parte do diretorio)
+     *
+     * A ideia do metodo é ser simples e rápido, pois um simples objeto File
+     * atenderia a solução
+     *
+     * @param pDiretorio
+     * @return O nome do arquivo sem o diretorio
+     */
     public static String getNomeArquivo(String pDiretorio) {
         //#todo compatibilidade com diretorios windows
 
         String[] partes = pDiretorio.split("/");
 
         return partes[partes.length - 1];
+
+    }
+
+    /**
+     * *(ele não certifica se o ultimo nome é um arquivo ou diretorio,
+     * simplismente retorna a ultima parte do diretorio)
+     *
+     * @param pCaminhoCompleto
+     * @return O diretorio do arquivo Sem o nome do arquivo
+     */
+    public static String getDiretorioArquivo(String pCaminhoCompleto) {
+        //#todo compatibilidade com diretorios windows
+
+        String[] partes = pCaminhoCompleto.split("/");
+        String caminho = "";
+        for (int i = 0; i < partes.length - 1; i++) {
+            if (i < partes.length - 2) {
+                caminho += partes[i] + "/";
+            } else {
+                caminho += partes[i];
+            }
+        }
+
+        return caminho;
 
     }
 

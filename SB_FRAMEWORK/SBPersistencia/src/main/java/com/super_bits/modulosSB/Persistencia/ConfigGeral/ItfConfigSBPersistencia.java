@@ -22,6 +22,14 @@ public interface ItfConfigSBPersistencia {
 
     public String pastaImagensJPA();
 
+    /**
+     *
+     * As Fabricas de registro iniciais são classes que extendem ItfFabrica e
+     * possuem enunciados de registros iniciais do sistema, que devem ser
+     * carregados no início da aplicação
+     *
+     * @return Fabricas do Projeto
+     */
     public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais();
 
     public void criarBancoInicial();

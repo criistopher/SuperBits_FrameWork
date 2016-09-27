@@ -53,10 +53,10 @@ public class PrevisaoProjetoTest extends TesteJunitSBPersistencia {
         }
 
         novaPrevisao.calcularValores();
-        novaPrevisao.getCustoProjetoCompleto().getHorasTotal();
-        novaPrevisao.getCustoProjetoCompleto().getValorTotal();
-        System.out.println("Horas Total proxima Versao " + novaPrevisao.getCustoProjetoProximaVersao().getHorasTotalAlanlistaTelas());
-        System.out.println("Horas total tudo" + novaPrevisao.getCustoProjetoCompleto().getHorasTotal());
+        novaPrevisao.getCustosDesenvolvimento().getHorasTotal();
+        novaPrevisao.getCustosDesenvolvimento().getValorTotal();
+        System.out.println("Horas Total proxima Versao " + novaPrevisao.getCustosDesenvolvimento().getHorasTotalAlanlistaTelas());
+        System.out.println("Horas total tudo" + novaPrevisao.getCustosDesenvolvimento().getHorasTotal());
 
     }
 

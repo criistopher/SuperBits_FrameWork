@@ -25,6 +25,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,12 +51,12 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     @NotNull
     private String descricao;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "modulos_grupo", uniqueConstraints = @UniqueConstraint(columnNames = {"grupo_id", "modulo_id"}),
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "modulo_id")
     )
-    private final List<ModuloAcaoSistema> modulos;
+    private List<ModuloAcaoSistema> modulos;
 
     private boolean tipoGrupoNativo;
 
@@ -72,13 +73,17 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
     private List<UsuarioSB> usuarios;
 
     @InfoCampo(tipo = FabCampos.REG_DATAALTERACAO)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraAlteracao;
     @InfoCampo(tipo = FabCampos.REG_DATAINSERCAO)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraInsersao;
 
     @InfoCampo(tipo = FabCampos.REG_USUARIO_INSERCAO)
+    @ManyToOne(targetEntity = UsuarioSB.class)
     private UsuarioSB usuarioInsercao;
     @InfoCampo(tipo = FabCampos.REG_USUARIO_ALTERACAO)
+    @ManyToOne(targetEntity = UsuarioSB.class)
     private UsuarioSB usuarioAlteracao;
 
     @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO)

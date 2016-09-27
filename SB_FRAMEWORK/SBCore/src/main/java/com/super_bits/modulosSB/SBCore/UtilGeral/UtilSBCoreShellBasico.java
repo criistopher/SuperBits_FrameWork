@@ -20,25 +20,50 @@ import java.io.InputStreamReader;
  */
 public abstract class UtilSBCoreShellBasico {
 
-    public static String executeCommand(String command) {
-
+    public static String executeCommand(String pComando) {
+        System.out.println("Executando comando" + pComando);
         StringBuilder output = new StringBuilder();
 
-        Process p;
+        UtilSBCoreDiretorios.getNomeArquivo(pComando);
+        Process processo;
         try {
-            p = Runtime.getRuntime().exec(command);
-            p.waitFor();
-            BufferedReader reader
-                    = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            String line;
+            if (pComando.split("/").length > 1) {
 
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+                String diretorio = UtilSBCoreDiretorios.getDiretorioArquivo(pComando) + "/";
+                String comando = "./" + UtilSBCoreDiretorios.getNomeArquivo(pComando);
+                processo = Runtime.getRuntime().exec(comando, null, new File(diretorio));
+            } else {
+                processo = Runtime.getRuntime().exec(pComando);
             }
+            processo.waitFor();
+            int valorSaida = processo.exitValue();
+            if (valorSaida != 0) {
+                System.out.println("Ouve um erro executando,saida" + valorSaida + " para o comando" + pComando);
+                BufferedReader reader
+                        = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
 
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                    System.out.println(line);
+                }
+                throw new UnsupportedOperationException("ERRO executando script:[" + pComando + "] ->" + output.toString());
+
+            } else {
+                BufferedReader reader
+                        = new BufferedReader(new InputStreamReader(processo.getInputStream()));
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                    System.out.println(line);
+                }
+            }
         } catch (IOException | InterruptedException e) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, command, e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pComando, e);
         }
 
         return output.toString();
