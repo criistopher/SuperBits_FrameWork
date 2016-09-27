@@ -87,6 +87,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
         @Override
         public void setValor(Object pValor) {
+
+            String infoMensagemErro = "";
+
             try {
 
                 if (indiceValorLista > 0) {
@@ -115,11 +118,45 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                         return;
                     }
 
+                    //
+                    infoMensagemErro = campoReflection.getName();
+                    String nomeMetodo = infoMensagemErro.substring(1);
+                    char primeiraLetra = campoReflection.getName().toUpperCase().charAt(0);
+                    String marcador = Character.toString(primeiraLetra);
+                    nomeMetodo = "set" + marcador + nomeMetodo;
+
+                    try {
+
+                        String classeDeclarada = campoReflection.getDeclaringClass().toString();
+
+                        String tipo = campoReflection.getType().toString();
+
+                        String classe = campoReflection.getClass().toString();
+
+                        String tipoGenerico = campoReflection.getGenericType().toString();
+
+                        Method metodo = getInstancia().getClass().getMethod(nomeMetodo, campoReflection.getType());
+
+                        if (metodo != null) {
+                            metodo.invoke(getInstancia(), pValor);
+                        }
+
+                    } catch (Throwable t) {
+
+                        campoReflection.setAccessible(true);
+                        Object instancia = getInstancia();
+                        Field cp = campoReflection;
+
+                    }
+
                     campoReflection.set(getInstancia(), pValor);
+                    //
 
                 }
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro setando valor via CampoGenericoInstanciado", ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, ex.getMessage() + "Erro setando valor via CampoGenericoInstanciado " + infoMensagemErro + " ", ex);
+                System.out.println(ex.getCause());
+                System.out.println(ex.getLocalizedMessage());
             }
         }
 
@@ -148,16 +185,17 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     }
 
                     infomensagemErro = campoReflection.getName();
-                    char primeiraLetra = campoReflection.getName().charAt(0);
+                    String nomeMetodo = infomensagemErro.substring(1);
+                    char primeiraLetra = campoReflection.getName().toUpperCase().charAt(0);
                     String marcador = Character.toString(primeiraLetra);
-                    String nomeMetodo = campoReflection.getName().replaceFirst("", marcador);
+                    nomeMetodo = "get" + marcador + nomeMetodo;
 
                     try {
 
-                        Method metodo = this.getClass().getMethod(nomeMetodo);
+                        Method metodo = getInstancia().getClass().getMethod(nomeMetodo);
 
                         if (metodo != null) {
-                            metodo.invoke(this);
+                            return metodo.invoke(getInstancia());
                         }
 
                     } catch (Throwable t) {
@@ -438,7 +476,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                 if (pCampoReflexao.getType().getName().equals("int")) {
+                {
+                    if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -455,6 +494,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
+                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);

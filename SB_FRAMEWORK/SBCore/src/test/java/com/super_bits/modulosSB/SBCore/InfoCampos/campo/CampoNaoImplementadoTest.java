@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoNaoImplementado;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +25,16 @@ public class CampoNaoImplementadoTest {
     @Test
     public void testValidarCampo() {
 
-        CampoNaoImplementado teste = new CampoNaoImplementado();
+        UsuarioAnonimo user = new UsuarioAnonimo();
 
-        System.out.println(teste.getLabel());
-        System.out.println(teste.getTipoCampoSTR());
+        String valor = (String) user.getCampoByNomeOuAnotacao("nome").getValor();
+
+        user.getCampoByNomeOuAnotacao("nome").setValor("teste");
+
+        valor = (String) user.getCampoByNomeOuAnotacao("nome").getValor();
+
+        valor = valor;
+
     }
 
     @Test

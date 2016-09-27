@@ -9,6 +9,7 @@ public interface ItfUsuario extends ItfBeanEndereco {
 
     public String getSenha();
 
+    @Override
     public String getNome();
 
     public ItfGrupoUsuario getGrupo();

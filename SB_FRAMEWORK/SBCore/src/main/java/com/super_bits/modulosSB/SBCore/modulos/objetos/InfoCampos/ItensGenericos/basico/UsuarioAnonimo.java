@@ -169,4 +169,9 @@ public class UsuarioAnonimo extends ItemNormal implements ItfUsuario, Serializab
         return "UsuarioDoSistema";
     }
 
+    @Override
+    public void setNome(String pNome) {
+        System.out.println("ESTE NOME É SOMENTE LEITURA (USUARIO ANONIMO)");
+    }
+
 }
