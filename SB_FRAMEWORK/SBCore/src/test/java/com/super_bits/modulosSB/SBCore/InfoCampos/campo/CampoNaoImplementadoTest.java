@@ -25,10 +25,9 @@ public class CampoNaoImplementadoTest {
     @Test
     public void testValidarCampo() {
 
-<<<<<<< HEAD
         CampoNaoImplementado teste = new CampoNaoImplementado();
         UsuarioAnonimo teste2 = new UsuarioAnonimo();
-=======
+
         UsuarioAnonimo user = new UsuarioAnonimo();
 
         String valor = (String) user.getCampoByNomeOuAnotacao("nome").getValor();
@@ -38,7 +37,6 @@ public class CampoNaoImplementadoTest {
         valor = (String) user.getCampoByNomeOuAnotacao("nome").getValor();
 
         valor = valor;
->>>>>>> 67f5099360fabe4c0273924b8c4c9a88b4e3adb0
 
     }
 

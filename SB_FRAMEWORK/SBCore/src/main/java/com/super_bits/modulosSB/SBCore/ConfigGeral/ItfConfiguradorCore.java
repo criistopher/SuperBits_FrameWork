@@ -72,4 +72,15 @@ public interface ItfConfiguradorCore {
 
     }
 
+    public class UtilConfiguracaoCoreDesktopDeveloper {
+
+        public static void setclassesPadraoJar(ItfConfiguracaoCoreCustomizavel pConfig) {
+            pConfig.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
+            pConfig.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
+            pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+            pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
+        }
+
+    }
+
 }
