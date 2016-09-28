@@ -7,15 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 public class CidadeLuciano implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
-    @NotBlank
+
     @Column(length = 60)
     private String descricao;
 
