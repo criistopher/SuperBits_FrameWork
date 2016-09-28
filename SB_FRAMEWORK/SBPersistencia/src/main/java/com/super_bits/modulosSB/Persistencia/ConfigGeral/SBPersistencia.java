@@ -250,11 +250,15 @@ public abstract class SBPersistencia {
                 propriedades.put("hibernate.hbm2ddl.auto", "create-drop");
                 emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
                 UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
+
+                EntityManager executor = UtilSBPersistencia.getNovoEM();
+
                 if (fabricasRegistrosIniciais != null) {
                     for (Class classe : fabricasRegistrosIniciais) {
-                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, emFacturePadrao.createEntityManager(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, executor, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
                     }
                 }
+                executor.close();
                 configurador.criarBancoInicial();
                 compilaBanco();
 
