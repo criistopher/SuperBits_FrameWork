@@ -251,7 +251,9 @@ public abstract class SBPersistencia {
                 emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
                 UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
                 if (fabricasRegistrosIniciais != null) {
-                    UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(fabricasRegistrosIniciais.getClass(), emFacturePadrao.createEntityManager(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                    for (Class classe : fabricasRegistrosIniciais) {
+                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, emFacturePadrao.createEntityManager(), UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                    }
                 }
                 configurador.criarBancoInicial();
                 compilaBanco();
