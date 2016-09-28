@@ -280,8 +280,8 @@ public abstract class SBPersistencia {
             propriedades.put("hibernate.format_sql", true);
             //Mostrar comentários explicativos
             propriedades.put("hibernate.use_sql_comments", false);
-            EntityManagerFactory emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
-            UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
+            //   EntityManagerFactory emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
+            //UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
         }
 
         if (pCriarTodosCampos) {
