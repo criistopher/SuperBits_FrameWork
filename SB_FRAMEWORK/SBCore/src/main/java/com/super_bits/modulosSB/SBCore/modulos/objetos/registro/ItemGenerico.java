@@ -31,6 +31,7 @@ import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEn
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.ListaDeEntidade;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Date;
@@ -103,20 +104,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     }
 
                 } else {
-                    System.out.println("Tipo campo=" + campoReflection.getType());
-
-                    if (campoReflection.getType() == int.class) {
-                        int valor = (int) Integer.parseInt(pValor.toString());
-                        campoReflection.set(getInstancia(), valor);
-                        return;
-                    }
-
-                    if (campoReflection.getType() == Double.class
-                            || campoReflection.getType() == double.class) {
-                        double valor = (int) Double.parseDouble(pValor.toString());
-                        campoReflection.set(getInstancia(), valor);
-                        return;
-                    }
 
                     //
                     infoMensagemErro = campoReflection.getName();
@@ -137,21 +124,57 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
                         Method metodo = getInstancia().getClass().getMethod(nomeMetodo, campoReflection.getType());
 
+                        if (tipo.equals("int")) {
+
+                            pValor = Integer.parseInt(pValor.toString());
+
+                        }
+
+                        if (tipo.equals("double")) {
+
+                            pValor = Double.parseDouble(pValor.toString());
+
+                        }
+
+                        if (tipo.equals("float")) {
+
+                            pValor = Float.parseFloat(pValor.toString());
+
+                        }
+
                         if (metodo != null) {
+
                             metodo.invoke(getInstancia(), pValor);
                         }
 
-                    } catch (Throwable t) {
+                    } catch (NoSuchMethodException metodoNaoExiste) {
+                        System.out.println("O metodo não foi encontrado o valor foi acessado diretamente");
+                        if (campoReflection.getType() == int.class) {
+                            int valor = (int) Integer.parseInt(pValor.toString());
+                            campoReflection.set(getInstancia(), valor);
+                            return;
+                        }
+
+                        if (campoReflection.getType() == double.class
+                                || campoReflection.getType() == double.class) {
+                            double valor = (int) Double.parseDouble(pValor.toString());
+                            campoReflection.set(getInstancia(), valor);
+                            return;
+                        }
 
                         campoReflection.setAccessible(true);
                         Object instancia = getInstancia();
                         Field cp = campoReflection;
 
+                        campoReflection.set(getInstancia(), pValor);
+
+                    } catch (Throwable t) {
+
+                        SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ouve um erro ao inesperado ao setar um valor", t);
+
                     }
 
-                    campoReflection.set(getInstancia(), pValor);
                     //
-
                 }
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, ex.getMessage() + "Erro setando valor via CampoGenericoInstanciado " + infoMensagemErro + " ", ex);
