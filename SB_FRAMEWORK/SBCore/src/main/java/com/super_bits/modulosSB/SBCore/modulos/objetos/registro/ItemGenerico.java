@@ -25,6 +25,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.CalculoDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
@@ -36,6 +37,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -53,6 +55,24 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     private Map<String, ItfCampoInstanciado> mapaCamposInstanciados;
     private Map<String, Field> mapaCampoPorAnotacao;
     private boolean mapeouTodosOsCampos = false;
+
+    private Map<ItfCalculos, Boolean> controleCalculo;
+
+    protected void zerarControle() {
+
+        getControleCalculo().keySet().stream().forEach((calc) -> {
+            getControleCalculo().put(calc, false);
+        });
+
+    }
+
+    protected Map<ItfCalculos, Boolean> getControleCalculo() {
+
+        if (controleCalculo == null) {
+            controleCalculo = new HashMap();
+        }
+        return controleCalculo;
+    }
 
     // Descobrir um meio de obter o campo através da instancia (não pode se atravez do valor, precisa ser instancia para funcionar com campos com o mesmo valor
     //private Map<Object, Campo> mapaCamposByInstancia;
