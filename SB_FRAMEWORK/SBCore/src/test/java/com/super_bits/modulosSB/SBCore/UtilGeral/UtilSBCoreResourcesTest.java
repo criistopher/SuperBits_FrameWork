@@ -16,7 +16,7 @@ public class UtilSBCoreResourcesTest {
     @Test
     public void testGetFile() {
 
-        System.out.println("SERIAL:[" + UtilSBCoreResources.getHashCodeClasseDoPacote(ItemSimples.class) + "]");
+        //System.out.println("SERIAL:[" + UtilSBCoreResources.getHashCodeClasseDoPacote(ItemSimples.class) + "]");
     }
 
 }
