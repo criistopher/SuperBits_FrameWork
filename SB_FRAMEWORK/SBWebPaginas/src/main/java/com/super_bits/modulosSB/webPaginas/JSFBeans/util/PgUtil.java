@@ -278,7 +278,8 @@ public class PgUtil implements Serializable {
                 || comp.getRendererType().contains("CkEditor")
                 || comp.getRendererType().contains("Slider")
                 || comp.getRendererType().contains("Password")
-                || comp.getRendererType().contains("select");
+                || comp.getRendererType().contains("select")
+                || comp.getRendererType().contains("Select");
     }
 
     public String getNomeIdComponenteInput(UIComponent componente) {
@@ -295,9 +296,23 @@ public class PgUtil implements Serializable {
 
                 }
             }
+
             throw new UnsupportedOperationException();
         } catch (Throwable t) {
+
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo id do input " + componente.getId(), t);
+
+            for (UIComponent comp : componente.getParent().getChildren()) {
+
+                if (isComponentDeInput(comp)) {
+                    return comp.getId();
+                }
+                for (UIComponent compNivel2 : comp.getChildren()) {
+
+                    System.out.println("Nivel 1: " + comp + " nivel 2: " + compNivel2);
+
+                }
+            }
 
             return null;
         }

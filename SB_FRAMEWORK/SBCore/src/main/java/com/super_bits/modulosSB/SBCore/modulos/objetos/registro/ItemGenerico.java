@@ -145,8 +145,13 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                         Method metodo = getInstancia().getClass().getMethod(nomeMetodo, campoReflection.getType());
 
                         if (tipo.equals("int")) {
+                            try {
 
-                            pValor = Integer.parseInt(pValor.toString());
+                                pValor = Integer.parseInt(pValor.toString());
+
+                            } catch (Throwable t) {
+
+                            }
 
                         }
 
@@ -163,8 +168,20 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                         }
 
                         if (metodo != null) {
+                            try {
+                                metodo.invoke(getInstancia(), pValor);
 
-                            metodo.invoke(getInstancia(), pValor);
+                            } catch (IllegalArgumentException t) {
+                                String tipoClasse = "indefinido";
+                                if (pValor != null) {
+                                    tipoClasse = pValor.getClass().getSimpleName();
+                                }
+
+                                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Tentativa de chamar metodo Set com parametro incompativel: " + metodo.getName() + " o tipo do parametro enviado foi " + tipoClasse, t);
+
+                            } catch (Throwable t) {
+
+                            }
                         }
 
                     } catch (NoSuchMethodException metodoNaoExiste) {
