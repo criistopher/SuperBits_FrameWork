@@ -37,6 +37,11 @@ public final class CaminhoCampoReflexao extends ItemSimples {
     private boolean umCampoVinculado;
     private TIPO_ORIGEM_VALOR_CAMPO tipoRegistro;
 
+    public String getLabelDoCampo() {
+
+        return getCaminhoSemNomeClasse();
+    }
+
     public void defineNomeCompleto(String pCaminho, Class pClasse) {
         if (UtilSBCoreReflexaoCampos.isUmCampoSeparador(pCaminho)) {
             caminhoComleto = pCaminho;
