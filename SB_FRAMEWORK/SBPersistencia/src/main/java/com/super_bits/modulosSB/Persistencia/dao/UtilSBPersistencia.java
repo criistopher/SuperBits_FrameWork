@@ -1154,6 +1154,24 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return entidades;
     }
 
+    public static Class getEntidadeByNomeClasse(String nomeEntidade) {
+        return getEntidadeByNomeClasse(nomeEntidade, getNovoEM());
+    }
+
+    public static Class getEntidadeByNomeClasse(String nomeEntidade, EntityManager pEm) {
+        EntityManager pEM = UtilSBPersistencia.getNovoEM(nomeEntidade);
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = pEM.getMetamodel().getEntities();
+        for (EntityType<?> entidade : lista) {
+            Class<?> classe = entidade.getJavaType();
+            if (classe.getSimpleName().equals(nomeEntidade)) {
+                return classe;
+            }
+        }
+        pEM.close();
+        return null;
+    }
+
     public static List<Class> getTodasEntidades(String nomePersistenceUnit) {
         EntityManager em = UtilSBPersistencia.getNovoEM(nomePersistenceUnit);
         //((Dados) BeansUtil.getAppBean("dados")).getEm();

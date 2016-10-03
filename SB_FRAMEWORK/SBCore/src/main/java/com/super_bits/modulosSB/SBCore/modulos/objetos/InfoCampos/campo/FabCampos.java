@@ -27,34 +27,6 @@ public enum FabCampos implements ItfFabrica {
      * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
      * anotação é obrigatória em um Item Simples
      */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
-    /**
-     * Indica o campo que Descreve o Item em uma ou duas palavras. --> Esta
-     * anotação é obrigatória em um Item Simples
-     */
     AAA_NOME,
     /**
      * Indica um nome completo do Item

@@ -381,6 +381,13 @@ public class PgUtil implements Serializable {
         return ceps;
     }
 
+    /**
+     *
+     * @param pAcao Acao
+     * @return XHTML que deve ser carregado
+     * @deprecated Metodo será substituido por Carregar XHTML
+     */
+    @Deprecated
     public String navegar(ItfAcaoDoSistema pAcao) {
 
         if (pAcao != null) {
@@ -388,6 +395,24 @@ public class PgUtil implements Serializable {
         } else {
             return null;
         }
+    }
+
+    public void irParaURL(ItfAcaoDoSistema pAcao) {
+        try {
+            if (pAcao == null) {
+                throw new UnsupportedOperationException("Ação não enviada para navegação de URL");
+            }
+            String url = infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
+            UtilSBWP_JSFTools.vaParaPagina(url);
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ação não enviada para navegação", t);
+        }
+
+    }
+
+    public void irParaURL(String pUrl) {
+
     }
 
     public CampoNaoImplementado getCampoNaoImplementado() {

@@ -5,6 +5,10 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
+import com.super_bits.projeto.Jira.previsao.PrevisaoGestaoEntidade;
+import com.super_bits.projeto.Jira.previsao.PrevisaoModulo;
+import com.super_bits.projeto.Jira.previsao.PrevisaoEntidade;
 import com.super_bits.config.ConfigPersistenciaIntegrador;
 import com.super_bits.config.ConfiguradorJiraIntegradorModel;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;

@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.projeto.Jira;
+package com.super_bits.projeto.Jira.grupoDeTarefas;
 
+import com.super_bits.projeto.Jira.CustosDesenvolvimento;
+import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import com.super_bits.projeto.Jira.TipoGrupoTarefa;
 import java.util.List;
 
 /**
@@ -16,7 +19,7 @@ public interface ItfGrupoDeTarefas {
 
     int getHorasProgramadas();
 
-    List<TarefaSuperBits> getTarefasVinculadas();
+    public List<TarefaSuperBits> getTarefasVinculadas();
 
     public CustosDesenvolvimento getCustoDesenvolvimento();
 

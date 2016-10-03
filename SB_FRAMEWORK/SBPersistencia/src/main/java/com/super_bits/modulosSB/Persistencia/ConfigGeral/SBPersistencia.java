@@ -139,7 +139,7 @@ public abstract class SBPersistencia {
         }
     }
 
-    private static boolean houveAlteracaoHomologacaoBanco() {
+    private static boolean houveAlteracaoHomologacaoBanco(ItfConfigSBPersistencia configurador) {
         long codigoAlteracao = 0;
         for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
             codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(entidade);
@@ -147,6 +147,8 @@ public abstract class SBPersistencia {
         for (Class fabrica : fabricasRegistrosIniciais) {
             codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(fabrica);
         }
+        codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(configurador.getClass());
+
         if (!new File(DESTINO_ARQUIVO_HASH_BANCO).exists()) {
             UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, "0000");
         }
@@ -240,7 +242,7 @@ public abstract class SBPersistencia {
             propriedades.put("hibernate.use_sql_comments", true);
             EntityManagerFactory emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
             UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
-            if (houveAlteracaoHomologacaoBanco()) {
+            if (houveAlteracaoHomologacaoBanco(configurador)) {
                 try {
                     UtilSBPersistencia.getEmfabricaPadrao().close();
                 } catch (Throwable t) {

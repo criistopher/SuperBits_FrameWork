@@ -13,7 +13,7 @@ import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
-import com.super_bits.projeto.Jira.PrevisaoProjeto;
+import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
 
 /**
  *

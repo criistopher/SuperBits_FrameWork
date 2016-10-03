@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.projeto.Jira;
+package com.super_bits.projeto.Jira.previsao;
 
 import com.super_bits.projeto.Jira.ambienteDesenvolvimento.AmbienteDesenvolvimento;
 import com.google.common.collect.Lists;
@@ -11,13 +11,17 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAc
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaDeAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.projeto.Jira.CustosDesenvolvimento;
+import com.super_bits.projeto.Jira.Jira.MapaTarefas;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -26,44 +30,47 @@ import java.util.List;
 @InfoClasse(tags = {"Previsao Projeto"}, plural = "Previsões de Projeto")
 public class PrevisaoProjeto implements Serializable {
 
-    private final List<TarefaSuperBits> tarefasProximaVersao;
     private final List<TarefaSuperBits> todasTarefas;
     private CustosDesenvolvimento custosDesenvolvimento;
     private final HashMap<ItfModuloAcaoSistema, PrevisaoModulo> modulosPrevistos = new HashMap<>();
-    private HashMap<ItfModuloAcaoSistema, List<ItfAcaoDoSistema>> modulosEAcoesAdicionados;
+    private final Map<String, Class> mapaDeEntidadesVinculadas = new HashMap<>();
     private final AmbienteDesenvolvimento ambienteDesenvolvimento;
 
-    public PrevisaoProjeto(List<TarefaSuperBits> ptodasTarefas) {
-        this.tarefasProximaVersao = new ArrayList<>();
+    private MapaTarefas mapaDeTarefas;
+    private MapaDeAcoes mpaAcoes;
+
+    public PrevisaoProjeto(Class<? extends ItfFabricaAcoes>[] fabricas) {
         ambienteDesenvolvimento = new AmbienteDesenvolvimento();
-        todasTarefas = ptodasTarefas;
+        mpaAcoes = new MapaDeAcoes(fabricas);
+        mapaDeTarefas = new MapaTarefas(mpaAcoes);
+        todasTarefas = mapaDeTarefas.getTodasTarefas();
         defineModulosPrevistros();
         calcularValores();
+    }
 
-        custosDesenvolvimento = new CustosDesenvolvimento(ptodasTarefas, ambienteDesenvolvimento);
+    public PrevisaoProjeto(Class<? extends ItfFabricaAcoes>[] fabricas, List<Class> entidades, TarefaSuperBits tarefaExtra) {
+
+        for (Class fab : fabricas) {
+
+        }
 
     }
 
-    private void defineModulos() {
-        for (TarefaSuperBits tarefa : todasTarefas) {
-            switch (tarefa.getTarefaJiraOrigem().getTipoOrigem()) {
-                case BANCO_DE_DADOS:
-                    break;
-                case ACAO_DO_SISTEMA:
-
-                    break;
-                default:
-                    throw new AssertionError(tarefa.getTarefaJiraOrigem().getTipoOrigem().name());
+    public final void defineEstruturasPrevistas() {
+        for (Class entidade : mapaDeEntidadesVinculadas.values()) {
+            List<TarefaSuperBits> tarefasTabela = mapaDeTarefas.getTarefasDaTabela(classeRelacionada);
+            if (tarefasTabela != null) {
 
             }
-
+            PrevisaoEntidade prevEntidade = new PrevisaoEntidade(modulo, tarefasTabela, acaoGestao.getClasseRelacionada(), this);
+            previsoesEntidade.add(prevEntidade);
         }
     }
 
     public final void defineModulosPrevistros() {
 
         //Para cada modulo do sistema
-        for (ItfModuloAcaoSistema modulo : MapaAcoesSistema.getModulos()) {
+        for (ItfModuloAcaoSistema modulo : mpaAcoes.getModulos()) {
             List<PrevisaoEntidade> previsoesEntidade = new ArrayList<>();
             List<PrevisaoGestaoEntidade> previsoesGestaoEntidade = new ArrayList<>();
             //para cada ação de gestão do modulo
@@ -71,15 +78,11 @@ public class PrevisaoProjeto implements Serializable {
                 List<TarefaSuperBits> tarefasGestao = MapaTarefasProjeto.getTarefasDaGestao(acaoGestao);
                 PrevisaoGestaoEntidade prevGestao = new PrevisaoGestaoEntidade(acaoGestao, tarefasGestao, this);
                 Class classeRelacionada = acaoGestao.getClasseRelacionada();
+                previsoesEntidade.add(new PrevisaoEntidade(modulo, todasTarefas, classeRelacionada, this));
                 previsoesGestaoEntidade.add(prevGestao);
-                List<TarefaSuperBits> tarefasTabela = MapaTarefasProjeto.getTarefasDaTabela(classeRelacionada);
-                if (tarefasTabela != null) {
-
-                    PrevisaoEntidade prevEntidade = new PrevisaoEntidade(modulo, tarefasTabela, acaoGestao.getClasseRelacionada(), this);
-                    previsoesEntidade.add(prevEntidade);
-                }
-
+                mapaDeEntidadesVinculadas.put(acaoGestao.getClasseRelacionada().getSimpleName(), acaoGestao.getClasseRelacionada());
             }
+
             PrevisaoModulo modPrev = new PrevisaoModulo(previsoesGestaoEntidade, previsoesEntidade, this);
             System.out.println("Previsto modulo " + modulo);
             System.out.println("O modulo " + modulo + " possui" + modPrev.getEntidadesPrevistas().size() + "Etidades com ações previstas");
@@ -92,19 +95,6 @@ public class PrevisaoProjeto implements Serializable {
     public final void calcularValores() {
 
         custosDesenvolvimento = new CustosDesenvolvimento(todasTarefas, ambienteDesenvolvimento);
-    }
-
-    public void adicionarGestaoEntidadeEmProximaVersao(PrevisaoGestaoEntidade pPrevisao) {
-        pPrevisao.getTarefasVinculadas().stream().filter((tr)
-                -> (!tarefasProximaVersao.contains(tr))).forEach((tr) -> {
-            tarefasProximaVersao.add(tr);
-        });
-    }
-
-    public void removerGestaoEntidadeEmProximaVersao(PrevisaoGestaoEntidade pPrevisao) {
-        pPrevisao.getTarefasVinculadas().stream().filter((tr) -> (tarefasProximaVersao.contains(tr))).forEach((tr) -> {
-            tarefasProximaVersao.remove(tr);
-        });
     }
 
     public AmbienteDesenvolvimento getAmbienteDesenvolvimento() {

@@ -7,6 +7,7 @@ package com.super_bits.projeto.Jira.Jira;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaDeAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -36,10 +37,8 @@ public class MapaTarefas {
             for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
                 // identificando Ação de Gestão
                 addTarefa(acao);
-
             }
         }
-
         List<Class> entidades = UtilSBPersistencia.getTodasEntidades(nomePersistenceUnit);
         //Percorrendo entidades criando ações refente a entidades;
         entidades.stream().forEach((entidade) -> {
@@ -47,6 +46,22 @@ public class MapaTarefas {
 
         });
 
+    }
+
+    public MapaTarefas(MapaDeAcoes acoes) {
+        Map<String, Class> mapaClasse = new HashMap();
+        for (ItfAcaoDoSistema acao : acoes.getListaTodasAcoes()) {
+            if (acao.getTipoAcaoGenerica() == null) {
+                throw new UnsupportedOperationException("A ação generica para" + acao.getNomeUnico() + " não foi especificada");
+            }
+            for (UtilSBCoreJira.TIPOS_DE_TAREFA_JIRA tipoTarefa : UtilSBCoreJira.getTiposTarefaPorTipoAcao(acao.getTipoAcaoGenerica())) {
+                addTarefa(acao);
+            }
+            mapaClasse.put(acao.getEnumAcaoDoSistema().getEntidadeDominio().getSimpleName(), acao.getEnumAcaoDoSistema().getEntidadeDominio());
+        }
+        mapaClasse.values().stream().forEach((entidade) -> {
+            addTarefaBancoDeDAdos(entidade);
+        });
     }
 
     private void addTarefa(ItfAcaoDoSistema pAcao) {

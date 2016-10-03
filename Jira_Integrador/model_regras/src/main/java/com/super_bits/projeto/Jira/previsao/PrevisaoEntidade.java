@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.super_bits.projeto.Jira;
+package com.super_bits.projeto.Jira.previsao;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
@@ -11,7 +11,11 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampo
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.projeto.Jira.CustosDesenvolvimento;
+import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
+import com.super_bits.projeto.Jira.ItfPrevisaoEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import com.super_bits.projeto.Jira.TipoGrupoTarefa;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

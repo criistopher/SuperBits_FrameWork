@@ -5,6 +5,9 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.super_bits.projeto.Jira.grupoDeTarefas.ItfGrupoDeTarefas;
+import com.super_bits.projeto.Jira.previsao.PrevisaoGestaoEntidade;
+import com.super_bits.projeto.Jira.previsao.PrevisaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import java.util.List;
 

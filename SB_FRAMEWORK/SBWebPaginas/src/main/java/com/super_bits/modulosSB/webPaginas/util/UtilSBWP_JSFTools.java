@@ -188,7 +188,7 @@ public abstract class UtilSBWP_JSFTools {
 
         } catch (Exception e) {
             mensagens().alertaSistema("erro tentando redirecionar pagina" + e.getMessage() + pURL);
-            e.printStackTrace();
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pURL, e);
         }
     }
 
@@ -212,6 +212,7 @@ public abstract class UtilSBWP_JSFTools {
     }
 
     public static void vaParaPaginaInicial() {
+        vaParaPagina(SBWebPaginas.getSiteHost());
 
     }
 
