@@ -12,6 +12,8 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampo
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     @Id
     @InfoCampo(tipo = FabCampos.ID, label = "ID", descricao = "Identificação do assunto")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do assunto(ativo/inativo)")
@@ -60,7 +63,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     @NotNull
     @InfoCampo(tipo = FabCampos.QUANTIDADE)
-    private Integer tempoResposta;
+    private int tempoResposta;
 
     @Override
     public int getId() {

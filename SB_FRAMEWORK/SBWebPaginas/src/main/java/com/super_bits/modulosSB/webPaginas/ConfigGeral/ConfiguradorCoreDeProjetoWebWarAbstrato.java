@@ -66,7 +66,7 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
         aplicarDadosArquivoConfiguracao(pConfiguracao);
         pConfiguracao.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
-        pConfiguracao.setClasseErro(ErroSBCoreFW.class);
+        //pConfiguracao.setClasseErro(ErroSBCoreFW.class);
         pConfiguracao.setControleDeSessao(ControleDeSessaoWeb.class);
 
         switch (pConfiguracao.getEstadoApp()) {
