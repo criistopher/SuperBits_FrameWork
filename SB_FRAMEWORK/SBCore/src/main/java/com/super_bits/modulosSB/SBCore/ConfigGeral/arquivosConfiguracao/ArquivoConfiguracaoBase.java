@@ -187,7 +187,7 @@ public class ArquivoConfiguracaoBase {
 
     public String getCaminhoPastaProjetoSource() {
         if (isTemDiretorioBase()) {
-            return getCaminhoPastaClienteSource() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO;
+            return getCaminhoPastaClienteSource() + "/" + DIRETORIO_BASE + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
         } else {
             return getCaminhoPastaClienteSource() + "/" + GRUPO_PROJETO + "/" + NOME_PROJETO;
         }
