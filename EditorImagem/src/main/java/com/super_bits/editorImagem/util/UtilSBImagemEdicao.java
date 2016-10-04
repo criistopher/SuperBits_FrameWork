@@ -1,7 +1,7 @@
 //Sistema desenvolvido sob encomenda para processamento de placas veiculares em tempo real pela Super Bits Sistemas sob encomnda da Sphera Secucurity
 package com.super_bits.editorImagem.util;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import ij.ImagePlus;
 import ij.process.ImageProcessor;
 import java.awt.AlphaComposite;

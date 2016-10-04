@@ -48,6 +48,7 @@ public class PrevisaoProjeto implements Serializable {
         calcularValores();
     }
 
+    /*
     public PrevisaoProjeto(Class<? extends ItfFabricaAcoes>[] fabricas, List<Class> entidades, TarefaSuperBits tarefaExtra) {
 
         for (Class fab : fabricas) {
@@ -66,7 +67,7 @@ public class PrevisaoProjeto implements Serializable {
             previsoesEntidade.add(prevEntidade);
         }
     }
-
+     */
     public final void defineModulosPrevistros() {
 
         //Para cada modulo do sistema
