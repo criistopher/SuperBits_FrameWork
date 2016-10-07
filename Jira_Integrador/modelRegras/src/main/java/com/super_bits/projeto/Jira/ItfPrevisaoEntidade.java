@@ -7,6 +7,7 @@ package com.super_bits.projeto.Jira;
 
 import com.super_bits.projeto.Jira.grupoDeTarefas.ItfGrupoDeTarefas;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
 
 /**
  *
@@ -19,5 +20,9 @@ public interface ItfPrevisaoEntidade extends ItfGrupoDeTarefas {
     EstruturaDeEntidade getEstruturaDeEntidade();
 
     int getHorasTrabalhasdas();
+
+    public boolean isTemRequisitoVinculado();
+
+    public ItfRequisitoDoSistema getRequisitoVinculado();
 
 }

@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaDeAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
 import com.super_bits.projeto.Jira.Jira.MapaTarefas;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
@@ -28,7 +29,7 @@ import java.util.Map;
  * @author desenvolvedor
  */
 @InfoClasse(tags = {"Previsao Projeto"}, plural = "Previsões de Projeto")
-public class PrevisaoProjeto implements Serializable {
+public class PrevisaoProjeto extends ItemGenerico implements Serializable {
 
     private final Map<String, TarefaSuperBits> todasTarefas = new HashMap<>();
     private CustosDesenvolvimento custosDesenvolvimento;
@@ -39,6 +40,11 @@ public class PrevisaoProjeto implements Serializable {
 
     private MapaTarefas mapaDeTarefas;
     private MapaDeAcoes mapaAcoes;
+
+    public PrevisaoProjeto() {
+        this.ambienteDesenvolvimento = null;
+        this.previsoesPersonalizadas = null;
+    }
 
     private void addEntidadePrevista(Class pEntidade) {
 
@@ -157,6 +163,11 @@ public class PrevisaoProjeto implements Serializable {
 
     public void setCustosDesenvolvimento(CustosDesenvolvimento custosDesenvolvimento) {
         this.custosDesenvolvimento = custosDesenvolvimento;
+    }
+
+    @Override
+    public String getImgPequena() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -5,20 +5,23 @@
  */
 package com.super_bits.projeto.Jira.previsao;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
+import com.super_bits.projeto.Jira.FabComponenteVisualRequisitos;
 import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import com.super_bits.projeto.Jira.ItfPrevisaoEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import com.super_bits.projeto.Jira.TipoGrupoTarefa;
+import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
+import com.super_bits.projeto.SBRequisito;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +40,7 @@ public class PrevisaoEntidade extends ItemSimples implements ItfPrevisaoEntidade
     private int HorasTrabalhasdas;
     private final PrevisaoProjeto previsaoProjeto;
     private EstruturaDeEntidade estruturaDeEntidade;
+    private ItfRequisitoDoSistema requisitoVinculado;
 
     public PrevisaoEntidade(
             List<TarefaSuperBits> pTarefasVinculadas,
@@ -48,7 +52,7 @@ public class PrevisaoEntidade extends ItemSimples implements ItfPrevisaoEntidade
             ItemGenerico item = (ItemGenerico) entidadeVinculada.newInstance();
             estruturaDeEntidade = item.getEstruturaDaEntidade();
         } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(PrevisaoEntidade.class.getName()).log(Level.SEVERE, null, ex);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando classe para analize de estrutura", ex);
         }
 
         nome = entidadeVinculada.getSimpleName();
@@ -117,6 +121,33 @@ public class PrevisaoEntidade extends ItemSimples implements ItfPrevisaoEntidade
     @Override
     public TipoGrupoTarefa getTipoGrupoTarefa() {
         return FabTipoGrupoTarefa.TABELA.getRegistro();
+    }
+
+    public ItfRequisitoDoSistema getRequisitoVinculado() {
+        if (requisitoVinculado == null) {
+            requisitoVinculado = SBRequisito.getRequisitoServices().getRequisitoEntidade(this);
+        }
+        return requisitoVinculado;
+    }
+
+    public boolean isTemRequisitoVinculado() {
+        return getRequisitoVinculado() != null;
+    }
+
+    public ComponenteVisualSB getVisualizacaoOpcoes() {
+        if (isTemRequisitoVinculado()) {
+            return FabComponenteVisualRequisitos.OPCOES_ELEMENTO_VINCULADO.getComponente();
+        } else {
+            return FabComponenteVisualRequisitos.OPCOES_ELEMENTO_NAO_VINCULADA.getComponente();
+        }
+    }
+
+    public ComponenteVisualSB getVisualizacaoDescricao() {
+        if (isTemRequisitoVinculado()) {
+            return FabComponenteVisualRequisitos.DESCRICAO_ELEMENTO_VINCULADO.getComponente();
+        } else {
+            return FabComponenteVisualRequisitos.DECRICAO_ELEMENTO_NAO_VINCULADO.getComponente();
+        }
     }
 
 }

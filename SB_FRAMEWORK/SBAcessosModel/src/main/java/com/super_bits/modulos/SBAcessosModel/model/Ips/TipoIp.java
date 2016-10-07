@@ -17,7 +17,7 @@ import javax.persistence.Id;
  */
 @Entity
 @InfoClasse(tags = {"Tipo ip"}, plural = "Tipos de Ip")
-class TipoIp extends EntidadeSimples {
+public class TipoIp extends EntidadeSimples {
 
     @Id
     @GeneratedValue
@@ -25,6 +25,10 @@ class TipoIp extends EntidadeSimples {
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
     private String descricao;
+
+    public TipoIp() {
+        super();
+    }
 
     @Override
     public int getId() {

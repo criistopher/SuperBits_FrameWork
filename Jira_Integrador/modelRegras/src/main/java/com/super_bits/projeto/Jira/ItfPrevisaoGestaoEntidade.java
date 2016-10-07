@@ -9,6 +9,7 @@ import com.super_bits.projeto.Jira.grupoDeTarefas.ItfGrupoDeTarefas;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
 import java.util.List;
 
 /**
@@ -34,5 +35,9 @@ public interface ItfPrevisaoGestaoEntidade extends ItfGrupoDeTarefas {
     void setGestao(ItfAcaoGerenciarEntidade gestao);
 
     void setModulo(ItfModuloAcaoSistema modulo);
+
+    public boolean isTemRequisitoVinculado();
+
+    public ItfRequisitoDoSistema getRequisitoVinculado();
 
 }

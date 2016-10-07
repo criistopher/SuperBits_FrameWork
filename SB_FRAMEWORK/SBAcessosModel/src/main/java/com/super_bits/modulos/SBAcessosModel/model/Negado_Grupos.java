@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -20,16 +21,16 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @InfoClasse(tags = "Grupos com acesso negado", plural = "Grupos com acesso negado")
-public class Negado_Grupos implements Serializable {
+public class Negado_Grupos extends EntidadeGenerica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = GrupoUsuarioSB.class)
     private GrupoUsuarioSB grupo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = PermissaoSB.class)
     private PermissaoSB acesso;
 
     public int getId() {

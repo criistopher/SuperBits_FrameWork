@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -23,16 +24,16 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesso_id"}))
 @Entity
 @InfoClasse(tags = "Usuários com acesso negado", plural = "Usuários com acesso negado")
-public class Negado_Usuarios implements Serializable {
+public class Negado_Usuarios extends EntidadeGenerica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = UsuarioSB.class)
     private UsuarioSB usuario;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = PermissaoSB.class)
     private PermissaoSB acesso;
 
     public int getId() {

@@ -1159,16 +1159,19 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     }
 
     public static Class getEntidadeByNomeClasse(String nomeEntidade, EntityManager pEm) {
-        EntityManager pEM = UtilSBPersistencia.getNovoEM(nomeEntidade);
+        if (nomeEntidade == null) {
+            throw new UnsupportedOperationException("Erro tentativa de obter entidade com nome com parametro nulo");
+        }
+
         //((Dados) BeansUtil.getAppBean("dados")).getEm();
-        Set<EntityType<?>> lista = pEM.getMetamodel().getEntities();
+        Set<EntityType<?>> lista = pEm.getMetamodel().getEntities();
         for (EntityType<?> entidade : lista) {
             Class<?> classe = entidade.getJavaType();
             if (classe.getSimpleName().equals(nomeEntidade)) {
                 return classe;
             }
         }
-        pEM.close();
+        pEm.close();
         return null;
     }
 

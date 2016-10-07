@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 @InfoClasse(tags = "Ação secundária", plural = "Ações secundarias")
 public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria {
 
-    @ManyToOne
+    @ManyToOne(targetEntity = AcaoGestaoEntidade.class)
     private AcaoGestaoEntidade acaoPrincipal;
 
     public AcaoSecundaria() {

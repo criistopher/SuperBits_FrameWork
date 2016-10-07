@@ -399,12 +399,16 @@ public class PgUtil implements Serializable {
 
     public void irParaURL(ItfAcaoDoSistema pAcao) {
         try {
-            if (pAcao == null) {
-                throw new UnsupportedOperationException("Ação não enviada para navegação de URL");
-            }
-            String url = infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
-            UtilSBWP_JSFTools.vaParaPagina(url);
 
+            if (!SBCore.isEmModoDesenvolvimento()) {
+                if (pAcao == null) {
+                    throw new UnsupportedOperationException("Ação não enviada para navegação de URL");
+                }
+                String url = infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
+                irParaURL(url);
+            } else {
+                System.out.println("Enviando usuario para url da anção" + pAcao.getNomeUnico());
+            }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ação não enviada para navegação", t);
         }
@@ -412,6 +416,12 @@ public class PgUtil implements Serializable {
     }
 
     public void irParaURL(String pUrl) {
+
+        if (!SBCore.isEmModoDesenvolvimento()) {
+            UtilSBWP_JSFTools.vaParaPagina(pUrl);
+        } else {
+            System.out.println("Enviando usuário para" + pUrl);
+        }
 
     }
 

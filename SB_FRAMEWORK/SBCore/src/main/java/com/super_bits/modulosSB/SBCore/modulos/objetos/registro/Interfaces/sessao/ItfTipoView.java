@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao;
 
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
+
 /**
  *
  * @author sfurbino
@@ -23,5 +25,7 @@ public interface ItfTipoView {
     public int getNumeroMaximoColunas();
 
     public boolean isUmMobile();
+
+    public ComponenteVisualSB getComponenteListaGem();
 
 }

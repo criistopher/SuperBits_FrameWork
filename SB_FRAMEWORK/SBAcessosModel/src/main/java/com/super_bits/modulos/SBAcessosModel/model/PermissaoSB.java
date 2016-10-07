@@ -49,7 +49,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeAcesso;
 
-    @ManyToOne()
+    @ManyToOne(targetEntity = AcaoDoSistema.class)
     private AcaoDoSistema acaoDoSistema;
 
     private TIPO_AUTENTICACAO tipoAutenticacao;
