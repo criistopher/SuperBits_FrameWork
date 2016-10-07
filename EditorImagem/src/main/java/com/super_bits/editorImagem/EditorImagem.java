@@ -4,7 +4,7 @@
  */
 package com.super_bits.editorImagem;
 
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
