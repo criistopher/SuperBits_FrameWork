@@ -14,7 +14,9 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivo
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflexaoObjetoSuperBits;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
@@ -482,5 +484,9 @@ public class PgUtil implements Serializable {
 
     public String getLorrenIps3Paragrafos() {
         return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
+    }
+
+    public String getViewCardPadraoObjeto(Class pClasse) {
+        UtilSBCoreReflexaoObjetoSuperBits.getNomeObjeto(pClasse);
     }
 }
