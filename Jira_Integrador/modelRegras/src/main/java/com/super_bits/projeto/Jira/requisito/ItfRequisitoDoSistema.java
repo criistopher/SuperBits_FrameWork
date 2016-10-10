@@ -44,7 +44,7 @@ public interface ItfRequisitoDoSistema {
 
     public void setModulo(ModuloAcaoSistema modulo);
 
-    public void setRequisito(String requisito);
+    public void setDescricaoRequisito(String requisito);
 
     public void setStatus(ItfStatusRequisito status);
 

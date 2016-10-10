@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package com.super_bits.modulosSB.SBCore.UtilGeral;
+package com.super_bits.modulosSB.SBCore.modulos.objetos;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.InfoCalculo;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.InfoLista;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 
 /**

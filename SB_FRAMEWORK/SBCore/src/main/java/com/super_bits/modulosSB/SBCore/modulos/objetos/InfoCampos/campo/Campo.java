@@ -1,9 +1,11 @@
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import java.io.Serializable;
 import java.util.List;
 
@@ -360,6 +362,11 @@ public class Campo implements Serializable, ItfCampo {
     @Override
     public String getIconeDaClasse() {
         return "fa-pencil-square-o";
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
     }
 
 }

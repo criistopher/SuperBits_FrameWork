@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import java.beans.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -40,12 +41,7 @@ import javax.persistence.OneToMany;
  */
 public class UtilSBCoreReflexaoCampos {
 
-    // Tabela contendo nome da classe, e classe
-    private static final Map<String, Class> CLASSE_ENTIDADE_BY_NOME = new HashMap<>();
-    private static final Map<Class, CaminhoCampoReflexao> CAMPOS_DA_CLASSE = new HashMap<>();
-    private static boolean TODAS_CLASSES_CONFIGURADAS = false;
     public static CampoNaoImplementado CAMPO_NAO_IMPLEMENTADO = new CampoNaoImplementado();
-
     private static final Pattern REGEX_REGISTRO_DA_LISTA = Pattern.compile("\\[(\\d+)\\]");
     /**
      *
@@ -72,7 +68,7 @@ public class UtilSBCoreReflexaoCampos {
         String[] nomes = pNome.split("\\.");
         System.out.print(".");
         if (UtilSBCoreStrings.isPrimeiraLetraMaiuscula(pNome)) {
-            return CLASSE_ENTIDADE_BY_NOME.get(nomes[0]);
+            return MapaObjetosProjetoAtual.getClasseDoObjetoByNome(nomes[0]);
         } else {
             throw new UnsupportedOperationException("O nome da classe principal não pode ser descoberto, se não for enviado na string, a string enviada foi" + pNome);
         }
@@ -80,13 +76,13 @@ public class UtilSBCoreReflexaoCampos {
     }
 
     public static Field getFieldByNomeCompletoCaminhoEClasse(String pCamihoCampo, Class pClasse) {
-        CLASSE_ENTIDADE_BY_NOME.put(pClasse.getSimpleName(), pClasse);
+        MapaObjetosProjetoAtual.adcionarObjeto(pClasse);
 
         return getFieldByNomeCompletoCaminho(pCamihoCampo);
     }
 
     public static Class getClasseByNome(String pNome) {
-        Class classe = CLASSE_ENTIDADE_BY_NOME.get(pNome);
+        Class classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(pNome);
 
         if (classe == null) {
             throw new UnsupportedOperationException("A classe não pode ser encontrada pelo nome:" + pNome + " não foi encontrada o caminho completo enviado foi ");
@@ -596,25 +592,7 @@ public class UtilSBCoreReflexaoCampos {
      */
     public static void configurarTodasAsClasses(List<Class> entidades) {
 
-        try {
-            if (!TODAS_CLASSES_CONFIGURADAS) {
-                for (Class entidade : entidades) {
-                    System.out.println("Configurando campos de:" + entidade.getSimpleName());
-                    if (!entidade.getSimpleName().contains("Acao")) {
-
-                        CLASSE_ENTIDADE_BY_NOME.put(entidade.getSimpleName(), entidade);
-                    }
-
-                }
-            } else {
-                throw new UnsupportedOperationException("As classes já foram configuras");
-            }
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ouve um erro configurando todas as classes", t);
-            TODAS_CLASSES_CONFIGURADAS = false;
-        }
-
-        TODAS_CLASSES_CONFIGURADAS = true;
+        MapaObjetosProjetoAtual.configuraraTodasAsClasses(entidades);
     }
 
     /**
@@ -670,7 +648,7 @@ public class UtilSBCoreReflexaoCampos {
                 String caminhoCompleto = pClase.getSimpleName() + "." + pCaminho;
                 return new CaminhoCampoReflexao(caminhoCompleto);
             }
-            CLASSE_ENTIDADE_BY_NOME.put(pClase.getSimpleName(), pClase);
+            MapaObjetosProjetoAtual.adcionarObjeto(pClase);
 
             //Confgurando caminho completo
             String caminhoCompleto = pCaminho;

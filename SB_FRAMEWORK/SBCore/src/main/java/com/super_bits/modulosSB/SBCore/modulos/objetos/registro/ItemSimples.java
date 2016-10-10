@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.modulos.objetos.registro;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
@@ -129,6 +130,11 @@ public class ItemSimples extends ItemGenerico implements
     @Override
     public String getIconeDaClasse() {
         return UtilSBCoreReflexao.getIconeDoObjeto(this.getClass());
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(this.getClass());
     }
 
 }

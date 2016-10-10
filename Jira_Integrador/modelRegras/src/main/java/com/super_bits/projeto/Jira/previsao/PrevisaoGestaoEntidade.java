@@ -158,7 +158,9 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
         this.id = id;
     }
 
+    @Override
     public String getDescricao() {
+
         return descricao;
     }
 

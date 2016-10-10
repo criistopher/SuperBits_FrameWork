@@ -13,7 +13,6 @@ public class ItemContatoCorporativo extends ItemEndereco implements
 
     @Override
     public String getSite() {
-
         return (String) getValorByTipoCampoEsperado(FabCampos.SITE);
     }
 

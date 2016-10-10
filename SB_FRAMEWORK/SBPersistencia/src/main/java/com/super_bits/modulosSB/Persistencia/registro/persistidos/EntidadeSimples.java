@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.lang.reflect.Field;
 import java.rmi.UnexpectedException;
@@ -223,6 +224,11 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     @Override
     public String getIconeDaClasse() {
         return UtilSBCoreReflexao.getIconeDoObjeto(this.getClass());
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
     }
 
 }

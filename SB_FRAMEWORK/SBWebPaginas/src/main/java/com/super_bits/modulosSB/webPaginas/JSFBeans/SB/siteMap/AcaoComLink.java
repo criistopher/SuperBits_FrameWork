@@ -291,4 +291,9 @@ public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
         return "fa fa-link";
     }
 
+    @Override
+    public String getXhtmlVisao() {
+        throw new UnsupportedOperationException("O Objeto ação com link não possui uma interface de visualizacao"); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

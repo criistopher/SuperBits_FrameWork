@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.TipoFonteUpload;
 
@@ -63,6 +65,11 @@ public class BeanTodosSelecionados implements ItfBeanSimplesSomenteLeitura {
     @Override
     public String getIconeDaClasse() {
         throw new UnsupportedOperationException("fa fa-list"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
     }
 
 }

@@ -5,7 +5,7 @@ import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflecaoIEstruturaEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfListas;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;

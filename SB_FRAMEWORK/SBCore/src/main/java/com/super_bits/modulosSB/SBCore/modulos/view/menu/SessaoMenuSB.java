@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.view.menu;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
@@ -400,6 +401,11 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     @Override
     public String getIconeDaClasse() {
         return "fa fa-sitemap";
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(this.getClass());
     }
 
 }

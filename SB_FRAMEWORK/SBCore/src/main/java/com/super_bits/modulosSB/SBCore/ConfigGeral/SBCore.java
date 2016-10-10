@@ -27,6 +27,8 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ServicoVisuaslizacaoWebResponsivo;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,7 @@ public class SBCore {
     private static ESTADO_APP estadoAplicativo;
     private static boolean ignorarConfigurcoesDePermissao = false;
     private static boolean ignorarConfigurcoesDeAcoes = false;
+
     private static ItfCfgPermissoes configuradorDePermissao;
     private static final Map<String, ItfFabricaAcoes> ENUMACAO_BY_NOMEUNICO = new HashMap<>();
 
@@ -81,6 +84,7 @@ public class SBCore {
     private static ArquivoConfiguracaoBase arquivoConfigBase;
     private static ArquivoConfiguracaoCliente arquivoConfigCliente;
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
+    private static ItfServicoVisualizacao servicoVisualizacao;
 
     public static boolean isEmModoDesenvolvimento() {
         return getEstadoAPP().equals(ESTADO_APP.DESENVOLVIMENTO);
@@ -96,6 +100,10 @@ public class SBCore {
 
     private static boolean isAmbienteExecucaoConfigurado() {
         return ambienteExecucaoConfigurado;
+    }
+
+    public static ItfServicoVisualizacao getCentralVisualizacao() {
+        return servicoVisualizacao;
     }
 
     private static void fecharSistemaCasoNaoCOnfigurado() {
@@ -228,7 +236,7 @@ public class SBCore {
             arquivoConfigBase = configurador.getArquivoConfiguradorBase();
             arquivoConfigCliente = configurador.getArquivoConfiguradorCliente();
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
-
+            servicoVisualizacao = new ServicoVisuaslizacaoWebResponsivo();
             ambienteExecucaoConfigurado = validaConfiguracoes();
             if (!ambienteExecucaoConfigurado) {
                 throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");

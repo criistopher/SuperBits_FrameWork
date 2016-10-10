@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.util.ErrorMessages;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
@@ -22,22 +21,17 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.validacaoRegistro.CampoInvalido;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflecaoIEstruturaEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.CalculoDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.ListaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -57,6 +51,10 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     private boolean mapeouTodosOsCampos = false;
 
     private Map<ItfCalculos, Boolean> controleCalculo;
+
+    public static enum DEFINICAO_VIEW {
+        NAO_DEFINIDO, PADRAO, PERSONALIZADO
+    }
 
     protected void zerarControleCalculos() {
 
@@ -292,6 +290,11 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             }
 
             return true;
+        }
+
+        @Override
+        public String getXhtmlVisao() {
+            return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
         }
 
     }
@@ -536,7 +539,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                 if (pCampoReflexao.getType().getName().equals("int")) {
+                {
+                    if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -553,6 +557,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
+                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
@@ -952,42 +957,11 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     public EstruturaDeEntidade getEstruturaDaEntidade() {
+        return MapaObjetosProjetoAtual.getEstruturaObjeto(this.getClass());
+    }
 
-        EstruturaDeEntidade estruturaDaEntidade = new EstruturaDeEntidade();
-        Class classeEtrutura = this.getClass();
-        InfoClasse infoClasse = UtilSBCoreReflexao.getInfoClasseObjeto(classeEtrutura);
-
-        estruturaDaEntidade.setNomeEntidade(classeEtrutura.getSimpleName());
-        estruturaDaEntidade.setIcone(infoClasse.icone());
-        estruturaDaEntidade.setPlural(infoClasse.plural());
-        estruturaDaEntidade.setDescricao(infoClasse.description());
-        estruturaDaEntidade.setTags(Lists.newArrayList(infoClasse.tags()));
-
-        for (Field campo : UtilSBCoreReflexao.getCamposRecursivodaClasseAteConterNomeObjetoFinal(this.getClass(), "Entidade", "Item")) {
-            Campo campoSB = getCampoByFieldReflexao(campo);
-            EstruturaCampo cp = new EstruturaCampo(campoSB, estruturaDaEntidade);
-
-            switch (campoSB.getTipoDeclaracao()) {
-
-                case VALOR_CALCULADO:
-                    CalculoDeEntidade calculo = UtilSBCoreReflecaoIEstruturaEntidade.getCalculoEstruturaByField(campo, campoSB, estruturaDaEntidade);
-                    estruturaDaEntidade.getCalculos().add(calculo);
-                    break;
-                case LISTA_DINIMICA:
-                    ListaDeEntidade lista = UtilSBCoreReflecaoIEstruturaEntidade.getListaEstruturaByField(campo);
-                    estruturaDaEntidade.getListas().add(lista);
-                    break;
-                case OBJETO_TRANSIENTE:
-                    break;
-                default:
-                    estruturaDaEntidade.getCampos().add(cp);
-
-            }
-
-        }
-
-        return estruturaDaEntidade;
-
+    public String getXhtmlVisualizacao() {
+        return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
     }
 
 }
