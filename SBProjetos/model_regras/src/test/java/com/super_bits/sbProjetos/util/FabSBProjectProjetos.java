@@ -24,7 +24,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
     MONITOR_REQUISITOS,
     CRIADOR_CODIGO,
     CRM,
-    FINANCEIRO,;
+    FINANCEIRO,
+    ELEMENTAL;
 
     @Override
     public Projeto getRegistro() {
@@ -82,6 +83,13 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 novoProjeto.setCliente(FabSBProjectClientes.AQUA_QUALIT.getRegistro());
                 novoProjeto.setNomeProjeto("Intranet Aqua Quality");
                 novoProjeto.setNomeComercial("Sistema de gestão de Arquivos compartilhados");
+                break;
+            case ELEMENTAL:
+
+                novoProjeto.setCliente(FabSBProjectClientes.GAME_SUPERBITS.getRegistro());
+                novoProjeto.setNomeProjeto("elemental");
+                novoProjeto.setNomeComercial("Elemental Game Card");
+
                 break;
             default:
                 throw new AssertionError(this.name());
