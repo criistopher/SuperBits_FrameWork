@@ -68,7 +68,11 @@ public abstract class SBWebPaginas {
 
     }
 
-    //** Endereço de acesso externo ao site exemplo http://www.meusiteOuIp.com.br /*
+    /**
+     *
+     * @return Endereço de acesso externo ao site exemplo
+     * http://www.meusiteOuIp.com.br /*
+     */
     public static String getSiteURL() {
         validaConfigurado();
         return SITE_URL;

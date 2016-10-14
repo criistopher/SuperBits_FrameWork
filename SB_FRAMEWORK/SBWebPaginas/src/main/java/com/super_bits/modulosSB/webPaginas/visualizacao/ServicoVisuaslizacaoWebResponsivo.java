@@ -53,4 +53,9 @@ public class ServicoVisuaslizacaoWebResponsivo extends ServicoVisualizacaoAbstra
         return UtilSBWPServletTools.getCaminhoLocalServletsResource();
     }
 
+    @Override
+    public String getRemotoPastaImagem() {
+        return SBWebPaginas.getSiteURL() + "/resources";
+    }
+
 }

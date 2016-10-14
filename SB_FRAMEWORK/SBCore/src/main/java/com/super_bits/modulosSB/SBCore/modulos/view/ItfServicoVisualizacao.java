@@ -6,8 +6,6 @@ package com.super_bits.modulosSB.SBCore.modulos.view;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 
 /**
  *
@@ -48,5 +46,7 @@ public interface ItfServicoVisualizacao {
     public ServicoVisualizacaoAbstrato.TIPOS_COMUM_VISUALIZACAO getTipoVisualizacao();
 
     public String getCaminhoLocalPastaImagem();
+
+    public String getRemotoPastaImagem();
 
 }

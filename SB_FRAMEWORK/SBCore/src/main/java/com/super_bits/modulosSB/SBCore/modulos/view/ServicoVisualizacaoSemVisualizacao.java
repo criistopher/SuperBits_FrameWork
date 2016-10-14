@@ -43,4 +43,9 @@ public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstr
         return "/naoimplementado";
     }
 
+    @Override
+    public String getRemotoPastaImagem() {
+        return "http://sistemanaoImplementado.superbits.org";
+    }
+
 }
