@@ -21,11 +21,13 @@ public enum FabSBProjectClientes implements ItfFabrica {
     AQUA_QUALIT,
     CASA_NOVA_MARKETING_DIGITAL,
     MINAS_DRILL,
-    ACOMAR;
+    ACOMAR,
+    GAME_SUPERBITS;
 
     public static String SERVIDOR_RELEASE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/release";
     public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/source";
     public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS_ORG = "https://github.com/salviof/";
+    public static String SERVIDOR_SOURCE_GAME_SUPERBITS_ELEMENTAL_CRISTOPHER = "https://github.com/CristopherAmaral";
 
     @Override
     public Cliente getRegistro() {
@@ -71,6 +73,13 @@ public enum FabSBProjectClientes implements ItfFabrica {
                 break;
             case SUPER_BITS_CORP:
                 novoCliente.setNome("superBitsCorp");
+
+                break;
+            case GAME_SUPERBITS:
+
+                novoCliente.setNome("GAME_SUPERBITS_ELEMENTAL");
+                novoCliente.setServicorGitRelease(SERVIDOR_RELEASE_OFICIAL_SUPER_BITS);
+                novoCliente.setServidorGitCodigoFonte(SERVIDOR_SOURCE_GAME_SUPERBITS_ELEMENTAL_CRISTOPHER);
 
                 break;
             default:

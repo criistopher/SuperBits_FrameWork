@@ -199,7 +199,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
                 return null;
             }
         } else {
-            return caminhoPastaDoProjetoSourceLocal;
+            return caminhoPastaDoProjetoReleaseLocal;
         }
     }
 
@@ -468,7 +468,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
     }
 
     public String getPastaGitRelease() {
-        if (pastaGitRelease == null || caminhoPastaDoProjetoReleaseLocal.length() < 2) {
+        if (pastaGitRelease == null || caminhoPastaDoProjetoReleaseLocal == null) {
             pastaGitRelease = getNomePastaProjeto() + ".git";
         }
         return pastaGitRelease;
@@ -479,7 +479,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
     }
 
     public String getPastaGitSource() {
-        if (pastaGitSource == null || caminhoPastaDoProjetoReleaseLocal.length() < 2) {
+        if (pastaGitSource == null || caminhoPastaDoProjetoSourceLocal.length() < 2) {
             pastaGitSource = getNomePastaProjeto() + ".git";
         }
         return pastaGitSource;
