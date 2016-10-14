@@ -69,6 +69,7 @@ public interface ItfConfiguradorCore {
             pConfig.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
             pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
+            pConfig.setServicoVisualizacao(ServicoVisualizacaoSemVisualizacao.class);
         }
 
     }
