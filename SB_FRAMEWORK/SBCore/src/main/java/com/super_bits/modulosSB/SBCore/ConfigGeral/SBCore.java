@@ -28,7 +28,7 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
 import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
-import com.super_bits.modulosSB.SBCore.modulos.view.ServicoVisuaslizacaoWebResponsivo;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -236,7 +236,7 @@ public class SBCore {
             arquivoConfigBase = configurador.getArquivoConfiguradorBase();
             arquivoConfigCliente = configurador.getArquivoConfiguradorCliente();
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
-            servicoVisualizacao = new ServicoVisuaslizacaoWebResponsivo();
+            servicoVisualizacao = configuracoes.getServicoVisualizacao().newInstance();
             ambienteExecucaoConfigurado = validaConfiguracoes();
             if (!ambienteExecucaoConfigurado) {
                 throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");

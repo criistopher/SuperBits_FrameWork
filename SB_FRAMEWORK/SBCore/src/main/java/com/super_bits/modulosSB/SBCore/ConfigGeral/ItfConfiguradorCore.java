@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoC
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.view.ServicoVisualizacaoSemVisualizacao;
 
 /**
  *
@@ -79,6 +80,7 @@ public interface ItfConfiguradorCore {
             pConfig.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
             pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
+            pConfig.setServicoVisualizacao(ServicoVisualizacaoSemVisualizacao.class);
         }
 
     }

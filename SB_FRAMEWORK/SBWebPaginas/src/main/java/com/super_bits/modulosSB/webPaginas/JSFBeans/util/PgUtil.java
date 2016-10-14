@@ -366,6 +366,7 @@ public class PgUtil implements Serializable {
 
         try {
             ValueExpression valor = component.getValueExpression(atributo);
+
             if (valor != null) {
                 if (valor.getExpressionString().length() > 3) {
                     System.out.println("O atributo:" + atributo + "de " + component.getId() + " foi preenchudo com " + valor);
@@ -486,7 +487,4 @@ public class PgUtil implements Serializable {
         return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
     }
 
-    public String getViewCardPadraoObjeto(Class pClasse) {
-        UtilSBCoreReflexaoObjetoSuperBits.getNomeObjeto(pClasse);
-    }
 }

@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAc
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 
 /**
  *
@@ -27,6 +28,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     private Class<? extends ItfControleDeSessao> controleDeSessao;
     private Class<? extends ItfCentralEventos> centralDeEventos;
     private Class<? extends ConfigPermissaoSBCoreAbstrato> classeConfigPermissao;
+    private Class<? extends ItfServicoVisualizacao> classeVisualizacao;
     private String nomeProjeto;
     private SBCore.ESTADO_APP estadoAPP;
     private String cliente;
@@ -222,6 +224,16 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     public void setNomeSocial(String nomeSocial
     ) {
         this.nomeSocial = nomeSocial;
+    }
+
+    @Override
+    public Class<? extends ItfServicoVisualizacao> getServicoVisualizacao() {
+        return classeVisualizacao;
+    }
+
+    @Override
+    public void setServicoVisualizacao(Class<? extends ItfServicoVisualizacao> classeVisualizacao) {
+        this.classeVisualizacao = classeVisualizacao;
     }
 
 }

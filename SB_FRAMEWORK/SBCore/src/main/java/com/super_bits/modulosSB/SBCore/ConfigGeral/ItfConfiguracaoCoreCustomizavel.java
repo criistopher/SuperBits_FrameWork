@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAc
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 
 /**
  *
@@ -57,5 +58,7 @@ public interface ItfConfiguracaoCoreCustomizavel extends ItfConfiguracaoCoreSome
     public void setUrlJira(String urlJira);
 
     public void setNomeSocial(String pNomeSocial);
+
+    public void setServicoVisualizacao(Class<? extends ItfServicoVisualizacao> classeVisualizacao);
 
 }

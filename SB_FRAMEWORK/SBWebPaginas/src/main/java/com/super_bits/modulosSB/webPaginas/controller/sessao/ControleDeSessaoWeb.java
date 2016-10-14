@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.ControleDeSessaoAbstratoSBCore;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -45,7 +46,9 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
     public ItfSessao getSessaoAtual() {
 
         if (sessaoAtual == null) {
+
             sessaoAtual = UtilSBWPServletTools.getSessaoAtual();
+
             if (sessaoAtual != null) {
                 return sessaoAtual;
             }
@@ -116,7 +119,12 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
 
     @Override
     public void logarComoRoot() {
-        throw new UnsupportedOperationException("O método logar como Root não é suportado no ambiente web, por questões de segurança"); //To change body of generated methods, choose Tools | Templates.
+
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            throw new UnsupportedOperationException("O método logar como Root não é suportado no ambiente web, por questões de segurança");
+        } else {
+            getSessaoAtual().setUsuario(new UsuarioSistemaRoot());
+        }
     }
 
     @Override

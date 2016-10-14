@@ -10,6 +10,8 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizav
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentralMensagemArqTexto;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramador;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
@@ -17,6 +19,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
+import com.super_bits.modulosSB.webPaginas.visualizacao.ServicoVisuaslizacaoWebResponsivo;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.servlet.ServletContext;
@@ -65,17 +68,26 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
     public void defineClassesBasicas(ItfConfiguracaoCoreCustomizavel pConfiguracao) {
         aplicarDadosArquivoConfiguracao(pConfiguracao);
         pConfiguracao.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
-        pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
-        pConfiguracao.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
-        //pConfiguracao.setClasseErro(ErroSBCoreFW.class);
-        pConfiguracao.setControleDeSessao(ControleDeSessaoWeb.class);
-
+        pConfiguracao.setServicoVisualizacao(ServicoVisuaslizacaoWebResponsivo.class);
         switch (pConfiguracao.getEstadoApp()) {
             case DESENVOLVIMENTO:
-                pConfiguracao.setEstadoAPP(SBCore.ESTADO_APP.DESENVOLVIMENTO);
                 pConfiguracao.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);
                 pConfiguracao.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+                pConfiguracao.setControleDeSessao(ControleDeSessaoPadrao.class);
                 break;
+            case PRODUCAO:
+                pConfiguracao.setClasseErro(ErroSBCoreFW.class);
+                pConfiguracao.setControleDeSessao(ControleDeSessaoWeb.class);
+                pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
+                break;
+            case HOMOLOGACAO:
+                pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
+                pConfiguracao.setControleDeSessao(ControleDeSessaoWeb.class);
+                pConfiguracao.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
+                pConfiguracao.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
+                break;
+            default:
+                throw new AssertionError(pConfiguracao.getEstadoApp().name());
 
         }
     }

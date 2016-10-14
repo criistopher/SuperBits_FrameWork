@@ -47,4 +47,6 @@ public interface ItfServicoVisualizacao {
 
     public ServicoVisualizacaoAbstrato.TIPOS_COMUM_VISUALIZACAO getTipoVisualizacao();
 
+    public String getCaminhoLocalPastaImagem();
+
 }

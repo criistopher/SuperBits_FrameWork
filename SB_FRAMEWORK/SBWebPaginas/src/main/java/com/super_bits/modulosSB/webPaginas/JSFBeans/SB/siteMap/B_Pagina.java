@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
@@ -10,6 +11,8 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_PRIMITIVO;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.reflexao.ReflexaoCampo;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBAcao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBBean;
@@ -79,10 +82,13 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     public static List<AcaoGestaoEntidade> acoesMB;
     private String nomeMB;
+
     private final Map<String, String> infoIds = new HashMap<>();
     private final Map<String, String> infoWidget = new HashMap<>();
-    private final List<InfoMBBean> infoBeans = new ArrayList<>();
+
+    private final Map<String, BeanDeclarado> beansDeclarados = new HashMap<>();
     private final List<InfoMBAcao> infoAcoes = new ArrayList<>();
+
     private EntityManager emPagina;
     private boolean acessoLivre = true;
 
@@ -91,12 +97,34 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         aplicarAnotacoes();
         titulo = defineTitulo();
         descricao = defineDescricao();
-
         UtilSBCoreReflexao.instanciarListas(this);
-
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
             paginaUtil = new PgUtil();
+        }
+
+    }
+
+    public Object getInstanciaPagina() {
+        return this;
+    }
+
+    public class BeanDeclarado extends ReflexaoCampo {
+
+        private final InfoMBBean infoBean;
+
+        public BeanDeclarado(Field campoReflection) {
+            super(campoReflection);
+            infoBean = new InfoMBBean(campoReflection);
+        }
+
+        public InfoMBBean getInfoBean() {
+            return infoBean;
+        }
+
+        @Override
+        protected Object getInstancia() {
+            return getInstanciaPagina();
         }
 
     }
@@ -162,8 +190,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
      *
      * @return Retorna a lista de beans da Pagina
      */
-    public List<InfoMBBean> getInfoBeans() {
-        return infoBeans;
+    public List<BeanDeclarado> getInfoBeans() {
+        return Lists.newArrayList(beansDeclarados.values());
     }
 
     /**
@@ -362,7 +390,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
      */
     private void configAnotacoesBeans() {
 
-        Field[] fields = this.getClass().getDeclaredFields();
+        Field[] camposDeclarados = this.getClass().getDeclaredFields();
 
         Method[] metodos = this.getClass().getDeclaredMethods();
 
@@ -380,20 +408,20 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
 
         }
-        for (Field field : fields) {
+        for (Field campo : camposDeclarados) {
 
-            InfoMB_Bean infoBean = field.getAnnotation(InfoMB_Bean.class);
-            InfoMBIdComponente idcomp = field.getAnnotation(InfoMBIdComponente.class);
-
-            if (infoBean != null) {
-                infoBeans.add(new InfoMBBean(
-                        field.getType().getSimpleName(), infoBean.descricao(), infoBean.exemplo(), "#{" + this.getClass().getSimpleName() + "." + field.getName() + "}"));
+            InfoMBIdComponente idcomp = campo.getAnnotation(InfoMBIdComponente.class);
+            if (TIPO_PRIMITIVO.getTIPO_PRIMITIVO(campo).equals(TIPO_PRIMITIVO.ENTIDADE)) {
+                beansDeclarados.put(campo.getName(), new BeanDeclarado(campo));
             }
+//            if (infoBean != null) {
+
+            //          }
             if (idcomp != null) {
-                infoIds.put(field.getName(), idcomp.descricao());
-                field.setAccessible(true);
+                infoIds.put(campo.getName(), idcomp.descricao());
+                campo.setAccessible(true);
                 try {
-                    field.set(this, field.getName());
+                    campo.set(this, campo.getName());
                 } catch (IllegalArgumentException | IllegalAccessException ex) {
                     FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando anotações de InfoBean de " + this.getClass().getSimpleName(), ex);
                 }

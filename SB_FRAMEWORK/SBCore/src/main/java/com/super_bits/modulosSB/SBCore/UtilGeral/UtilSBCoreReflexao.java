@@ -15,6 +15,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -774,6 +775,13 @@ public abstract class UtilSBCoreReflexao {
             }
         }
         return camposEncontrados;
+    }
+
+    public static Class getClasseGenericaDaClassePrincipal(List pObjetoPrincipal) {
+
+        //Class tipoDaLista = (Class<?>) genericoTipo.getActualTypeArguments()[0];
+        return null;
+
     }
 
 }

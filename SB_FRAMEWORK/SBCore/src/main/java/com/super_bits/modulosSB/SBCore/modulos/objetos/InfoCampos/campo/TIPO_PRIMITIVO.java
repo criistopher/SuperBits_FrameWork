@@ -4,12 +4,16 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import java.lang.reflect.Field;
+
 /**
  *
  * @author salvioF
  */
 public enum TIPO_PRIMITIVO {
-    INTEIRO, LETRAS, DATAS, BOOLEAN, DECIMAL, ENTIDADE;
+    INTEIRO, LETRAS, DATAS, BOOLEAN, DECIMAL, ENTIDADE, OUTROS_OBJETOS;
 
     public String getDeclaracaoJava() {
 
@@ -27,8 +31,34 @@ public enum TIPO_PRIMITIVO {
             case ENTIDADE:
                 return "entidade";
             default:
-                throw new AssertionError(this.name());
+                return "Outros_Objetos";
         }
+    }
+
+    public static TIPO_PRIMITIVO getTIPO_PRIMITIVO(Field campo) {
+        String tipo = campo.getType().getSimpleName();
+        if (tipo.equals("int")) {
+            return INTEIRO;
+        }
+        if (tipo.equals("String")) {
+            return LETRAS;
+        }
+        if (tipo.equals("Date")) {
+            return DATAS;
+        }
+        if (tipo.equals("boolean")) {
+            return BOOLEAN;
+        }
+        if (tipo.equals("double")) {
+            return DECIMAL;
+        }
+        Class classseVinculada = UtilSBCoreReflexaoCampos.getClassePrincipalDoCampo(campo);
+        if (classseVinculada.isAnnotationPresent(InfoClasse.class)) {
+            return ENTIDADE;
+        } else {
+            return OUTROS_OBJETOS;
+        }
+
     }
 
 }

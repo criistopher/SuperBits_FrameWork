@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAc
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 
 /**
  *
@@ -108,5 +109,7 @@ public interface ItfConfiguracaoCoreSomenteLeitura {
     public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes();
 
     public String getUrlJira();
+
+    public Class<? extends ItfServicoVisualizacao> getServicoVisualizacao();
 
 }

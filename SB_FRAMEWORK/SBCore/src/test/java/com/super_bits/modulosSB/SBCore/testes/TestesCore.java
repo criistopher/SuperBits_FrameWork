@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_ORIGEM_VALOR_CAMPO;
+import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;

@@ -148,6 +148,14 @@ public class UtilSBCoreReflexaoCampos {
         return getFieldByNomeCompletoCaminho(pCaminho.getCaminhoCompletoString());
     }
 
+    /**
+     *
+     * Retorna a classe do campo, se for uma lista, retorna o tipo Generico
+     * declarado
+     *
+     * @param pCampo Campo Obtido via reflexao
+     * @return A classe vinculada a declaracao
+     */
     public static Class getClassePrincipalDoCampo(Field pCampo) {
 
         if (pCampo.getType().getSimpleName().equals("List")) {

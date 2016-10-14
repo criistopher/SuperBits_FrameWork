@@ -5,9 +5,11 @@
 package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -231,4 +233,23 @@ public abstract class UtilSBWP_JSFTools {
 
     }
 
+    public static boolean isExisteEsteFormulario(ItfAcaoFormulario pformulario) {
+        return isExisteEsteFormulario(pformulario.getXhtml());
+    }
+
+    public static boolean isExisteEsteFormulario(String xhtml) {
+        try {
+            String caminhoPastaResoureces = null;
+            if (SBCore.isEmModoDesenvolvimento()) {
+                caminhoPastaResoureces = SBWebPaginas.getCaminhoWebResourcesDeveloper();
+            } else {
+                caminhoPastaResoureces = UtilSBWPServletTools.getCaminhoLocalServletsResource();
+            }
+            return new File(caminhoPastaResoureces + xhtml).exists();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro verificando existencia do XHTML", t);
+            return false;
+        }
+
+    }
 }

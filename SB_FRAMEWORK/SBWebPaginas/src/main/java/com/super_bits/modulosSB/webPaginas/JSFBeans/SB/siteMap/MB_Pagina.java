@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 
 public abstract class MB_Pagina extends B_Pagina {
 
-    protected Map<String, String> idsGerenciaveis = new HashMap<String, String>();
+    protected Map<String, String> idsGerenciaveis = new HashMap<>();
     private String urlAcessada;
     private SessaoAtualSBWP sessaoAtual;
 
