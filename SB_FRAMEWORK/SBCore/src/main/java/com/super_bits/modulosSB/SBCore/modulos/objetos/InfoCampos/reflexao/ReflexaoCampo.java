@@ -42,14 +42,15 @@ public abstract class ReflexaoCampo {
         nomeMetodoPublicoLeitura = "get" + primeiraLetraMaiusculo + nomeMetodoSemPrimeiraLetra;
 
         try {
-            campoReflection.getType().getMethod(nomeMetodoPublicoLeitura);
+            campoReflection.getDeclaringClass().getMethod(nomeMetodoPublicoLeitura);
             possuiMetodoPublicoLeitura = true;
         } catch (NoSuchMethodException | SecurityException ex) {
+            System.out.println("METODO GET NAO ENCONTRADO" + nomeMetodoPublicoLeitura + " " + ex.getMessage());
             possuiMetodoPublicoLeitura = false;
         }
 
         try {
-            campoReflection.getType().getMethod(nomeMetodoPublicoEscrita, campoReflection.getType());
+            campoReflection.getDeclaringClass().getMethod(nomeMetodoPublicoEscrita, campoReflection.getType());
             possuiMetodoPublicoAlteracao = true;
         } catch (NoSuchMethodException | SecurityException ex) {
             possuiMetodoPublicoAlteracao = false;

@@ -4,8 +4,8 @@
  */
 package com.super_bits.Controller.fabricas;
 
-import com.super_bits.Controller.TipoAcaoPadrao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.TipoAcaoPadrao;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *

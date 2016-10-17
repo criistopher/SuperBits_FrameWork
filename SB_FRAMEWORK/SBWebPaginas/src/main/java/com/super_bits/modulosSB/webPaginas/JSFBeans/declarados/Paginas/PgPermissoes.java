@@ -5,16 +5,6 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-<<<<<<< HEAD
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.ItfResposta;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-
-=======
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
@@ -22,8 +12,11 @@ import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
->>>>>>> 3d2d7c0e754a50b8ed4e10ba6c02f250aa9ec5f4
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.BP_AutoComplete;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_paginaCadastroEntidades;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
@@ -75,6 +68,8 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
     private BP_AutoComplete<UsuarioSB> autocompleteUsuario;
 
+    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getComoFormulario().getXhtml();
+
     public PgPermissoes() {
         super(new AcaoDoSistema[]{
             FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema(),
@@ -86,17 +81,14 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
                 false
         );
 
-<<<<<<< HEAD
-    private String xhtmlAcaoAtual =((ItfAcaoFormulario) FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema).getXhtml();
-=======
     }
->>>>>>> 3d2d7c0e754a50b8ed4e10ba6c02f250aa9ec5f4
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {
             modulo.getSelecaoAcoes().clear();
             for (AcaoDoSistema acao : ModuloSeguranca.listarAcoesDoGrupo(getEntidadeSelecionada(), modulo)) {
                 modulo.getSelecaoAcoes().add(acao);
+
             }
         }
     }
@@ -104,7 +96,8 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
     private void atualizarDados() {
 
         modulos = UtilSBPersistencia.getListaTodos(ModuloAcaoSistema.class, getEMPagina());
-        grupos = UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class, getEMPagina());
+        grupos
+                = UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class, getEMPagina());
 
     }
 
@@ -178,7 +171,9 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
 
-        autocompleteUsuario = new BP_AutoComplete<>(getEMPagina(), UsuarioSB.class);
+        autocompleteUsuario
+                = new BP_AutoComplete<>(getEMPagina(), UsuarioSB.class
+                );
 
     }
 
