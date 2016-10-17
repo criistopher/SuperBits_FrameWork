@@ -241,9 +241,9 @@ public abstract class UtilSBWP_JSFTools {
         try {
             String caminhoPastaResoureces = null;
             if (SBCore.isEmModoDesenvolvimento()) {
-                caminhoPastaResoureces = SBWebPaginas.getCaminhoWebResourcesDeveloper();
+                caminhoPastaResoureces = SBWebPaginas.getCaminhoWebAppDeveloper();
             } else {
-                caminhoPastaResoureces = UtilSBWPServletTools.getCaminhoLocalServletsResource();
+                caminhoPastaResoureces = UtilSBWPServletTools.getCaminhoLocalServlet();
             }
             return new File(caminhoPastaResoureces + xhtml).exists();
         } catch (Throwable t) {

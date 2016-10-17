@@ -17,7 +17,7 @@ public class ComponenteVisualObjetoSB {
     private Class objeto;
 
     public ComponenteVisualObjetoSB(Class classeObjeto) {
-        xhtml = SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(objeto);
+        xhtml = SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(objeto);
     }
 
     public String getXhtml() {

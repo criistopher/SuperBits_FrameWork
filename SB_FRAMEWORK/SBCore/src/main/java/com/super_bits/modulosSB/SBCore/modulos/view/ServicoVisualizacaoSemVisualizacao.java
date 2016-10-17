@@ -6,6 +6,8 @@ package com.super_bits.modulosSB.SBCore.modulos.view;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,7 +16,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstrato {
 
     public ServicoVisualizacaoSemVisualizacao() {
-        super(TIPOS_COMUM_VISUALIZACAO.DESKTOP);
+        super(TIPOS_INTERFACES_COMUM_VISUALIZACAO.DESKTOP);
     }
 
     @Override
@@ -28,12 +30,12 @@ public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstr
     }
 
     @Override
-    public ServicoVisualizacaoAbstrato.TIPOS_COMUM_VISUALIZACAO getTipoVisualizacao() {
-        return TIPOS_COMUM_VISUALIZACAO.DESKTOP;
+    public ServicoVisualizacaoAbstrato.TIPOS_INTERFACES_COMUM_VISUALIZACAO getTipoVisualizacao() {
+        return TIPOS_INTERFACES_COMUM_VISUALIZACAO.DESKTOP;
     }
 
     @Override
-    public String getCaminhoXhtmlItem(Class pEntidade) {
+    public String getCaminhoXhtmlItemCard(Class pEntidade) {
 
         return "/resources/visualizacao/" + pEntidade + "/" + pEntidade + ".xhtml";
     }
@@ -46,6 +48,26 @@ public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstr
     @Override
     public String getRemotoPastaImagem() {
         return "http://sistemanaoImplementado.superbits.org";
+    }
+
+    @Override
+    public String getCaminhoXhtmlItemCardLab(Class pEntidade) {
+        return "/naoimplementado";
+    }
+
+    @Override
+    public String getCaminhoXhtmlItemAlternativo(Class pEntidade, String nomeAlternativo) {
+        return "/naoimplementado";
+    }
+
+    @Override
+    public String getCaminhoXhtmlItemAlternativoLab(Class pEntidade, String nomeAlternativo) {
+        return "/naoimplementado";
+    }
+
+    @Override
+    public List<String> getTodasVisualizacoes(Class pEntidade) {
+        return new ArrayList<>();
     }
 
 }

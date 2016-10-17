@@ -99,4 +99,15 @@ public interface ItfB_Pagina {
      */
     public ItfPaginaGerenciarEntidade<?> getComoPaginaEntidade();
 
+    /**
+     *
+     * Retorna um bean declarado do Managed bean.
+     *
+     * Um bean declarado possui informações de exibição de icone
+     *
+     * @param nomeBean
+     * @return
+     */
+    public B_Pagina.BeanDeclarado getBeanDeclarado(String nomeBean);
+
 }

@@ -81,7 +81,9 @@ public abstract class MB_Pagina extends B_Pagina {
     @Override
     protected String defineNomeLink() {
         try {
-            return getAcaoVinculada().getNomeAcao();
+            if (getAcaoVinculada() != null) {
+                return getAcaoVinculada().getNomeAcao();
+            }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
         }
@@ -91,8 +93,9 @@ public abstract class MB_Pagina extends B_Pagina {
     @Override
     protected String defineDescricao() {
         try {
-
-            return getAcaoVinculada().getDescricao();
+            if (getAcaoVinculada() != null) {
+                return getAcaoVinculada().getDescricao();
+            }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
         }

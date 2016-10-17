@@ -5,6 +5,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.paginasDoSistema;
 
+import com.sun.faces.facelets.compiler.SAXCompiler;
+import com.sun.faces.facelets.impl.DefaultFaceletFactory;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -27,6 +29,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.InfoAcaoDemonstracaoSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.ItfMB_Recursos;
+import javax.inject.Inject;
 
 /**
  *
@@ -38,10 +43,12 @@ import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.InfoAcao
 @Named()
 public class PgTestesCampo extends MB_PaginaConversation {
 
+    @Inject
+    private ItfMB_Recursos pagRecursos;
     private int idDaEntidade;
     private String strNomeDaEntidade;
     private List<String> strEntidadesPossiveis;
-    List<Class> entidadesPossiveis;
+    private List<Class> entidadesPossiveis;
     private CaminhoCampoReflexao campoSelecionado;
     private GrupoCampos grupoSelecionado;
     private String StrNomeCampo;
@@ -51,6 +58,7 @@ public class PgTestesCampo extends MB_PaginaConversation {
     private ItfAcaoFormulario acaoFormularioSelecionada;
     private ItfAcaoFormulario acaoFichaTecnica;
     private ItfAcaoFormulario acaoPadraoDeExibicao;
+    private ItfAcaoFormulario acaoEditarVisualizacaoItem;
     private int idGrupoSelecionado;
     private int idCampoAcaoSelecionado;
     private List<ItfAcaoFormulario> acoesParaCampo;
@@ -72,12 +80,17 @@ public class PgTestesCampo extends MB_PaginaConversation {
         strEntidadesPossiveis = new ArrayList<>();
     }
 
+    public void testeConformidade() {
+
+    }
+
     @PostConstruct
     public void init() {
         try {
 
             acoesParaCampo = new ArrayList<>();
             acaoFichaTecnica = FabAcaoDemonstracaoSB.TESTES_CAMPO_FRM_FICHATECNICA.getAcaoDoSistema().getComoFormulario();
+            acaoEditarVisualizacaoItem = FabAcaoDemonstracaoSB.TESTES_CAMPO_FRM_VISUALIZACAO_ITEM.getAcaoDoSistema().getComoFormulario();
             acoesParaCampo.add(acaoFichaTecnica);
             acoesParaCampo.add(FabAcaoDemonstracaoSB.TESTES_CAMPO_FRM_VER_CAMPO.getAcaoDoSistema().getComoFormulario());
             acoesParaCampo.add(FabAcaoDemonstracaoSB.TESTES_CAMPO_FRM_TESTAR_ONCHANGE.getAcaoDoSistema().getComoFormulario());
@@ -393,7 +406,20 @@ public class PgTestesCampo extends MB_PaginaConversation {
     }
 
     public int getNumeroDeAcoesController() {
+
         return numeroDeAcoesController;
     }
 
+    public boolean isModoInspecionarCampo() {
+        return !acaoSelecionada.equals(FabAcaoDemonstracaoSB.TESTES_CAMPO_FRM_VISUALIZACAO_ITEM.getRegistro());
+    }
+
+    public ItfAcaoFormulario getAcaoEditarVisualizacaoItem() {
+        return acaoEditarVisualizacaoItem;
+    }
+
+    public BeanDeclarado getBeanExemploEmResource() {
+
+        return pagRecursos.getBeanDeclarado(UtilSBCoreStrings.getPrimeiraLetraMinuscula(strNomeDaEntidade));
+    }
 }

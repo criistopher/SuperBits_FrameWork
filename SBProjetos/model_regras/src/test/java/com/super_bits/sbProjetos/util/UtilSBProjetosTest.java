@@ -71,7 +71,7 @@ public class UtilSBProjetosTest extends TesteJunit {
 
         //UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.SUPER_KOMPRAS.getRegistro());
         //
-        UtilSBProjetos.criarNovoProjeto(game_super_bits_elemental);
+        UtilSBProjetos.configurarPastaProjeto(game_super_bits_elemental);
         //
         //    UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
 //        UtilSBProjetos.criarNovoProjetoOffline(sistemaSantaClara);

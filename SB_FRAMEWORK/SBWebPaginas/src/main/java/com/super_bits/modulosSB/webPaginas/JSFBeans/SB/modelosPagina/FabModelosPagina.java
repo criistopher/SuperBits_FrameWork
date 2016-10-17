@@ -17,7 +17,8 @@ public enum FabModelosPagina implements ItfFabrica {
     FORMULARIO_PG_ENTIDADE_LISTAR,
     FORMULARIO_PG_ENTIDADE_EDITAR,
     FORMULARIO_PG_ACAO_ATUAL,
-    FORMULARIO_PG_ENTIDADE_ACAO_ATUAL;
+    FORMULARIO_PG_ENTIDADE_ACAO_ATUAL,
+    CONTEUDO_EM_BRANCO;
 
     @Override
     public ModeloPagina getRegistro() {
@@ -67,6 +68,14 @@ public enum FabModelosPagina implements ItfFabrica {
                         + " o subtitulo a descrição da ação, e o botão da direita definido como: novo em caso de listar e pagina.temNovo == true, e listar nos outros casos ");
                 mp.getAreas().add("conteudo");
                 mp.setXhtmlVinculado("/resources/SBComp/template/basico/formularioEntidadeAcaoAtual.xhtml");
+                break;
+            case FORMULARIO_PG_ENTIDADE_EDITAR:
+                mp.setXhtmlVinculado("/resources/SBComp/template/basico/formularioEntidadeEditar.xhtml");
+                break;
+            case CONTEUDO_EM_BRANCO:
+                mp.setDescricao("Um formulario em branco");
+                mp.getAreas().add("conteudo");
+                mp.setXhtmlVinculado("/resources/SBComp/template/basico/conteudoEmBranco.xhtml");
                 break;
             default:
                 throw new AssertionError(this.name());

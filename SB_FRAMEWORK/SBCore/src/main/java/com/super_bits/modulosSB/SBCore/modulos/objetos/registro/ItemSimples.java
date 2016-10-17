@@ -134,7 +134,7 @@ public class ItemSimples extends ItemGenerico implements
 
     @Override
     public String getXhtmlVisao() {
-        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(this.getClass());
+        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(this.getClass());
     }
 
 }

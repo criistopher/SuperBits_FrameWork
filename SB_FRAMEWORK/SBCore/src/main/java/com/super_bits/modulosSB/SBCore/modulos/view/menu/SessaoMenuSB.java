@@ -405,7 +405,7 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
 
     @Override
     public String getXhtmlVisao() {
-        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(this.getClass());
+        return SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(this.getClass());
     }
 
 }

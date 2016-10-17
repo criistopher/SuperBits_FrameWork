@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans;
 
 import java.lang.annotation.Documented;
@@ -20,8 +19,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InfoMB_Bean {
+
     String descricao();
+
     String exemplo() default "Não se Aplica";
-    
-    
+
+    String beanItemSelecionado() default "";
+
 }

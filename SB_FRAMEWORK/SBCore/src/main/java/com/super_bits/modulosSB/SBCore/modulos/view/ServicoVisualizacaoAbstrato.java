@@ -10,7 +10,7 @@ package com.super_bits.modulosSB.SBCore.modulos.view;
  */
 public abstract class ServicoVisualizacaoAbstrato implements ItfServicoVisualizacao {
 
-    public enum TIPOS_COMUM_VISUALIZACAO {
+    public enum TIPOS_INTERFACES_COMUM_VISUALIZACAO {
         MOBILE, WEB_RESPONSIVO, DESKTOP;
 
         public String getPastaRecursosVisualizacao() {
@@ -29,9 +29,13 @@ public abstract class ServicoVisualizacaoAbstrato implements ItfServicoVisualiza
 
     }
 
-    private final TIPOS_COMUM_VISUALIZACAO tipoVisualizacao;
+    public enum TIPO_VISUALIZACAO_ITEM {
+        LABORATORIO, PUBLICADO
+    }
 
-    public ServicoVisualizacaoAbstrato(TIPOS_COMUM_VISUALIZACAO pTipoVisualizacao) {
+    private final TIPOS_INTERFACES_COMUM_VISUALIZACAO tipoVisualizacao;
+
+    public ServicoVisualizacaoAbstrato(TIPOS_INTERFACES_COMUM_VISUALIZACAO pTipoVisualizacao) {
         tipoVisualizacao = pTipoVisualizacao;
     }
 

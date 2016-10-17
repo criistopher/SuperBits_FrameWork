@@ -576,6 +576,10 @@ public abstract class UtilSBCoreStrings {
         return null;
     }
 
+    public static String getPrimeiraLetraMinuscula(String parametro) {
+        return String.valueOf(parametro.charAt(0)).toLowerCase() + parametro.substring(1);
+    }
+
     /**
      *
      *
@@ -650,6 +654,27 @@ public abstract class UtilSBCoreStrings {
             return false;
         }
         return !pString.isEmpty();
+    }
+
+    /**
+     *
+     * Percorre cada caracter, extrai o char criando uma nova string.
+     *
+     * é útil quando você precisa retirar tudo o que não for caracter da string
+     *
+     *
+     * @param s
+     * @return
+     */
+    public static String limparCacteresEstranhosDaStringComNumeros(String s) {
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            int cr = Integer.getInteger(Character.toString(c));
+            sb.append(cr);
+        }
+        return sb.toString();
+
     }
 
 }

@@ -117,7 +117,7 @@ public class MapaObjetosProjetoAtual {
     public static final String getVisualizacaoDoObjeto(Class pClasseDoObjeto) {
         String formulario = VIEW_BY_CLASSE.get(pClasseDoObjeto);
         if (formulario == null) {
-            formulario = SBCore.getCentralVisualizacao().getCaminhoXhtmlItem(pClasseDoObjeto);
+            formulario = SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(pClasseDoObjeto);
             VIEW_BY_CLASSE.put(pClasseDoObjeto, formulario);
             if (formulario == null) {
                 throw new UnsupportedOperationException("View do objeto não pode ser determinada para" + pClasseDoObjeto);

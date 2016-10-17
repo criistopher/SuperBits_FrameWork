@@ -13,6 +13,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreResources;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
@@ -41,6 +42,7 @@ import javax.persistence.Persistence;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public abstract class SBPersistencia {
     // VARIAVEIS DE SISTEMA
@@ -154,7 +156,10 @@ public abstract class SBPersistencia {
         }
         //      UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, provaTXT);
         String alteracaoAnterior = UTilSBCoreInputs.getStringByArquivoLocal(DESTINO_ARQUIVO_HASH_BANCO);
-        Long altAnterior = Long.parseLong(alteracaoAnterior.replaceAll("[^\\d.]", ""), 10);
+
+        Long altAnterior = NumberUtils.toLong(alteracaoAnterior);
+        System.out.println("Hash   anterior " + altAnterior + "  em" + DESTINO_ARQUIVO_HASH_BANCO);
+        System.out.println("Hash Atualizado " + codigoAlteracao);
         codigoAlteracao = Math.abs(codigoAlteracao);
         long diferenca = codigoAlteracao - altAnterior;
         if (diferenca == 0) {

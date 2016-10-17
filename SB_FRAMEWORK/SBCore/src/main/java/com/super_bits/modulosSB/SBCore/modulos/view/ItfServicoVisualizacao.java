@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.modulos.view;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import java.util.List;
 
 /**
  *
@@ -24,7 +25,37 @@ public interface ItfServicoVisualizacao {
      * @param pEntidade
      * @return
      */
-    public String getCaminhoXhtmlItem(Class pEntidade);
+    public String getCaminhoXhtmlItemCard(Class pEntidade);
+
+    /**
+     *
+     * @param pEntidade
+     * @return
+     */
+    public String getCaminhoXhtmlItemCardLab(Class pEntidade);
+
+    /**
+     *
+     * @param pEntidade
+     * @param nomeAlternativo
+     * @return
+     */
+    public String getCaminhoXhtmlItemAlternativo(Class pEntidade, String nomeAlternativo);
+
+    /**
+     *
+     * @param pEntidade
+     * @param nomeAlternativo
+     * @return
+     */
+    public String getCaminhoXhtmlItemAlternativoLab(Class pEntidade, String nomeAlternativo);
+
+    /**
+     *
+     * @param pEntidade
+     * @return
+     */
+    public List<String> getTodasVisualizacoes(Class pEntidade);
 
     /**
      *
@@ -43,7 +74,7 @@ public interface ItfServicoVisualizacao {
      */
     public void visualizarFormularioGestao(ItfAcaoGerenciarEntidade acaoForm);
 
-    public ServicoVisualizacaoAbstrato.TIPOS_COMUM_VISUALIZACAO getTipoVisualizacao();
+    public ServicoVisualizacaoAbstrato.TIPOS_INTERFACES_COMUM_VISUALIZACAO getTipoVisualizacao();
 
     public String getCaminhoLocalPastaImagem();
 

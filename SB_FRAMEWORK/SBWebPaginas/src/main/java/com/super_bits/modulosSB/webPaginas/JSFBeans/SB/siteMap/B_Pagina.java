@@ -26,6 +26,7 @@ import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
+import com.super_bits.modulosSB.webPaginas.visualizacao.ServicoVisuaslizacaoWebResponsivo;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -109,22 +110,33 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return this;
     }
 
-    public class BeanDeclarado extends ReflexaoCampo {
+    public class BeanDeclarado extends ReflexaoCampo implements ItfBeanDeclarado {
 
         private final InfoMBBean infoBean;
 
         public BeanDeclarado(Field campoReflection) {
             super(campoReflection);
             infoBean = new InfoMBBean(campoReflection);
+
         }
 
+        @Override
         public InfoMBBean getInfoBean() {
             return infoBean;
         }
 
         @Override
-        protected Object getInstancia() {
+        public Object getInstancia() {
             return getInstanciaPagina();
+        }
+
+        @Override
+        public String getVisualizacaoItem() {
+            if (getValor() == null) {
+                return ServicoVisuaslizacaoWebResponsivo.CAMINHO_ITEM_SIMPLES_NULO;
+            } else {
+                return infoBean.getVisualizacaoItem();
+            }
         }
 
     }
@@ -787,6 +799,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             return null;
         }
 
+    }
+
+    @Override
+    public BeanDeclarado getBeanDeclarado(String nomeBean) {
+        return beansDeclarados.get(nomeBean);
     }
 
 }

@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,18 +38,18 @@ public abstract class ReflexaoCampo {
 
         String nomeMetodoSemPrimeiraLetra = campoReflection.getName().substring(1);
         char primeiraLetraMaiusculo = campoReflection.getName().toUpperCase().charAt(0);
-        String nomeMetodoEscrita = "set" + primeiraLetraMaiusculo + nomeMetodoSemPrimeiraLetra;
-        String nomeMetodoLeitura = "get" + primeiraLetraMaiusculo + nomeMetodoSemPrimeiraLetra;
+        nomeMetodoPublicoEscrita = "set" + primeiraLetraMaiusculo + nomeMetodoSemPrimeiraLetra;
+        nomeMetodoPublicoLeitura = "get" + primeiraLetraMaiusculo + nomeMetodoSemPrimeiraLetra;
 
         try {
-            getInstancia().getClass().getMethod(nomeMetodoLeitura);
+            campoReflection.getType().getMethod(nomeMetodoPublicoLeitura);
             possuiMetodoPublicoLeitura = true;
         } catch (NoSuchMethodException | SecurityException ex) {
             possuiMetodoPublicoLeitura = false;
         }
 
         try {
-            getInstancia().getClass().getMethod(nomeMetodoEscrita, campoReflection.getType());
+            campoReflection.getType().getMethod(nomeMetodoPublicoEscrita, campoReflection.getType());
             possuiMetodoPublicoAlteracao = true;
         } catch (NoSuchMethodException | SecurityException ex) {
             possuiMetodoPublicoAlteracao = false;
@@ -56,7 +57,7 @@ public abstract class ReflexaoCampo {
 
     }
 
-    private void setValor(Object pValor) {
+    public void setValor(Object pValor) {
         Object valor = getValorPorTipo(pValor, TIPO_PRIMITIVO.INTEIRO);
         if (possuiMetodoPublicoAlteracao) {
             try {
@@ -147,8 +148,16 @@ public abstract class ReflexaoCampo {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro tentando executar metodo para obtenção de valor do ben" + nomeMetodoPublicoLeitura, ex);
                 return null;
             }
+        } else {
+            try {
+                Logger.getGlobal().info("O metodo get do campo " + campoReflection.getName() + " não foi encontrado: " + nomeMetodoPublicoLeitura);
+                campoReflection.setAccessible(true);
+                return campoReflection.get(getInstancia());
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo campo" + campoReflection.getName() + " em " + getInstancia().getClass().getSimpleName(), t);
+            }
         }
-        throw new UnsupportedOperationException("O metodo " + nomeMetodoPublicoEscrita + " não foi definido");
+        return null;
 
     }
 

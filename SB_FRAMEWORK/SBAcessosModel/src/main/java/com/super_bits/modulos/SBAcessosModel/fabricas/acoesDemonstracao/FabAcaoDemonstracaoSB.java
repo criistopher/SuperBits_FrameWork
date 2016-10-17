@@ -25,6 +25,9 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
 
     DEMONSTRACAO_MB_COMPONENTE,
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-sitemap",
+            xhtmlDaAcao = "/resources/SBComp/projeto/gerenciarRecursos.xhtml")
+    DEMONSTRACAO_MB_RECURSOS,
     DEMONSTRACAO_MB_VALIDACAO,
     @InfoTipoAcaoGestaoEntidade(
             xhtmlDaAcao = "/resources/SBComp/debug/conformidadeInputCampo.xhtml",
@@ -70,7 +73,15 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
     @InfoTipoAcaoFormulario(nomeAcao = "CAMPOS DO AGRUPO",
             xhtmlDaAcao = "/resources/SBComp/debug/camposDoGrupo.xhtml",
             icone = "fa fa-question-circle")
-    TESTES_CAMPO_FRM_VER_CAMPOS_DO_GRUPO_FORMULARIO;
+    TESTES_CAMPO_FRM_VER_CAMPOS_DO_GRUPO_FORMULARIO,
+    @InfoTipoAcaoFormulario(nomeAcao = "Visualizacao Do Item",
+            xhtmlDaAcao = "/resources/SBComp/debug/visualizadorDeItem.xhtml", icone = "fa fa-eye"
+    )
+    TESTES_CAMPO_FRM_VISUALIZACAO_ITEM,
+    @InfoTipoAcaoFormulario(nomeAcao = "Visualizacao Do Item",
+            xhtmlDaAcao = "/resources/SBComp/debug/inspecionarCampo.xhml", icone = "fa fa-gears"
+    )
+    TESTES_CAMPO_FRM_INSPECIONAR;
 
     @Override
     public ItfAcaoDoSistema getAcaoDoSistema() {

@@ -12,7 +12,7 @@ package org.super_bits;
 public class TestesConformidade {
 
     public void teste() {
-        System.out.println("Lindo teste");
+
     }
 
 }

@@ -212,6 +212,10 @@ public class UtilSBWPServletTools {
         return getCaminhoLocalServlet() + "/resources";
     }
 
+    public static String getCaminhoLocalWebAppServlet() {
+        return getCaminhoLocalServlet() + "/resources";
+    }
+
     /**
      *
      * Coloca um objeto no request Scoped, utiliza FacesContext para obter o

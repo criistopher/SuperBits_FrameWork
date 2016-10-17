@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_ORI
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import org.junit.Test;
 
 /**
@@ -111,7 +112,7 @@ public class TestesCore {
 
     @Test
     public void teste2() {
-
+        Logger.getGlobal().info("teste");
         List<String> listateste = null;
         listateste = new ArrayList<>();
         listateste.add("sfdsdf");

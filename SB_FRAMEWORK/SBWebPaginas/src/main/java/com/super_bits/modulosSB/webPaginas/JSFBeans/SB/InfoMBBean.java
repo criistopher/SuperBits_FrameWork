@@ -25,9 +25,15 @@ public class InfoMBBean implements Serializable {
     private String formularioNulo;
     private String formularioLista;
     private final String chamada;
+    private String formularioLab;
 
     public String getChamada() {
         return chamada;
+    }
+
+    public String getFormularioLista() {
+
+        return formularioLab;
     }
 
     public InfoMBBean(Field campo) {
@@ -80,6 +86,15 @@ public class InfoMBBean implements Serializable {
 
     public String getFormularioVisualizacaoItemListas() {
         return formularioLista;
+    }
+
+    public String getFormularioLab() {
+        if (formularioLab == null) {
+            formularioLab = SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCardLab(UtilSBPersistencia.getEntidadeByNomeClasse(classe));
+
+        }
+
+        return formularioLab;
     }
 
 }

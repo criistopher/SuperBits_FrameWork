@@ -53,4 +53,8 @@ public class LayoutsPaginas implements Serializable {
         return FabModelosPagina.FORMULARIO_PG_ENTIDADE_EDITAR.getRegistro();
     }
 
+    public ModeloPagina getConteudoEmBranco() {
+        return FabModelosPagina.CONTEUDO_EM_BRANCO.getRegistro();
+    }
+
 }
