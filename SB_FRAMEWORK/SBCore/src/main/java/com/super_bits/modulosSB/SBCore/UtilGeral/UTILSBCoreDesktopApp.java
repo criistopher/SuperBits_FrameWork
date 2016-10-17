@@ -4,8 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfMensagem;
-import javax.swing.JFrame;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,11 +23,7 @@ public class UTILSBCoreDesktopApp {
 
         @Override
         public void run() {
-            System.out.println("..");
-            // todo Verificar nescessidade do Jframe para exibição da mensagem
-            JFrame janela = new JFrame("teste");
-            janela.setVisible(true);
-            JOptionPane.showMessageDialog(new JFrame(mensagem.getTipoDeMensagem().toString()), mensagem.getMenssagem());
+            showMessageStopProcess(mensagem);
         }
 
     }
@@ -52,10 +47,28 @@ public class UTILSBCoreDesktopApp {
      */
     public static void showMessageStopProcess(ItfMensagem pMensagem) {
 
-        // todo Verificar nescessidade do Jframe para exibição da mensagem
-        JFrame janela = new JFrame("teste");
-        janela.setVisible(true);
-        JOptionPane.showMessageDialog(new JFrame(pMensagem.getTipoDeMensagem().toString()), pMensagem.getMenssagem());
+        String titulo = pMensagem.getTipoDeMensagem().toString() + " para " + pMensagem.getTipoDestinatario();
+
+        int tipoDeMensagem = JOptionPane.INFORMATION_MESSAGE;
+        switch (pMensagem.getTipoDeMensagem()) {
+            case AVISO:
+                tipoDeMensagem = JOptionPane.INFORMATION_MESSAGE;
+                break;
+            case ALERTA:
+                tipoDeMensagem = JOptionPane.WARNING_MESSAGE;
+                break;
+            case ERRO:
+                tipoDeMensagem = JOptionPane.ERROR_MESSAGE;
+                break;
+            case ERRO_FATAL:
+                tipoDeMensagem = JOptionPane.ERROR_MESSAGE;
+                break;
+            default:
+                throw new AssertionError(pMensagem.getTipoDeMensagem().name());
+
+        }
+
+        JOptionPane.showMessageDialog(null, pMensagem.getMenssagem(), titulo, tipoDeMensagem);
 
     }
 

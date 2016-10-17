@@ -5,6 +5,8 @@
 package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.sbProjetos.controller.getaoProjeto.FabAcaoGestaoProjetos;
 
 /**
  *
@@ -40,6 +42,11 @@ public class ConfigPersistenciaSBProject implements ItfConfigSBPersistencia {
     @Override
     public void criarBancoInicial() {
         return;
+    }
+
+    @Override
+    public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
+        return new Class[]{FabAcaoGestaoProjetos.class};
     }
 
 }

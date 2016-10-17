@@ -14,17 +14,32 @@ import javax.enterprise.context.ApplicationScoped;
 public enum FabVisualizacaoCampo {
 
     resumido, labelEsquerda, labelSuperior;
+    public static final String DIRETORIO_XHTML = "/resources/SBComp/input/";
 
-    public static FabVisualizacaoCampo getLabelEsquerda() {
+    public FabVisualizacaoCampo getLabelEsquerda() {
         return labelEsquerda;
     }
 
-    public static FabVisualizacaoCampo getResumido() {
+    public FabVisualizacaoCampo getResumido() {
         return resumido;
     }
 
-    public static FabVisualizacaoCampo getLabelSuperior() {
+    public FabVisualizacaoCampo getLabelSuperior() {
         return labelSuperior;
+    }
+
+    public String getXhtmlVisualizacao() {
+        switch (this) {
+            case resumido:
+                return DIRETORIO_XHTML + "resumido.xhtml";
+            case labelEsquerda:
+                return DIRETORIO_XHTML + "labelEsquerda.xhtml";
+            case labelSuperior:
+                return DIRETORIO_XHTML + "labelEsquerda.xhtml";
+            default:
+                return resumido.getXhtmlVisualizacao();
+
+        }
     }
 
 }

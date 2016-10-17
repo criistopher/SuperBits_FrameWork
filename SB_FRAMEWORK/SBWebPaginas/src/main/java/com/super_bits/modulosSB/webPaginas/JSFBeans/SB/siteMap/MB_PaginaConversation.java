@@ -1,19 +1,14 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 public abstract class MB_PaginaConversation extends MB_Pagina implements Serializable {
 
-    @Inject
-    private Conversation conversation;
     protected Map<String, String> idsGerenciaveis = new HashMap<String, String>();
     private String urlAcessada;
 
@@ -31,23 +26,13 @@ public abstract class MB_PaginaConversation extends MB_Pagina implements Seriali
 
     }
 
-    public Conversation getConversation() {
-        return conversation;
-
-    }
-
-    public void setConversation(Conversation conversation) {
-        this.conversation = conversation;
-    }
-
     private Map<String, SBNQ> listas;
 
     public void iniciaConvesa() {
         try {
-            if (!FacesContext.getCurrentInstance().isPostback()
-                    && conversation.isTransient()) {
-                conversation.begin();
-            }
+            //   if (!FacesContext.getCurrentInstance().isPostback() //                    && conversation.isTransient()) {
+            //           //           conversation.begin();
+            //       }
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro iniciando conversa de:" + this.getClass().getSimpleName(), e);
 
@@ -56,15 +41,15 @@ public abstract class MB_PaginaConversation extends MB_Pagina implements Seriali
     }
 
     public void terminaConvesa() {
-        if (conversation != null) {
-            try {
-                if (!getConversation().isTransient()) {
-                    conversation.end();
-                }
-            } catch (Exception e) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Encerrando Conversation", e);
-            }
+        // if (conversation != null) {
+        try {
+            //           if (!getConversation().isTransient()) {
+            //             conversation.end();
+            // }
+        } catch (Exception e) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Encerrando Conversation", e);
         }
+        //   }
     }
 
     public MB_PaginaConversation() {
@@ -85,11 +70,6 @@ public abstract class MB_PaginaConversation extends MB_Pagina implements Seriali
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro fechando pagina " + this.getClass().getSimpleName(), e);
         }
-    }
-
-    @Override
-    public Conversation getConversa() {
-        return conversation;
     }
 
 }

@@ -5,18 +5,18 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_paginaCadastroEntidades;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
-
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -29,10 +29,10 @@ import javax.inject.Named;
  *
  * @author rjesus
  */
-@InfoPagina(nomeCurto = "US", recurso = "/sistema/seguranca/cadastroUsuario.xhtml", tags = {"cadastro de usuarios"}, acessoLivre = false)
+@InfoPagina(nomeCurto = "GUS", tags = {"cadastro de usuarios"}, acessoLivre = false)
 @Named
 @ViewScoped
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.USUARIO_MB_GERENCIAR)
 public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     private List<GrupoUsuarioSB> grupoDeUsuarios;
@@ -43,13 +43,14 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
     public PgCadastroUsuarios() {
         super(new AcaoDoSistema[]{
-            FabAcaoSeguranca.USUARIO_EDITAR.getAcaoDoSistema(),
-            FabAcaoSeguranca.USUARIO_ALTERAR_STATUS.getAcaoDoSistema(),
-            FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema()
-        }, FabAcaoSeguranca.USUARIO_NOVO_USUARIO.getAcaoDoSistema(),
-                FabAcaoSeguranca.USUARIO_LISTAR.getAcaoDoSistema(),
-                FabAcaoSeguranca.USUARIO_SALVAR_ALTERACOES.getAcaoDoSistema(),
-                UsuarioSB.class, true
+            FabAcaoSeguranca.USUARIO_FRM_EDITAR.getAcaoDoSistema(),
+            FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema(),
+            FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema()
+
+        }, FabAcaoSeguranca.USUARIO_FRM_NOVO.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.USUARIO_FRM_LISTAR.getAcaoDoSistema().getComoFormularioEntidade(),
+                FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoDoSistema().getComoControllerEntidade(),
+                true
         );
 
     }
@@ -62,40 +63,28 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
     @PostConstruct
     public void inicio() {
         atualizarDados();
-        xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
+        xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
 
     }
 
     @Override
     public void executarAcao(UsuarioSB pUsuarioSelecionado) {
-        if (pUsuarioSelecionado != null) {
-            setEntidadeSelecionada(pUsuarioSelecionado);
 
-        }
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_ALTERAR_STATUS.getAcaoDoSistema())) {
+        super.executarAcao(pUsuarioSelecionado);
+
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_CTR_ALTERAR_STATUS.getAcaoDoSistema())) {
             ModuloSeguranca.usuarioAlterarStatus(pUsuarioSelecionado);
 
         }
 
-        if (acaoSelecionada.equals(acaoNovoRegistro)) {
-            setEntidadeSelecionada(new UsuarioSB());
-            atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
-
-        }
-
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_EDITAR.getAcaoDoSistema())) {
-            atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
-        }
-        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_VISUALIZAR.getAcaoDoSistema())) {
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_FRM_VISUALIZAR.getAcaoDoSistema())) {
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
 
         }
 
-        if (acaoSelecionada.getXHTMLAcao() != null) {
-            xhtmlAcaoAtual = acaoSelecionada.getXHTMLAcao();
+        if (acaoSelecionada.equals(FabAcaoSeguranca.USUARIO_CTR_SALVAR_MERGE.getAcaoDoSistema())) {
+            salvarAlteracoes();
         }
-
-        pgUtil.atualizaTelaPorID("formulario");
 
     }
 
@@ -151,7 +140,7 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
         this.acoesDisponiveis = acoesDisponiveis;
     }
 
-    public AcaoDoSistema getAcaoSelecionada() {
+    public ItfAcaoDoSistema getAcaoSelecionada() {
         return acaoSelecionada;
     }
 
@@ -173,16 +162,22 @@ public class PgCadastroUsuarios extends MB_paginaCadastroEntidades<UsuarioSB> {
 
         if (resp.isSucesso()) {
 
-            xhtmlAcaoAtual = acaoListarRegistros.getXHTMLAcao();
-            atualizarDados();
+            xhtmlAcaoAtual = acaoListarRegistros.getXhtml();
+            listarDados();
 
             pgUtil.atualizaTelaPorID("formulario");
         }
+        atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
     }
 
     @Override
     public void listarDados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isNovoRegistro()) {
+            getEntidadesListadas().clear();
+            getEntidadesListadas().add(getEntidadeSelecionada());
+        } else {
+            atualizarDados();
+        }
     }
 
 }

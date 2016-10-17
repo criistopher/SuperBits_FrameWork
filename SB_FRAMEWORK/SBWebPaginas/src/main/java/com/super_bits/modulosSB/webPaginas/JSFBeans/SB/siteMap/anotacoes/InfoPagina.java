@@ -12,6 +12,10 @@ import java.lang.annotation.Target;
 
 /**
  *
+ *
+ * //TODO renomear para InfoPaginaSiteMAP e retenção para fild, pois a anotação
+ * será usada no siteMAP
+ *
  * @author Salvio
  */
 @Documented
@@ -25,13 +29,6 @@ public @interface InfoPagina {
      * @return Siglas de atalho para aceso a Pagina
      */
     public String nomeCurto();
-
-    /**
-     * Caminho do recurso xhtml
-     *
-     * @return Caminho do recurso xhtml
-     */
-    public String recurso();
 
     /**
      * Tags de acesso a Pagina

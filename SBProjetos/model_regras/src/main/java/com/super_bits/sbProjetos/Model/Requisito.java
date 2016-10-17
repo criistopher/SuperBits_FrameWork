@@ -5,8 +5,9 @@
  */
 package com.super_bits.sbProjetos.Model;
 
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Requisito extends EntidadeSimples implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
     private Double horasEstimadas;
     private Double horasTrabalhadas;

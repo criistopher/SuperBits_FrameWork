@@ -1,4 +1,4 @@
-123<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.super_bits</groupId>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.tmatesoft.svnkit</groupId>
             <artifactId>svnkit</artifactId>
-            <version>1.8.5</version>
+            <version>1.8.12</version>
         </dependency>
 
         <dependency>
@@ -65,35 +65,44 @@
 
 
     <build>
+
+
+
+
+
+
+
         <plugins>
 
 
-            <!-- Make this jar executable -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.super_bits.sbprojectclient.SBProjectClient</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
 
-            <!-- Includes the runtime dependencies -->
+
+
             <plugin>
-                <groupId>org.dstovall</groupId>
+                <!--groupId>org.dstovall</groupId--> <!-- not available on the central -->
+                <groupId>com.jolira</groupId>
                 <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.5</version>
+                <version>1.4.4</version>
                 <executions>
                     <execution>
+                        <configuration>
+                            <mainClass>com.super_bits.sbprojectclient.SBProjectClient</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <!-- https://code.google.com/p/onejar-maven-plugin/issues/detail?id=8 -->
+                            <!--classifier>onejar</classifier-->
+                            <filename>projetoCliente</filename>
+                        </configuration>
                         <goals>
                             <goal>one-jar</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+
+
+
+
 
         </plugins>
     </build>

@@ -6,14 +6,27 @@
 package com.super_bits.modulosSB.Persistencia.Campo;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LOOKUP;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.LOOKUPMULTIPLO;
-import static com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos.getTipoPadraoByClasse;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos.LISTA_OBJETOS;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos.OBJETO_DE_UMA_LISTA;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.CAMPO_TRANSIENTE;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.LISTA_DINIMICA;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_MUITOS;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_MUITOS_COM_REPETICAO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.MUITOS_PARA_UM;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.OBJETO_EMBUTIDO;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.OBJETO_TRANSIENTE;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.SIMPLES;
+import static com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_DECLARACAO.VALOR_CALCULADO;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -26,56 +39,112 @@ public enum FabCamposPersistencia {
 
     campoAnotacoesPersistencia;
 
+    public static TIPO_DECLARACAO getTipoDeclaracao(Field campoReflexao) {
+
+        ManyToOne muitosParaUm = campoReflexao.getAnnotation(ManyToOne.class);
+
+        if (muitosParaUm != null) {
+            return TIPO_DECLARACAO.MUITOS_PARA_UM;
+        }
+
+        OneToMany umParaMuitos = campoReflexao.getAnnotation(OneToMany.class);
+        ManyToMany MuitosParaMuitos = campoReflexao.getAnnotation(ManyToMany.class);
+        if (umParaMuitos != null || MuitosParaMuitos != null) {
+            return TIPO_DECLARACAO.MUITOS_PARA_MUITOS;
+        }
+
+        return null;
+
+    }
+
     /**
      *
      * Retorna um tipo de campo padrão de acordo com a classe.
      *
+     * @param campoReflexao
      * @param pClasse
      * @return
      */
-    public static Campo getCampoByAnotacoes(Field campo) {
+    public static Campo getCampoByAnotacoes(Field campoReflexao) {
 
-        InfoCampo anotacaoInfoCampo = campo.getAnnotation(InfoCampo.class);
+        InfoCampo anotacaoInfoCampo = campoReflexao.getAnnotation(InfoCampo.class);
         FabCampos tipoDoCampo;
+
+        TIPO_DECLARACAO tipoDeclaracaoPersistencia = getTipoDeclaracao(campoReflexao);
+
         Campo sbCampo;
-        if (anotacaoInfoCampo != null) {
-            tipoDoCampo = anotacaoInfoCampo.tipo();
+        sbCampo = FabCampos.getCampoByAnotacoesSimplesSemPersistencia(campoReflexao);
 
-        } else {
-            tipoDoCampo = getTipoPadraoByClasse(campo.getType());
+        if (tipoDeclaracaoPersistencia != null) {
+            sbCampo.setTipoDeclaracao(tipoDeclaracaoPersistencia);
 
+            switch (tipoDeclaracaoPersistencia) {
+                case MUITOS_PARA_MUITOS:
+                    sbCampo.setTipoCampo(FabCampos.LISTA_OBJETOS);
+                    break;
+                case MUITOS_PARA_MUITOS_COM_REPETICAO:
+                    sbCampo.setTipoCampo(LISTA_OBJETOS);
+                    break;
+                case MUITOS_PARA_UM:
+                    sbCampo.setTipoCampo(OBJETO_DE_UMA_LISTA);
+                    break;
+
+                default:
+                    throw new AssertionError(tipoDeclaracaoPersistencia.name());
+
+            }
         }
-
-        ManyToOne muitosParaUm = campo.getAnnotation(ManyToOne.class);
-
-        if (muitosParaUm != null) {
-            tipoDoCampo = LOOKUP;
-
-        }
-        OneToMany umParaMuitos = campo.getAnnotation(OneToMany.class);
-
-        if (umParaMuitos != null) {
-            tipoDoCampo = LOOKUPMULTIPLO;
-
-        }
-
-        sbCampo = tipoDoCampo.getRegistro();
-        sbCampo.setLabel(campo.getName());
 
         // CONFIGURANDO OPÇÕES DE SELEÇÃO
-        switch (sbCampo.getTipoCampo()) {
-            case LOOKUP:
+        switch (sbCampo.getTipoDeclaracao()) {
+            case SIMPLES:
+                break;
+            case VALOR_CALCULADO:
+                break;
+            case LISTA_DINIMICA:
+                break;
+            case MUITOS_PARA_MUITOS:
+                break;
+            case MUITOS_PARA_MUITOS_COM_REPETICAO:
+                break;
+            case MUITOS_PARA_UM:
+                break;
+            case OBJETO_EMBUTIDO:
+                break;
+            case CAMPO_TRANSIENTE:
+                break;
+            case OBJETO_TRANSIENTE:
+                break;
+            default:
+                throw new AssertionError(sbCampo.getTipoDeclaracao().name());
 
-                if (muitosParaUm != null) {
-                    Class classeOpcoes = muitosParaUm.targetEntity();
-                    sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+        }
+
+        switch (sbCampo.getTipoCampo()) {
+            case OBJETO_DE_UMA_LISTA:
+
+                if (sbCampo.getListaDeOpcoes() == null) {
+                    ManyToOne muitosParaUm = campoReflexao.getAnnotation(ManyToOne.class);
+                    if (muitosParaUm != null) {
+                        try {
+                            Class classeOpcoes = muitosParaUm.targetEntity();
+                            if (classeOpcoes.equals(void.class)) {
+                                throw new UnsupportedOperationException("o target entity não foi definodo na anotação @manyToOne do campo" + sbCampo.getNome() + " em" + campoReflexao.getDeclaringClass().getTypeName());
+                            }
+                            sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoes));
+                        } catch (Throwable t) {
+                            SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro obtendo lista de opções em banco de dados para o  campo" + campoReflexao.getDeclaringClass().getSimpleName() + "." + campoReflexao.getName(), t);
+                        }
+                    }
+
                 }
 
                 break;
-            case LOOKUPMULTIPLO:
+            case LISTA_OBJETOS:
+                OneToMany umParaMuitos = campoReflexao.getAnnotation(OneToMany.class);
                 if (umParaMuitos != null) {
                     Class classeOpcoesMultiplo = umParaMuitos.targetEntity();
-                    //            sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
+                    //  sbCampo.setListaDeOpcoes(UtilSBPersistencia.getListaTodos(classeOpcoesMultiplo));
                 }
                 break;
         }
@@ -93,9 +162,9 @@ public enum FabCamposPersistencia {
             }
         }
 
-        Annotation[] outrasAnotacoes = campo.getAnnotations();
+        Annotation[] outrasAnotacoes = campoReflexao.getAnnotations();
 
-        NotNull nulo = campo.getAnnotation(NotNull.class);
+        NotNull nulo = campoReflexao.getAnnotation(NotNull.class);
         if (nulo != null) {
             sbCampo.setObrigatorio(true);
         }

@@ -4,11 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.testesFW;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import org.junit.Before;
 
 /**
@@ -19,7 +15,7 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     protected abstract void configAmbienteDesevolvimento();
 
-    private boolean inicializou = false;
+    private static boolean inicializou = false;
 
     @Before
     public void initPadrao() {
@@ -30,18 +26,6 @@ public abstract class TesteJunit extends org.junit.Assert {
         }
 
         inicializou = true;
-    }
-
-    protected void configDesenvolvedorMultithreas() {
-        SBCore.configurar(new ConfigCoreDeveloper());
-    }
-
-    protected void configDesenvolvedorPadraoSemClasseDePermissoes() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage(), true);
-    }
-
-    protected void configDesenvolvedorPadrao() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
     }
 
     protected void configApenasLog() {

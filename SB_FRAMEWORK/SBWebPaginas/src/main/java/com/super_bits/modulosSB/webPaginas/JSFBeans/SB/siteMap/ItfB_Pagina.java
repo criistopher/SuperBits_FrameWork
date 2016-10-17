@@ -4,8 +4,10 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import java.util.List;
-import javax.enterprise.context.Conversation;
+import java.util.Map;
 
 /**
  *
@@ -43,7 +45,8 @@ public interface ItfB_Pagina {
 
     public String getNomeParametroById(int pId);
 
-    public Conversation getConversa();
+    //public Conversation getConversa();
+    public String getXhtmlAcaoAtual();
 
     /**
      *
@@ -66,6 +69,34 @@ public interface ItfB_Pagina {
     @Deprecated
     public boolean isAcessoLivre();
 
-    public AcaoManagedBean getAcaoVinculada();
+    public AcaoGestaoEntidade getAcaoVinculada();
+
+    /**
+     *
+     * Aplica valores de parametros passados por url no MB_pagina
+     *
+     * @param valorStringPorParametro
+     */
+    public void aplicaValoresDeParametrosModoDesenvolvimento(Map<String, String> valorStringPorParametro);
+
+    public void executarAcaoSelecionada();
+
+    /**
+     *
+     * @return Todas as ações declaradas no managed Bean
+     */
+    public List<ItfAcaoDoSistema> getAcoesDaPagina();
+
+    /**
+     *
+     * @return A ação selecionada no momento
+     */
+    public ItfAcaoDoSistema getAcaoSelecionada();
+
+    /**
+     *
+     * @return
+     */
+    public ItfPaginaGerenciarEntidade<?> getComoPaginaEntidade();
 
 }

@@ -7,7 +7,7 @@ package com.super_bits.webpaginas.paginas;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
@@ -20,7 +20,7 @@ import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.Projeto_Desenvolvedor;
 import com.super_bits.sbProjetos.Model.Requisito;
 import com.super_bits.sbProjetos.Model.Trabalho;
-import com.super_bits.sbProjetos.SBProjectController;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -205,13 +205,13 @@ public class PgAdmin extends MB_PaginaConversation implements Serializable {
     }
 
     public void salvarNovoCliente() {
-        SBProjectController.criarCliente(novoCliente);
+        ModuloGestaoProjeto.criarCliente(novoCliente);
         clientes = (List<Cliente>) UtilSBPersistencia.getListaTodos(Cliente.class);
     }
 
     public void salvarNovoProjeto() {
         System.out.println("Criando Novo Projeto" + novoProjeto.getNomeProjeto());
-        SBProjectController.criarProjeto(novoProjeto);
+        ModuloGestaoProjeto.criarProjeto(novoProjeto);
     }
 
     public Projeto getNovoProjeto() {
@@ -278,7 +278,7 @@ public class PgAdmin extends MB_PaginaConversation implements Serializable {
     }
 
     public void adcionarDesenvolvedorAoProjeto() {
-        SBProjectController.adcionarDesenvolvedorAoProjeto(projetoSelecionado, desenvolvedorSelecionado, horasSemanais);
+        ModuloGestaoProjeto.adcionarDesenvolvedorAoProjeto(projetoSelecionado, desenvolvedorSelecionado, horasSemanais);
         criarNovoDesenvolvedor();
     }
 

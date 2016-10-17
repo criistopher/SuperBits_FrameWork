@@ -1,28 +1,26 @@
 package com.super_bits.modulosSB.Persistencia.ERROS;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
 
-public class ErroSBSQL extends InfoErroSB {
-
-    private static final long serialVersionUID = 1L;
+public class ErroSBSQL extends InfoErroSBComAcoes {
 
     @Override
-    protected void lancarExcecao() {
+    public void lancarExcecao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void lancarPane() {
+    public void lancarPane() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void registrarErro() {
+    public void registrarErro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void alertarResponsavel() {
+    public void alertarResponsavel() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

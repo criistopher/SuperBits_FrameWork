@@ -5,11 +5,11 @@
 package com.super_bits.config.webPaginas.forms;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.form.B_Formulario;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.form.InfoForm;
 import com.super_bits.sbProjetos.Model.Projeto;
-import com.super_bits.sbProjetos.SBProjectController;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
 import com.super_bits.webpaginas.paginas.PgVisaoGeral;
 import java.io.Serializable;
 import javax.enterprise.context.Conversation;
@@ -83,7 +83,7 @@ public class FrmNovoRequisito extends B_Formulario implements Serializable {
     @Override
     protected boolean acaoForm() {
 
-        if (SBProjectController.criarRequisito(descricao, motivacao, nomeNovoRequisito, projeto)) {
+        if (ModuloGestaoProjeto.criarRequisito(descricao, motivacao, nomeNovoRequisito, projeto)) {
             SBCore.getCentralDeMensagens().enviaMensagemUsuario("Requisito cadastrado", ItfCentralMensagens.TP_MENSAGEM.AVISO);
             return true;
         } else {

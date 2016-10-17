@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+
+        [tagInputeste]
+
+        <ui:decorate template="/resources/SBComp/tagLib/layoutInpt.xhtml">
+            <ui:param name="label" value="label" />
+            <ui:param name="id" value="#{idTeste}" />
+            <ui:param name="idPai" value="#{id}" />
+            <ui:define name="input">
+
+
+                Id planejado #{id}#{idTeste} <br/>
+
+                <br/>
+                <p:inputText id="#{id}#{idTeste}" value="Colé Colé" required="true" />
+            </ui:define>
+        </ui:decorate>
+
+        [/tagInputeste]
+    </h:body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

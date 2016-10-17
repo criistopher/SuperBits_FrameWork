@@ -3,7 +3,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.filtro.old;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.CSBNQ;
 import com.super_bits.modulosSB.Persistencia.dao.DaoGenerico;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.ClasseTipada;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import java.io.Serializable;
@@ -81,10 +81,10 @@ public abstract class MB_FiltrosPagina<T extends ItfBeanSimples> extends ClasseT
     protected void setFiltros() {
         filtros = null;
         if (foiInjetado) {
-            filtros = (List<MB_Filtro<?>>) UtilSBWPServletTools.getObjetosInjetados(
-                    MB_Filtro.class, this);
+            //      filtros = (List<MB_Filtro<?>>) UtilSBWPServletTools.getObjetosInjetados(
+            //            MB_Filtro.class, this);
         } else {
-            filtros = (List<MB_Filtro<?>>) UtilSBWPServletTools.getObjetosInjetadosModoOffline(MB_Filtro.class, this);
+            // filtros = (List<MB_Filtro<?>>) UtilSBWPServletTools.getObjetosInjetadosModoOffline(MB_Filtro.class, this);
         }
         quantidadeSubFiltro = filtros.size();
     }

@@ -2,15 +2,17 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 //import com.super_bits.modulosSB.webPaginas.ConfigGeral.CInfo;
 //Simport com.super_bits.modulosSB.webPaginas.JSFBeans.util.OrganizadorDeArquivos;
-
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.lang.reflect.Field;
 import java.rmi.UnexpectedException;
 import java.util.ArrayList;
@@ -39,20 +41,25 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
     @Override
     public String getNomeCurto() {
-        String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
-        String nomeCurto = "";
-        nome = nome.replace("-", " ");
-        nome = nome.replace(".", " ");
-        for (String parte : nome.split(" ")) {
-            if (nomeCurto.length() < 15) {
-                if (nomeCurto.length() > 0) {
-                    nomeCurto = nomeCurto + " " + parte;
-                } else {
-                    nomeCurto = nomeCurto + parte;
+        try {
+            String nome = (String) getValorByTipoCampoEsperado(FabCampos.AAA_NOME);
+            String nomeCurto = "";
+            nome = nome.replace("-", " ");
+            nome = nome.replace(".", " ");
+            for (String parte : nome.split(" ")) {
+                if (nomeCurto.length() < 15) {
+                    if (nomeCurto.length() > 0) {
+                        nomeCurto = nomeCurto + " " + parte;
+                    } else {
+                        nomeCurto = nomeCurto + parte;
+                    }
                 }
             }
+            return nomeCurto;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro Obtendo o campo nome da classe" + this.getClass().getSimpleName() + " certifique que o nome tenha sido anotado, e que o tipo retornado seja String", t);
         }
-        return nomeCurto;
+        return null;
     }
 
     public String getNomeCurtoURLAmigavel() {
@@ -168,7 +175,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
             return "nulo".hashCode();
         }
 
-        return (getNomeUnico() + getNomeUnico()).hashCode();
+        return (this.getClass() + getNomeUnico()).hashCode();
     }
 
     @Override
@@ -201,11 +208,27 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
 
     @Override
     public void setNome(String pNome) {
-        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, this);
+        setValorByTipoCampoEsperado(FabCampos.AAA_NOME, pNome);
     }
 
     @Override
     public void setId(int pID) {
-        setValorByTipoCampoEsperado(FabCampos.ID, this);
+        setValorByTipoCampoEsperado(FabCampos.ID, pID);
     }
+
+    @Override
+    public String getNomeUnicoSlug() {
+        return getNomeCurto() + "-" + getId();
+    }
+
+    @Override
+    public String getIconeDaClasse() {
+        return UtilSBCoreReflexao.getIconeDoObjeto(this.getClass());
+    }
+
+    @Override
+    public String getXhtmlVisao() {
+        return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
+    }
+
 }

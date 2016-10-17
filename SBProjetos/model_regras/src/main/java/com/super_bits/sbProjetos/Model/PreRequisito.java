@@ -5,8 +5,9 @@
  */
 package com.super_bits.sbProjetos.Model;
 
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +24,10 @@ import javax.persistence.Temporal;
 public class PreRequisito extends EntidadeSimples {
 
     @Id
-    @InfoCampo(tipo = InfoCampo.TC.ID)
+    @InfoCampo(tipo = FabCampos.ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.NOME_COMPLETO)
     private String nomePreRequisito;
     private String justificativa;
     @Temporal(javax.persistence.TemporalType.DATE)

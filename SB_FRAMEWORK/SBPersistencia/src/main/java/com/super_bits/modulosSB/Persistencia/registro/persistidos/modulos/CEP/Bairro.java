@@ -1,16 +1,11 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
-import com.sun.tools.corba.se.idl.UnionGen;
-import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfBairro;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfCidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfBairro;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +20,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@InfoClasse(tags = {"Bairro"}, plural = "Bairros")
 public class Bairro extends EntidadeSimples implements ItfBairro {
 
     @Id
@@ -35,9 +31,6 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
     @InfoCampo(tipo = FabCampos.AAA_NOME, label = "Bairro")
     @NotNull
     private String nome;
-
-    @ManyToOne(targetEntity = UnidadeFederativa.class)
-    private UnidadeFederativa unidadeFederativa;
 
     @InfoCampo(tipo = FabCampos.LCCidade)
     @ManyToOne(targetEntity = Cidade.class)
@@ -74,14 +67,6 @@ public class Bairro extends EntidadeSimples implements ItfBairro {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    public UnidadeFederativa getUnidadeFederativa() {
-        return unidadeFederativa;
-    }
-
-    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
-        this.unidadeFederativa = unidadeFederativa;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas;
 
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import java.io.Serializable;
 
 public class TemaPrimeFaces extends EntidadeSimples implements Serializable {

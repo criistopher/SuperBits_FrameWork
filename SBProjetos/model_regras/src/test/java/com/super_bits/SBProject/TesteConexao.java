@@ -5,11 +5,11 @@
  */
 package com.super_bits.SBProject;
 
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSBWebPaginas;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloper;
+
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.sbProjetos.ConfiguradorCoreSBProjetosModel;
 import com.super_bits.sbProjetos.Model.ConfigPersistenciaSBProject;
 import com.super_bits.sbProjetos.Model.Requisito;
 import java.util.List;
@@ -24,7 +24,7 @@ public class TesteConexao {
 
     @Before
     public void configuracao() {
-        SBCore.configurar(new ConfigCoreDeveloper());
+        SBCore.configurar(new ConfiguradorCoreSBProjetosModel(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(new ConfigPersistenciaSBProject());
     }
 
@@ -36,7 +36,6 @@ public class TesteConexao {
             System.out.println(rq.getNome());
 
         }
-        List<AcessoSBWebPaginas> paginasBancoAtual = (List) UtilSBPersistencia.getListaTodos(AcessoSBWebPaginas.class);
     }
 
 }

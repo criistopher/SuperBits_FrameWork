@@ -5,9 +5,11 @@
 package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,7 +61,7 @@ public abstract class UtilSBWP_JSFTools {
      * @return A whitespace-separated list of all absolute paths.
      * @see ComponentResolver#getAbsoluteComponentPath(UIComponent)
      */
-    private static String getAbsoluteComponentPaths(Collection<UIComponent> components) {
+    public static String getAbsoluteComponentPaths(Collection<UIComponent> components) {
         String paths = "";
         for (UIComponent c : components) {
 
@@ -109,7 +111,7 @@ public abstract class UtilSBWP_JSFTools {
      * @param currentComponent Arvore inicial onde o componente será localizado
      * @return Accumulation of all components that match the given id
      */
-    private static List<UIComponent> resolveList(String id, UIComponent currentComponent) {
+    public static List<UIComponent> resolveList(String id, UIComponent currentComponent) {
         List<UIComponent> accumulator = new LinkedList<UIComponent>();
         //   System.out.println("procurando por" + id + "em:" + currentComponent.getId() + currentComponent.getId());
         if (null != currentComponent.getId() && currentComponent.getId().equals(id)) {
@@ -120,6 +122,7 @@ public abstract class UtilSBWP_JSFTools {
         Iterator<UIComponent> childIt = currentComponent.getFacetsAndChildren();
         while (childIt.hasNext()) {
             UIComponent child = childIt.next();
+
             accumulator.addAll(resolveList(id, child));
         }
 
@@ -187,7 +190,7 @@ public abstract class UtilSBWP_JSFTools {
 
         } catch (Exception e) {
             mensagens().alertaSistema("erro tentando redirecionar pagina" + e.getMessage() + pURL);
-            e.printStackTrace();
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pURL, e);
         }
     }
 
@@ -204,13 +207,14 @@ public abstract class UtilSBWP_JSFTools {
 
     public static void vaParaPaginadeErro(String Mensagem) {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SBWebPaginas.getSiteURL() + "/resources/SBComp/SBSystemPages/tagPageNotFound.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(SBWebPaginas.getSiteURL() + "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void vaParaPaginaInicial() {
+        vaParaPagina(SBWebPaginas.getSiteHost());
 
     }
 
@@ -229,4 +233,23 @@ public abstract class UtilSBWP_JSFTools {
 
     }
 
+    public static boolean isExisteEsteFormulario(ItfAcaoFormulario pformulario) {
+        return isExisteEsteFormulario(pformulario.getXhtml());
+    }
+
+    public static boolean isExisteEsteFormulario(String xhtml) {
+        try {
+            String caminhoPastaResoureces = null;
+            if (SBCore.isEmModoDesenvolvimento()) {
+                caminhoPastaResoureces = SBWebPaginas.getCaminhoWebResourcesDeveloper();
+            } else {
+                caminhoPastaResoureces = UtilSBWPServletTools.getCaminhoLocalServletsResource();
+            }
+            return new File(caminhoPastaResoureces + xhtml).exists();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro verificando existencia do XHTML", t);
+            return false;
+        }
+
+    }
 }

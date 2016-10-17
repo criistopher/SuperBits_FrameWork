@@ -1,7 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
-import javax.enterprise.context.Conversation;
 
 public class PaginaSimples extends B_Pagina {
 
@@ -45,11 +44,6 @@ public class PaginaSimples extends B_Pagina {
     @Override
     public int getId() {
         return 99;
-    }
-
-    @Override
-    public Conversation getConversa() {
-        return null;
     }
 
 }

@@ -6,12 +6,12 @@ package com.super_bits.modulosSB.Persistencia.dao;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoPessoa;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoPessoa;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -42,23 +43,79 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     private static EntityManagerFactory emFacturePadrao;
     private static final int MAXIMO_REGISTROS = 2000;
+    private static Map<String, Object> configuracoesPeristenciaPadrao = new HashMap<>();
 
     /**
-     * Tipo de aviso de resultado, pode ser: SOLICITAR_REPARO USUARIO
-     * ARQUIVAR_LOG -> O SOLICITAR_REPARO SÓ VAI EMITIR AVISO QUANDO ESTIVER NO
-     * MODO DESENVOLVIMENTO -> O USUARIO SEMPRE MOSTRARÁ O RESULTADO AO USUARIO
-     * -> O ARQUIVAR_LOG GRAVARA UM LOG QUANDO EM HOMOLOGAÇÃO OU PRODUÇÃO, E
-     * EXIBIRA MENSAGEM QUANDO EM DESENVOLVIMENTO
+     *
+     * Temporário, nescessário para não criar dois entitymanager durante o modo
+     * desenvolvedor
+     *
+     * Será substituído na versão 1.5 do modulo de persistencia do sistema
+     *
+     * @param fabrica
+     * @param propriedades
+     * @deprecated
+     */
+    @Deprecated
+    public static void defineFabricaEntityManager(EntityManagerFactory fabrica, Map<String, Object> propriedades) {
+        emFacturePadrao = fabrica;
+        configuracoesPeristenciaPadrao = propriedades;
+    }
+
+    /**
+     *
      */
     public static enum AVISAR {
 
-        PROGRAMADOR, USUARIO, SISTEMA
+        /**
+         * Uma mensagem para o programador só acontece no modo de
+         * desenvolvimento e homologação
+         */
+        PROGRAMADOR,
+        /**
+         * Uma mensagem para o usuário
+         */
+        USUARIO,
+        /**
+         * Uma mensagem do sistema é uma mensagem que deve ser arquivada em logs
+         * do sistema
+         */
+        SISTEMA
     };
 
-    //* TIPOS DE SELEÇÃO DE LISTAS MAIS COMUNS */
+    /**
+     *
+     * Tipos de selação conhecidos do sistema
+     *
+     */
     public static enum TIPO_SELECAO_REGISTROS {
 
-        JPQL, SQL, LIKENOMECURTO, TODOS, NAMED_QUERY, SBNQ;
+        /**
+         * Selação por JPQL (Java persistence query language) (O SQL do JPA)
+         */
+        JPQL,
+        /**
+         * Seleção por SQL nativo, atenção usar este método deixa o sistema
+         * incompativel com outros tipos de banco de dados
+         */
+        SQL,
+        /**
+         * Seleção de registro Like nome
+         */
+        LIKENOME,
+        /**
+         * Seleciona todos os registros
+         */
+        TODOS,
+        /**
+         * Seleciona registros por Named Querys
+         */
+        NAMED_QUERY,
+        /**
+         * Seleciona registro por Super Bits Named Querys
+         */
+        @Deprecated
+        SBNQ;
     }
 
     //* TIPOS DE SELEÇÃO DE ITEM MAIS COMUNS */
@@ -67,7 +124,18 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         ID, NOMECURTO, LIKENOMECURTO, SQL, JPQL, ULTIMO_REGISTRO, PRIMEIRO_REGISTRO, ENCONTRAR_EMPRESA, ENCONTRAR_PESSOA, QUANTIDADE_REGISTROS
     }
 
-    private static Map<String, EntityManagerFactory> bancoExtra = new HashMap<String, EntityManagerFactory>();
+    public static void renovarFabrica() {
+        if (emFacturePadrao != null) {
+            if (emFacturePadrao.isOpen()) {
+                emFacturePadrao.close();
+                emFacturePadrao = null;
+            }
+        }
+        getNovoEM().close();
+
+    }
+
+    private static final Map<String, EntityManagerFactory> BANCO_EXTRA = new HashMap<>();
 
     /**
      *
@@ -89,7 +157,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         }
 
         try {
-            EntityManagerFactory fabrica = bancoExtra.get(pNomeBanco);
+
+            EntityManagerFactory fabrica = BANCO_EXTRA.get(pNomeBanco);
 
             if (fabrica == null) {
                 System.out.println("Criando EMF" + pNomeBanco);
@@ -98,7 +167,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 if (fabrica == null) {
                     SBCore.RelatarErro(FabErro.PARA_TUDO, " Erro criando EntityFactury" + pNomeBanco, null);
                 }
-                bancoExtra.put(pNomeBanco, fabrica);
+                BANCO_EXTRA.put(pNomeBanco, fabrica);
             }
             if (fabrica != null) {
                 fabrica.getCache().evictAll();
@@ -129,7 +198,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         try {
             if (emFacturePadrao == null) {
 
-                emFacturePadrao = Persistence.createEntityManagerFactory(SBPersistencia.getNomeBancoPadrao());
+                emFacturePadrao = Persistence.createEntityManagerFactory(SBPersistencia.getNomeBancoPadrao(), configuracoesPeristenciaPadrao);
             }
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro tentando criar entitymanagerFacturePAdrão=" + SBPersistencia.getNomeBancoPadrao(), e);
@@ -209,7 +278,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
             return true;
         } catch (Throwable t) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao Iniciar a tranzação", t);
             return false;
         }
 
@@ -229,6 +298,13 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
             return true;
         } catch (Throwable t) {
+
+            try {
+                em.getTransaction().rollback();
+            } catch (Throwable tt) {
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao executar o RollBack", t);
+            }
+
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Ocorreu um erro ao finalizar a tranzação", t);
             return false;
         }
@@ -286,7 +362,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 throw new UnsupportedOperationException("Favor informar ao menos uma entidade para persistir, é possível que você esteja tentando salvar um registro = a nulo");
             }
 
-            System.out.println("executando alteração do tipo" + pTipoAlteracao);
+            System.out.println("executando alteração em [" + pEntidade.getClass().getSimpleName() + "] do tipo :" + pTipoAlteracao);
             if (SBCore.isControleDeAcessoDefinido()) {
                 if (!SBCore.getConfiguradorDePermissao().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString()).isSucesso()) {
                     FabMensagens.enviarMensagemUsuario("Ação não permita para este usuário, solicite permição ao Administrador", FabMensagens.AVISO);
@@ -474,7 +550,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                 try {
                     String sql = "";
                     switch (pTipoSelecao) {
-                        case LIKENOMECURTO:
+                        case LIKENOME:
 
                             ItfBeanSimples registro = (ItfBeanSimples) tipoRegisto.newInstance();
                             String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME);
@@ -683,6 +759,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * Realizar Merg de Objeto (cria se o key primario não existir, e atualiza
      * caso exista).
      *
+     * *Enviando uma Entidade o sistema não irá gerenciar a tranção, ou seja,
+     * não vai abrir nem fechar
+     *
      * @param obj Objeto que será salvo em banco
      * @param pEm Entity manager que será utilizado
      * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra
@@ -697,6 +776,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     /**
      * Realizar Merg de Objeto (cria se o primario não existir, e atualiza caso
      * exista).
+     *
+     * *Este método irá criar um novo Entity Manager, e fechar em seguida
+     *
      *
      * @param object
      * @return Objeto atualizado apos ser persistido em banco,e nulo caso ocorra
@@ -780,7 +862,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return Lista com registros like nomecurto
      */
     public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class classe) {
-        return selecaoRegistros(null, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
+        return selecaoRegistros(null, null, null, null, classe, TIPO_SELECAO_REGISTROS.LIKENOME, pNomeCurto);
     }
 
     /**
@@ -795,7 +877,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static List getListaRegistrosLikeNomeCurto(String pNomeCurto, Class pClasse, EntityManager pEM) {
-        return selecaoRegistros(pEM, null, null, null, pClasse, TIPO_SELECAO_REGISTROS.LIKENOMECURTO, pNomeCurto);
+        return selecaoRegistros(pEM, null, null, null, pClasse, TIPO_SELECAO_REGISTROS.LIKENOME, pNomeCurto);
     }
 
     public static List getListaTodos(Class pClasse) {
@@ -873,6 +955,11 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
+    public static Object getRegistroByNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
+
+        return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
+    }
+
     /**
      *
      * @param pClasse Classe referente
@@ -940,6 +1027,31 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      */
     public static Object getRegistroByID(Class pClasse, int id, EntityManager pEM) {
         return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.ID, id);
+
+    }
+
+    /**
+     *
+     * Carrega uma entidade apartir de um Bean Simples
+     *
+     * -> Um objeto que ainda não foi carregado pelo hibernate possui as funções
+     * referentes a lista limitadas, para casos onde o Objeto é construido fora
+     * do banco de dados
+     *
+     * @param pBeanSimples O bean que será carregado
+     * @param pEM Entity manager utlizado
+     * @return
+     */
+    public static Object loadEntidade(ItfBeanSimples pBeanSimples, EntityManager pEM) {
+        try {
+            if (pBeanSimples == null) {
+                throw new UnsupportedOperationException("Tentativa de carregar o Registro JPA enviando o valor nulo");
+            }
+            return selecaoRegistro(pEM, null, null, pBeanSimples.getClass(), UtilSBPersistencia.TipoSelecaoRegistro.ID, pBeanSimples.getId());
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Tentativa de carregar entidade apartide de um bean nulo", t);
+        }
+        return null;
 
     }
 
@@ -1027,8 +1139,60 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return null;
     }
 
+    public static List<Class> getTodasEntidades() {
+        EntityManager em = UtilSBPersistencia.getNovoEM();
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = em.getMetamodel().getEntities();
+        List<Class> entidades = new ArrayList<>();
+        for (EntityType<?> entidade : lista) {
+            System.out.println(entidade.getJavaType().toString());
+            Class<?> classe = entidade.getJavaType();
+            System.out.println(entidade.getClass().getName());
+            entidades.add(entidade.getJavaType());
+        }
+        em.close();
+        return entidades;
+    }
+
+    public static Class getEntidadeByNomeClasse(String nomeEntidade) {
+        return getEntidadeByNomeClasse(nomeEntidade, getNovoEM());
+    }
+
+    public static Class getEntidadeByNomeClasse(String nomeEntidade, EntityManager pEm) {
+        if (nomeEntidade == null) {
+            throw new UnsupportedOperationException("Erro tentativa de obter entidade com nome com parametro nulo");
+        }
+
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = pEm.getMetamodel().getEntities();
+        for (EntityType<?> entidade : lista) {
+            Class<?> classe = entidade.getJavaType();
+            if (classe.getSimpleName().equals(nomeEntidade)) {
+                return classe;
+            }
+        }
+        pEm.close();
+        return null;
+    }
+
+    public static List<Class> getTodasEntidades(String nomePersistenceUnit) {
+        EntityManager em = UtilSBPersistencia.getNovoEM(nomePersistenceUnit);
+        //((Dados) BeansUtil.getAppBean("dados")).getEm();
+        Set<EntityType<?>> lista = em.getMetamodel().getEntities();
+        List<Class> entidades = new ArrayList<>();
+        for (EntityType<?> entidade : lista) {
+            System.out.println(entidade.getJavaType().toString());
+            Class<?> classe = entidade.getJavaType();
+            System.out.println(entidade.getClass().getName());
+            entidades.add(entidade.getJavaType());
+        }
+        em.close();
+        return entidades;
+    }
+
     public static List<?> getListaBySBNQ(SBNQ pSBNQ) {
         return pSBNQ.getQueryHibernate().getResultList();
+
     }
 
     private static boolean executaSQLcmd(EntityManager pEm, String pSQl) {
@@ -1074,6 +1238,13 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     public static Object superMerge(ItfBeanSimples pEntidade, EntityManager em) {
 
         throw new UnsupportedOperationException();
+
+    }
+
+    public static void isEntidadeFoiCarregada(ItfBeanSimples entidade, EntityManager pEm) {
+        PersistenceUnitUtil unitUtil = pEm.getEntityManagerFactory().getPersistenceUnitUtil();
+
+        unitUtil.isLoaded(entidade);
 
     }
 

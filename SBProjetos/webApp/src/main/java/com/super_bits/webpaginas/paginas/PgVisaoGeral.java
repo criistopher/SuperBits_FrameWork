@@ -9,7 +9,7 @@ import com.super_bits.config.webPaginas.forms.FrmNovoRequisito;
 import com.super_bits.modulosSB.Persistencia.dao.DaoGenerico;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaConversation;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
@@ -19,7 +19,7 @@ import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.Requisito;
-import com.super_bits.sbProjetos.SBProjectController;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.view.ViewScoped;
@@ -159,7 +159,7 @@ public class PgVisaoGeral extends MB_PaginaConversation implements Serializable 
         }
         System.out.println("promoção de requisito com " + pRequisito.getHorasEstimadas() + "horas estimadas");
 
-        if (SBProjectController.promoverRequisito(pRequisito)) {
+        if (ModuloGestaoProjeto.promoverRequisito(pRequisito)) {
             SBCore.getCentralDeMensagens().enviaMensagemUsuario("Requisito " + pRequisito.getNome() + " foi promovido", ItfCentralMensagens.TP_MENSAGEM.AVISO);
             atualizarDados();
 
@@ -169,7 +169,7 @@ public class PgVisaoGeral extends MB_PaginaConversation implements Serializable 
 
     public void rebaixarRequisito(Requisito pRequisito) {
         System.out.println("rebaixando" + pRequisito.getNome());
-        SBProjectController.rebaixarRequisito(pRequisito);
+        ModuloGestaoProjeto.rebaixarRequisito(pRequisito);
         projetos = new DaoGenerico<Projeto>(Projeto.class).todos();
 
     }
@@ -214,7 +214,7 @@ public class PgVisaoGeral extends MB_PaginaConversation implements Serializable 
 
     public void incrementarHorasSemanais(Projeto pProjeto, Desenvolvedor pDesenvolvedor) {
         try {
-            SBProjectController.incrementarHorasSemanaisDesenvolvedor(pProjeto, pDesenvolvedor);
+            ModuloGestaoProjeto.incrementarHorasSemanaisDesenvolvedor(pProjeto, pDesenvolvedor);
             teste++;
             atualizarDados();
         } catch (Exception e) {
@@ -226,7 +226,7 @@ public class PgVisaoGeral extends MB_PaginaConversation implements Serializable 
     public void decrementarHorasSemanais(Projeto pProjeto, Desenvolvedor pDesenvolvedor) {
 
         try {
-            SBProjectController.decrementarHorasSemanaisDesenvolvedor(pProjeto, pDesenvolvedor);
+            ModuloGestaoProjeto.decrementarHorasSemanaisDesenvolvedor(pProjeto, pDesenvolvedor);
             teste++;
             atualizarDados();
         } catch (Exception e) {

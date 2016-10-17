@@ -4,12 +4,14 @@
  */
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
-import com.super_bits.Controller.ConfigPermissaoAbstratoSBCore;
-import com.super_bits.Controller.Interfaces.permissoes.ItfCfgPermissoes;
-import com.super_bits.modulosSB.SBCore.Mensagens.ItfCentralMensagens;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.InfoErroSB;
-import com.super_bits.modulosSB.SBCore.logeventos.ItfCentralEventos;
-import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
+import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 
 /**
  *
@@ -18,27 +20,48 @@ import com.super_bits.modulosSB.SBCore.sessao.Interfaces.ItfControleDeSessao;
  *
  * @author cristopher
  */
-public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
+public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
 
+    private String nomeSocial;
     private Class<? extends ItfCentralMensagens> centralMEnsagens;
-    private Class<? extends InfoErroSB> classeErro;
+    private Class<? extends InfoErroSBComAcoes> classeErro;
     private Class<? extends ItfControleDeSessao> controleDeSessao;
     private Class<? extends ItfCentralEventos> centralDeEventos;
-    private Class<? extends ConfigPermissaoAbstratoSBCore> classeConfigPermissao;
+    private Class<? extends ConfigPermissaoSBCoreAbstrato> classeConfigPermissao;
+    private Class<? extends ItfServicoVisualizacao> classeVisualizacao;
     private String nomeProjeto;
     private SBCore.ESTADO_APP estadoAPP;
     private String cliente;
     private String grupoProjeto;
-    private String diretorioBase = "/";
+    private String diretorioBase = "";
+    private Class<? extends ItfFabricaAcoes>[] acoesDoSistema;
+    private String urlJira;
+
+    @Override
+    public Class<? extends ConfigPermissaoSBCoreAbstrato> getConfigPermissoes() {
+        return classeConfigPermissao;
+    }
+
+    @Override
+    public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes() {
+        return acoesDoSistema;
+    }
+
+    @Override
+    public String getUrlJira() {
+        return urlJira;
+    }
+
+    public ConfigCoreCustomizavel() {
+    }
 
     @Override
     public Class<? extends ItfCentralMensagens> getCentralDeMensagens() {
-
         return centralMEnsagens;
     }
 
     @Override
-    public Class<? extends InfoErroSB> getClasseErro() {
+    public Class<? extends InfoErroSBComAcoes> getClasseErro() {
         return classeErro;
     }
 
@@ -79,49 +102,138 @@ public class ConfigCoreCustomizavel implements ItfConfiguradorCore {
         return grupoProjeto;
     }
 
-    public void setCentralMEnsagens(Class<? extends ItfCentralMensagens> centralMEnsagens) {
+    @Override
+    public final void setCentralMEnsagens(Class<? extends ItfCentralMensagens> centralMEnsagens) {
         this.centralMEnsagens = centralMEnsagens;
-    }
 
-    public void setClasseErro(Class<? extends InfoErroSB> classeErro) {
-        this.classeErro = classeErro;
-    }
-
-    public void setControleDeSessao(Class<? extends ItfControleDeSessao> controleDeSessao) {
-        this.controleDeSessao = controleDeSessao;
-    }
-
-    public void setCentralDeEventos(Class<? extends ItfCentralEventos> centralDeEventos) {
-        this.centralDeEventos = centralDeEventos;
-    }
-
-    public void setNomeProjeto(String nomeProjeto) {
-        this.nomeProjeto = nomeProjeto;
-    }
-
-    public void setEstadoAPP(SBCore.ESTADO_APP estadoAPP) {
-        this.estadoAPP = estadoAPP;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public void setGrupoProjeto(String grupoProjeto) {
-        this.grupoProjeto = grupoProjeto;
-    }
-
-    public void setDiretorioBase(String diretorioBase) {
-        this.diretorioBase = diretorioBase;
-    }
-
-    public void setClasseConfigPermissao(Class<? extends ConfigPermissaoAbstratoSBCore> pConfigPermissao) {
-        classeConfigPermissao = pConfigPermissao;
     }
 
     @Override
-    public Class<? extends ConfigPermissaoAbstratoSBCore> getConfigPermissoes() {
-        return classeConfigPermissao;
+    public final void setClasseErro(Class<? extends InfoErroSBComAcoes> classeErro) {
+        this.classeErro = classeErro;
+
+    }
+
+    /**
+     *
+     * @param controleDeSessao
+     * @return
+     */
+    @Override
+    public final void setControleDeSessao(Class<? extends ItfControleDeSessao> controleDeSessao) {
+
+        if (this.controleDeSessao == null) {
+            this.controleDeSessao = controleDeSessao;
+        } else {
+            System.out.println("Ouve uma tentatidade de configurar o controle de sessão duas vezes!!!! ");
+        }
+
+    }
+
+    @Override
+    public final void setCentralDeEventos(Class<? extends ItfCentralEventos> centralDeEventos) {
+        this.centralDeEventos = centralDeEventos;
+
+    }
+
+    /**
+     *
+     * O nome do projeto identifica a pasta onde o projeto se encontra
+     *
+     * @param pnomeProjeto
+     * @return
+     */
+    @Override
+    public final void setNomeProjeto(String pnomeProjeto) {
+        if (UtilSBCoreStrings.isNAO_NuloNemBranco(nomeProjeto)) {
+            System.out.println("O nomr do Projeto já foi setado como " + nomeProjeto + " a mudança para [" + pnomeProjeto + "] não foi realizada");
+        } else {
+            this.nomeProjeto = pnomeProjeto;
+        }
+    }
+
+    @Override
+    public final void setEstadoAPP(SBCore.ESTADO_APP estadoAPP) {
+        this.estadoAPP = estadoAPP;
+
+    }
+
+    @Override
+    public final void setCliente(String pCliente) {
+        if (UtilSBCoreStrings.isNAO_NuloNemBranco(cliente)) {
+            System.out.println("O cliente já foi setado como " + cliente + " a mudança para [" + pCliente + "] não foi realizada");
+        } else {
+            this.cliente = pCliente;
+        }
+    }
+
+    @Override
+    public final void setGrupoProjeto(String pGrupoProjeto) {
+        if (UtilSBCoreStrings.isNAO_NuloNemBranco(grupoProjeto)) {
+            System.out.println("O grupo projeto já foi setado como " + grupoProjeto + " a mudança para [" + pGrupoProjeto + "] não foi realizada");
+        } else {
+            this.grupoProjeto = pGrupoProjeto;
+
+        }
+    }
+
+    /**
+     *
+     * O diretorio base é o diretorio que pode existir logo depois da pasta
+     * source, agrupando diversos projetos
+     *
+     * @param pDiretorioBase
+     * @return
+     */
+    @Override
+    public final void setDiretorioBase(String pDiretorioBase) {
+        if (UtilSBCoreStrings.isNAO_NuloNemBranco(this.diretorioBase)) {
+            System.out.println("O Diretorio base já foi setado como" + diretorioBase + " o diretório NAO foi alterado para" + pDiretorioBase);
+        } else {
+            this.diretorioBase = pDiretorioBase;
+        }
+
+    }
+
+    @Override
+    public final void setClasseConfigPermissao(Class<? extends ConfigPermissaoSBCoreAbstrato> pConfigPermissao
+    ) {
+        classeConfigPermissao = pConfigPermissao;
+
+    }
+
+    @Override
+    public final void setFabricaDeAcoes(Class<? extends ItfFabricaAcoes>[] pAcoes) {
+        acoesDoSistema = pAcoes;
+
+    }
+
+    @Override
+    public final void setUrlJira(String urlJira) {
+
+        this.urlJira = urlJira;
+
+    }
+
+    @Override
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
+
+    @Override
+    public void setNomeSocial(String nomeSocial
+    ) {
+        this.nomeSocial = nomeSocial;
+    }
+
+    @Override
+    public Class<? extends ItfServicoVisualizacao> getServicoVisualizacao() {
+        return classeVisualizacao;
+    }
+
+    @Override
+    public void setServicoVisualizacao(Class<? extends ItfServicoVisualizacao> classeVisualizacao) {
+        this.classeVisualizacao = classeVisualizacao;
     }
 
 }

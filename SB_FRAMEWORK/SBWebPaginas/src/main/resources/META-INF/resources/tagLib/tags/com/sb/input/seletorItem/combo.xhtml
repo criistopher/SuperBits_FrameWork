@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:decorate   template="../layouts/esquerda.xhtml">
+
+
+        <ui:define name="input">
+
+            <p:selectOneMenu
+                class=" seletorResponsivo  TexAlCenter #{componenteVisual.classeCSS}"
+                disabled="#{desabilitarEdicao}"
+                required="#{obrigatorio}"
+                value="#{valor}"
+                validatorMessage="O valor informado no campo #{label} não é valido!"
+                requiredMessage="O campo #{label} não foi informado!"
+                autoWidth="true"
+                styleClass="seletorResponsivo #{componente.classeCSS}"
+                converter="conversorGenerico"
+                var="it"
+                converterMessage="Erro ao converter objeto" >
+
+                <f:selectItem
+                    itemLabel=" não Selecionado"  />
+
+                <f:selectItems
+                    value="#{opcoes}"
+                    var="item"
+                    itemLabel="#{item.nomeCurto}"
+                    itemValue="#{item}" />
+                <c:if test="#{possuiMetodoOnChange}">
+                    <p:ajax rendered="#{possuiMetodoOnChange}"
+                            global="true"
+                            event="valueChange"
+                            listener="#{prMetodo}"/>
+                </c:if>
+
+                <c:if test="#{possuiIDOnChange}" >
+                    <p:ajax
+                        rendered="#{possuiIDOnChange}"
+                        global="true"
+                        event="valueChange"
+                        listener="#{pgUtil.atualizaTelaPorID(idAtualizarOnChange)}" />
+                </c:if>
+                <p:column>
+                    #{it.nomeCurto}
+                </p:column>
+
+            </p:selectOneMenu>
+
+
+        </ui:define>
+    </ui:decorate>
+</html>
+
+

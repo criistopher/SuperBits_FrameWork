@@ -5,23 +5,18 @@
  */
 package com.super_bits.configSBFW.acessos;
 
-import com.super_bits.modulos.SBAcessosModel.model.AcessoSB;
+import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
-import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.BeansInterface.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.Controller.ConfigAcessoAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.Controller.Interfaces.ItfAcesso;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
+
 import com.super_bits.sbProjetos.Model.Cliente;
 import com.super_bits.sbProjetos.Model.Desenvolvedor;
 import com.super_bits.sbProjetos.Model.GerenteProjeto;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.StatusRequisito;
-import com.super_bits.sbProjetos.SBProjectController;
-import java.util.ArrayList;
-import java.util.List;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenusDaSessao;
 
 /**
  *
@@ -30,10 +25,10 @@ import java.util.List;
  *
  * @author Salvio
  */
-public class ConfigAcessos extends ConfigAcessoAbstratoSBCore {
+public class ConfigAcessos extends ConfigPermissoesAcessoModelAbstrato {
 
     private static Class[] getClasses() {
-        Class[] classes = {SBProjectController.class};
+        Class[] classes = {ModuloGestaoProjeto.class};
         return classes;
     }
 
@@ -41,12 +36,7 @@ public class ConfigAcessos extends ConfigAcessoAbstratoSBCore {
         super(getClasses());
     }
 
-    public void cadastraUsuarios() {
-
-    }
-
-    @Override
-    public List<ItfAcesso> configuraAcessos() {
+    public void configuraAcessosOld() {
 
         boolean criatudo = false;
 
@@ -134,55 +124,13 @@ public class ConfigAcessos extends ConfigAcessoAbstratoSBCore {
             UtilSBPersistencia.mergeRegistro(salvio);
 
             int i = 1;
-            String nomeController = "SBProjectController.";
-            AcessoSB criarRquisito = new AcessoSB(getMetodoByName(nomeController + "criarRequisito", true));
-            criarRquisito.addGrupoPermitido(gerenteDeProjeto);
-            criarRquisito.addUsuarioPermitido(sergioOku);
-            criarRquisito.addUsuarioPermitido(joaquim);
-            criarRquisito.addUsuarioPermitido(alline);
-            criarRquisito.addUsuarioPermitido(julio);
-            criarRquisito.addUsuarioPermitido(salvio);
-            UtilSBPersistencia.mergeRegistro(criarRquisito);
 
-            AcessoSB promoverRequisito = new AcessoSB(getMetodoByName(nomeController + "promoverRequisito", true));
-            promoverRequisito.addUsuarioPermitido(sergioOku);
-            promoverRequisito.addUsuarioPermitido(salvio);
-            System.out.println("Adcionando salvio:" + salvio.getId() + "nome" + salvio.getNome());
-
-            promoverRequisito.setPadraoLiberado(false);
-            UtilSBPersistencia.mergeRegistro(promoverRequisito);
-
-            AcessoSB rebaixarRequisito = new AcessoSB(getMetodoByName("SBProjectController.rebaixarRequisito", true));
-            SBProjectRebaixarRequisito:
-            rebaixarRequisito.addUsuarioPermitido(salvio);
-            rebaixarRequisito.addUsuarioPermitido(sergioOku);
-
-            UtilSBPersistencia.mergeRegistro(rebaixarRequisito);
-            AcessoSB aprovarRequisito = new AcessoSB(getMetodoByName("SBProjectController.aprovarRequisito", true));
-            aprovarRequisito.addUsuarioPermitido(salvio);
-            UtilSBPersistencia.mergeRegistro(aprovarRequisito);
-
-            AcessoSB finalizarRequisito = new AcessoSB(getMetodoByName("SBProjectController.finalizarRequisito", true));
-            finalizarRequisito.addUsuarioPermitido(salvio);
-            UtilSBPersistencia.mergeRegistro(finalizarRequisito);
         }
-        get List
-        <ItfAcesso > resp = new ArrayList<>();
-        try {
-            resp = (List<ItfAcesso>) UtilSBPersistencia.getListaTodos(AcessoSB.class);
-        } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro obtendo lista de acessos", e);
-        }
-        return resp;
 
     }
 
     @Override
-    public List<ItfUsuario> configuraUsuarios() {
-
-        List<ItfUsuario> resposta = (List<ItfUsuario>) UtilSBPersistencia.getListaTodos(UsuarioSB.class);
-
-        return resposta;
+    public MenusDaSessao definirMenu(ItfGrupoUsuario pGrupo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

@@ -3,12 +3,18 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 import com.super_bits.modulosSB.Persistencia.Campo.CampoMultiplo;
 import com.super_bits.modulosSB.Persistencia.Campo.FabCamposPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.UtilSBCoreReflexaoCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.Campo;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.ItemGenerico;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+
+import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflecaoIEstruturaEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfCalculos;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfListas;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.Campo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -26,7 +32,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         Field campo;
         campo = UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(classeDoCampo, FabCampos.ID);
         if (campo == null) {
-            campo = UtilSBCoreReflexaoCampos.getCampoByClasseAnotacao(classeDoCampo, Id.class);
+            campo = UtilSBCoreReflexaoCampos.getFieldByClasseAnotacao(classeDoCampo, Id.class);
         }
 
         return campo;
@@ -59,7 +65,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     public List<CampoMultiplo> getLookupMultuplo() {
-        List<CampoMultiplo> resp = new ArrayList<CampoMultiplo>();
+        List<CampoMultiplo> resp = new ArrayList<>();
         for (Field campo : getCamposUmParaMuitos()) {
             try {
                 campo.setAccessible(true);
@@ -121,7 +127,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     protected static List<Field> getCamposUmParaMuitos() {
-        List<Field> resposta = new ArrayList<Field>();
+        List<Field> resposta = new ArrayList<>();
         Field[] fields = getClasseModelo().getDeclaredFields();
 
         for (Field field : fields) {
@@ -135,7 +141,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     protected static List<Field> getCamposMuitosParaUm() {
-        List<Field> resposta = new ArrayList<Field>();
+        List<Field> resposta = new ArrayList<>();
         Field[] fields = getClasseModelo().getDeclaredFields();
 
         for (Field field : fields) {
@@ -147,42 +153,92 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
         return resposta;
     }
 
-    public Field getCampo(FabCampos pInfoCampo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void configIDFromNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public String getImgPequena() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getNomeCurto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected List getListaDaEtidade(boolean pAtualizarSempre) {
+
+        String nomeCampo;
+        String nomeMetodo = "Metodo não encontrado (este metodo só deve ser chamado dentro metodo get padrão pojo ex:   entidade.getValorDoCalculo();";
+        try {
+
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+
+            nomeMetodo = stackTraceElements[2].getMethodName();
+            nomeCampo = nomeMetodo.substring(3);
+            nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando atributo de  lista atravez do metodo " + nomeMetodo + " na classe " + this.getClass().getSimpleName(), t);
+            return null;
+        }
+
+        Field campo;
+
+        try {
+
+            ItfListas lista;
+            campo = this.getClass().getDeclaredField(nomeCampo);
+            lista = UtilSBCoreReflecaoIEstruturaEntidade.getListaByField(campo);
+
+            List valorAnteriorLista = (List) campo.get(this);
+            if (valorAnteriorLista != null) {
+                if (valorAnteriorLista.size() > 0) {
+                    if (pAtualizarSempre) {
+                        campo.set(lista.getLista(this), this);
+                    }
+                }
+            } else {
+                campo.set(lista.getLista(this), this);
+            }
+            return (List) campo.get(this);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando calculo para o campo" + nomeCampo + " na tabela " + this.getClass().getSimpleName(), ex);
+            return null;
+        }
+
     }
 
-    public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    /**
+     *
+     * Este metodo deve ser chamado em metodos padrão POJO do tipo get, ele
+     * buscará o atributo referente ao método, e atravéz
+     *
+     * @return
+     */
+    protected Object getRetornoSoma() {
+        // Obtem a anotação por reflexao do nome do metodo por atributo
+        // seta o valor no atrbuto, e retorna o valor obtido
+        String nomeCampo;
+        String nomeMetodo = "Metodo não encontrado (este metodo só deve ser chamado dentro metodo get padrão pojo ex:   entidade.getValorDoCalculo();";
+        try {
 
-    @Override
-    public String getNomeDoObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
 
-    public String getNome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            nomeMetodo = stackTraceElements[2].getMethodName();
+            nomeCampo = nomeMetodo.substring(3);
+            nomeCampo = nomeCampo.substring(0, 1).toLowerCase() + nomeCampo.substring(1);
 
-    public void setId(int pID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando atributo de  calculo atravez do metodo " + nomeMetodo + " na classe " + this.getClass().getSimpleName(), t);
+            return null;
+        }
 
-    public void setNome(String pNome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Field campo;
+        try {
+
+            ItfCalculos calculo;
+            campo = this.getClass().getDeclaredField(nomeCampo);
+            calculo = UtilSBCoreReflecaoIEstruturaEntidade.getCalculoByField(campo);
+            campo.set(calculo.getValor(this), this);
+            return campo.get(this);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando calculo para o campo" + nomeCampo + " na tabela " + this.getClass().getSimpleName(), ex);
+            return null;
+        }
+
     }
 
 }

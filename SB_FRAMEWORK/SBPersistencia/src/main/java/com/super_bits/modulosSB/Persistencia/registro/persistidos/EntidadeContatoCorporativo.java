@@ -1,9 +1,10 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoEsperado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoEsperado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
+
 import javax.persistence.EntityManager;
 
 public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implements
@@ -17,6 +18,7 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
      *
      * @param pTelefon_nome_cnpj Parametro
      * @param pEm Entity Manager
+     * @return
      */
     public boolean loadEmpresabyContato(String pTelefon_nome_cnpj, EntityManager pEm) {
         Object registroEncontrado = UtilSBPersistencia.getEmpresa(this.getClass(), pTelefon_nome_cnpj, pEm);
@@ -27,8 +29,8 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
         return true;
     }
 
-    public EntidadeContatoCorporativo(Class<?> pClasseModelo) {
-        super(pClasseModelo);
+    public EntidadeContatoCorporativo() {
+        super();
         adcionaCampoEsperado(new CampoEsperado(FabCampos.CNPJ));
         // TODO implementar EntidadeContatoCorporativo
     }

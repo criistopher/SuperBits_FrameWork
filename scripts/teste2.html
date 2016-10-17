@@ -1,0 +1,114 @@
+<html>
+<head>
+<script>
+/**
+ * Creating a cross domain request (cross-browser)
+ * @param {type} Method
+ * @param {type} url
+ * @param {object} data {var1:value1,var2:value2}
+ * @param {type} onSuccess
+ * @param {type} onError
+ * @returns {XDomainRequest|XMLHttpRequest|createCORSRequest.xhr}
+ */
+function createCORSRequest(method, url, data, onSuccess, onError){
+    try
+    {
+            
+    var xhr = new XMLHttpRequest();  
+    if(typeof data === "function"){ onSuccess = data; data = null; onError = onSuccess; };
+
+    if("withCredentials" in xhr){
+
+      //Only FF etc supports this
+      xhr.overrideMimeType("Content-Type", "application/json");
+      if(data && data.timeout !== null && data.timeout > 0){
+          xhr.timeout = (data !== null && data.timeout !== null ? data.timeout : 10000);
+      }
+
+      // Check if the XMLHttpRequest object has a "withCredentials" property.
+      // "withCredentials" only exists on XMLHTTPRequest2 objects.
+      //FF and Chrome
+      xhr.onreadystatechange = function() {
+        if(this.status == 200 && this.readyState == 4) {
+          if(this.responseText !== ""){
+              var json = $.parseJSON(this.responseText);
+              if(json){
+                  onSuccess(json);
+              }else{
+                  onSuccess(this.responseText);
+              }
+          }else{
+              onSuccess(this.responseText);
+          }
+        }
+      };
+
+      try{
+          xhr.open(method, url, true);
+      }catch(err){
+          onError(err);
+      }
+
+    } else if (typeof XDomainRequest != "undefined") {
+
+      // Otherwise, check if XDomainRequest.
+      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+      xhr = new XDomainRequest();
+      xhr.timeout = 10000;
+      xhr.onerror = onError;
+      xhr.onload = function(res){
+          console.log("Result:\r\n");
+          console.log(res);
+          if(this.responseText !== ""){
+              var json = $.parseJSON(this.responseText);
+              if(json){
+                  onSuccess(json);
+              }else{
+                  onSuccess(this.responseText);
+              }
+          }else{
+              onSuccess(this.responseText);
+          }
+      };
+      try{
+          xhr.open(method, url);
+      }catch(err){
+          console.log('CORS request error. Trying jQuery as fallback:\r\n');        
+          onError('Error while opening connection\r\n' + err);
+
+          //jQuery fallback
+          $.getJSON(url, (data !== null ? JSON.stringify(data) : ""), function(res){
+              onSuccess(res);
+          },
+          function(err){
+              onError(err);
+          });
+      }
+    } else {
+      // Otherwise, CORS is not supported by the browser.
+      xhr = null;
+      onError("Cross-domain requests not supported");
+      return null;
+    }
+      //If not error
+      if(xhr !== null){
+        //Send it away
+        try{
+            xhr.send((data !== null ? JSON.stringify(data) : ""));
+        }catch(err){
+            console.log('Error on Ajax send data:\r\n');
+            onError('Error while sending connection');
+        }
+      }
+    return xhr;
+    
+    }
+    catch(err){
+        onError(err);
+    }
+}
+</script>
+<body>
+
+</body>
+</html>

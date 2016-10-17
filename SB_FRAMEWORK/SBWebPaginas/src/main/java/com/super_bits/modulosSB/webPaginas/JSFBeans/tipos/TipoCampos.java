@@ -4,9 +4,8 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.tipos;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
 /**
  *
@@ -28,219 +27,120 @@ public class TipoCampos extends ConstantesWeb {
     public String getPadrao() {
 
         FabCampos campopadrao = FabCampos.TEXTO_SIMPLES;
-
-        switch (campopadrao) {
-            case IMG_PEQUENA:
-                break;
-            case IMG_MEDIA:
-                break;
-            case IMG_GRANDE:
-                break;
-
-            case ID:
-                break;
-            case LATITUDE:
-                break;
-            case Longitude:
-                break;
-            case LCLOGRADOURO:
-                break;
-            case LCCEP:
-                break;
-            case LCBairro:
-                break;
-            case LCCidade:
-                break;
-
-            case LCComplemeto:
-                break;
-            case LCCampoAberto:
-                break;
-            case HTML:
-                break;
-            case CHART_VALOR:
-                break;
-            case CHART_LABEL:
-                break;
-            case CHART_CATEGORIA:
-                break;
-            case CALENDARIO:
-                break;
-            case TELEFONE_FIXO_NACIONAL:
-                break;
-
-            case LOOKUP:
-                break;
-            case LOOKUPMULTIPLO:
-                break;
-            case TEXTO_SIMPLES:
-                break;
-            case COR:
-                break;
-            case EMAIL:
-                break;
-            case SITE:
-                break;
-            case URL:
-                break;
-            case RESPONSAVEL:
-                break;
-            case CNPJ:
-                break;
-            case CPF:
-                break;
-            case INSCRICAO_ESTADUAL:
-                break;
-            case INSCRIACAO_MUNICIPAL:
-                break;
-            case AAA_NOME:
-                break;
-            case AAA_NOME_LONGO:
-                break;
-            case AAA_DESCRITIVO:
-                break;
-            case QUANTIDADE:
-                break;
-            case PERCENTUAL:
-                break;
-            case LCUnidadeFederativa:
-                break;
-            case SENHA:
-                break;
-            case SENHA_SEGURANCA_MAXIMA:
-                break;
-            case TELEFONE_FIXO_INTERNACIONAL:
-                break;
-            case TELEFONE_CELULAR:
-                break;
-            case MOEDA_REAL:
-                break;
-            case MOEDA_DOLAR:
-                break;
-            case VERDADEIRO_FALSO:
-                break;
-            case NOME_COMPLETO:
-                break;
-            case REG_DATAALTERACAO:
-                break;
-            case REG_DATAINSERCAO:
-                break;
-            case REG_USUARIO_ALTERACAO:
-                break;
-            case REG_USUARIO_INSERCAO:
-                break;
-            default:
-                throw new AssertionError(campopadrao.name());
-
-        }
         return campopadrao.toString();
 
     }
 
+    public static String getStrTipoCampoInput(FabCampos pCampo) {
+
+        return pCampo.getTipo_input_prime().getComponente().toString();
+
+    }
+
     public String getNomeCurto() {
-        return FabCampos.AAA_NOME.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME);
     }
 
     public String getNomeLongo() {
-        return FabCampos.AAA_NOME.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME);
     }
 
     public String getLC_CEP() {
-        return FabCampos.AAA_DESCRITIVO.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_DESCRITIVO);
     }
 
     public String getID() {
-        return FabCampos.ID.toString();
+        return getStrTipoCampoInput(FabCampos.ID);
     }
 
     public String getLOOKUPMULTIPLO() {
-        return FabCampos.LOOKUPMULTIPLO.toString();
+        return getStrTipoCampoInput(FabCampos.LISTA_OBJETOS);
     }
 
     public String getTEXTO_SIMPLES() {
-        return FabCampos.TEXTO_SIMPLES.toString();
+        return getStrTipoCampoInput(FabCampos.TEXTO_SIMPLES);
     }
 
     public String getNOME_CURTO() {
-        return FabCampos.AAA_NOME.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME);
     }
 
     public String getNOME_CURTO_LONGO() {
-        return FabCampos.AAA_NOME_LONGO.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME_LONGO);
     }
 
     public String getDescritivo() {
-        return FabCampos.AAA_DESCRITIVO.toString();
+        return getStrTipoCampoInput(FabCampos.AAA_DESCRITIVO);
     }
 
     public String getDataHora() {
 
-        return FabCampos.CALENDARIO.toString();
+        return getStrTipoCampoInput(FabCampos.DATAHORA);
 
     }
 
     public String getIMG_PEQUENA() {
-        return FabCampos.IMG_PEQUENA.name();
+        return getStrTipoCampoInput(FabCampos.IMG_PEQUENA);
     }
 
     public String getIMG_MEDIA() {
-        return FabCampos.IMG_MEDIA.name();
+        return getStrTipoCampoInput(FabCampos.IMG_MEDIA);
     }
 
     public String getIMG_GRANDE() {
-        return FabCampos.IMG_GRANDE.name();
+        return getStrTipoCampoInput(FabCampos.IMG_GRANDE);
     }
 
     public String getIDENTIFICADOR() {
-        return FabCampos.ID.name();
+        return getStrTipoCampoInput(FabCampos.ID);
     }
 
     public String getLAT() {
-        return FabCampos.LATITUDE.name();
+        return getStrTipoCampoInput(FabCampos.LATITUDE);
     }
 
     public String LONG() {
-        return FabCampos.Longitude.name();
+        return getStrTipoCampoInput(FabCampos.Longitude);
     }
 
     public String getLCLOGRADOURO() {
-        return FabCampos.LCLOGRADOURO.name();
+        return getStrTipoCampoInput(FabCampos.LCLOGRADOURO);
     }
 
     public String getLCCEP() {
-        return FabCampos.LCCEP.name();
+        return getStrTipoCampoInput(FabCampos.LCCEP);
     }
 
     public String getLCBairro() {
-        return FabCampos.LCBairro.name();
+        return getStrTipoCampoInput(FabCampos.LCBairro);
     }
 
     public String getLCCidade() {
-        return FabCampos.LCCidade.name();
+        return getStrTipoCampoInput(FabCampos.LCCidade);
     }
 
     public String getTelefoneFixoNacional() {
-        return FabCampos.TELEFONE_FIXO_NACIONAL.name();
+        return getStrTipoCampoInput(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
     public String getTelefoneComplementar() {
-        return FabCampos.TELEFONE_CELULAR.name();
+        return getStrTipoCampoInput(FabCampos.TELEFONE_CELULAR);
     }
 
     public String getLCComplemeto() {
-        return FabCampos.LCComplemeto.name();
+        return getStrTipoCampoInput(FabCampos.LCComplemeto);
     }
 
     public String getLCCampoAberto() {
-        return FabCampos.LCCampoAberto.name();
+        return getStrTipoCampoInput(FabCampos.LCCampoAberto);
     }
 
     public String getHTML() {
-        return FabCampos.HTML.toString();
+        return getStrTipoCampoInput(FabCampos.HTML);
     }
 
     public String getCHART_VALOR() {
-        return FabCampos.CHART_VALOR.toString();
+        return getStrTipoCampoInput(FabCampos.CHART_VALOR);
     }
 
     public String getCHART_LABEL() {
@@ -248,87 +148,91 @@ public class TipoCampos extends ConstantesWeb {
     }
 
     public String getCHART_CATEGORIA() {
-        return FabCampos.CHART_CATEGORIA.toString();
+        return getStrTipoCampoInput(FabCampos.CHART_CATEGORIA);
     }
 
     public String getCALENDARIO() {
-        return FabCampos.CALENDARIO.toString();
+        return getStrTipoCampoInput(FabCampos.CALENDARIO);
     }
 
     public String getTELEFONE_FIXO_NACIONAL() {
-        return FabCampos.TELEFONE_FIXO_NACIONAL.toString();
+        return getStrTipoCampoInput(FabCampos.TELEFONE_FIXO_NACIONAL);
     }
 
     public String getMOEDAReal() {
-        return FabCampos.MOEDA_REAL.name();
+        return getStrTipoCampoInput(FabCampos.MOEDA_REAL);
     }
 
     public String getLOOKUP() {
-        return FabCampos.LOOKUP.toString();
+        return getStrTipoCampoInput(FabCampos.OBJETO_DE_UMA_LISTA);
     }
 
     public String getCOR() {
-        return FabCampos.COR.name();
+        return getStrTipoCampoInput(FabCampos.COR);
     }
 
     public String getEMAIL() {
-        return FabCampos.EMAIL.toString();
+        return getStrTipoCampoInput(FabCampos.EMAIL);
     }
 
     public String getSITE() {
-        return FabCampos.SITE.toString();
+        return getStrTipoCampoInput(FabCampos.SITE);
     }
 
     public String getURL() {
-        return FabCampos.URL.toString();
+        return getStrTipoCampoInput(FabCampos.URL);
     }
 
     public String getRESPONSAVEL() {
-        return FabCampos.RESPONSAVEL.name();
+        return getStrTipoCampoInput(FabCampos.RESPONSAVEL);
     }
 
     public String getCNPJ() {
-        return FabCampos.CNPJ.name();
+        return getStrTipoCampoInput(FabCampos.CNPJ);
     }
 
     public String getCPF() {
-        return FabCampos.CPF.name();
+        return getStrTipoCampoInput(FabCampos.CPF);
     }
 
     public String getINSCRICAO_ESTADUAL() {
-        return FabCampos.INSCRICAO_ESTADUAL.name();
+        return getStrTipoCampoInput(FabCampos.INSCRICAO_ESTADUAL);
     }
 
     public String getINSCRIACAO_MUNICIPAL() {
-        return FabCampos.INSCRIACAO_MUNICIPAL.name();
+        return getStrTipoCampoInput(FabCampos.INSCRIACAO_MUNICIPAL);
     }
 
     public String getAAA_NOME_CURTO() {
-        return FabCampos.AAA_NOME.name();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME);
     }
 
     public String getAAA_NOME_LONGO() {
-        return FabCampos.AAA_NOME_LONGO.name();
+        return getStrTipoCampoInput(FabCampos.AAA_NOME_LONGO);
     }
 
     public String getAAA_DESCRITIVO() {
-        return FabCampos.AAA_DESCRITIVO.name();
+        return getStrTipoCampoInput(FabCampos.AAA_DESCRITIVO);
     }
 
     public String getQUANTIDADE() {
-        return FabCampos.QUANTIDADE.name();
+        return getStrTipoCampoInput(FabCampos.QUANTIDADE);
     }
 
     public String getPERCENTUA() {
-        return FabCampos.PERCENTUAL.name();
+        return getStrTipoCampoInput(FabCampos.PERCENTUAL);
     }
 
     public String getSenha() {
-        return FabCampos.SENHA.name();
+        return getStrTipoCampoInput(FabCampos.SENHA);
     }
 
     public String getVerdadeiroFalso() {
-        return FabCampos.VERDADEIRO_FALSO.name();
+        return getStrTipoCampoInput(FabCampos.VERDADEIRO_FALSO);
+    }
+
+    public String getDATA() {
+        return getStrTipoCampoInput(FabCampos.DATA);
     }
 
 }

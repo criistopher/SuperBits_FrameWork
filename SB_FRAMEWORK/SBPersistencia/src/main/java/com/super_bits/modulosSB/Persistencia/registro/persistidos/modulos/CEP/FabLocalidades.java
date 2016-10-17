@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP;
 
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
 /**
  *

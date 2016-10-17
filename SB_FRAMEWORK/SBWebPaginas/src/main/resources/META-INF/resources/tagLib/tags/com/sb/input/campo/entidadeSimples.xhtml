@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+
+
+        <c:set var="idcompInput" value="componenteInputDado"/>
+        <c:set var="exibicaoPadrao" value="#{false}" />
+
+
+        <p:inputText
+
+            class=" campoResponsivo  TexAlCenter #{componente.classeCSS}"
+
+            required="#{obrigatorio}"
+            value="#{valor}"
+            validatorMessage="O valor informado no campo #{label} não é valido! "
+            requiredMessage="O campo #{label} não foi informado! "
+            disabled="#{desabilitarEdicao}"
+
+            >
+
+
+            <c:if test="#{possuiMetodoOnChange}">
+                <p:ajax rendered="#{possuiMetodoOnChange}"
+                        global="true"
+                        event="valueChange"
+                        listener="#{metodoOnChange}"/>
+            </c:if>
+
+            <c:if test="#{possuiIDOnChange}" >
+                <p:ajax
+                    rendered="#{possuiIDOnChange}"
+                    global="true"
+                    event="valueChange"
+                    listener="#{pgUtil.atualizaTelaPorID(idAtualizarOnChange)}" />
+            </c:if>
+
+        </p:inputText>
+
+
+
+    </h:body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

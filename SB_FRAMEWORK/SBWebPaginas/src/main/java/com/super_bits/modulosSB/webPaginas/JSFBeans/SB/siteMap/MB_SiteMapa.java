@@ -1,31 +1,33 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL.tipoPrURL;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroTela;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import static com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController.getFabricaAcaoByClasse;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
-import com.super_bits.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 
 @SuppressWarnings("serial")
 public abstract class MB_SiteMapa implements Serializable {
 
-    // injetar PAginas aqui
-    private Map<String, ItfB_Pagina> paginasOnline = new HashMap<String, ItfB_Pagina>();
-    private Map<String, ItfB_Pagina> paginasOffline = new HashMap<String, ItfB_Pagina>();
-    private Map<String, ItfB_Pagina> paginasPorRecurso = new HashMap<String, ItfB_Pagina>();
+    private final Map<String, ItfB_Pagina> paginasDoSistema = new HashMap<>();
+    private Map<String, ItfB_Pagina> paginasOffline = new HashMap<>();
+    private final Map<String, Field> paginasInjetadas = new HashMap<>();
+    private boolean paginasDoSistemaConstruidas = false;
 
-    private boolean foiInjetado = false;
-
-    // Metodo para criar lista de paginas.add PARA DEFINIR A PAGINA COMO
-    // PRINCIPAL BASTA NÃO SETAR O NOMECURTO
+    /**
+     *
+     * @return Paginas do sistema personalizadas (não Gerenciaveis via Named
+     */
     protected abstract Map<String, ItfB_Pagina> buildPaginas();
 
     /**
@@ -43,163 +45,105 @@ public abstract class MB_SiteMapa implements Serializable {
      * @return Mapa com as Paginas do Sistema
      */
     protected Map<String, ItfB_Pagina> buildSystemPages() {
-        Map<String, ItfB_Pagina> systemPages = new HashMap<String, ItfB_Pagina>();
-        String[] tags = {"erro-Critico"};
-        B_Pagina erroCritico = new PaginaSimples("EC",
-                "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
-        erroCritico.addTag("erroCritico");
-        erroCritico.addParametro(new ParametroURL("mensagem",
-                "Ocorreu um erro Crítico de sistema", tipoPrURL.TEXTO));
-        systemPages.put(erroCritico.getNomeCurto(), erroCritico);
+        try {
+            if (paginasDoSistemaConstruidas) {
+                return paginasDoSistema;
+            }
+            paginasDoSistemaConstruidas = true;
 
-        String[] tagsErroSQL = {"erro-SQL"};
-        B_Pagina erroSQL = new PaginaSimples("ESQL",
-                "/resources/SBComp/SBSystemPages/erroSQLInfo.xhtml", tagsErroSQL);
-        erroSQL.addTag("erroSQLInfo");
+            String[] tags = {"erro-Critico"};
+            B_Pagina erroCritico = new PaginaSimples("EC",
+                    "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
+            erroCritico.addTag("erroCritico");
+            erroCritico.addParametro(new ParametroURL("mensagem",
+                    "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
+            paginasDoSistema.put(erroCritico.getRecursoXHTML(), erroCritico);
 
-        erroSQL.addParametro(new ParametroURL("mensagem",
-                "ocorreu um erro de informações de SQL", tipoPrURL.TEXTO));
-        systemPages.put(erroSQL.getNomeCurto(), erroSQL);
+            String[] tagsErroSQL = {"erro-SQL"};
+            B_Pagina erroSQL = new PaginaSimples("ESQL",
+                    "/resources/SBComp/SBSystemPages/erroSQLInfo.xhtml", tagsErroSQL);
+            erroSQL.addTag("erroSQLInfo");
 
-        String[] tagsPrime = {"teste-prime"};
-        B_Pagina testePrime = new PaginaSimples("TP",
-                "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
-        testePrime.addTag("Testes PrimeFaces");
-        systemPages.put(testePrime.getNomeCurto(), testePrime);
+            erroSQL.addParametro(new ParametroURL("mensagem",
+                    "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
+            paginasDoSistema.put(erroSQL.getRecursoXHTML(), erroSQL);
 
-        String[] tagsNegado = {"Negado"};
-        B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
-        systemPages.put(acessoNegado.getNomeCurto(), acessoNegado);
+            String[] tagsPrime = {"teste-prime"};
+            B_Pagina testePrime = new PaginaSimples("TP",
+                    "/resources/SBComp/SBSystemPages/testePrime.xhtml", tagsPrime);
+            testePrime.addTag("Testes PrimeFaces");
+            paginasDoSistema.put(testePrime.getRecursoXHTML(), testePrime);
 
-        String[] tagsAcessos = {"acessos"};
-        PgAcessos acessos = new PgAcessos();
-        systemPages.put(acessos.getNomeCurto(), acessos);
+            String[] tagsNegado = {"Negado"};
+            B_Pagina acessoNegado = new PaginaSimples("AN", "/resources/SBComp/SBSystemPages/acessoNegado.xhtml", tagsNegado);
+            paginasDoSistema.put(acessoNegado.getRecursoXHTML(), acessoNegado);
 
-        return systemPages;
-
-    }
-
-    private void makePAginasPorRecurso() {
-        for (ItfB_Pagina pg : paginasOnline.values()) {
-            paginasPorRecurso.put(pg.getRecursoXHTML(), pg);
+            //   String[] tagsAcessos = {"acessos"};
+            //     PgAcessos acessos = new PgAcessos();
+            //    systemPages.put(acessos.getNomeCurto(), acessos);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro criando paginas básicas do sistema", t);
         }
-    }
+        return paginasDoSistema;
 
-    @PostConstruct
-    private void initBean() {
-        addpgInjectOnline();
-        makePAginasPorRecurso();
     }
 
     public MB_SiteMapa() {
-        paginasOffline = buildPaginas();
-        addpgInjectOffline();
+        try {
 
-    }
+            try {
+                paginasOffline = buildPaginas();
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando paginas básicas do sistema (Aquelas que não foram injetadas pois tem apenas as propriedades basicas,  mas foram delclaradas no sitemap atraves do metodo BuildPaginas", t);
+                paginasOffline = buildSystemPages();
+            }
 
-    private void addpgInjectOffline() {
-        List<ItfB_Pagina> listaOffline = (List<ItfB_Pagina>) UtilSBWPServletTools
-                .getObjetosInjetadosModoOffline(MB_Pagina.class, this);
-        for (ItfB_Pagina pg : listaOffline) {
-            addPaginaOffline(pg);
-        }
-        for (ItfB_Pagina pg : buildSystemPages().values()) {
-            addPaginaOffline(pg);
-        }
-    }
+            List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
+            ItfFabricaAcoes fabrica = null;
+            for (Field campo : camposInjetados) {
+                try {
 
-    private void addpgInjectOnline() {
+                    fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
+                    if (fabrica == null) {
+                        throw new UnsupportedOperationException("Impossível determinar a fabrica de ação para" + campo.getType() + " é Obrigatorio criar uma anotação nas classes de pagina com o metodo acao() retornando um ItfFabricaDeAcao");
+                    }
 
-        List<ItfB_Pagina> listaOnline = (List<ItfB_Pagina>) UtilSBWPServletTools.getObjetosInjetados(MB_Pagina.class, this);
-        for (ItfB_Pagina pg : buildPaginas().values()) {
-            addPaginaOnline(pg);
-        }
+                    ItfAcaoDoSistema acao = fabrica.getAcaoDoSistema();
 
-        for (ItfB_Pagina pg : listaOnline) {
-
-            addPaginaOnline(pg);
-
-        }
-
-        for (ItfB_Pagina pg : buildSystemPages().values()) {
-            addPaginaOnline(pg);
+                    if (acao != null) {
+                        paginasInjetadas.put(acao.getComoGestaoEntidade().getXhtml(), campo);
+                        paginasOffline.put(acao.getComoGestaoEntidade().getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
+                    } else {
+                        throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
+                    }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType() + " com anotação: " + fabrica, t);
+                }
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
         }
 
     }
 
     protected void addPaginaOnEOFFLine(B_Pagina pPagina) {
 
-        paginasOnline.put(pPagina.getNomeCurto(), pPagina);
         paginasOffline.put(pPagina.getNomeCurto(), pPagina);
     }
 
     protected void addPaginaOffline(ItfB_Pagina pPagina) {
 
+        if (paginasOffline.get(pPagina.getNomeCurto()) != null) {
+            throw new UnsupportedOperationException("A pagina "
+                    + pPagina.getClass().getSimpleName()
+                    + " não pôde ser adicionada pois a tag: "
+                    + pPagina.getNomeCurto()
+                    + " já foi utilizada em " + paginasOffline.get(pPagina.getNomeCurto()).getClass().getSimpleName()
+                    + " -->" + paginasOffline.get(pPagina.getNomeCurto()).getTitulo());
+
+        }
+
         paginasOffline.put(pPagina.getNomeCurto(), pPagina);
-    }
-
-    protected void addPaginaOnline(ItfB_Pagina pPagina) {
-        String classePagina = "";
-        try {
-            classePagina = pPagina.getClass().getSimpleName();
-
-            paginasOnline.put(pPagina.getNomeCurto(), pPagina);
-        } catch (Exception e) {
-
-            FabErro.PARA_TUDO.paraSistema("ERRO ADCIONANDO PAGINA " + classePagina + " INJETADA(ONLINE) NO SITEMAP", e);
-        }
-    }
-
-    public boolean isReferenciaAPagina(String pTag) {
-        if (procuraPaginaOnlineByTagOuNome(pTag, true) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public ItfB_Pagina getPaginaByTagOuNome(String pTag) {
-        return procuraPaginaOnlineByTagOuNome(pTag, false);
-    }
-
-    private ItfB_Pagina procuraPaginaOnlineByTagOuNome(String pTag,
-            boolean permiteRetornoNulo) {
-
-        if (pTag.equals(B_Pagina.PAGINAINICIALID)) {
-            return paginasOffline.get(B_Pagina.PAGINAINICIALID);
-        }
-        // verificando Tentativa por Nome CUrto
-        ItfB_Pagina pg = paginasOnline.get(pTag);
-        if (pg != null) {
-            pg.setTagUsada(pTag);
-            if (UtilSBCoreStrings.makeStrUrlAmigavel(pg.getNomeCurto()).equals(pTag)) {
-                pg.setTagUsada(pg.getTags().get(0));
-                return pg;
-            }
-        }
-        for (ItfB_Pagina pgt : paginasOffline.values()) {
-            // verificando tentatia por Tag
-            for (String tagpg : pgt.getTags()) {
-                if (UtilSBCoreStrings.makeStrUrlAmigavel(pTag).equals(
-                        UtilSBCoreStrings.makeStrUrlAmigavel(tagpg))) {
-                    pgt.setTagUsada(tagpg);
-                    paginasOnline.get(pgt.getNomeCurto()).setTagUsada(tagpg);
-                    return paginasOnline.get(pgt.getNomeCurto());
-                }
-            }
-        }
-
-        if (!permiteRetornoNulo) {
-            UtilSBWP_JSFTools.mensagens().erroSistema("Não encontrou a pagina  pelo nome ou TAG: ("
-                    + pTag + ") ");
-        }
-
-        return null;
-
-    }
-
-    public Collection<ItfB_Pagina> getPaginasOnlineEmLista() {
-        return paginasOnline.values();
     }
 
     public Collection<ItfB_Pagina> getPaginasOfflineEmLista() {
@@ -214,16 +158,31 @@ public abstract class MB_SiteMapa implements Serializable {
         this.paginasOffline = paginasOffline;
     }
 
-    public Map<String, ItfB_Pagina> getPaginasOnline() {
-        return paginasOnline;
-    }
+    public ItfB_Pagina getPaginaNoContexto(String xhtmlGerenciarPG) throws UnsupportedOperationException {
 
-    public void setPaginasOnline(Map<String, ItfB_Pagina> paginasOnline) {
-        this.paginasOnline = paginasOnline;
-    }
+        Field campo = paginasInjetadas.get(xhtmlGerenciarPG);
+        ItfB_Pagina pagina;
+        if (campo == null) {
 
-    public Map<String, ItfB_Pagina> getPaginasPorRecurso() {
-        return paginasPorRecurso;
+            // verificando se não é um xhtml de paginaSimples
+            pagina = paginasOffline.get(xhtmlGerenciarPG);
+            SBCore.soutInfoDebug(xhtmlGerenciarPG + " encontrado como pagina simples sem Inject");
+            if (pagina == null) {
+                throw new UnsupportedOperationException("a pagina vinculada ao recurso não foi localizada no sitemap do projeto , o recurso enviado foi:[" + xhtmlGerenciarPG + "]");
+            }
+
+        } else {
+            SBCore.soutInfoDebug(xhtmlGerenciarPG + " encontrado por injeção, retornando PG vinculado");
+            campo.setAccessible(true);
+            try {
+                pagina = (ItfB_Pagina) campo.get(this);
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                throw new UnsupportedOperationException("Impossível obter o Campo ", ex);
+            }
+        }
+
+        return pagina;
+
     }
 
 }

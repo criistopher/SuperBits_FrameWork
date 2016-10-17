@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:commandButton onmousedown="esconderTooltips();"
+
+                     action="#{paginaAtual.infoPagina.comoPaginaEntidade.executarAcao(registro)}"
+                     update="#{pgUtil.makeCaminhoCompletoID(idUpdate)}"
+                     value="#{acao.nomeAcao}"
+                     oncomplete="#{javaScriptOncomplete}"
+
+                     >
+        <f:setPropertyActionListener target="#{paginaAtual.infoPagina.acaoSelecionada}"
+                                     value="#{acao}"  />
+    </p:commandButton>
+</html>
+

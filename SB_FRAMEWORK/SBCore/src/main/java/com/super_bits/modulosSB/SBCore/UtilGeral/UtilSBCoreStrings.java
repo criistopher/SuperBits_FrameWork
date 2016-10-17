@@ -1,8 +1,6 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.Controller.anotacoes.InfoAcao;
-import com.super_bits.modulosSB.SBCore.InfoCampos.anotacoes.InfoCampo;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -28,9 +26,6 @@ import org.apache.commons.lang3.text.WordUtils;
  * @author Salvio
  */
 public abstract class UtilSBCoreStrings {
-
-    public static String teste = "teste";
-    public static String teste2 = "teste";
 
     public enum TIPO_LOREN {
 
@@ -64,6 +59,24 @@ public abstract class UtilSBCoreStrings {
 
     /**
      *
+     *
+     * Retorna a String entre 2 caracters, exemplo: "nomestringTeste[31]"
+     * retornaria 31
+     *
+     *
+     * @param pReferencia String onde o caracter será procurado
+     * @param pCaracter1 Caracter chave indicando inicio
+     * @param pCaracter2 Carácter chave indicando fim
+     * @return
+     */
+    public static String getStringEntreCaracters(String pReferencia, String pCaracter1, String pCaracter2) {
+
+        return pReferencia.substring(pReferencia.indexOf(pCaracter1) + 1, pReferencia.indexOf(pCaracter2));
+
+    }
+
+    /**
+     *
      * Retorna String entre determinados caracteres exemplo:
      *
      * texto= dfkjklaskdjf[parametroum] [parametro2] inicial=[ final= ]
@@ -91,6 +104,9 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String removeCaracteresEspeciais(String param) {
+        if (param == null) {
+            return null;
+        }
         param = Normalizer.normalize(param, Normalizer.Form.NFD);
         param = param.replaceAll("[^\\p{ASCII}]", "");
         return param;
@@ -107,6 +123,9 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String makeStrUrlAmigavel(String param) {
+        if (param == null) {
+            return null;
+        }
         String resposta = removeCaracteresEspeciais(param);
         resposta = resposta.replace(" ", "_");
         resposta = resposta.replace(":", "-");
@@ -584,6 +603,53 @@ public abstract class UtilSBCoreStrings {
     }
 
     public static String getMascaraJavaMaskParaJQueryMask(String pMascara) {
-        return pMascara.replace('#', '9').replace('U', 'a').replace('?', 'a').replace('L', 'a');
+        if (pMascara != null) {
+
+            return pMascara.replace('#', '9').replace('U', 'a').replace('?', '*').replace('L', 'a');
+        } else {
+            return "";
+        }
     }
+
+    public static boolean isPrimeiraLetraMaiuscula(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        if (pString.length() < 1) {
+            return false;
+        }
+        return Character.isUpperCase(pString.charAt(0));
+    }
+
+    public static boolean isPrimeiraApenasLetraMaiuscula(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        if (pString.length() < 1) {
+            return false;
+        }
+
+        if (!Character.isUpperCase(pString.charAt(0))) {
+            return false;
+        } else if (pString.length() > 1) {
+            return Character.isLowerCase(pString.charAt(1));
+        }
+        return true;
+
+    }
+
+    public static boolean isNuloOuEmbranco(String pString) {
+        if (pString == null) {
+            return true;
+        }
+        return pString.isEmpty();
+    }
+
+    public static boolean isNAO_NuloNemBranco(String pString) {
+        if (pString == null) {
+            return false;
+        }
+        return !pString.isEmpty();
+    }
+
 }

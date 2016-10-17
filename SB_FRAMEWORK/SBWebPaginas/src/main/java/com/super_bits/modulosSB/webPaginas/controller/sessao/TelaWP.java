@@ -5,8 +5,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.sessao.ItfTipoView;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +106,16 @@ public class TelaWP implements ItfTipoView, Serializable {
     @Override
     public int getNumeroMaximoColunas() {
         return numeroMaximoColunas;
+    }
+
+    @Override
+    public boolean isUmMobile() {
+        return x < 600;
+    }
+
+    @Override
+    public ComponenteVisualSB getComponenteListaGem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

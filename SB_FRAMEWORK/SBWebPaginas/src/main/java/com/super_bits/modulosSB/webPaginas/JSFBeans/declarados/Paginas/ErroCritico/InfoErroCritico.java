@@ -1,6 +1,6 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico;
 
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.UtilSBCoreErros;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.UtilSBCoreErros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -15,6 +15,8 @@ public class InfoErroCritico implements Serializable {
     private String tituloErro;
     private String mensagemErro;
     private String printStack;
+    private String printStackResumido;
+    private InfoErroCritico beanErroCritico;
 
     public InfoErroCritico() {
     }
@@ -41,6 +43,22 @@ public class InfoErroCritico implements Serializable {
 
     public String getPrintStack() {
         return printStack;
+    }
+
+    public InfoErroCritico getBeanErroCritico() {
+        return beanErroCritico;
+    }
+
+    public void setBeanErroCritico(InfoErroCritico beanErroCritico) {
+        this.beanErroCritico = beanErroCritico;
+    }
+
+    public String getPrintStackResumido() {
+        return printStackResumido;
+    }
+
+    public void setPrintStackResumido(String printStackResumido) {
+        this.printStackResumido = printStackResumido;
     }
 
 }

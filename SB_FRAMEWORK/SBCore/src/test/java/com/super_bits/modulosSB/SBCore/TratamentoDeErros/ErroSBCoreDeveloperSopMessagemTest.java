@@ -4,7 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.TratamentoDeErros;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class ErroSBCoreDeveloperSopMessagemTest {
 
     @Before
     public void setUp() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
     @Test
@@ -28,7 +29,7 @@ public class ErroSBCoreDeveloperSopMessagemTest {
         try {
             throw new UnsupportedClassVersionError("marcando bobs aí...");
         } catch (Throwable e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor( "Erroo teste", e);
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erroo teste", e);
         }
     }
 

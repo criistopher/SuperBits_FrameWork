@@ -12,7 +12,7 @@ import com.super_bits.sbProjetos.Model.Desenvolvedor;
 import com.super_bits.sbProjetos.Model.Projeto;
 import com.super_bits.sbProjetos.Model.Requisito;
 import com.super_bits.sbProjetos.Model.Trabalho;
-import com.super_bits.sbProjetos.SBProjectController;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
 
         if (desenvolvedorLogado != null) {
             jLabel1.setText("Bom trabalho, " + desenvolvedorLogado.getNome());
-            trabalhoAtual = SBProjectController.trabalhoAtivoPorDesenvolvedor(desenvolvedorLogado);
+            trabalhoAtual = ModuloGestaoProjeto.trabalhoAtivoPorDesenvolvedor(desenvolvedorLogado);
             if (trabalhoAtual != null) {
                 requisitoAtual = trabalhoAtual.getRequisito();
             }
@@ -93,7 +93,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
             Object registro = UtilSBPersistencia.getRegistroByJPQL("SELECT d from Desenvolvedor d where email='" + javax.swing.JOptionPane.showInputDialog("Digite seu e-mail") + "' ", Desenvolvedor.class, SBProjectClient.getEMServidor());
             if (registro != null) {
                 desenvolvedorLogado = (Desenvolvedor) registro;
-                trabalhoAtual = SBProjectController.trabalhoAtivoPorDesenvolvedor(desenvolvedorLogado);
+                trabalhoAtual = ModuloGestaoProjeto.trabalhoAtivoPorDesenvolvedor(desenvolvedorLogado);
             }
         }
         atualizarTela();
@@ -106,7 +106,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
             if (desenvolvedorLogado == null) {
                 Logar();
             }
-            trabalhoAtual = SBProjectController.iniciarTrabalho(desenvolvedorLogado, requisitoAtual);
+            trabalhoAtual = ModuloGestaoProjeto.iniciarTrabalho(desenvolvedorLogado, requisitoAtual);
             String diretorio = trabalhoAtual.getRequisito().getProjeto().getPastaDoProjetoSource();
         } catch (Exception e) {
             SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro inicio de trabalho", e);
@@ -120,7 +120,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
 
             return;
         }
-        trabalhoAtual = SBProjectController.AtualizarHistorioDeTrabalho(trabalhoAtual, javax.swing.JOptionPane.showInputDialog("Descreva o histórico"));
+        trabalhoAtual = ModuloGestaoProjeto.AtualizarHistorioDeTrabalho(trabalhoAtual, javax.swing.JOptionPane.showInputDialog("Descreva o histórico"));
         ultimoHistorico = new Date();
         atualizarTela();
     }
@@ -143,7 +143,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
 
             return;
         }
-        SBProjectController.finalizarTrabalho(trabalhoAtual);
+        ModuloGestaoProjeto.finalizarTrabalho(trabalhoAtual);
 
         trabalhoAtual = null;
         comitar();
@@ -349,7 +349,7 @@ public class TrabalharNoProjeto extends javax.swing.JFrame {
             }
             requisitoAtual = requisitoByNome.get(jListRequisitos.getSelectedValue());
             System.out.println("iniciando trabalho em " + requisitoAtual.getNome());
-            trabalhoAtual = SBProjectController.iniciarTrabalho(desenvolvedorLogado, requisitoAtual);
+            trabalhoAtual = ModuloGestaoProjeto.iniciarTrabalho(desenvolvedorLogado, requisitoAtual);
             System.out.println("trabalho=" + trabalhoAtual.getHistorico());
             jTextHistorico.setText(trabalhoAtual.getHistorico());
         } catch (Exception e) {

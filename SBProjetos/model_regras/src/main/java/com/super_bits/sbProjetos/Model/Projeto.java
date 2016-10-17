@@ -6,11 +6,14 @@
 package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.anotacoes.InfoCampo;
+
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.ErroSB;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import java.io.Serializable;
@@ -36,8 +39,6 @@ import org.hibernate.annotations.Where;
 /**
  *
  *
- *
- *
  * @author Salvio
  */
 @Entity
@@ -45,21 +46,27 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @InfoCampo(tipo = InfoCampo.TC.ID)
+    @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataPrevista;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
 
-    @InfoCampo(tipo = InfoCampo.TC.NOME_CURTO)
+    @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nomeProjeto;
+    private String nomeComercial;
     @Column(length = 1000)
     private String descricao;
     private String linkSVNSource;
     private String linkSVNRelease;
-    private String pastaDoProjetoSource;
-    private String pastaDoProjetoRelease;
+    private String enderecoHomologacao;
+    private String enderecoRequisitos;
+    private String caminhoPastaDoProjetoSourceLocal;
+    private String caminhoPastaDoProjetoReleaseLocal;
+    private String nomePastaProjeto;
+    private String nomeArquivoInfo;
+
     @ManyToOne
     private Cliente cliente;
 
@@ -88,6 +95,9 @@ public class Projeto extends EntidadeSimples implements Serializable {
     @Where(clause = "statusRequisito_id = 3")
     private List<Requisito> requisitosProximaVersao;
 
+    private String pastaGitRelease;
+    private String pastaGitSource;
+
     public Projeto(int id, Date dataPrevista, Date dataCriacao, String nomeProjeto, String descricao, String linkSVN, String pastaDoProjeto, Cliente cliente, List<Desenvolvedor> desenvolvedores, List<GerenteProjeto> gerentesDeProjetos, List<Requisito> requisitos, List<Requisito> requisitosProximaVersao) {
         this();
 
@@ -97,7 +107,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         this.nomeProjeto = nomeProjeto;
         this.descricao = descricao;
         this.linkSVNSource = linkSVN;
-        this.pastaDoProjetoSource = pastaDoProjeto;
+        this.caminhoPastaDoProjetoSourceLocal = pastaDoProjeto;
         this.cliente = cliente;
         this.desenvolvedores = desenvolvedores;
         this.gerentesDeProjetos = gerentesDeProjetos;
@@ -126,7 +136,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         if (cliente != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return Desenvolvedor.PASTADEVELOPER + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getCliente().getNome());
+                    return getCliente().getCaminhoPastaClinte();
                 }
             }
 
@@ -135,12 +145,16 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     }
 
-    public String getPastaSource() {
+    public String getNomeLikeUrlAmigavel() {
+        return UtilSBCoreStrings.makeStrUrlAmigavel(nomeProjeto);
+    }
+
+    public String getCaminhoPastaDoProjetoSourceLocal() {
 
         if (getPastaCliente() != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return getPastaCliente() + "/" + "source";
+                    return getPastaCliente() + "/" + "source/" + getNomePastaProjeto();
                 }
             }
 
@@ -154,7 +168,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
         if (getPastaCliente() != null) {
             if (cliente.getNome() != null) {
                 if (nomeProjeto != null) {
-                    return getPastaCliente() + "/" + "release/";
+                    return getPastaCliente() + "/" + "release/" + getNomePastaProjeto();
                 }
             }
 
@@ -163,36 +177,34 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     }
 
-    public String getPastaDoProjetoSource() {
-        if (pastaDoProjetoSource == null) {
-            if (getPastaSource() != null) {
-
-                return getPastaSource() + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
-
-            } else {
-                return null;
-            }
-        } else {
-            return pastaDoProjetoSource;
+    public String getNomePastaProjeto() {
+        if (nomePastaProjeto == null || nomePastaProjeto.length() == 0) {
+            nomePastaProjeto = UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
         }
+
+        return nomePastaProjeto;
     }
 
-    public String getPastaDoProjetoRelease() {
-        if (pastaDoProjetoRelease == null) {
-            if (getPastaSource() != null) {
+    public void setNomePastaProjeto(String nomePastaProjeto) {
+        this.nomePastaProjeto = nomePastaProjeto;
+    }
 
-                return getPastaRelease() + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto());
+    public String getCaminhoPastaDoProjetoReleaseLocal() {
+        if (caminhoPastaDoProjetoReleaseLocal == null) {
+            if (getCaminhoPastaDoProjetoSourceLocal() != null) {
+
+                return getPastaRelease() + getNomePastaProjeto();
 
             } else {
                 return null;
             }
         } else {
-            return pastaDoProjetoSource;
+            return caminhoPastaDoProjetoReleaseLocal;
         }
     }
 
     public void setPastaDoProjeto(String pastaDoProjeto) {
-        this.pastaDoProjetoSource = pastaDoProjeto;
+        this.caminhoPastaDoProjetoSourceLocal = pastaDoProjeto;
     }
 
     public Date getDataPrevista() {
@@ -226,7 +238,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
             return linkSVNSource;
         }
 
-        return VariaveisSBProject.diretorioSevidorSVNSource + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(getNomeProjeto()) + "/trunk/";
+        return VariaveisSBProject.diretorioSevidorSVNSource + "/" + getNomePastaProjeto() + "/trunk/";
 
     }
 
@@ -362,7 +374,7 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
             return dataEntrega;
         } catch (Exception e) {
-            SBCore.RelatarErro(ErroSB.TIPO_ERRO.ALERTA_PROGRAMADOR, "Erro calculando contagem regressiva do projeto", e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro calculando contagem regressiva do projeto", e);
             return null;
         }
 
@@ -429,6 +441,60 @@ public class Projeto extends EntidadeSimples implements Serializable {
 
     public void setLinkSVNRelease(String linkSVNRelease) {
         this.linkSVNRelease = linkSVNRelease;
+    }
+
+    public String getEnderecoHomologacao() {
+        return enderecoHomologacao;
+    }
+
+    public void setEnderecoHomologacao(String enderecoHomologacao) {
+        this.enderecoHomologacao = enderecoHomologacao;
+    }
+
+    public String getNomeComercial() {
+        return nomeComercial;
+    }
+
+    public void setNomeComercial(String nomeComercial) {
+        this.nomeComercial = nomeComercial;
+    }
+
+    public String getEnderecoRequisitos() {
+        return enderecoRequisitos;
+    }
+
+    public void setEnderecoRequisitos(String enderecoRequisitos) {
+        this.enderecoRequisitos = enderecoRequisitos;
+    }
+
+    public String getPastaGitRelease() {
+        if (pastaGitRelease == null || caminhoPastaDoProjetoReleaseLocal == null) {
+            pastaGitRelease = getNomePastaProjeto() + ".git";
+        }
+        return pastaGitRelease;
+    }
+
+    public void setPastaGitRelease(String pastaGitRelease) {
+        this.pastaGitRelease = pastaGitRelease;
+    }
+
+    public String getPastaGitSource() {
+        if (pastaGitSource == null || caminhoPastaDoProjetoSourceLocal.length() < 2) {
+            pastaGitSource = getNomePastaProjeto() + ".git";
+        }
+        return pastaGitSource;
+    }
+
+    public void setPastaGitSource(String pastaGitSource) {
+        this.pastaGitSource = pastaGitSource;
+    }
+
+    public String getNomeArquivoInfo() {
+        return nomeArquivoInfo;
+    }
+
+    public void setNomeArquivoInfo(String nomeArquivoInfo) {
+        this.nomeArquivoInfo = nomeArquivoInfo;
     }
 
 }

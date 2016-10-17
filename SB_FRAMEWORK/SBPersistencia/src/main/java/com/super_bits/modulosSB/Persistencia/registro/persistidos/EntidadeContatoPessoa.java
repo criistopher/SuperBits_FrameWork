@@ -1,12 +1,12 @@
 package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanContatoPessoa;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoPessoa;
 
 public abstract class EntidadeContatoPessoa extends EntidadeEndereco implements
         ItfBeanContatoPessoa {
 
     public EntidadeContatoPessoa() {
-        super(EntidadeContatoPessoa.class);
+        super();
         // TODO implementar EntidadeContatoCorporativo
     }
 

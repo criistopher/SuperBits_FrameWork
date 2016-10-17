@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sb="http://superbitsframework/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <c:if test="#{layout!=null}">
+        <sb:parametroMetodo nome="prMetodo" valor="#{metodo}" />
+        <ui:include
+            src="botaoAcao_Target/#{layout.nomeArquivoXHTMLJSF}.xhtml"
+            />
+    </c:if>
+    <c:if test="#{layout==null}">
+        Layout do botoã não enviado!
+    </c:if>
+
+
+</html>

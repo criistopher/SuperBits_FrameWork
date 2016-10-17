@@ -5,16 +5,21 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CampoNaoImplementado;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.cep.ItfLocal;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.BeanTodosSelecionados;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CampoNaoImplementado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflexaoObjetoSuperBits;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -25,7 +30,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+import javax.el.ValueExpression;
+import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -45,8 +53,13 @@ public class PgUtil implements Serializable {
 
     @Inject
     private SessaoAtualSBWP sessao;
+
     @Inject
     private InfoWebApp infoWeb;
+
+    public void testeMuitoLouco(ItfB_Pagina pagina) {
+        pagina.executarAcaoSelecionada();
+    }
 
     private final CampoNaoImplementado camponaoImplementado = new CampoNaoImplementado();
 
@@ -110,14 +123,20 @@ public class PgUtil implements Serializable {
     }
 
     public void atualizaTelaPorID(String idAtualizacao) {
+        try {
+            String id = idAtualizacao;
+            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
+                System.out.println("Atualizando a exibição dos componentes nomeados com: " + id);
 
-        String id = idAtualizacao;
-        System.out.println("Atualizando o id" + id);
-        if (id == null) {
+            }
+
+            if (id == null) {
+
+            }
+            UtilSBWP_JSFTools.atualizaPorId(id);
+        } catch (Throwable t) {
             UtilSBWP_JSFTools.mensagens().erroSistema("o atributo idAtualizacao não foi encontrado, é necessário criar o atributo no componente" + idAtualizacao);
         }
-        UtilSBWP_JSFTools.atualizaPorId(id);
-
     }
 
     public void mostraDialogoByWidgetVar(String idWidget) {
@@ -129,7 +148,34 @@ public class PgUtil implements Serializable {
         atualizaTelaPorID("mensagemUsuario");
     }
 
+    /**
+     *
+     * Procura pelos componentes com este id, e retorna o caminho completo do
+     * componente
+     *
+     *
+     * Ex. um componente com o id = areaParaAtualizacao pode durante a
+     * reinderização do jsf ficar com o nome
+     * conteudo.divDaEsquerda.jstdid12.areaparaAtualizacao
+     *
+     *
+     * @param pId O id de componente que deseja saber o caminho completo
+     *
+     *
+     *
+     *
+     * @return
+     */
     public String makeCaminhoCompletoID(String pId) {
+        if (pId == null) {
+            return null;
+        }
+        if (pId.length() == 0) {
+            return null;
+        }
+        if (pId.contains("@")) {
+            return pId;
+        }
         if (pId == null || pId.equals("")) {
             return null;
         }
@@ -208,6 +254,137 @@ public class PgUtil implements Serializable {
         return novoCaminho;
     }
 
+    public String getInfoComponente(String pId) {
+        try {
+            UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
+            UIComponent componenteEncontrador = componenteRaiz.findComponent(pId);
+            for (UIComponent comp : componenteRaiz.getChildren()) {
+                System.out.println(comp.getId());
+
+            }
+
+            System.out.println("");
+            return pId;
+        } catch (Throwable t) {
+            return "Aconteceu Um Erro";
+        }
+    }
+
+    private boolean isComponentDeInput(UIComponent comp) {
+
+        return comp.getRendererType().contains("org.primefaces.component.InputTextRenderer")
+                || comp.getRendererType().contains("org.primefaces.component.SelectOneMenuRenderer")
+                || comp.getRendererType().contains("Input")
+                || comp.getRendererType().contains("ColorPicker")
+                || comp.getRendererType().contains("Calendar")
+                || comp.getRendererType().contains("CkEditor")
+                || comp.getRendererType().contains("Slider")
+                || comp.getRendererType().contains("Password")
+                || comp.getRendererType().contains("select")
+                || comp.getRendererType().contains("Select");
+    }
+
+    public String getNomeIdComponenteInput(UIComponent componente) {
+        try {
+            for (UIComponent comp : componente.getParent().getChildren()) {
+
+                if (isComponentDeInput(comp)) {
+                    return comp.getId();
+                }
+                for (UIComponent compNivel2 : comp.getChildren()) {
+                    if (isComponentDeInput(compNivel2)) {
+                        return compNivel2.getId();
+                    }
+
+                }
+            }
+
+            throw new UnsupportedOperationException();
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo id do input " + componente.getId(), t);
+
+            for (UIComponent comp : componente.getParent().getChildren()) {
+
+                if (isComponentDeInput(comp)) {
+                    return comp.getId();
+                }
+                for (UIComponent compNivel2 : comp.getChildren()) {
+
+                    System.out.println("Nivel 1: " + comp + " nivel 2: " + compNivel2);
+
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public String getIDComponenteFilhoPorCordenada(UIComponent componente, int... indices) {
+        if (componente == null) {
+            System.out.println("Enviado componente nulo buscando id por cordenada");
+            return null;
+        }
+        try {
+            UIComponent componenteAtual = componente;
+
+            for (int id : indices) {
+                componenteAtual = componente.getChildren().get(id);
+            }
+            return componenteAtual.getId();
+        } catch (Throwable t) {
+            System.out.println("Inposível encontrar componente pela cordenada " + indices);
+            return componente.getId();
+        }
+    }
+
+    public String buscaIdDestaClasse(UIComponent componente, String atributo) {
+        UIComponent comp = componente.getChildren().get(3).getChildren().get(1);
+
+        System.out.println(comp.getId());
+        System.out.println(comp.getAttributes().keySet());
+        System.out.println(comp.getAttributes().values());
+        System.out.println(comp.getFamily());
+        System.out.println(comp.getRendererType());
+
+        return "Ainda não Implmentado mas o id é:" + comp.getId();
+    }
+
+    public String buscaFilhoComEsteID(UIComponent componente, String atributo) {
+        String resultado = UtilSBWP_JSFTools.getAbsoluteComponentPaths(UtilSBWP_JSFTools.resolveList(atributo, componente));
+        return resultado.replace(":" + componente.getClientId(), resultado);
+
+    }
+
+    /**
+     *
+     * @param component
+     * @param atributo
+     * @return
+     */
+    public boolean isAtributoPreenchidoComExpressao(UIComponent component, String atributo) {
+
+        try {
+            ValueExpression valor = component.getValueExpression(atributo);
+
+            if (valor != null) {
+                if (valor.getExpressionString().length() > 3) {
+                    System.out.println("O atributo:" + atributo + "de " + component.getId() + " foi preenchudo com " + valor);
+                    return true;
+                }
+                System.out.println("o componente " + component.getId() + " não possui 3 caracteres no  " + atributo + " está nulo" + valor.getExpressionString());
+                return false;
+            } else {
+                System.out.println("o atributo do componente" + component.getId() + " do atributo " + atributo + " está nulo");
+                return false;
+            }
+
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Impossível determinar se o atributo do componente foi configurado", t);
+            return false;
+        }
+    }
+
     public void preencherEndereco(String pcep, ItfLocal pLocal) {
         System.out.println("CEP ENVIADO:" + pcep);
 
@@ -222,17 +399,92 @@ public class PgUtil implements Serializable {
         return ceps;
     }
 
+    /**
+     *
+     * @param pAcao Acao
+     * @return XHTML que deve ser carregado
+     * @deprecated Metodo será substituido por Carregar XHTML
+     */
+    @Deprecated
     public String navegar(ItfAcaoDoSistema pAcao) {
 
         if (pAcao != null) {
-            return infoWeb.getAcaoManagedBean(pAcao.getNomeUnico()).getUrlDeAcesso();
+            return infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
         } else {
             return null;
         }
     }
 
+    public void irParaURL(ItfAcaoDoSistema pAcao) {
+        try {
+
+            if (!SBCore.isEmModoDesenvolvimento()) {
+                if (pAcao == null) {
+                    throw new UnsupportedOperationException("Ação não enviada para navegação de URL");
+                }
+                String url = infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
+                irParaURL(url);
+            } else {
+                System.out.println("Enviando usuario para url da anção" + pAcao.getNomeUnico());
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "ação não enviada para navegação", t);
+        }
+
+    }
+
+    public void irParaURL(String pUrl) {
+
+        if (!SBCore.isEmModoDesenvolvimento()) {
+            UtilSBWP_JSFTools.vaParaPagina(pUrl);
+        } else {
+            System.out.println("Enviando usuário para" + pUrl);
+        }
+
+    }
+
     public CampoNaoImplementado getCampoNaoImplementado() {
         return camponaoImplementado;
+    }
+
+    public boolean isTudoVerdadeiro(boolean... pCondicoes) {
+
+        for (boolean condicao : pCondicoes) {
+            if (!condicao) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public String getNomeDoCompPai(UIComponent pComponente) {
+        return null;
+    }
+
+    public String getSufixoCaminhoAteAqui(UIComponent componente, String caminho) {
+        return null;
+    }
+
+    public String defineNomeDoFilho(UIComponent componente) {
+        System.out.println("Gerando id para" + componente.getClientId());
+        return "AssimVcFuncionaNumEDanada";
+    }
+
+    public String getLorrenIpsUmaPalavra() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
+    }
+
+    public String getLorrenIpsUmaFrase() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
+    }
+
+    public String getLorrenIpsUmParagrafo() {
+        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
+    }
+
+    public String getLorrenIps3Paragrafos() {
+        return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
     }
 
 }

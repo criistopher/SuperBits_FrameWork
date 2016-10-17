@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas.TemaPrimeFaces;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces.temas.TemasDisponiveis;
@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.RequestScoped;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -59,7 +59,7 @@ public class Tema {
 
             UtilSBCoreArquivos.descompactar(pastaArquivos + "/tema.zip", pastaArquivos.getAbsolutePath());
             String pastaTema = pastaArquivos.getAbsolutePath() + "/jquery-ui-1.11.4.custom";
-            List<String> css = UTilSBCoreInputs.getStringsByLocalFile(pastaTema
+            List<String> css = UTilSBCoreInputs.getStringsByArquivoLocal(pastaTema
                     + "/jquery-ui.css");
             if (css == null) {
                 FabMensagens.enviarMensagemUsuario("Erro lendo arquivo CSS, certifique ter enviado um arquivo versão 1.11.2 ", FabMensagens.ERRO);

@@ -4,11 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -25,7 +24,7 @@ public class UtilSBCoreEmailTest {
 
     @Test
     public void testEnviaGmailporSSL() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage(), true);
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         UtilSBCoreEmail.enviaGmailporSSL(
                 "guiasemktdigitalcontagem@gmail.com",
                 "",

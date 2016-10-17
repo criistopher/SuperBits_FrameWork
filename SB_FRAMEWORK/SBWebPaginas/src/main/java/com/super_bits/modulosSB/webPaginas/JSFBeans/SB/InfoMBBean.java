@@ -5,7 +5,12 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB;
 
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 /**
  *
@@ -13,20 +18,32 @@ import java.io.Serializable;
  */
 public class InfoMBBean implements Serializable {
 
-    String classe;
-    String descricao;
-    String exemplo;
-    String chamada;
+    private String classe;
+    private String descricao;
+    private String exemplo;
+    private final String formularioVisualizacao;
+    private String formularioNulo;
+    private String formularioLista;
+    private final String chamada;
 
     public String getChamada() {
         return chamada;
     }
 
-    public InfoMBBean(String pClasse, String pDescricao, String pExemplo, String pChamada) {
-        classe = pClasse;
-        descricao = pDescricao;
-        exemplo = pExemplo;
-        chamada = pChamada;
+    public InfoMBBean(Field campo) {
+
+        InfoMB_Bean infoBean = campo.getAnnotation(InfoMB_Bean.class);
+
+        classe = campo.getType().getSimpleName();
+        if (infoBean != null) {
+            descricao = infoBean.descricao();
+            exemplo = infoBean.exemplo();
+        }
+
+        chamada = "#{" + campo.getDeclaringClass().getSimpleName() + "." + campo.getName() + "}";
+
+        formularioVisualizacao = MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(campo.getType());
+
     }
 
     public String getClasse() {
@@ -51,6 +68,18 @@ public class InfoMBBean implements Serializable {
 
     public void setExemplo(String exemplo) {
         this.exemplo = exemplo;
+    }
+
+    public String getVisualizacaoItem() {
+        return formularioVisualizacao;
+    }
+
+    public String getVisualizacaoItemNulo() {
+        return formularioNulo;
+    }
+
+    public String getFormularioVisualizacaoItemListas() {
+        return formularioLista;
     }
 
 }

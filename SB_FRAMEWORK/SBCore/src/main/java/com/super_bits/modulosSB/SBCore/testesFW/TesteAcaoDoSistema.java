@@ -4,14 +4,9 @@
  */
 package com.super_bits.modulosSB.SBCore.testesFW;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
-import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
-import java.lang.reflect.Method;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilFabricaDeAcoesBasico;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -23,97 +18,17 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
     private boolean validarAcoesNaoConfiguradas = false;
 
-    private boolean validatAcao(ItfAcaoDoSistema pAcaoDoSistema) {
+    private boolean validarAcao(ItfAcaoDoSistema pAcaoDoSistema) {
 
-        if (pAcaoDoSistema.isConfigurado()) {
+        try {
 
-            if (pAcaoDoSistema.getIconeAcao() == null) {
-                throw new UnsupportedOperationException("Falta definir um ícone para a ação");
-            }
+            UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(pAcaoDoSistema);
 
-            // Verificando Configuração de XHTML
-            switch (pAcaoDoSistema.getTipoAcaoSistema()) {
-
-                case ACAO_ENTIDADE_FORMULARIO:
-                case ACAO_ENTIDADE_FORMULARIO_MODAL:
-                case ACAO_ENTIDADE_GERENCIAR:
-                    ItfAcaoFormulario acaoForm = (ItfAcaoFormulario) pAcaoDoSistema;
-                    if (acaoForm.getXhtml() == null || acaoForm.getXhtml() == "") {
-
-                        throw new UnsupportedOperationException("A ação de formulário " + acaoForm.getNomeUnico() + " não possui um xhtml cadastrado ");
-
-                    }
-
-                    break;
-
-            }
-
-            // Verificando configuração de Metodo na camada Controller
-            switch (pAcaoDoSistema.getTipoAcaoSistema()) {
-
-                case ACAO_ENTIDADE_CONTROLLER:
-                case ACAO_CONTROLLER:
-                    ItfAcaoController acaocontroller = (ItfAcaoController) pAcaoDoSistema;
-
-                    if (acaocontroller.getIdMetodo() == 0) {
-
-                        throw new UnsupportedOperationException("O id do metodo da ação controller: " + pAcaoDoSistema.getNomeUnico()
-                                + "Não possui foi configurado"); //To change body of generated methods, choose Tools | Templates.
-
-                    }
-                    Method metodo = SBCore.getConfiguradorDePermissao().getMetodoByAcao(pAcaoDoSistema);
-                    if (metodo == null) {
-
-                        throw new UnsupportedOperationException("A ação de controller " + pAcaoDoSistema.getNomeUnico()
-                                + "Não possui nenhum metodo vinculado, nas classes de controller do sistema"); //To change body of generated methods, choose Tools | Templates.
-
-                    }
-                    break;
-
-            }
-
-            switch (pAcaoDoSistema.getTipoAcaoSistema()) {
-                case ACAO_DO_SISTEMA:
-
-                    break;
-                case ACAO_ENTIDADE_FORMULARIO:
-
-                case ACAO_ENTIDADE_FORMULARIO_MODAL:
-
-                case ACAO_ENTIDADE_CONTROLLER:
-
-                    ItfAcaoSecundaria acaoEntidadeSecundaria = (ItfAcaoSecundaria) pAcaoDoSistema;
-
-                    if (acaoEntidadeSecundaria.getAcaoPrincipal() == null) {
-                        throw new UnsupportedOperationException("esta ação é uma ação secondária, portando deve ser configurada uma ação Principal a ela.." + pAcaoDoSistema.getNomeUnico()); //To change body of generated methods, choose Tools | Templates.
-                    }
-
-                    break;
-
-                case ACAO_ENTIDADE_GERENCIAR:
-                    ItfAcaoEntidade acaoEntidade = (ItfAcaoEntidade) pAcaoDoSistema;
-
-                    break;
-
-                case ACAO_CONTROLLER:
-
-                    break;
-                case ACAO_SELECAO_DE_ACAO:
-
-                    break;
-                default:
-                    throw new AssertionError(pAcaoDoSistema.getTipoAcaoSistema().name());
-            }
             return true;
-        } else {
-            System.out.println("[SBINFO]: A AÇÃO " + pAcaoDoSistema.getNomeUnico() + " ainda não foi configurada");
-            if (validarAcoesNaoConfiguradas) {
-                return true;
-            } else {
-                return false;
-            }
+        } catch (Throwable t) {
+            lancarErroJUnit(t);
         }
-
+        return false;
     }
 
     /**
@@ -130,8 +45,22 @@ public abstract class TesteAcaoDoSistema extends TesteJunit {
 
         for (Object obj : pFabricaDeAcoes.getEnumConstants()) {
             try {
-                ItfAcaoDoSistema novaAcao = ((ItfFabricaAcoes) obj).getAcaoDoSistema();
-                validatAcao(novaAcao);
+
+                ItfFabricaAcoes fabrica = (ItfFabricaAcoes) obj;
+                ItfAcaoDoSistema novaAcao = fabrica.getAcaoDoSistema();
+
+                if (novaAcao == null) {
+                    throw new UnsupportedOperationException("Ação " + pFabricaDeAcoes.toString() + " retornou nulo a partir da fábrica");
+                }
+
+                if (fabrica.getEntidadeDominio() == null) {
+                    throw new UnsupportedOperationException("Entidade da ação " + pFabricaDeAcoes.toString() + " não foi definido");
+                }
+                if (fabrica.getNomeModulo() == null) {
+                    throw new UnsupportedOperationException("O módulo da ação " + pFabricaDeAcoes.toString() + " não foi definido");
+                }
+
+                validarAcao(novaAcao);
 
             } catch (Throwable t) {
                 proseguiuSemErro = false;

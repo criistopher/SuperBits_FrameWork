@@ -4,43 +4,51 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import java.util.List;
 
 /**
  *
  * @author cristopher
  */
-public interface ItfPaginaGerenciarEntidade<T> {
+public interface ItfPaginaGerenciarEntidade<T> extends ItfB_Pagina {
 
-    ItfAcaoDoSistema getAcaoListarRegistros();
+    public ItfAcaoFormularioEntidade getAcaoListarRegistros();
 
     // Retorna ação de novo registro
-    ItfAcaoDoSistema getAcaoNovoRegistro();
+    public ItfAcaoFormularioEntidade getAcaoNovoRegistro();
 
-    ItfAcaoDoSistema getAcaoSalvarAlteracoes();
+    public ItfAcaoDoSistema getAcaoSalvarAlteracoes();
 
-    ItfAcaoDoSistema getAcaoSelecionada();
+    public ItfAcaoDoSistema getAcaoSelecionada();
 
-    List<ItfAcaoDoSistema> getAcoesRegistros();
+    public List<ItfAcaoDoSistema> getAcoesRegistros();
 
-    T getEntidadeSelecionada();
+    public T getEntidadeSelecionada();
 
-    List<T> getEntidadesListadas();
+    public List<T> getEntidadesListadas();
 
-    String getXhtmlAcaoAtual();
+    public String getXhtmlAcaoAtual();
 
-    boolean isNovoRegistro();
+    public boolean isNovoRegistro();
 
-    boolean isPodeEditar();
+    public boolean isPodeEditar();
 
-    // Define a ação selecionada
-    void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
+    public boolean isTemVisualizar();
 
-    void setEntidadeSelecionada(T entidadeSelecionada);
+    public boolean isTemNovo();
 
-    void setEntidadesListadas(List<T> entidadesListadas);
+    public boolean isTemEditar();
+
+    public boolean isTemAlterarStatus();
+
+    public void setAcaoSelecionada(ItfAcaoDoSistema acaoSelecionada);
+
+    public void setEntidadeSelecionada(T entidadeSelecionada);
+
+    public void setEntidadesListadas(List<T> entidadesListadas);
 
     public void executarAcao(T pCompradorSelecionado);
 
@@ -48,10 +56,12 @@ public interface ItfPaginaGerenciarEntidade<T> {
 
     public boolean isTemPesquisa();
 
-    public ItfAcaoDoSistema getAcaoVisualisar();
+    public ItfAcaoFormularioEntidade getAcaoVisualisar();
 
-    public ItfAcaoDoSistema getAcaoAlterarStatus();
+    public ItfAcaoControllerEntidade getAcaoAlterarStatus();
 
-    public ItfAcaoDoSistema getAcaoEditar();
+    public ItfAcaoFormularioEntidade getAcaoEditar();
+
+    public boolean isSomenteLeitura();
 
 }

@@ -6,9 +6,11 @@ package com.super_bits.modulosSB.Persistencia.util;
 
 import com.super_bits.editorImagem.util.UtilSBImagemEdicao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
-import com.super_bits.modulosSB.SBCore.InfoCampos.campo.FabCampos;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,7 +34,7 @@ import javax.imageio.ImageIO;
  */
 public abstract class UtilSBPersistenciaArquivosDeEntidade {
 
-    public static String pastaimagens = SBPersistencia.getPastaImagensJPA();
+    public static String caminhoLocalImagens = SBCore.getCentralVisualizacao().getCaminhoLocalPastaImagem() + SBPersistencia.getPastaImagensJPA();
 
     public enum prefixosIMG {
 
@@ -40,7 +42,12 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
     }
 
     private static String getCaminhoLocalImagens(ItfBeanSimples item) {
-        return pastaimagens + "/" + item.getClass().getSimpleName() + "/" + item.getId() + "/";
+
+        return caminhoLocalImagens + getCaminhoRelativoImagem(item);
+    }
+
+    private static String getCaminhoRelativoImagem(ItfBeanSimples item) {
+        return "/" + item.getClass().getSimpleName() + "/" + item.getId() + "/";
     }
 
     private static String getUrlIMGPadrao(FabCampos tipo) {
@@ -61,10 +68,10 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
 
     public static String getURLImagem(ItfBeanSimples item, FabCampos tipo) {
 
-        String urlbase = pastaimagens + "/" + item.getClass().getSimpleName() + "/" + item.getId() + "/";
+        String pastaRelativaImagens = SBCore.getCentralVisualizacao().getRemotoPastaImagem() + SBPersistencia.getPastaImagensJPA() + getCaminhoRelativoImagem(item);
         String urlpadrao = getUrlIMGPadrao(tipo);
 
-        File pasta = new File(getCaminhoLocalImagens(item));
+        File pasta = new File(caminhoLocalImagens + getCaminhoRelativoImagem(item));
 
         File[] arquivos = pasta.listFiles();
         if (arquivos == null) {
@@ -73,16 +80,16 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
         for (File arq : arquivos) {
 
             if (tipo.equals(FabCampos.IMG_PEQUENA) & arq.getName().contains(prefixosIMG.peq_.toString())) {
-                return urlbase + arq.getName();
+                return pastaRelativaImagens + arq.getName();
 
             }
             if (tipo.equals(FabCampos.IMG_MEDIA) & arq.getName().contains(prefixosIMG.med_.toString())) {
-                return urlbase + arq.getName();
+                return pastaRelativaImagens + arq.getName();
 
             }
 
             if (tipo.equals(FabCampos.IMG_GRANDE) & arq.getName().contains(prefixosIMG.grande_.toString())) {
-                return urlbase + arq.getName();
+                return pastaRelativaImagens + arq.getName();
 
             }
 
@@ -94,7 +101,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
     @SuppressWarnings("unused")
     public static List<String> getURLImagens(ItfBeanSimples item, String galeria) {
 
-        String urlbase = pastaimagens;
+        String urlbase = caminhoLocalImagens;
         String urlpadrao = getUrlIMGPadrao(FabCampos.IMG_GRANDE);
 
         List<String> respPadrao = new ArrayList<String>();
@@ -128,7 +135,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
 
         // Gerando Diretorios
         String caminho = SBPersistencia.getPastaImagensJPA();
-        caminho = caminho + pastaimagens + "/" + tabela + "/" + entidade.getId() + '/';
+        caminho = caminho + caminhoLocalImagens + "/" + tabela + "/" + entidade.getId() + '/';
         if (categoria != null) {
             caminho = caminho + "/" + categoria + '/';
         }

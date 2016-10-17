@@ -4,14 +4,14 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreDeveloperStopMessage;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.fabrica.InfoModulo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import java.util.List;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -34,7 +34,7 @@ public class UtilSBCoreReflexaoTest extends TesteJunit {
 
         try {
 
-            List<Class> classes = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoModulo.class, "com.super_bits");
+            List<Class> classes = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoClasse.class, "com.super_bits");
             assertTrue("nenhuma classe foi encontrada", classes.size() > 0);
 
         } catch (Throwable t) {
@@ -45,7 +45,7 @@ public class UtilSBCoreReflexaoTest extends TesteJunit {
 
     @Override
     protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfigCoreDeveloperStopMessage());
+        SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
 }

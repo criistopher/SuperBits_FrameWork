@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
+
+        <ui:define name="input">
+
+            <h:outputText
+
+                class=" campoResponsivo  TexAlCenter #{componente.classeCSS}"
+
+                value="#{valor}"
+
+                >
+
+
+                <c:if test="#{possuiMetodoOnChange}">
+                    <p:ajax rendered="#{possuiMetodoOnChange}"
+                            global="true"
+                            event="valueChange"
+                            listener="#{metodoOnChange}"/>
+                </c:if>
+
+                <c:if test="#{possuiIDOnChange}" >
+                    <p:ajax
+                        rendered="#{possuiIDOnChange}"
+                        global="true"
+                        event="valueChange"
+                        listener="#{pgUtil.atualizaTelaPorID(idAtualizarOnChange)}" />
+                </c:if>
+
+            </h:outputText>
+
+            <h:inputHidden id="cpvalorHiden" value="#{registro.valor}" />
+
+            <p:slider disabled="#{desabilitarEdicao}"
+
+                      for="cpvalorHiden" display="#{prefixoID}#{componente.idHTMLObjetoPrincipal}"
+                      style="width: 200px" displayTemplate=" {value}%" />
+
+
+
+        </ui:define>
+
+    </ui:decorate>
+
+</html>

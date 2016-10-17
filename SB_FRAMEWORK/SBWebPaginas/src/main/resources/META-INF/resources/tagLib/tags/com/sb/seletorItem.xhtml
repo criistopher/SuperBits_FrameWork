@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sb="http://superbitsframework/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <sb:parametroMetodo nome="prMetodo" valor="#{metodoOnChange}" />
+    <ui:include
+        src="#{layoutCampo.xhtmlJsfCaminhoRelativo}" >
+        <ui:param name="layout" value="#{layoutsComponenteSB.layoutCampo.semLabel}"/>
+        <ui:param name="componente" value="#{layoutCampo}"  />
+        <ui:param name="prefixoID" value="" />
+        <ui:param name="valor" value="#{itemSelecionado}"/>
+        <ui:param name="obrigatorio" value="#{obrigatorio}"/>
+
+        <ui:param rendered="#{registro.umValorComLista}" name="lista" value="#{registro.listaDeOpcoes}"/>
+    </ui:include>
+</html>

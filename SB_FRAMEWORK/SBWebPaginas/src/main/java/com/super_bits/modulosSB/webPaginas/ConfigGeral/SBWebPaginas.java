@@ -1,7 +1,8 @@
 package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public abstract class SBWebPaginas {
     // variaveis temporarias apenas para compatibilidade
     // VARIAVEIS DE ARQUIVAR_LOG
     private static String SITE_HOST;
+    private static Integer porta = 8080;
     private static String pastaImagens;
     private static String nomePacoteProjeto;
     private static String SITE_URL;
@@ -17,6 +19,7 @@ public abstract class SBWebPaginas {
     private static String URLBASE = "";
     private static boolean configurado = false;
     private static Class siteMap;
+
     private static List<ParametroURL> parametros;
     private static boolean parametroEmSubdominio;
 
@@ -31,7 +34,21 @@ public abstract class SBWebPaginas {
         siteMap = config.mapaSite();
         parametros = config.parametrosDeAplicacao();
         configurado = true;
+        ArquivoConfiguracaoDistribuicao distribuicao = SBCore.getArquivoDistribuicao();
 
+        if (distribuicao == null) {
+            System.out.println("O arquivo de implantação ainda não foi configurado, esta aplicação rodara no modo localhost:8080/" + nomePacoteProjeto);
+        } else {
+
+            if (distribuicao.isTemArquivoImplantacao()) {
+                String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+            }
+
+            if (distribuicao.isEmAmbienteDeProducao()) {
+                SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
+                SITE_URL = SITE_HOST;
+            }
+        }
     }
 
     private static void validaConfigurado() {
@@ -51,7 +68,11 @@ public abstract class SBWebPaginas {
 
     }
 
-    //** Endereço de acesso externo ao site exemplo http://www.meusiteOuIp.com.br /*
+    /**
+     *
+     * @return Endereço de acesso externo ao site exemplo
+     * http://www.meusiteOuIp.com.br /*
+     */
     public static String getSiteURL() {
         validaConfigurado();
         return SITE_URL;

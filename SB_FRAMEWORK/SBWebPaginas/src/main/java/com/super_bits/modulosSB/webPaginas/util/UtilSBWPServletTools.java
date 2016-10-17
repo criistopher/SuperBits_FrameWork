@@ -5,18 +5,15 @@
 package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCoreConfigGeral;
-import com.super_bits.modulosSB.SBCore.InfoCampos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaAtual;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
-import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,16 +21,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import org.jboss.weld.serialization.spi.helpers.SerializableContextualInstance;
 
 /**
  *
@@ -108,34 +103,46 @@ public class UtilSBWPServletTools {
         return null;
     }
 
+    /**
+     *
+     * Retorna uma lista de Strings com os parametros enviados na url
+     *
+     * @param pURL
+     * @return
+     */
     public static List<String> getParametrosDaPagina(String pURL) {
-        int inicioParametros = 0;
+        try {
+            int inicioParametros = 0;
 
-        if (SBWebPaginas.isParametrosEmSubdominios()) {
+            if (SBWebPaginas.isParametrosEmSubdominios()) {
 
-            throw new UnsupportedOperationException("Parametro em subdominio ainda não foi implementado");
+                throw new UnsupportedOperationException("Parametro em subdominio ainda não foi implementado");
 
-        } else {
-            String urlPagina = SBWebPaginas.getURLBase();
-            int inicioParametro = urlPagina.length() + 1;
-            List<String> resposta = new ArrayList<>();
-            if (pURL.length() <= inicioParametro) {
+            } else {
+                String urlPagina = SBWebPaginas.getURLBase();
+                int inicioParametro = urlPagina.length() + 1;
+                List<String> resposta = new ArrayList<>();
+                if (pURL.length() <= inicioParametro) {
+                    return resposta;
+                }
+                pURL = pURL.replace("/.wp", "");
+                pURL = pURL.replace(".wp", "");
+                try {
+                    String parametrosStr = pURL.substring(inicioParametro);
+
+                    String[] parametros = parametrosStr.split("/");
+                    System.out.println("String de parametros:" + parametrosStr);
+                    resposta.addAll(Arrays.asList(parametros));
+                } catch (Exception e) {
+                    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro localizando valores para paramentor de pagina, verifique a configuração do url do frameworkWebpaginas");
+                }
+                //Removendo Tag referente a Pagina
+                resposta.remove(0);
                 return resposta;
             }
-            pURL = pURL.replace("/.wp", "");
-            pURL = pURL.replace(".wp", "");
-            try {
-                String parametrosStr = pURL.substring(inicioParametro);
-
-                String[] parametros = parametrosStr.split("/");
-                System.out.println("String de parametros:" + parametrosStr);
-                resposta.addAll(Arrays.asList(parametros));
-            } catch (Exception e) {
-                UtilSBWP_JSFTools.vaParaPaginadeErro("Erro localizando valores para paramentor de pagina, verifique a configuração do url do frameworkWebpaginas");
-            }
-            //Removendo Tag referente a Pagina
-            resposta.remove(0);
-            return resposta;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo parametros da pagina", t);
+            return new ArrayList<>();
         }
 
     }
@@ -169,20 +176,29 @@ public class UtilSBWPServletTools {
      */
     public static String getCaminhoLocalServlet() {
 
-        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-            return SBCoreConfigGeral.CAMINHO_SERVLETS_JUNIT;
-        }
         try {
 
-            FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesContext contextoVisualizacaoAtual = FacesContext.getCurrentInstance();
             // String teste = context.getRealPath("/");
-            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            if (contextoVisualizacaoAtual == null) {
+                //TODO VA PARA VIEWEXPIRED
+                UtilSBWP_JSFTools.vaParaPaginaInicial();
+                throw new ViewExpiredException();
+            }
+            ExternalContext contextoExterno = contextoVisualizacaoAtual.getExternalContext();
+
+            ServletContext scontext = (ServletContext) contextoExterno.getContext();
 
             return scontext.getRealPath("/");
         } catch (Exception e) {
             System.out.println("UTILIZANDO PASTA RESOURCE DE DESENVOLVIMENTO." + e.getMessage() + e.getClass());
-            e.printStackTrace();
-            return SBWebPaginas.getCaminhoWebAppDeveloper();
+            if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+                return SBWebPaginas.getCaminhoWebAppDeveloper();
+            } else {
+                return SBWebPaginas.getCaminhoWebAppDeveloper();
+                //throw new ViewExpiredException();
+            }
         }
 
     }
@@ -324,17 +340,13 @@ public class UtilSBWPServletTools {
                     if (nome.endsWith(".spi.BeanManager")) {
                         BeanManager testeBM = (BeanManager) beandeSessao;
 
-                        Bean bean = testeBM.getBeans("dados").iterator().next();
-
-                        @SuppressWarnings("unchecked")
-                        CreationalContext ctx = testeBM
-                                .createCreationalContext(bean); // could be inlined
+                        //     Bean bean = testeBM.gegetBeans("dados").iterator().next();
+                        //      CreationalContext ctx = testeBM
+                        //                .createCreationalContext(bean); // could be inlined
                         // below
-
-                        Object o = testeBM.getReference(bean, bean.getBeanClass(),
-                                ctx);
-
-                        return o;
+                        return testeBM;
+                        //          Object o = testeBM.get(, bean.getBeanClass(),
+                        //                ctx);
 
                     }
 
@@ -358,8 +370,7 @@ public class UtilSBWPServletTools {
             String nome = registro.getKey();
 
             if (nome.endsWith(pNomeBean)) {
-                return ((SerializableContextualInstance) registro.getValue())
-                        .getInstance();
+                return registro.getValue();
             }
 
         }
@@ -407,133 +418,76 @@ public class UtilSBWPServletTools {
         return (String) SBWebPaginas.getSiteHost() + origRequest.getAttribute("javax.servlet.forward.request_uri");
     }
 
-    /**
-     *
-     * Através de reflexão lista todos objetos com a anotação Inject da classe
-     * que seja de determinado tipo
-     *
-     * +++++++> Este metodo instancia a classe onde os metodos serão localizados
-     *
-     * @param pTipo Tipo pesquizado
-     * @param pClasse Classe onde os objetos serão localizados
-     * @return
-     */
-    public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Class<?> pClasse) {
+    public static List<Field> getCamposReflexcaoInjetados(Class pClasse) {
+        List<Field> camposInjetados = new ArrayList<>();
 
-        try {
-            return getObjetosInjetadosModoOffline(pTipo, pClasse.newInstance());
-        } catch (InstantiationException | IllegalAccessException e) {
-
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro obtendo Objetos Ingetados no modo Offline (com CDI desativado) ", e);
-        }
-        return null;
-
-    }
-
-    /**
-     *
-     * * Através de reflexão lista todos objetos com a anotação Inject da do
-     * objeto instanciado que seja de determinado tipo
-     *
-     *
-     * @param pTipo Tipo de objeto que será pesquisado
-     * @param pInstancia Instancia onde os objetos instanciados serão
-     * localizados
-     * @return
-     */
-    public static List<? extends Object> getObjetosInjetadosModoOffline(Class<?> pTipo, Object pInstancia) {
-
-        return objetosInjetados(pTipo, pInstancia, true);
-
-    }
-
-    /**
-     * Lista os objetos de determinado tipo injetados em determinada instancia
-     *
-     *
-     * @param pTipo Tipo de objeto sendo que será adicionado na lista
-     * @param pInstancia instancia onde os Objetos serão localizados
-     * @return um lista com os objetos instanciados
-     */
-    public static List<? extends Object> getObjetosInjetados(Class<?> pTipo, Object pInstancia) {
-        return objetosInjetados(pTipo, pInstancia, false);
-    }
-
-    private static List<? extends Object> objetosInjetados(Class<?> pTipo, Object pInstancia, Boolean modoOffline) {
-
-        String nomeClasseProcurada = pTipo.getSimpleName();
-        List<Object> objetosEncontrados = new ArrayList<Object>();
-        Class<?> classe = pInstancia.getClass();
-        Field[] fields = classe.getDeclaredFields();
-        //pInstancia.getClass().getSuperclass();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-            Constructor<?>[] constr = field.getType().getConstructors();
-
-            try {
-                Inject injetado = field.getAnnotation(Inject.class);
-                if (injetado != null) {
-
-                    Boolean encontrou = false;
-                    Boolean classeObjeto = false;
-                    Object campo = field.get(pInstancia);
-
-                    try {
-                        if (modoOffline) {
-                            campo = field.getType().newInstance();
-                        }
-
-                        try {
-                            if (campo == null) {
-                                throw new ErroSBCritico("erro (chamada para criar ObjetosInjetados Online com objetos não injetados)em " + pTipo.getSimpleName() + ":: " + campo.getClass().getSimpleName());
-                            }
-
-                        } catch (Exception e) {
-                            UtilSBWP_JSFTools.mensagens().erroSistema(e.getMessage(), e);
-                        }
-
-                    } catch (InstantiationException e) {
-                        System.out.println("Erro tentando Instanciar Um objeto nulo no BeanUtil getObjetosInjetados");
-                        e.printStackTrace();
-                    }
-
-                    if (campo != null) {
-                        Class<?> classeCampo = campo.getClass();
-                        while (encontrou == false && classeObjeto == false) {
-                            System.out.println(classeCampo.getSimpleName());
-                            if (classeCampo.getSimpleName().equals(nomeClasseProcurada)) {
-                                encontrou = true;
-                            }
-                            if (classeCampo.getSimpleName().equals("Object")) {
-                                classeObjeto = true;
-                            }
-                            if (classeObjeto == false) {
-                                classeCampo = classeCampo.getSuperclass();
-                            }
-                        }
-
-                    }
-
-                    if (encontrou == true) {
-
-                    }
-
-                    if (encontrou == true & campo != null) {
-                        objetosEncontrados.add(campo);
-                    }
-
-                }
-
-            } catch (IllegalArgumentException | IllegalAccessException e1) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo objetos injetados via CDI", e1);
+        for (Field campo : pClasse.getDeclaredFields()) {
+            if (campo.getAnnotation(Inject.class) != null) {
+                camposInjetados.add(campo);
             }
-
         }
 
-        return objetosEncontrados;
+        return camposInjetados;
+
     }
 
+    /**
+     * private static List<? extends Object> objetosInjetados(Class<?> pTipo,
+     * Object pInstancia, Boolean modoOffline) {
+     *
+     * String nomeClasseProcurada = pTipo.getSimpleName(); List<Object>
+     * objetosEncontrados = new ArrayList<Object>(); Class<?> classe =
+     * pInstancia.getClass(); Field[] fields = classe.getDeclaredFields();
+     * //pInstancia.getClass().getSuperclass();
+     *
+     * for (Field field : fields) { field.setAccessible(true); Constructor<?>[]
+     * constr = field.getType().getConstructors();
+     *
+     * try { Inject injetado = field.getAnnotation(Inject.class); if (injetado
+     * != null) {
+     *
+     * Boolean encontrou = false; Boolean classeObjeto = false; Object campo =
+     * field.get(pInstancia);
+     *
+     * try { if (modoOffline) { campo = field.getType().newInstance(); }
+     *
+     * try { if (campo == null) { throw new ErroSBCritico("erro (chamada para
+     * criar ObjetosInjetados Online com objetos não injetados)em " +
+     * pTipo.getSimpleName() + ":: " + campo.getClass().getSimpleName()); }
+     *
+     * } catch (Exception e) {
+     * UtilSBWP_JSFTools.mensagens().erroSistema(e.getMessage(), e); }
+     *
+     * } catch (InstantiationException e) { System.out.println("Erro tentando
+     * Instanciar Um objeto nulo no BeanUtil getObjetosInjetados");
+     * e.printStackTrace(); }
+     *
+     * if (campo != null) { Class<?> classeCampo = campo.getClass(); while
+     * (encontrou == false && classeObjeto == false) {
+     * System.out.println(classeCampo.getSimpleName()); if
+     * (classeCampo.getSimpleName().equals(nomeClasseProcurada)) { encontrou =
+     * true; } if (classeCampo.getSimpleName().equals("Object")) { classeObjeto
+     * = true; } if (classeObjeto == false) { classeCampo =
+     * classeCampo.getSuperclass(); } }
+     *
+     * }
+     *
+     * if (encontrou == true) {
+     *
+     * }
+     *
+     * if (encontrou == true & campo != null) { objetosEncontrados.add(campo); }
+     *
+     * }
+     *
+     * } catch (IllegalArgumentException | IllegalAccessException e1) {
+     * FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo objetos
+     * injetados via CDI", e1); }
+     *
+     * }
+     *
+     * return objetosEncontrados; }
+     */
     public static Map<String, ParametroURL> setValoresParametrosByUrl(Map<String, ParametroURL> pParametros) {
         for (String prStr : pParametros.keySet()) {
             pParametros.get(UtilSBCoreStrings.makeStrUrlAmigavel(prStr)).setValor(getRequestParametro(prStr));

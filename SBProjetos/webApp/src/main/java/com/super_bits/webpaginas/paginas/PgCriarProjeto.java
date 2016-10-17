@@ -6,7 +6,7 @@
 package com.super_bits.webpaginas.paginas;
 
 import com.super_bits.sbProjetos.Model.Projeto;
-import com.super_bits.sbProjetos.SBProjectController;
+import com.super_bits.sbProjetos.controller.getaoProjeto.ModuloGestaoProjeto;
 
 /**
  *
@@ -17,7 +17,7 @@ public class PgCriarProjeto {
     private Projeto novoProjeto;
 
     public void salvarNovoProjeto() {
-        SBProjectController.criarProjeto(novoProjeto);
+        ModuloGestaoProjeto.criarProjeto(novoProjeto);
     }
 
 }

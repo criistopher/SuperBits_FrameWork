@@ -6,8 +6,8 @@
 package com.super_bits.sbProjetos.Model;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.Campo.CampoMapValores;
-import javax.persistence.DiscriminatorValue;
+
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.CampoMapValores;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
