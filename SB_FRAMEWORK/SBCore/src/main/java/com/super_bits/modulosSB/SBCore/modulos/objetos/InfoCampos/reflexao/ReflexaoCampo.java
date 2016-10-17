@@ -59,7 +59,7 @@ public abstract class ReflexaoCampo {
     }
 
     public void setValor(Object pValor) {
-        Object valor = getValorPorTipo(pValor, TIPO_PRIMITIVO.INTEIRO);
+        Object valor = getValorPorTipo(pValor, TIPO_PRIMITIVO.getTIPO_PRIMITIVO(campoReflection));
         if (possuiMetodoPublicoAlteracao) {
             try {
                 Method metodo = getInstancia().getClass().getMethod(nomeMetodoPublicoEscrita, campoReflection.getType());

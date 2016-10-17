@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -232,7 +233,12 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
             ItfCalculos calculo;
             campo = this.getClass().getDeclaredField(nomeCampo);
             calculo = UtilSBCoreReflecaoIEstruturaEntidade.getCalculoByField(campo);
-            campo.set(calculo.getValor(this), this);
+            try {
+                campo.set(calculo.getValor(this), calculo);
+            } catch (Throwable t) {
+                Logger.getGlobal().info("O calor do campo  " + campo.getName() + " não pode ser configurado por reflexão, o valor enviado foi" + calculo + " o erro que aconteceu foi: " + t.getMessage());
+            }
+
             return campo.get(this);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando calculo para o campo" + nomeCampo + " na tabela " + this.getClass().getSimpleName(), ex);
