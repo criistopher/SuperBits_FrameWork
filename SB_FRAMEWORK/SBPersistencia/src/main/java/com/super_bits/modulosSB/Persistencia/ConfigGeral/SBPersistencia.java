@@ -407,7 +407,8 @@ public abstract class SBPersistencia {
     }
 
     public static String getPastaExecucaoScriptsSQL() {
-        if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)) {
+        if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)
+                || SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.HOMOLOGACAO)) {
             return SBCore.getCaminhoGrupoProjetoSource();
         } else {
             return "/home/git/publicados/" + SBCore.getGrupoProjeto() + "/";
