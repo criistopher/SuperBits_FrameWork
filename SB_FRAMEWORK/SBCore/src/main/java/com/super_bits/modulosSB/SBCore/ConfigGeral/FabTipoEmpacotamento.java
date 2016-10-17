@@ -10,6 +10,6 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
  */
 public enum FabTipoEmpacotamento {
 
-    BIBLIOTECA_JAR, SITE_WAR, MOBILE_APK
+    BIBLIOTECA_JAR, SITE_WAR, MOBILE_APP_ANDROID, IOT;
 
 }

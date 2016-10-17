@@ -10,7 +10,7 @@ public class ErroSBCoreFW extends InfoErroSBComAcoes {
 
     @Override
     public void lancarExcecao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Lançar execacao de SBCOreFW não foi implementado."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

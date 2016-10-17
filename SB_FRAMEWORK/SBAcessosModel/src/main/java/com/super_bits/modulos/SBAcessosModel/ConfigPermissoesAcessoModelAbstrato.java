@@ -19,9 +19,7 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
  */
 /**
  *
@@ -57,6 +55,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             return;
         }
         acoesSistemaCriado = true;
+
         for (ItfAcaoDoSistema acao : acoesByHashMetodo.values()) {
             AcaoDoSistema acaoPersist = (AcaoDoSistema) acao;
 
@@ -66,6 +65,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 UtilSBPersistencia.mergeRegistro(acaosecundaria.getAcaoPrincipal(), getEmPermissoes());
 
             }
+
             UtilSBPersistencia.mergeRegistro(acao.getModulo(), getEmPermissoes());
             UtilSBPersistencia.mergeRegistro(acaoPersist, getEmPermissoes());
 

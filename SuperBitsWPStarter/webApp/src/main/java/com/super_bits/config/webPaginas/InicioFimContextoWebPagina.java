@@ -7,6 +7,7 @@ package com.super_bits.config.webPaginas;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.ConfiguradorCoreDeProjetoWebWarAbstrato;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.ItfInicioFimAppWP;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 
@@ -18,7 +19,7 @@ public class InicioFimContextoWebPagina implements ItfInicioFimAppWP {
 
     @Override
     public void inicio() {
-        SBCore.configurar(FabConfiguracoesDeAmbienteWebInomeProjetoI.HOMOLOGACAO.getConfiguracao());
+        SBCore.configurar(new ConfiguradorCoreWebAppInomeProjetoI(ConfiguradorCoreDeProjetoWebWarAbstrato.contextoDoServlet), SBCore.ESTADO_APP.HOMOLOGACAO);
         SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteWebInomeProjetoI.HOMOLOGACAO.getConfiguracaoPersistencia());
         SBWebPaginas.configurar(FabConfiguracoesDeAmbienteWebInomeProjetoI.HOMOLOGACAO.getConfiguracaoWebPaginas());
     }

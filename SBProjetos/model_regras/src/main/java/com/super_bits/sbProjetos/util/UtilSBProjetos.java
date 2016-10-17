@@ -342,7 +342,7 @@ public class UtilSBProjetos {
         UtilSBCoreShellBasico.abrirScriptEmConsole(SCRIPT_PREPARAR_ESTACAO, pProjeto.getCliente().getNomePasta(), pProjeto.getNomePastaProjeto());
 
         try {
-            Thread.sleep(8000);
+            Thread.sleep(25000);
         } catch (InterruptedException ex) {
             Logger.getLogger(UtilSBProjetos.class.getName()).log(Level.SEVERE, null, ex);
         }

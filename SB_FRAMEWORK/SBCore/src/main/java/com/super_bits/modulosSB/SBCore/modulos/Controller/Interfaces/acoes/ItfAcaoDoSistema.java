@@ -125,6 +125,7 @@ public interface ItfAcaoDoSistema extends ItfBeanSimples {
      * @param pAcaoDoSistema A ação que os dados como nome e icone serão
      * copiados
      */
+    @Deprecated
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema);
 
     /**

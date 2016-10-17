@@ -539,8 +539,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                {
-                    if (pCampoReflexao.getType().getName().equals("int")) {
+                 if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -557,7 +556,6 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
-                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);
@@ -801,7 +799,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
     @Override
     public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Upload de foto de item generico não foi implementado."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

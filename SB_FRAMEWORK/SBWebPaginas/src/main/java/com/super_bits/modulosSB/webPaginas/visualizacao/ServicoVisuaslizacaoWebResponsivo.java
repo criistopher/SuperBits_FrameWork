@@ -98,7 +98,7 @@ public class ServicoVisuaslizacaoWebResponsivo extends ServicoVisualizacaoAbstra
     }
 
     @Override
-    public String getRemotoPastaImagem() {
+    public String getRemotoPastaResource() {
         return SBWebPaginas.getSiteURL() + "/resources";
     }
 
