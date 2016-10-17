@@ -26,9 +26,9 @@ import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 public abstract class UtilFabricaDeAcoes {
 
     public static AcaoFormularioEntidade getAcaoEntidadeFormulario(ItfAcaoDoSistema acao, ItfFabricaAcoes pAcaoPrincipal, ItfFabricaAcoes pAcaoConcluirFormulario, String pXhtml) {
-        AcaoFormularioEntidade acaoEntidadeForm = new AcaoFormularioEntidade(acao, pAcaoPrincipal.getAcaoDeEntidade().getClass(), pXhtml);
-        acaoEntidadeForm.copiarDadosDaAcao(acao);
-        return acaoEntidadeForm;
+        //AcaoFormularioEntidade acaoEntidadeForm = new AcaoFormularioEntidade(acao, pAcaoPrincipal.getAcaoDeEntidade().getClass(), pXhtml);
+       // acaoEntidadeForm.copiarDadosDaAcao(acao);
+        return null;
     }
 
     public static AcaoDoSistema getAcaoDoSistema(FabTipoAcaoSistemaGenerica tipoDeAcao) {
@@ -49,7 +49,7 @@ public abstract class UtilFabricaDeAcoes {
 
     }
 
-    public static ItfAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal) {
+    public static ItfAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal,ItfFabricaAcoes pAcao) {
         AcaoDoSistema acaoBase = getAcaoDoSistema(pTipoAcao);
         ItfAcaoDoSistema novaAcao;
         String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";

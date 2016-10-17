@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
 import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.Controller.Interfaces.ItfResposta;
+import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.Mensagens.FabMensagens;
@@ -80,7 +81,7 @@ public class PgPermissoes extends MB_PaginaConversation {
     //private final AcaoDoSistema acaoAdicionarUsuarioNoGrupo = (AcaoDoSistema) FabAcaoCadastros.GRP_USUARIO_ADD.getAcaoDoSistema();
     private final AcaoDoSistema acaoListarGruposDoUsuario = (AcaoDoSistema) FabAcaoSeguranca.USUARIO_LISTARGRUPOS.getAcaoDoSistema();
 
-    private String xhtmlAcaoAtual = getXhtmlAcaoAtual(); //FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema().getXHTMLAcao();
+    private String xhtmlAcaoAtual =((ItfAcaoFormulario) FabAcaoSeguranca.GRUPO_LISTAR.getAcaoDoSistema).getXhtml();
 
     private void configurarSelecaoDeAcoes() {
         for (ModuloAcaoSistema modulo : modulos) {

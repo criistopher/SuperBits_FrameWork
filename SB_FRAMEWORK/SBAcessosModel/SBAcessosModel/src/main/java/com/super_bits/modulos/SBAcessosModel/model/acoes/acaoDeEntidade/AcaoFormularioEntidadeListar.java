@@ -8,6 +8,7 @@ import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -17,12 +18,10 @@ public class AcaoFormularioEntidadeListar extends AcaoFormularioEntidade impleme
 
     private String tituloForm;
 
-    public AcaoFormularioEntidadeListar(ItfAcaoGerenciarEntidade pAcaoGerenciar) {
-        super(null);
-    }
+   
 
-    public AcaoFormularioEntidadeListar(ItfAcaoEntidade pAcaoPrincipal, String pXhtml) {
-        super(pAcaoPrincipal, pAcaoPrincipal.getClasseRelacionada(), pXhtml);
+    public AcaoFormularioEntidadeListar(ItfAcaoGerenciarEntidade pAcaoPrincipal,ItfFabricaAcoes pFabrica ,String pXhtml) {
+        super(pAcaoPrincipal, pFabrica, pXhtml);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 

@@ -23,6 +23,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     DESATIVAR,
     FORMULARIO_VISUALIZAR,
     FORMULARIO_LISTAR,
+    FORMULARIO_MODAL,
     GERENCIAR;
 
     @Override

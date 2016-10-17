@@ -61,7 +61,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_ADICIONAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeNovoRegistro acaoNovoRegistro = (AcaoFormularioEntidadeNovoRegistro) acao;
                
                        
@@ -74,7 +74,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_LISTAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeListar acaoListarGrupo = (AcaoFormularioEntidadeListar) acao;
 
                 acaoListarGrupo.setDescricao("Listar grupos de usuários");
@@ -86,7 +86,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar acaoEditar = (AcaoFormularioEntidadeEditar) acao;
 
                 acaoEditar.setIconeAcao("fa fa-edit");
@@ -97,7 +97,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeVisualizar grpVisualizar = (AcaoFormularioEntidadeVisualizar) acao;
 
                 grpVisualizar.setIconeAcao("fa fa-search-plus");
@@ -109,7 +109,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.ATIVAR_DESATIVAR, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar grpAlterarStatus = (AcaoFormularioEntidadeEditar) acao;
 
                 grpAlterarStatus.setNomeAcao("Ativar/Desativar");
@@ -124,7 +124,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case GRUPO_SALVAR_ALTERACOES:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, GRUPOS_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar grpSalvarAlteracoes = (AcaoFormularioEntidadeEditar) acao;
 
                 grpSalvarAlteracoes.setIconeAcao("fa fa-save");
@@ -148,7 +148,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_NOVO_USUARIO:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_NOVO, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_NOVO, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeNovoRegistro usuarioNovo = (AcaoFormularioEntidadeNovoRegistro) acao;
 
                 usuarioNovo.setNomeAcao("Criar Novo Usuário");
@@ -159,7 +159,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_LISTAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeListar usuarioListar = (AcaoFormularioEntidadeListar) acao;
 
                 usuarioListar.setNomeAcao("Listar Usuários");
@@ -170,7 +170,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_SALVAR_ALTERACOES:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.SALVAR_MODO_MERGE, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar usuarioSalvar = (AcaoFormularioEntidadeEditar) acao;
 
                 usuarioSalvar.setIconeAcao("fa fa-save");
@@ -180,7 +180,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_EDITAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar usuarioEditar = (AcaoFormularioEntidadeEditar) acao;
 
                 usuarioEditar.setIconeAcao("fa fa-edit");
@@ -191,7 +191,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_VISUALIZAR:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeVisualizar usuarioVisualizar = (AcaoFormularioEntidadeVisualizar) acao;
 
                 usuarioVisualizar.setIconeAcao("fa fa-search-plus");
@@ -203,7 +203,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
                 break;
             case USUARIO_ALTERAR_STATUS:
 
-                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade());
+                acao = UtilFabricaDeAcoes.getAcaoSecundaria(FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR, USUARIO_GERENCIAR.geAcaoGerenciarEntidade(),this);
                 AcaoFormularioEntidadeEditar usuarioAlterarStatus = (AcaoFormularioEntidadeEditar) acao;
 
                 usuarioAlterarStatus.setNomeAcao("Ativar/Desativar");
