@@ -5,6 +5,10 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller;
 
+import com.super_bits.modulos.SBAcessosModel.fabricas.ProjetoAtual;
+import com.super_bits.modulos.SBAcessosModel.model.FaleConosco.FaleConosco;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
@@ -35,22 +39,22 @@ public enum FabAcaoComunicacaoPadrao implements ItfFabricaAcoes {
     ASSUNTO_FALE_CONOSOCO_EDITAR;
 
     @Override
-    public ItfAcaoDoSistema getAcaoDoSistema() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AcaoDoSistema getRegistro() {
+        return (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
+    }
+
+    @Override
+    public AcaoDoSistema getAcaoDoSistema() {
+        return getRegistro();
     }
 
     @Override
     public Class getEntidadeDominio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return FaleConosco.class;
     }
 
     @Override
     public String getNomeModulo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(this).getNome();
     }
 }

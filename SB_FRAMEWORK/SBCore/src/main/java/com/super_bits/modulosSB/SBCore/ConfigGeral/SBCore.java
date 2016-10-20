@@ -164,6 +164,9 @@ public class SBCore {
                     // Caso a classe não tenha sido definida na mão, utilizando primeira classe encontrada que extenda ConfigPermissaoSBCoreAbstrato
                     if (infoAplicacao.getConfigPermissoes() == null) {
                         Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoSBCoreAbstrato.class, "com.super_bits.configSBFW.acessos");
+                        if (configPermissao == null) {
+                            throw new UnsupportedOperationException("A classe que configura permissão não foi encontrada, crie uma classe que implemente config permssaoSBcore, ou altere a configuração do core dispensando as configurações de permissão");
+                        }
                         configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
                     } else {
                         configuradorDePermissao = (ItfCfgPermissoes) infoAplicacao.getConfigPermissoes().newInstance();
@@ -279,8 +282,9 @@ public class SBCore {
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
 
         if (!isAmbienteExecucaoConfigurado()) {
+
             soutInfoDebug("O sistema encontrou um erro antes de configurar a classe que lida com erros");
-            soutInfoDebug("O erro encontrado foi:");
+            soutInfoDebug("O erro encontrado foi:" + pMensagem);
             soutInfoDebug(pErroJava.getMessage());
             soutInfoDebug(pErroJava.getLocalizedMessage());
 

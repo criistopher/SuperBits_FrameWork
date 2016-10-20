@@ -4,6 +4,7 @@
  */
 package testesConformidade;
 
+import com.super_bits.config.webPaginas.ConfiguradorCoreRequisitosInomeProjetoI;
 import com.super_bits.config.webPaginas.FabConfiguracoesDeAmbienteInomeProjetoIRequisitos;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
@@ -22,7 +23,7 @@ public class TestesWebAppRequisitoInomeProjetoI extends TesteJunitSBPersistencia
     @Override
     protected void configAmbienteDesevolvimento() {
 
-        SBCore.configurar(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.DESENVOLVIMENTO.getConfiguracao());
+        SBCore.configurar(new ConfiguradorCoreRequisitosInomeProjetoI(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
         SBPersistencia.configuraJPA(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.DESENVOLVIMENTO.getConfiguracaoPersistencia());
         SBWebPaginas.configurar(FabConfiguracoesDeAmbienteInomeProjetoIRequisitos.DESENVOLVIMENTO.getConfiguracaoWebPaginas());
     }

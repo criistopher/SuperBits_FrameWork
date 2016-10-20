@@ -270,6 +270,7 @@ public abstract class UtilSBCoreReflexao {
                 new SubTypesScanner(true),
                 ClasspathHelper.forClassLoader()
         );
+
         Set<Class<?>> classes = r.getSubTypesOf(pTipo);
 
         //exibe a lista classes
