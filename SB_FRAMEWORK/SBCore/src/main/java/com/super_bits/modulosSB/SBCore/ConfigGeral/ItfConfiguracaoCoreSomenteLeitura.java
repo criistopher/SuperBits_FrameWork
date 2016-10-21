@@ -6,6 +6,7 @@
 package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
@@ -108,8 +109,22 @@ public interface ItfConfiguracaoCoreSomenteLeitura {
      */
     public Class<? extends ItfFabricaAcoes>[] getFabricaDeAcoes();
 
+    /**
+     *
+     * @return
+     */
     public String getUrlJira();
 
+    /**
+     *
+     * @return
+     */
     public Class<? extends ItfServicoVisualizacao> getServicoVisualizacao();
+
+    /**
+     *
+     * @return
+     */
+    public Class<? extends ItfCentralDeArquivos> getCentralDeArquivo();
 
 }

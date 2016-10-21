@@ -462,19 +462,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
             if (temEditar & acaoEntidadeEditar == null) {
-                throw new UnsupportedOperationException("uma ação esperada  foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("A propriedade temEditar é true mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temVisualizar & acaoEntidadeVisualizar == null) {
-                throw new UnsupportedOperationException("uma ação  esperada  não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("Aa propriedae tem visualizar é true mas uma ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temAlterarStatus & acaoEntidadeAlterarStatus == null) {
-                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("A prpriedade temAlterar status é true mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temNovo & acaoNovoRegistro == null) {
-                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("a prpriedade tem novo é true, mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO + " nas ações de registro configuradas no constructor da pagina");
             }
 
         } catch (Throwable t) {

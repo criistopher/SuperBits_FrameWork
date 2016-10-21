@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDevel
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguradorCore;
+import com.super_bits.modulosSB.webPaginas.arquivosDoProjeto.CentralDeArquivosWebApp;
 
 /**
  *
@@ -26,6 +27,7 @@ public interface ItfFabConfiguradorCoreWebPaginas extends ItfConfiguradorCore {
             pConfig.setCentralMEnsagens(CentralDeMensagensJSFAPP.class);
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
             pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
+            pConfig.setCentralDeArquivos(CentralDeArquivosWebApp.class);
 
             switch (pEstado) {
                 case DESENVOLVIMENTO:

@@ -48,7 +48,7 @@ public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria 
     }
 
     @Override
-    public void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
+    public final void setAcaoPrincipal(ItfAcaoGerenciarEntidade pAcaoPrincipal) {
         acaoPrincipal = (AcaoGestaoEntidade) pAcaoPrincipal;
     }
 

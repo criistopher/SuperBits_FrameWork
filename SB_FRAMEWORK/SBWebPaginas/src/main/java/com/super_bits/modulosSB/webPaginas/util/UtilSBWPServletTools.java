@@ -196,8 +196,10 @@ public class UtilSBWPServletTools {
             if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
                 return SBWebPaginas.getCaminhoWebAppDeveloper();
             } else {
-                return SBWebPaginas.getCaminhoWebAppDeveloper();
-                //throw new ViewExpiredException();
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ouve uma tentativa de obter o caminho local do Servlet fi FacesContext, e esta tentativa falhou!", e);
+
+                return null;
+
             }
         }
 
