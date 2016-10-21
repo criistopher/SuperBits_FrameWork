@@ -10,6 +10,8 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGest
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
@@ -381,7 +383,14 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
             ItfAcaoDoSistema novaAcao = null;
-            String diretorioBaseEntidade = "/site/" + pAcao.getNomeModulo().toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+
+            ItfModuloAcaoSistema modulo = UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao);
+            String diretorioBaseEntidade;
+            if (modulo.isUmModuloNativo()) {
+                diretorioBaseEntidade = "/site/modulos/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+            } else {
+                diretorioBaseEntidade = "/site/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+            }
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pAcao.getEntidadeDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
@@ -397,7 +406,12 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.configurarPropriedadesBasicas(acaoBase);
                     novaAcao.setNome("Novo " + nomeDoObjeto);
                     if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
-                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+
+                        if (novaAcaoRefForm.getModulo().isUmModuloNativo()) {
+                            novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                        } else {
+
+                        }
                     } else {
 
                         novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
