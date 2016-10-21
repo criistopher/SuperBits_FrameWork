@@ -242,18 +242,37 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         if (tipoAcao.toString().contains("FORMULARIO")) {
             InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
             if (anotacaoFormulario != null) {
+                if (anotacaoFormulario.campos().length > 0) {
+                    for (String cp : anotacaoFormulario.campos()) {
+                        try {
 
-                for (String cp : anotacaoFormulario.campos()) {
-                    try {
+                            CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                            if (caminhoCampo == null) {
+                                throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                            }
+                            ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
 
-                        CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
-                        if (caminhoCampo == null) {
-                            throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
+                        } catch (Throwable t) {
+                            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
                         }
-                        ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
+                    }
+                } else {
+                    switch (pAcao.getTipoAcaoGenerica()) {
+                        // TODO permitir encontrar CaminhCampo pelo nome do método (Verificar viabilidade)
+                        case FORMULARIO_NOVO_REGISTRO:
+                            break;
+                        case FORMULARIO_EDITAR:
+                            break;
 
-                    } catch (Throwable t) {
-                        SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
+                        case FORMULARIO_VISUALIZAR:
+                            break;
+                        case FORMULARIO_LISTAR:
+                            //       CaminhoCampoReflexao id = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("id", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                            //       ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(id);
+                            //      CaminhoCampoReflexao nome = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("nome", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                            //     ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(nome);
+                            break;
+
                     }
                 }
                 if (anotacaoFormulario.codigoJira().length() > 2) {

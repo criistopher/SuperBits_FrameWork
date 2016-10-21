@@ -15,14 +15,12 @@ if [ ! -d $DIRETORIO_WEBAPP_SERVLET ]; then
 fi
 
 cd $DIRETORIO_ORIGEM_SB_COMP
-./sincronizar.sh
+./sincroniza.sh
 cd $DIRETORIO_ORIGEM_WEB_INF
 ./sincronizar.sh
 
 rsync -Cravzp --exclude='*/.git' --exclude='*/target' $DIRETORIO_ORIGEM_SB_COMP  $DIRETORIO_RESOURCES
-
 rsync -Cravzp --exclude='*/.git' --exclude='*/target' $DIRETORIO_ORIGEM_WEB_INF  $DIRETORIO_WEBAPP_SERVLET
-echo "fim rsinc de  $DIRETORIO_ORIGEM_WEB_INF para $DIRETORIO_WEBAPP_SERVLET"
-echo "...........e  $DIRETORIO_ORIGEM_SB_COMP para $DIRETORIO_WEBAPP_SERVLET"
+
 #cd resources
 

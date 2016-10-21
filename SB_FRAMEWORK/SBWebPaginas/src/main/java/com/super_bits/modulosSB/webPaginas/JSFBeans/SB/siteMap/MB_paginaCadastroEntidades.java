@@ -59,8 +59,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         ALTERAR, CRIAR, VISUALIZAR
     }
 
-    protected boolean podeEditar;
-    protected boolean novoRegistro;
+    private boolean podeEditar;
+    private boolean novoRegistro;
 
     /**
      * Constructor simples para pagina de Entidades
@@ -320,6 +320,14 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         }
 
+    }
+
+    protected void setPodeEditar(boolean pParametro) {
+        podeEditar = pParametro;
+    }
+
+    protected void setTemNovo(boolean pParametro) {
+        temNovo = pParametro;
     }
 
     @Override
