@@ -67,7 +67,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
 
     public static String getURLImagem(ItfBeanSimples item, FabCampos tipo) {
 
-        String pastaRelativaImagens = SBCore.getCentralVisualizacao().getRemotoPastaImagem() + SBPersistencia.getPastaImagensJPA() + getCaminhoRelativoImagem(item);
+        String pastaRelativaImagens = SBCore.getCentralVisualizacao().getRemotoPastaResource() + SBPersistencia.getPastaImagensJPA() + getCaminhoRelativoImagem(item);
         String urlpadrao = getUrlIMGPadrao(tipo);
 
         File pasta = new File(caminhoLocalImagens + getCaminhoRelativoImagem(item));

@@ -14,9 +14,7 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivo
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflexaoObjetoSuperBits;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
@@ -167,6 +165,7 @@ public class PgUtil implements Serializable {
      * @return
      */
     public String makeCaminhoCompletoID(String pId) {
+
         if (pId == null) {
             return null;
         }
@@ -176,9 +175,7 @@ public class PgUtil implements Serializable {
         if (pId.contains("@")) {
             return pId;
         }
-        if (pId == null || pId.equals("")) {
-            return null;
-        }
+
         return UtilSBWP_JSFTools.getIDSCaminhoAbsoluto(pId);
     }
 

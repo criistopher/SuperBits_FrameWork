@@ -141,4 +141,14 @@ public class CentralDeArquivosJar extends CentralDeArquivosAbstrata {
         return textoPadrao;
     }
 
+    @Override
+    public String getEndrRemotoRecursosItem(ItfBeanSimples item, String galeria) {
+        return textoPadrao;
+    }
+
+    @Override
+    public String getEndrRemotoRecursosItem(ItfBeanSimples item) {
+        return textoPadrao;
+    }
+
 }

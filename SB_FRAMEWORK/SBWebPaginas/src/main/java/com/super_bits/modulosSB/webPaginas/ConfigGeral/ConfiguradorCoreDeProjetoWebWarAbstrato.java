@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDevel
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreFW;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
+import com.super_bits.modulosSB.webPaginas.arquivosDoProjeto.CentralDeArquivosWebApp;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.CentralDeMensagensJSFAPP;
 import com.super_bits.modulosSB.webPaginas.visualizacao.ServicoVisuaslizacaoWebResponsivo;
@@ -67,6 +68,7 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
         aplicarDadosArquivoConfiguracao(pConfiguracao);
         pConfiguracao.setCentralDeEventos(CentralLogEventosArqTextoGenerica.class);
         pConfiguracao.setServicoVisualizacao(ServicoVisuaslizacaoWebResponsivo.class);
+        pConfiguracao.setCentralDeArquivos(CentralDeArquivosWebApp.class);
         switch (pConfiguracao.getEstadoApp()) {
             case DESENVOLVIMENTO:
                 pConfiguracao.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);

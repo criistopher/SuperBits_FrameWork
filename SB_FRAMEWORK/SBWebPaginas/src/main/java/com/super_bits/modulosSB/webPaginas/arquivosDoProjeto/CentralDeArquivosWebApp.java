@@ -26,7 +26,7 @@ import java.util.List;
 public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
 
     private final String PASTA_IMAGEM = "img";
-    private final String PASTA_ARQUIVOS_ENTIDADE = "objetos";
+    private final String PASTA_ARQUIVOS_ENTIDADE = "arquivos";
 
     private String endrLocaResource;
 
@@ -78,7 +78,7 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
 
     @Override
     public String getEndrRemotoRecursosDoObjeto(Class entidade) {
-        return getEndrRemotoResourcesObjeto() + "/" + entidade.getSimpleName();
+        return getEndrRemotoResourcesObjeto() + "/" + entidade.getSimpleName() + "/";
     }
 
     @Override
@@ -140,7 +140,7 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
 
     @Override
     public String getEndrLocalRecursosDoObjeto(Class entidade) {
-        return getEndrLocalResourcesObjeto() + "/" + entidade.getSimpleName();
+        return getEndrLocalResourcesObjeto() + "/" + entidade.getSimpleName() + "/";
     }
 
     @Override
@@ -234,13 +234,13 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
     @Override
     public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo) {
 
-        return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
+        return getEndrRemotoRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
 
     }
 
     @Override
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo, String Categoria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo, String categoria) {
+        return getEndrRemotoRecursosDoObjeto(pItem.getClass()) + "/ " + categoria + "/" + nomeArquivo;
     }
 
 }
