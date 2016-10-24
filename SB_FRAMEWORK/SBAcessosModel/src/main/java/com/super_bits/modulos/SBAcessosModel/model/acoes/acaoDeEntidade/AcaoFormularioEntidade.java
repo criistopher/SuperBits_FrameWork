@@ -64,6 +64,7 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
      *
      * Constructor para ações gerenciar entidade
      *
+     * @param pclasse
      * @param pFabricaAcao
      * @param pXhtml
      */
@@ -72,7 +73,7 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
         if (!this.getClass().isAssignableFrom(AcaoGestaoEntidade.class)) {
             throw new UnsupportedOperationException("Este constructor só deve ser usado por uma acaoGestaoEntidade");
         }
-        xhtml = pXhtml;
+        setXhtml(pXhtml);
 
     }
 
@@ -106,9 +107,20 @@ public class AcaoFormularioEntidade extends AcaoSecundaria implements ItfAcaoFor
         campos = pCampos;
     }
 
+    /**
+     *
+     * Seta o XHTMl, caso tenha um caminho com mais de 2 casas seta o valor,
+     * caso contrario seta o diretorio padrão + o nome enviado
+     *
+     * @param pXhtml
+     */
     @Override
-    public void setXhtml(String pXhtml) {
-        xhtml = pXhtml;
+    public final void setXhtml(String pXhtml) {
+        if (pXhtml.split("/").length > 2) {
+            this.xhtml = pXhtml;
+        } else {
+            xhtml = getDiretorioBaseAqrquivos() + "/" + pXhtml;
+        }
     }
 
     @Override

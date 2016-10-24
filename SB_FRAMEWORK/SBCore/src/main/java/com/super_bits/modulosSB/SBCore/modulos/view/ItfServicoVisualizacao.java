@@ -78,6 +78,6 @@ public interface ItfServicoVisualizacao {
 
     public String getCaminhoLocalPastaImagem();
 
-    public String getRemotoPastaImagem();
+    public String getRemotoPastaResource();
 
 }

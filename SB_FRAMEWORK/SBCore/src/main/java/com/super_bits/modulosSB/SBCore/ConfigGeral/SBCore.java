@@ -32,6 +32,7 @@ import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 
 /**
  *
@@ -85,8 +86,10 @@ public class SBCore {
     private static ArquivoConfiguracaoCliente arquivoConfigCliente;
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
     private static ItfServicoVisualizacao servicoVisualizacao;
+    private static ItfCentralDeArquivos centralDeArquivos;
 
     public static boolean isEmModoDesenvolvimento() {
+
         return getEstadoAPP().equals(ESTADO_APP.DESENVOLVIMENTO);
     }
 
@@ -241,6 +244,7 @@ public class SBCore {
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
             servicoVisualizacao = configuracoes.getServicoVisualizacao().newInstance();
             ambienteExecucaoConfigurado = validaConfiguracoes();
+            centralDeArquivos = configuracoes.getCentralDeArquivo().newInstance();
             if (!ambienteExecucaoConfigurado) {
                 throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
             }
@@ -287,7 +291,7 @@ public class SBCore {
             soutInfoDebug("O erro encontrado foi:" + pMensagem);
             soutInfoDebug(pErroJava.getMessage());
             soutInfoDebug(pErroJava.getLocalizedMessage());
-
+            pErroJava.printStackTrace();
             fecharSistemaCasoNaoCOnfigurado();
         }
 
@@ -477,6 +481,10 @@ public class SBCore {
         if (estadoAplicativo != ESTADO_APP.PRODUCAO) {
             System.out.println("SBCoreInfo:" + pInfo);
         }
+    }
+
+    public static ItfCentralDeArquivos getCentralDeArquivos() {
+        return centralDeArquivos;
     }
 
 }

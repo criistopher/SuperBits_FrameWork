@@ -32,22 +32,17 @@ public class InfoMBBean implements Serializable {
     }
 
     public String getFormularioLista() {
-
         return formularioLab;
     }
 
     public InfoMBBean(Field campo) {
-
         InfoMB_Bean infoBean = campo.getAnnotation(InfoMB_Bean.class);
-
         classe = campo.getType().getSimpleName();
         if (infoBean != null) {
             descricao = infoBean.descricao();
             exemplo = infoBean.exemplo();
         }
-
         chamada = "#{" + campo.getDeclaringClass().getSimpleName() + "." + campo.getName() + "}";
-
         formularioVisualizacao = MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(campo.getType());
 
     }

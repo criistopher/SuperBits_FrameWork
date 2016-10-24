@@ -381,16 +381,11 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             }
 
-            AcaoDoSistema acaoBase = criaAcaodoSistemaPorTipoAcao(pTipoAcaoGenerica);
-            ItfAcaoDoSistema novaAcao = null;
+            AcaoDoSistema novaAcao = null;
 
             ItfModuloAcaoSistema modulo = UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao);
             String diretorioBaseEntidade;
-            if (modulo.isUmModuloNativo()) {
-                diretorioBaseEntidade = "/site/modulos/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
-            } else {
-                diretorioBaseEntidade = "/site/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
-            }
+
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pAcao.getEntidadeDominio());
             ItfAcaoFormularioEntidade novaAcaoRefForm = null;
             ItfAcaoController novaAcaoRefController = null;
@@ -403,18 +398,18 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     acaoPrincipal = (AcaoGestaoEntidade) novaAcaoRefForm.getAcaoPrincipal();
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcaoRefForm.setIconeAcao("fa fa-plus");
-                    novaAcao.configurarPropriedadesBasicas(acaoBase);
+                    novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcao.setNome("Novo " + nomeDoObjeto);
                     if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
 
                         if (novaAcaoRefForm.getModulo().isUmModuloNativo()) {
-                            novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                            novaAcaoRefForm.setXhtml("editar.xhtml");
                         } else {
 
                         }
                     } else {
 
-                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/novoRegistro.xhtml");
+                        novaAcaoRefForm.setXhtml("novoRegistro.xhtml");
                     }
                     novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
 
@@ -422,27 +417,26 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 case FORMULARIO_EDITAR:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
-                    novaAcao.configurarPropriedadesBasicas(acaoBase);
+                    novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcao.setNome("Editar " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                    novaAcaoRefForm.setXhtml("editar.xhtml");
                     novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
                     novaAcao.setIconeAcao("fa fa-edit");
                     break;
                 case FORMULARIO_LISTAR:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
-                    novaAcao.configurarPropriedadesBasicas(acaoBase);
+                    novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcao.setNome("Listar " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/listar.xhtml");
+                    novaAcaoRefForm.setXhtml("listar.xhtml");
                     novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
                     novaAcao.setIconeAcao("fa fa-list-alt");
                     break;
 
                 case CONTROLLER_SALVAR_EDICAO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
@@ -452,7 +446,6 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     break;
                 case CONTROLLER_SALVAR_NOVO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
 
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
@@ -462,7 +455,6 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     break;
                 case CONTROLLER_SALVAR_MODO_MERGE:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
                     novaAcao.setIconeAcao("fa fa-save");
@@ -472,9 +464,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 case CONTROLLER_ATIVAR_DESATIVAR:
 
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
-
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
                     novaAcao.setIconeAcao("fa fa-retweet");
@@ -483,7 +473,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     break;
                 case CONTROLLER_ATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
+
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
                     novaAcao.setIconeAcao("fa fa-check");
@@ -492,7 +482,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     break;
                 case CONTROLLER_DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
+
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
                     novaAcao.setIconeAcao("fa fa-close");
@@ -504,13 +494,13 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
                     acaoPrincipal = (AcaoGestaoEntidade) novaAcaoRefForm.getAcaoPrincipal();
-                    novaAcao.configurarPropriedadesBasicas(acaoBase);
+
                     novaAcao.setNome("Visualizar " + nomeDoObjeto);
                     if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
-                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/editar.xhtml");
+                        novaAcaoRefForm.setXhtml("editar.xhtml");
                     } else {
 
-                        novaAcaoRefForm.setXhtml(diretorioBaseEntidade + "/visualizar.xhtml");
+                        novaAcaoRefForm.setXhtml("visualizar.xhtml");
                     }
                     novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
                     novaAcao.setIconeAcao("fa fa-eye");
@@ -523,7 +513,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 case FORMULARIO_MODAL:
                     break;
                 case GERENCIAR_DOMINIO:
-                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getEntidadeDominio(), diretorioBaseEntidade + "/gerenciar.xhtml");
+                    novaAcao = new AcaoGestaoEntidade(pAcao, pAcao.getEntidadeDominio(), "gerenciar.xhtml");
                     AcaoGestaoEntidade novaAcaoGestao = (AcaoGestaoEntidade) novaAcao;
                     novaAcaoGestao.setEnumAcoesVinculadas(getSubAcoesDaAcaoPrincipal(pAcao));
                     break;
@@ -553,7 +543,6 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
         AcaoDoSistema acao = new AcaoDoSistema();
 
-        TipoAcaoPadrao tipoAcao = new TipoAcaoPadrao();
         acao.setTipoAcaoGenerica(tipoDeAcao);
         return acao;
 
