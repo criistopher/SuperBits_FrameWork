@@ -104,6 +104,8 @@ public class PgCentralArquivos implements Serializable {
     }
 
     public void enviarArquivoDeEntidade(FileUploadEvent event) {
+        System.out.println("Arquivio" + event.getFile().getFileName());
+
         if (uploadedFile != null) {
             System.out.println("Arquivo Enviado=" + uploadedFile.getFileName());
         } else {
