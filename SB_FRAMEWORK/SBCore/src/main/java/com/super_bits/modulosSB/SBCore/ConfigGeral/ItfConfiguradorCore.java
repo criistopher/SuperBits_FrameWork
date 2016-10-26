@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoBase;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.CentralDeArquivosJar;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
@@ -70,6 +71,7 @@ public interface ItfConfiguradorCore {
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
             pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
             pConfig.setServicoVisualizacao(ServicoVisualizacaoSemVisualizacao.class);
+            pConfig.setCentralDeArquivos(CentralDeArquivosJar.class);
         }
 
     }
@@ -82,6 +84,7 @@ public interface ItfConfiguradorCore {
             pConfig.setClasseErro(ErroSBCoreDeveloperSopMessagem.class);
             pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
             pConfig.setServicoVisualizacao(ServicoVisualizacaoSemVisualizacao.class);
+            pConfig.setCentralDeArquivos(CentralDeArquivosJar.class);
         }
 
     }

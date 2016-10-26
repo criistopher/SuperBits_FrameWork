@@ -20,7 +20,7 @@ public class CentralDeArquivosJar extends CentralDeArquivosAbstrata {
 
     private static final String textoPadrao = "Central de arquivos em Jars ainda não foi implementado";
 
-    public CentralDeArquivosJar(FabTipoEmpacotamento pTipoEmpacotamento) {
+    public CentralDeArquivosJar() {
         super(FabTipoEmpacotamento.BIBLIOTECA_JAR);
         System.out.println(textoPadrao);
     }
