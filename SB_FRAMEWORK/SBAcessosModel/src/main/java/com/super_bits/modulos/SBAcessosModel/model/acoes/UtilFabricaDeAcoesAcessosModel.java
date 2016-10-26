@@ -245,7 +245,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 if (anotacaoFormulario.campos().length > 0) {
                     for (String cp : anotacaoFormulario.campos()) {
                         try {
-
+                            if (cp.equals("")) {
+                                throw new UnsupportedOperationException("Existe um campo em branco (igual a: [ \"\" ]) na ação" + pAcao.getNomeUnico());
+                            }
                             CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
                             if (caminhoCampo == null) {
                                 throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());

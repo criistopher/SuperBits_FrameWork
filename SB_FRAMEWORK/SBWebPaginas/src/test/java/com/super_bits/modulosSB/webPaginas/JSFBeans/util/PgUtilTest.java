@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import aux.ConfiguradorSBCoreWebPaginaTestes;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
+import com.super_bits.modulosSB.webPaginas.ConfiguradorSBCoreWebPaginaTestes;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
