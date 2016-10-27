@@ -12,9 +12,11 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.security.cert.CRLReason;
@@ -235,6 +237,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             System.out.println("ALTERANDO A ENTIDADE SELECIONADA TESTE ---------------------- " + pEntidadeSelecionada);
         }
 
+        if (pEntidadeSelecionada != null) {
+            if (acaoSelecionada.isUmaAcaoFormulario() && !acaoSelecionada.getTipoAcaoGenerica().getRegistro().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR.getRegistro())) {
+
+                int idEntidade = ((ItfBeanSimples) pEntidadeSelecionada).getId();
+
+                limparListaEEM();
+
+                entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
+
+                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            }
+        }
+
         if (acaoSelecionada.equals(acaoListarRegistros)) {
 
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
@@ -259,11 +274,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     // define que a nova classe será do tipo Newsletter
                     setEntidadeSelecionada((T) classeDaEntidade.newInstance());
 
-                    renovarEMPagina();
-
-                    getEMPagina().clear();
-
-                    getEntidadesListadas().clear();
+                    limparListaEEM();
 
                 } catch (InstantiationException | IllegalAccessException ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
@@ -507,6 +518,15 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public boolean isSomenteLeitura() {
         return !podeEditar;
+    }
+
+    protected void limparListaEEM() {
+        renovarEMPagina();
+
+        getEMPagina().clear();
+
+        getEntidadesListadas().clear();
+
     }
 
 }
