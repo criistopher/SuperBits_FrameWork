@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaAtual;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_PaginaAtual;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
@@ -53,14 +54,22 @@ public class UtilSBWPServletTools {
      * @return
      */
     public static Object getBeanByNamed(String pNomeBean, Class pClasse) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        Object objeto = context.getApplication().evaluateExpressionGet(context, "#{" + pNomeBean + "}", pClasse);
-        if (objeto == null) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro Tentando obter objeto [" + pNomeBean + " ]de contexto injetado manualmento por evalutionExpressionGet", null);
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (context == null) {
+                throw new UnsupportedOperationException("Impossivel determinar o FacesContext neste momento");
+            }
+            Object objeto = context.getApplication().evaluateExpressionGet(context, "#{" + pNomeBean + "}", pClasse);
+            if (objeto == null) {
+                throw new UnsupportedOperationException("Objeto via getEvaluteExpression retornou null");
+            } else {
+                return objeto;
+            }
+        } catch (Throwable t) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro Tentando obter objeto [" + pNomeBean + " ]de contexto injetado manualmento por evalutionExpressionGet", t);
+            return null;
         }
-        return objeto;
+
     }
 
     public static HttpServletRequest getRequestAtual() {
@@ -68,6 +77,12 @@ public class UtilSBWPServletTools {
 
     }
 
+    /**
+     *
+     * Retorna a sessão atual via Faces Context
+     *
+     * @return
+     */
     public static SessaoAtualSBWP getSessaoAtual() {
         try {
             if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
@@ -84,6 +99,12 @@ public class UtilSBWPServletTools {
         }
     }
 
+    /**
+     *
+     * retorna o controle de sessao via FacesContext
+     *
+     * @return
+     */
     public static ControleDeSessaoWeb getControleDeSessaoWeb() {
         try {
             ControleDeSessaoWeb controle = (ControleDeSessaoWeb) getBeanByNamed("controleDeSessaoWeb", ControleDeSessaoWeb.class);
@@ -100,7 +121,13 @@ public class UtilSBWPServletTools {
     }
 
     public MB_PaginaAtual getPaginaAtual() {
-        return null;
+        try {
+            ItfPaginaAtual controle = (ItfPaginaAtual) getBeanByNamed("paginaAtual", ControleDeSessaoWeb.class);
+            return (MB_PaginaAtual) controle;
+        } catch (Exception e) {
+            FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Tentando obter pagina Atual por EL", e);
+            return null;
+        }
     }
 
     /**
@@ -326,7 +353,6 @@ public class UtilSBWPServletTools {
 
     }
 
-    @SuppressWarnings("rawtypes")
     @Deprecated
     private static Object getBean(pathBean pathb, String pNomeBean) {
 

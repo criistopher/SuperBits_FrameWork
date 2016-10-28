@@ -87,7 +87,7 @@ public abstract class UtilSBWP_JSFTools {
     public static String getIDSCaminhoAbsoluto(String pId) {
         List<UIComponent> components = resolveList(pId);
 
-        if (components.size() == 0) {
+        if (components.isEmpty()) {
             mensagens().erroSistema("Nenhum component com a nomeação de ID[" + pId + "] foi encontrado");
         }
 
@@ -137,18 +137,14 @@ public abstract class UtilSBWP_JSFTools {
                 SBCore.enviarMensagemUsuario("Atualizando id da pagina" + pId, FabMensagens.AVISO);
                 return;
             }
-            // System.out.println("iniciando Resolver");
 
             try {
                 RequestContext context = RequestContext.getCurrentInstance();
-
                 String caminhoCompleto = getIDSCaminhoAbsoluto(pId);
-                //   System.out.println("resolver full=" + caminhoCompleto);
-
                 String[] camadas = caminhoCompleto.split(" ");
-                List<String> lista = new ArrayList<String>();
+                List<String> lista = new ArrayList<>();
 
-                if (camadas != null || camadas.length > 0) {
+                if (camadas != null && camadas.length > 0) {
                     for (String comp : camadas) {
                         if (comp.length() > 0) {
                             lista.add(comp.substring(1, comp.length()));
@@ -157,12 +153,11 @@ public abstract class UtilSBWP_JSFTools {
                 } else {
                     lista.add(caminhoCompleto);
                 }
-                //   System.out.println("ATUALIZANDO" + lista);
 
                 context.update(lista);
             } catch (UnsupportedOperationException e) {
-                System.out.println("Request contexto não encontrado, não é possível atualizar a tela");
-                return;
+
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Atualizando tela por id de compnente JSF" + pId, e);
             }
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro tentando atualizar ID de componente JSF" + pId, e);
@@ -190,7 +185,7 @@ public abstract class UtilSBWP_JSFTools {
 
         } catch (Exception e) {
             mensagens().alertaSistema("erro tentando redirecionar pagina" + e.getMessage() + pURL);
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, pURL, e);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro redirecionando para URL" + pURL, e);
         }
     }
 
@@ -200,8 +195,8 @@ public abstract class UtilSBWP_JSFTools {
             FacesContext.getCurrentInstance().getExternalContext().dispatch(pXHTML);
 
         } catch (IOException e) {
-            mensagens().alertaSistema("erro tentando obter o contexto para redirecionamento de pagina" + pXHTML);
-            e.printStackTrace();
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro redirecionando Load de reinderizaap de XHTML" + pXHTML, e);
         }
     }
 
@@ -209,7 +204,7 @@ public abstract class UtilSBWP_JSFTools {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(SBWebPaginas.getSiteURL() + "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml");
         } catch (IOException e) {
-            e.printStackTrace();
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro redirecionando para pagina de erro:" + Mensagem, e);
         }
     }
 
@@ -239,7 +234,7 @@ public abstract class UtilSBWP_JSFTools {
 
     public static boolean isExisteEsteFormulario(String xhtml) {
         try {
-            String caminhoPastaResoureces = null;
+            String caminhoPastaResoureces;
             if (SBCore.isEmModoDesenvolvimento()) {
                 caminhoPastaResoureces = SBWebPaginas.getCaminhoWebAppDeveloper();
             } else {
@@ -247,7 +242,7 @@ public abstract class UtilSBWP_JSFTools {
             }
             return new File(caminhoPastaResoureces + xhtml).exists();
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro verificando existencia do XHTML", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro verificando existencia do XHTML" + xhtml, t);
             return false;
         }
 

@@ -132,7 +132,7 @@ public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serial
 
     @Override
     public ItfGrupoUsuario getGrupo() {
-        return new GrupoUsuariosDoSistema();
+        return new GrupoUsuariosDoSistema(this);
     }
 
     @Override
