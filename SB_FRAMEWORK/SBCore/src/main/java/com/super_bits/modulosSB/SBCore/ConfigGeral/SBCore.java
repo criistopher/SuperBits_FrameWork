@@ -385,16 +385,16 @@ public class SBCore {
         boolean temCaminhoDiretorioBase = UtilSBCoreStrings.isNAO_NuloNemBranco(getDiretorioBase());
         boolean temCaminhoGrupoProjeto = UtilSBCoreStrings.isNAO_NuloNemBranco(getGrupoProjeto());
 
-        caminho = arquivoConfigBase.getCaminhoPastaCliente();
+        caminho = arquivoConfigBase.getCaminhoPastaClienteSource();
 
         if (temCaminhoDiretorioBase) {
             caminho = caminho + "/" + infoAplicacao.getDiretorioBase();
         }
 
         if (!temCaminhoGrupoProjeto) {
-            return caminho + "/source/" + infoAplicacao.getNomeProjeto();
+            return caminho + "/" + infoAplicacao.getNomeProjeto();
         } else {
-            return caminho + "/source/" + getGrupoProjeto();
+            return caminho + "/" + getGrupoProjeto();
         }
     }
 

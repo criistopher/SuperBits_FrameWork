@@ -5,6 +5,7 @@
  */
 package config;
 
+import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
@@ -49,12 +50,12 @@ public class ConfigPersistenciaTestesAcesso implements ItfConfigSBPersistencia {
 
     @Override
     public void criarBancoInicial() {
-        throw new UnsupportedOperationException("O METODO AINDA N\u00c3O FOI IMPLEMENTADO.");
+        System.out.println("Nada a ser feito no criar banco inicial");
     }
 
     @Override
     public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
-        return null;
+        return new Class[]{FabSegurancaGruposPadrao.class};
     }
 
 }

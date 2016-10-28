@@ -12,6 +12,6 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
  */
 public interface ItfPessoaFisicoJuridico extends ItfBeanContatoPessoa {
 
-    public String getCPFCNPJ();
+    public String getCpf_Cnpj();
 
 }

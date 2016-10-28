@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstitu
 
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.File;
@@ -40,7 +41,7 @@ public class PgCentralArquivos implements Serializable {
     private FabTipoEnvioArquivoEntidade tipoEnvio = FabTipoEnvioArquivoEntidade.ARQUIVO_DA_ENTIDADE;
     private MapaSubstituicaoArquivo substituicaoEmArquivoExemplo;
 
-    public void salvarCriandoEntidadeMultipla() {
+    public void enviarArquivoCriandoEntidadeSelecionada(FileUploadEvent event) {
 
     }
 
@@ -57,7 +58,10 @@ public class PgCentralArquivos implements Serializable {
         tipoEnvio = pTipoEnvioArquivoEntidade;
     }
 
-    public void enviarArquivoDeEntidade(FileUploadEvent event) {
+    public void enviarArquivoDeEntidadeSelecionada(FileUploadEvent event) {
+        if (SBCore.getControleDeSessao().getSessaoAtual().isIdentificado()) {
+            throw new UnsupportedOperationException("Ouve uma tentativa não autorizada de enviar arquivos de entidade");
+        }
         try {
             if (tipoEnvio == null) {
                 throw new UnsupportedOperationException("O tipo de envio não foi selecionado, defina o tipo de envio para proceguir");

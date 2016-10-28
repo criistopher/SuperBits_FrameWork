@@ -10,7 +10,6 @@ import aux.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
@@ -31,24 +30,11 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
     }
 
     @Test
-    public void testListarAcoesDoGrupo() {
-    }
-
-    @Test
-    public void testGrupoAlterarStatus() {
-    }
-
-    @Test
-    public void testGrupoDeUsuariosSalvarAlteracoes() {
-    }
-
-    @Test
     public void testUsuarioAlterarStatus() {
 
         ItfControleDeSessao controleDeSessao = SBCore.getControleDeSessao();
         ItfSessao sessao = controleDeSessao.getSessaoAtual();
         ItfUsuario usuario = sessao.getUsuario();
-
         controleDeSessao.logarEmailESenha("root@superBits.com", "senh@Screta");
         System.out.println("Usuário logado=" + usuario.getNome());
 
@@ -59,10 +45,6 @@ public class ModuloSegurancaTest extends TesteJunitSBPersistencia {
         resp.getRetorno();
         assertTrue("Mesmo o usuario sendo Root, a ação não foi executada", resp.isSucesso());
 
-    }
-
-    @Test
-    public void testUsuarioPersistirAlteracoes() {
     }
 
     @Override

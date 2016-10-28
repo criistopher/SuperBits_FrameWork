@@ -20,6 +20,7 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
 
         ModuloAcaoSistema modulo = new ModuloAcaoSistema();
         modulo.setUmModuloNativo(true);
+
         switch (this) {
             case SEGURANCA:
                 modulo.setNome("Segurança");
@@ -49,6 +50,7 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 throw new AssertionError(this.name());
 
         }
+        modulo.setId(this.toString().hashCode());
 
         return modulo;
     }

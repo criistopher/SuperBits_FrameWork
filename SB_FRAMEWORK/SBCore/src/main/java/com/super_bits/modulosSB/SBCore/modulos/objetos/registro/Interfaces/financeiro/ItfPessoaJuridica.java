@@ -10,5 +10,5 @@ package com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.fina
  */
 public interface ItfPessoaJuridica extends ItfPessoaFisicoJuridico {
 
-    public String getCNPJ();
+    public String getCnpj();
 }

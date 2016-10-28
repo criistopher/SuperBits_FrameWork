@@ -40,7 +40,7 @@ public abstract class EntidadeGenerica extends ItemGenerico implements Serializa
     }
 
     @Override
-    protected void adcionaCampoEsperado(CampoEsperado pCampo) {
+    protected final void adcionaCampoEsperado(CampoEsperado pCampo) {
         Field campo;
         if (pCampo.equals("id")) {
             campo = searchCampoIdentificacao();

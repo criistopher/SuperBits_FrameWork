@@ -337,19 +337,6 @@ public abstract class UtilSBCoreStrings {
 
     }
 
-    public static String[] getStringsByURL() {
-        throw new UnsupportedOperationException("NÃO IMPLEMENTADO");
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public static List<String> getStringsByLocalFile() {
-        throw new UnsupportedOperationException("NÃO IMPLEMENTADO");
-    }
-
     /**
      *
      * Gera uma lista de Strings sendo cada uma referente a uma linha do arquivo
@@ -606,6 +593,12 @@ public abstract class UtilSBCoreStrings {
         return pString.replaceAll("\\D*", ""); //To numeric digits only
     }
 
+    /**
+     *
+     * @param pMascara
+     * @return Transforma uma mascara de campo formato Java, para mascara de
+     * campo formato JQuery
+     */
     public static String getMascaraJavaMaskParaJQueryMask(String pMascara) {
         if (pMascara != null) {
 
@@ -615,6 +608,11 @@ public abstract class UtilSBCoreStrings {
         }
     }
 
+    /**
+     *
+     * @param pString
+     * @return True se a primeira letra for maiscula
+     */
     public static boolean isPrimeiraLetraMaiuscula(String pString) {
         if (pString == null) {
             return false;
@@ -625,6 +623,11 @@ public abstract class UtilSBCoreStrings {
         return Character.isUpperCase(pString.charAt(0));
     }
 
+    /**
+     *
+     * @param pString
+     * @return True se a APENAS a primeira letra for maiuscula
+     */
     public static boolean isPrimeiraApenasLetraMaiuscula(String pString) {
         if (pString == null) {
             return false;
@@ -642,6 +645,11 @@ public abstract class UtilSBCoreStrings {
 
     }
 
+    /**
+     *
+     * @param pString
+     * @return True se a string for igual a nula ou vazia
+     */
     public static boolean isNuloOuEmbranco(String pString) {
         if (pString == null) {
             return true;
@@ -649,6 +657,11 @@ public abstract class UtilSBCoreStrings {
         return pString.isEmpty();
     }
 
+    /**
+     *
+     * @param pString
+     * @return true Se não for igual a nulo e nem string vazia
+     */
     public static boolean isNAO_NuloNemBranco(String pString) {
         if (pString == null) {
             return false;
