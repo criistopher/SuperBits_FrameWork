@@ -133,13 +133,17 @@ public class InfoErroSBBasico implements ItfInfoErroSB {
     }
 
     protected String getMensagemGenericaFormatada(String cabecalho) {
-        String texto = cabecalho;
+        String texto = "";
         if (cabecalho == null) {
             texto = "";
+        } else {
+            texto += (cabecalho).toUpperCase() + "\n";
         }
+
         if (mensagemDoDesenvolvedor.getMenssagem() != null) {
-            texto = (cabecalho).toUpperCase() + "\n";
+
         }
+
         if (erroJavaGerado == null) {
             return "ocorreu um erro, a exception não foi gerada para realizar o StackTrace, e a mensagem enviada foi " + mensagemDoDesenvolvedor.getMenssagem();
         }

@@ -46,7 +46,7 @@ public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstr
     }
 
     @Override
-    public String getRemotoPastaImagem() {
+    public String getRemotoPastaResource() {
         return "http://sistemanaoImplementado.superbits.org";
     }
 

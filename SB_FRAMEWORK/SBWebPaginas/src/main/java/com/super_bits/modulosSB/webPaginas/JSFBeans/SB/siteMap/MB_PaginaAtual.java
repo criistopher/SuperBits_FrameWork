@@ -17,13 +17,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
-@SuppressWarnings("serial")
 public abstract class MB_PaginaAtual implements Serializable {
 
     private String nomePagina;
     private Date datahoraAbertura;
     private ItfB_Pagina infoPagina;
-    //   private Conversation conversa;
+
     @Inject
     private InfoErroCritico erroCriticoDoSistema;
 
@@ -33,7 +32,7 @@ public abstract class MB_PaginaAtual implements Serializable {
     protected abstract MB_SiteMapa getSiteMap();
 
     @PostConstruct
-    public void startBean() {
+    public void init() {
         try {
             SBCore.soutInfoDebug("Iniciando pagina Atual");
             datahoraAbertura = new Date();
@@ -65,17 +64,20 @@ public abstract class MB_PaginaAtual implements Serializable {
 
             } else {
                 infoPagina.abrePagina();
-                //        conversa = infoPagina.getConversa();
-                //         if (conversa == null) {
-                //              //    iniciaConvesa();
-                //           }
+                if (infoPagina.getAcaoVinculada().getXhtml().equals("/site/home.xhtml")) {
+                    String paginaInicialDoGrupo = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
+                    if (paginaInicialDoGrupo != null && !paginaInicialDoGrupo.equals("/site/home.xhtml")) {
+                        UtilSBWP_JSFTools.carregaPagina(paginaInicialDoGrupo);
+                    }
+                }
+
                 System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getTagUsada());
             }
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual" + getSiteMap().getPaginasOffline(), t);
             if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
 
-                erroCriticoDoSistema.setBeanErroCritico(new InfoErroCritico("Erro criando bean Pagina Atual," + getSiteMap().getPaginasOffline(), t));
+                erroCriticoDoSistema.setBeanErroCritico(new InfoErroCritico("Erro criando informações da Pagina Atual,", t));
                 UtilSBWP_JSFTools.vaParaPaginadeErro(t.getMessage());
             }
 
@@ -99,19 +101,8 @@ public abstract class MB_PaginaAtual implements Serializable {
 
     }
 
-    public String getpLocalidade() {
-
-        return UtilSBWPServletTools.getRequestParametro("pLocalidade").toString();
-    }
-
     public void fechaPagina() {
         getInfoPagina().fecharPagina();
-    }
-
-    public void validaUrl() {
-
-        System.out.println("TTTTTTEEESSSTTEEE:" + nomePagina);
-
     }
 
     public ItfB_Pagina getInfoPagina() {
@@ -134,7 +125,6 @@ public abstract class MB_PaginaAtual implements Serializable {
     }
 
     public void mudarDePagina() {
-
         fechaPagina();
     }
 

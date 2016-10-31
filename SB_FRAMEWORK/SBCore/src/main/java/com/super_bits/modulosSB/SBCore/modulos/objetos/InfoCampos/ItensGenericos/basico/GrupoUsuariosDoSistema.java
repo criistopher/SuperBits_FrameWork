@@ -22,6 +22,15 @@ import java.util.List;
  */
 public class GrupoUsuariosDoSistema implements ItfGrupoUsuario {
 
+    private boolean usuarioRoot = false;
+
+    public GrupoUsuariosDoSistema() {
+    }
+
+    public GrupoUsuariosDoSistema(UsuarioSistemaRoot usuarioroot) {
+        usuarioRoot = true;
+    }
+
     @Override
     public int getId() {
         return -99;
@@ -49,7 +58,11 @@ public class GrupoUsuariosDoSistema implements ItfGrupoUsuario {
 
     @Override
     public String getXhtmlPaginaInicial() {
-        return "/site/home.xhtml";
+        if (!usuarioRoot) {
+            return "/site/home.xhtml";
+        } else {
+            return "/resources/SBComp/debug/conformidadeInputCampo.xhtml";
+        }
     }
 
 }

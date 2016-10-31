@@ -37,7 +37,6 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
     public static String caminhoLocalImagens = SBCore.getCentralVisualizacao().getCaminhoLocalPastaImagem() + SBPersistencia.getPastaImagensJPA();
 
     public enum prefixosIMG {
-
         peq_, med_, grande_
     }
 
@@ -68,7 +67,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
 
     public static String getURLImagem(ItfBeanSimples item, FabCampos tipo) {
 
-        String pastaRelativaImagens = SBCore.getCentralVisualizacao().getRemotoPastaImagem() + SBPersistencia.getPastaImagensJPA() + getCaminhoRelativoImagem(item);
+        String pastaRelativaImagens = SBCore.getCentralVisualizacao().getRemotoPastaResource() + SBPersistencia.getPastaImagensJPA() + getCaminhoRelativoImagem(item);
         String urlpadrao = getUrlIMGPadrao(tipo);
 
         File pasta = new File(caminhoLocalImagens + getCaminhoRelativoImagem(item));
@@ -104,7 +103,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
         String urlbase = caminhoLocalImagens;
         String urlpadrao = getUrlIMGPadrao(FabCampos.IMG_GRANDE);
 
-        List<String> respPadrao = new ArrayList<String>();
+        List<String> respPadrao = new ArrayList<>();
         respPadrao.add(urlpadrao);
         respPadrao.add(urlpadrao);
         respPadrao.add(urlpadrao);
@@ -114,7 +113,7 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
         if (arquivos == null) {
             return respPadrao;
         }
-        List<String> resp = new ArrayList<String>();
+        List<String> resp = new ArrayList<>();
         int i = 0;
         for (File arq : arquivos) {
             resp.add(urlbase + "/" + item.getClass().getSimpleName() + "/" + item.getId() + "/galeria/" + arq.getName());
@@ -130,12 +129,16 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
         }
     }
 
+    public static void SalvaIMAGEM(ItfBeanSimples entidade, InputStream foto) {
+        SalvaIMAGEM(entidade, foto, null);
+    }
+
     public static void SalvaIMAGEM(ItfBeanSimples entidade, InputStream foto, String categoria) {
         String tabela = entidade.getClass().getSimpleName();
 
         // Gerando Diretorios
-        String caminho = SBPersistencia.getPastaImagensJPA();
-        caminho = caminho + caminhoLocalImagens + "/" + tabela + "/" + entidade.getId() + '/';
+        String caminho = caminhoLocalImagens;
+        caminho = caminho + "/" + tabela + "/" + entidade.getId() + '/';
         if (categoria != null) {
             caminho = caminho + "/" + categoria + '/';
         }
@@ -186,7 +189,8 @@ public abstract class UtilSBPersistenciaArquivosDeEntidade {
             diretorio.mkdirs();
 
             // write the inputStream to a FileOutputStream
-            OutputStream out = new FileOutputStream(new File(dir + UtilSBCoreStrings.removeCaracteresEspeciais(nomeArquivo)));
+            OutputStream out;
+            out = new FileOutputStream(new File(dir + UtilSBCoreStrings.removeCaracteresEspeciais(nomeArquivo)));
 
             int read = 0;
             byte[] bytes = new byte[1024];

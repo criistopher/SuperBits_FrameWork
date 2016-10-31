@@ -239,7 +239,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
         return dataCadastro;
     }
 
-    public void setGrupo(GrupoUsuarioSB grupo) {
+    public final void setGrupo(GrupoUsuarioSB grupo) {
         this.grupo = grupo;
     }
 

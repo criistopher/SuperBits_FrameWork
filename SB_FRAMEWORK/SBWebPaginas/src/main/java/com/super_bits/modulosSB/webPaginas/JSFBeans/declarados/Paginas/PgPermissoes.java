@@ -50,8 +50,6 @@ import org.primefaces.context.RequestContext;
 @InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_MB_GERENCIAR)
 public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
-    @Inject
-    private PgUtil paginaUtil;
     @InfoMB_Bean(descricao = "Lista todos os modulos")
     private List<ModuloAcaoSistema> modulos;
     @InfoMB_Bean(descricao = "Lista todos os grupos")
@@ -68,13 +66,12 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
     private BP_AutoComplete<UsuarioSB> autocompleteUsuario;
 
-    private String xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getComoFormulario().getXhtml();
-
     public PgPermissoes() {
         super(new AcaoDoSistema[]{
             FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema(),
             FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema(),
             FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema()
+
         }, FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema().getComoFormularioEntidade(),
                 FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getComoFormularioEntidade(),
                 FabAcaoSeguranca.GRUPO_CTR_SALVAR_MERGE.getAcaoDoSistema().getComoControllerEntidade(),
@@ -170,10 +167,9 @@ public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_EDITAR.getAcaoDoSistema());
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_CTR_ALTERAR_STATUS.getAcaoDoSistema());
         acoesListarGrupos.add(FabAcaoSeguranca.GRUPO_FRM_VISUALIZAR.getAcaoDoSistema());
-
-        autocompleteUsuario
-                = new BP_AutoComplete<>(getEMPagina(), UsuarioSB.class
-                );
+        xhtmlAcaoAtual = FabAcaoSeguranca.GRUPO_FRM_LISTAR.getAcaoDoSistema().getComoFormulario().getXhtml();
+        autocompleteUsuario = new BP_AutoComplete<>(getEMPagina(), UsuarioSB.class
+        );
 
     }
 

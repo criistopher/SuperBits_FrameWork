@@ -21,9 +21,7 @@ Toda aplicação do framework  possui 4 projetos: Model, WebApp, Android e WebSe
 
                     WebAPP
 
-O modulo WebAPP é o modulo para criação de interfaces visuais do seu sistema.
-
-Para utiliza-lo é nescessário entender os escopos @ViewEscoped, @SessionEscoped, @applicationEscoped
+O modulo WebAPP é o modulo para criação de interfaces visuais utlizando JSF.
 
 Uma série de composite componentes foram criados, e se encontram na pasta SBComp
 
@@ -31,11 +29,16 @@ Dentre eles se destaca o SBComp:input, que exibe um input de dados de acordo com
 
 
 
+Model ->
 
-Além do WebApp os outros projetos importam esta camada e tem  as respectivas funções:
+Regras de negocio e Modelagem do sistema
 
-Model -> Regras de negocio e Modelagem do sistema
-Android -> Aplicativo Android
+
+
+Android ->
+
+Aplicativo Android
+
 WebService -> Framework Restfull  que utiliza as ações do sistema criadas no pacote Model
 
 
@@ -46,7 +49,7 @@ mas por enquanto temos este exemplo, que permite você iniciar uma aplicação n
 Todos as classes do projeto foram comentadas com explicações seguindo o padrão JAVADOC,
 boa sorte para criar sua primeira solução com o SuperBits Framework
 
-*Recomendamos o Netbeans com Tomcat8 para trabalhar neste módulo
+*Recomendamos o Netbeans como ferramenta de desenvolvimento
 
 
 

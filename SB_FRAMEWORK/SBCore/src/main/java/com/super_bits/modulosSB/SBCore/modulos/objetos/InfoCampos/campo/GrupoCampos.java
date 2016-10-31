@@ -6,7 +6,6 @@ package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.util.ArrayList;
 import java.util.List;
 

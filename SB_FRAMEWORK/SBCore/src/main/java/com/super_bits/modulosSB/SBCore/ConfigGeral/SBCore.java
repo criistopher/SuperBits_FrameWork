@@ -32,6 +32,7 @@ import com.super_bits.modulosSB.SBCore.modulos.view.ItfServicoVisualizacao;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 
 /**
  *
@@ -85,8 +86,10 @@ public class SBCore {
     private static ArquivoConfiguracaoCliente arquivoConfigCliente;
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
     private static ItfServicoVisualizacao servicoVisualizacao;
+    private static ItfCentralDeArquivos centralDeArquivos;
 
     public static boolean isEmModoDesenvolvimento() {
+
         return getEstadoAPP().equals(ESTADO_APP.DESENVOLVIMENTO);
     }
 
@@ -164,6 +167,9 @@ public class SBCore {
                     // Caso a classe não tenha sido definida na mão, utilizando primeira classe encontrada que extenda ConfigPermissaoSBCoreAbstrato
                     if (infoAplicacao.getConfigPermissoes() == null) {
                         Class configPermissao = UtilSBCoreReflexao.getClasseQueEstendeIsto(ConfigPermissaoSBCoreAbstrato.class, "com.super_bits.configSBFW.acessos");
+                        if (configPermissao == null) {
+                            throw new UnsupportedOperationException("A classe que configura permissão não foi encontrada, crie uma classe que implemente config permssaoSBcore, ou altere a configuração do core dispensando as configurações de permissão");
+                        }
                         configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
                     } else {
                         configuradorDePermissao = (ItfCfgPermissoes) infoAplicacao.getConfigPermissoes().newInstance();
@@ -238,6 +244,7 @@ public class SBCore {
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
             servicoVisualizacao = configuracoes.getServicoVisualizacao().newInstance();
             ambienteExecucaoConfigurado = validaConfiguracoes();
+            centralDeArquivos = configuracoes.getCentralDeArquivo().newInstance();
             if (!ambienteExecucaoConfigurado) {
                 throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
             }
@@ -279,11 +286,12 @@ public class SBCore {
     public static void RelatarErro(FabErro pTipoErro, String pMensagem, Throwable pErroJava) {
 
         if (!isAmbienteExecucaoConfigurado()) {
+
             soutInfoDebug("O sistema encontrou um erro antes de configurar a classe que lida com erros");
-            soutInfoDebug("O erro encontrado foi:");
+            soutInfoDebug("O erro encontrado foi:" + pMensagem);
             soutInfoDebug(pErroJava.getMessage());
             soutInfoDebug(pErroJava.getLocalizedMessage());
-
+            pErroJava.printStackTrace();
             fecharSistemaCasoNaoCOnfigurado();
         }
 
@@ -377,16 +385,16 @@ public class SBCore {
         boolean temCaminhoDiretorioBase = UtilSBCoreStrings.isNAO_NuloNemBranco(getDiretorioBase());
         boolean temCaminhoGrupoProjeto = UtilSBCoreStrings.isNAO_NuloNemBranco(getGrupoProjeto());
 
-        caminho = arquivoConfigBase.getCaminhoPastaCliente();
+        caminho = arquivoConfigBase.getCaminhoPastaClienteSource();
 
         if (temCaminhoDiretorioBase) {
             caminho = caminho + "/" + infoAplicacao.getDiretorioBase();
         }
 
         if (!temCaminhoGrupoProjeto) {
-            return caminho + "/source/" + infoAplicacao.getNomeProjeto();
+            return caminho + "/" + infoAplicacao.getNomeProjeto();
         } else {
-            return caminho + "/source/" + getGrupoProjeto();
+            return caminho + "/" + getGrupoProjeto();
         }
     }
 
@@ -473,6 +481,10 @@ public class SBCore {
         if (estadoAplicativo != ESTADO_APP.PRODUCAO) {
             System.out.println("SBCoreInfo:" + pInfo);
         }
+    }
+
+    public static ItfCentralDeArquivos getCentralDeArquivos() {
+        return centralDeArquivos;
     }
 
 }

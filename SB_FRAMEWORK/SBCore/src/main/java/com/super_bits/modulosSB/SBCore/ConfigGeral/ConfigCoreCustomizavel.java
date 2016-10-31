@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
@@ -29,6 +30,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     private Class<? extends ItfCentralEventos> centralDeEventos;
     private Class<? extends ConfigPermissaoSBCoreAbstrato> classeConfigPermissao;
     private Class<? extends ItfServicoVisualizacao> classeVisualizacao;
+    private Class<? extends ItfCentralDeArquivos> classeCentralDeArquivos;
     private String nomeProjeto;
     private SBCore.ESTADO_APP estadoAPP;
     private String cliente;
@@ -160,15 +162,18 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
 
     @Override
     public final void setCliente(String pCliente) {
+
         if (UtilSBCoreStrings.isNAO_NuloNemBranco(cliente)) {
             System.out.println("O cliente já foi setado como " + cliente + " a mudança para [" + pCliente + "] não foi realizada");
         } else {
             this.cliente = pCliente;
         }
+
     }
 
     @Override
     public final void setGrupoProjeto(String pGrupoProjeto) {
+
         if (UtilSBCoreStrings.isNAO_NuloNemBranco(grupoProjeto)) {
             System.out.println("O grupo projeto já foi setado como " + grupoProjeto + " a mudança para [" + pGrupoProjeto + "] não foi realizada");
         } else {
@@ -187,6 +192,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
      */
     @Override
     public final void setDiretorioBase(String pDiretorioBase) {
+
         if (UtilSBCoreStrings.isNAO_NuloNemBranco(this.diretorioBase)) {
             System.out.println("O Diretorio base já foi setado como" + diretorioBase + " o diretório NAO foi alterado para" + pDiretorioBase);
         } else {
@@ -198,6 +204,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     @Override
     public final void setClasseConfigPermissao(Class<? extends ConfigPermissaoSBCoreAbstrato> pConfigPermissao
     ) {
+
         classeConfigPermissao = pConfigPermissao;
 
     }
@@ -234,6 +241,16 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     @Override
     public void setServicoVisualizacao(Class<? extends ItfServicoVisualizacao> classeVisualizacao) {
         this.classeVisualizacao = classeVisualizacao;
+    }
+
+    @Override
+    public void setCentralDeArquivos(Class<? extends ItfCentralDeArquivos> centralDeArquivos) {
+        classeCentralDeArquivos = centralDeArquivos;
+    }
+
+    @Override
+    public Class<? extends ItfCentralDeArquivos> getCentralDeArquivo() {
+        return classeCentralDeArquivos;
     }
 
 }

@@ -87,7 +87,8 @@ public abstract class ItemNormal extends ItemSimples implements ItfBeanNormal, I
 
     @Override
     public void setAtivo(boolean pAtivo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setValorByTipoCampoEsperado(FabCampos.REG_ATIVO_INATIVO, pAtivo);
+
     }
 
     @Override

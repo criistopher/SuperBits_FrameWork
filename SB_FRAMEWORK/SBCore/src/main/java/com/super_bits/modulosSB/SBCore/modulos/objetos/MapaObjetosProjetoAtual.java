@@ -115,15 +115,21 @@ public class MapaObjetosProjetoAtual {
     }
 
     public static final String getVisualizacaoDoObjeto(Class pClasseDoObjeto) {
-        String formulario = VIEW_BY_CLASSE.get(pClasseDoObjeto);
-        if (formulario == null) {
-            formulario = SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(pClasseDoObjeto);
-            VIEW_BY_CLASSE.put(pClasseDoObjeto, formulario);
+        try {
+            String formulario = VIEW_BY_CLASSE.get(pClasseDoObjeto);
             if (formulario == null) {
-                throw new UnsupportedOperationException("View do objeto não pode ser determinada para" + pClasseDoObjeto);
+                formulario = SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(pClasseDoObjeto);
+                VIEW_BY_CLASSE.put(pClasseDoObjeto, formulario);
+                if (formulario == null) {
+                    throw new UnsupportedOperationException("View do objeto não pode ser determinada para" + pClasseDoObjeto);
+                }
             }
+            return formulario;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro definindo visualização do objeto", t);
+            return "ErroAoGerarVisualizacaoDoObjeto";
         }
-        return formulario;
+
     }
 
 }

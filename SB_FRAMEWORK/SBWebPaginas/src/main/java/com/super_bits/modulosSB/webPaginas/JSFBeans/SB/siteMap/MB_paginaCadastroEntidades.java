@@ -12,9 +12,11 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.security.cert.CRLReason;
@@ -59,8 +61,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         ALTERAR, CRIAR, VISUALIZAR
     }
 
-    protected boolean podeEditar;
-    protected boolean novoRegistro;
+    private boolean podeEditar;
+    private boolean novoRegistro;
 
     /**
      * Constructor simples para pagina de Entidades
@@ -235,6 +237,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             System.out.println("ALTERANDO A ENTIDADE SELECIONADA TESTE ---------------------- " + pEntidadeSelecionada);
         }
 
+        if (pEntidadeSelecionada != null) {
+            if (acaoSelecionada.isUmaAcaoFormulario() && !acaoSelecionada.getTipoAcaoGenerica().getRegistro().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR.getRegistro())) {
+
+                int idEntidade = ((ItfBeanSimples) pEntidadeSelecionada).getId();
+
+                limparListaEEM();
+
+                entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
+
+                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            }
+        }
+
         if (acaoSelecionada.equals(acaoListarRegistros)) {
 
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
@@ -258,6 +273,8 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                 try {
                     // define que a nova classe será do tipo Newsletter
                     setEntidadeSelecionada((T) classeDaEntidade.newInstance());
+
+                    limparListaEEM();
 
                 } catch (InstantiationException | IllegalAccessException ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
@@ -320,6 +337,14 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
         }
 
+    }
+
+    protected void setPodeEditar(boolean pParametro) {
+        podeEditar = pParametro;
+    }
+
+    protected void setTemNovo(boolean pParametro) {
+        temNovo = pParametro;
     }
 
     @Override
@@ -454,19 +479,19 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
             if (temEditar & acaoEntidadeEditar == null) {
-                throw new UnsupportedOperationException("uma ação esperada  foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("A propriedade temEditar é true mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temVisualizar & acaoEntidadeVisualizar == null) {
-                throw new UnsupportedOperationException("uma ação  esperada  não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("Aa propriedae tem visualizar é true mas uma ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temAlterarStatus & acaoEntidadeAlterarStatus == null) {
-                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("A prpriedade temAlterar status é true mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR + " nas ações de registro configuradas no constructor da pagina");
             }
 
             if (temNovo & acaoNovoRegistro == null) {
-                throw new UnsupportedOperationException("uma ação esperada não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO + " nas ações de registro configuradas no constructor da pagina");
+                throw new UnsupportedOperationException("a prpriedade tem novo é true, mas a ação deste tipo não foi encontrada, certifique que exita uma ação do tipo " + FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO + " nas ações de registro configuradas no constructor da pagina");
             }
 
         } catch (Throwable t) {
@@ -493,6 +518,15 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     public boolean isSomenteLeitura() {
         return !podeEditar;
+    }
+
+    protected void limparListaEEM() {
+        renovarEMPagina();
+
+        getEMPagina().clear();
+
+        getEntidadesListadas().clear();
+
     }
 
 }

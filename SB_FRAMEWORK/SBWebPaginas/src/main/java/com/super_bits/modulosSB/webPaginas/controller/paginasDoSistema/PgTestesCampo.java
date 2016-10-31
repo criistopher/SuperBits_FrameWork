@@ -5,8 +5,6 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.paginasDoSistema;
 
-import com.sun.faces.facelets.compiler.SAXCompiler;
-import com.sun.faces.facelets.impl.DefaultFaceletFactory;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;

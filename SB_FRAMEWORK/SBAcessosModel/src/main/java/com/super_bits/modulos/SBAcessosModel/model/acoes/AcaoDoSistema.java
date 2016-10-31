@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroTela;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
@@ -67,6 +68,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Column(insertable = false, updatable = false)
     private String tipoAcaoDB;
     private String nomeUnico;
+    private String diretorioBaseArquivos;
 
     // Objetos não persistiveis
     @Transient
@@ -83,6 +85,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
      */
     public void addParametro(ItfParametroTela pParametro) {
         parametroTela.add(pParametro);
+    }
+
+    protected String getDiretorioBaseAqrquivos() {
+        return diretorioBaseArquivos;
     }
 
     /**
@@ -103,6 +109,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao, FabTipoAcaoSistemaGenerica pAcaoGenerica) {
         this(ptipoAcao, pAcao);
         tipoAcaoGenerica = pAcaoGenerica;
+
     }
 
     public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
@@ -117,8 +124,12 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             id = UtilSBController.gerarIDAcaoDoSistema(pAcao);
             enumAcao = pAcao;
             nomeUnico = UtilSBController.gerarNomeUnicoAcaoDoSistema(pAcao);
-
             setModulo(UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao));
+            if (modulo.isUmModuloNativo()) {
+                diretorioBaseArquivos = "/site/modulos/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+            } else {
+                diretorioBaseArquivos = "/site/" + UtilSBCoreStrings.makeStrUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + pAcao.getEntidadeDominio().getSimpleName().toLowerCase();
+            }
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, nomeAcao, t);
@@ -281,6 +292,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
+    @Deprecated
     public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
         copiaDados(pAcaoDoSistema);
     }

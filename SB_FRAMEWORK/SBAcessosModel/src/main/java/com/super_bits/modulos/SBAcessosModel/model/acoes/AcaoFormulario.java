@@ -111,11 +111,18 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     /**
      *
-     * @param xhtml
+     * Seta o XHTMl, caso tenha um caminho com mais de 2 casas seta o valor,
+     * caso contrario seta o diretorio padrão + o nome enviado
+     *
+     * @param pXhtml
      */
     @Override
-    public void setXhtml(String xhtml) {
-        this.xhtml = xhtml;
+    public void setXhtml(String pXhtml) {
+        if (pXhtml.split("/").length > 2) {
+            this.xhtml = pXhtml;
+        } else {
+            xhtml = getDiretorioBaseAqrquivos() + "/" + pXhtml;
+        }
     }
 
     @Override

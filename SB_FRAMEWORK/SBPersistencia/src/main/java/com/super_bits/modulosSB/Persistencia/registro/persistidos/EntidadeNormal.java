@@ -45,18 +45,19 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     public String getImgGrande() {
 
         //return (String) GetValor(TC.IMG_GRANDE);
-        return UtilSBPersistenciaArquivosDeEntidade.getURLImagem(this, FabCampos.IMG_GRANDE);
+        return SBCore.getCentralDeArquivos().getEndrRemotoImagem(this, FabCampos.IMG_GRANDE);
     }
 
     @Override
     public String getImgMedia() {
         //return (String) GetValor(TC.IMG_MEDIA);
-        return UtilSBPersistenciaArquivosDeEntidade.getURLImagem(this, FabCampos.IMG_MEDIA);
+        return SBCore.getCentralDeArquivos().getEndrRemotoImagem(this, FabCampos.IMG_MEDIA);
     }
 
     @Override
     public List<String> getGaleria() {
-        return UtilSBPersistenciaArquivosDeEntidade.getURLImagens(this, "galeria");
+        return SBCore.getCentralDeArquivos().getEnterecosRemotosRecursosItem(this);
+
     }
 
     @Override

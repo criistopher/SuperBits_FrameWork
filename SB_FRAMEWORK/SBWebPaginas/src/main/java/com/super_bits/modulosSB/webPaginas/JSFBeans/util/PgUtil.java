@@ -14,22 +14,21 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivo
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.UtilSBCoreReflexaoObjetoSuperBits;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaAtual;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.el.ValueExpression;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -57,6 +56,9 @@ public class PgUtil implements Serializable {
     @Inject
     private InfoWebApp infoWeb;
 
+    @Inject
+    private ItfPaginaAtual paginaAtual;
+
     public void testeMuitoLouco(ItfB_Pagina pagina) {
         pagina.executarAcaoSelecionada();
     }
@@ -81,10 +83,19 @@ public class PgUtil implements Serializable {
         return beanTodosSelecionados;
     }
 
+    /**
+     *
+     * @param beanTodosSelecionados
+     */
     public void setBeanTodosSelecionados(BeanTodosSelecionados beanTodosSelecionados) {
         this.beanTodosSelecionados = beanTodosSelecionados;
     }
 
+    /**
+     *
+     * @deprecated @param pXHTML
+     * @return
+     */
     public String abrirXHTML(String pXHTML) {
         return pXHTML;
     }
@@ -97,6 +108,12 @@ public class PgUtil implements Serializable {
         return tema;
     }
 
+    /**
+     *
+     * Retorna a lista de cores padrão do sistema
+     *
+     * @return
+     */
     public Cores getCores() {
         if (cores == null) {
             cores = new Cores();
@@ -104,6 +121,10 @@ public class PgUtil implements Serializable {
         return cores;
     }
 
+    /**
+     *
+     * @return Data atual Do servidor em long
+     */
     public long getDataHoraLong() {
 
         return new Date().getTime();
@@ -122,6 +143,15 @@ public class PgUtil implements Serializable {
 
     }
 
+    /**
+     *
+     * Atualiza uma area da pagina a partir de um id
+     *
+     * o caminho do id não precisa ser único, tudo que tiver este id será
+     * atualizado
+     *
+     * @param idAtualizacao
+     */
     public void atualizaTelaPorID(String idAtualizacao) {
         try {
             String id = idAtualizacao;
@@ -139,16 +169,61 @@ public class PgUtil implements Serializable {
         }
     }
 
-    public void mostraDialogoByWidgetVar(String idWidget) {
-
-    }
-
+    /**
+     *
+     * Mostra uma mensagem no formato Aviso na tela do usuário
+     *
+     * @param pMensagem Mensagem que deseja exibir
+     */
     public void enviaMensagem(String pMensagem) {
         FabMensagens.enviarMensagemUsuario(pMensagem, FabMensagens.AVISO);
         atualizaTelaPorID("mensagemUsuario");
     }
 
     /**
+     *
+     * @param titulo Titulo do Grupo
+     * @param campos Campos relacionados
+     * @return Um gropo de campos com os campos instanciados
+     */
+    public GrupoCampos gerarGrupoCamposEntidadePaginaAtual(String titulo, String... campos) {
+        ItfPaginaGerenciarEntidade pagina;
+        try {
+            pagina = (ItfPaginaGerenciarEntidade) paginaAtual.getInfoPagina();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A paginaatual não é do tipo Gerenciamento de Entidade, impossível determinar a entidade vinculada ao grupo", t);
+            return new GrupoCampos("Grupo de Campos inreconhesível");
+        }
+        String entidade = pagina.getBeanDeclarado("entidadeSelecionada").getInfoBean().getClasse();
+        return gerarGrupoCamposEntidade(entidade, titulo, campos);
+
+    }
+
+    /**
+     *
+     * @param entidade Entidade onde os Campos estão armazenados
+     * @param titulo Título do Grupo
+     * @param campos Camnpos
+     * @return
+     */
+    public GrupoCampos gerarGrupoCamposEntidade(String entidade, String titulo, String... campos) {
+        GrupoCampos grupoCampo = new GrupoCampos();
+        try {
+            for (String campo : campos) {
+                grupoCampo.adicionarCampo(new CaminhoCampoReflexao(entidade + "." + campo));
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possível gerar um grup de campos com " + campos, t);
+        }
+
+        return grupoCampo;
+
+    }
+
+    /**
+     *
+     *
+     *
      *
      * Procura pelos componentes com este id, e retorna o caminho completo do
      * componente
@@ -162,11 +237,10 @@ public class PgUtil implements Serializable {
      * @param pId O id de componente que deseja saber o caminho completo
      *
      *
-     *
-     *
-     * @return
+     * @return O caminho complento ex:
+     * componenteAvó.componentePai.componenteFilho
      */
-    public String makeCaminhoCompletoID(String pId) {
+    public String gerarCaminhoCompletoID(String pId) {
         if (pId == null) {
             return null;
         }
@@ -176,16 +250,39 @@ public class PgUtil implements Serializable {
         if (pId.contains("@")) {
             return pId;
         }
-        if (pId == null || pId.equals("")) {
-            return null;
-        }
+
         return UtilSBWP_JSFTools.getIDSCaminhoAbsoluto(pId);
     }
 
+    /**
+     *
+     *
+     *
+     * @param pId
+     * @deprecated Nome de método muito feio, será substituido por
+     * gerarCaminhoCompletoID
+     *
+     * @return
+     */
+    public String makeCaminhoCompletoID(String pId) {
+
+        return gerarCaminhoCompletoID(pId);
+    }
+
+    /**
+     *
+     * @return A URL inicial deste projeto
+     */
     public String getEnderecoPagina() {
         return SBWebPaginas.getURLBase();
     }
 
+    /**
+     *
+     * Copia todos os resources do WebApp atual para pasta de desenvolvimento do
+     * projeto
+     *
+     */
     public void copiarRessource() {
         if (UtilSBCoreArquivos.copiarArquivos(UtilSBWP_JSFTools.getCaminhoLocalRessource(), SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/resources")) {
             FabMensagens.enviarMensagemUsuario("Arquivos da pasta Ressource copiados com sucesso", FabMensagens.AVISO);
@@ -194,41 +291,10 @@ public class PgUtil implements Serializable {
         }
     }
 
-    private Object getMetodoGet(Object item) {
-        final Thread t = Thread.currentThread();
-        final StackTraceElement[] stackTrace = t.getStackTrace();
-        final StackTraceElement ste = stackTrace[3];
-        final String methodName = ste.getMethodName();
-        final String className = ste.getClassName();
-        Class<?> kls;
-        try {
-            kls = Class.forName(className);
-
-            do {
-                for (final Method candidate : kls.getDeclaredMethods()) {
-                    System.out.println("Metodo:" + methodName);
-                    if (candidate.getName().equals(methodName)) {
-
-                        //   return candidate.invoke(item);
-                    }
-                }
-                kls = kls.getSuperclass();
-            } while (kls != null);
-
-        } catch (ClassNotFoundException ex) {
-            return null;
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(PgUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
     /**
      *
-     * Função bastante útil, quando utilizada com component.clientID, pois o
-     * client id retorna um id de componente a mais (provavelmente referenciando
-     * a ele mesmo)
+     * Função axiliar para eencomtrar p caminho completo do componente, atravez
+     * do component.clientID,
      *
      * @param pClientID O nome completo (onde o ultimo componente será removido
      * do nome)
@@ -254,6 +320,12 @@ public class PgUtil implements Serializable {
         return novoCaminho;
     }
 
+    /**
+     * @deprecated
+     *
+     * @param pId
+     * @return
+     */
     public String getInfoComponente(String pId) {
         try {
             UIComponent componenteRaiz = FacesContext.getCurrentInstance().getViewRoot();
@@ -270,6 +342,7 @@ public class PgUtil implements Serializable {
         }
     }
 
+    // Retorna true se o componente for um componente inpt do primefaces
     private boolean isComponentDeInput(UIComponent comp) {
 
         return comp.getRendererType().contains("org.primefaces.component.InputTextRenderer")
@@ -401,6 +474,8 @@ public class PgUtil implements Serializable {
 
     /**
      *
+     * Retonrna a URL vinculada a ação (Está deprecated)
+     *
      * @param pAcao Acao
      * @return XHTML que deve ser carregado
      * @deprecated Metodo será substituido por Carregar XHTML
@@ -415,6 +490,13 @@ public class PgUtil implements Serializable {
         }
     }
 
+    /**
+     *
+     * redireciona o usuário da sessão para a pagina correspondente a ação
+     * enviada no parametro
+     *
+     * @param pAcao Ação correspondente a URL desejada
+     */
     public void irParaURL(ItfAcaoDoSistema pAcao) {
         try {
 
@@ -433,6 +515,12 @@ public class PgUtil implements Serializable {
 
     }
 
+    /**
+     *
+     *
+     *
+     * @param pUrl Redireciona o usuário para uma nova URL
+     */
     public void irParaURL(String pUrl) {
 
         if (!SBCore.isEmModoDesenvolvimento()) {
@@ -443,10 +531,25 @@ public class PgUtil implements Serializable {
 
     }
 
+    /**
+     *
+     * Exibe um campo não implementado (um campo com todas as propriedades de
+     * campo, desvinculado a qualquer campo existente
+     *
+     * @return Um campo não implementado
+     */
     public CampoNaoImplementado getCampoNaoImplementado() {
         return camponaoImplementado;
     }
 
+    /**
+     *
+     * Função que retorna true caso todos os booleans enviados no parametros
+     * sejam true. (Util para simplificar a utlização do JTDSL em alguns casos)
+     *
+     * @param pCondicoes Array de booleans para nálise
+     * @return Vertadeiro se tudo for true
+     */
     public boolean isTudoVerdadeiro(boolean... pCondicoes) {
 
         for (boolean condicao : pCondicoes) {
@@ -458,31 +561,34 @@ public class PgUtil implements Serializable {
         return true;
     }
 
-    public String getNomeDoCompPai(UIComponent pComponente) {
-        return null;
-    }
-
-    public String getSufixoCaminhoAteAqui(UIComponent componente, String caminho) {
-        return null;
-    }
-
-    public String defineNomeDoFilho(UIComponent componente) {
-        System.out.println("Gerando id para" + componente.getClientId());
-        return "AssimVcFuncionaNumEDanada";
-    }
-
+    /**
+     *
+     * @return Retorna um loren Ipsum de uma palavra
+     */
     public String getLorrenIpsUmaPalavra() {
         return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
     }
 
+    /**
+     *
+     * @return Retorna 5 palavras do lorenIpsum
+     */
     public String getLorrenIpsUmaFrase() {
-        return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
+        return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PALAVRAS);
     }
 
+    /**
+     *
+     * @return Um paragrafro de palavras LorenIpsum
+     */
     public String getLorrenIpsUmParagrafo() {
         return UtilSBCoreStrings.GetLorenIpsilum(1, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
     }
 
+    /**
+     *
+     * @return 3 paragrafos lorenIpsum
+     */
     public String getLorrenIps3Paragrafos() {
         return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
     }

@@ -252,7 +252,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             anotacoesConfiguradas = true;
             configAnotacoesClasse();
             SBCore.soutInfoDebug("Configurando Anotações de Bean");
-            configAnotacoesBeans();
+
             System.out.println("Configurando Anotações de Parametros");
 
             SBCore.soutInfoDebug("Aplicando valores");
@@ -397,11 +397,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     }
 
-    /**
-     * Cria Listas de Informações Tecnicas da pagina
-     */
-    private void configAnotacoesBeans() {
-
+    private void buldBeansDeclarados() {
         Field[] camposDeclarados = this.getClass().getDeclaredFields();
 
         Method[] metodos = this.getClass().getDeclaredMethods();
@@ -423,8 +419,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         for (Field campo : camposDeclarados) {
 
             InfoMBIdComponente idcomp = campo.getAnnotation(InfoMBIdComponente.class);
-            if (TIPO_PRIMITIVO.getTIPO_PRIMITIVO(campo).equals(TIPO_PRIMITIVO.ENTIDADE)) {
-                beansDeclarados.put(campo.getName(), new BeanDeclarado(campo));
+            try {
+                if (TIPO_PRIMITIVO.getTIPO_PRIMITIVO(campo).equals(TIPO_PRIMITIVO.ENTIDADE)) {
+                    beansDeclarados.put(campo.getName(), new BeanDeclarado(campo));
+                }
+            } catch (Throwable t) {
+                System.out.println("todo retirar criação de beandeclarado em modo criação offiline");
             }
 //            if (infoBean != null) {
 
@@ -440,7 +440,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
 
         }
-
     }
 
     private void makeURLPadrao() {
@@ -558,9 +557,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         if (tags == null) {
             configAnotacoesClasse();
         }
-        if (tags.isEmpty()) {
-            configAnotacoesBeans();
-        }
+
         return tags;
     }
 
@@ -803,6 +800,9 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public BeanDeclarado getBeanDeclarado(String nomeBean) {
+        if (beansDeclarados == null || beansDeclarados.isEmpty()) {
+            buldBeansDeclarados();
+        }
         return beansDeclarados.get(nomeBean);
     }
 

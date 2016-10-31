@@ -35,8 +35,7 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     @Override
     public String getImgPequena() {
 
-        return UtilSBPersistenciaArquivosDeEntidade.getURLImagem(this, FabCampos.IMG_PEQUENA);
-
+        return SBCore.getCentralDeArquivos().getEndrRemotoImagem(this, FabCampos.IMG_PEQUENA);
     }
 
     @Override
@@ -151,7 +150,8 @@ public abstract class EntidadeSimples extends EntidadeGenerica implements
     }
 
     public void uploadFoto(Object event) {
-        throw new UnsupportedOperationException("Ainda não implementado");
+
+        SBCore.getControleDeSessao(); //    throw new UnsupportedOperationException("Ainda não implementado");
         //  FileUploadEvent evento = (Primef)
         //  String categoria = (String) event.getComponent().getAttributes()
         //           .get("catImagem");

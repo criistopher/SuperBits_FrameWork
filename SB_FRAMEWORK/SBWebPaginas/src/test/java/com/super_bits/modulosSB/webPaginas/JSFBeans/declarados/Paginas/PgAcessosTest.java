@@ -3,7 +3,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas;
 
-import aux.ConfiguradorSBCoreWebPaginaTestes;
+import com.super_bits.modulosSB.webPaginas.ConfiguradorSBCoreWebPaginaTestes;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import org.junit.Before;
 import org.junit.Test;

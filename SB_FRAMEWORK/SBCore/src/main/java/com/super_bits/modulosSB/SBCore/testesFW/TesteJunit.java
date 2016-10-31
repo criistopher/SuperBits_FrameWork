@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.testesFW;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import org.junit.Before;
 
@@ -19,13 +20,16 @@ public abstract class TesteJunit extends org.junit.Assert {
 
     @Before
     public void initPadrao() {
+        try {
+            if (!inicializou) {
+                configAmbienteDesevolvimento();
+                System.out.println("INIT PADRAO");
 
-        if (!inicializou) {
-            configAmbienteDesevolvimento();
-            System.out.println("INIT PADRAO");
+                inicializou = true;
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executnado configurações iniciais", t);
         }
-
-        inicializou = true;
     }
 
     protected void configApenasLog() {
