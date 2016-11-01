@@ -33,6 +33,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfCentralComunicacao;
 
 /**
  *
@@ -87,6 +88,7 @@ public class SBCore {
     private static ArquivoConfiguracaoDistribuicao arquivoConfigDistribuicao;
     private static ItfServicoVisualizacao servicoVisualizacao;
     private static ItfCentralDeArquivos centralDeArquivos;
+    private static ItfCentralComunicacao centralComunicacao;
 
     public static boolean isEmModoDesenvolvimento() {
 
@@ -243,8 +245,10 @@ public class SBCore {
             arquivoConfigCliente = configurador.getArquivoConfiguradorCliente();
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
             servicoVisualizacao = configuracoes.getServicoVisualizacao().newInstance();
+            centralComunicacao = configuracoes.getCentralComunicacao().newInstance();
             ambienteExecucaoConfigurado = validaConfiguracoes();
             centralDeArquivos = configuracoes.getCentralDeArquivo().newInstance();
+
             if (!ambienteExecucaoConfigurado) {
                 throw new UnsupportedOperationException("O core não pôde determinar as configurações básicas");
             }
@@ -485,6 +489,10 @@ public class SBCore {
 
     public static ItfCentralDeArquivos getCentralDeArquivos() {
         return centralDeArquivos;
+    }
+
+    public static ItfCentralComunicacao getCentralComunicacao() {
+        return centralComunicacao;
     }
 
 }

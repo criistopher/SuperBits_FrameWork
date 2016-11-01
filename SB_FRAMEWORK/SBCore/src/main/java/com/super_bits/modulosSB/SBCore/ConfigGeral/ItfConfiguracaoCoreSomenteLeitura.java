@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreA
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfCentralComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
@@ -126,5 +127,7 @@ public interface ItfConfiguracaoCoreSomenteLeitura {
      * @return
      */
     public Class<? extends ItfCentralDeArquivos> getCentralDeArquivo();
+
+    public Class<? extends ItfCentralComunicacao> getCentralComunicacao();
 
 }

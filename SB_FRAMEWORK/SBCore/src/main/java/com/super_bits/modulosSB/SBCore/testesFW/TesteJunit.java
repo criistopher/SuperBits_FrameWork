@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.testesFW;
 
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import org.junit.Before;
 
@@ -28,7 +27,7 @@ public abstract class TesteJunit extends org.junit.Assert {
                 inicializou = true;
             }
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executnado configurações iniciais", t);
+            lancarErroJUnit(t);
         }
     }
 

@@ -10,7 +10,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGest
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
@@ -18,7 +18,6 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfF
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.TipoAcaoPadrao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
@@ -43,6 +42,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -233,124 +233,145 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
+    private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoController pAnotacaoController, Class pEntidadeVinculada) {
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoController.nomeAcao(), pAnotacaoController.descricao(), pAnotacaoController.precisaPermissao());
+        configurarValorIconeAnotacao(pAcao, pAnotacaoController.icone(), pAnotacaoController.iconeFonteAnsowame(), null);
+        configurarValorFormularioAnotacao(pAcao, pAnotacaoController.xhtmlDaAcao());
+        configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoController.codigoJira());
+    }
+
+    private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoFormulario pAnotacaoFormulario, Class pEntidadeVinculada) {
+        configuraValoresCampos(pAcao, pAnotacaoFormulario.campos());
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoFormulario.nomeAcao(), pAnotacaoFormulario.descricao(), pAnotacaoFormulario.precisaPermissao());
+        configurarValorIconeAnotacao(pAcao, pAnotacaoFormulario.icone(), pAnotacaoFormulario.iconeFonteAnsowame(), null);
+        configurarValorFormularioAnotacao(pAcao, pAnotacaoFormulario.xhtmlDaAcao());
+        configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoFormulario.codigoJira());
+        switch (pAcao.getTipoAcaoGenerica()) {
+            // TODO permitir encontrar CaminhCampo pelo nome do método (Verificar viabilidade)
+            case FORMULARIO_NOVO_REGISTRO:
+                break;
+            case FORMULARIO_EDITAR:
+                break;
+
+            case FORMULARIO_VISUALIZAR:
+                break;
+            case FORMULARIO_LISTAR:
+                //       CaminhoCampoReflexao id = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("id", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                //       ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(id);
+                //      CaminhoCampoReflexao nome = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("nome", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                //     ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(nome);
+                break;
+
+        }
+    }
+
+    private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoGestaoEntidade pAnotacaoGestao, Class pEntidadeVinculada) {
+
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoGestao.nomeAcao(), pAnotacaoGestao.descricao(), pAnotacaoGestao.precisaPermissao());
+        configurarValorIconeAnotacao(pAcao, pAnotacaoGestao.icone(), pAnotacaoGestao.iconeFonteAnsowame(), pEntidadeVinculada);
+        configurarValorFormularioAnotacao(pAcao, pAnotacaoGestao.xhtmlDaAcao());
+        configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoGestao.codigoJira());
+
+    }
+
+    private static void configurarValorIconeAnotacao(AcaoDoSistema pAcaoDoSistema, String pIconeSTRPersonalizado, FabIconeFontAwesome pIconeFA, Class pClasseEntidade) {
+
+        // configura o icone seguindo a seguinte prioridade (String personalizada, IconeViaFabricaDeação,E icone da entidade vinculada, este utilizado apenas em ações de gestão..)
+        if (pIconeSTRPersonalizado != null && pIconeSTRPersonalizado.length() > 2) {
+            pAcaoDoSistema.setIconeAcao(pIconeSTRPersonalizado);
+        } else if (pIconeFA != null && pIconeFA != FabIconeFontAwesome.ICONE_PERSONALIZADO) {
+            pAcaoDoSistema.setIconeAcao(pIconeFA.getIcone().getTagHtml());
+        } else if (pClasseEntidade != null) {
+            String iconeDaClasse = UtilSBCoreReflexao.getIconeDoObjeto(pClasseEntidade);
+            if (iconeDaClasse != null) {
+                pAcaoDoSistema.setIconeAcao(iconeDaClasse);
+            }
+
+        }
+    }
+
+    private static void configurarValorFormularioAnotacao(AcaoDoSistema pAcaoDoSistema, String pFormularioAnotacao) {
+        if (pFormularioAnotacao != null && pFormularioAnotacao.length() > 2) {
+            ((ItfAcaoFormulario) pAcaoDoSistema).setXhtml(pFormularioAnotacao);
+        }
+    }
+
+    private static void configurarValorJiraConfluenceAnotacao(AcaoDoSistema pAcaoDoSistema, String pCodigoJira) {
+        if (pCodigoJira != null && pCodigoJira.length() > 2) {
+            pAcaoDoSistema.setIdDescritivoJira(pCodigoJira);
+        }
+
+    }
+
+    private static void configurarValorBasicoAcaoAnotacao(AcaoDoSistema pAcaoDoSistema, String pNomeAcao, String pDescricao, boolean pAcessoPermitido) {
+
+        if (pNomeAcao != null && pNomeAcao.length() > 2) {
+            pAcaoDoSistema.setNomeAcao(pNomeAcao);
+        }
+        if (pDescricao != null && pDescricao.length() > 2) {
+            pAcaoDoSistema.setDescricao(pDescricao);
+        }
+        pAcaoDoSistema.setPrecisaPermissao(pAcessoPermitido);
+
+    }
+
+    private static void configuraValoresCampos(AcaoDoSistema pAcaoDoSistema, String[] campos) {
+
+        if (campos != null && campos.length > 0) {
+
+            for (String cp : campos) {
+                try {
+                    if (cp.equals("")) {
+                        throw new UnsupportedOperationException("Existe um campo em branco (igual a: [ \"\" ]) na ação" + pAcaoDoSistema.getNomeUnico());
+                    }
+                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio());
+                    if (caminhoCampo == null) {
+                        throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcaoDoSistema.getNomeUnico());
+                    }
+                    ((ItfAcaoFormularioEntidade) pAcaoDoSistema).getCampos().add(caminhoCampo);
+
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campo: " + cp + " da anotação " + pAcaoDoSistema.getNomeUnico(), t);
+                }
+            }
+            // adiciona campos nas anotações
+        }
+
+    }
+
     private static void configurarAnotacoesAcao(AcaoDoSistema pAcao) throws NoSuchFieldException {
 
         Field campo = pAcao.getEnumAcaoDoSistema().getClass().getField(pAcao.getEnumAcaoDoSistema().toString());
-
+        String textoAnotacoes = "Utilize: Para ação controller: @" + InfoTipoAcaoController.class.getSimpleName()
+                + " para  ação formulario: @" + InfoTipoAcaoFormulario.class.getSimpleName()
+                + " para ação de gestão:  @" + InfoTipoAcaoGestaoEntidade.class.getSimpleName();
         FabTipoAcaoSistemaGenerica tipoAcao = getTipoAcaoByNome(pAcao.getEnumAcaoDoSistema());
         Class entidadeDaAcao = pAcao.getEnumAcaoDoSistema().getEntidadeDominio();
         if (tipoAcao.toString().contains("FORMULARIO")) {
             InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
             if (anotacaoFormulario != null) {
-                if (anotacaoFormulario.campos().length > 0) {
-                    for (String cp : anotacaoFormulario.campos()) {
-                        try {
-                            if (cp.equals("")) {
-                                throw new UnsupportedOperationException("Existe um campo em branco (igual a: [ \"\" ]) na ação" + pAcao.getNomeUnico());
-                            }
-                            CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
-                            if (caminhoCampo == null) {
-                                throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcao.getNomeUnico());
-                            }
-                            ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(caminhoCampo);
-
-                        } catch (Throwable t) {
-                            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro configurando campo: " + cp + " da anotação " + pAcao.getNomeUnico(), t);
-                        }
-                    }
-                } else {
-                    switch (pAcao.getTipoAcaoGenerica()) {
-                        // TODO permitir encontrar CaminhCampo pelo nome do método (Verificar viabilidade)
-                        case FORMULARIO_NOVO_REGISTRO:
-                            break;
-                        case FORMULARIO_EDITAR:
-                            break;
-
-                        case FORMULARIO_VISUALIZAR:
-                            break;
-                        case FORMULARIO_LISTAR:
-                            //       CaminhoCampoReflexao id = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("id", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
-                            //       ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(id);
-                            //      CaminhoCampoReflexao nome = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("nome", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
-                            //     ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(nome);
-                            break;
-
-                    }
-                }
-                if (anotacaoFormulario.codigoJira().length() > 2) {
-                    pAcao.setIdDescritivoJira(anotacaoFormulario.codigoJira());
-                }
-                if (anotacaoFormulario.icone().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoFormulario.icone());
-                }
-                if (anotacaoFormulario.nomeAcao().length() > 2) {
-                    pAcao.setNomeAcao(anotacaoFormulario.nomeAcao());
-                }
-                if (anotacaoFormulario.xhtmlDaAcao().length() > 2) {
-                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoFormulario.xhtmlDaAcao());
-                }
-                pAcao.setPrecisaPermissao(anotacaoFormulario.precisaPermissao());
+                configuraAnotacao(pAcao, anotacaoFormulario, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro  anotação ou nome de ação incompatível em " + pAcao.getNomeUnico() + textoAnotacoes);
             }
 
         }
-        //alcyrnascimento@hotmail.com
-        //dep.acarantes@elmg.gov.br
 
         if (tipoAcao.toString().contains("CONTROLLER")) {
-
             InfoTipoAcaoController anotacaocontroller = campo.getAnnotation(InfoTipoAcaoController.class);
             if (anotacaocontroller != null) {
-                if (anotacaocontroller.icone().length() > 2) {
-                    pAcao.setIconeAcao(anotacaocontroller.icone());
-                }
-                if (anotacaocontroller.nomeAcao().length() > 2) {
-                    pAcao.setNomeAcao(anotacaocontroller.nomeAcao());
-                }
-                if (anotacaocontroller.xhtmlDaAcao().length() > 2) {
-                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaocontroller.xhtmlDaAcao());
-                }
-                if (anotacaocontroller.descricao().length() > 2) {
-                    pAcao.setDescricao(anotacaocontroller.descricao());
-                }
-                if (anotacaocontroller.codigoJira().length() > 2) {
-                    pAcao.setIdDescritivoJira(anotacaocontroller.codigoJira());
-                }
-                pAcao.setPrecisaPermissao(anotacaocontroller.precisaPermissao());
-
+                configuraAnotacao(pAcao, anotacaocontroller, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro anotação ou nome de ação incompatível anotação  em " + pAcao.getNomeUnico() + " " + textoAnotacoes);
             }
-
         }
-        if (tipoAcao.toString().contains("GERENCIAR")) {
 
+        if (tipoAcao.toString().contains("GERENCIAR")) {
             InfoTipoAcaoGestaoEntidade anotacaoGerenciar = campo.getAnnotation(InfoTipoAcaoGestaoEntidade.class);
             if (anotacaoGerenciar != null) {
-                if (anotacaoGerenciar.icone().length() > 2) {
-                    pAcao.setIconeAcao(anotacaoGerenciar.icone());
-                } else {
-                    pAcao.setIconeAcao(UtilSBCoreReflexao.getIconeDoObjeto(entidadeDaAcao));
-                }
-                if (anotacaoGerenciar.nomeAcao().length() > 2) {
-                    pAcao.setNomeAcao(anotacaoGerenciar.nomeAcao());
-                }
-                if (anotacaoGerenciar.xhtmlDaAcao().length() > 2) {
-                    ((ItfAcaoFormulario) pAcao).setXhtml(anotacaoGerenciar.xhtmlDaAcao());
-                }
-                if (anotacaoGerenciar.descricao().length() > 2) {
-                    pAcao.setDescricao(anotacaoGerenciar.descricao());
-                }
-
-                if (anotacaoGerenciar.codigoJira().length() > 2) {
-                    pAcao.setIdDescritivoJira(anotacaoGerenciar.codigoJira());
-                }
-
-                pAcao.setPrecisaPermissao(anotacaoGerenciar.precisaPermissao());
-
+                configuraAnotacao(pAcao, anotacaoGerenciar, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
-                throw new UnsupportedOperationException("Erro a anotação encontrada em " + pAcao.getNomeUnico() + " Não parece ser a ação adequada, verifique o tipo de ação da anotação");
+                throw new UnsupportedOperationException("Erro anotação ou nome de ação incompatível em " + pAcao.getNomeUnico() + "" + textoAnotacoes);
             }
 
         }
@@ -421,18 +442,12 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcaoRefForm.setIconeAcao("fa fa-plus");
                     novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcao.setNome("Novo " + nomeDoObjeto);
+                    novaAcao.setDescricao("Novo " + nomeDoObjeto);
                     if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
-
-                        if (novaAcaoRefForm.getModulo().isUmModuloNativo()) {
-                            novaAcaoRefForm.setXhtml("editar.xhtml");
-                        } else {
-
-                        }
+                        novaAcaoRefForm.setXhtml(FORMULARIO_EDITAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     } else {
-
-                        novaAcaoRefForm.setXhtml("novoRegistro.xhtml");
+                        novaAcaoRefForm.setXhtml(FORMULARIO_NOVO_REGISTRO.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     }
-                    novaAcao.setDescricao("Cria um novo " + nomeDoObjeto + " no sistema");
 
                     break;
                 case FORMULARIO_EDITAR:
@@ -441,8 +456,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcao.setNome("Editar " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml("editar.xhtml");
-                    novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
+                    novaAcaoRefForm.setXhtml(FORMULARIO_EDITAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
+                    novaAcao.setDescricao("Editar " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-edit");
                     break;
                 case FORMULARIO_LISTAR:
@@ -451,64 +466,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
                     novaAcao.setNome("Listar " + nomeDoObjeto);
-                    novaAcaoRefForm.setXhtml("listar.xhtml");
-                    novaAcao.setDescricao("Editar um " + nomeDoObjeto + " do sistema");
+                    novaAcaoRefForm.setXhtml(FORMULARIO_LISTAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
+                    novaAcao.setDescricao("Editar " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-list-alt");
-                    break;
-
-                case CONTROLLER_SALVAR_EDICAO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-
-                    novaAcao.setNome("Salvar " + nomeDoObjeto);
-                    novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
-                    break;
-                case CONTROLLER_SALVAR_NOVO:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-
-                    novaAcao.setNome("Salvar " + nomeDoObjeto);
-                    novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
-                    break;
-                case CONTROLLER_SALVAR_MODO_MERGE:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.setNome("Salvar " + nomeDoObjeto);
-                    novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
-                    break;
-                case CONTROLLER_ATIVAR_DESATIVAR:
-
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-                    novaAcao.configurarPropriedadesBasicas(novaAcao);
-                    novaAcao.setNome("Alterar status " + nomeDoObjeto);
-                    novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-retweet");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
-                    break;
-                case CONTROLLER_ATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-
-                    novaAcao.setNome("Ativar " + nomeDoObjeto);
-                    novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-check");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
-                    break;
-                case CONTROLLER_DESATIVAR:
-                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
-
-                    novaAcao.setNome("Desativar " + nomeDoObjeto);
-                    novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
-                    novaAcao.setIconeAcao("fa fa-close");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
-
                     break;
                 case FORMULARIO_VISUALIZAR:
 
@@ -518,17 +478,67 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                     novaAcao.setNome("Visualizar " + nomeDoObjeto);
                     if (acaoPrincipal.isUtilizarMesmoFormEditarInserir()) {
-                        novaAcaoRefForm.setXhtml("editar.xhtml");
+                        novaAcaoRefForm.setXhtml(FORMULARIO_EDITAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     } else {
-
-                        novaAcaoRefForm.setXhtml("visualizar.xhtml");
+                        novaAcaoRefForm.setXhtml(FORMULARIO_VISUALIZAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     }
-                    novaAcao.setDescricao("Visualizar um " + nomeDoObjeto + " do sistema");
+                    novaAcao.setDescricao("Visualizar " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-eye");
                     break;
                 case FORMULARIO_PERSONALIZADO:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
+                    novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
+                    novaAcao.setNome(
+                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            + " " + nomeDoObjeto);
+                    novaAcaoRefForm.setXhtml(FORMULARIO_PERSONALIZADO.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     break;
+
+                case CONTROLLER_SALVAR_EDICAO:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Salvar " + nomeDoObjeto);
+                    novaAcao.setDescricao("Salvar edição do(a) " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-save");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    break;
+                case CONTROLLER_SALVAR_NOVO:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Salvar " + nomeDoObjeto);
+                    novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-save");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    break;
+                case CONTROLLER_SALVAR_MODO_MERGE:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Salvar " + nomeDoObjeto);
+                    novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-save");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    break;
+                case CONTROLLER_ATIVAR_DESATIVAR:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.configurarPropriedadesBasicas(novaAcao);
+                    novaAcao.setNome("Alterar status " + nomeDoObjeto);
+                    novaAcao.setDescricao("Alterar status do " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-retweet");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    break;
+                case CONTROLLER_ATIVAR:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Ativar " + nomeDoObjeto);
+                    novaAcao.setDescricao("Ativar " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-check");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    break;
+                case CONTROLLER_DESATIVAR:
+                    novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Desativar " + nomeDoObjeto);
+                    novaAcao.setDescricao("Desativar " + nomeDoObjeto);
+                    novaAcao.setIconeAcao("fa fa-close");
+                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+
+                    break;
+
                 case SELECAO_DE_ACAO:
                     break;
                 case FORMULARIO_MODAL:
@@ -540,9 +550,14 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     break;
                 case CONTROLLER_REMOVER:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome("Excluir " + nomeDoObjeto);
                     break;
                 case CONTROLLER_PERSONALIZADO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome(
+                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            + " " + nomeDoObjeto);
+
                     break;
 
                 default:

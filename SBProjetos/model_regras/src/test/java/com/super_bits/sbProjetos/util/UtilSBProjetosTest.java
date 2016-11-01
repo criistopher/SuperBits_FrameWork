@@ -64,7 +64,7 @@ public class UtilSBProjetosTest extends TesteJunit {
 
         Projeto moduloRequisitos = FabSBProjectProjetos.MONITOR_REQUISITOS.getRegistro();
         Projeto moduloGestaoArquivos = FabSBProjectProjetos.GESTAO_ARQUIVOS.getRegistro();
-        Projeto moduloCriadorCodigo = FabSBProjectProjetos.CRIADOR_CODIGO.getRegistro();
+        Projeto moduloCriadorCodigo = FabSBProjectProjetos.GERADOR_CODIGO.getRegistro();
         Projeto moduloSeguranca = FabSBProjectProjetos.CONTROLE_USUARIOS_BASICO.getRegistro();
         Projeto sistemaSantaClara = FabSBProjectProjetos.SISTEMA_SANTA_CLARA.getRegistro();
         Projeto game_super_bits_elemental = FabSBProjectProjetos.ELEMENTAL.getRegistro();
@@ -79,8 +79,8 @@ public class UtilSBProjetosTest extends TesteJunit {
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.configurarPastaProjeto(projetoTeste);
         // UtilSBProjetos.criarREpositorioReleaseDoProjetoNoServidor(projetoTeste);
-        //       UtilSBProjetos.configurarPastaProjeto(projetoTeste);
-        //UtilSBProjetos.criarNovoProjeto(projetoTeste);
+        // UtilSBProjetos.configurarPastaProjeto(projetoTeste);
+        // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.criarNovoProjeto(projetoTeste);
         // UtilSBProjetos.System.out.println("__________________EXISTE PASTA RELEASE__________________");
         //  verificaExistenciaDoProjetoRelease(projetoTeste);

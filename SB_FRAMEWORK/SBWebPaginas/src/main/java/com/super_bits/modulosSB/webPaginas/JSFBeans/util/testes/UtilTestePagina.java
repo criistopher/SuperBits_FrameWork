@@ -7,77 +7,18 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoInicioComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.PaginaSimples;
 import org.hibernate.validator.internal.util.Contracts;
 import org.junit.Assert;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -96,8 +37,48 @@ public abstract class UtilTestePagina {
             throw new UnsupportedOperationException("O xhtml da ação" + pAcao.getNomeUnico() + " está definido como não implementado");
         }
 
-        Contracts.assertTrue(UtilSBCoreArquivos.isArquivoExiste(SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml()),
-                "O arquivo xhtml da ação " + pAcao.getNomeUnico() + " não foi encontrado em " + SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml());
+        if (!UtilSBCoreArquivos.isArquivoExiste(SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml())) {
+            if (SBCore.getCentralComunicacao().iniciarComunicacaoSistema_Usuairo(FabTipoInicioComunicacao.PERGUNTAR_SIM_OU_NAO,
+                    "O XHTML da ação  " + pAcao.getNomeUnico() + "  não foi encontrado, deseja criar o arquivo de maneira automática ? \n "
+                    + "o arquivo será criado em " + pAcao.getXhtml()
+                    + "") == FabTipoRespostaComunicacao.SIM) {
+
+                switch (pAcao.getTipoAcaoGenerica()) {
+                    case FORMULARIO_NOVO_REGISTRO:
+                        FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO.getNomeFormularioPadrao();
+                        break;
+                    case FORMULARIO_EDITAR:
+                        break;
+                    case FORMULARIO_PERSONALIZADO:
+                        break;
+                    case FORMULARIO_VISUALIZAR:
+                        break;
+                    case FORMULARIO_LISTAR:
+                        break;
+                    case FORMULARIO_MODAL:
+                        break;
+                    case SELECAO_DE_ACAO:
+                        break;
+                    case CONTROLLER_SALVAR_EDICAO:
+                    case CONTROLLER_SALVAR_NOVO:
+                    case CONTROLLER_SALVAR_MODO_MERGE:
+                    case CONTROLLER_PERSONALIZADO:
+                    case CONTROLLER_ATIVAR_DESATIVAR:
+                    case CONTROLLER_ATIVAR:
+                    case CONTROLLER_REMOVER:
+                    case CONTROLLER_DESATIVAR:
+                        throw new UnsupportedOperationException("Por hora, não existe formulario modal padrão para ações de controler");
+                    case GERENCIAR_DOMINIO:
+                        break;
+                    default:
+                        throw new AssertionError(pAcao.getTipoAcaoGenerica().name());
+
+                }
+
+            } else {
+                throw new UnsupportedOperationException("O arquivo xhtml da ação " + pAcao.getNomeUnico() + " não foi encontrado em " + SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml());
+            }
+        }
 
     }
 

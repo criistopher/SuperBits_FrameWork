@@ -20,7 +20,7 @@ public class UtilFabricaDeAcoesBasico {
 
         try {
             if (pAcaoDoSistema == null) {
-
+                throw new UnsupportedOperationException("Tentativa de validade ação do sistema igual a nula");
             }
             if (pAcaoDoSistema.getEnumAcaoDoSistema() == null) {
                 throw new UnsupportedOperationException("O enum da ação do sistema" + pAcaoDoSistema + " não foi definido");

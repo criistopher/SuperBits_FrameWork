@@ -11,13 +11,64 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
  * @author salvioF
  */
 public enum FabModelosPagina implements ItfFabrica {
+
+    /**
+     *
+     *
+     * Estrutura básica de um site, com importação de todos os javscripts e css
+     * nescessários para execução dos comandos básicos,possui estrutura de topo,
+     * conteúdo e rodapé
+     *
+     * /resources/SBComp/template/basico/modeloGeral.xhtml
+     *
+     *
+     */
     MODELO_GERAL,
+    /**
+     *
+     * O mesmo do modelo geral sem cabeçalho e rodabe
+     * /resources/SBComp/template/basico/modeloAnonimo.xhtml
+     *
+     * @see FabModelosPagina#MODELO_GERAL
+     */
     MODELO_GERAL_ANONIMO,
+    /**
+     *
+     *
+     * /resources/SBComp/template/basico/conteudo.xhtml
+     *
+     */
     FORMULARIO_PERSONALIZADO,
+    /**
+     *
+     *
+     * /resources/SBComp/template/basico/formularioEntidadeListar.xhtml
+     *
+     */
     FORMULARIO_PG_ENTIDADE_LISTAR,
+    /**
+     *
+     *
+     * /resources/SBComp/template/basico/formularioAcaoAtual.xhtml
+     *
+     */
     FORMULARIO_PG_ENTIDADE_EDITAR,
+    /**
+     *
+     *
+     * /resources/SBComp/template/basico/formularioAcaoAtual.xhtml
+     */
     FORMULARIO_PG_ACAO_ATUAL,
+    /**
+     *
+     *
+     * /resources/SBComp/template/basico/formularioEntidadeAcaoAtual.xhtml
+     */
     FORMULARIO_PG_ENTIDADE_ACAO_ATUAL,
+    /**
+     *
+     *  /resources/SBComp/template/basico/conteudoEmBranco.xhtml
+     */
     CONTEUDO_EM_BRANCO;
 
     @Override

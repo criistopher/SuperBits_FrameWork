@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ItfBeanComIcone;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemNormal;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author Salvio
  */
-public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serializable {
+public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, ItfBeanComIcone, Serializable {
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;
@@ -163,6 +164,11 @@ public class UsuarioSistemaRoot extends ItemNormal implements ItfUsuario, Serial
     @Override
     public String getTipoUsuario() {
         return "UsuarioDoSistema";
+    }
+
+    @Override
+    public String geticone() {
+        return "fa vcard";
     }
 
 }

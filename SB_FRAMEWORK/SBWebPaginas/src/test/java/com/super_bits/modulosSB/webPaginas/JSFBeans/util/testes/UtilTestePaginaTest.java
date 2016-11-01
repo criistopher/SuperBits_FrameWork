@@ -38,4 +38,8 @@ public class UtilTestePaginaTest extends TesteJunit {
         SBCore.configurar(new ConfiguradorSBCoreWebPaginaTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
     }
 
+    @Test
+    public void testTestaConfigPaginaBasico() throws Exception {
+    }
+
 }

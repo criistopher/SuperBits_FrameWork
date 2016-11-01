@@ -22,7 +22,7 @@ public enum FabSBProjectProjetos implements ItfFabrica {
     GESTAO_ARQUIVOS,
     CONTROLE_USUARIOS_BASICO,
     MONITOR_REQUISITOS,
-    CRIADOR_CODIGO,
+    GERADOR_CODIGO,
     CRM,
     FINANCEIRO,
     ELEMENTAL;
@@ -64,7 +64,7 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 novoProjeto.setNome("Monitor de Requisitos");
                 novoProjeto.setDescricao("Monitora o desenvolvimento do sistema");
                 break;
-            case CRIADOR_CODIGO:
+            case GERADOR_CODIGO:
                 novoProjeto.setCliente(FabSBProjectClientes.SUPER_BITS_CORP.getRegistro());
                 novoProjeto.setNome("SBUsuariosPermissao");
                 novoProjeto.setDescricao("Cria, Fabricas de Ações, Estruturas de Tabela, e gera código referente");

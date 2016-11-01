@@ -423,6 +423,11 @@ public abstract class UtilSBCoreStrings {
         return byte1.toString();
     }
 
+    public static String getStringBy(String p) {
+
+        return p;
+    }
+
     /**
      *
      * Utiliza .replaceAll com regex para substituir um espaço por algum
@@ -565,6 +570,10 @@ public abstract class UtilSBCoreStrings {
 
     public static String getPrimeiraLetraMinuscula(String parametro) {
         return String.valueOf(parametro.charAt(0)).toLowerCase() + parametro.substring(1);
+    }
+
+    public static String getPrimeiraLetraMaiuscula(String parametro) {
+        return String.valueOf(parametro.charAt(0)).toUpperCase() + parametro.substring(1);
     }
 
     /**

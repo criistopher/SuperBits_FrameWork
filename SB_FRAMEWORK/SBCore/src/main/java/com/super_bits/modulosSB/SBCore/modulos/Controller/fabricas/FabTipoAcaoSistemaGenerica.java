@@ -4,8 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.TipoAcaoPadrao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 /**
  *
@@ -29,6 +31,28 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     CONTROLLER_REMOVER,
     CONTROLLER_DESATIVAR,
     GERENCIAR_DOMINIO;
+
+    public String getnomeXHTMLPadrao(ItfFabricaAcoes pFabAcao) {
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+                return "novo.xhtml";
+            case FORMULARIO_EDITAR:
+                return "editar.xhtml";
+            case FORMULARIO_PERSONALIZADO:
+                return "form" + UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) pFabAcao) + ".xhtml";
+            case FORMULARIO_VISUALIZAR:
+                return "visualizar.xhtml";
+            case FORMULARIO_LISTAR:
+                return "listar.xhtml";
+            case FORMULARIO_MODAL:
+                return "modal" + UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumEmMinusculo((Enum) pFabAcao) + ".xhtml";
+            case SELECAO_DE_ACAO:
+                return "selecao" + UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumEmMinusculo((Enum) pFabAcao) + ".xhtml";
+            case GERENCIAR_DOMINIO:
+                return "gerenciar.xhtml";
+        }
+        return null;
+    }
 
     @Override
     public TipoAcaoPadrao getRegistro() {
@@ -188,22 +212,15 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
             case FORMULARIO_VISUALIZAR:
             case FORMULARIO_LISTAR:
             case FORMULARIO_MODAL:
-
             case SELECAO_DE_ACAO:
                 return FabTipoAcaoBase.FORMULARIO;
             case CONTROLLER_SALVAR_EDICAO:
             case CONTROLLER_SALVAR_NOVO:
-
             case CONTROLLER_SALVAR_MODO_MERGE:
-
             case CONTROLLER_PERSONALIZADO:
-
             case CONTROLLER_ATIVAR_DESATIVAR:
-
             case CONTROLLER_ATIVAR:
-
             case CONTROLLER_REMOVER:
-
             case CONTROLLER_DESATIVAR:
                 return FabTipoAcaoBase.CONTROLLER;
             case GERENCIAR_DOMINIO:

@@ -1,5 +1,6 @@
 package com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,5 +25,7 @@ public @interface InfoTipoAcaoGestaoEntidade {
     public String descricao() default "";
 
     public String codigoJira() default "";
+
+    public FabIconeFontAwesome iconeFonteAnsowame() default FabIconeFontAwesome.ICONE_PERSONALIZADO;
 
 }

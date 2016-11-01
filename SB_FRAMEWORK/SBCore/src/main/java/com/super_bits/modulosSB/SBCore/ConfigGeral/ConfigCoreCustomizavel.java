@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreA
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfCentralMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBComAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfCentralComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.logeventos.ItfCentralEventos;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
@@ -31,6 +32,7 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     private Class<? extends ConfigPermissaoSBCoreAbstrato> classeConfigPermissao;
     private Class<? extends ItfServicoVisualizacao> classeVisualizacao;
     private Class<? extends ItfCentralDeArquivos> classeCentralDeArquivos;
+    private Class<? extends ItfCentralComunicacao> classeCentralComunicacao;
     private String nomeProjeto;
     private SBCore.ESTADO_APP estadoAPP;
     private String cliente;
@@ -251,6 +253,16 @@ public class ConfigCoreCustomizavel implements ItfConfiguracaoCoreCustomizavel {
     @Override
     public Class<? extends ItfCentralDeArquivos> getCentralDeArquivo() {
         return classeCentralDeArquivos;
+    }
+
+    @Override
+    public void setCentralComunicacao(Class<? extends ItfCentralComunicacao> pCentral) {
+        classeCentralComunicacao = pCentral;
+    }
+
+    @Override
+    public Class<? extends ItfCentralComunicacao> getCentralComunicacao() {
+        return classeCentralComunicacao;
     }
 
 }
