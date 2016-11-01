@@ -5,7 +5,6 @@
 package com.super_bits.modulosSB.webPaginas.TratamentoDeErros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabTipoUsuarioInteracao;
@@ -51,7 +50,6 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
     }
 
     @Override
-
     public List<ItfInfoErroSB> executarTestesAcoes() {
         List<ItfInfoErroSB> erros = new ArrayList<>();
 
