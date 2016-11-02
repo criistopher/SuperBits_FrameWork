@@ -104,7 +104,7 @@ public enum FabModelosPagina implements ItfFabrica {
             case FORMULARIO_PG_ENTIDADE_LISTAR:
                 mp.setNome("Conteúdo listar Automático");
                 mp.setDescricao("Apresenta listar automatico, não possui areas para serem devinidas, precisa ser usuaro em uma Pagina do tipo Entidade");
-                mp.setXhtmlVinculado("/resources/SBComp/template/basico/formularioEntidadeEditar.xhtml");
+                mp.setXhtmlVinculado("/resources/SBComp/template/basico/formularioEntidadeListar.xhtml");
                 break;
             case FORMULARIO_PG_ACAO_ATUAL:
                 mp.setNome("Formulario da ação Atual");

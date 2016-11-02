@@ -66,11 +66,13 @@ public abstract class MB_PaginaAtual implements Serializable {
 
             } else {
                 infoPagina.abrePagina();
-                if (infoPagina.getAcaoVinculada().getXhtml().equals("/site/home.xhtml")) {
-                    String paginaInicialDoGrupo = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
+                if (infoPagina.getAcaoVinculada() != null) {
+                    if (infoPagina.getAcaoVinculada().getXhtml().equals("/site/home.xhtml")) {
+                        String paginaInicialDoGrupo = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
 
-                    if (paginaInicialDoGrupo != null && !paginaInicialDoGrupo.equals("/site/home.xhtml")) {
-                        UtilSBWP_JSFTools.vaParaPagina(WebPaginasServlet.getAcaoComLinkByXHTML(paginaInicialDoGrupo).getUrlDeAcesso());
+                        if (paginaInicialDoGrupo != null && !paginaInicialDoGrupo.equals("/site/home.xhtml")) {
+                            UtilSBWP_JSFTools.vaParaPagina(WebPaginasServlet.getAcaoComLinkByXHTML(paginaInicialDoGrupo).getUrlDeAcesso());
+                        }
                     }
                 }
 

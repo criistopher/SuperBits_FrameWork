@@ -42,6 +42,7 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
     private final List<ItfAcaoDoSistema> acoes;
     private List<SessaoMenuSB> sessoes;
 
+    @Override
     public List<ItfAcaoDoSistema> getAcoes() {
         return (List) acoes;
     }
@@ -124,11 +125,11 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
 
     @Override
     public String getNomeCampo(FabCampos pInfocampo) {
-        return getNomeCampo(pInfocampo);
+        return null;
     }
 
     public Field getCampo(FabCampos pInfoCampo) {
-        return getCampo(pInfoCampo);
+        return null;
     }
 
     @Override
