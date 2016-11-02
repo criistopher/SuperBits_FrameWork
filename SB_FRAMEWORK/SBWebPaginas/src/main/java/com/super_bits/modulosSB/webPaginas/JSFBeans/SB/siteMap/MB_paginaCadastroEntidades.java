@@ -238,15 +238,24 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         }
 
         if (pEntidadeSelecionada != null) {
-            if (acaoSelecionada.isUmaAcaoFormulario() && !acaoSelecionada.getTipoAcaoGenerica().getRegistro().equals(FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR.getRegistro())) {
+            if (acaoSelecionada.isUmaAcaoFormulario()) {
 
-                int idEntidade = ((ItfBeanSimples) pEntidadeSelecionada).getId();
+                switch (acaoSelecionada.getTipoAcaoGenerica()) {
 
-                limparListaEEM();
+                    case FORMULARIO_EDITAR:
 
-                entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
+                    case FORMULARIO_VISUALIZAR:
 
-                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                        int idEntidade = ((ItfBeanSimples) pEntidadeSelecionada).getId();
+
+                        limparListaEEM();
+
+                        entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
+
+                        paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+
+                }
+
             }
         }
 

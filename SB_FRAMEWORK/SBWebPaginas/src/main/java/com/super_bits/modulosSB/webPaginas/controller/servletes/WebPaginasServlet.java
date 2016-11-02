@@ -215,10 +215,10 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
         } catch (Throwable erro) {
             System.out.println("Erro Reidenrizando pagina>>>" + recurso);
-            erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
+            //erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando forward de Recurso " + recurso, erro);
-            UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
+            //UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
 
         }
 
