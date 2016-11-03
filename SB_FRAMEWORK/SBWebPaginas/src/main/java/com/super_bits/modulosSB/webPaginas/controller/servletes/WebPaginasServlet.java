@@ -20,8 +20,8 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
-import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -47,7 +47,6 @@ import javax.servlet.http.HttpServletResponse;
 public class WebPaginasServlet extends HttpServlet implements Serializable {
 
     private static final Map<String, String> MAPA_RECURSOS = new HashMap<>();
-
     private static final Map<String, ItfB_Pagina> MAPA_PAGINAS = new HashMap<>();
     private static boolean mapaConfigurado = false;
 
@@ -57,7 +56,18 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     private InfoErroCritico erroCritico;
     public final static Map<String, AcaoComLink> MAPA_ACOESMANAGED_BEAN = new HashMap<>();
 
-    public void buildMapaRecurso() {
+    public static AcaoComLink getAcaoComLinkByXHTML(String pXhtml) {
+        if (!mapaConfigurado) {
+            buildMapaRecurso();
+        }
+        ItfB_Pagina paginaVinculada = MAPA_PAGINAS.get(pXhtml);
+        if (paginaVinculada == null) {
+            throw new UnsupportedOperationException("Nenguma pagina vinculada ao xhtml" + pXhtml + "Certifique que a pagina tenha sido declarada no sitemap");
+        }
+        return MAPA_ACOESMANAGED_BEAN.get(paginaVinculada.getAcaoVinculada().getNomeUnico());
+    }
+
+    private static void buildMapaRecurso() {
         if (!mapaConfigurado) {
 
             try {
@@ -205,11 +215,11 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
         } catch (Throwable erro) {
             System.out.println("Erro Reidenrizando pagina>>>" + recurso);
-            //  erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
+            erroCritico.setBeanErroCritico(new InfoErroCritico("Erro gerenado" + recurso, erro));
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando forward de Recurso " + recurso, erro);
-            //    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
-            //FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro executando forward de Recurso" + recurso, erro);
+            UtilSBWP_JSFTools.vaParaPaginadeErro("Erro reiderizando pagina");
+
         }
 
     }

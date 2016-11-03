@@ -35,7 +35,7 @@ public class UTILSBCoreDesktopApp {
      *
      * @param pMensagem
      */
-    public static void showMessage(ItfMensagem pMensagem) {
+    public static void showMessageNovaThread(ItfMensagem pMensagem) {
         new Thread(new EnviaMensagemThread(pMensagem)).start();
     }
 

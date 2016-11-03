@@ -23,8 +23,11 @@ public class LayoutsPaginas implements Serializable {
      * Mostra um formulário de ação atual deixando apenas o conteúdo e botões de
      * ação inferior para serem incluidos
      *
-     * Includes possíves: conteudo e botoesDeAcao
+     * Areas de interface possíves:
+     * <b>conteudo</b> <br>
+     * <b>botoesDeAcao </b><br>
      *
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
      *
      * /resources/SBComp/template/basico/formularioEntidadeAcaoAtual.xhtml
      *
@@ -40,7 +43,9 @@ public class LayoutsPaginas implements Serializable {
      * nescessários para execução dos comandos básicos,possui estrutura de topo,
      * conteúdo e rodapé
      *
-     * Includes possíveis: divConteudo e head      <br>
+     * Areas definidas posssíveis:  <br>
+     * <b>divConteudo </b>  <br>
+     * <b>head  </b>    <br>
      * Formulários incorporados: /site/topo.xhtml folhasDeEstiloBasicas.xhtml
      * /site/rodape.xhtml /site/rodape.xhtml     <br>
      *
@@ -57,7 +62,12 @@ public class LayoutsPaginas implements Serializable {
      *
      * O mesmo que o modelo geral, porem sem topo.xhtml e rodape.xhtml
      *
-     * Includes possíveis: divConteudo e head
+     * Areas definidas posssíveis:  <br>
+     * <b>divConteudo </b><br>
+     * <b>head </b><br>
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
+     *
+     *
      *
      * @see LayoutsPaginas#getModeloGeral()
      * @see FabModelosPagina#MODELO_GERAL_ANONIMO
@@ -73,8 +83,11 @@ public class LayoutsPaginas implements Serializable {
      * lado esquerdo superior, Um título com subtitulo proximo ao icone, da ação
      * atual e 2 areas para definir: conteudoDireita e conteudoCard
      *
-     * Includes possíveis: conteudoDireita e conteudoCard
+     * Areas definidas posssíveis:  <br>
      *
+     * <b>conteudoDireita </b> <br>
+     * <b>conteudoCard </b><br>
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
      *
      * @see FabModelosPagina#FORMULARIO_PG_ENTIDADE_ACAO_ATUAL
      * /resources/SBComp/template/basico/formularioAcaoAtual.xhtml
@@ -91,8 +104,13 @@ public class LayoutsPaginas implements Serializable {
      *
      *
      * Parametros ui: iconeConteudo                 <br>
-     * Includes possíveis: parametros(onde o iconeConteudo deve ser
-     * configurado),titulo,subtitulo,conteudoDireita,conteudoCard          <br>
+     * Areas definidas posssíveis:  <br>
+     * <b> parametros</b>(onde o iconeConteudo deve ser configurado) <br>
+     * <b>titulo, </b><br>
+     * <b>subtitulo,</b> <br>
+     * <b> conteudoDireita,</b> <br>
+     * <b>conteudoCard </b> <br>
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
      *
      *
      *
@@ -108,7 +126,10 @@ public class LayoutsPaginas implements Serializable {
 
     /**
      *
-     * Includes possíveis: conteudo
+     * Areas definidas posssíveis:  <br>
+     * <b>conteudo </b>
+     *
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
      *
      * @see FabModelosPagina#FORMULARIO_PG_ENTIDADE_LISTAR
      *
@@ -121,7 +142,13 @@ public class LayoutsPaginas implements Serializable {
     /**
      *
      *
-     * includes possívesi:conteudoDireita conteudoCard conteudoExtraCard
+     * Areas definidas posssíveis:  <br>
+     * <b>conteudoDireita </b><br>
+     * <b>conteudoCard </b><br>
+     * <b>conteudoExtraCard </b> <br>
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br> <br>
+     *
+     * /resources/SBComp/template/basico/conteudoEmBranco.xhtml
      *
      *
      * /resources/SBComp/template/basico/formularioAcaoAtual.xhtml
@@ -138,8 +165,9 @@ public class LayoutsPaginas implements Serializable {
      *
      * Não tem nada no conteúdo em branco por enquanto apenas um include.
      *
-     * includes posssíveis: conteudo
-     *
+     * Areas definidas posssíveis:  <br>
+     * <b> conteudo </b> <br>
+     * ex: * [ui:define name="conteudo"/] Meu conteudo [/ui:define] <br>
      * /resources/SBComp/template/basico/conteudoEmBranco.xhtml
      *
      * @see FabModelosPagina#CONTEUDO_EM_BRANCO

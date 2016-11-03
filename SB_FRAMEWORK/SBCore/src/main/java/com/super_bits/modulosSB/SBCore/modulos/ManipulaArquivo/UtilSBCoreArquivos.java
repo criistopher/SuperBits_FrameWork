@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -30,6 +31,25 @@ import org.apache.commons.io.FileUtils;
  *
  */
 public abstract class UtilSBCoreArquivos {
+
+    /**
+     *
+     * Recebe um caminho complento de arquivo como
+     * /home/supeBits/meuArquivo.txt, e cria o diretorio deste arquivo (no vaso
+     * /home/superBits seria criado
+     *
+     * @param pCaminhoArquivoOuDiretorio
+     * @return
+     */
+    public static boolean criarDiretorioParaArquivo(String pCaminhoArquivoOuDiretorio) {
+
+        String arquivo = UtilSBCoreStringNomeArquivosEDiretorios.getDiretorioArquivo(pCaminhoArquivoOuDiretorio);
+        File arq = new File(arquivo);
+        if (arq.exists()) {
+            return true;
+        }
+        return arq.mkdirs();
+    }
 
     public static boolean compactarParaZip(String arqSaida, String arqEntrada) {
         int TAMANHO_BUFFER = 4096; // 4kb
@@ -116,6 +136,12 @@ public abstract class UtilSBCoreArquivos {
         }
     }
 
+    /**
+     *
+     * @param origem Arquivo Origem
+     * @param destino Destino do arquivo que será copiado
+     * @return Verdadeiro se a operação acontecer com sucesso
+     */
     public static boolean copiarArquivos(String origem, String destino) {
 
         File src = new File(origem);

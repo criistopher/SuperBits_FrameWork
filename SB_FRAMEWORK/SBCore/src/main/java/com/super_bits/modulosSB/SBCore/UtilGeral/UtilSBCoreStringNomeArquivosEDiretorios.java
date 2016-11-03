@@ -26,11 +26,11 @@ public class UtilSBCoreStringNomeArquivosEDiretorios {
     }
 
     /**
-     * *(ele não certifica se o ultimo nome é um arquivo ou diretorio,
-     * simplismente retorna a ultima parte do diretorio)
+     * *(este método <b>não </b> certifica se o ultimo nome é um arquivo ou
+     * diretorio, simplismente <b>retorna a ultima parte do diretorio</b>)
      *
-     * A ideia do metodo é ser simples e rápido, pois um simples objeto File
-     * atenderia a solução
+     * A ideia do metodo é ser simples e rápido, você pode utilizar o objeto
+     * File do java para executar processamentos mais complexos
      *
      * @param pDiretorio
      * @return O nome do arquivo sem o diretorio
@@ -40,14 +40,14 @@ public class UtilSBCoreStringNomeArquivosEDiretorios {
     }
 
     /**
-     * *(ele não certifica se o ultimo nome é um arquivo ou diretorio,
-     * simplismente retorna a ultima parte do diretorio)
+     * este método <b>não</b> certifica se o ultimo nome é um arquivo ou
+     * diretorio, simplismente retorna o diretorio sem o nome do arquivo)
      *
      * @param pCaminhoCompleto
      * @return O diretorio do arquivo Sem o nome do arquivo
      */
     public static String getDiretorioArquivo(String pCaminhoCompleto) {
-        return UtilSBCoreDiretorios.getNomeArquivo(pCaminhoCompleto);
+        return pCaminhoCompleto.replace("/" + UtilSBCoreDiretorios.getNomeArquivo(pCaminhoCompleto), "");
     }
 
     /**

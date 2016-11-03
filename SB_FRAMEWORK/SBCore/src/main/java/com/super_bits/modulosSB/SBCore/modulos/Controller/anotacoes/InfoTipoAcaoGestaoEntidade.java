@@ -28,4 +28,6 @@ public @interface InfoTipoAcaoGestaoEntidade {
 
     public FabIconeFontAwesome iconeFonteAnsowame() default FabIconeFontAwesome.ICONE_PERSONALIZADO;
 
+    public boolean utilizarMesmoFormEdicao() default true;
+
 }

@@ -151,6 +151,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuario {
         dataHoraCriacao = new Date();
     }
 
+    @Override
     public String getXhtmlPaginaInicial() {
         return XhtmlPaginaInicial;
     }

@@ -15,7 +15,7 @@ public class CentramMensagemProgramadorMsgThread extends CentralDeMensagemAbstra
     @Override
     public void enviaMensagem(ItfMensagem pMensagem) {
 
-        UTILSBCoreDesktopApp.showMessage(pMensagem);
+        UTILSBCoreDesktopApp.showMessageNovaThread(pMensagem);
     }
 
 }

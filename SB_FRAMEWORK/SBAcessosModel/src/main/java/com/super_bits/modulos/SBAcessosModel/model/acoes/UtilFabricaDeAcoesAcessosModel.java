@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
@@ -425,14 +424,13 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             AcaoDoSistema novaAcao = null;
 
-            ItfModuloAcaoSistema modulo = UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao);
-            String diretorioBaseEntidade;
-
             String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjetoPorAnotacaoInfoClasse(pAcao.getEntidadeDominio());
-            ItfAcaoFormularioEntidade novaAcaoRefForm = null;
-            ItfAcaoController novaAcaoRefController = null;
-            AcaoGestaoEntidade acaoPrincipal = null;
+            ItfAcaoFormularioEntidade novaAcaoRefForm;
 
+            AcaoGestaoEntidade acaoPrincipal;
+            // Setar o id do metodo aqui??? #Todo pensar nessa ideia,
+            // afinal deve ser negado o direito de exeutar o código do sistema antes de criar os métodos do controller?
+            ItfAcaoController novaAcaoRefController;
             switch (pTipoAcaoGenerica) {
                 case FORMULARIO_NOVO_REGISTRO:
                     novaAcao = new AcaoFormularioEntidade(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
@@ -514,6 +512,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-save");
                     novaAcaoRefController = (ItfAcaoController) novaAcao;
+
                     break;
                 case CONTROLLER_ATIVAR_DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);

@@ -1,12 +1,14 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.WebPaginasServlet;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -66,12 +68,13 @@ public abstract class MB_PaginaAtual implements Serializable {
                 infoPagina.abrePagina();
                 if (infoPagina.getAcaoVinculada().getXhtml().equals("/site/home.xhtml")) {
                     String paginaInicialDoGrupo = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
+
                     if (paginaInicialDoGrupo != null && !paginaInicialDoGrupo.equals("/site/home.xhtml")) {
-                        UtilSBWP_JSFTools.carregaPagina(paginaInicialDoGrupo);
+                        UtilSBWP_JSFTools.vaParaPagina(WebPaginasServlet.getAcaoComLinkByXHTML(paginaInicialDoGrupo).getUrlDeAcesso());
                     }
                 }
 
-                System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getTagUsada());
+                // System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getRecursoXHTML());
             }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual" + getSiteMap().getPaginasOffline(), t);

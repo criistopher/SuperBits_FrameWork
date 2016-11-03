@@ -28,9 +28,7 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-
         AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
-
         return acao;
 
     }

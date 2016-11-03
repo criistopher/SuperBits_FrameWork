@@ -20,7 +20,7 @@ public class UTILSBCoreDesktopAppTest {
 
     @Test
     public void testShowMessage() {
-        UTILSBCoreDesktopApp.showMessage(new Mensagem(FabTipoUsuarioInteracao.USUARIO, FabMensagens.ALERTA, "teste"));
+        UTILSBCoreDesktopApp.showMessageNovaThread(new Mensagem(FabTipoUsuarioInteracao.USUARIO, FabMensagens.ALERTA, "teste"));
     }
 
     @Test

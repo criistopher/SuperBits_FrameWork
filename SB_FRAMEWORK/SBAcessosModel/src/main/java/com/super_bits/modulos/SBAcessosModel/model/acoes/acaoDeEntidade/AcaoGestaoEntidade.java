@@ -9,10 +9,12 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 import com.super_bits.modulosSB.SBCore.modulos.view.InfoPagina;
+import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -45,8 +47,14 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse, String pXhtml) {
 
         super(pClasse, pFabrica, pXhtml);
-
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
+        try {
+            Field campo = pFabrica.getClass().getField(pFabrica.toString());
+            InfoTipoAcaoGestaoEntidade acaoGestao = campo.getAnnotation(InfoTipoAcaoGestaoEntidade.class);
+            setUtilizarMesmoFormEditarInserir(acaoGestao.utilizarMesmoFormEdicao());
+        } catch (Throwable t) {
+
+        }
     }
 
     public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
@@ -69,7 +77,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         return utilizarMesmoFormEditarInserir;
     }
 
-    public void setUtilizarMesmoFormEditarInserir(boolean utilizarMesmoFormEditarInserir) {
+    public final void setUtilizarMesmoFormEditarInserir(boolean utilizarMesmoFormEditarInserir) {
         this.utilizarMesmoFormEditarInserir = utilizarMesmoFormEditarInserir;
     }
 

@@ -20,13 +20,15 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     TECNOLOGIA_BATERIA,
     SISTEMA_HOME,
     SISTEMA_ACESSO_NEGADO,
-    SISTEMA_CARTAO_DE_ACESSO;
+    SISTEMA_CARTAO_DE_ACESSO,
+    COMUNICACAO_OK,
+    COMNUNICACAO_NAO_ESTA_OK;
 
     @Override
     public itfIcone getIcone() {
 
         IconeSistema icone = new IconeSistema();
-        icone.setId(this.ordinal() + 1);
+        icone.setId(this.name().hashCode());
         switch (this) {
             case ICONE_PERSONALIZADO:
                 icone.setNome("Icone indefinido");
@@ -48,7 +50,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setTagHtml("fa fa-upload");
                 break;
             case REG_BAIXAR:
-                icone.setNome("fa fa-download");
+                icone.setTagHtml("fa fa-download");
                 icone.setNome("Registro - Baixar");
                 break;
             case REG_GERENCIAR:
@@ -60,7 +62,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setTagHtml("fa fa-eye");
                 break;
             case ESCRITORIO_DOCUMENTO_TEXTO:
-                icone.setNome("fa-file-word-o");
+                icone.setNome("fa fa-file-word-o");
                 icone.setNome("Escritorio documento texto");
 
                 break;
@@ -77,7 +79,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setTagHtml("fa fa-btc");
                 break;
             case TECNOLOGIA_BATERIA:
-                icone.setTagHtml("fa-battery-three-quarters");
+                icone.setTagHtml("fa fa-battery-three-quarters");
                 icone.setNome("Tecnologia ");
                 break;
             case REG_SALVAR:
@@ -86,7 +88,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 break;
             case REG_AGRUPAR_REGISTROS:
                 icone.setNome("Registro -Agrupar");
-                icone.setTagHtml("fa-th-large");
+                icone.setTagHtml("fa fa-th-large");
                 break;
             case SISTEMA_HOME:
                 icone.setNome("Sistema Home");
@@ -99,6 +101,14 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
             case SISTEMA_CARTAO_DE_ACESSO:
                 icone.setNome("Sistema - Cartão de Acesso");
                 icone.setTagHtml("fa fa-address-card-o");
+                break;
+            case COMUNICACAO_OK:
+                icone.setNome("Ok");
+                icone.setTagHtml("fa fa-thumbs-o-up");
+                break;
+            case COMNUNICACAO_NAO_ESTA_OK:
+                icone.setNome("Não OK");
+                icone.setNome("fa fa-thumbs-o-down");
                 break;
             default:
 
