@@ -24,8 +24,8 @@ public class MapaSubstituicao {
     public String substituirEmString(String pString) {
         String novaString = pString;
         for (String palavraChave : mapaSubstituicao.keySet()) {
-            System.out.println("Substituindo [" + palavraChave + "] por" + mapaSubstituicao.get(this));
-            novaString = novaString.replaceAll("[" + palavraChave + "]", mapaSubstituicao.get(this));
+            System.out.println("Substituindo [" + palavraChave + "] por" + mapaSubstituicao.get(palavraChave));
+            novaString = novaString.replaceAll("[" + palavraChave + "]", mapaSubstituicao.get(palavraChave));
         }
         return novaString;
 

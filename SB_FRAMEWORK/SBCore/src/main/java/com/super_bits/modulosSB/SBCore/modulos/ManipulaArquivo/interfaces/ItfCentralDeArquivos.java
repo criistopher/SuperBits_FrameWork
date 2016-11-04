@@ -4,9 +4,10 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces;
 
+import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -196,13 +197,13 @@ public interface ItfCentralDeArquivos {
      */
     public List<String> getNomesPastasCategoriasItem(ItfBeanSimples item);
 
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo);
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo);
 
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo, String Categoria);
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String Categoria);
 
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo);
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo);
 
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo, String Categoria);
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String Categoria);
 
     /**
      *
@@ -211,5 +212,9 @@ public interface ItfCentralDeArquivos {
      * @param categoria
      */
     public void salvarImagem(ItfBeanSimples entidade, InputStream foto, String categoria);
+
+    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable;
+
+    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao);
 
 }

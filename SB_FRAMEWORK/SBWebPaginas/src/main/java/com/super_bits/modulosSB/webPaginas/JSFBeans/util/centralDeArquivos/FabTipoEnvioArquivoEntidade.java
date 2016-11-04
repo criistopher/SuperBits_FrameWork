@@ -18,8 +18,6 @@ public enum FabTipoEnvioArquivoEntidade implements ItfFabTipoComponenteVisual {
     @InfoComponenteVisual(classesCSS = "")
     ARQUIVO_DA_ENTIDADE,
     @InfoComponenteVisual(classesCSS = "")
-    ARQUIVO_CRIANDO_NOVA_ENTIDADE,
-    @InfoComponenteVisual(classesCSS = "")
     IMAGEM_REPRESENTANTE_ENTIDADE;
 
     @Override

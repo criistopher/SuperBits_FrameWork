@@ -7,6 +7,7 @@ package com.super_bits.modulosSB.webPaginas.arquivosDoProjeto;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoEmpacotamento;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.CentralDeArquivosAbstrata;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
@@ -217,12 +218,12 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
     }
 
     @Override
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo) {
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo, String categoria) {
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String categoria) {
         if (categoria == null) {
             return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
         } else {
@@ -232,15 +233,25 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
     }
 
     @Override
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo) {
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
 
         return getEndrRemotoRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
 
     }
 
     @Override
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo, String categoria) {
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String categoria) {
         return getEndrRemotoRecursosDoObjeto(pItem.getClass()) + "/ " + categoria + "/" + nomeArquivo;
+    }
+
+    @Override
+    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

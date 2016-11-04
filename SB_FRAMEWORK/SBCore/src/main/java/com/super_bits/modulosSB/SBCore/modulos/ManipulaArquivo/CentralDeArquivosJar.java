@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoEmpacotamento;
+import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
@@ -122,22 +123,22 @@ public class CentralDeArquivosJar extends CentralDeArquivosAbstrata {
     }
 
     @Override
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo) {
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
         return textoPadrao;
     }
 
     @Override
-    public String getEndrLocalArquivoItem(ItemSimples pItem, String nomeArquivo, String Categoria) {
+    public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String Categoria) {
         return textoPadrao;
     }
 
     @Override
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo) {
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
         return textoPadrao;
     }
 
     @Override
-    public String getEndrRemotoArquivoItem(ItemSimples pItem, String nomeArquivo, String Categoria) {
+    public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String Categoria) {
         return textoPadrao;
     }
 
@@ -149,6 +150,16 @@ public class CentralDeArquivosJar extends CentralDeArquivosAbstrata {
     @Override
     public String getEndrRemotoRecursosItem(ItfBeanSimples item) {
         return textoPadrao;
+    }
+
+    @Override
+    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
