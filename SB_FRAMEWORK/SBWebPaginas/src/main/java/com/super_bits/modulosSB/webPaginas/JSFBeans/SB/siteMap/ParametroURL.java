@@ -46,9 +46,9 @@ public final class ParametroURL implements ItfParametroTela {
         if (ptipo == TIPO_URL.ENTIDADE) {
 
             try {
-                throw new ErroSBCriticoWeb("Criação de parametro de URL do tipo entidade sem especificar a Classe");
+                throw new ErroSBCriticoWeb("Criação de parametro de URL do tipo entidade sem especificar a Classe, Utilize o outro construtor deste objeto");
             } catch (ErroSBCriticoWeb e) {
-                FabErro.PARA_TUDO.paraSistema("Constructor Parametro URL" + pNome, e);
+                FabErro.SOLICITAR_REPARO.paraSistema("Constructor Parametro URL" + pNome, e);
             }
 
         }

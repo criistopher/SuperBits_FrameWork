@@ -112,7 +112,13 @@ public abstract class MB_SiteMapa implements Serializable {
 
                     if (acao != null) {
                         paginasInjetadas.put(acao.getComoGestaoEntidade().getXhtml(), campo);
+
+                        if (paginasOffline.get(acao.getComoFormulario().getXhtml()) != null) {
+                            throw new UnsupportedOperationException("Uma pagina vinculada a ação "
+                                    + acao.getNomeUnico() + "Já foi adicionda");
+                        }
                         paginasOffline.put(acao.getComoGestaoEntidade().getXhtml(), (ItfB_Pagina) campo.getType().newInstance());
+
                     } else {
                         throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
                     }
@@ -124,26 +130,6 @@ public abstract class MB_SiteMapa implements Serializable {
             SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
         }
 
-    }
-
-    protected void addPaginaOnEOFFLine(B_Pagina pPagina) {
-
-        paginasOffline.put(pPagina.getNomeCurto(), pPagina);
-    }
-
-    protected void addPaginaOffline(ItfB_Pagina pPagina) {
-
-        if (paginasOffline.get(pPagina.getNomeCurto()) != null) {
-            throw new UnsupportedOperationException("A pagina "
-                    + pPagina.getClass().getSimpleName()
-                    + " não pôde ser adicionada pois a tag: "
-                    + pPagina.getNomeCurto()
-                    + " já foi utilizada em " + paginasOffline.get(pPagina.getNomeCurto()).getClass().getSimpleName()
-                    + " -->" + paginasOffline.get(pPagina.getNomeCurto()).getTitulo());
-
-        }
-
-        paginasOffline.put(pPagina.getNomeCurto(), pPagina);
     }
 
     public Collection<ItfB_Pagina> getPaginasOfflineEmLista() {

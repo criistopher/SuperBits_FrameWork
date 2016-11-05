@@ -37,7 +37,7 @@ public class ServicoVisualizacaoSemVisualizacao extends ServicoVisualizacaoAbstr
     @Override
     public String getCaminhoXhtmlItemCard(Class pEntidade) {
 
-        return "/resources/visualizacao/" + pEntidade + "/" + pEntidade + ".xhtml";
+        return "/resources/visualizacao/" + pEntidade + "/" + pEntidade.getSimpleName() + ".xhtml";
     }
 
     @Override

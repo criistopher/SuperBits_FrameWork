@@ -259,20 +259,21 @@ public abstract class SBPersistencia {
                     UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
 
                     primeiraConexao = UtilSBPersistencia.getNovoEM();
+
+                    if (fabricasRegistrosIniciais != null) {
+                        for (Class classe : fabricasRegistrosIniciais) {
+                            UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, primeiraConexao, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                        }
+                    }
+
+                    configurador.criarBancoInicial();
+                    compilaBanco();
                     primeiraConexao.close();
                 } catch (Throwable t) {
                     UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, String.valueOf(0000));
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao construir banco de dados", t);
                     throw new UnsupportedOperationException("Impossível carregar o banco pela primeira vez, cheque as configurações do entityManager");
                 }
-                if (fabricasRegistrosIniciais != null) {
-                    for (Class classe : fabricasRegistrosIniciais) {
-                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, primeiraConexao, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
-                    }
-                }
-
-                configurador.criarBancoInicial();
-                compilaBanco();
 
                 //senão houve alterção no banco
             } else {

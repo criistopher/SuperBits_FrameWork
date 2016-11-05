@@ -70,12 +70,12 @@ public abstract class UtilSBPersistenciaFabricas {
         switch (pTipoOrdem) {
             case ORDERNAR_POR_ID:
                 for (Object entidade : listaOrdenadaPorID(listaRegistros(pFabrica))) {
-                    UtilSBPersistencia.mergeRegistro(entidade, pEM);
+                    persistir(entidade, pEM, pFabrica);
                 }
                 break;
             case ORDERNAR_POR_ORDEM_DE_DECLARCAO:
                 for (Object entidade : listaRegistros(pFabrica)) {
-                    UtilSBPersistencia.mergeRegistro(entidade, pEM);
+                    persistir(entidade, pEM, pFabrica);
                 }
                 break;
             default:
@@ -83,5 +83,11 @@ public abstract class UtilSBPersistenciaFabricas {
 
         }
 
+    }
+
+    private static void persistir(Object entidade, EntityManager pEm, Class pFabrica) {
+        if (UtilSBPersistencia.mergeRegistro(entidade, pEm) == null) {
+            throw new UnsupportedOperationException("Erro Iniciando Fabricas de registro iniciais" + pFabrica.getClass().getSimpleName() + " " + entidade.getClass().getSimpleName());
+        }
     }
 }

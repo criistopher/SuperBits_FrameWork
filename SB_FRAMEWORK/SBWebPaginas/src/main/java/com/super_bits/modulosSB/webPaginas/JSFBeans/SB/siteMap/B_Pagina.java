@@ -461,7 +461,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             System.out.println("definindo link padrão para" + pr.getNome() + " valor" + pr.getValor() + "padrao" + pr.getValorPadrao());
             Object valorParametro = pr.getValor();
             if (valorParametro == null) {
-                FabErro.PARA_TUDO.paraSistema("Parametro da pagina  setado como nulo,em " + this.getClass().getName() + "- " + pr.getNome() + "  o Valor padrão é obrigatório ", null);
+                FabErro.SOLICITAR_REPARO.paraSistema("Parametro da pagina  setado como nulo,em " + this.getClass().getName() + "- " + pr.getNome() + "  o Valor padrão é obrigatório ", null);
 
             } else if (pr.getTipoParametro() == ItfParametroTela.TIPO_URL.ENTIDADE) {
                 try {
@@ -469,7 +469,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                     camada = UtilSBCoreStrings.makeStrUrlAmigavel(camada);
                 } catch (Exception e) {
 
-                    FabErro.PARA_TUDO.paraSistema("IMPOSSÍVEL OBTER O VALOR DO PARAMETRO DE URL DA ENTIDADE " + pr.getNome() + "em " + this.getClass().getSimpleName(), e);
+                    FabErro.SOLICITAR_REPARO.paraSistema("IMPOSSÍVEL OBTER O VALOR DO PARAMETRO DE URL DA ENTIDADE " + pr.getNome() + "em " + this.getClass().getSimpleName(), e);
                 }
             } else {
                 camada = UtilSBCoreStrings.makeStrUrlAmigavel((String) valorParametro);

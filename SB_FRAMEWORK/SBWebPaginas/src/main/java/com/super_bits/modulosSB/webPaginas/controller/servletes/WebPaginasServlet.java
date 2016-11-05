@@ -21,7 +21,6 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -84,6 +83,9 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     List<String> tags = pg.getTags();
                     MAPA_PAGINAS.put(pg.getRecursoXHTML(), pg);
                     List<String> tagsDaPagina = pg.getTags();
+                    if (MAPA_RECURSOS.get(key) != null) {
+                        throw new UnsupportedOperationException("A tag" + key + " já foi utilizada para pagina" + MAPA_RECURSOS.get(key).getClass().getSimpleName());
+                    }
                     MAPA_RECURSOS.put(key, pg.getRecursoXHTML());
                     MAPA_RECURSOS.put(pg.getNomeCurto(), pg.getRecursoXHTML());
                     Logger.getGlobal().log(Level.INFO, "Pagina {0} tag{1}", new Object[]{pg.getRecursoXHTML(), pg.getNomeCurto()});
