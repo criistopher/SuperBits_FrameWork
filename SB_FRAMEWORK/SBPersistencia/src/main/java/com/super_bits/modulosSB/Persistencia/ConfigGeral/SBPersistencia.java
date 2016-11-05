@@ -253,17 +253,24 @@ public abstract class SBPersistencia {
                 }
                 limparBanco();
                 propriedades.put("hibernate.hbm2ddl.auto", "create-drop");
-                emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
-                UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
+                EntityManager primeiraConexao = null;
+                try {
+                    emFacturePadrao = Persistence.createEntityManagerFactory(nomeFactureManager, propriedades);
+                    UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
 
-                EntityManager executor = UtilSBPersistencia.getNovoEM();
-
+                    primeiraConexao = UtilSBPersistencia.getNovoEM();
+                    primeiraConexao.close();
+                } catch (Throwable t) {
+                    UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, String.valueOf(0000));
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao construir banco de dados", t);
+                    throw new UnsupportedOperationException("Impossível carregar o banco pela primeira vez, cheque as configurações do entityManager");
+                }
                 if (fabricasRegistrosIniciais != null) {
                     for (Class classe : fabricasRegistrosIniciais) {
-                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, executor, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                        UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, primeiraConexao, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
                     }
                 }
-                executor.close();
+
                 configurador.criarBancoInicial();
                 compilaBanco();
 
@@ -315,7 +322,16 @@ public abstract class SBPersistencia {
         if (!script.exists()) {
             throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
         }
-        String retornoApagaBanco = UtilSBCoreShellBasico.executeCommand(caminhosScript);
+        String retornoApagaBanco = "";
+        try {
+            retornoApagaBanco = UtilSBCoreShellBasico.executeCommand(caminhosScript);
+        } catch (Throwable t) {
+            if (!t.getMessage().contains("doesn't exist")) {
+                throw new UnsupportedOperationException("Ocorreu um erro inesperado" + t.getMessage(), t);
+            } else {
+                retornoApagaBanco = "dropped (não existia o banco)";
+            }
+        }
         System.out.println("Retorno Apaga banco=" + retornoApagaBanco);
         if (!retornoApagaBanco.contains("dropped")) {
             throw new UnsupportedOperationException("A palavra dropped não apareceu no retorno do comando apagaBanco.sh que integra as boas práticas de Devops do frameWork" + retornoApagaBanco);
