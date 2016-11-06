@@ -43,7 +43,7 @@
         <attribute>
             <name>idUpdate</name>
             <description>
-              <![CDATA[    Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
+              <![CDATA[ Id do componente que deve ser atualizado (Nao precisa ser o caminho completo)
                 O Sistema utilizará o pgUtil.makeCaminhoCompletoID(idUpdate) ]]>
             </description>
             <type>java.lang.String</type>
@@ -61,13 +61,45 @@
 
     </tag>
 
+    <tag>
+        <tag-name>camposDoGrupo</tag-name>
+        <source>resources/tagLib/tags/com/sb/camposDoGrupo.xhtml</source>
+        <attribute>
+            <description> <![CDATA[ Entidade referente]]></description>
+            <name>entidade</name>
+            <required>true</required>
+            <type>com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples</type>
+        </attribute>
 
+        <attribute>
+            <description> <![CDATA[ Entidade referente]]></description>
+            <name>grupo</name>
+            <required>true</required>
+            <type>com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos</type>
+        </attribute>
+
+        <attribute>
+            <description> <![CDATA[ Se true desativiva a edição]]></description>
+            <name>desabilitarEdicao</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+
+        <attribute>
+            <description>
+             <![CDATA[     O layout do campo, que podem ser: resumido,esquerda,superior,e automatico]]>
+            </description>
+            <name>layoutCampo</name>
+            <required>false</required>
+            <type>com.super_bits.view.fabricasCompVisual.ItfComponenteVisualSB</type>
+        </attribute>
+    </tag>
 
     <tag>
         <tag-name>inputSB</tag-name>
         <source>resources/tagLib/tags/com/sb/inputSB.xhtml</source>
         <attribute>
-            <description> <![CDATA[ Objeto do tipo campo instanciado]]></description>
+            <description> <![CDATA[ Campo Instanciado (Obtido por item.getcampoNyNameOuAnotacao('nomeDoCampo')]]></description>
             <name>registro</name>
             <required>true</required>
             <type>com.super_bits.modulosSB.SBCore.InfoCampos.campo.ItfCampoInstanciado</type>
@@ -135,8 +167,6 @@
             <type>java.util.Collection</type>
         </attribute>
 
-
-
         <attribute>
             <description> <![CDATA[ Informando um metodo quando alterar, o método será executado,
                 este metodo pode ser utilizado em conjunto com o idAtualizarOnChange,
@@ -154,10 +184,6 @@
             <required>true</required>
             <type>java.lang.Boolean</type>
         </attribute>
-
-
-
-
 
     </tag>
 

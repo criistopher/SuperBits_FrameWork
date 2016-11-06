@@ -13,6 +13,8 @@ import java.util.InputMismatchException;
 public abstract class UtilSBCoreValidadorGoverno {
 
     public static boolean validaCNPJ(String CNPJ) {
+
+        CNPJ = UtilSBCoreStrings.getNumericosDaString(CNPJ);
         //    considera-se erro CNPJ's formados por uma sequencia de numeros iguais
         if (CNPJ.equals("0000000000000") || CNPJ.equals("11111111111111")
                 || CNPJ.equals("22222222222222") || CNPJ.equals("33333333333333")

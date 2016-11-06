@@ -959,8 +959,30 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     }
 
     public static Object getRegistroByNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
+        if (parametro == null) {
+            return null;
+        }
+        String[] valores = parametro.split("-");
 
-        return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, parametro);
+        String texto = valores[0];
+        Integer codigo = null;
+        try {
+            if (valores.length > 1) {
+                codigo = Integer.parseInt(valores[1]);
+            }
+        } catch (Throwable t) {
+            codigo = null;
+        }
+
+        if (codigo != null) {
+            return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.ID, codigo);
+        } else {
+            Object valor = selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, texto);
+            if (valor == null) {
+                return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.ID, texto);
+            }
+        }
+        return null;
     }
 
     /**

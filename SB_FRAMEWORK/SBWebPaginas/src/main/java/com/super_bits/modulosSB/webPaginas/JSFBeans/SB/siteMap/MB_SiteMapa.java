@@ -55,7 +55,7 @@ public abstract class MB_SiteMapa implements Serializable {
             B_Pagina erroCritico = new PaginaSimples("EC",
                     "/resources/SBComp/SBSystemPages/erroCriticoDeSistema.xhtml", tags);
             erroCritico.addTag("erroCritico");
-            erroCritico.addParametro(new ParametroURL("mensagem",
+            erroCritico.addParametro(new ParametroURL(true, "mensagem",
                     "Ocorreu um erro Crítico de sistema", ItfParametroTela.TIPO_URL.TEXTO));
             paginasDoSistema.put(erroCritico.getRecursoXHTML(), erroCritico);
 
@@ -64,7 +64,7 @@ public abstract class MB_SiteMapa implements Serializable {
                     "/resources/SBComp/SBSystemPages/erroSQLInfo.xhtml", tagsErroSQL);
             erroSQL.addTag("erroSQLInfo");
 
-            erroSQL.addParametro(new ParametroURL("mensagem",
+            erroSQL.addParametro(new ParametroURL(true, "mensagem",
                     "ocorreu um erro de informações de SQL", ItfParametroTela.TIPO_URL.TEXTO));
             paginasDoSistema.put(erroSQL.getRecursoXHTML(), erroSQL);
 

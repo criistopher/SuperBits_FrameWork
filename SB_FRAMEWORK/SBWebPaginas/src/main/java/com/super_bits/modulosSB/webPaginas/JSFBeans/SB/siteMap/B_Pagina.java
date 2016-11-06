@@ -474,7 +474,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     private void makeURLPadrao() {
-
+        boolean redirecionarSemParametro = false;
         String url = SBWebPaginas.getURLBase();
 
         String tagURL;
@@ -492,8 +492,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             System.out.println("definindo link padrão para" + pr.getNome() + " valor" + pr.getValor() + "padrao" + pr.getValorPadrao());
             Object valorParametro = pr.getValor();
             if (valorParametro == null) {
-                FabErro.SOLICITAR_REPARO.paraSistema("Parametro da pagina  setado como nulo,em " + this.getClass().getName() + "- " + pr.getNome() + "  o Valor padrão é obrigatório ", null);
-
+                if (pr.isParametroObrigatorio()) {
+                    redirecionarSemParametro = true;
+                    FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Parametro da pagina  setado como nulo,em " + this.getClass().getName() + "- " + pr.getNome() + "  o <b>Valor padrão deste parametro é obrigatório</> ", null);
+                }
             } else if (pr.getTipoParametro() == ItfParametroTela.TIPO_URL.ENTIDADE) {
                 try {
                     camada = ((ItfBeanSimples) valorParametro).getNomeUnicoSlug();
@@ -502,12 +504,14 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
                     FabErro.SOLICITAR_REPARO.paraSistema("IMPOSSÍVEL OBTER O VALOR DO PARAMETRO DE URL DA ENTIDADE " + pr.getNome() + "em " + this.getClass().getSimpleName(), e);
                 }
-            } else {
+            } else if (camada != null) {
                 camada = UtilSBCoreStrings.makeStrUrlAmigavel((String) valorParametro);
             }
 
             System.out.println("camada adcionada=" + camada);
-            url = url + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(camada);
+            if (camada != null) {
+                url = url + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(camada);
+            }
         }
 
         setUrlPadrao(url + "/.wp");
@@ -604,7 +608,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     public void addParametro(String pNome, String pValorPadrao, ItfParametroTela.TIPO_URL ptipo) {
         getMapaParametros().put(pNome,
-                new ParametroURL(pNome, pValorPadrao, ptipo));
+                new ParametroURL(true, pNome, pValorPadrao, ptipo));
     }
 
     public void addParametro(ParametroURL pParametro) {

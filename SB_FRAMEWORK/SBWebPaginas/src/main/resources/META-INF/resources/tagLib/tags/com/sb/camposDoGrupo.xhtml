@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:repeat value="#{grupo.campos}" var="camp"  varStatus="recnum"  >
+        <div class="Container33 Responsive" style="position: relative">
+            .
+            #{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).getComponenteDiferenciado(layoutCampoEspecial).xhtmlJsfCaminhoRelativo}
+            <ui:include
+                src="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).getComponenteDiferenciado(layoutCampoEspecial).xhtmlJsfCaminhoRelativo}" >
+                <ui:param name="layout" value="#{layoutCampo}"/>
+                <ui:param name="registro" value="#{registro}" />
+                <ui:param name="componente" value="#{registro.getComponenteDiferenciado(layoutCampoEspecial)}"  />
+                <ui:param name="prefixoID" value="#{registro.prefixoUnicoParaIDHtml}"  />
+                <ui:param name="valor" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).valor}"/>
+                <ui:param name="obrigatorio" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).obrigatorio}"/>
+                <ui:param name="nomeItem" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).label}"/>
+                <ui:param rendered="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).umValorComLista}" name="lista" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).listaDeOpcoes}"/>
+                <ui:param name="regex" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).validacaoRegex}" rendered="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).temValidacaoRegex}"/>
+                <ui:param name="valorMaximo" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).valorMaximo}" rendered="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).temValidacaoMaximo}"/>
+                <ui:param name="valorMinimo" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).valorMinimo}" rendered="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).temValidacaoMinimo}"/>
+                <ui:param name="mascara" value="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).mascaraJqueryMode}" rendered="#{entidade.getCampoByNomeOuAnotacao(camp.caminhoSemNomeClasse).temMascara}"/>
+            </ui:include>
+
+
+
+        </div>
+    </ui:repeat>
+</html>
+
+
+
+
+
+
+

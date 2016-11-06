@@ -6,11 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:decorate template="#{layout.xhtmlJsfCaminhoRelativo}">
+    <ui:decorate template="#{layoutCampo.xhtmlJsfCaminhoRelativo}">
         <ui:define name="input">
-
-
-
             <p:password  value="#{registro.valor}"
 
                          class=" campoResponsivo  TexAlCenter #{componente.classeCSS}"
@@ -21,7 +18,7 @@
                          validatorMessage="O valor informado no campo #{label} não é valido! A senha precisa conter 6 caractéres"
                          promptLabel="Digite uma senha segura"
                          weakLabel="Você pode melhorar esta senha"
-                         goodLabel="Esta senha é uma boa senha, você pode melhora-la adcionando numeros, caracteres especiais e letras"
+                         goodLabel="Esta senha é uma boa senha,nós podemos aceita-la, porém você pode melhora-la adcionando numeros, caracteres especiais e letras"
                          strongLabel="Parabéns, esta senha é muito difícil de ser quebrada"
                          required="#{obrigatorio}"
                          requiredMessage="O campo #{label} não foi informado! "
