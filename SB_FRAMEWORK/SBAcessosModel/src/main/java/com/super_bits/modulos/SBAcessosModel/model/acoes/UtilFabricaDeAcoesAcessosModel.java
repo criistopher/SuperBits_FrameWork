@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -189,15 +190,15 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
     }
 
     private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoController pAnotacaoController, Class pEntidadeVinculada) {
-        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoController.nomeAcao(), pAnotacaoController.descricao(), pAnotacaoController.precisaPermissao());
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoController.nomeAcao(), pAnotacaoController.descricao(), pAnotacaoController.precisaPermissao(), pEntidadeVinculada);
         configurarValorIconeAnotacao(pAcao, pAnotacaoController.icone(), pAnotacaoController.iconeFonteAnsowame(), null);
         configurarValorFormularioAnotacao(pAcao, pAnotacaoController.xhtmlDaAcao());
         configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoController.codigoJira());
     }
 
     private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoFormulario pAnotacaoFormulario, Class pEntidadeVinculada) {
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoFormulario.nomeAcao(), pAnotacaoFormulario.descricao(), pAnotacaoFormulario.precisaPermissao(), pEntidadeVinculada);
         configuraValoresCampos(pAcao, pAnotacaoFormulario.campos());
-        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoFormulario.nomeAcao(), pAnotacaoFormulario.descricao(), pAnotacaoFormulario.precisaPermissao());
         configurarValorIconeAnotacao(pAcao, pAnotacaoFormulario.icone(), pAnotacaoFormulario.iconeFonteAnsowame(), null);
         configurarValorFormularioAnotacao(pAcao, pAnotacaoFormulario.xhtmlDaAcao());
         configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoFormulario.codigoJira());
@@ -222,7 +223,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoGestaoEntidade pAnotacaoGestao, Class pEntidadeVinculada) {
 
-        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoGestao.nomeAcao(), pAnotacaoGestao.descricao(), pAnotacaoGestao.precisaPermissao());
+        configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoGestao.nomeAcao(), pAnotacaoGestao.descricao(), pAnotacaoGestao.precisaPermissao(), pEntidadeVinculada);
         configurarValorIconeAnotacao(pAcao, pAnotacaoGestao.icone(), pAnotacaoGestao.iconeFonteAnsowame(), pEntidadeVinculada);
         configurarValorFormularioAnotacao(pAcao, pAnotacaoGestao.xhtmlDaAcao());
         configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoGestao.codigoJira());
@@ -258,13 +259,20 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
-    private static void configurarValorBasicoAcaoAnotacao(AcaoDoSistema pAcaoDoSistema, String pNomeAcao, String pDescricao, boolean pAcessoPermitido) {
+    private static void configurarValorBasicoAcaoAnotacao(AcaoDoSistema pAcaoDoSistema, String pNomeAcao, String pDescricao, boolean pAcessoPermitido, Class classeEntidade) {
 
         if (pNomeAcao != null && pNomeAcao.length() > 2) {
             pAcaoDoSistema.setNomeAcao(pNomeAcao);
         }
         if (pDescricao != null && pDescricao.length() > 2) {
             pAcaoDoSistema.setDescricao(pDescricao);
+        }
+
+        if (pAcaoDoSistema.isUmaAcaoDeEntidade()) {
+            if (pAcaoDoSistema.isUmaAcaoFormulario()) {
+                pAcaoDoSistema.getComoFormularioEntidade().setClasseRelacionada(classeEntidade);
+            }
+
         }
         pAcaoDoSistema.setPrecisaPermissao(pAcessoPermitido);
 
@@ -279,7 +287,14 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     if (cp.equals("")) {
                         throw new UnsupportedOperationException("Existe um campo em branco (igual a: [ \"\" ]) na ação" + pAcaoDoSistema.getNomeUnico());
                     }
-                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio());
+                    Class classeEntidade = pAcaoDoSistema.getEnumAcaoDoSistema().getEntidadeDominio();
+                    try {
+                        ItfAcaoEntidade acao = (ItfAcaoEntidade) pAcaoDoSistema;
+                        classeEntidade = acao.getClasseRelacionada();
+                    } catch (Throwable t) {
+
+                    }
+                    CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse(cp, classeEntidade);
                     if (caminhoCampo == null) {
                         throw new UnsupportedOperationException("Erro Configurando campos da ação a partir de anotações ,verifique os campos  anotados em: " + pAcaoDoSistema.getNomeUnico());
                     }
@@ -304,7 +319,15 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         Class entidadeDaAcao = pAcao.getEnumAcaoDoSistema().getEntidadeDominio();
         if (tipoAcao.toString().contains("FORMULARIO")) {
             InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
+
             if (anotacaoFormulario != null) {
+                if (!anotacaoFormulario.entidade().equals(Void.class)) {
+                    entidadeDaAcao = anotacaoFormulario.entidade();
+                    if (entidadeDaAcao.getSimpleName().equals("CodigoDeAcesso")) {
+                        System.out.println("Aqui");
+                    }
+                }
+
                 configuraAnotacao(pAcao, anotacaoFormulario, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
                 throw new UnsupportedOperationException("Erro  anotação ou nome de ação incompatível em " + pAcao.getNomeUnico() + textoAnotacoes);
@@ -314,7 +337,11 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
         if (tipoAcao.toString().contains("CONTROLLER")) {
             InfoTipoAcaoController anotacaocontroller = campo.getAnnotation(InfoTipoAcaoController.class);
+
             if (anotacaocontroller != null) {
+                if (!anotacaocontroller.entidade().equals(Void.class)) {
+                    entidadeDaAcao = anotacaocontroller.entidade();
+                }
                 configuraAnotacao(pAcao, anotacaocontroller, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
                 throw new UnsupportedOperationException("Erro anotação ou nome de ação incompatível anotação  em " + pAcao.getNomeUnico() + " " + textoAnotacoes);
@@ -323,7 +350,11 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
         if (tipoAcao.toString().contains("GERENCIAR")) {
             InfoTipoAcaoGestaoEntidade anotacaoGerenciar = campo.getAnnotation(InfoTipoAcaoGestaoEntidade.class);
+
             if (anotacaoGerenciar != null) {
+                if (!anotacaoGerenciar.entidade().equals(Void.class)) {
+                    entidadeDaAcao = anotacaoGerenciar.entidade();
+                }
                 configuraAnotacao(pAcao, anotacaoGerenciar, entidadeDaAcao);
             } else if (campo.getDeclaredAnnotations().length > 0) {
                 throw new UnsupportedOperationException("Erro anotação ou nome de ação incompatível em " + pAcao.getNomeUnico() + "" + textoAnotacoes);

@@ -678,13 +678,19 @@ public abstract class UtilSBCoreStrings {
     /**
      *
      * @param pString
-     * @return True se a string for igual a nula ou vazia
+     * @return True se uma das strings for igual a nula ou vazia
      */
-    public static boolean isNuloOuEmbranco(String pString) {
-        if (pString == null) {
-            return true;
+    public static boolean isNuloOuEmbranco(String... pString) {
+
+        for (String valor : pString) {
+            if (valor == null) {
+                return true;
+            } else if (valor.isEmpty()) {
+                return true;
+            }
+
         }
-        return pString.isEmpty();
+        return false;
     }
 
     /**

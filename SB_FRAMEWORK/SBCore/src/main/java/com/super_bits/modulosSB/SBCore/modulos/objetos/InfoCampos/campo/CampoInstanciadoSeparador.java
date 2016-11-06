@@ -321,4 +321,9 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
         return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
     }
 
+    @Override
+    public boolean isTemCampoAnotado(FabCampos pCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

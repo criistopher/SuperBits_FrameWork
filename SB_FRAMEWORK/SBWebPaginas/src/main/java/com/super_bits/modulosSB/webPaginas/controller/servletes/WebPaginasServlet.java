@@ -138,7 +138,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         }
 
         try {
-            System.out.println("AGORA VAI CARALHOO #####################!");
+
             controleDeSessao.getSessaoAtual();
             System.out.println(controleDeSessao.getSessaoAtual().getUsuario().getNome());
         } catch (Throwable t) {
@@ -182,6 +182,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
                         idParametro++;
                     }
+                    pagina.abrePagina();
                     break;
                 } catch (Throwable e) {
 

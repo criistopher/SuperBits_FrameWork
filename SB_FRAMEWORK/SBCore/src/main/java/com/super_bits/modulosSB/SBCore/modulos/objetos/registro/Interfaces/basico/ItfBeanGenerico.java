@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+
 /**
  *
  *
@@ -51,5 +53,7 @@ public interface ItfBeanGenerico {
      * @param nomeDaLista
      */
     public void adicionarItemNaLista(String nomeDaLista);
+
+    public boolean isTemCampoAnotado(FabCampos pCampo);
 
 }

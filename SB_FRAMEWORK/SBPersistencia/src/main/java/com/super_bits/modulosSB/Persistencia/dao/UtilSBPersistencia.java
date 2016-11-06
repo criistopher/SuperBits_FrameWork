@@ -118,12 +118,6 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         SBNQ;
     }
 
-    //* TIPOS DE SELEÇÃO DE ITEM MAIS COMUNS */
-    public static enum TipoSelecaoRegistro {
-
-        ID, NOMECURTO, LIKENOMECURTO, SQL, JPQL, ULTIMO_REGISTRO, PRIMEIRO_REGISTRO, ENCONTRAR_EMPRESA, ENCONTRAR_PESSOA, QUANTIDADE_REGISTROS
-    }
-
     public static void renovarFabrica() {
         if (emFacturePadrao != null) {
             if (emFacturePadrao.isOpen()) {
@@ -289,7 +283,6 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         try {
             if (em == null) {
                 throw new UnsupportedOperationException("O entity manager está nulo");
-
             }
             if (!em.isOpen()) {
                 throw new UnsupportedOperationException("O entity manager está fechado");
@@ -639,7 +632,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return O registro encontrado, ou um null caso não encontre ou aconteça
      * algum erro em sql
      */
-    private static Object selecaoRegistro(EntityManager pEM, String pSQL, String pPQL, Class pClasseRegisto, TipoSelecaoRegistro pTipoSelecao, Object... parametros) {
+    private static Object selecaoRegistro(EntityManager pEM, String pSQL, String pPQL, Class pClasseRegisto, FabTipoSelecaoRegistro pTipoSelecao, Object... parametros) {
         boolean entityManagerPaiEnviado = false;
         try {
             EntityManager em;
@@ -705,11 +698,21 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             CriteriaQuery<Long> cq = qb.createQuery(Long.class);
                             cq.select(qb.count(cq.from(pClasseRegisto)));
                             return em.createQuery(cq).getSingleResult();
+                        case ENCONTRAR_EMPRESA_POR_CNPJ:
+
+                            ItfBeanSimples registroCorporativoCNPJ = (ItfBeanContatoCorporativo) pClasseRegisto.newInstance();
+                            String cnpj = registroCorporativoCNPJ.getNomeCampo(FabCampos.CNPJ);
+
+                            String prcnpj = (String) parametros[0];
+                            sql = "from " + pClasseRegisto.getSimpleName() + " where "
+                                    + cnpj + " = '" + prcnpj + "'";
+
+                            break;
 
                         default:
                             throw new AssertionError(pTipoSelecao.name());
                     }
-                    if (pTipoSelecao == TipoSelecaoRegistro.SQL) {
+                    if (pTipoSelecao == FabTipoSelecaoRegistro.SQL) {
                         if (pClasseRegisto == null) {
                             System.out.println("Criando Query por string:" + sql);
                             consulta = em.createNativeQuery(sql);
@@ -944,20 +947,20 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return registro encontrado
      */
     public static Object getRegistroByNomeCurto(Class pClasse, String parametro) {
-        return selecaoRegistro(null, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.NOMECURTO, parametro);
+        return selecaoRegistro(null, null, null, pClasse, FabTipoSelecaoRegistro.NOMECURTO, parametro);
     }
 
     public static Object getRegistroByLikeNomeCurto(Class pClasse, String parametro) {
-        return selecaoRegistro(null, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
+        return selecaoRegistro(null, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
     public static Object getRegistroByLikeNomeCurto(Class pClasse, String parametro, EntityManager pEm) {
-        return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
+        return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
     public static Object getRegistroByNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
 
-        return selecaoRegistro(pEm, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.LIKENOMECURTO, parametro);
+        return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, parametro);
     }
 
     /**
@@ -968,7 +971,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return registro encontrado
      */
     public static Object getRegistroByNomeCurto(Class pClasse, String parametro, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.NOMECURTO, parametro);
+        return selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.NOMECURTO, parametro);
     }
 
     /**
@@ -978,7 +981,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getRegistroBySQL(String pSQL, EntityManager pEM) {
-        return selecaoRegistro(pEM, pSQL, null, null, TipoSelecaoRegistro.SQL);
+        return selecaoRegistro(pEM, pSQL, null, null, FabTipoSelecaoRegistro.SQL);
     }
 
     /**
@@ -987,7 +990,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getRegistroBySQL(String pSQL) {
-        return selecaoRegistro(null, pSQL, null, null, TipoSelecaoRegistro.SQL);
+        return selecaoRegistro(null, pSQL, null, null, FabTipoSelecaoRegistro.SQL);
     }
 
     /**
@@ -997,7 +1000,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getRegistroByJPQL(String pSQL, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, pSQL, null, TipoSelecaoRegistro.JPQL);
+        return selecaoRegistro(pEM, null, pSQL, null, FabTipoSelecaoRegistro.JPQL);
     }
 
     /**
@@ -1007,15 +1010,15 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getRegistroByJPQL(String pSQL) {
-        return selecaoRegistro(null, null, pSQL, null, TipoSelecaoRegistro.JPQL);
+        return selecaoRegistro(null, null, pSQL, null, FabTipoSelecaoRegistro.JPQL);
     }
 
     public static Object getRegistroByJPQL(String pSQL, Class pClasse) {
-        return selecaoRegistro(null, null, pSQL, pClasse, TipoSelecaoRegistro.JPQL);
+        return selecaoRegistro(null, null, pSQL, pClasse, FabTipoSelecaoRegistro.JPQL);
     }
 
     public static Object getRegistroByJPQL(String pSQL, Class pClasse, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, pSQL, pClasse, TipoSelecaoRegistro.JPQL);
+        return selecaoRegistro(pEM, null, pSQL, pClasse, FabTipoSelecaoRegistro.JPQL);
     }
 
     /**
@@ -1026,7 +1029,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return registro encontrado
      */
     public static Object getRegistroByID(Class pClasse, int id, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.ID, id);
+        return selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.ID, id);
 
     }
 
@@ -1047,7 +1050,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
             if (pBeanSimples == null) {
                 throw new UnsupportedOperationException("Tentativa de carregar o Registro JPA enviando o valor nulo");
             }
-            return selecaoRegistro(pEM, null, null, pBeanSimples.getClass(), UtilSBPersistencia.TipoSelecaoRegistro.ID, pBeanSimples.getId());
+            return selecaoRegistro(pEM, null, null, pBeanSimples.getClass(), FabTipoSelecaoRegistro.ID, pBeanSimples.getId());
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Tentativa de carregar entidade apartide de um bean nulo", t);
         }
@@ -1064,7 +1067,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getRegistroByPrimeiro(Class pClasse, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.PRIMEIRO_REGISTRO, null);
+        return selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.PRIMEIRO_REGISTRO, null);
 
     }
 
@@ -1080,7 +1083,12 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return
      */
     public static Object getEmpresa(Class pClasse, String pParametro, EntityManager pEM) {
-        return selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.ENCONTRAR_EMPRESA, pParametro);
+        return selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.ENCONTRAR_EMPRESA, pParametro);
+
+    }
+
+    public static Object getEmpresaPorCNPJ(Class pClasse, String pParametro, EntityManager pEM) {
+        return selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.ENCONTRAR_EMPRESA_POR_CNPJ, pParametro);
 
     }
 
@@ -1122,7 +1130,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return regustro encontrado
      */
     public static Object getRegistroByID(Class pClasse, int id) {
-        return selecaoRegistro(null, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.ID, id);
+        return selecaoRegistro(null, null, null, pClasse, FabTipoSelecaoRegistro.ID, id);
     }
 
     public static Class<?> getEntityByTag(String pTag) {
@@ -1228,11 +1236,11 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     }
 
     public static Long getQuantidadeRegistrosNaTabela(Class pClasse) {
-        return (Long) selecaoRegistro(null, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
+        return (Long) selecaoRegistro(null, null, null, pClasse, FabTipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
     }
 
     public static Long getQuantidadeRegistrosNaTabela(Class pClasse, EntityManager pEM) {
-        return (Long) selecaoRegistro(pEM, null, null, pClasse, UtilSBPersistencia.TipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
+        return (Long) selecaoRegistro(pEM, null, null, pClasse, FabTipoSelecaoRegistro.QUANTIDADE_REGISTROS, null);
     }
 
     public static Object superMerge(ItfBeanSimples pEntidade, EntityManager em) {

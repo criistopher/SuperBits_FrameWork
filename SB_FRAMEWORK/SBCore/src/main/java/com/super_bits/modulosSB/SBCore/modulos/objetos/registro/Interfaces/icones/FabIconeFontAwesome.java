@@ -20,9 +20,11 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     TECNOLOGIA_BATERIA,
     SISTEMA_HOME,
     SISTEMA_ACESSO_NEGADO,
+    SISTEMA_USUARIO,
     SISTEMA_CARTAO_DE_ACESSO,
     COMUNICACAO_OK,
-    COMNUNICACAO_NAO_ESTA_OK;
+    COMNUNICACAO_NAO_ESTA_OK,
+    COMUNICACAO_AVIAO_DE_PAPEL;
 
     @Override
     public itfIcone getIcone() {
@@ -117,6 +119,14 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
             case REG_VALIDAR:
                 icone.setNome("Registro - Validar");
                 icone.setTagHtml("fa fa-check");
+                break;
+            case SISTEMA_USUARIO:
+                icone.setNome("Sistema- Usuário");
+                icone.setTagHtml("fa fa-user");
+                break;
+            case COMUNICACAO_AVIAO_DE_PAPEL:
+                icone.setNome("Comunicacao - E-mail");
+                icone.setTagHtml("fa fa-paper-plane-o");
                 break;
             default:
 

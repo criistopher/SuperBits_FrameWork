@@ -22,31 +22,30 @@ import javax.mail.internet.MimeMessage;
  */
 public abstract class UtilSBCoreEmail {
 
-    /**
-     *
-     * @param pUsuario email do usuário
-     * @param pSenha senha do usuário
-     * @param mensagem mensagem enviada
-     * @param para email do destinatario
-     * @param pAssunto Assunto do e-mail
-     * @return
-     */
-    public static boolean enviaGmailporSSL(final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
-        boolean envioucomsucesso = true;
+    public static boolean enviaporSSL(final String servidor, final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
+
+        return enviarEmail(getPropriedadesEmailSMTP(servidor), pUsuario, pSenha, mensagem, para, pAssunto);
+    }
+
+    private static Properties getPropriedadesEmailSMTP(String enderecoServidorSMTP) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", enderecoServidorSMTP);
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
+        return props;
+    }
 
+    private static boolean enviarEmail(Properties props, final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
+        boolean envioucomsucesso = true;
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(pUsuario, pSenha);
-                    }
-                });
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(pUsuario, pSenha);
+            }
+        });
 
         try {
 
@@ -66,6 +65,22 @@ public abstract class UtilSBCoreEmail {
             envioucomsucesso = false;
         }
         return envioucomsucesso;
+    }
+
+    /**
+     *
+     * @param pUsuario email do usuário
+     * @param pSenha senha do usuário
+     * @param mensagem mensagem enviada
+     * @param para email do destinatario
+     * @param pAssunto Assunto do e-mail
+     * @return
+     */
+    public static boolean enviaGmailporSSL(final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
+
+        Properties props = getPropriedadesEmailSMTP("smtp.gmail.com");
+        return enviarEmail(props, pUsuario, pSenha, mensagem, para, pAssunto);
+
     }
 
 }

@@ -221,7 +221,7 @@ public class UtilSBCoreReflexaoCampos {
                 }
                 classe = classe.getSuperclass();
             }
-            throw new UnsupportedOperationException("O campo " + pTipoCampo + " não foi encontrado na classe" + pClasse.getSimpleName());
+            //   throw new UnsupportedOperationException("O campo " + pTipoCampo + " não foi encontrado na classe" + pClasse.getSimpleName());
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando campo do tipo" + pTipoCampo + "na classe" + pClasse, t);
         }

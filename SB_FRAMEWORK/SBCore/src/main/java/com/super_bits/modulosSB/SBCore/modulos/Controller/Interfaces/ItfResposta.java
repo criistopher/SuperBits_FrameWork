@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import java.util.List;
 
@@ -45,6 +46,12 @@ public interface ItfResposta {
     public ItfResposta addAviso(String Pmensagem);
 
     public ItfResposta addErro(String Pmensagem);
+
+    public ItfResposta setProximoFormulario(ItfAcaoFormulario pFormulario);
+
+    public ItfAcaoFormulario getAcaoProximoFormulario();
+
+    public boolean isTemFormulario();
 
     public boolean isSucesso();
 

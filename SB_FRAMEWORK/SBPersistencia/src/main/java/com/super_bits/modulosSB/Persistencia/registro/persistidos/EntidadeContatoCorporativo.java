@@ -25,6 +25,7 @@ public abstract class EntidadeContatoCorporativo extends EntidadeEndereco implem
         if (registroEncontrado == null) {
             return false;
         }
+
         copiaDados(registroEncontrado);
         return true;
     }

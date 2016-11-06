@@ -19,7 +19,7 @@ public abstract class EntidadeNormal extends EntidadeSimples implements ItfBeanN
     public EntidadeNormal() {
         super();
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME_LONGO, getNomeCurto()));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_NOME, getNomeCurto()));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.AAA_DESCRITIVO, "Lorem ipsum dolor smodo accumsan. Morbi egestas gravida mattis. Suspendisse luctus est a elit gravida imperdiet. Nam in lectus at odio ultricies pretium non a nibh. Suspendisse quis libero sem, sit amet egestas libero. Vestibulum gravida ipsum volutpat nisi dapibus accumsan. Pellentesque imperdiet convallis mollis. Fusce tincidunt diam tempor quam lacinia dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eget ipsum at mauris commodo tempus a in nulla. Aliquam erat volutpat. Aliquam non sem a orci tincidunt aliquet. Proin eu gravida odio. Suspendisse potenti."));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_ATIVO_INATIVO), false);
         adcionaCampoEsperado(new CampoEsperado(FabCampos.REG_DATAALTERACAO), false);

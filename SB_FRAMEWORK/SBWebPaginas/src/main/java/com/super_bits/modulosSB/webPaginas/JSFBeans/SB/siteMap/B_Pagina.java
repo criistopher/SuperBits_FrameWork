@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_PRIMITIVO;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.reflexao.ReflexaoCampo;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
@@ -106,8 +107,38 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     }
 
+    protected void setAcaoSelecionadaPorEnum(ItfFabricaAcoes fabrica) {
+        if (fabrica != null) {
+            acaoSelecionada = fabrica.getAcaoDoSistema();
+        }
+    }
+
+    protected void executaAcaoSelecionadaPorEnum(ItfFabricaAcoes fabrica) {
+        if (fabrica != null) {
+            acaoSelecionada = fabrica.getAcaoDoSistema();
+            executarAcaoSelecionada();
+        }
+    }
+
+    protected void setEExecutaAcaoSelecionada(ItfAcaoDoSistema pAcao) {
+        acaoSelecionada = pAcao;
+        executarAcaoSelecionada();
+    }
+
+    protected boolean isAcaoSelecionadaIgualA(ItfFabricaAcoes fabrica) {
+        if (acaoSelecionada == null) {
+            return false;
+
+        }
+        return acaoSelecionada.getEnumAcaoDoSistema().equals(fabrica);
+    }
+
     public Object getInstanciaPagina() {
         return this;
+    }
+
+    protected void atualizarIdAreaExibicaoAcaoSelecionada() {
+        paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
     }
 
     public class BeanDeclarado extends ReflexaoCampo implements ItfBeanDeclarado {
@@ -496,39 +527,44 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public void abrePagina() {
-        if (abriuPagina) {
-            SBCore.soutInfoDebug("Comando Abre PAgina já foi executado, saindo do método");
-            return;
-        }
-        abriuPagina = true;
-        SBCore.soutInfoDebug("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
-
-        configParametros();
-
-        Boolean tudoPreenchido = true;
-        // DEFININDO OS VALORES DE PARAMETROS POR URL
-        Map<String, String> valoresStrPorParametro = new HashMap<>();
-        for (String pr : getMapaParametros().keySet()) {
-            Object valorStringURL = UtilSBWPServletTools.getRequestBean(pr);
-
-            /// SE O PARAMETRO NÃO FOI DEFINIDO NO REQUEST MARCA COMO NÃO PREENCHIDO, E REDIRECIONA PARA PAGINA PADRÃO
-            if (valorStringURL == null) {
-                tudoPreenchido = false;
-                System.out.println("parametro" + pr + "não encontrado na URL");
-                parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
-            } else {
-                valoresStrPorParametro.put(pr, valorStringURL.toString());
+        try {
+            if (abriuPagina) {
+                SBCore.soutInfoDebug("Comando Abre PAgina já foi executado, saindo do método");
+                //throw new UnsupportedOperationException("Comando abre pagina foi chamado 2 vezes");
+                return;
             }
-        }
-        parametrosDeUrlPreenchido = tudoPreenchido;
+            abriuPagina = true;
+            SBCore.soutInfoDebug("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
 
-        if (!isParametrosDeUrlPreenchido()) {
-            System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
+            configParametros();
 
-            UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
-        } else {
+            Boolean tudoPreenchido = true;
+            // DEFININDO OS VALORES DE PARAMETROS POR URL
+            Map<String, String> valoresStrPorParametro = new HashMap<>();
+            for (String pr : getMapaParametros().keySet()) {
+                Object valorStringURL = UtilSBWPServletTools.getRequestBean(pr);
 
-            aplicaValoresURLEmParametros(valoresStrPorParametro);
+                /// SE O PARAMETRO NÃO FOI DEFINIDO NO REQUEST MARCA COMO NÃO PREENCHIDO, E REDIRECIONA PARA PAGINA PADRÃO
+                if (valorStringURL == null) {
+                    tudoPreenchido = false;
+                    System.out.println("parametro" + pr + "não encontrado na URL");
+                    parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
+                } else {
+                    valoresStrPorParametro.put(pr, valorStringURL.toString());
+                }
+            }
+            parametrosDeUrlPreenchido = tudoPreenchido;
+
+            if (!isParametrosDeUrlPreenchido()) {
+                System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
+
+                UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
+            } else {
+
+                aplicaValoresURLEmParametros(valoresStrPorParametro);
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro execuntando metodo abre pagina de " + this.getClass().getSimpleName(), t);
         }
     }
 

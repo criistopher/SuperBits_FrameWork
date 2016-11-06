@@ -409,4 +409,9 @@ public class SessaoMenuSB implements ItfAcaoSessaoCategoria {
         return SBCore.getCentralVisualizacao().getCaminhoXhtmlItemCard(this.getClass());
     }
 
+    @Override
+    public boolean isTemCampoAnotado(FabCampos pCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

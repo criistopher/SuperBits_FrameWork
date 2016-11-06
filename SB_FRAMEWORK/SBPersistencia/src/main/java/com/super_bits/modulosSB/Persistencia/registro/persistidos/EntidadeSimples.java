@@ -3,7 +3,6 @@ package com.super_bits.modulosSB.Persistencia.registro.persistidos;
 //import com.super_bits.modulosSB.webPaginas.ConfigGeral.CInfo;
 //Simport com.super_bits.modulosSB.webPaginas.JSFBeans.util.OrganizadorDeArquivos;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;

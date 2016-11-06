@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import java.util.List;
 
 /**
@@ -26,7 +27,11 @@ public class Resposta implements ItfResposta {
 
     private Object retorno;
 
+    private boolean temFormulario = false;
+
     private final ItfAcaoDoSistema acaoDosistema;
+
+    private ItfAcaoFormulario acaoFormularioResposta;
 
     private void calculaResultados() {
         resultado = Resultado.SUCESSO;
@@ -199,6 +204,25 @@ public class Resposta implements ItfResposta {
 
     public void setTipoRetorno(Class tipoRetorno) {
         this.tipoRetorno = tipoRetorno;
+    }
+
+    @Override
+    public boolean isTemFormulario() {
+        return temFormulario;
+    }
+
+    @Override
+    public ItfResposta setProximoFormulario(ItfAcaoFormulario pFormulario) {
+        if (pFormulario != null) {
+            temFormulario = true;
+        }
+        acaoFormularioResposta = pFormulario;
+        return this;
+    }
+
+    @Override
+    public ItfAcaoFormulario getAcaoProximoFormulario() {
+        return acaoFormularioResposta;
     }
 
 }

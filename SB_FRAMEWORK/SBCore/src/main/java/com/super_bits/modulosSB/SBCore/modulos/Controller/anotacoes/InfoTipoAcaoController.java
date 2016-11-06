@@ -25,7 +25,7 @@ public @interface InfoTipoAcaoController {
 
     public String icone() default "";
 
-    public Class entidade() default Object.class;
+    public Class entidade() default Void.class;
 
     public boolean precisaPermissao() default false;
 

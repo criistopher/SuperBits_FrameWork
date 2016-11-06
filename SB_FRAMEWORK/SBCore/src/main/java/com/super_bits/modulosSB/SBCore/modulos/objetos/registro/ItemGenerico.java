@@ -793,12 +793,27 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     @Override
-    public String getNomeCampo(FabCampos pInfocampo) {
-        return UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(this.getClass(), pInfocampo).getName();
+    public boolean isTemCampoAnotado(FabCampos pCampo) {
+        return UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(this.getClass(), pCampo) != null;
     }
 
     @Override
-    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso) {
+    public String getNomeCampo(FabCampos pInfocampo) {
+        try {
+            Field campo = UtilSBCoreReflexaoCampos.getSBCampobyTipoCampo(this.getClass(), pInfocampo);
+            if (campo == null) {
+                throw new UnsupportedOperationException("a anotação " + pInfocampo + " não foi encontrada em " + this.getClass().getSimpleName());
+            }
+            return campo.getName();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo nome do campo em" + this.getClass().getSimpleName() + "<b>Utilize isTem campo anotado para verificar se o item possui ou não este campo declarado </b>", t);
+            return null;
+        }
+    }
+
+    @Override
+    public void uploadFoto(TipoFonteUpload pTipo, Object pRecurso
+    ) {
         throw new UnsupportedOperationException("Upload de foto de item generico não foi implementado."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -876,7 +891,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      * @return
      */
     @Override
-    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+    public ItfBeanSimples getItemPorCaminhoCampo(CaminhoCampoReflexao pCaminho
+    ) {
         try {
 
             // to do substituir por acesso direto sem precisar instanciar o CampoInstanciado
@@ -888,7 +904,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     @Override
-    public List<ItfBeanSimples> getListaPorCaminhoCampo(CaminhoCampoReflexao pCaminho) {
+    public List<ItfBeanSimples> getListaPorCaminhoCampo(CaminhoCampoReflexao pCaminho
+    ) {
         try {
 
             return (List) getCampoByNomeOuAnotacao(pCaminho.getCaminhoSemNomeClasse()).getValor();
@@ -899,7 +916,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
     }
 
     @Override
-    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
+    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo
+    ) {
 
         try {
             ItfBeanSimples ret = null;
@@ -940,7 +958,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
      * @param nomeDaLista
      */
     @Override
-    public void adicionarItemNaLista(String nomeDaLista) {
+    public void adicionarItemNaLista(String nomeDaLista
+    ) {
         nomeDaLista = nomeDaLista.replace("[]", "");
         try {
             Field campo = this.getClass().getDeclaredField(nomeDaLista);

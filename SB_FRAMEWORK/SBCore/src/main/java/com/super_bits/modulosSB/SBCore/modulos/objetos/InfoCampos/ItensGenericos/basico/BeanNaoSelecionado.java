@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.TipoFonteUpload;
@@ -70,6 +71,11 @@ public class BeanNaoSelecionado implements ItfBeanSimplesSomenteLeitura {
     @Override
     public String getXhtmlVisao() {
         return MapaObjetosProjetoAtual.getVisualizacaoDoObjeto(this.getClass());
+    }
+
+    @Override
+    public boolean isTemCampoAnotado(FabCampos pCampo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

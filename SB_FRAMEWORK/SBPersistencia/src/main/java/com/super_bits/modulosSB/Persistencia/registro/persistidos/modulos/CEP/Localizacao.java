@@ -31,14 +31,20 @@ public class Localizacao extends EntidadeSimples implements ItfLocal {
     @Column(length = 150)
     @NotNull
     private String nome;
+
     @ManyToOne(targetEntity = Bairro.class)
     private Bairro bairro;
 
     @Transient
     private static List<UnidadeFederativa> unidadesFederativas;
 
-    private long longitude, latitude;
+    @InfoCampo(tipo = FabCampos.Longitude)
+    private long longitude;
 
+    @InfoCampo(tipo = FabCampos.Longitude)
+    private long latitude;
+
+    @InfoCampo(tipo = FabCampos.LCComplemeto)
     private String complemento;
 
     public Localizacao() {

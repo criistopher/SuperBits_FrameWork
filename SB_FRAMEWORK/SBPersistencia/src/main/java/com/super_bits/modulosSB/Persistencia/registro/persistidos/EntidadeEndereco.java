@@ -6,6 +6,14 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampo
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanEndereco;
 
+/**
+ *
+ *
+ *
+ * @author desenvolvedor
+ * @deprecated Utilizar classe Contato
+ */
+@Deprecated
 public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBeanEndereco {
 
     /**
@@ -19,12 +27,7 @@ public abstract class EntidadeEndereco extends EntidadeNormal implements ItfBean
 
         super();
 
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LATITUDE, "-19.8225864"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.Longitude, "-43.926274"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCEP, ""));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCCidade, "Cidade Não Informada"));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCComplemeto, ""));
-        adcionaCampoEsperado(new CampoEsperado(FabCampos.LCLOGRADOURO, ""));
+        adcionaCampoEsperado(new CampoEsperado(FabCampos.LC_LOCALIZACAO, ""));
         adcionaCampoEsperado(new CampoEsperado(FabCampos.TELEFONE_FIXO_NACIONAL, ""));
 
     }
