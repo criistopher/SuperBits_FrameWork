@@ -8,6 +8,8 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.TipoAcaoPadrao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -229,6 +231,122 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
                 throw new AssertionError(this.name());
 
         }
+    }
+
+    public static FabTipoAcaoSistemaGenerica getAcaoGenericaByNome(String nome) {
+        FabTipoAcaoSistemaGenerica fabrica = null;
+
+        int porcentagemCoicidencias = 0;
+        int numeroDePalavras = 0;
+
+        for (FabTipoAcaoSistemaGenerica acaoGenerica : FabTipoAcaoSistemaGenerica.values()) {
+
+            List<String> palavrasChave = acaoGenerica.palavrasChaveIdentificadoras();
+            //cd de que? de concidencias!
+            int cd = 0;
+
+            for (String plavra : palavrasChave) {
+                if (nome.contains("_" + plavra)) {
+                    cd++;
+                }
+            }
+
+            // calculando porcentagem coincidencias:
+            if (cd > 0) {
+                int porcentagem = Math.round(100 / palavrasChave.size() * cd);
+
+                if (porcentagem > porcentagemCoicidencias && numeroDePalavras < cd) {
+                    porcentagemCoicidencias = porcentagem;
+                    numeroDePalavras = cd;
+                    fabrica = acaoGenerica;
+                }
+            }
+        }
+
+        if (fabrica == null) {
+            throw new UnsupportedOperationException("Não foi possível encontar o Tipo da ação para:" + nome + " certifique que está usando a nomeclatura estabelecida CTR para controller FRM, para formulario, e MB para gestão de ações");
+        }
+        return fabrica;
+
+    }
+
+    public List<String> palavrasChaveIdentificadoras() {
+        List<String> palavrasChave = new ArrayList<>();
+        String PALAVRA_CHAVE_FORMULARIO = "FRM";
+        String PALAVRA_CHAVE_CONTROLLER = "CTR";
+        String PALAVRA_CHAVE_GESTAO = "MB";
+        switch (this) {
+            case FORMULARIO_NOVO_REGISTRO:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("NOVO");
+                break;
+            case FORMULARIO_EDITAR:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("EDITAR");
+
+                break;
+            case FORMULARIO_PERSONALIZADO:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                break;
+            case FORMULARIO_VISUALIZAR:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("VISUALIZAR");
+                break;
+            case FORMULARIO_LISTAR:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("LISTAR");
+                break;
+            case FORMULARIO_MODAL:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("MODAL");
+                break;
+            case SELECAO_DE_ACAO:
+                palavrasChave.add(PALAVRA_CHAVE_FORMULARIO);
+                palavrasChave.add("SELECAO_DE_ACAO");
+
+                break;
+            case CONTROLLER_SALVAR_EDICAO:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("SALVAR");
+                palavrasChave.add("EDICAO");
+                break;
+            case CONTROLLER_SALVAR_NOVO:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("NOVO");
+                break;
+            case CONTROLLER_SALVAR_MODO_MERGE:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("MERGE");
+                break;
+            case CONTROLLER_PERSONALIZADO:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+
+                break;
+            case CONTROLLER_ATIVAR_DESATIVAR:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("STATUS");
+                palavrasChave.add("ALTERAR");
+                break;
+            case CONTROLLER_ATIVAR:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("ATIVAR");
+                break;
+            case CONTROLLER_REMOVER:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("REMOVER");
+                break;
+            case CONTROLLER_DESATIVAR:
+                palavrasChave.add(PALAVRA_CHAVE_CONTROLLER);
+                palavrasChave.add("DESATIVAR");
+                break;
+            case GERENCIAR_DOMINIO:
+                palavrasChave.add(PALAVRA_CHAVE_GESTAO);
+                break;
+            default:
+                throw new AssertionError(this.name());
+
+        }
+        return palavrasChave;
     }
 
 }

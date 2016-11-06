@@ -55,6 +55,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     protected FabTipoAcaoSistemaGenerica tipoAcaoGenerica;
 
     @Id
+    @InfoCampo(tipo = FabCampos.ID)
     protected int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     protected String nomeAcao;

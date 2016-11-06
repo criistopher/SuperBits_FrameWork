@@ -5,6 +5,8 @@
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidadorGoverno;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
@@ -320,6 +322,7 @@ public enum FabCampos implements ItfFabrica {
                 sbCampo.setMascara("##/##/####");
                 break;
             case TELEFONE_FIXO_NACIONAL:
+                sbCampo.setLabel("Tel");
                 sbCampo.setValidacaoRegex("^\\(?([1-9][0-9])\\)?\\s?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
                 sbCampo.setMascara("(##)#####-####");
                 break;
@@ -335,18 +338,22 @@ public enum FabCampos implements ItfFabrica {
 
                 break;
             case COR: //regex
+                sbCampo.setLabel("Cor");
                 sbCampo.setValidacaoRegex("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
                 break;
             case EMAIL:
+                sbCampo.setLabel("E-mail");
                 sbCampo.setValorMinimo(6);
                 sbCampo.setValidacaoRegex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                 break;
             case SITE:
                 // REGEX
+                sbCampo.setLabel("Site");
                 sbCampo.setValidacaoRegex("(www).?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\=]*)");
                 break;
             case URL:
                 // regex
+                sbCampo.setLabel("URL");
                 sbCampo.setValidacaoRegex("https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/=]*)");
                 break;
             case RESPONSAVEL:
@@ -365,6 +372,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case INSCRICAO_ESTADUAL:
                 // mascara (tipo primitivo numeral)
+
                 break;
             case INSCRIACAO_MUNICIPAL:
                 // mascara (tipo primitivo numeral)
@@ -389,26 +397,30 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case TELEFONE_CELULAR:
                 // MAscara e Regex
+                sbCampo.setLabel("Cel.");
                 sbCampo.setValidacaoRegex("^(\\(([1-9][0-9])\\)\\s?)(((9|)([6-9])\\d{3})\\-(\\d{4}))$");
                 sbCampo.setMascara("(##)#####-####");
                 break;
             case REG_DATAALTERACAO:
                 // tipo primitivo Data mascara data
+                sbCampo.setLabel("Dt. Alteração");
                 sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
                 sbCampo.setMascara("##/##/####");
                 break;
             case REG_DATAINSERCAO:
                 // tipo primitivo Data mascara data
+                sbCampo.setLabel("Dt. Inclusão");
                 sbCampo.setValidacaoRegex("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
                 sbCampo.setMascara("##/##/####");
                 break;
             case REG_USUARIO_ALTERACAO:
-
+                sbCampo.setLabel("Usr. Alteração");
                 break;
             case REG_USUARIO_INSERCAO:
+                sbCampo.setLabel("Usr. Inserção");
                 break;
             case LCUnidadeFederativa:
-
+                sbCampo.setLabel("UF");
                 break;
             case MOEDA_DOLAR:
                 //implementar: separadores, numero de casas decimais Sigla da moeda
@@ -440,6 +452,7 @@ public enum FabCampos implements ItfFabrica {
             case HORA:
                 break;
             case REG_ATIVO_INATIVO:
+                sbCampo.setLabel("Ativo");
                 break;
             case ICONE:
                 break;
@@ -810,5 +823,136 @@ public enum FabCampos implements ItfFabrica {
 
         }
 
+    }
+
+    public ItfResposta validar(Object pValor, ItfResposta pResp) {
+
+        switch (this) {
+            case AAA_NOME:
+                break;
+            case AAA_NOME_LONGO:
+                break;
+            case IMG_PEQUENA:
+                break;
+            case IMG_MEDIA:
+                break;
+            case IMG_GRANDE:
+                break;
+            case AAA_DESCRITIVO:
+                break;
+            case ID:
+                break;
+            case LATITUDE:
+                break;
+            case Longitude:
+                break;
+            case LCLOGRADOURO:
+                break;
+            case LCCEP:
+                break;
+            case LCBairro:
+                break;
+            case LCCidade:
+                break;
+            case LCUnidadeFederativa:
+                break;
+            case SENHA:
+                break;
+            case SENHA_SEGURANCA_MAXIMA:
+                break;
+            case LCComplemeto:
+                break;
+            case LCCampoAberto:
+                break;
+            case HTML:
+                break;
+            case CHART_VALOR:
+                break;
+            case CHART_LABEL:
+                break;
+            case CHART_CATEGORIA:
+                break;
+            case CALENDARIO:
+                break;
+            case DATAHORA:
+                break;
+            case DATA:
+                break;
+            case HORA:
+                break;
+            case TELEFONE_FIXO_NACIONAL:
+                break;
+            case TELEFONE_FIXO_INTERNACIONAL:
+                break;
+            case TELEFONE_CELULAR:
+                break;
+            case TELEFONE_GENERICO:
+                break;
+            case MOEDA_REAL:
+                break;
+            case MOEDA_DOLAR:
+                break;
+            case QUANTIDADE:
+                break;
+            case PERCENTUAL:
+                break;
+            case OBJETO_DE_UMA_LISTA:
+                break;
+            case LISTA_OBJETOS:
+                break;
+            case TEXTO_SIMPLES:
+                break;
+            case VERDADEIRO_FALSO:
+                break;
+            case COR:
+                break;
+            case EMAIL:
+                break;
+            case SITE:
+                break;
+            case URL:
+                break;
+            case RESPONSAVEL:
+                break;
+            case NOME_COMPLETO:
+                break;
+            case CNPJ:
+                if (!UtilSBCoreValidadorGoverno.validaCNPJ((String) pValor)) {
+                    pResp.addErro("Digito Verificador Não confere");
+                }
+                break;
+            case CPF:
+                break;
+            case INSCRICAO_ESTADUAL:
+                break;
+            case INSCRIACAO_MUNICIPAL:
+                break;
+            case REG_DATAALTERACAO:
+                break;
+            case REG_DATAINSERCAO:
+                break;
+            case REG_USUARIO_ALTERACAO:
+                break;
+            case REG_USUARIO_INSERCAO:
+                break;
+            case REG_ATIVO_INATIVO:
+                break;
+            case CODIGO_DE_BARRAS:
+                break;
+            case ICONE:
+                break;
+            case SEGURANCA_ATIVA:
+                break;
+            case ARQUIVO_DE_ENTIDADE:
+                break;
+            case LC_LOCALIZACAO:
+                break;
+            case CAMPO_SEPARADOR:
+                break;
+            default:
+                throw new AssertionError(this.name());
+
+        }
+        return pResp;
     }
 }

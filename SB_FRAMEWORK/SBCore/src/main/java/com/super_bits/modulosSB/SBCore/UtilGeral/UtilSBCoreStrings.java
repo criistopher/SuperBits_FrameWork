@@ -423,9 +423,30 @@ public abstract class UtilSBCoreStrings {
         return byte1.toString();
     }
 
-    public static String getStringBy(String p) {
+    /**
+     *
+     * @param pValor O valor onde o subValordeString será localizado
+     * @param pIsto O caracter chave que indica o fim da cópia
+     * @return A String até encontar isto, ou <b>null se não encontrar</b>
+     */
+    public static String getStringAteEncontrarIsto(String pValor, String pIsto) {
+        if (pValor == null || !pValor.contains(pIsto)) {
+            return null;
+        }
+        return pValor.substring(0, pValor.indexOf(pIsto));
+    }
 
-        return p;
+    /**
+     *
+     * @param pValor Valor onde a sbustring será extraída
+     * @param pDisto Caracteres chave a partir de onde você deseja copiar
+     * @return String apartir de caracter{es} chave
+     */
+    public static String getStringAPartirDisto(String pValor, String pDisto) {
+        if (pValor == null || !pValor.contains(pDisto)) {
+            return null;
+        }
+        return pValor.substring(pValor.indexOf(pDisto) + 1, pValor.length());
     }
 
     /**

@@ -250,4 +250,68 @@ public class UtilSBCoreStringsTest extends TesteJunit {
         JOptionPane.showMessageDialog(null, UtilSBCoreStrings.getStringRandomica(8));
     }
 
+    @Test
+    public void testGetStringEntreCaracters() {
+    }
+
+    @Test
+    public void testRemoveCaracteresEspeciaisEspacosETracos() {
+    }
+
+    @Test
+    public void testGetStringAteEncontrarIsto() {
+
+        String s = "52MB123456";
+        String resp = UtilSBCoreStrings.getStringAteEncontrarIsto(s, "MB");
+        System.out.println("ATE ENCONTRAR ISTO " + resp);
+    }
+
+    @Test
+    public void testGetStringAPartirDisto() {
+    }
+
+    @Test
+    public void testGetPrimeirasXLetrasDaString() {
+    }
+
+    @Test
+    public void testGetPrimeiraLetraMinuscula() {
+    }
+
+    @Test
+    public void testGetPrimeiraLetraMaiuscula() {
+    }
+
+    @Test
+    public void testGetStringRandomica() {
+    }
+
+    @Test
+    public void testGetNumericosDaString() {
+    }
+
+    @Test
+    public void testGetMascaraJavaMaskParaJQueryMask() {
+    }
+
+    @Test
+    public void testIsPrimeiraLetraMaiuscula() {
+    }
+
+    @Test
+    public void testIsPrimeiraApenasLetraMaiuscula() {
+    }
+
+    @Test
+    public void testIsNuloOuEmbranco() {
+    }
+
+    @Test
+    public void testIsNAO_NuloNemBranco() {
+    }
+
+    @Test
+    public void testLimparCacteresEstranhosDaStringComNumeros() {
+    }
+
 }

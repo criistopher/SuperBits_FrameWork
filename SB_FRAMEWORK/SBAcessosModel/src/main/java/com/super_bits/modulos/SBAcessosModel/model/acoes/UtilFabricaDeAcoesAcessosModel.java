@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
@@ -44,8 +45,9 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoC
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -134,79 +136,18 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      */
     public static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
 
-        String nome = pFabrica.toString();
-
-        String[] divisoes = nome.split("_");
-
-        List<String> lista = Arrays.asList(divisoes);
-
-        if (lista.contains("FRM")) {
-
-            if (lista.contains("FRM") && lista.contains("NOVO")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
-            }
-            if (lista.contains("FRM") && lista.contains("EDITAR")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR;
-            }
-            if (lista.contains("FRM") && lista.contains("VISUALIZAR")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_VISUALIZAR;
-            }
-
-            if (lista.contains("FRM") && lista.contains("LISTAR")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_LISTAR;
-            }
-            if (lista.contains("FRM") && lista.contains("MODAL")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
-            }
-
-            if (lista.contains("FRM") && lista.contains("MODAL")) {
-                return FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
-            }
-
-            if (lista.contains("FRM") && lista.contains("SELECAO") && lista.contains("ACAO")) {
-                return FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
-            }
-
-            return FabTipoAcaoSistemaGenerica.FORMULARIO_PERSONALIZADO;
-        }
-        if (lista.contains("CTR")) {
-            if (lista.contains("CTR") && lista.contains("ALTERAR") && lista.contains("STATUS")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR;
-            }
-            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("MERGE")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_MODO_MERGE;
-            }
-            if (lista.contains("CTR") && lista.contains("ATIVAR")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR;
-            }
-            if (lista.contains("CTR") && lista.contains("REMOVER")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_REMOVER;
-            }
-
-            if (lista.contains("CTR") && lista.contains("DESATIVAR")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR;
-            }
-
-            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("NOVO")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_NOVO;
-            }
-            if (lista.contains("CTR") && lista.contains("SALVAR") && lista.contains("EDICAO")) {
-                return FabTipoAcaoSistemaGenerica.CONTROLLER_SALVAR_EDICAO;
-            }
-            return FabTipoAcaoSistemaGenerica.CONTROLLER_PERSONALIZADO;
-
-        }
-        if (lista.contains("MB")) {
-            return FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
-        }
-
-        throw new UnsupportedOperationException("Não foi possível encontar o Tipo da ação " + pFabrica.toString() + " certifique que está usando a nomeclatura estabelecida CTR para controller FRM, para formulario, e MB para gestão de ações");
+        return FabTipoAcaoSistemaGenerica.getAcaoGenericaByNome(pFabrica.toString());
 
     }
 
     public static ItfFabricaAcoes getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
         try {
             Class classeDominioDaAcao = pAcao.getEntidadeDominio();
+
+            if (pAcao.toString().contains("_MB")) {
+                return null;
+            }
+            // Metodo um Para determinar Ação de Gestão: Mesma Classe de Dominio na mesma fabrica de ação
             for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
                 // verifica se a classe de dominio é a mesma da ação enviada
                 Class dominioDaAcaoAtual = acao.getEntidadeDominio();
@@ -214,14 +155,29 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     if (dominioDaAcaoAtual.getName().equals(classeDominioDaAcao.getName())) {
                         // verifica se alem de ser o mesmo dominio possui o MB
                         if (acao.toString().contains("_MB")) {
-                            if (acao.equals(pAcao)) {
-                                return null;
-                            }
                             return acao;
                         }
                     }
                 }
             }
+
+            // Metodo 2 Mesmo inicio de nome
+            //criando mapa de nomes
+            Map<String, ItfFabricaAcoes> mapaDeAcoes = new HashMap<>();
+            for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
+                String inicioDoNome = UtilSBCoreStrings.getStringAteEncontrarIsto(acao.toString(), "_MB");
+                if (inicioDoNome != null) {
+                    mapaDeAcoes.put(inicioDoNome, acao);
+                }
+            }
+            for (String prefixo : mapaDeAcoes.keySet()) {
+                if (pAcao.toString().startsWith(prefixo)) {
+                    return mapaDeAcoes.get(prefixo);
+                }
+
+            }
+            // Determinado tipo de Acao
+
             return null;
 
         } catch (Throwable t) {
@@ -463,6 +419,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcaoRefForm = (ItfAcaoFormularioEntidade) novaAcao;
                     novaAcao.setTipoAcaoGenerica(pTipoAcaoGenerica);
                     novaAcaoRefForm.setAcaoPrincipal(pAcaoPrincipal);
+
                     novaAcao.setNome("Listar " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(FORMULARIO_LISTAR.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
                     novaAcao.setDescricao("Editar " + nomeDoObjeto);
@@ -565,6 +522,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             }
             if (novaAcao == null) {
                 throw new UnsupportedOperationException("Não foi possível determinar um constructor para a acao " + pAcao.toString() + " verifique a nomeclatura de acordo com a documentação e tente novamente");
+            }
+            if (novaAcao.getIconeAcao() == null) {
+                novaAcao.setIconeAcao(pTipoAcaoGenerica.getIconePadrao());
             }
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
             return novaAcao;

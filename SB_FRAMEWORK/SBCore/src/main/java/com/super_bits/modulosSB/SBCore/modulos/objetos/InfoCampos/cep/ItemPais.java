@@ -24,7 +24,7 @@ public class ItemPais extends ItemSimples implements ItfPais {
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
 
-    private List<ItfUnidadeFederativa> unidadesFederativas = new ArrayList<>();
+    private final List<ItfUnidadeFederativa> unidadesFederativas = new ArrayList<>();
 
     @Override
     public void setId(int pID) {

@@ -18,7 +18,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.view.InfoPagina;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -116,27 +116,25 @@ public class UtilSBAcessosModel {
 
     private static void criaNovasPermissaoParaPaginas(EntityManager em) {
         try {
-            List<Class> paginas = UtilSBCoreReflexao.getClassesComEstaAnotacao(InfoPagina.class, "com.super_bits.vip.superkompras.webPaginas");
-
-            for (Class pg : paginas) {
-                ItfFabricaAcoes fabricaAcao = UtilSBController.getFabricaAcaoByClasse(pg);
-                if (fabricaAcao != null) {
-                    em.getTransaction().begin();
-                    AcaoDoSistema acao = (AcaoDoSistema) fabricaAcao.getAcaoDoSistema();
-                    UtilSBPersistencia.mergeRegistro(acao, em);
-                    PermissaoSB novaPermissao = new PermissaoSB(fabricaAcao);
-
-                    if (acao.isPrecisaPermissao()) {
-                        PermissaoSB permissãoEncontrada = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, novaPermissao.getId(), em);
-                        if (permissãoEncontrada != null) {
-                            UtilSBPersistencia.mergeRegistro(novaPermissao, em);
-                        }
-                    }
-                    em.getTransaction().commit();
-                }
-
-            }
-
+            //List<Class> paginas = UtilSBCoreReflexao.getClassesComEstaAnotacao(, "com.super_bits.vip.superkompras.webPaginas");
+            /**
+             * for (Class pg : paginas) { ItfFabricaAcoes fabricaAcao =
+             * UtilSBController.getFabricaAcaoByClasse(pg); if (fabricaAcao !=
+             * null) { em.getTransaction().begin(); AcaoDoSistema acao =
+             * (AcaoDoSistema) fabricaAcao.getAcaoDoSistema();
+             * UtilSBPersistencia.mergeRegistro(acao, em); PermissaoSB
+             * novaPermissao = new PermissaoSB(fabricaAcao);
+             *
+             * if (acao.isPrecisaPermissao()) { PermissaoSB permissãoEncontrada
+             * = (PermissaoSB)
+             * UtilSBPersistencia.getRegistroByID(PermissaoSB.class,
+             * novaPermissao.getId(), em); if (permissãoEncontrada != null) {
+             * UtilSBPersistencia.mergeRegistro(novaPermissao, em); } }
+             * em.getTransaction().commit(); }
+             *
+             * }
+             *
+             */
         } catch (Throwable t) {
             FabErro.PARA_TUDO.paraSistema("Erro criando Acesos WebPagina", t);
         }

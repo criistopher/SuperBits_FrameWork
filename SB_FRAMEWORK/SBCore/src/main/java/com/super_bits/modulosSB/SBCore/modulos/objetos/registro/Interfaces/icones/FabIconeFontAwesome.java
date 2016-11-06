@@ -10,7 +10,7 @@ package com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icon
  */
 public enum FabIconeFontAwesome implements ItfFabricaIcone {
     ICONE_PERSONALIZADO,
-    REG_NOVO, REG_EDITAR,
+    REG_NOVO, REG_EDITAR, REG_VALIDAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
     REG_AGRUPAR_REGISTROS, REG_LISTAR,
     ESCRITORIO_DOCUMENTO_TEXTO,
@@ -113,6 +113,10 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
             case REG_LISTAR:
                 icone.setNome("Registro- listar");
                 icone.setTagHtml("fa fa-list");
+                break;
+            case REG_VALIDAR:
+                icone.setNome("Registro - Validar");
+                icone.setTagHtml("fa fa-check");
                 break;
             default:
 

@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -194,26 +195,37 @@ public class UtilSBCoreReflexaoCampos {
      * tipo de campo
      */
     public static Field getSBCampobyTipoCampo(Class pClasse, FabCampos pTipoCampo) {
+        try {
+            Class classe = pClasse;
 
-        Class classe = pClasse;
+            while (!isClasseBasicaSB(classe)) {
 
-        while (!isClasseBasicaSB(classe)) {
+                Field[] fields = classe.getDeclaredFields();
 
-            Field[] fields = classe.getDeclaredFields();
+                for (Field field : fields) {
+                    InfoCampo annotationField = field.getAnnotation(InfoCampo.class
+                    );
+                    if (annotationField != null) {
 
-            for (Field field : fields) {
-                InfoCampo annotationField = field.getAnnotation(InfoCampo.class
-                );
-                if (annotationField != null) {
-                    if (annotationField.tipo().equals(pTipoCampo)) {
-                        return field;
+                        if (annotationField.tipo().equals(pTipoCampo)) {
+                            return field;
+                        }
+
+                    }
+                    if (pTipoCampo.equals(FabCampos.ID)) {
+                        if (field.getAnnotation(Id.class) != null) {
+                            return field;
+                        }
                     }
 
                 }
-
+                classe = classe.getSuperclass();
             }
-            classe = classe.getSuperclass();
+            throw new UnsupportedOperationException("O campo " + pTipoCampo + " não foi encontrado na classe" + pClasse.getSimpleName());
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando campo do tipo" + pTipoCampo + "na classe" + pClasse, t);
         }
+
         return null;
     }
 

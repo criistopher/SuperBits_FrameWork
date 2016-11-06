@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.Info
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDiretorios;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  * @author desenvolvedor
  */
 @InfoClasse(tags = {"Componente visual SB"}, plural = "Componentes SB")
-public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisualSB {
+public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisualSB, Serializable {
 
     @InfoCampo(tipo = FabCampos.ID)
     private int id;

@@ -13,7 +13,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcao
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
-import com.super_bits.modulosSB.SBCore.modulos.view.InfoPagina;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Entity;
@@ -28,8 +28,6 @@ import javax.persistence.Transient;
 @InfoClasse(tags = {"Açao de Gestão de Dominio da Entidade"}, plural = "Ações de Dominio")
 public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAcaoGerenciarEntidade {
 
-    @Transient
-    private InfoPagina infoPagina;
     @Transient
     private boolean utilizarMesmoFormEditarInserir = true;
 
