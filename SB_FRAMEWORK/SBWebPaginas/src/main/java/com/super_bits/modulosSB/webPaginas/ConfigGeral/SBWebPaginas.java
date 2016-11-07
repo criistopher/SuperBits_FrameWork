@@ -24,6 +24,7 @@ public abstract class SBWebPaginas {
     private static boolean parametroEmSubdominio;
 
     public static void configurar(ItfConfigWebPagina config) {
+        String urlDesenvolvimento = "http:///localhost:8080";
         SITE_HOST = config.SITE_HOST();
         pastaImagens = config.pastaImagens();
         nomePacoteProjeto = config.nomePacoteProjeto();
@@ -38,15 +39,22 @@ public abstract class SBWebPaginas {
 
         if (distribuicao == null) {
             System.out.println("O arquivo de implantação ainda não foi configurado, esta aplicação rodara no modo localhost:8080/" + nomePacoteProjeto);
+            URLBASE = urlDesenvolvimento + "/" + config.nomePacoteProjeto();
         } else {
 
             if (distribuicao.isTemArquivoImplantacao()) {
                 String urlDistribuicao = distribuicao.getSERVIDOR_HOMOLOGACAO();
+                SITE_HOST = urlDistribuicao;
             }
 
             if (distribuicao.isEmAmbienteDeProducao()) {
                 SITE_HOST = distribuicao.getSERVIDOR_HOMOLOGACAO() + ":" + String.valueOf(porta);
                 SITE_URL = SITE_HOST;
+            }
+
+            if (!SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.PRODUCAO)) {
+                URLBASE = urlDesenvolvimento + "/" + config.nomePacoteProjeto();
+
             }
         }
     }
