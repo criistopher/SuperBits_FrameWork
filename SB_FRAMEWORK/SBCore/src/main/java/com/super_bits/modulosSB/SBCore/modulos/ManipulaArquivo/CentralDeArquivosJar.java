@@ -8,7 +8,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoEmpacotamento;
 import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,12 +152,12 @@ public class CentralDeArquivosJar extends CentralDeArquivosAbstrata {
     }
 
     @Override
-    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable {
+    public boolean salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
+    public boolean baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

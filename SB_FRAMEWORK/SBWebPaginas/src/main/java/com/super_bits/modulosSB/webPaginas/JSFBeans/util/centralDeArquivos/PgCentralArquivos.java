@@ -6,14 +6,13 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.util.centralDeArquivos;
 
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreOutputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicaoArquivo;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +39,7 @@ public class PgCentralArquivos implements Serializable {
 
     private FabTipoEnvioArquivoEntidade tipoEnvio = FabTipoEnvioArquivoEntidade.ARQUIVO_DA_ENTIDADE;
     private MapaSubstituicaoArquivo substituicaoEmArquivoExemplo;
+    private String nomeArquivo;
 
     public void enviarArquivoCriandoEntidadeSelecionada(FileUploadEvent event) {
 
@@ -48,6 +48,7 @@ public class PgCentralArquivos implements Serializable {
     @PostConstruct
     public void init() {
         substituicaoEmArquivoExemplo = new MapaSubstituicaoArquivo(new File("/home/teste.txt"));
+        categoria = ItfCentralDeArquivos.CATEGORIA_PADRAO_ARQUIVO_DE_REGISTRO;
     }
 
     public List<String> getPalavrasChaveSubstituicaoArquivo() {
@@ -58,34 +59,63 @@ public class PgCentralArquivos implements Serializable {
         tipoEnvio = pTipoEnvioArquivoEntidade;
     }
 
+    public String getCaminhoLocalArquivo() {
+        switch (tipoEnvio) {
+            case ARQUIVO_DA_ENTIDADE:
+                return SBCore.getCentralDeArquivos().getEndrLocalArquivoItem(
+                        entidadeRelacionada, nomeArquivo, categoria);
+
+            case IMAGEM_REPRESENTANTE_ENTIDADE:
+
+                break;
+            default:
+
+        }
+        return "falta informação para determinar o caminho";
+
+    }
+
     public void enviarArquivoDeEntidadeSelecionada(FileUploadEvent event) {
         if (!SBCore.getControleDeSessao().getSessaoAtual().isIdentificado()) {
             throw new UnsupportedOperationException("Ouve uma tentativa não autorizada de enviar arquivos de entidade");
         }
         String caminhoSalvarArquivo = "caminho nao definido";
         try {
+
             if (tipoEnvio == null) {
                 throw new UnsupportedOperationException("O tipo de envio não foi selecionado, defina o tipo de envio para proceguir");
             }
 
-            if (categoria == null) {
-                throw new UnsupportedOperationException("o nome da categoria precisa ser configurada");
-            }
             switch (tipoEnvio) {
                 case ARQUIVO_DA_ENTIDADE:
 
+                    if (categoria == null) {
+                        throw new UnsupportedOperationException("o nome da categoria precisa ser configurada");
+                    }
+                    if (entidadeRelacionada == null) {
+                        throw new UnsupportedOperationException("A entidade Relacionada precisa ser configurada");
+                    }
+
+                    //if (entidadeRelacionada.getId() == 0) {
+                    //  throw new UnsupportedOperationException("O Id da entidade é igual a 0, salve a entidade primeiro, antes de enviar o arquivo relacionado");
+                    //}
+                    if (nomeArquivo == null) {
+                        nomeArquivo = event.getFile().getFileName();
+                    }
+                    caminhoSalvarArquivo = SBCore.getCentralDeArquivos().getEndrLocalArquivoItem(
+                            entidadeRelacionada, nomeArquivo, categoria);
+
+                    if (UtilSBCoreArquivos.isArquivoExiste(caminhoSalvarArquivo)) {
+                        SBCore.enviarMensagemUsuario("O arquivo já foi enviado para o sistema \n" + caminhoSalvarArquivo, FabMensagens.AVISO);
+                        throw new UnsupportedOperationException("Este arquivo já existe");
+                    }
+                    UtilSBCoreOutputs.salvarArquivoInput(event.getFile().getInputstream(), caminhoSalvarArquivo);
                     break;
                 case IMAGEM_REPRESENTANTE_ENTIDADE:
                     break;
                 default:
                     throw new AssertionError(tipoEnvio.name());
             }
-            if (UtilSBCoreArquivos.isArquivoExiste(caminhoSalvarArquivo)) {
-                SBCore.enviarMensagemUsuario("O arquivo já foi enviado para o sistema", FabMensagens.AVISO);
-                throw new UnsupportedOperationException("Este arquivo já existe");
-            }
-            SBCore.getCentralDeArquivos().salvarArquivo(entidadeRelacionada, event.getFile().getInputstream(), event.getFile().getFileName(), categoria);
-            System.out.println("Salvando arquivo EM " + caminhoSalvarArquivo);
 
         } catch (Throwable t) {
             SBCore.enviarMensagemUsuario("Ouve um erro inesperado ao enviar o arquivo para o servidor", FabMensagens.ERRO);
@@ -117,6 +147,10 @@ public class PgCentralArquivos implements Serializable {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getNomeArquivo() {
+        return nomeArquivo;
     }
 
 }

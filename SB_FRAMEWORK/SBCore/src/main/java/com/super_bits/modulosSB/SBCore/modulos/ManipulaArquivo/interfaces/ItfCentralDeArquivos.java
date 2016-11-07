@@ -7,7 +7,6 @@ package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces;
 import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -22,6 +21,10 @@ import java.util.List;
  * @author salvioF
  */
 public interface ItfCentralDeArquivos {
+
+    public final static String PALAVRA_CHAVE_NOME_ARQUIVO = "[nomeArquivo]";
+    public final static String PALAVRA_CHAVE_TRECHO_CONTEUDO = "[trechoConteudo]";
+    public final static String CATEGORIA_PADRAO_ARQUIVO_DE_REGISTRO = "arquivoDeRegistro";
 
     /**
      * Retorna o caminho completo onde todos os arquivos do projeto ficarão
@@ -213,8 +216,8 @@ public interface ItfCentralDeArquivos {
      */
     public void salvarImagem(ItfBeanSimples entidade, InputStream foto, String categoria);
 
-    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable;
+    public boolean salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria);
 
-    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao);
+    public boolean baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao);
 
 }

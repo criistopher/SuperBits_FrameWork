@@ -3,13 +3,11 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 
 public abstract class MB_PaginaConversation extends MB_Pagina implements Serializable {
 
-    protected Map<String, String> idsGerenciaveis = new HashMap<String, String>();
     private String urlAcessada;
 
     @PostConstruct

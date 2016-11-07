@@ -7,12 +7,13 @@ package com.super_bits.modulosSB.webPaginas.arquivosDoProjeto;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaArquivosDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoEmpacotamento;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreOutputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.stringSubstituicao.MapaSubstituicao;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.CentralDeArquivosAbstrata;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import java.io.File;
@@ -141,7 +142,7 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
 
     @Override
     public String getEndrLocalRecursosDoObjeto(Class entidade) {
-        return getEndrLocalResourcesObjeto() + "/" + entidade.getSimpleName() + "/";
+        return getEndrLocalResourcesObjeto() + "/" + entidade.getSimpleName();
     }
 
     @Override
@@ -219,22 +220,21 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
 
     @Override
     public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getEndrLocalArquivoItem(pItem, nomeArquivo, null);
     }
 
     @Override
     public String getEndrLocalArquivoItem(ItfBeanSimples pItem, String nomeArquivo, String categoria) {
         if (categoria == null) {
-            return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
+            return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + pItem.getId() + "/" + nomeArquivo;
         } else {
-            return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + categoria + "/" + nomeArquivo;
+            return getEndrLocalRecursosDoObjeto(pItem.getClass()) + "/" + pItem.getId() + "/" + categoria + "/" + nomeArquivo;
         }
 
     }
 
     @Override
     public String getEndrRemotoArquivoItem(ItfBeanSimples pItem, String nomeArquivo) {
-
         return getEndrRemotoRecursosDoObjeto(pItem.getClass()) + "/" + nomeArquivo;
 
     }
@@ -245,12 +245,14 @@ public class CentralDeArquivosWebApp extends CentralDeArquivosAbstrata {
     }
 
     @Override
-    public void salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) throws Throwable {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean salvarArquivo(ItfBeanSimples entidade, InputStream arqivo, String nome, String categoria) {
+        String caminhoArquivo = getEndrLocalArquivoItem(entidade, nome, categoria);
+        return UtilSBCoreOutputs.salvarArquivoInput(arqivo, caminhoArquivo);
+
     }
 
     @Override
-    public void baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
+    public boolean baixarArquivo(ItfBeanSimples entidade, InputStream arqivo, String categoria, MapaSubstituicao mapaSubistituicao) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

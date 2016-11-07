@@ -49,6 +49,13 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return resp;
     }
 
+    protected static ItfResposta getRespostaErroInesperado(Class pTipoRetorno) {
+        Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
+        ItfAcaoDoSistema acao = getAcaoDoMetodo();
+        resp.addErro("Erro inesperado executando  " + acao.getNomeAcao() + " o suporte foi notificado, você pode nos escrever sobre isso caso queira, obrigado");
+        return resp;
+    }
+
     protected static ItfResposta getNovaRespostaComAutorizacao(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, null);
         addMensagemDeAutorizacao(resp);
@@ -107,7 +114,9 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         final Thread t = Thread.currentThread();
         final StackTraceElement[] stackTraceTodosMetodos = t.getStackTrace();
         int idfinalStacktrace = stackTraceTodosMetodos.length - 1;
-
+        if (inicioPesquisaMetodo >= stackTraceTodosMetodos.length) {
+            inicioPesquisaMetodo = stackTraceTodosMetodos.length - 1;
+        }
         for (int i = inicioPesquisaMetodo; (i <= idfinalStacktrace); i++) {
             final StackTraceElement stackTrhaceMetodoAtual = stackTraceTodosMetodos[i];
             final String methodName = stackTrhaceMetodoAtual.getMethodName();

@@ -7,13 +7,15 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 
 /**
  *
  * @author desenvolvedor
  */
 public enum FabModulosSistemaSB implements ItfFabricaModulo {
-    SEGURANCA, COMUNICACAO, PAGINAS_DO_SISTEMA, DOCUMENTOS_INTRANET;
+    SEGURANCA, COMUNICACAO, PAGINAS_DO_SISTEMA, DOCUMENTOS_INTRANET_GESTAO,
+    DOCUMENTOS_INTRANET_EXTERNO;
 
     @Override
     public ModuloAcaoSistema getModulo() {
@@ -40,11 +42,17 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 modulo.setIconeDaClasse("fa fa-cogs");
                 modulo.setUmModuloNativo(true);
                 break;
-            case DOCUMENTOS_INTRANET:
-                modulo.setNome("Documentos em nuvem");
-                modulo.setDescricao("Documentos disponibilizados para acesso via nuvem");
+            case DOCUMENTOS_INTRANET_GESTAO:
+                modulo.setNome("Gestão Documentos em Núvem");
+                modulo.setDescricao("Gestão de arquivos compatilhados em núvem");
                 modulo.setIconeDaClasse("fa fa-file-text-o");
                 modulo.setUmModuloNativo(true);
+                break;
+            case DOCUMENTOS_INTRANET_EXTERNO:
+                modulo.setNome("Documentos Compartilhados");
+                modulo.setDescricao("Acesso a documentos compartilhados em núvem");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse(FabIconeFontAwesome.ESCRITORIO_DOCUMENTO_TEXTO.getIcone().getTagHtml());
                 break;
             default:
                 throw new AssertionError(this.name());

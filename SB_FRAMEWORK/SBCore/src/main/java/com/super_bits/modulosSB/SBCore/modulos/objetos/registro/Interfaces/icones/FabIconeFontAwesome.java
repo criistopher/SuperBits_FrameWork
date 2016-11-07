@@ -12,7 +12,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     ICONE_PERSONALIZADO,
     REG_NOVO, REG_EDITAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
-    REG_AGRUPAR_REGISTROS,
+    REG_AGRUPAR_REGISTROS, REG_LISTAR,
     ESCRITORIO_DOCUMENTO_TEXTO,
     PESSOA_CORACAO,
     COMERCIO_PRESENTE,
@@ -62,7 +62,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setTagHtml("fa fa-eye");
                 break;
             case ESCRITORIO_DOCUMENTO_TEXTO:
-                icone.setNome("fa fa-file-word-o");
+                icone.setTagHtml("fa fa-file-word-o");
                 icone.setNome("Escritorio documento texto");
 
                 break;
@@ -109,6 +109,10 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
             case COMNUNICACAO_NAO_ESTA_OK:
                 icone.setNome("Não OK");
                 icone.setNome("fa fa-thumbs-o-down");
+                break;
+            case REG_LISTAR:
+                icone.setNome("Registro- listar");
+                icone.setTagHtml("fa fa-list");
                 break;
             default:
 
