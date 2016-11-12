@@ -233,7 +233,9 @@ public abstract class SBPersistencia {
         fabricasRegistrosIniciais = configurador.fabricasRegistrosIniciais();
         configurado = true;
         Map<String, Object> propriedades = new HashMap<>();
-        criaScriptsBancoDeDAdos(configurador);
+        if (SBCore.isEmModoDesenvolvimento()) {
+            criaScriptsBancoDeDAdos(configurador);
+        }
         if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)) {
             // desabilitando criação de banco de dados no início caso o banco seja o mesmo
             propriedades.put("hibernate.hbm2ddl.auto", null);
