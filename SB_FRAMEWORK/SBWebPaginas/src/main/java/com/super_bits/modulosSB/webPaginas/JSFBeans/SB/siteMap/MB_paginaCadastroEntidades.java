@@ -284,7 +284,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     // define que a nova classe será do tipo Newsletter
                     setEntidadeSelecionada((T) classeDaEntidade.newInstance());
 
-                    limparLista();
+                    renovarEMPagina();
 
                 } catch (InstantiationException | IllegalAccessException ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
