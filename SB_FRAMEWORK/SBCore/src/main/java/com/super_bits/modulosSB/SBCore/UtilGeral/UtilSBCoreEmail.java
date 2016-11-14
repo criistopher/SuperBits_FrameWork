@@ -5,6 +5,7 @@
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.email.ConfigEmailServersProjeto;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,6 +22,26 @@ import javax.mail.internet.MimeMessage;
  * @author Sálvio Furbino <salviof@gmail.com>
  */
 public abstract class UtilSBCoreEmail {
+
+    private static ConfigEmailServersProjeto configuracao;
+
+    public static void verificarConfiguracao() {
+        if (configuracao == null) {
+            throw new UnsupportedOperationException("O servidor padrão para email transacional não foi enviado, execute " + UtilSBCoreEmail.class.getSimpleName() + ".configurar(configuracao); ao iniciar o projeto ");
+        }
+    }
+
+    public static void configurar(ConfigEmailServersProjeto pConfig) {
+        configuracao = pConfig;
+    }
+
+    public static boolean enviarPorServidorPadrao(String pDestinatario, String pMensagem, String pAssunto) {
+        verificarConfiguracao();
+        return enviaporSSL(configuracao.getServidorPrincipalTransacional().getEnderecoServidor(),
+                configuracao.getServidorPrincipalTransacional().getUsuario(),
+                configuracao.getServidorPrincipalTransacional().getSenha(), pMensagem,
+                pDestinatario, pAssunto);
+    }
 
     public static boolean enviaporSSL(final String servidor, final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
 
@@ -50,12 +71,14 @@ public abstract class UtilSBCoreEmail {
         try {
 
             Message message = new MimeMessage(session);
+
             message.setFrom(new InternetAddress(pUsuario));
 
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(para));
             message.setSubject(pAssunto);
             message.setText(mensagem);
+            message.setContent(mensagem, "text/html; charset=utf-8");
 
             Transport.send(message);
 

@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.UtilGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.email.ConfigEmailServersProjeto;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,25 @@ public class UtilSBCoreEmailTest {
                 + "Mas blz, dessa vez passa a senha é  pEmail",
                 "salviof@gmail.com",
                 "Teste");
+    }
+
+    @Test
+    public void testVerificarConfiguracao() {
+    }
+
+    @Test
+    public void testConfigurar() {
+    }
+
+    @Test
+    public void testEnviarPorServidorPadrao() {
+        UtilSBCoreEmail.configurar(new ConfigEmailServersProjeto("", "", ""));
+        UtilSBCoreEmail.enviarPorServidorPadrao("salviof@gmail.com", "sdjflkajsdflkajsdf <b> asasdfasdfa </b>", "asdfasdfa");
+
+    }
+
+    @Test
+    public void testEnviaporSSL() {
     }
 
 }

@@ -14,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivo
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCEP;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreComunicacao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
@@ -591,6 +592,10 @@ public class PgUtil implements Serializable {
      */
     public String getLorrenIps3Paragrafos() {
         return UtilSBCoreStrings.GetLorenIpsilum(3, UtilSBCoreStrings.TIPO_LOREN.PARAGRAFO);
+    }
+
+    public String getSaudacao() {
+        return UtilSBCoreComunicacao.getSaudacao();
     }
 
 }

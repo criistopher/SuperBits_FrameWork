@@ -323,7 +323,7 @@ public enum FabCampos implements ItfFabrica {
                 break;
             case TELEFONE_FIXO_NACIONAL:
                 sbCampo.setLabel("Tel");
-                sbCampo.setValidacaoRegex("^\\(?([1-9][0-9])\\)?\\s?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$");
+
                 sbCampo.setMascara("(##)#####-####");
                 break;
             case MOEDA_REAL:

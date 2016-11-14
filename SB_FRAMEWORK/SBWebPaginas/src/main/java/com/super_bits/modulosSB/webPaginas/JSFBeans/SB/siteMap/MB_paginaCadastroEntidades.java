@@ -529,10 +529,14 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         return !podeEditar;
     }
 
-    protected void limparListaEEM() {
-        renovarEMPagina();
+    @Override
+    protected void renovarEMPagina() {
+        super.renovarEMPagina(); //To change body of generated methods, choose Tools | Templates.
+        limparListaEEM();
 
-        getEMPagina().clear();
+    }
+
+    protected void limparListaEEM() {
 
         getEntidadesListadas().clear();
 

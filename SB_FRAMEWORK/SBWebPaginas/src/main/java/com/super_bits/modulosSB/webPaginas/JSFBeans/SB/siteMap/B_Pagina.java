@@ -212,6 +212,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             emPagina = null;
             emPagina = getEMPagina();
+            emPagina.clear();
 
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro ao renovar EM", null);
