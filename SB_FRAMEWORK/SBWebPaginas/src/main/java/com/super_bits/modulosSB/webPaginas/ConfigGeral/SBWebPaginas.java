@@ -2,6 +2,7 @@ package com.super_bits.modulosSB.webPaginas.ConfigGeral;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoDistribuicao;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import java.util.List;
@@ -54,6 +55,17 @@ public abstract class SBWebPaginas {
 
             if (!SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.PRODUCAO)) {
                 URLBASE = urlDesenvolvimento + "/" + config.nomePacoteProjeto();
+
+            }
+        }
+
+        if (SBCore.isEmModoDesenvolvimento()) {
+            try {
+                System.out.println("Nome Projeto" + SBCore.getNomeProjeto());
+                if (SBCore.getNomeProjeto().equals("webApp")) {
+                    UtilSBCoreArquivos.copiarArquivoResourceJar(config.getClass(), "SBProjeto.prop", SBCore.getCaminhoGrupoProjetoSource() + "/SBProjeto.prop");
+                }
+            } catch (Throwable t) {
 
             }
         }

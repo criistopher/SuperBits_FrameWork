@@ -84,8 +84,8 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
 
-    @InfoCampo(tipo = FabCampos.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do usuário (ativo/inativo)")
-    private boolean ativo = true;
+    @InfoCampo(tipo = FabCampos.VERDADEIRO_FALSO, label = "Status", descricao = "Status do usuário (ativo/inativo)")
+    private boolean ativo = Boolean.TRUE;
 
     @ManyToOne(targetEntity = GrupoUsuarioSB.class)
     @NotNull

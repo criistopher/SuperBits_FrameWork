@@ -22,6 +22,7 @@ public interface ItfUsuario extends ItfBeanEndereco {
 
     public String getApelido();
 
+    @Override
     public boolean isAtivo();
 
     public String getTipoUsuario();

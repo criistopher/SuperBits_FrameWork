@@ -38,8 +38,8 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
                 }
 
                 if (!usuarioEncontrado.isAtivo()) {
-                    SBCore.enviarMensagemUsuario("O Usuário está Desativado", FabMensagens.ALERTA);
-                    return;
+                    SBCore.enviarMensagemUsuario("Atenção, O Usuário " + usuarioEncontrado.getNome() + "está Desativado", FabMensagens.ALERTA);
+                    //  return;
                 }
 
                 getSessaoAtual().setUsuario(usuarioEncontrado);
