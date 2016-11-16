@@ -26,6 +26,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.ConfiguracoesDeFormularioPorUrl;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
 import com.super_bits.modulosSB.webPaginas.visualizacao.ServicoVisuaslizacaoWebResponsivo;
@@ -715,8 +716,14 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @PostConstruct
     public void testePostConstructInterno() {
-        System.out.println("PostConstruct interno");
+
         System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
+        try {
+            ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo configurações de url ao abrir a pagina" + this.getClass().getSimpleName(), t);
+        }
+        abrePagina();
 
     }
 

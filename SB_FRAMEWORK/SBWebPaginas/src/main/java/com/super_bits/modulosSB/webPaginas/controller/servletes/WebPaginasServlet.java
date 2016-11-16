@@ -17,12 +17,9 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.B_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes.UtilSBWPConstrutorFormularioSiteMap;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -174,8 +171,9 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     int idParametro = 0;
 
                     ConfiguracoesDeFormularioPorUrl configuracoes = new ConfiguracoesDeFormularioPorUrl(caminhoCOmpleto);
-                    pagina.aplicarUrlDeAcesso(configuracoes);
-                    pagina.abrePagina();
+
+                    req.setAttribute("CfgURLFrm", configuracoes);
+
                     break;
                 } catch (Throwable e) {
 

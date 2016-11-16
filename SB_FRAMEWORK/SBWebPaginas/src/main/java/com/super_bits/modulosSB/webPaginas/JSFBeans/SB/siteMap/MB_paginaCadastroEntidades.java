@@ -268,8 +268,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             renovarEMPagina();
             listarDados();
-
-            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            try {
+                getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro atualizando tela por id em" + this.getClass().getSimpleName() + "executando ação " + acaoSelecionada, t);
+            }
 
         }
 
