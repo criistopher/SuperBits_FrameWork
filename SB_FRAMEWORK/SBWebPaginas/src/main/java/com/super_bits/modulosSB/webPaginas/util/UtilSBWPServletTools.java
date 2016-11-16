@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UtilSBWPServletTools {
 
     private enum pathBean {
-
         APLICACAO, SESSAO, REQUEST
     }
 
@@ -69,12 +68,10 @@ public class UtilSBWPServletTools {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro Tentando obter objeto [" + pNomeBean + " ]de contexto injetado manualmento por evalutionExpressionGet", t);
             return null;
         }
-
     }
 
     public static HttpServletRequest getRequestAtual() {
         return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
     }
 
     /**
@@ -88,9 +85,7 @@ public class UtilSBWPServletTools {
             if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
                 return new SessaoAtualSBWP();
             }
-
             SessaoAtualSBWP sessao = (SessaoAtualSBWP) getBeanByNamed("sessaoAtualSBWP", SessaoAtualSBWP.class);
-
             return sessao;
         } catch (Exception e) {
 
@@ -113,7 +108,6 @@ public class UtilSBWPServletTools {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Tentando obter controle de sessao por EL", e);
             return null;
         }
-
     }
 
     public MB_SiteMapa getSiteMap() {
@@ -128,50 +122,6 @@ public class UtilSBWPServletTools {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Tentando obter pagina Atual por EL", e);
             return null;
         }
-    }
-
-    /**
-     *
-     * Retorna uma lista de Strings com os parametros enviados na url
-     *
-     * @param pURL
-     * @return
-     */
-    public static List<String> getParametrosDaPagina(String pURL) {
-        try {
-            int inicioParametros = 0;
-
-            if (SBWebPaginas.isParametrosEmSubdominios()) {
-
-                throw new UnsupportedOperationException("Parametro em subdominio ainda não foi implementado");
-
-            } else {
-                String urlPagina = SBWebPaginas.getURLBase();
-                int inicioParametro = urlPagina.length() + 1;
-                List<String> resposta = new ArrayList<>();
-                if (pURL.length() <= inicioParametro) {
-                    return resposta;
-                }
-                pURL = pURL.replace("/.wp", "");
-                pURL = pURL.replace(".wp", "");
-                try {
-                    String parametrosStr = pURL.substring(inicioParametro);
-
-                    String[] parametros = parametrosStr.split("/");
-                    System.out.println("String de parametros:" + parametrosStr);
-                    resposta.addAll(Arrays.asList(parametros));
-                } catch (Exception e) {
-                    UtilSBWP_JSFTools.vaParaPaginadeErro("Erro localizando valores para paramentor de pagina, verifique a configuração do url do frameworkWebpaginas");
-                }
-                //Removendo Tag referente a Pagina
-                resposta.remove(0);
-                return resposta;
-            }
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro obtendo parametros da pagina", t);
-            return new ArrayList<>();
-        }
-
     }
 
     public static Map<String, String> getParametrosDaAplicacao(String pURL) {

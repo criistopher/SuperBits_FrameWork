@@ -2,6 +2,9 @@ package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,10 @@ public abstract class UtillSBWPReflexoesWebpaginas {
             }
         }
         return resposta;
+    }
+
+    public static EstruturaDeFormulario getEstruturaFormularioByPagina(Class<? extends ItfB_Pagina> pagina) {
+        return null;
     }
 
 }

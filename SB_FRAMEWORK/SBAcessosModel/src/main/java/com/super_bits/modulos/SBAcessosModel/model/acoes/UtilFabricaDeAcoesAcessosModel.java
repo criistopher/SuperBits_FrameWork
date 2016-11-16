@@ -266,6 +266,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         }
         if (pDescricao != null && pDescricao.length() > 2) {
             pAcaoDoSistema.setDescricao(pDescricao);
+        } else {
+            pAcaoDoSistema.setDescricao(pNomeAcao);
         }
 
         if (pAcaoDoSistema.isUmaAcaoDeEntidade()) {

@@ -5,12 +5,15 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
 
@@ -84,11 +87,12 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         return true;
     }
 
+    @Override
     public List<ItfAcaoSecundaria> getAcoesVinculadas() {
-
         return (List) acoesVinculadas;
     }
 
+    @Override
     public void setAcoesVinculadas(List<ItfAcaoSecundaria> acoesVinculadas) {
         this.acoesVinculadas = (List) acoesVinculadas;
     }
@@ -104,6 +108,29 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     @Override
     public ItfAcaoGerenciarEntidade getAcaoDeGestaoEntidade() {
         return this;
+    }
+
+    public ItfAcaoDoSistema getSubAcaoByString(String pString) {
+        try {
+            for (ItfAcaoDoSistema acao : acoesVinculadas) {
+                String nomeUrlDaAcao = UtilSBCoreStrings.makeStrUrlAmigavel(acao.getNomeAcao().toLowerCase());
+                if (nomeUrlDaAcao
+                        .contains(UtilSBCoreStrings.makeStrUrlAmigavel(pString.toLowerCase()))) {
+                    return acao;
+                }
+
+            }
+            for (ItfAcaoDoSistema acao : acoesVinculadas) {
+                if (acao.getEnumAcaoDoSistema().toString().toLowerCase().contains(pString)) {
+                    return acao;
+                }
+            }
+            throw new UnsupportedOperationException("Sub ação de " + getEnumAcaoDoSistema().toString());
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando ação por string na ação de gestão" + getEnumAcaoDoSistema().toString() + pString, t);
+            return null;
+        }
+
     }
 
 }

@@ -55,7 +55,8 @@ public abstract class SBWebPaginas {
 
             if (!SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.PRODUCAO)) {
                 URLBASE = urlDesenvolvimento + "/" + config.nomePacoteProjeto();
-
+                SITE_HOST = urlDesenvolvimento;
+                SITE_URL = URLBASE;
             }
         }
 

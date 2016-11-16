@@ -20,6 +20,8 @@ import java.util.Map;
 public abstract class MB_SiteMapa implements Serializable {
 
     private final Map<String, ItfB_Pagina> paginasDoSistema = new HashMap<>();
+
+    @Deprecated//Subistrituir o ItrB_pagina por EstruturaFormulario
     private Map<String, ItfB_Pagina> paginasOffline = new HashMap<>();
     private final Map<String, Field> paginasInjetadas = new HashMap<>();
     private boolean paginasDoSistemaConstruidas = false;

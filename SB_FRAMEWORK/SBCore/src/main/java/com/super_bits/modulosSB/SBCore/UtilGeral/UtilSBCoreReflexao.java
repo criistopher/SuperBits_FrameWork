@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -47,20 +48,24 @@ public abstract class UtilSBCoreReflexao {
     public static List<?> procuraInstanciasDeCamposPorTipo(Object instancia, Class tipoProcurado) {
         Class classe = instancia.getClass();
         Field[] fields = classe.getDeclaredFields();
-
         List<Object> resposta = new ArrayList<>();
-        for (Field campo : fields) {
-            if (campo.getType().getName().equals(tipoProcurado.getName())) {
-                campo.setAccessible(true);
-                try {
-                    resposta.add(campo.get(instancia));
-                } catch (IllegalArgumentException | IllegalAccessException ex) {
-                    Logger.getLogger(UtilSBCoreReflexao.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
 
-                System.out.println("nao encontrou em:" + campo.getType().getName() + "--" + campo.getName() + " o tipo: " + tipoProcurado.getName());
+        try {
+            for (Field campo : fields) {
+                if (campo.getType().getName().equals(tipoProcurado.getName())) {
+                    campo.setAccessible(true);
+                    try {
+                        resposta.add(campo.get(instancia));
+                    } catch (IllegalArgumentException | IllegalAccessException ex) {
+
+                    }
+                }
             }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo instancias no objeto " + instancia.getClass().getSimpleName() + " por tipo " + tipoProcurado.getSimpleName(), t);
+        }
+        if (resposta.isEmpty()) {
+            System.out.println("Nenhum " + tipoProcurado.getClass().getSimpleName() + " foi instanciado  em " + instancia.getClass().getSimpleName());
         }
         return resposta;
     }

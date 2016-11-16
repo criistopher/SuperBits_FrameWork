@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.ConfiguracoesDeFormularioPorUrl;
 import java.util.List;
 import java.util.Map;
 
@@ -116,9 +117,11 @@ public interface ItfB_Pagina {
     /**
      *
      *
-     *
+     * @deprecated (nomeclatura ruim, pois retorna a Url de acordo com o
+     * parametro selecionado e não de acordo com o padrão
      * @return Url padrão para acesso a esta pagina
      */
+    @Deprecated
     public String getUrlPadrao();
 
     /**
@@ -271,5 +274,7 @@ public interface ItfB_Pagina {
      * @return
      */
     public B_Pagina.BeanDeclarado getBeanDeclarado(String nomeBean);
+
+    public void aplicarUrlDeAcesso(ConfiguracoesDeFormularioPorUrl pConfig);
 
 }

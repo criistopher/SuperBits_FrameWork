@@ -24,7 +24,8 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.I
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_IdWidget;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.ConfiguracoesDeFormularioPorUrl;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
 import com.super_bits.modulosSB.webPaginas.visualizacao.ServicoVisuaslizacaoWebResponsivo;
@@ -49,15 +50,13 @@ import javax.persistence.EntityManager;
 public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     public static final String PAGINAINICIALID = "inicial";
-
     private int id;
     private Boolean abriuPagina = false;
     private final List<String> tags = new ArrayList<>();
     private Map<String, ParametroURL> parametrosURL;
-    private boolean parametrosDeUrlPreenchido = false;
+    private boolean parametrosDeUrlPreenchido = true;
     @Inject()
     protected PgUtil paginaUtil;
-
     private boolean anotacoesConfiguradas = false;
     private AcaoGestaoEntidade acaoVinculada;
 
@@ -66,7 +65,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     protected abstract String defineNomeLink();
 
     protected abstract String defineDescricao();
-
     private String nomeCurto;
     private final List<String> urls = new ArrayList<>();
     private String urlPadrao;
@@ -77,22 +75,19 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private final String descricao;
     @InfoMB_Bean(descricao = "Div onde será exibido o xhtml da ação selecionada", exemplo = "<h:painelGroup id={#PaginaAtual.infoPagina.idConteudoPagina}")
     protected String idAreaExbicaoAcaoSelecionada = "divSBAreaAcaoSelecionada";
-
     protected String xhtmlAcaoAtual;
     protected ItfAcaoDoSistema acaoSelecionada;
     private List<ItfAcaoDoSistema> acoesDaPagina;
-
     public static List<AcaoGestaoEntidade> acoesMB;
     private String nomeMB;
-
     private final Map<String, String> infoIds = new HashMap<>();
     private final Map<String, String> infoWidget = new HashMap<>();
-
     private final Map<String, BeanDeclarado> beansDeclarados = new HashMap<>();
     private final List<InfoMBAcao> infoAcoes = new ArrayList<>();
-
     private EntityManager emPagina;
     private boolean acessoLivre = true;
+    @Deprecated// mover para Propriedade estática do sistema, assim como é feito com ações e Objetos
+    private final EstruturaDeFormulario estruturaFormulario;
 
     public B_Pagina() {
         System.out.println("Constructor da pagina " + this.getClass().getName() + " iniciado");
@@ -100,6 +95,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         titulo = defineTitulo();
         descricao = defineDescricao();
         UtilSBCoreReflexao.instanciarListas(this);
+        estruturaFormulario = new EstruturaDeFormulario();
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
             paginaUtil = new PgUtil();
@@ -107,9 +103,25 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     }
 
+    protected PgUtil getPaginaUtil() {
+        return paginaUtil;
+    }
+
     protected void setAcaoSelecionadaPorEnum(ItfFabricaAcoes fabrica) {
         if (fabrica != null) {
             acaoSelecionada = fabrica.getAcaoDoSistema();
+        }
+    }
+
+    protected void executarAcaoSelecionadaPorString(String pAcao) {
+        try {
+            ItfAcaoDoSistema acao = getAcaoVinculada().getSubAcaoByString(pAcao);
+            if (acao != null) {
+                setAcaoSelecionada(acao);
+                executarAcaoSelecionada();
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando subAção por String" + pAcao, t);
         }
     }
 
@@ -169,7 +181,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 return infoBean.getVisualizacaoItem();
             }
         }
-
     }
 
     @Override
@@ -178,11 +189,9 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             if (this.getClass().getName().equals(PaginaSimples.class.getName())) {
                 return null;
             }
-
             if (acaoVinculada == null) {
                 configAnotacoesClasse();
             }
-
             return acaoVinculada;
         } catch (Throwable e) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação vinculada a pagina" + this.getClass().getSimpleName(), e);
@@ -256,20 +265,34 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     protected void configParametros() {
+        configParametros(false);
+    }
+
+    protected void configParametros(boolean pForcarCriacao) {
+
         try {
             if (parametrosURL != null) {
-                return;
+                if (pForcarCriacao) {
+                    if (!parametrosURL.isEmpty()) {
+                        return;
+                    }
+                } else {
+                    return;
+                }
             }
-
             parametrosURL = new HashMap<>();
+            parametrosURL.clear();
             SBCore.soutInfoDebug("Configurando paramentros:: ");
+
             List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
             SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
-            parametrosURL.clear();
+
+            estruturaFormulario.configParametrosUrl(lista);
             for (ParametroURL pr : lista) {
                 parametrosURL.put(pr.getNome(), pr);
                 // System.out.println("add"+pr.getNome());
             }
+
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando parametros da pagina" + this.getClass().getSimpleName(), t);
         }
@@ -306,38 +329,23 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     }
 
+    public void processarURL(String url) {
+
+    }
+
     protected void aplicaValoresURLEmParametros(Map<String, String> valorStringPorParametro) {
         // if (forcarAtualizacao)
 
         try {
-
-            /// Definindo Tag utilizada para abertura da pagina
-            if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-                tagUsada = (String) UtilSBWPServletTools.getRequestBean("tagUsada");
-            } else {
-                tagUsada = getTags().get(0);
-            }
-
-            // caso tag não seja encontrada utilizar a tag padrão
-            if (tagUsada == null) {
-                System.out.println("Utilizando tagPadrão (contornando erro obtendo tag por requestScoped, este comportamento é normal em ambiente testeS");
-                tagUsada = getTags().get(0);
-
-            }
-
             for (String pr : getMapaParametros().keySet()) {
                 String valorStringURL = valorStringPorParametro.get(pr);
-
                 switch (parametrosURL.get(pr).getTipoParametro()) {
-
                     case ENTIDADE:
                         ItfBeanSimples registroByURL = null;
                         try {
                             registroByURL = (ItfBeanSimples) UtilSBPersistencia.getRegistroByNomeSlug(parametrosURL.get(pr).getTipoEntidade(), (String) valorStringURL, getEMPagina());
-
                         } catch (Exception e) {
                             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro obtendo registro de parametroURL de entidade pela URL", e);
-
                         }
 
                         if (registroByURL == null) {
@@ -474,12 +482,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
     }
 
-    private void makeURLPadrao() {
+    private String gerarURLAtual() {
         boolean redirecionarSemParametro = false;
         String url = SBWebPaginas.getURLBase();
-
         String tagURL;
-
+        configParametros();
         if (tagUsada == null) {
             tagURL = getTags().get(0);
         } else {
@@ -514,9 +521,18 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 url = url + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(camada);
             }
         }
+        String urlAcao = "";
+        if (acaoSelecionada != null) {
+            urlAcao = "/ac-" + UtilSBCoreStrings.makeStrUrlAmigavel(acaoSelecionada.getNomeAcao());
+        }
+        return url + urlAcao + "/.wp";
 
-        setUrlPadrao(url + "/.wp");
-        System.out.println("urlCompletaFormada:: " + urlPadrao);
+    }
+
+    private void makeURLPadrao() {
+
+        setUrlPadrao(gerarURLAtual());
+
     }
 
     @Override
@@ -528,49 +544,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             }
         }
         SBCore.soutInfoDebug("Bean de escopo" + this.getClass().getSimpleName() + " Encerrado (B_Pagina.FecharPagina)");
-    }
-
-    @Override
-    public void abrePagina() {
-        try {
-            if (abriuPagina) {
-                SBCore.soutInfoDebug("Comando Abre PAgina já foi executado, saindo do método");
-                //throw new UnsupportedOperationException("Comando abre pagina foi chamado 2 vezes");
-                return;
-            }
-            abriuPagina = true;
-            SBCore.soutInfoDebug("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
-
-            configParametros();
-
-            Boolean tudoPreenchido = true;
-            // DEFININDO OS VALORES DE PARAMETROS POR URL
-            Map<String, String> valoresStrPorParametro = new HashMap<>();
-            for (String pr : getMapaParametros().keySet()) {
-                Object valorStringURL = UtilSBWPServletTools.getRequestBean(pr);
-
-                /// SE O PARAMETRO NÃO FOI DEFINIDO NO REQUEST MARCA COMO NÃO PREENCHIDO, E REDIRECIONA PARA PAGINA PADRÃO
-                if (valorStringURL == null) {
-                    tudoPreenchido = false;
-                    System.out.println("parametro" + pr + "não encontrado na URL");
-                    parametrosURL.get(pr).setValor(parametrosURL.get(pr).getValorPadrao());
-                } else {
-                    valoresStrPorParametro.put(pr, valorStringURL.toString());
-                }
-            }
-            parametrosDeUrlPreenchido = tudoPreenchido;
-
-            if (!isParametrosDeUrlPreenchido()) {
-                System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
-
-                UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
-            } else {
-
-                aplicaValoresURLEmParametros(valoresStrPorParametro);
-            }
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro execuntando metodo abre pagina de " + this.getClass().getSimpleName(), t);
-        }
     }
 
     @Override
@@ -659,6 +632,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             makeURLPadrao();
         }
         return urlPadrao;
+    }
+
+    public String getUrlAtual() {
+        return gerarURLAtual();
     }
 
     public void setUrlPadrao(String urlCompleta) {
@@ -805,6 +782,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return acoesDaPagina;
     }
 
+    @Override
     public String getIdAreaExbicaoAcaoSelecionada() {
         return idAreaExbicaoAcaoSelecionada;
     }
@@ -845,6 +823,58 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             buldBeansDeclarados();
         }
         return beansDeclarados.get(nomeBean);
+    }
+
+    @Override
+    public void aplicarUrlDeAcesso(ConfiguracoesDeFormularioPorUrl pConfig) {
+
+        configParametros();
+        if (pConfig.getStringsParametros().size() < estruturaFormulario.getQuantidadeParametrosObrigatorios()) {
+            parametrosDeUrlPreenchido = false;
+            return;
+        } else {
+            parametrosDeUrlPreenchido = true;
+        }
+
+        Map<String, String> valoresStrPorParametro = new HashMap<>();
+        int idParametro = 0;
+        for (String pr : getMapaParametros().keySet()) {
+            getNomeParametroById(idParametro);
+            valoresStrPorParametro.put(pr, pConfig.getStringsParametros().get(idParametro));
+            idParametro++;
+        }
+        aplicaValoresURLEmParametros(valoresStrPorParametro);
+        for (String acao : pConfig.getStringAcoes()) {
+
+            executarAcaoSelecionadaPorString(acao);
+
+        }
+
+    }
+
+    @Override
+    public void abrePagina() {
+        try {
+            if (abriuPagina) {
+                SBCore.soutInfoDebug("Comando Abre PAgina já foi executado, saindo do método");
+                //throw new UnsupportedOperationException("Comando abre pagina foi chamado 2 vezes");
+                return;
+            }
+
+            abriuPagina = true;
+            SBCore.soutInfoDebug("Comando Abre Pagina de " + this.getClass() + "Sendo executado pela primeira vez, os parametros iniciais serão definidos:");
+
+            // DEFININDO OS VALORES DE PARAMETROS POR URL
+            if (!isParametrosDeUrlPreenchido()) {
+                System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
+
+                UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
+            } else {
+
+            }
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro execuntando metodo abre pagina de " + this.getClass().getSimpleName(), t);
+        }
     }
 
 }

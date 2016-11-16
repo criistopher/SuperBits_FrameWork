@@ -19,8 +19,10 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.util.testes.UtilSBWPConstrutorFormularioSiteMap;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
+import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -159,8 +161,6 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                 try {
                     B_Pagina pagina = (B_Pagina) MAPA_PAGINAS.get(recurso);
 
-                    List<ParametroURL> parametros = pagina.getParametrosURL();
-
                     if (pagina.getAcaoVinculada() != null) {
                         if (pagina.getAcaoVinculada().isPrecisaPermissao()) {
                             if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada())) {
@@ -172,16 +172,9 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     }
 
                     int idParametro = 0;
-                    for (String valorParametro : UtilSBWPServletTools.getParametrosDaPagina(caminhoCOmpleto)) {
-                        System.out.println("localizando Parametro por String" + valorParametro);
-                        String nomeParametro = pagina.getNomeParametroById(idParametro);
-                        if (nomeParametro != null) {
-                            System.out.println("Adcionando no request:" + nomeParametro + " valor:" + valorParametro);
-                            req.setAttribute(nomeParametro, valorParametro);
-                        }
 
-                        idParametro++;
-                    }
+                    ConfiguracoesDeFormularioPorUrl configuracoes = new ConfiguracoesDeFormularioPorUrl(caminhoCOmpleto);
+                    pagina.aplicarUrlDeAcesso(configuracoes);
                     pagina.abrePagina();
                     break;
                 } catch (Throwable e) {

@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
@@ -19,7 +18,6 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
-import java.security.cert.CRLReason;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -248,7 +246,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
                         int idEntidade = ((ItfBeanSimples) pEntidadeSelecionada).getId();
 
-                        limparListaEEM();
+                        limparLista();
 
                         entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
 
@@ -283,7 +281,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                     // define que a nova classe será do tipo Newsletter
                     setEntidadeSelecionada((T) classeDaEntidade.newInstance());
 
-                    limparListaEEM();
+                    limparLista();
 
                 } catch (InstantiationException | IllegalAccessException ex) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando a classe ao criar novo registro no metodo executar em:" + this.getClass().getName(), ex);
@@ -314,10 +312,16 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
         }
 
         if (acaoSelecionada.isUmaAcaoFormulario()) {
-
-            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            if (paginaUtil != null) {
+                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            }
         }
 
+    }
+
+    @Override
+    public void executarAcaoSelecionada() {
+        executarAcao(null);
     }
 
     /**
@@ -532,11 +536,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
     @Override
     protected void renovarEMPagina() {
         super.renovarEMPagina(); //To change body of generated methods, choose Tools | Templates.
-        limparListaEEM();
+        limparLista();
 
     }
 
-    protected void limparListaEEM() {
+    protected void limparLista() {
 
         getEntidadesListadas().clear();
 

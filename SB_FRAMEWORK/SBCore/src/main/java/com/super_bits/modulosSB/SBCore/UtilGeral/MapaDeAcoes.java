@@ -54,75 +54,82 @@ public class MapaDeAcoes {
         if (SBCore.getFabricasDeAcaoDoSistema() == null) {
             throw new UnsupportedOperationException("O mapa de ações não pode ser definido, pos as Fabricas de ações do core não foram definidas");
         }
-
-        for (Class fabrica : fabricas) {
-
-            for (Object objAcao : fabrica.getEnumConstants()) {
-                ItfFabricaAcoes fabricaAcao = (ItfFabricaAcoes) objAcao;
-
+        try {
+            for (Class fabrica : fabricas) {
                 try {
-                    ItfAcaoDoSistema acao = fabricaAcao.getAcaoDoSistema();
+                    for (Object objAcao : fabrica.getEnumConstants()) {
+                        ItfFabricaAcoes fabricaAcao = (ItfFabricaAcoes) objAcao;
 
-                    List<ItfAcaoDoSistema> acoesDoModulo = ACOES_BY_MODULO.get(acao.getModulo());
-                    List<ItfAcaoDoSistema> acoesManagedBeansDoModulo = ACOES_MANAGED_BEAN_BY_MODULO.get(acao.getModulo());
-                    UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
-                    /// ADICIONANDO MAPAS SIMPLES
-                    ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
-                    ACAO_BY_ENUM.put(fabricaAcao, acao);
+                        try {
+                            ItfAcaoDoSistema acao = fabricaAcao.getAcaoDoSistema();
 
-                    if (acoesDoModulo == null) {
-                        acoesDoModulo = new ArrayList();
-                        acoesManagedBeansDoModulo = new ArrayList<>();
-                        ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
-                        ACOES_MANAGED_BEAN_BY_MODULO.put(acao.getModulo(), acoesManagedBeansDoModulo);
-                    }
+                            List<ItfAcaoDoSistema> acoesDoModulo = ACOES_BY_MODULO.get(acao.getModulo());
+                            List<ItfAcaoDoSistema> acoesManagedBeansDoModulo = ACOES_MANAGED_BEAN_BY_MODULO.get(acao.getModulo());
+                            UtilFabricaDeAcoesBasico.validaIntegridadeAcaoDoSistema(acao);
+                            /// ADICIONANDO MAPAS SIMPLES
+                            ACAO_BY_NOME_UNICO.put(acao.getNomeUnico(), acao);
+                            ACAO_BY_ENUM.put(fabricaAcao, acao);
 
-                    acoesDoModulo.add(acao);
-                    if (acao.isUmaAcaoGestaoDominio()) {
-                        acoesManagedBeansDoModulo.add(acao);
+                            if (acoesDoModulo == null) {
+                                acoesDoModulo = new ArrayList();
+                                acoesManagedBeansDoModulo = new ArrayList<>();
+                                ACOES_BY_MODULO.put(acao.getModulo(), acoesDoModulo);
+                                ACOES_MANAGED_BEAN_BY_MODULO.put(acao.getModulo(), acoesManagedBeansDoModulo);
+                            }
 
-                    } else if (acao.isTemAcaoPrincipal()) {
-                        ItfAcaoGerenciarEntidade acaoprincipal = (ItfAcaoGerenciarEntidade) ACAO_BY_ENUM.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal().getEnumAcaoDoSistema());
-                        if (acaoprincipal == null) {
-                            throw new UnsupportedOperationException(
-                                    "A acaoPrincipal: " + ((ItfAcaoSecundaria) acao).getAcaoPrincipal().getNomeUnico() + "deve ser declarada antes de " + acao.getNomeUnico() + " no enum (Coloque as açoes _MB na frente das subAções, "
-                                    + "e certifique que o dominio e o inicio do nome da ação estão sendo coincidentes entre ações e subações)");
+                            acoesDoModulo.add(acao);
+                            if (acao.isUmaAcaoGestaoDominio()) {
+                                acoesManagedBeansDoModulo.add(acao);
+
+                            } else if (acao.isTemAcaoPrincipal()) {
+                                ItfAcaoGerenciarEntidade acaoprincipal = (ItfAcaoGerenciarEntidade) ACAO_BY_ENUM.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal().getEnumAcaoDoSistema());
+                                if (acaoprincipal == null) {
+                                    throw new UnsupportedOperationException(
+                                            "A acaoPrincipal: " + ((ItfAcaoSecundaria) acao).getAcaoPrincipal().getNomeUnico() + "deve ser declarada antes de " + acao.getNomeUnico() + " no enum (Coloque as açoes _MB na frente das subAções, "
+                                            + "e certifique que o dominio e o inicio do nome da ação estão sendo coincidentes entre ações e subações)");
+                                }
+                                if (SUBACOES_BY_ACAO_GERENCIAR_MB.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal()) == null) {
+                                    List<ItfAcaoSecundaria> subacoesDomodulo = new ArrayList();
+                                    SUBACOES_BY_ACAO_GERENCIAR_MB.put(acaoprincipal, subacoesDomodulo);
+
+                                }
+
+                                SUBACOES_BY_ACAO_GERENCIAR_MB.get(acaoprincipal).add((ItfAcaoSecundaria) acao);
+                            }
+
+                            if (ACOES_BY_DOMINIO.get(acao.getNomeDominio()) == null) {
+                                List<ItfAcaoDoSistema> acoesporDominio = new ArrayList<>();
+                                ACOES_BY_DOMINIO.put(acao.getNomeDominio(), acoesporDominio);
+
+                            }
+                            ACOES_BY_DOMINIO.get(acao.getNomeDominio()).add(acao);
+
+                            if (acao.isUmaAcaoDeEntidade()) {
+                                ItfAcaoEntidade acaodeEntidade = (ItfAcaoEntidade) acao;
+                                Class classeRelacionada = acaodeEntidade.getClasseRelacionada();
+                                List<ItfAcaoDoSistema> acoesDaEntidade = ACOES_BY_CLASSE.get(classeRelacionada);
+                                if (acoesDaEntidade == null) {
+                                    acoesDaEntidade = new ArrayList<>();
+                                    ACOES_BY_CLASSE.put(classeRelacionada, acoesDaEntidade);
+
+                                }
+                                acoesDaEntidade.add(acao);
+
+                            }
+
+                        } catch (Throwable t) {
+                            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabrica.toString(), t);
                         }
-                        if (SUBACOES_BY_ACAO_GERENCIAR_MB.get(((ItfAcaoSecundaria) acao).getAcaoPrincipal()) == null) {
-                            List<ItfAcaoSecundaria> subacoesDomodulo = new ArrayList();
-                            SUBACOES_BY_ACAO_GERENCIAR_MB.put(acaoprincipal, subacoesDomodulo);
-
-                        }
-
-                        SUBACOES_BY_ACAO_GERENCIAR_MB.get(acaoprincipal).add((ItfAcaoSecundaria) acao);
-                    }
-
-                    if (ACOES_BY_DOMINIO.get(acao.getNomeDominio()) == null) {
-                        List<ItfAcaoDoSistema> acoesporDominio = new ArrayList<>();
-                        ACOES_BY_DOMINIO.put(acao.getNomeDominio(), acoesporDominio);
 
                     }
-                    ACOES_BY_DOMINIO.get(acao.getNomeDominio()).add(acao);
-
-                    if (acao.isUmaAcaoDeEntidade()) {
-                        ItfAcaoEntidade acaodeEntidade = (ItfAcaoEntidade) acao;
-                        Class classeRelacionada = acaodeEntidade.getClasseRelacionada();
-                        List<ItfAcaoDoSistema> acoesDaEntidade = ACOES_BY_CLASSE.get(classeRelacionada);
-                        if (acoesDaEntidade == null) {
-                            acoesDaEntidade = new ArrayList<>();
-                            ACOES_BY_CLASSE.put(classeRelacionada, acoesDaEntidade);
-
-                        }
-                        acoesDaEntidade.add(acao);
-
-                    }
-
                 } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabrica.toString(), t);
+                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema, erro na fabrica" + fabrica.toString(), t);
                 }
 
             }
 
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabricas, t);
         }
         buildRelacoes();
     }

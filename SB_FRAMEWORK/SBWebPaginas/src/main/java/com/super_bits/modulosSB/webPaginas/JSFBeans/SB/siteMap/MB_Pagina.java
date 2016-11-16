@@ -49,7 +49,6 @@ public abstract class MB_Pagina extends B_Pagina {
     @Override
     public void abrePagina() {
         super.abrePagina();
-
     }
 
     private Map<String, SBNQ> listas;
