@@ -13,6 +13,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     REG_NOVO, REG_EDITAR, REG_VALIDAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
     REG_AGRUPAR_REGISTROS, REG_LISTAR,
+    REG_PESQUISAR,
     ESCRITORIO_DOCUMENTO_TEXTO,
     PESSOA_CORACAO,
     COMERCIO_PRESENTE,
@@ -127,6 +128,10 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
             case COMUNICACAO_AVIAO_DE_PAPEL:
                 icone.setNome("Comunicacao - E-mail");
                 icone.setTagHtml("fa fa-paper-plane-o");
+                break;
+            case REG_PESQUISAR:
+                icone.setNome("Registro - Pequisar");
+                icone.setTagHtml("fa fa-search");
                 break;
             default:
 
