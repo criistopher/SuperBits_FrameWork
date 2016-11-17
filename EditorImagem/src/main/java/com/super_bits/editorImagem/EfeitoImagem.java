@@ -55,6 +55,11 @@ public class EfeitoImagem extends ItemGenerico implements ItfBeanSimplesSomenteL
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getXhtmlVisao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public static enum TIPO_EFEITO {
 
         BLUR, CORTAR_RETANGULO, GAMA, REDUZIR, SUBTRACTBACKGROUND, RETANGULO_FACE, RETANGULOSIMAGEM, GIRAR_ESQUERDA, GIRAR_DIREITA, BRILHO, CONTRASTE
