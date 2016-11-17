@@ -119,7 +119,7 @@ public abstract class MB_PaginaAtual implements Serializable {
     }
 
     public void mudarDePaginaPorEntidade(ActionEvent event) {
-        String pPagina = UtilSBWPServletTools.getRequestParametro("pPagina");
+//        String pPagina = UtilSBWPServletTools.getRequestParametro("pPagina");
         ItfBeanSimples pEntidade = UtilSBWPServletTools.getActionBeanSimples(event, "registro");
 
         // ItfB_Pagina novaPg = getSiteMap().getPaginaByTagOuNome(pPagina);

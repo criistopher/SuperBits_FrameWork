@@ -170,10 +170,6 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
                     int idParametro = 0;
 
-                    ConfiguracoesDeFormularioPorUrl configuracoes = new ConfiguracoesDeFormularioPorUrl(caminhoCOmpleto);
-
-                    req.setAttribute("CfgURLFrm", configuracoes);
-
                     break;
                 } catch (Throwable e) {
 
@@ -200,6 +196,10 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             }
         }
         System.out.println("ForWard para" + recurso);
+
+        ConfiguracoesDeFormularioPorUrl configuracoes = new ConfiguracoesDeFormularioPorUrl(caminhoCOmpleto);
+        req.setAttribute("CfgURLFrm", configuracoes);
+
         RequestDispatcher wp = req.getRequestDispatcher(recurso);
 
         System.out.println("Dispatcher:" + wp.toString() + "-" + wp.getClass());

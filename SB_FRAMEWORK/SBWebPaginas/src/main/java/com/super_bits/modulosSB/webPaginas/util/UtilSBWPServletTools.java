@@ -267,9 +267,9 @@ public class UtilSBWPServletTools {
      * @param pNomeBean Nome do parametro
      * @return valor do parametro
      */
-    public static String getRequestParametro(String pNomeBean) {
+    public static Object getRequestParametro(String pNomeBean) {
         Map<String, String> parametros = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String resposta = parametros.get(pNomeBean);
+        Object resposta = parametros.get(pNomeBean);
         if (resposta == null) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Parametro de requisição: " + pNomeBean + " não enviado", null);
         }

@@ -22,6 +22,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.I
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Bean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_IdWidget;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.ConfiguracoesDeFormularioPorUrl;
@@ -89,6 +90,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean acessoLivre = true;
     @Deprecated// mover para Propriedade estática do sistema, assim como é feito com ações e Objetos
     private final EstruturaDeFormulario estruturaFormulario;
+
+    protected Boolean getAbriuPagina() {
+        return abriuPagina;
+    }
 
     public B_Pagina() {
         System.out.println("Constructor da pagina " + this.getClass().getName() + " iniciado");
@@ -266,33 +271,31 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     protected void configParametros() {
-        configParametros(false);
-    }
-
-    protected void configParametros(boolean pForcarCriacao) {
 
         try {
             if (parametrosURL != null) {
-                if (pForcarCriacao) {
-                    if (!parametrosURL.isEmpty()) {
-                        return;
-                    }
-                } else {
-                    return;
-                }
+
+                return;
             }
+
             parametrosURL = new HashMap<>();
             parametrosURL.clear();
             SBCore.soutInfoDebug("Configurando paramentros:: ");
 
-            List<ParametroURL> lista = (List<ParametroURL>) UtilSBCoreReflexao.procuraInstanciasDeCamposPorTipo(this, ParametroURL.class);
-            SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
+            List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(infoAcoes, ParametroURL.class);
 
-            estruturaFormulario.configParametrosUrl(lista);
-            for (ParametroURL pr : lista) {
-                parametrosURL.put(pr.getNome(), pr);
-                // System.out.println("add"+pr.getNome());
+            for (Field cp : lista) {
+                InfoParametroURL infoPr = cp.getDeclaredAnnotation(InfoParametroURL.class);
+                if (infoPr == null) {
+                    throw new UnsupportedOperationException("Erro o parametro " + cp.getName() + " não foi anotado com @InfoParametro em" + this.getClass().getSimpleName());
+                }
+                cp.setAccessible(true);
+                ParametroURL novoParametro = new ParametroURL(infoPr);
+                parametrosURL.put(novoParametro.getNome(), novoParametro);
+                cp.set(this, novoParametro);
             }
+
+            SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando parametros da pagina" + this.getClass().getSimpleName(), t);
@@ -581,15 +584,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         getTags().add(pTag);
     }
 
-    public void addParametro(String pNome, String pValorPadrao, ItfParametroTela.TIPO_URL ptipo) {
-        getMapaParametros().put(pNome,
-                new ParametroURL(true, pNome, pValorPadrao, ptipo));
-    }
-
-    public void addParametro(ParametroURL pParametro) {
-        getMapaParametros().put(UtilSBCoreStrings.makeStrUrlAmigavel(pParametro.getNome()), pParametro);
-    }
-
     /**
      *
      * @return
@@ -715,16 +709,32 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     @PostConstruct
-    public void testePostConstructInterno() {
+    public void inicioAberturaDePagina() {
 
-        System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
         try {
-            ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo configurações de url ao abrir a pagina" + this.getClass().getSimpleName(), t);
-        }
-        abrePagina();
+            System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
 
+            configParametros();
+
+            try {
+                ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
+                if (configuracoesDeUrl == null) {
+                    System.out.println("Abandonando ações de abertura de pagina (Informações de Url que deveriam estar no request não foram encontradas)");
+                    return;
+                    // Verificação de configurações de URL ignoradas aguardando adequação do servlet com objeto de estrutura de formulario
+                    //   throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição");
+                } else {
+                    System.out.println("As informações de url serão determinadas");
+                    aplicarUrlDeAcesso(configuracoesDeUrl);
+                }
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo configurações de url ao abrir a pagina" + this.getClass().getSimpleName(), t);
+            }
+
+            abrePagina();
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro iniciando abertura de pagina (PostConstructor Generico), da pagina" + this.getClass().getSimpleName(), t);
+        }
     }
 
     /**

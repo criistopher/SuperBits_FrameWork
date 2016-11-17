@@ -4,6 +4,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametr
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.TratamentoDeErros.ErroSBCriticoWeb;
 import java.io.Serializable;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoParametroURL;
 
 /**
  *
@@ -13,6 +14,7 @@ public final class ParametroURL implements ItfParametroTela {
 
     private Object valor;
     private Object valorPadrao;
+    private String stringValorPadrao;
     private String nome;
     private TIPO_URL tipoParametro;
     private Class tipoEntidade;
@@ -20,39 +22,25 @@ public final class ParametroURL implements ItfParametroTela {
 
     /**
      *
-     * @param pNome Nome do Parametro
-     * @param pValorPadrao Valor padrão
-     * @param ptipo TIPO: Entidade, STring simples e Outros
-     * @param pEntidade Classe que representa a Entidade
-     */
-    public ParametroURL(boolean pObrigatorio, String pNome, Object pValorPadrao, TIPO_URL ptipo, Class pEntidade) {
-        setNome(pNome);
-        setValor(pValorPadrao);
-        setValorPadrao(pValorPadrao);
-        setTipoParametro(ptipo);
-        setTipoEntidade(pEntidade);
-        parametroObrigatorio = pObrigatorio;
-    }
-
-    /**
-     *
+     * @param pInfo
      * @param pObrigatorio
-     * @param pNome nome do parametro
-     * @param pValorPadrao Valor Padrão
-     * @param ptipo Tipo de parametro (string ou Entidade)
+     *
      */
-    public ParametroURL(boolean pObrigatorio, String pNome, Object pValorPadrao, TIPO_URL ptipo) {
-        setNome(pNome);
-        setValor(pValorPadrao);
-        setValorPadrao(pValorPadrao);
-        setTipoParametro(ptipo);
-        parametroObrigatorio = pObrigatorio;
-        if (ptipo == TIPO_URL.ENTIDADE) {
+    public ParametroURL(InfoParametroURL pInfo) {
+        setNome(pInfo.nome());
+        stringValorPadrao = pInfo.valorPadrao();
+        setTipoParametro(pInfo.tipoParametro());
+        if (!pInfo.tipoEntidade().equals(Void.class)) {
+            setTipoEntidade(pInfo.tipoEntidade());
+        }
+
+        parametroObrigatorio = pInfo.obrigatorio();
+        if (tipoParametro == TIPO_URL.ENTIDADE && tipoEntidade == null) {
 
             try {
-                throw new ErroSBCriticoWeb("Criação de parametro de URL do tipo entidade sem especificar a Classe, Utilize o outro construtor deste objeto");
+                throw new ErroSBCriticoWeb("Você precisa especificar o tipo de entidade para este tipo de parametro");
             } catch (ErroSBCriticoWeb e) {
-                FabErro.SOLICITAR_REPARO.paraSistema("Constructor Parametro URL" + pNome, e);
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Constructor Parametro URL" + pInfo.nome(), e);
             }
 
         }

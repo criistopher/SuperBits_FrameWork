@@ -47,7 +47,7 @@ import org.primefaces.context.RequestContext;
 @InfoPagina(nomeCurto = "GPM", tags = {"Permissoes"})
 @Named
 @ViewScoped
-@InfoAcaoSeguranca(acao = FabAcaoSeguranca.GRUPO_MB_GERENCIAR)
+@InfoAcaoSeguranca(acao = FabAcaoSeguranca.IP_MB_GERENCIAR)
 public class PgPermissoes extends MB_paginaCadastroEntidades<GrupoUsuarioSB> {
 
     @InfoMB_Bean(descricao = "Lista todos os modulos")
