@@ -124,7 +124,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             ItfAcaoDoSistema acao = getAcaoVinculada().getSubAcaoByString(pAcao);
             if (acao != null) {
                 setAcaoSelecionada(acao);
-                executarAcaoSelecionada();
+                xhtmlAcaoAtual = acao.getComoFormulario().getXhtml();
+                //executarAcaoSelecionada();
             }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando subAção por String" + pAcao, t);
@@ -274,7 +275,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
         try {
             if (parametrosURL != null) {
-
                 return;
             }
 
@@ -282,7 +282,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             parametrosURL.clear();
             SBCore.soutInfoDebug("Configurando paramentros:: ");
 
-            List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(infoAcoes, ParametroURL.class);
+            List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(this, ParametroURL.class);
 
             for (Field cp : lista) {
                 InfoParametroURL infoPr = cp.getDeclaredAnnotation(InfoParametroURL.class);
@@ -443,22 +443,16 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     private void buldBeansDeclarados() {
         Field[] camposDeclarados = this.getClass().getDeclaredFields();
-
         Method[] metodos = this.getClass().getDeclaredMethods();
-
         for (Method metodo : metodos) {
-
             InfoMB_Acao acao = metodo.getAnnotation(InfoMB_Acao.class);
             InfoMB_IdWidget widget = metodo.getAnnotation(InfoMB_IdWidget.class);
             if (acao != null) {
                 infoAcoes.add(new InfoMBAcao("#{" + this.getClass().getSimpleName() + "." + metodo.getName() + "}", acao.descricao()));
             }
-
             if (widget != null) {
                 infoWidget.put(metodo.getName(), widget.descricao());
-
             }
-
         }
         for (Field campo : camposDeclarados) {
 
@@ -470,7 +464,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             } catch (Throwable t) {
                 System.out.println("todo retirar criação de beandeclarado em modo criação offiline");
             }
-//            if (infoBean != null) {
+            //            if (infoBean != null) {
 
             //          }
             if (idcomp != null) {
@@ -720,7 +714,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
                 if (configuracoesDeUrl == null) {
                     System.out.println("Abandonando ações de abertura de pagina (Informações de Url que deveriam estar no request não foram encontradas)");
-                    return;
+                    //     return;
                     // Verificação de configurações de URL ignoradas aguardando adequação do servlet com objeto de estrutura de formulario
                     //   throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição");
                 } else {
