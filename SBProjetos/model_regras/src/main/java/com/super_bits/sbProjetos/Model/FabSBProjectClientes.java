@@ -40,7 +40,7 @@ public enum FabSBProjectClientes implements ItfFabrica {
         switch (this) {
             case SUPERBITS_OPEN_SOURCE:
                 novoCliente.setNome("Super Bits");
-                novoCliente.setServicorGitRelease(SERVIDOR_SOURCE_OFICIAL_SUPER_BITS_ORG);
+                novoCliente.setServidorGitCodigoFonte(SERVIDOR_SOURCE_OFICIAL_SUPER_BITS_ORG);
 
                 break;
             case VIP:

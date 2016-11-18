@@ -1,8 +1,0 @@
-OS SEGUINTES ERROS DE CONFIGURAÇÃO FORAM ENCONTRADOS NO SISTEMA: 
- Você pode encontrar informações mais detalhadas do erro no SystemOut 
-->HV000116: O arquivo xhtml da ação FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_FRM_LISTAR não foi encontrado em /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork//SuperBitsWPStarter/webAppRequisitos/src/main/webapp/site/modulo acesso restrito/acaodosistema/listar.xhtml
-->HV000116: O arquivo xhtml da ação FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_FRM_VISUALIZAR não foi encontrado em /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork//SuperBitsWPStarter/webAppRequisitos/src/main/webapp/site/modulo acesso restrito/acaodosistema/editar.xhtml
-->HV000116: O arquivo xhtml da ação FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_MB_GERENCIAR não foi encontrado em /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork//SuperBitsWPStarter/webAppRequisitos/src/main/webapp/site/restrito/restrito.xhtml
-->HV000116: O arquivo xhtml da ação FabAcaoAcessoRestritoExemplo.RECURSO_RESTRITO_FRM_EDITAR não foi encontrado em /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork//SuperBitsWPStarter/webAppRequisitos/src/main/webapp/site/modulo acesso restrito/acaodosistema/editar.xhtml
-->HV000116: O arquivo xhtml da ação FabAcaoSeguranca.GRUPO_FRM_LISTAR não foi encontrado em /home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork//SuperBitsWPStarter/webAppRequisitos/src/main/webapp/site/segurança/grupousuariosb/listar.xhtml
-
