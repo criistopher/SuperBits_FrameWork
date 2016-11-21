@@ -20,6 +20,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -128,6 +129,12 @@ public abstract class UtilSBWP_JSFTools {
 
         return accumulator;
 
+    }
+
+    public static void encerrarSessaoJSessionId() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(false);
+        session.invalidate();
     }
 
     public static void atualizaPorId(String pId) {

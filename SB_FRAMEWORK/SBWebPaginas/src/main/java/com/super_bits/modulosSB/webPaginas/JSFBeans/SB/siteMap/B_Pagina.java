@@ -235,12 +235,24 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     protected void renovarEMPagina() {
         try {
-            EntityManager em = getEMPagina();
-            em.close();
+
+            try {
+                if (emPagina != null) {
+
+                    if (emPagina.getTransaction().isActive()) {
+                        emPagina.getTransaction().rollback();
+                    }
+                    emPagina.clear();
+                    emPagina.close();
+
+                }
+
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro renovando Entitymanager da PAgina", t);
+            }
 
             emPagina = null;
             emPagina = getEMPagina();
-            emPagina.clear();
 
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro ao renovar EM", null);

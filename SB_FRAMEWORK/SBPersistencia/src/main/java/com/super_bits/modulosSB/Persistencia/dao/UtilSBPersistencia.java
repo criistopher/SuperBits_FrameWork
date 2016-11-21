@@ -847,6 +847,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
      * @return true se conseiguir exculir, false se não conseguir
      */
     public static boolean exluirRegistro(Object pObj) {
+
         return (boolean) executaAlteracaoEmBancao(new InfoPerisistirEntidade(pObj, null, null, FabInfoPersistirEntidade.DELETE));
     }
 

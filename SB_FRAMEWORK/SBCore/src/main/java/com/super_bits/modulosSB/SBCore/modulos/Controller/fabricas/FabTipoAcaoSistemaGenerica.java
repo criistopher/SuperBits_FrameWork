@@ -17,17 +17,38 @@ import java.util.List;
  */
 public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
+    /**
+     * Formulário novo Registro, tags identificadoras: FRM NOVO
+     */
     FORMULARIO_NOVO_REGISTRO,
+    /**
+     * Formulário Edição, tags identificadoras: FRM EDITAR
+     */
     FORMULARIO_EDITAR,
+    /**
+     * Forumulário , tags identificadoras: FRM
+     */
     FORMULARIO_PERSONALIZADO,
+    /**
+     * Formulário visualização de registro: FRM VISUALIZAR
+     */
     FORMULARIO_VISUALIZAR,
+    /**
+     * Formulario listagem de Itens: FRM LISTAR
+     */
     FORMULARIO_LISTAR,
+    /**
+     * Formulario modal, FRM MODAL
+     */
     FORMULARIO_MODAL,
     SELECAO_DE_ACAO,
     CONTROLLER_SALVAR_EDICAO,
     CONTROLLER_SALVAR_NOVO,
     CONTROLLER_SALVAR_MODO_MERGE,
     CONTROLLER_PERSONALIZADO,
+    /**
+     * Ação do tipo alterar status, tags identificadoras CTR ALTERAR STATUS
+     */
     CONTROLLER_ATIVAR_DESATIVAR,
     CONTROLLER_ATIVAR,
     CONTROLLER_REMOVER,
@@ -236,7 +257,7 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
     public static FabTipoAcaoSistemaGenerica getAcaoGenericaByNome(String nome) {
         FabTipoAcaoSistemaGenerica fabrica = null;
 
-        int porcentagemCoicidencias = 0;
+        double porcentagemCoicidencias = 0;
         int numeroDePalavras = 0;
 
         for (FabTipoAcaoSistemaGenerica acaoGenerica : FabTipoAcaoSistemaGenerica.values()) {
@@ -253,13 +274,30 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
             // calculando porcentagem coincidencias:
             if (cd > 0) {
-                int porcentagem = Math.round(100 / palavrasChave.size() * cd);
+                Double valorPorcentagem = 100D / palavrasChave.size() * cd;
+                Double porcentagem = Math.floor(valorPorcentagem.doubleValue());
 
-                if (porcentagem > porcentagemCoicidencias && numeroDePalavras < cd) {
-                    porcentagemCoicidencias = porcentagem;
-                    numeroDePalavras = cd;
-                    fabrica = acaoGenerica;
+                switch (acaoGenerica) {
+
+                    case FORMULARIO_PERSONALIZADO:
+
+                    case CONTROLLER_PERSONALIZADO:
+                        if (porcentagem >= porcentagemCoicidencias && numeroDePalavras <= cd) {
+                            porcentagemCoicidencias = porcentagem;
+                            numeroDePalavras = cd;
+                            fabrica = acaoGenerica;
+                        }
+                        break;
+
+                    default:
+                        if (porcentagem >= porcentagemCoicidencias && numeroDePalavras < cd) {
+                            porcentagemCoicidencias = porcentagem;
+                            numeroDePalavras = cd;
+                            fabrica = acaoGenerica;
+                        }
+
                 }
+
             }
         }
 

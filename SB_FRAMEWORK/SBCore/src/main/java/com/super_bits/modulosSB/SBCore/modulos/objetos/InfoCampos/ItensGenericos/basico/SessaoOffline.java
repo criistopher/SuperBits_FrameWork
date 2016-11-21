@@ -23,6 +23,13 @@ public class SessaoOffline implements ItfSessao {
     private Date dataFinal;
     private final List<ItfPermissao> acoesRealizadas;
 
+    protected String pastaTempDeSessao;
+
+    @Override
+    public String getPastaTempDeSessao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public SessaoOffline() {
         this.acoesRealizadas = new ArrayList();
         this.usuarioLogado = new UsuarioAnonimo();
@@ -77,6 +84,13 @@ public class SessaoOffline implements ItfSessao {
     @Override
     public boolean isTipoViewDefinido() {
         throw new UnsupportedOperationException("Tipo view deste tipo de sessão não foi desenvolvido"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void encerrarSessao() {
+        pastaTempDeSessao = null;
+        setUsuario(new UsuarioAnonimo());
+        dataFinal = new Date();
     }
 
 }

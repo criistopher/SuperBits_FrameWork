@@ -4,6 +4,8 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +43,8 @@ public class Entidade_Sessao implements ItfSessao, Serializable {
     private ItfUsuario usuario;
 
     private String ip;
+
+    private String pastaTempDeSessao;
 
     public Entidade_Sessao() {
     }
@@ -114,6 +118,19 @@ public class Entidade_Sessao implements ItfSessao, Serializable {
 
     @Override
     public boolean isTipoViewDefinido() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPastaTempDeSessao() {
+        if (pastaTempDeSessao == null) {
+            pastaTempDeSessao = UtilSBWPServletTools.getCaminhoLocalServletsResource() + "/arqSessao/" + usuario.getId();
+        }
+        return pastaTempDeSessao;
+    }
+
+    @Override
+    public void encerrarSessao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

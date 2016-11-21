@@ -49,6 +49,7 @@ public class PgCentralArquivos implements Serializable {
     public void init() {
         substituicaoEmArquivoExemplo = new MapaSubstituicaoArquivo(new File("/home/teste.txt"));
         categoria = ItfCentralDeArquivos.CATEGORIA_PADRAO_ARQUIVO_DE_REGISTRO;
+
     }
 
     public List<String> getPalavrasChaveSubstituicaoArquivo() {
@@ -75,7 +76,7 @@ public class PgCentralArquivos implements Serializable {
 
     }
 
-    public void enviarArquivoDeEntidadeSelecionada(FileUploadEvent event) {
+    public synchronized void enviarArquivoDeEntidadeSelecionada(FileUploadEvent event) {
         if (!SBCore.getControleDeSessao().getSessaoAtual().isIdentificado()) {
             throw new UnsupportedOperationException("Ouve uma tentativa não autorizada de enviar arquivos de entidade");
         }

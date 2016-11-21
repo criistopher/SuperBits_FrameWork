@@ -64,6 +64,7 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
 
     public void recarregarPermissoes() {
         ControllerAppAbstratoSBCore.reloadAcessos();
+
     }
 
     @Override
@@ -85,8 +86,8 @@ public class ControleDeSessaoWeb extends ControleDeSessaoAbstratoSBCore implemen
 
     @Override
     public void efetuarLogOut() {
-        getSessaoAtual().setUsuario(new UsuarioAnonimo());
-        UtilSBWP_JSFTools.vaParaPaginaInicial();
+        getSessaoAtual().encerrarSessao();
+
     }
 
     public String getUsuarioLogar() {

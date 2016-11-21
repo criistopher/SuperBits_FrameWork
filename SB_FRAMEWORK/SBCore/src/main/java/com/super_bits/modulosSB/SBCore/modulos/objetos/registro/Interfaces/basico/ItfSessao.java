@@ -33,4 +33,8 @@ public interface ItfSessao {
 
     public boolean isTipoViewDefinido();
 
+    public String getPastaTempDeSessao();
+
+    public void encerrarSessao();
+
 }

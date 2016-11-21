@@ -188,7 +188,7 @@ public abstract class UtilSBCoreArquivos {
                 out.close();
                 System.out.println("Arquivo copiado de " + src + " para " + dest);
             } catch (Exception ex) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro criando arquivo" + "Erro copiando arquivo de" + src + "para " + dest, ex);
+                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro copiando arquivo de" + src + "para " + dest, ex);
 
                 return false;
             }
