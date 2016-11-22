@@ -9,6 +9,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoCorporativo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanContatoPessoa;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
@@ -28,6 +29,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.metamodel.EntityType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import org.hibernate.exception.JDBCConnectionException;
 
 /**
@@ -1072,7 +1074,19 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
             if (pBeanSimples == null) {
                 throw new UnsupportedOperationException("Tentativa de carregar o Registro JPA enviando o valor nulo");
             }
-            return selecaoRegistro(pEM, null, null, pBeanSimples.getClass(), FabTipoSelecaoRegistro.ID, pBeanSimples.getId());
+
+            Class classe = pBeanSimples.getClass();
+            String caracteres = "_$";
+
+            if (pBeanSimples.getClass().getSimpleName().contains(caracteres)) {
+                String nomeDaClasse = pBeanSimples.getClass().getSimpleName().split("[" + java.util.regex.Pattern.quote(caracteres) + "]+")[0];
+                classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(nomeDaClasse);
+                if (classe == null) {
+                    throw new UnsupportedOperationException("A classe " + nomeDaClasse + " não foi encontrada a partir do nome" + pBeanSimples.getClass().getSimpleName());
+                }
+            }
+
+            return selecaoRegistro(pEM, null, null, classe, FabTipoSelecaoRegistro.ID, pBeanSimples.getId());
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Tentativa de carregar entidade apartide de um bean nulo", t);
         }
