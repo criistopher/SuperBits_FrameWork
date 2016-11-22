@@ -20,6 +20,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -130,6 +131,12 @@ public abstract class UtilSBWP_JSFTools {
 
     }
 
+    public static void encerrarSessaoJSessionId() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(false);
+        session.invalidate();
+    }
+
     public static void atualizaPorId(String pId) {
         try {
 
@@ -173,6 +180,10 @@ public abstract class UtilSBWP_JSFTools {
     public static void vaParaPagina(String pURL) {
 
         try {
+            if (SBCore.isEmModoDesenvolvimento()) {
+                System.out.println("Enviou comando levando o usuário a:" + pURL);
+                return;
+            }
 
             //	FacesContext.getCurrentInstance().getExternalContext().responseReset();
             FacesContext.getCurrentInstance().getExternalContext().redirect(pURL);

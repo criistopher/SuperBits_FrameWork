@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
@@ -22,6 +23,13 @@ public class SessaoOffline implements ItfSessao {
     private final Date dataInicial;
     private Date dataFinal;
     private final List<ItfPermissao> acoesRealizadas;
+
+    protected String pastaTempDeSessao;
+
+    @Override
+    public String getPastaTempDeSessao() {
+        return SBCore.getCaminhoGrupoProjetoSource() + "/modelRegras/target" + String.valueOf(SBCore.getControleDeSessao().getSessaoAtual().getUsuario().getEmail().hashCode());
+    }
 
     public SessaoOffline() {
         this.acoesRealizadas = new ArrayList();
@@ -77,6 +85,13 @@ public class SessaoOffline implements ItfSessao {
     @Override
     public boolean isTipoViewDefinido() {
         throw new UnsupportedOperationException("Tipo view deste tipo de sessão não foi desenvolvido"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void encerrarSessao() {
+        pastaTempDeSessao = null;
+        setUsuario(new UsuarioAnonimo());
+        dataFinal = new Date();
     }
 
 }

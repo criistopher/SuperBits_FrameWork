@@ -25,7 +25,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
     GERADOR_CODIGO,
     CRM,
     FINANCEIRO,
-    ELEMENTAL;
+    ELEMENTAL,
+    CRIADOR_COMPONENTE_VISUAL,;
 
     @Override
     public Projeto getRegistro() {
@@ -90,6 +91,12 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 novoProjeto.setNomeProjeto("elemental");
                 novoProjeto.setNomeComercial("Elemental Game Card");
 
+                break;
+            case CRIADOR_COMPONENTE_VISUAL:
+                novoProjeto.setCliente(FabSBProjectClientes.SUPERBITS_OPEN_SOURCE.getRegistro());
+                novoProjeto.setNome("SB CRIADOR COMPONENTE");
+
+                novoProjeto.setDescricao("Criador componente visual - FrameWork SuperBits");
                 break;
             default:
                 throw new AssertionError(this.name());

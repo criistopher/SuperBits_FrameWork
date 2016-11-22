@@ -73,8 +73,8 @@ public class UtilSBProjetosTest extends TesteJunit {
         //
         //UtilSBProjetos.configurarPastaProjeto(game_super_bits_elemental);
         //UtilSBProjetos.criarNovoProjeto(game_super_bits_elemental);
-        //   UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
-        UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.INTRANET_AQUA_QUALITY.getRegistro());
+        UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.CRIADOR_COMPONENTE_VISUAL.getRegistro());
+        //UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.INTRANET_AQUA_QUALITY.getRegistro());
         //
         //    UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
 

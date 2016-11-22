@@ -95,6 +95,13 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return abriuPagina;
     }
 
+    private boolean isPaginaEmProcessoDeAberturaInicial() {
+        if (SBCore.isEmModoDesenvolvimento()) {
+            return false;
+        }
+        return (UtilSBWPServletTools.getRequestBean("CfgURLFrm") != null);
+    }
+
     public B_Pagina() {
         System.out.println("Constructor da pagina " + this.getClass().getName() + " iniciado");
         aplicarAnotacoes();
@@ -125,10 +132,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             if (acao != null) {
                 setAcaoSelecionada(acao);
                 xhtmlAcaoAtual = acao.getComoFormulario().getXhtml();
-                //executarAcaoSelecionada();
+
+                executarAcaoSelecionada();
             }
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando subAção por String" + pAcao, t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando subAção por String" + pAcao + " em " + this.getClass().getSimpleName(), t);
         }
     }
 
@@ -157,7 +165,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     protected void atualizarIdAreaExibicaoAcaoSelecionada() {
-        paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+        if (isPaginaEmProcessoDeAberturaInicial()) {
+            xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
+        } else {
+            getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+        }
     }
 
     public class BeanDeclarado extends ReflexaoCampo implements ItfBeanDeclarado {
@@ -223,12 +235,24 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     protected void renovarEMPagina() {
         try {
-            EntityManager em = getEMPagina();
-            em.close();
+
+            try {
+                if (emPagina != null) {
+
+                    if (emPagina.getTransaction().isActive()) {
+                        emPagina.getTransaction().rollback();
+                    }
+                    emPagina.clear();
+                    emPagina.close();
+
+                }
+
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro renovando Entitymanager da PAgina", t);
+            }
 
             emPagina = null;
             emPagina = getEMPagina();
-            emPagina.clear();
 
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro ao renovar EM", null);
@@ -295,6 +319,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 cp.set(this, novoParametro);
             }
 
+            estruturaFormulario.configParametrosUrl((List) parametrosURL.values());
             SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
 
         } catch (Throwable t) {
@@ -751,8 +776,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             if (acaoSelecionada.isUmaAcaoFormulario()) {
                 if (!acaoSelecionada.getComoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
-                    xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
-                    paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+
+                    if (!isPaginaEmProcessoDeAberturaInicial()) {
+                        atualizarIdAreaExibicaoAcaoSelecionada();
+                    }
+
                     System.out.println("Info: O XHTML foi alterado para" + xhtmlAcaoAtual + " com a execução de" + acaoSelecionada.getNomeUnico());
                 } else {
                     System.out.println("Info: O Managebean já estava no estado da ação:" + acaoSelecionada.getNomeUnico());
@@ -856,9 +884,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
         aplicaValoresURLEmParametros(valoresStrPorParametro);
         for (String acao : pConfig.getStringAcoes()) {
-
             executarAcaoSelecionadaPorString(acao);
-
         }
 
     }
@@ -878,7 +904,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             // DEFININDO OS VALORES DE PARAMETROS POR URL
             if (!isParametrosDeUrlPreenchido()) {
                 System.out.println("Os parametros não estavam preenchidos, redirecionando a pagina");
-
                 UtilSBWP_JSFTools.vaParaPagina(getUrlPadrao());
             } else {
 

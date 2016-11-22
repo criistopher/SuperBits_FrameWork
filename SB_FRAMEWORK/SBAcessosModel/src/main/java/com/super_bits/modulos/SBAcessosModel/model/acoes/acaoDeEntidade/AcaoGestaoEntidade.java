@@ -128,7 +128,8 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
             throw new UnsupportedOperationException("Sub ação de " + getEnumAcaoDoSistema().toString());
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro localizando ação por string na ação de gestão" + getEnumAcaoDoSistema().toString() + pString, t);
-            return null;
+            throw new UnsupportedOperationException("Ação " + pString + " não localizada em" + getEnumAcaoDoSistema().toString());
+
         }
 
     }

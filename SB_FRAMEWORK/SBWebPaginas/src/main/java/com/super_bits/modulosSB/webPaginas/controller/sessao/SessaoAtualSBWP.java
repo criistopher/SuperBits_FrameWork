@@ -6,9 +6,12 @@ package com.super_bits.modulosSB.webPaginas.controller.sessao;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.SessaoOffline;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioAnonimo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenusDaSessao;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
+import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -50,6 +53,23 @@ public class SessaoAtualSBWP extends SessaoOffline implements ItfSessao, Seriali
     @Override
     public boolean isTipoViewDefinido() {
         return tipoViewDefinido;
+    }
+
+    @Override
+    public String getPastaTempDeSessao() {
+        if (pastaTempDeSessao == null) {
+            pastaTempDeSessao = UtilSBWPServletTools.getCaminhoLocalServletsResource()
+                    + "/arqSessao/" + getUsuario().getEmail().hashCode();
+        }
+        return pastaTempDeSessao;
+    }
+
+    @Override
+    public void encerrarSessao() {
+        super.encerrarSessao();
+
+        UtilSBWP_JSFTools.encerrarSessaoJSessionId();
+        UtilSBWP_JSFTools.vaParaPaginaInicial();
     }
 
 }

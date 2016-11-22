@@ -102,28 +102,37 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
 
         classesControllers = pClassesControllers;
         try {
-            System.out.println("iniciando config Acessos");
+            System.out.println("Ajustando configurações de serviços");
+            System.out.println("As seguinte classes de serviço foram encontradas:" + pClassesControllers);
             if (pClassesControllers == null) {
                 return;
             }
+
             for (Class classe : pClassesControllers) {
-                Method[] metodos
-                        = classe.getDeclaredMethods();
-                acoesByHashMetodo.clear();
-                for (Method metodo : metodos) {
-                    ItfAcaoController acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
-                    Class classeAcao = acaovinculoMetodo.getClass();
-
-                    //   if (classeAcao.isAssignableFrom(ItfAcaoController.class) == false) {
-                    //       throw new UnsupportedOperationException("A ação " + acaovinculoMetodo.getNomeAcao() + " não é do tipo controller e foi vinculada ao método:" + metodo.getName() + " Na classe " + metodo.getDeclaringClass().getSimpleName());
-                    // }
-                    acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo);
-
-                    metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+                try {
+                    Method[] metodos
+                            = classe.getDeclaredMethods();
+                    acoesByHashMetodo.clear();
+                    for (Method metodo : metodos) {
+                        ItfAcaoController acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
+                        Class classeAcao = acaovinculoMetodo.getClass();
+                        //   if (classeAcao.isAssignableFrom(ItfAcaoController.class) == false) {
+                        //       throw new UnsupportedOperationException("A ação " + acaovinculoMetodo.getNomeAcao() + " não é do tipo controller e foi vinculada ao método:" + metodo.getName() + " Na classe " + metodo.getDeclaringClass().getSimpleName());
+                        // }
+                        acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo);
+                        metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+                    }
+                } catch (Throwable t) {
+                    String nomeclasse = "Classe nula";
+                    if (classe != null) {
+                        nomeclasse = classe.getSimpleName();
+                    }
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro adicionando metodos de ação para classe de serviço: " + nomeclasse, t);
                 }
             }
+
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, t.getMessage(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro criando Vinculo de ações do sistema aos metodos", t);
         }
 
     }

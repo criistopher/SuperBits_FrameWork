@@ -12,7 +12,12 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     ICONE_PERSONALIZADO,
     REG_NOVO, REG_EDITAR, REG_VALIDAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
+<<<<<<< HEAD
     REG_AGRUPAR_REGISTROS, REG_LISTAR, REG_PROXIMO, REG_ANTERIOR,
+=======
+    REG_AGRUPAR_REGISTROS, REG_LISTAR,
+    REG_PESQUISAR,
+>>>>>>> 99c8432d72dbab7aa918d8f60611527e6a386897
     ESCRITORIO_DOCUMENTO_TEXTO,
     PESSOA_CORACAO,
     COMERCIO_PRESENTE,
@@ -128,6 +133,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Comunicacao - E-mail");
                 icone.setTagHtml("fa fa-paper-plane-o");
                 break;
+<<<<<<< HEAD
             case REG_PROXIMO:
 
                 icone.setNome("Reg_Proximo");
@@ -139,6 +145,11 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Reg_Voltar");
                 icone.setTagHtml("fa fa-arrow-left");
 
+=======
+            case REG_PESQUISAR:
+                icone.setNome("Registro - Pequisar");
+                icone.setTagHtml("fa fa-search");
+>>>>>>> 99c8432d72dbab7aa918d8f60611527e6a386897
                 break;
             default:
 

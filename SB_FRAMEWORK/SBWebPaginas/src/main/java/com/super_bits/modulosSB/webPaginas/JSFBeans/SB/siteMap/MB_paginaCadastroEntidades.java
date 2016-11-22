@@ -249,8 +249,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                         limparLista();
 
                         entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
-
-                        paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                        atualizarIdAreaExibicaoAcaoSelecionada();
 
                 }
 
@@ -269,7 +268,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             renovarEMPagina();
             listarDados();
             try {
-                getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                atualizarIdAreaExibicaoAcaoSelecionada();
             } catch (Throwable t) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro atualizando tela por id em" + this.getClass().getSimpleName() + "executando ação " + acaoSelecionada, t);
             }
@@ -294,14 +293,12 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                 atualizaInformacoesDeEdicao(estadoEdicao.CRIAR);
 
                 // define que a atualização das informações aconteceram no formulario
-                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
             }
         }
 
         if (isTemEditar()) {
             if (acaoSelecionada.equals(getAcaoEditar())) {
                 atualizaInformacoesDeEdicao(estadoEdicao.ALTERAR);
-                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
 
             }
         }
@@ -310,14 +307,13 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             atualizaInformacoesDeEdicao(estadoEdicao.VISUALIZAR);
             listarDados();
-            paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
 
         }
 
         if (acaoSelecionada.isUmaAcaoFormulario()) {
-            if (paginaUtil != null) {
-                paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
-            }
+
+            atualizarIdAreaExibicaoAcaoSelecionada();
+
         }
 
     }

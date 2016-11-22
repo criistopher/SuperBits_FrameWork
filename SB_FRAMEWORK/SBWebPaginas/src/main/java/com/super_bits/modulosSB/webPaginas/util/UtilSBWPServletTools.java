@@ -160,8 +160,8 @@ public class UtilSBWPServletTools {
 
             if (contextoVisualizacaoAtual == null) {
                 //TODO VA PARA VIEWEXPIRED
-                UtilSBWP_JSFTools.vaParaPaginaInicial();
-                throw new ViewExpiredException();
+                //UtilSBWP_JSFTools.vaParaPaginaInicial();
+                throw new UnsupportedOperationException("Contexto não pôde ser obtido utilizando FaceContex para determinar caminho local do servlet");
             }
             ExternalContext contextoExterno = contextoVisualizacaoAtual.getExternalContext();
 
@@ -169,8 +169,9 @@ public class UtilSBWPServletTools {
 
             return scontext.getRealPath("/");
         } catch (Exception e) {
-            System.out.println("UTILIZANDO PASTA RESOURCE DE DESENVOLVIMENTO." + e.getMessage() + e.getClass());
+
             if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+                System.out.println("UTILIZANDO PASTA RESOURCE DE DESENVOLVIMENTO." + e.getMessage() + e.getClass());
                 return SBWebPaginas.getCaminhoWebAppDeveloper();
             } else {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ouve uma tentativa de obter o caminho local do Servlet fi FacesContext, e esta tentativa falhou!", e);
