@@ -26,7 +26,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
     CRM,
     FINANCEIRO,
     ELEMENTAL,
-    CRIADOR_COMPONENTE_VISUAL,;
+    CRIADOR_COMPONENTE_VISUAL,
+    SUPER_BITS_Fw_ADMIN_TOOLS;
 
     @Override
     public Projeto getRegistro() {
@@ -97,6 +98,12 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 novoProjeto.setNome("SB CRIADOR COMPONENTE");
 
                 novoProjeto.setDescricao("Criador componente visual - FrameWork SuperBits");
+                break;
+            case SUPER_BITS_Fw_ADMIN_TOOLS:
+                novoProjeto.setCliente(FabSBProjectClientes.SUPERBITS_OPEN_SOURCE.getRegistro());
+                novoProjeto.setNome("SB_AdminTools");
+
+                novoProjeto.setDescricao("Ferramentas de Administração do sistema- FrameWork SuperBits");
                 break;
             default:
                 throw new AssertionError(this.name());

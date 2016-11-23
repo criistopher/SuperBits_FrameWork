@@ -23,12 +23,12 @@ public class BP_PickList<T> extends B_listaComOrigem<T> implements Serializable 
 
     public BP_PickList(List<T> pLista, List<T> pOrigem) {
         super(pLista, pOrigem);
-        dualListPrime = new DualListModel<T>((List) getOrigem(), (List) getLista());
+        dualListPrime = new DualListModel<>((List) getOrigem(), (List) getLista());
     }
 
     public BP_PickList(List<T> pLista, Class pClasseListaTodos) {
         super((List) pLista, pClasseListaTodos);
-        dualListPrime = new DualListModel<T>((List) getOrigem(), (List) getLista());
+        dualListPrime = new DualListModel<>((List) getOrigem(), (List) getLista());
     }
 
     public DualListModel<T> getDualListPrime() {
