@@ -8,6 +8,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringEnumECaixaAlta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.TipoAcaoPadrao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,25 +94,25 @@ public enum FabTipoAcaoSistemaGenerica implements ItfFabrica {
 
         switch (this) {
             case FORMULARIO_NOVO_REGISTRO:
-                return "fa fa-plus";
+                return FabIconeFontAwesome.REG_NOVO.getIcone().getTagHtml();
             case FORMULARIO_EDITAR:
-                return "fa fa-pencil";
+                return FabIconeFontAwesome.REG_EDITAR.getIcone().getTagHtml();
             case FORMULARIO_PERSONALIZADO:
                 break;
             case FORMULARIO_VISUALIZAR:
-                return "fa fa-eye";
+                return FabIconeFontAwesome.REG_VISUALIZAR.getIcone().getTagHtml();
             case FORMULARIO_LISTAR:
-                return "fa fa-list-alt";
+                return FabIconeFontAwesome.REG_LISTAR.getIcone().getTagHtml();
             case FORMULARIO_MODAL:
                 return "fa fa-gear";
             case SELECAO_DE_ACAO:
                 return "fa-map-signs";
             case CONTROLLER_SALVAR_EDICAO:
-                return "fa fa-save ";
+                return FabIconeFontAwesome.REG_SALVAR.getIcone().getTagHtml();
             case CONTROLLER_SALVAR_NOVO:
-                return "fa fa-save ";
+                return FabIconeFontAwesome.REG_SALVAR.getIcone().getTagHtml();
             case CONTROLLER_SALVAR_MODO_MERGE:
-                return "fa fa-save ";
+                return FabIconeFontAwesome.REG_SALVAR.getIcone().getTagHtml();
             case CONTROLLER_PERSONALIZADO:
                 return "fa fa-gear";
             case CONTROLLER_ATIVAR_DESATIVAR:

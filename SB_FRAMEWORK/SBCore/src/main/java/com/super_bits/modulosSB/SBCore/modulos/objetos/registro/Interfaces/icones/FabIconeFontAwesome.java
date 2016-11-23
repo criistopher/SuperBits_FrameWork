@@ -12,12 +12,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     ICONE_PERSONALIZADO,
     REG_NOVO, REG_EDITAR, REG_VALIDAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
-<<<<<<< HEAD
-    REG_AGRUPAR_REGISTROS, REG_LISTAR, REG_PROXIMO, REG_ANTERIOR,
-=======
-    REG_AGRUPAR_REGISTROS, REG_LISTAR,
-    REG_PESQUISAR,
->>>>>>> 99c8432d72dbab7aa918d8f60611527e6a386897
+    REG_AGRUPAR_REGISTROS, REG_LISTAR, REG_PROXIMO, REG_ANTERIOR, REG_PESQUISAR,
     ESCRITORIO_DOCUMENTO_TEXTO,
     PESSOA_CORACAO,
     COMERCIO_PRESENTE,
@@ -46,7 +41,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 break;
             case REG_EDITAR:
                 icone.setNome("Registro- Editar");
-                icone.setTagHtml("fa fa-pencil-square-o");
+                icone.setTagHtml("fa fa-edit");
                 break;
             case REG_ATUALIZAR:
                 icone.setNome("Registro- Atualizar");
@@ -62,7 +57,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 break;
             case REG_GERENCIAR:
                 icone.setNome("Registro - Gerenciar Entidade");
-                icone.setTagHtml("fa fa-connectdevelop");
+                icone.setTagHtml("fa fa-gear");
                 break;
             case REG_VISUALIZAR:
                 icone.setNome("REgistro - visualizar");
@@ -91,7 +86,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 break;
             case REG_SALVAR:
                 icone.setNome("Registro - salvar");
-                icone.setTagHtml("fa fa-floppy-o");
+                icone.setTagHtml("fa fa-save");
                 break;
             case REG_AGRUPAR_REGISTROS:
                 icone.setNome("Registro -Agrupar");
@@ -119,7 +114,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 break;
             case REG_LISTAR:
                 icone.setNome("Registro- listar");
-                icone.setTagHtml("fa fa-list");
+                icone.setTagHtml("fa fa-list-ol");
                 break;
             case REG_VALIDAR:
                 icone.setNome("Registro - Validar");
@@ -133,7 +128,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Comunicacao - E-mail");
                 icone.setTagHtml("fa fa-paper-plane-o");
                 break;
-<<<<<<< HEAD
+
             case REG_PROXIMO:
 
                 icone.setNome("Reg_Proximo");
@@ -145,11 +140,11 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Reg_Voltar");
                 icone.setTagHtml("fa fa-arrow-left");
 
-=======
+                break;
             case REG_PESQUISAR:
                 icone.setNome("Registro - Pequisar");
                 icone.setTagHtml("fa fa-search");
->>>>>>> 99c8432d72dbab7aa918d8f60611527e6a386897
+
                 break;
             default:
 
