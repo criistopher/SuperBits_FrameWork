@@ -180,6 +180,10 @@ public abstract class UtilSBWP_JSFTools {
     public static void vaParaPagina(String pURL) {
 
         try {
+            if (SBCore.isEmModoDesenvolvimento()) {
+                System.out.println("Enviou comando levando o usuário a:" + pURL);
+                return;
+            }
 
             //	FacesContext.getCurrentInstance().getExternalContext().responseReset();
             FacesContext.getCurrentInstance().getExternalContext().redirect(pURL);

@@ -43,12 +43,27 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return USUARIOS.get(pEmail);
     }
 
+    /**
+     *
+     * Instancia uma nova resposta
+     *
+     * @param pTipoRetorno Classe esperada para o objeto de retorno
+     * @return A nova resposta instanciada
+     */
     protected static ItfResposta getNovaResposta(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
 
         return resp;
     }
 
+    /**
+     *
+     * Instancia uma nova resposta com erro inesperado
+     *
+     * @param pTipoRetorno Classe esparada para objeto de retorno
+     * @return Uma nova resposta já com um erro inesperado adicionado 'a lista
+     * de mensagem
+     */
     protected static ItfResposta getRespostaErroInesperado(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, UtilSBController.getAcaoByMetodo(getMetodoChamado(), true));
         ItfAcaoDoSistema acao = getAcaoDoMetodo();
@@ -56,12 +71,24 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
         return resp;
     }
 
+    /**
+     *
+     * Instancia uma nova resposta, e caso o usuário logado não possua permissão
+     * adiciona uma mensagem de erro
+     *
+     * @param pTipoRetorno Tipo de retorno esperado
+     * @return a nova resposta
+     */
     protected static ItfResposta getNovaRespostaComAutorizacao(Class pTipoRetorno) {
         Resposta resp = new Resposta(pTipoRetorno, null);
         addMensagemDeAutorizacao(resp);
         return resp;
     }
 
+    /**
+     *
+     * @return Resposta com o erro não implementado
+     */
     protected ItfResposta getNovaRespostaNaoImplementado() {
         Resposta naoImplementado = new Resposta(null, null);
         return naoImplementado.addMensagemErroDisparaERetorna("Os algorítimos para [" + getMetodoChamado() + "] do modulo [" + this.getClass().getSimpleName() + "] não foi implementado.");

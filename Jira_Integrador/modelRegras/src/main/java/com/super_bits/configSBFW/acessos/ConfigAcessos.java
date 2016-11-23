@@ -29,7 +29,7 @@ import com.super_bits.modulosSB.SBCore.modulos.view.menu.MenusDaSessao;
 public class ConfigAcessos extends ConfigPermissoesAcessoModelAbstrato {
 
     private static Class[] getClasses() {
-        Class[] classes = {ModuloAcessoRestritoExemplo.class, ModuloSeguranca.class};
+        Class[] classes = {ModuloSeguranca.class};
         return classes;
     }
 

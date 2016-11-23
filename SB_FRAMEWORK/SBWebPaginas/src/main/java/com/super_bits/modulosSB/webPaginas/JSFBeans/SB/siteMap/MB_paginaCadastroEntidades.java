@@ -249,8 +249,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
                         limparLista();
 
                         entidadeSelecionada = (T) UtilSBPersistencia.getRegistroByID(pEntidadeSelecionada.getClass(), idEntidade, getEMPagina());
-
-                        paginaUtil.atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                        atualizarIdAreaExibicaoAcaoSelecionada();
 
                 }
 
@@ -269,7 +268,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             renovarEMPagina();
             listarDados();
             try {
-                getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+                atualizarIdAreaExibicaoAcaoSelecionada();
             } catch (Throwable t) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "erro atualizando tela por id em" + this.getClass().getSimpleName() + "executando ação " + acaoSelecionada, t);
             }

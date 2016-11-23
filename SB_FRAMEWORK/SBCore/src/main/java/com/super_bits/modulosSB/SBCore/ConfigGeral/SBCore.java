@@ -174,14 +174,30 @@ public class SBCore {
                         }
                         configuradorDePermissao = (ItfCfgPermissoes) configPermissao.newInstance();
                     } else {
-                        configuradorDePermissao = (ItfCfgPermissoes) infoAplicacao.getConfigPermissoes().newInstance();
+                        try {
+                            configuradorDePermissao = (ItfCfgPermissoes) infoAplicacao.getConfigPermissoes().newInstance();
+                        } catch (Throwable t) {
+                            String nomeClassePermissao = "nulo";
+                            if (infoAplicacao.getConfigPermissoes() != null) {
+                                nomeClassePermissao = infoAplicacao.getConfigPermissoes().getName();
+                            }
+                            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro inicializando classes de permissões e serviços (controller da aplicação)"
+                                    + "a partir de  \n " + nomeClassePermissao, t);
+                            if (ignorarConfigurcoesDePermissao) {
+                                System.out.println("A Classe de permissões não foi definida");
+                            } else {
+                                throw new UnsupportedOperationException("Erro configurando classes de serviço");
+                            }
+
+                        }
+
                     }
 
                 } catch (InstantiationException | IllegalAccessException t) {
                     if (ignorarConfigurcoesDePermissao) {
                         System.out.println("A Classe de permissões não foi definida");
                     } else {
-                        throw new UnsupportedOperationException("Erro tentando encontrar responsavel pela permissao, extenda ao menos uma classe com ConfigPermissaoAbstratoSBCore no sistema, ou utilize o parametro ignorar Classe de permissão neste método ", t);
+                        throw new UnsupportedOperationException("Erro configurando classes de serviço");
                     }
 
                 }
@@ -191,7 +207,6 @@ public class SBCore {
             if (estadoAplicativo == ESTADO_APP.DESENVOLVIMENTO) {
                 String arquivoPomDoProjeto = SBCore.getCaminhoDesenvolvimento() + "/pom.xml";
                 if (!UtilSBCoreArquivos.isArquivoExiste(arquivoPomDoProjeto)) {
-
                     throw new UnsupportedOperationException("O arquivo pom não foi encontrado em " + SBCore.getCaminhoDesenvolvimento());
                 }
             }

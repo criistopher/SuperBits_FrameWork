@@ -118,12 +118,12 @@ public class MapaDeAcoes {
                             }
 
                         } catch (Throwable t) {
-                            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabrica.toString(), t);
+                            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema:" + fabrica, t);
                         }
 
                     }
                 } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema, erro na fabrica" + fabrica.toString(), t);
+                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro configurando ação do sistema, erro na fabrica" + fabrica, t);
                 }
 
             }
