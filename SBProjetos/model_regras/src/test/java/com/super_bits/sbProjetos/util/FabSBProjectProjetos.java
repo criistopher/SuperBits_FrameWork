@@ -102,6 +102,7 @@ public enum FabSBProjectProjetos implements ItfFabrica {
             case SUPER_BITS_Fw_ADMIN_TOOLS:
                 novoProjeto.setCliente(FabSBProjectClientes.SUPERBITS_OPEN_SOURCE.getRegistro());
                 novoProjeto.setNome("SB_AdminTools");
+
                 novoProjeto.setDescricao("Ferramentas de Administração do sistema- FrameWork SuperBits");
                 break;
             default:
