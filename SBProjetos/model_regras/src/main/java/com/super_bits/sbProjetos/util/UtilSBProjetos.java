@@ -117,13 +117,13 @@ public class UtilSBProjetos {
         Comando criarPasta = TIPOCMD.LNXDIR_MAKEDIR.getComando();
         criarPasta.configParametro("pastaCriar", caminhoPastaSourceCliente);
         criarPasta.executarComando();
-        Assert.assertTrue("pasta do SOURCE  cliente não encontrada", pastaSourceCliente.exists());
+        Assert.assertTrue("pasta do SOURCE  cliente não encontrada em " + pastaSourceCliente.getAbsolutePath(), pastaSourceCliente.exists());
 
         Comando copiarPastaNovoProjeto = TIPOCMD.LNXDIR_COPIAR_PASTA.getComando();
         copiarPastaNovoProjeto.configParametro("pastaCopOri", caminhoPastaModelo);
         copiarPastaNovoProjeto.configParametro("pastaCopDest", caminhoPastaSourceCliente);
         copiarPastaNovoProjeto.executarComando();
-        Assert.assertTrue("pasta temporaria não encontrada", pastaSourceTemporaria.exists());
+        Assert.assertTrue("pasta temporaria não encontrada em " + pastaSourceTemporaria.getAbsolutePath(), pastaSourceTemporaria.exists());
 
         Comando moverpastaOficial = new Comando(Comando.TIPO_EXECUCAO.CRIAR_SCRIPTLNX, "moverPastaOficial.sh");
         String arquivosPastaTemporarias = caminhoPastaSourceTemporaria + "/*";
