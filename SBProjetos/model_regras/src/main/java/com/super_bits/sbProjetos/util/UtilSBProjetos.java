@@ -36,6 +36,7 @@ import org.junit.Assert;
 public class UtilSBProjetos {
 
     public static final String NOME_PROJETO_BASE = "SuperBitsWPStarter";
+    public static final String NOME_PASTA_TEMPORARIA = "projetoTemp";
     public static final String CAMINHO_PROJETO_BASE = "/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork";
     // Recebe parametros nome da pasta do cliente, e do projeto
     public static final String SCRIPT_PREPARAR_ESTACAO = "/home/superBits/superBitsDevOps/estacaoDeveloperOps/trabalharNovoProjeto.sh";
@@ -104,7 +105,7 @@ public class UtilSBProjetos {
         String caminhoPastaSourceCliente = p.getCliente().getCaminhoPastaClinteSource();
         String caminhoPastaSourceProjeto = p.getCaminhoPastaDoProjetoSourceLocal();
         String caminhoPastaModelo = CAMINHO_PROJETO_BASE + "/" + NOME_PROJETO_BASE + "/";
-        String caminhoPastaSourceTemporaria = p.getCliente().getCaminhoPastaClinteSource() + "/" + NOME_PROJETO_BASE;
+        String caminhoPastaSourceTemporaria = p.getCliente().getCaminhoPastaClinteSource() + "/" + NOME_PASTA_TEMPORARIA;
 
         File pastaSourceTemporaria = new File(caminhoPastaSourceTemporaria);
         if (!ignorarPresensaDePastaExistente) {
@@ -121,7 +122,7 @@ public class UtilSBProjetos {
 
         Comando copiarPastaNovoProjeto = TIPOCMD.LNXDIR_COPIAR_PASTA.getComando();
         copiarPastaNovoProjeto.configParametro("pastaCopOri", caminhoPastaModelo);
-        copiarPastaNovoProjeto.configParametro("pastaCopDest", caminhoPastaSourceCliente);
+        copiarPastaNovoProjeto.configParametro("pastaCopDest", pastaSourceTemporaria.getAbsolutePath());
         copiarPastaNovoProjeto.executarComando();
         Assert.assertTrue("pasta temporaria não encontrada em " + pastaSourceTemporaria.getAbsolutePath(), pastaSourceTemporaria.exists());
 
@@ -131,7 +132,7 @@ public class UtilSBProjetos {
         moverpastaOficial.configParametro("pastaCopDest", caminhoPastaSourceProjeto + "/");
         moverpastaOficial.setTipoRespostaEsperada(Comando.TIPO_RESPOSTA_ESPERADA.SEMRESPOSTA);
 
-        System.out.println("Caminho temp::" + caminhoPastaModelo);
+        System.out.println("Caminho temp::" + caminhoPastaSourceTemporaria);
         System.out.println("Caminho source::" + caminhoPastaSourceProjeto);
 
         RespostaCMD resp = moverpastaOficial.executarComando();
@@ -315,7 +316,7 @@ public class UtilSBProjetos {
 
         Comando deletarPastaTemporaria2 = TIPOCMD.LNX_REMOVER_TODAS_PASTAS_COM_ESTE_NOME.getComando();
         deletarPastaTemporaria2.configParametro("pastaRecursiva", p.getPastaCliente() + "/source");
-        deletarPastaTemporaria2.configParametro("nomePastaExclusao", NOME_PROJETO_BASE);
+        deletarPastaTemporaria2.configParametro("nomePastaExclusao", NOME_PASTA_TEMPORARIA);
         deletarPastaTemporaria2.executarComando();
 
     }
