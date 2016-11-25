@@ -318,8 +318,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 parametrosURL.put(novoParametro.getNome(), novoParametro);
                 cp.set(this, novoParametro);
             }
-
-            estruturaFormulario.configParametrosUrl((List) parametrosURL.values());
+            if (!parametrosURL.isEmpty()) {
+                estruturaFormulario.configParametrosUrl((List) parametrosURL.values());
+            } else {
+                estruturaFormulario.configParametrosUrl(new ArrayList<>());
+            }
             SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
 
         } catch (Throwable t) {
@@ -776,10 +779,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             if (acaoSelecionada.isUmaAcaoFormulario()) {
                 if (!acaoSelecionada.getComoFormulario().getXhtml().equals(xhtmlAcaoAtual)) {
-
-                    if (!isPaginaEmProcessoDeAberturaInicial()) {
-                        atualizarIdAreaExibicaoAcaoSelecionada();
-                    }
+                    xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
+                    atualizarIdAreaExibicaoAcaoSelecionada();
 
                     System.out.println("Info: O XHTML foi alterado para" + xhtmlAcaoAtual + " com a execução de" + acaoSelecionada.getNomeUnico());
                 } else {
