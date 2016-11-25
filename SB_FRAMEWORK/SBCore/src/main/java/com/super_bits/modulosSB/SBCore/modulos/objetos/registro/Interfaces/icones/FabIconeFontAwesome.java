@@ -12,12 +12,7 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
     ICONE_PERSONALIZADO,
     REG_NOVO, REG_EDITAR, REG_VALIDAR,
     REG_ATUALIZAR, REG_ENVIAR, REG_BAIXAR, REG_GERENCIAR, REG_VISUALIZAR, REG_SALVAR,
-<<<<<<< HEAD
     REG_AGRUPAR_REGISTROS, REG_LISTAR, REG_PROXIMO, REG_ANTERIOR, REG_PESQUISAR,
-=======
-    REG_AGRUPAR_REGISTROS, REG_LISTAR, REG_PROXIMO, REG_ANTERIOR,
-    REG_PESQUISAR,
->>>>>>> 1771bb601578269f762c4e7e7b6e54efbc08a332
     ESCRITORIO_DOCUMENTO_TEXTO,
     PESSOA_CORACAO,
     COMERCIO_PRESENTE,
@@ -145,10 +140,12 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Reg_Voltar");
                 icone.setTagHtml("fa fa-arrow-left");
 
-<<<<<<< HEAD
+                 << << << < HEAD
+
                 break;
-=======
->>>>>>> 1771bb601578269f762c4e7e7b6e54efbc08a332
+                 == == ==
+                        =  >>> >>> > 1771
+                bb601578269f762c4e7e7b6e54efbc08a332
             case REG_PESQUISAR:
                 icone.setNome("Registro - Pequisar");
                 icone.setTagHtml("fa fa-search");
