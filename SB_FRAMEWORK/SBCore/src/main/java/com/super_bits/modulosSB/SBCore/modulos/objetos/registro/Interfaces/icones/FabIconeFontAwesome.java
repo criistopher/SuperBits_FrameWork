@@ -140,12 +140,8 @@ public enum FabIconeFontAwesome implements ItfFabricaIcone {
                 icone.setNome("Reg_Voltar");
                 icone.setTagHtml("fa fa-arrow-left");
 
-                 << << << < HEAD
-
                 break;
-                 == == ==
-                        =  >>> >>> > 1771
-                bb601578269f762c4e7e7b6e54efbc08a332
+
             case REG_PESQUISAR:
                 icone.setNome("Registro - Pequisar");
                 icone.setTagHtml("fa fa-search");
