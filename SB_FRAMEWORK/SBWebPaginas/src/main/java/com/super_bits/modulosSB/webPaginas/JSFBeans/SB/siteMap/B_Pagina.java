@@ -323,10 +323,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             } else {
                 estruturaFormulario.configParametrosUrl(new ArrayList<>());
             }
-<<<<<<< HEAD
 
-=======
->>>>>>> 90f1571b4ab1b1d0ec3ec2f264212aeeb15a0179
             SBCore.soutInfoDebug(lista.size() + "parametos encontrados" + lista);
 
         } catch (Throwable t) {

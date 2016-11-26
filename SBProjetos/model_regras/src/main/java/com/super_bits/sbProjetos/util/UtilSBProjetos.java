@@ -425,8 +425,8 @@ public class UtilSBProjetos {
 
         criaRepositorio.configParametro("pstSource", p.getCaminhoPastaDoProjetoSourceLocal());
         criaRepositorio.configParametro("pasta", p.getNomeCurtoURLAmigavel());
-        criaRepositorio.configParametro("usuario", "SBAdmin");
-        criaRepositorio.configParametro("senha", "123321@aA");
+        criaRepositorio.configParametro("usuario", "");
+        criaRepositorio.configParametro("senha", "");
         criaRepositorio.configParametro("caminhoRepositorio", p.getLinkSVNSource());
         criaRepositorio.executarComando();
     }
