@@ -74,7 +74,7 @@ public abstract class MB_Pagina extends B_Pagina {
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obendo titulo da pagina", t);
         }
-        return "Tutulo da pagina " + this.getClass().getSimpleName() + " não pode ser definido";
+        return "Título da pagina " + this.getClass().getSimpleName() + " não pode ser definido";
     }
 
     @Override

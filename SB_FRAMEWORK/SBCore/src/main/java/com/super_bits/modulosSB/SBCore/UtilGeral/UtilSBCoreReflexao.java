@@ -68,17 +68,8 @@ public abstract class UtilSBCoreReflexao {
         return resposta;
     }
 
-    /**
-     *
-     * Retorna todos os Filds de uma classe que forem de um tipo determinado
-     *
-     * @param instancia
-     * @param tipoProcurado
-     * @return
-     */
-    public static List<Field> procuraCamposPorTipo(Object instancia, Class tipoProcurado) {
-        Class classe = instancia.getClass();
-        Field[] fields = classe.getDeclaredFields();
+    public static List<Field> procuraCamposPorTipo(Class pClasse, Class tipoProcurado) {
+        Field[] fields = pClasse.getDeclaredFields();
 
         List<Field> resposta = new ArrayList<>();
         for (Field campo : fields) {
@@ -95,6 +86,20 @@ public abstract class UtilSBCoreReflexao {
             }
         }
         return resposta;
+    }
+
+    /**
+     *
+     * Retorna todos os Filds de uma classe que forem de um tipo determinado
+     *
+     * @param instancia
+     * @param tipoProcurado
+     * @return
+     */
+    public static List<Field> procuraCamposPorTipo(Object instancia, Class tipoProcurado) {
+        Class classe = instancia.getClass();
+        return procuraCamposPorTipo(classe, tipoProcurado);
+
     }
 
     /**

@@ -19,6 +19,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoDeContexto;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaAtual;
@@ -596,6 +597,10 @@ public class PgUtil implements Serializable {
 
     public String getSaudacao() {
         return UtilSBCoreComunicacao.getSaudacao();
+    }
+
+    public AcaoDeContexto getAcaoDeContexto(ItfAcaoDoSistema pAcao) {
+        return new AcaoDeContexto(pAcao, FacesContext.getCurrentInstance(), paginaAtual.getInfoPagina());
     }
 
 }

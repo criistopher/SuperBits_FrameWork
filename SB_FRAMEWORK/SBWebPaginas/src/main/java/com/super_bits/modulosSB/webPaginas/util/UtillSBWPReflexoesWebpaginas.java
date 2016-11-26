@@ -2,8 +2,9 @@ package com.super_bits.modulosSB.webPaginas.util;
 
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfBairro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoParametroURL;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -47,6 +48,32 @@ public abstract class UtillSBWPReflexoesWebpaginas {
 
     public static EstruturaDeFormulario getEstruturaFormularioByPagina(Class<? extends ItfB_Pagina> pagina) {
         return null;
+    }
+
+    public static List<ParametroURL> buildParametrosDaPagina(Class pClasseFormulario) {
+
+        List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(pClasseFormulario, ParametroURL.class);
+        List<ParametroURL> parametrosDaPagina = new ArrayList<>();
+        for (Field cp : lista) {
+            ParametroURL novoParametro = UtillSBWPReflexoesWebpaginas.getNovoParametroDeUrl(cp);
+            parametrosDaPagina.add(novoParametro);
+        }
+        return parametrosDaPagina;
+
+    }
+
+    public static ParametroURL getNovoParametroDeUrl(Field cp) {
+        InfoParametroURL infoPr = cp.getDeclaredAnnotation(InfoParametroURL.class);
+        if (infoPr == null) {
+            throw new UnsupportedOperationException("Erro o parametro " + cp.getName() + " não foi anotado com @InfoParametro em" + cp.getDeclaringClass().getSimpleName());
+        }
+        return new ParametroURL(infoPr);
+    }
+
+    public static EstruturaDeFormulario getNovaEstruturaByClassePagina(Class pPagina) {
+
+        return new EstruturaDeFormulario(pPagina);
+
     }
 
 }

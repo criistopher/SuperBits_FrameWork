@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
 import java.util.Date;
@@ -36,5 +37,7 @@ public interface ItfSessao {
     public String getPastaTempDeSessao();
 
     public void encerrarSessao();
+
+    public boolean isAcessoPermitido(ItfAcaoDoSistema pAcao);
 
 }

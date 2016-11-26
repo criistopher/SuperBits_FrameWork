@@ -46,4 +46,6 @@ public @interface InfoPagina {
      */
     @Deprecated
     public boolean acessoLivre() default true;
+
+    public boolean permitirSelecaoPorURL() default false;
 }

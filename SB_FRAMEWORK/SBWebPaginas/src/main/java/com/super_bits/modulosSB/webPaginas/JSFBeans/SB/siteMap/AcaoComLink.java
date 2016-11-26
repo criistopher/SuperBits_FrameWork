@@ -42,11 +42,15 @@ public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
     @Transient
     private final ItfAcaoFormulario acaoOriginal;
     @Transient
-    private final String urlDeAcesso;
+    private String urlDeAcesso;
 
     public AcaoComLink(ItfAcaoFormulario pAcaoDoSistema, ItfB_Pagina pagina) {
         acaoOriginal = pAcaoDoSistema;
         urlDeAcesso = pagina.getUrlPadrao();
+    }
+
+    protected void alterarUrl(String pNovaUrl) {
+        urlDeAcesso = pNovaUrl;
     }
 
     @Override

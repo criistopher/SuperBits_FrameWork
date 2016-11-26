@@ -40,6 +40,10 @@ public class InfoWebApp implements Serializable {
         }
     }
 
+    public AcaoComLink getAcaoNoCotexto(ItfAcaoDoSistema pAcao) {
+        return getAcaoComLink(pAcao);
+    }
+
     public boolean isAceosMBConfiguradas() {
         return !WebPaginasServlet.MAPA_ACOESMANAGED_BEAN.isEmpty();
     }

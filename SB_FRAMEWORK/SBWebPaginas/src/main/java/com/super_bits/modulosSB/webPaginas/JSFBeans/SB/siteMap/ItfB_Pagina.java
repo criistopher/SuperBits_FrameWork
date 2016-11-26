@@ -74,16 +74,6 @@ public interface ItfB_Pagina {
 
     /**
      *
-     * Adicioa uma tag
-     *
-     * @see ItfB_Pagina#getTags()
-     *
-     * @param pTag String da tag a ser adicionada
-     */
-    public void addTag(String pTag);
-
-    /**
-     *
      * Um nome curto facilita o acesso via url para determinada pagina de gestão
      *
      * @return Nome curto da pagina

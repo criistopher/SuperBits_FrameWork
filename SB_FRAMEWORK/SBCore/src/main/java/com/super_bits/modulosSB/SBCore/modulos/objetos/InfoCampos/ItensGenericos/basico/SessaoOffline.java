@@ -4,14 +4,19 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico;
 
+import com.google.common.collect.HashBiMap;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.sessao.ItfTipoView;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -23,6 +28,8 @@ public class SessaoOffline implements ItfSessao {
     private final Date dataInicial;
     private Date dataFinal;
     private final List<ItfPermissao> acoesRealizadas;
+    private Map<String, ItfAcaoDoSistema> acoesPermitidas;
+    private Map<String, ItfAcaoDoSistema> acoesNegadas;
 
     protected String pastaTempDeSessao;
 
@@ -35,6 +42,8 @@ public class SessaoOffline implements ItfSessao {
         this.acoesRealizadas = new ArrayList();
         this.usuarioLogado = new UsuarioAnonimo();
         this.dataInicial = new Date();
+        acoesPermitidas = new HashMap<>();
+        acoesNegadas = new HashMap<>();
 
     }
 
@@ -92,6 +101,28 @@ public class SessaoOffline implements ItfSessao {
         pastaTempDeSessao = null;
         setUsuario(new UsuarioAnonimo());
         dataFinal = new Date();
+    }
+
+    @Override
+    public boolean isAcessoPermitido(ItfAcaoDoSistema pAcao) {
+
+        if (acoesPermitidas.containsKey(pAcao.getNomeUnico())) {
+            return true;
+        }
+
+        if (acoesNegadas.containsKey(pAcao.getNomeUnico())) {
+            return false;
+        }
+
+        if (ControllerAppAbstratoSBCore.isAcessoPermitido(pAcao)) {
+            acoesPermitidas.put(pAcao.getNomeUnico(), pAcao);
+            return true;
+        } else {
+
+            acoesNegadas.put(pAcao.getNomeUnico(), pAcao);
+            return false;
+        }
+
     }
 
 }
