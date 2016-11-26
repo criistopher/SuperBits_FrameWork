@@ -19,4 +19,6 @@ public @interface InfoClasse {
 
     String plural();
 
+    boolean generoFeminino() default false;
+
 }

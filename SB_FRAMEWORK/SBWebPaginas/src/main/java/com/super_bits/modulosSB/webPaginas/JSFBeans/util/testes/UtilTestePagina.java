@@ -28,11 +28,13 @@ import static org.junit.Assert.assertNotNull;
 public abstract class UtilTestePagina {
 
     public static boolean temPastaModuloNoProjeto() {
-        return UtilSBCoreArquivos.isArquivoExiste(SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/site/modulos");
+        String pastaModulo = SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/site/modulos";
+        return UtilSBCoreArquivos.isArquivoExiste(pastaModulo);
     }
 
     private static String getPastaExemplos() {
-        return SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/exemplos";
+        String pastaExemplo = SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/exemplos";
+        return pastaExemplo;
     }
 
     private static boolean eUmaPaginaDoSistema(ItfAcaoFormulario pAcao) {
@@ -133,7 +135,7 @@ public abstract class UtilTestePagina {
         if (icone.startsWith("fa ")) {
 
             String iconeSemInicio = icone.substring(3);
-            String arquivoCSSFOntAnsome = SBWebPaginas.getCaminhoWebResourcesDeveloper() + "/adamantium-layout/css/font-awesome.css";
+            String arquivoCSSFOntAnsome = "/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SB_FRAMEWORK/SBWebPaginas/src/main/resources/META-INF/resources/fontAwesome/css/font-awesome.css";
             Contracts.assertTrue(UtilSBCoreArquivos.isArquivoExiste(arquivoCSSFOntAnsome), "O arquivo font-awesome.css não foi encontrado no sistema");
 
             if (!UtilSBCoreArquivoTexto.isTemPalavraNoArquivo(arquivoCSSFOntAnsome, iconeSemInicio)) {

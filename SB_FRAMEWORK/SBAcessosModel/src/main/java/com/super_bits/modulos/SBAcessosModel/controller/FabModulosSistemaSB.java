@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icone
  */
 public enum FabModulosSistemaSB implements ItfFabricaModulo {
     SEGURANCA, COMUNICACAO, PAGINAS_DO_SISTEMA, DOCUMENTOS_INTRANET_GESTAO,
-    DOCUMENTOS_INTRANET_EXTERNO;
+    DOCUMENTOS_INTRANET_EXTERNO, ADMIN_TOOLS;
 
     @Override
     public ModuloAcaoSistema getModulo() {
@@ -53,6 +53,13 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 modulo.setDescricao("Acesso a documentos compartilhados em núvem");
                 modulo.setUmModuloNativo(true);
                 modulo.setIconeDaClasse(FabIconeFontAwesome.ESCRITORIO_DOCUMENTO_TEXTO.getIcone().getTagHtml());
+                break;
+            case ADMIN_TOOLS:
+                modulo.setNome("SB Admin Tools");
+                modulo.setDescricao("Ferramentas de administração do projeto");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse("fa fa-suitcase");
+
                 break;
             default:
                 throw new AssertionError(this.name());
