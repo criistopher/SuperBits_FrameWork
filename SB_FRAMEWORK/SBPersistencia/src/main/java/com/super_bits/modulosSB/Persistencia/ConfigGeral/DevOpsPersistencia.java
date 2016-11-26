@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreOutputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreResources;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
@@ -33,48 +34,64 @@ public class DevOpsPersistencia {
     private final String nomeArquivoPersistencia;
     private final ItfConfigSBPersistencia configurador;
 
-    private final String getPrexinoNomeArquivo() {
-        if (nomeArquivoPersistencia.contains("modelRegras")) {
-            return "";
-        }
-        if (nomeArquivoPersistencia.contains("requisit")) {
+    private final String arqResCompilaBanco = "compilaBanco.sh";
+    private final String arqResCarregaBanco = "carregaBanco.sh";
+    private final String arqResApagaBanco = "apagaBanco.sh";
+    private final String arqResSBProjeto = "SBProjeto.prop";
+
+    private String getPrexinoNomeArquivo() {
+
+        // possui a palavra requisito
+        if (nomeArquivoPersistencia.contains("equisit")) {
             return "req_";
         }
+
+        if (nomeArquivoPersistencia.contains("Model") || nomeArquivoPersistencia.contains("model")) {
+            return "";
+        }
+
         return nomeArquivoPersistencia.substring(0, 5) + "_";
     }
 
     private String getARQUIVO_COMPILA_BANCO() {
-        return getPrexinoNomeArquivo() + "compilaBanco.sh";
+        return getPrexinoNomeArquivo() + arqResCompilaBanco;
     }
 
     private String getARQUIVO_CARREGA_BANCO() {
-        return getPrexinoNomeArquivo() + "carregaBanco.sh";
+        return getPrexinoNomeArquivo() + arqResCarregaBanco;
     }
 
     private String getARQUIVO_APAGA_BANCO() {
-        return getPrexinoNomeArquivo() + "apagaBanco.sh";
+        return getPrexinoNomeArquivo() + arqResApagaBanco;
     }
 
     private String getARQUIVO_CONFIGURACOES() {
-        return getPrexinoNomeArquivo() + "SBProjeto.prop";
+        return getPrexinoNomeArquivo() + arqResSBProjeto;
     }
 
     private String getARQUIVO() {
         return getPrexinoNomeArquivo() + "hashbanco.info";
     }
-    private final String DESTINO_ARQUIVO_CARREGA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_CARREGA_BANCO();
-    private final String DESTINO_ARQUIVO_COMPILA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_COMPILA_BANCO();
-    private final String DESTINO_ARQUIVO_APAGA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_APAGA_BANCO();
-    private final String DESTINO_ARQUIVO_CONFIGURACOES = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_CONFIGURACOES();
-    private final String DESTINO_ARQUIVO_HASH_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO();
+    private final String DESTINO_ARQUIVO_CARREGA_BANCO;
+    private final String DESTINO_ARQUIVO_COMPILA_BANCO;
+    private final String DESTINO_ARQUIVO_APAGA_BANCO;
+    private final String DESTINO_ARQUIVO_CONFIGURACOES;
+    private final String DESTINO_ARQUIVO_HASH_BANCO;
 
     public DevOpsPersistencia(ItfConfigSBPersistencia pConfig) {
-
         nomeArquivoPersistencia = pConfig.bancoPrincipal();
         configurador = pConfig;
+
+        DESTINO_ARQUIVO_CARREGA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_CARREGA_BANCO();
+        DESTINO_ARQUIVO_COMPILA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_COMPILA_BANCO();
+        DESTINO_ARQUIVO_APAGA_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_APAGA_BANCO();
+        DESTINO_ARQUIVO_CONFIGURACOES = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO_CONFIGURACOES();
+        DESTINO_ARQUIVO_HASH_BANCO = SBPersistencia.getPastaExecucaoScriptsSQL() + "/" + getARQUIVO();
+
         if (SBCore.isEmModoDesenvolvimento()) {
             criaScriptsBancoDeDAdos(configurador);
         }
+
     }
 
     private boolean houveAlteracaoHomologacaoBanco(ItfConfigSBPersistencia configurador) {
@@ -123,16 +140,20 @@ public class DevOpsPersistencia {
     }
 
     public void criaScriptsBancoDeDAdos(ItfConfigSBPersistencia pConfigurador) {
-        //UtilSBCore String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/compilaBanco.sh");
+        //UtilSBCore String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/complaBanco.sh");
 
         File arquivoApaBanco = new File(DESTINO_ARQUIVO_APAGA_BANCO);
         if (!arquivoApaBanco.exists()) {
             Class classeDoResource = pConfigurador.getClass();
+            String linha = "source ./" + getPrexinoNomeArquivo() + arqResSBProjeto;
+            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, arqResSBProjeto, DESTINO_ARQUIVO_CONFIGURACOES);
 
-            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, getARQUIVO_CONFIGURACOES(), DESTINO_ARQUIVO_CONFIGURACOES);
-            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, getARQUIVO_APAGA_BANCO(), DESTINO_ARQUIVO_APAGA_BANCO);
-            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, getARQUIVO_COMPILA_BANCO(), DESTINO_ARQUIVO_COMPILA_BANCO);
-            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, getARQUIVO_CARREGA_BANCO(), DESTINO_ARQUIVO_CARREGA_BANCO);
+            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, arqResApagaBanco, DESTINO_ARQUIVO_APAGA_BANCO);
+            UtilSBCoreArquivoTexto.substituirEstaLinha(DESTINO_ARQUIVO_APAGA_BANCO, linha, 1);
+            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, arqResCompilaBanco, DESTINO_ARQUIVO_COMPILA_BANCO);
+            UtilSBCoreArquivoTexto.substituirEstaLinha(DESTINO_ARQUIVO_COMPILA_BANCO, linha, 1);
+            UtilSBCoreArquivos.copiarArquivoResourceJar(classeDoResource, arqResCarregaBanco, DESTINO_ARQUIVO_CARREGA_BANCO);
+            UtilSBCoreArquivoTexto.substituirEstaLinha(DESTINO_ARQUIVO_CARREGA_BANCO, linha, 1);
 
             String retorno = UtilSBCoreShellBasico.executeCommand("chmod +x " + getPastaExecucaoScriptsSQL() + "/*.sh");
             System.out.println("Retorno CHNOD +X-->" + retorno);

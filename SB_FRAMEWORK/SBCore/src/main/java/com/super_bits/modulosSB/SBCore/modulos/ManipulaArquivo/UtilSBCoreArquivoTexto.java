@@ -299,4 +299,16 @@ public abstract class UtilSBCoreArquivoTexto {
         return null;
     }
 
+    public static boolean substituirEstaLinha(String pArquivo, String novaLinha, int linha) {
+        try {
+            List<String> linhas = UTilSBCoreInputs.getStringsByArquivoLocal(pArquivo);
+            linhas.set(linha - 1, novaLinha);
+            UtilSBCoreArquivoTexto.escreveLinhasEmNovoArquivo(pArquivo, linhas);
+            return true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro substituindo trecho de arqiovp", t);
+            return false;
+        }
+    }
+
 }
