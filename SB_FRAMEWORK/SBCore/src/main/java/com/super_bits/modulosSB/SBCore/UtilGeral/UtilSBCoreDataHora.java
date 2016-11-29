@@ -900,4 +900,32 @@ public class UtilSBCoreDataHora {
 
     }
 
+    /**
+     *
+     * RECEBE UMA DATE E DEVOLVE UM TEXTO COM HORA ATUAL
+     *
+     * Ex: SAIDA 13:17:43 HORAS:MINUTOS:SEGUNDOS
+     *
+     * @param pData DATA QUE DESEJA SABER HORAS
+     * @return HORA ATUAL
+     */
+    public static String retornaHoraAtual(Date pData) {
+
+        String horaObtida;
+
+        try {
+
+            SimpleDateFormat formatador = new SimpleDateFormat("HH:mm:ss");
+            horaObtida = formatador.format(pData);
+
+            return horaObtida;
+
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possivel obter hora atual!", t);
+            return null;
+        }
+
+    }
+
 }
