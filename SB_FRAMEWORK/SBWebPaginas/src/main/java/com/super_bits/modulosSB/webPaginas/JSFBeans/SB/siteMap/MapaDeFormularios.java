@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAc
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +28,21 @@ public class MapaDeFormularios {
 
     private static boolean criouEestrutura = false;
 
-    public static void buildEstrutura(List<Class> pagina) {
+    public static void buildEstrutura(List<Class> paginas) {
 
         if (criouEestrutura) {
-
+            return;
         }
+        mapaFormulariosByXhtmlPrincipal = new HashMap<>();
+        mapaFormulariosByNomeCompletoClasse = new HashMap<>();
+        mapaFormulariosByAcaoGestao = new HashMap<>();
+        mapaFormulariosBySlug = new HashMap<>();
+        mapaFormulariosBySlug = new HashMap<>();
         criouEestrutura = true;
+
+        for (Class classePagina : paginas) {
+            buildEstrutura(classePagina);
+        }
 
     }
 

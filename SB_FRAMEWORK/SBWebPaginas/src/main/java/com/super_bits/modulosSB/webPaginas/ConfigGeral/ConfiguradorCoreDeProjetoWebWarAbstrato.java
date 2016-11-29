@@ -71,6 +71,7 @@ public abstract class ConfiguradorCoreDeProjetoWebWarAbstrato extends Configurad
         pConfiguracao.setServicoVisualizacao(ServicoVisuaslizacaoWebResponsivo.class);
         pConfiguracao.setCentralDeArquivos(CentralDeArquivosWebApp.class);
         pConfiguracao.setCentralComunicacao(CentralComunicacaoDesktop.class);
+
         switch (pConfiguracao.getEstadoApp()) {
             case DESENVOLVIMENTO:
                 pConfiguracao.setCentralMEnsagens(CentramMensagemProgramadorMsgStop.class);

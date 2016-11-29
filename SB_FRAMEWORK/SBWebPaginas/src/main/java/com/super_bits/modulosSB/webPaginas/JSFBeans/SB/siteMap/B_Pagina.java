@@ -101,7 +101,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         titulo = defineTitulo();
         descricao = defineDescricao();
         UtilSBCoreReflexao.instanciarListas(this);
-        estruturaFormulario = MapaDeFormularios.getEstruturaByNomeAcao(getAcaoVinculada().getNomeUnico());
+        estruturaFormulario = MapaDeFormularios.getEstruturaByClasseMB(this.getClass());
         if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
             paginaUtil = new PgUtil();
