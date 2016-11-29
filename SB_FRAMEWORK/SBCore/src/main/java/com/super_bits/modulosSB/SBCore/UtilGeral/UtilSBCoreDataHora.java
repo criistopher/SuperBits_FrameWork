@@ -5,13 +5,16 @@
  */
 package com.super_bits.modulosSB.SBCore.UtilGeral;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 
 import com.super_bits.modulosSB.SBCore.modulos.tempo.FabTipoQuantidadeTempo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -69,13 +72,13 @@ public class UtilSBCoreDataHora {
     private static SimpleDateFormat getDatePaternByFormatoTempo(FORMATO_TEMPO pFormato, String pPersonalizado) {
         switch (pFormato) {
             case DATA_HORA_SISTEMA:
-                return new SimpleDateFormat("dd-MM-yy");
+                return new SimpleDateFormat("dd-MM-yy HH-mm-ss");
             case DATA_HORA_USUARIO:
-                return new SimpleDateFormat("dd/MM/yy");
+                return new SimpleDateFormat("dd-MM-yy HH-mm-ss");
             case DATA_SISTEMA:
-                return new SimpleDateFormat("[HH-mm-ss]");
+                return new SimpleDateFormat("dd-MM-yy");
             case DATA_USUARIO:
-                return new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                return new SimpleDateFormat("dd-MM-yy");
             case HORA_SISTEMA:
                 return new SimpleDateFormat("[HH-mm-ss]");
             case HORA_USUARIO:
@@ -714,8 +717,187 @@ public class UtilSBCoreDataHora {
                 feriados++;
             }
         }
+
         novadata = incrementaDias(pData, feriados);
         return novadata;
+    }
+
+    /**
+     *
+     * DESCOBRE A DATA ATUAL SEM FORMATAÇÃO
+     *
+     * Ex: 29112016
+     *
+     *
+     * @return DIA, MES E ANO ATUAL
+     */
+    public static String gerarStringDiaMesAnoAtual() {
+
+        GregorianCalendar calendar = new GregorianCalendar();
+
+        int dia = calendar.get(Calendar.DATE);
+        int mes = calendar.get(Calendar.MONTH) + 1;
+        int ano = calendar.get(Calendar.YEAR);
+
+        String data = "" + dia + mes + ano;
+
+        return data;
+
+    }
+
+    /**
+     *
+     * DESCOBRE A DATA ATUAL COM FORMATAÇÃO
+     *
+     * Ex: 29/11/2016
+     *
+     *
+     * @return DIA, MES E ANO ATUAL
+     */
+    public static String gerarStringDiaMesAnoAtualFormatada() {
+
+        GregorianCalendar calendar = new GregorianCalendar();
+
+        int dia = calendar.get(Calendar.DATE);
+        int mes = calendar.get(Calendar.MONTH) + 1;
+        int ano = calendar.get(Calendar.YEAR);
+
+        String data = "" + dia + "/" + mes + "/" + ano;
+
+        return data;
+
+    }
+
+    /**
+     *
+     * DESCOBRE A DATA ATUAL SEM FORMATAÇÃO
+     *
+     * Ex: 29112016
+     *
+     * @return DIA, MES E ANO ATUAL
+     */
+    public static int gerarInteiroDiaMesAnoAtual() {
+
+        String textoData = gerarStringDiaMesAnoAtual();
+
+        int numData = Integer.parseInt(textoData);
+
+        return numData;
+
+    }
+
+    /**
+     *
+     * DESCOBRE A DATA ATUAL COM HORA ZERADA
+     *
+     * Ex: Tue Nov 29 00:00:00 BRST 2016
+     *
+     *
+     * @return DIA, MES E ANO
+     */
+    public static Date gerarDataDiaMesAnoAtual() {
+
+        Date dataFormatada = null;
+        String formato, textoData;
+
+        try {
+
+            textoData = gerarStringDiaMesAnoAtualFormatada();
+            formato = "dd/MM/yyyy";
+
+            SimpleDateFormat formatador = new SimpleDateFormat(formato);
+
+            dataFormatada = formatador.parse(textoData);
+
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possivel gerar a Data formatada!", t);
+
+        }
+
+        return dataFormatada;
+    }
+
+    /**
+     *
+     * DEVOLVE DATA FORMATADA
+     *
+     * Ex: ENTRADA Tue Nov 29 05:09:37 BRST 2016 - SAIDA 29/11/2016
+     *
+     *
+     * @param pData DATA A CONVERTER
+     * @return DATA ATUAL
+     */
+    public static String converteDataEmString(Date pData) {
+
+        String dataFormatada;
+
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+        dataFormatada = formatador.format(pData);
+
+        return dataFormatada;
+
+    }
+
+    /**
+     *
+     * DEVOLVE DATE COM HORA ZERADA
+     *
+     * Ex: ENTRADA 29/11/2016 - SAIDA Tue Nov 29 00:00:00 BRST 2016
+     *
+     * @param pString DATA NO FORMATO A CONVERTER
+     * @return DATA ATUAL
+     */
+    public static Date converteStringEmData(String pString) {
+
+        Date dataConvertida;
+
+        try {
+
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+            dataConvertida = formatador.parse(pString);
+
+            return dataConvertida;
+
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possivel converter a String em Data!", t);
+            return null;
+
+        }
+
+    }
+
+    /**
+     *
+     * DEVOLVE DATE COM HORA
+     *
+     * Ex: ENTRADA 29/11/2016 12:30:15 - SAIDA Tue Nov 29 12:30:15 BRST 2016
+     *
+     * @param pString DATA NO FORMATO A CONVERTER
+     * @return DATA ATUAL
+     */
+    public static Date converteStringEmDataEHora(String pString) {
+
+        Date dataConvertida;
+
+        try {
+
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            dataConvertida = formatador.parse(pString);
+
+            return dataConvertida;
+
+        } catch (Throwable t) {
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possivel converter a String em Data!", t);
+            return null;
+
+        }
+
     }
 
 }
