@@ -2,15 +2,10 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 
+@Deprecated
 public class PaginaSimples extends B_Pagina {
 
     public PaginaSimples(String pNomeCurto, String pRecurso, String[] pTags) {
-
-        setNomeCurto(pNomeCurto);
-        setRecursoXHTML(pRecurso);
-        for (String tag : pTags) {
-            addTag(tag);
-        }
 
     }
 

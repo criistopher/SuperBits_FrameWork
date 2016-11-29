@@ -128,43 +128,12 @@ public class EstruturaDeFormulario {
         return url + "/" + UtilSBCoreStrings.makeStrUrlAmigavel(tagURL);
     }
 
-    public String getUrlPorParametro(ItfAcaoDoSistema pAcao, String tagUsada, Object... parametros) {
-
-        Map<String, Object> mapaParametrosEnviados;
-
-        mapaParametrosEnviados = new HashMap<>();
-        if (parametros != null) {
-            for (Object obj : parametros) {
-                mapaParametrosEnviados.put(obj.getClass().getSimpleName(), obj);
-            }
-        }
-
+    public String gerarUrlPorParametro(List<ParametroURL> parametros, ItfAcaoDoSistema pAcao, String tagUsada) {
         String url = gerarBaseURL(tagUsada);
 
-        System.out.println("Criando URL padrao");
-        for (ParametroURL pr : parametrosURL.values()) {
+        for (ParametroURL pr : parametros) {
 
-            String strTipoObjeto = pr.getClasseObjetoValor().getSimpleName();
-            Object prEnviadoRelacionado = mapaParametrosEnviados.get(strTipoObjeto);
-
-            if (prEnviadoRelacionado == null) {
-                url += "/" + pr.getSlugValorPadrao();
-            } else {
-                pr.setValor(prEnviadoRelacionado);
-                url += "/" + pr.getSlugValorPadrao();
-                mapaParametrosEnviados.remove(prEnviadoRelacionado.getClass().getSimpleName());
-            }
-
-        }
-
-        if (!mapaParametrosEnviados.isEmpty()) {
-
-            if (umaPaginaCadastroEntidade && permitirSelecaoRegistroPorURL) {
-                Object parametroDeSelecaoEntidade = mapaParametrosEnviados.get(acaoGestaoVinculada.getEnumAcaoDoSistema().getEntidadeDominio().getSimpleName());
-                if (parametroDeSelecaoEntidade != null) {
-                    url = "/|rg|" + ((ItfBeanSimples) parametroDeSelecaoEntidade).getId();
-                }
-            }
+            url += "/" + pr.getSlugValorPadrao();
 
         }
 
@@ -179,8 +148,63 @@ public class EstruturaDeFormulario {
 
     }
 
+    public String gerarUrlPorValorParametro(ItfAcaoDoSistema pAcao, String tagUsada, Object... parametros) {
+
+        Map<String, Object> mapaParametrosEnviados;
+
+        mapaParametrosEnviados = new HashMap<>();
+        if (parametros != null) {
+
+            for (Object obj : parametros) {
+                mapaParametrosEnviados.put(obj.getClass().getSimpleName(), obj);
+            }
+
+        }
+
+        List<ParametroURL> novosParametros = new ArrayList<>();
+        parametrosURL.values().stream().forEach((pr) -> {
+            ParametroURL novoParametro = new ParametroURL(pr);
+            String strTipoObjeto = pr.getClasseObjetoValor().getSimpleName();
+            Object prEnviadoRelacionado = mapaParametrosEnviados.get(strTipoObjeto);
+
+            if (prEnviadoRelacionado == null) {
+                novosParametros.add(novoParametro);
+            } else {
+                novoParametro.setValor(prEnviadoRelacionado);
+                novosParametros.add(novoParametro);
+            }
+        });
+
+        return gerarUrlPorParametro(novosParametros, pAcao, tagUsada);
+
+    }
+
     private String gerarURL(ItfAcaoDoSistema pAcao) {
-        return getUrlPorParametro(pAcao, null);
+        return gerarUrlPorParametro(Lists.newArrayList(parametrosURL.values()), pAcao, null);
+    }
+
+    public boolean isAcessoLivre() {
+        return acessoLivre;
+    }
+
+    public String getNomeCurto() {
+        return nomeCurto;
+    }
+
+    public boolean isPermitirSelecaoRegistroPorURL() {
+        return permitirSelecaoRegistroPorURL;
+    }
+
+    public String getRecursoXHTML() {
+        return recursoXHTML;
+    }
+
+    public List<String> getTagsPalavraChave() {
+        return tagsPalavraChave;
+    }
+
+    public boolean isUmaPaginaCadastroEntidade() {
+        return umaPaginaCadastroEntidade;
     }
 
 }

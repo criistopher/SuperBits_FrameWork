@@ -21,10 +21,12 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
 
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/site/home.xhtml", icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_MB_HOME,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = true, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/acessoNegado.xhtml")
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = false, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/acessoNegado.xhtml")
     PAGINA_MB_ACESSO_NEGADO,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = true, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/login.xhtml")
-    PAGINA_MB_LOGIN;
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/login.xhtml")
+    PAGINA_MB_LOGIN,
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = "/resources/SBComp/SBSystemPages/erroGenerico.xhtml")
+    PAGINA_MB_ERRO_CRITICO;
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {

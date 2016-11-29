@@ -61,7 +61,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     protected abstract String defineNomeLink();
 
     protected abstract String defineDescricao();
-
+    private boolean anotacoesConfiguradas = false;
     private String tagUsada;
     @Deprecated
     private final String titulo;
@@ -198,17 +198,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     @Override
     public AcaoGestaoEntidade getAcaoVinculada() {
         try {
-            if (this.getClass().getName().equals(PaginaSimples.class.getName())) {
-                return null;
-            }
-            if (acaoVinculada == null) {
-                configEstruturaFormulario();
-            }
-            return acaoVinculada;
+            return estruturaFormulario.getAcaoGestaoVinculada();
         } catch (Throwable e) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação vinculada a pagina" + this.getClass().getSimpleName(), e);
         }
-        return acaoVinculada;
+        return null;
     }
 
     public EntityManager getEMPagina() {
@@ -393,7 +387,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private void verificaAbriuPagina() {
         if (!abriuPagina) {
             try {
-                throw new ErroSBCriticoWeb("pagina" + nomeCurto
+                throw new ErroSBCriticoWeb("pagina" + estruturaFormulario.getNomeCurto()
                         + "não herdou AbrePagina");
             } catch (ErroSBCriticoWeb e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Utilizando bean Pagina Atual sem Chamar método abrir pagina", e);
@@ -446,12 +440,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         }
     }
 
-    private void makeURLPadrao() {
-
-        setUrlPadrao(gerarURLAtual());
-
-    }
-
     @Override
     @PreDestroy
     public void fecharPagina() {
@@ -475,21 +463,13 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public String getRecursoXHTML() {
-        return recursoXHTML;
-    }
-
-    @Override
-    public void setRecursoXHTML(String recursoXHTML) {
-        this.recursoXHTML = recursoXHTML;
+        return estruturaFormulario.getRecursoXHTML();
     }
 
     @Override
     public List<String> getTags() {
-        if (tags == null) {
-            configEstruturaFormulario();
-        }
 
-        return tags;
+        return estruturaFormulario.getTagsPalavraChave();
     }
 
     /**
@@ -498,10 +478,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
      */
     @Override
     public String getNomeCurto() {
-        if (nomeCurto == null) {
-            configEstruturaFormulario();
-        }
-        return nomeCurto;
+
+        return estruturaFormulario.getNomeCurto();
     }
 
     @Override
@@ -527,18 +505,16 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     @Override
     public String getUrlPadrao() {
         //if (!permitirUsarObjetoInjetadoIgualANulo)	verificaAbriuPagina();
-        if (urlPadrao == null) {
-            makeURLPadrao();
-        }
-        return urlPadrao;
+
+        return estruturaFormulario.getUrlPadrao();
     }
 
     public String getUrlAtual() {
-        return gerarURLAtual();
+        return estruturaFormulario.gerarUrlPorParametro(Lists.newArrayList(parametrosURL.values()), acaoSelecionada, tagUsada);
     }
 
     public void setUrlPadrao(String urlCompleta) {
-        this.urlPadrao = urlCompleta;
+        estruturaFormulario.getUrlPadrao();
     }
 
     @Override
@@ -579,7 +555,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 return pr;
             }
         }
-        UtilSBWP_JSFTools.mensagens().erroSistema("a pagina " + nomeCurto + " não contem um parametro do tipo" + nomeEntidade);
+        UtilSBWP_JSFTools.mensagens().erroSistema("a pagina " + this.getClass().getSimpleName() + " não contem um parametro do tipo" + nomeEntidade);
         return null;
     }
 
@@ -593,11 +569,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
     @Override
     public boolean isAcessoLivre() {
-        if (acaoVinculada == null) {
-            return true;
-        } else {
-            return !acaoVinculada.isPrecisaPermissao();
-        }
+
+        return !estruturaFormulario.isAcessoLivre();
 
     }
 

@@ -51,6 +51,16 @@ public final class ParametroURL implements ItfParametroTela {
 
     }
 
+    public ParametroURL(ParametroURL pParametro) {
+        nome = pParametro.getNome();
+        tipoEntidade = pParametro.getTipoEntidade();
+        tipoParametro = pParametro.getTipoParametro();
+        valor = pParametro.getValor();
+        valorPadrao = pParametro.getValorPadrao();
+        parametroObrigatorio = pParametro.isParametroObrigatorio();
+
+    }
+
     public Class getClasseObjetoValor() {
         try {
             switch (tipoParametro) {

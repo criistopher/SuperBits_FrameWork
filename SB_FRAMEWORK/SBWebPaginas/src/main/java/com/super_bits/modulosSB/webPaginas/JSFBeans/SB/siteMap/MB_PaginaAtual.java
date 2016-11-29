@@ -79,7 +79,7 @@ public abstract class MB_PaginaAtual implements Serializable {
                 // System.out.println("executou abre pagina pelo pagina Atual" + infoPagina.getRecursoXHTML());
             }
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual" + getSiteMap().getPaginasOffline(), t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Instanciando Pagina atual", t);
             if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.PRODUCAO) {
 
                 erroCriticoDoSistema.setBeanErroCritico(new InfoErroCritico("Erro criando informações da Pagina Atual,", t));

@@ -19,6 +19,8 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampo
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.TipoFonteUpload;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
 import java.lang.reflect.Field;
 import javax.persistence.Transient;
 
@@ -44,9 +46,9 @@ public class AcaoComLink extends ItemGenerico implements ItfAcaoDoSistema {
     @Transient
     private String urlDeAcesso;
 
-    public AcaoComLink(ItfAcaoFormulario pAcaoDoSistema, ItfB_Pagina pagina) {
-        acaoOriginal = pAcaoDoSistema;
-        urlDeAcesso = pagina.getUrlPadrao();
+    public AcaoComLink(EstruturaDeFormulario pPagina) {
+        acaoOriginal = pPagina.getAcaoGestaoVinculada();
+        urlDeAcesso = pPagina.getUrlPadrao();
     }
 
     protected void alterarUrl(String pNovaUrl) {

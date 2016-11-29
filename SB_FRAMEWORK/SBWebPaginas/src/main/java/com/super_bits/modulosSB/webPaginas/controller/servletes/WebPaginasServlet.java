@@ -5,27 +5,19 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.servletes;
 
-import com.google.common.collect.Lists;
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
-import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.B_Pagina;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MB_SiteMapa;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MapaDeFormularios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,81 +35,48 @@ import javax.servlet.http.HttpServletResponse;
 //@WebServlet("*.wp")
 public class WebPaginasServlet extends HttpServlet implements Serializable {
 
-    private static final Map<String, String> MAPA_RECURSOS = new HashMap<>();
-    private static final Map<String, ItfB_Pagina> MAPA_PAGINAS = new HashMap<>();
-    private static boolean mapaConfigurado = false;
-
     @Inject
     private ControleDeSessaoWeb controleDeSessao;
     @Inject
     private InfoErroCritico erroCritico;
     public final static Map<String, AcaoComLink> MAPA_ACOESMANAGED_BEAN = new HashMap<>();
+    private static boolean mapaConfigurado = false;
 
     public static AcaoComLink getAcaoComLinkByXHTML(String pXhtml) {
         if (!mapaConfigurado) {
             buildMapaRecurso();
         }
-        ItfB_Pagina paginaVinculada = MAPA_PAGINAS.get(pXhtml);
+        EstruturaDeFormulario paginaVinculada = MapaDeFormularios.getEstruturaByXHTMLDeGestao(pXhtml);
         if (paginaVinculada == null) {
             throw new UnsupportedOperationException("Nenguma pagina vinculada ao xhtml" + pXhtml + "Certifique que a pagina tenha sido declarada no sitemap");
         }
-        return MAPA_ACOESMANAGED_BEAN.get(paginaVinculada.getAcaoVinculada().getNomeUnico());
+        return MAPA_ACOESMANAGED_BEAN.get(paginaVinculada.getAcaoGestaoVinculada().getNomeUnico());
     }
 
     private static void buildMapaRecurso() {
+
         if (!mapaConfigurado) {
 
             try {
-                System.out.println("Montando Mapa de paginas Para encaminhamento Via Servlet");
-                Class sitemapClass = SBWebPaginas.getSiteMap();
-                MB_SiteMapa sitemapa;
-                sitemapa = (MB_SiteMapa) sitemapClass.newInstance();
-                Map<String, ItfB_Pagina> paginas = sitemapa.getPaginasOffline();
-                // criando mapa de recursos a partir das paginas
-
-                System.out.println("Foram encontradas " + paginas.keySet().size() + " paginas gerenciaveis");
-                for (String key : paginas.keySet()) {
-                    ItfB_Pagina pg = paginas.get(key);
-                    List<String> tags = pg.getTags();
-                    MAPA_PAGINAS.put(pg.getRecursoXHTML(), pg);
-                    List<String> tagsDaPagina = pg.getTags();
-                    if (MAPA_RECURSOS.get(key) != null) {
-                        throw new UnsupportedOperationException("A tag" + key + " já foi utilizada para pagina" + MAPA_RECURSOS.get(key).getClass().getSimpleName());
-                    }
-                    MAPA_RECURSOS.put(key, pg.getRecursoXHTML());
-                    MAPA_RECURSOS.put(pg.getNomeCurto(), pg.getRecursoXHTML());
-                    Logger.getGlobal().log(Level.INFO, "Pagina {0} tag{1}", new Object[]{pg.getRecursoXHTML(), pg.getNomeCurto()});
-                    for (String tag : tagsDaPagina) {
-                        MAPA_RECURSOS.put(UtilSBCoreStrings.makeStrUrlAmigavel(tag), pg.getRecursoXHTML());
-
-                    }
-                }
-
-                if (!mapaConfigurado) {
-
-                    try {
-                        for (ItfB_Pagina pagina : MAPA_PAGINAS.values()) {
-                            if (pagina.getAcaoVinculada() != null) {
-                                if (MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoVinculada().getNomeUnico()) != null) {
-                                    throw new UnsupportedOperationException("Uma ação de gestão só pode ser vinculada a uma Pgina, no entando a pagina" + pagina.getAcaoVinculada() + "está vinculada a " + MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoVinculada().getNomeUnico()).getClass().getSimpleName() + " e a" + pagina.getClass().getSimpleName());
-                                }
-                                MAPA_ACOESMANAGED_BEAN.put(pagina.getAcaoVinculada().getNomeUnico(), new AcaoComLink(pagina.getAcaoVinculada(), pagina));
-                            }
+                for (EstruturaDeFormulario pagina : MapaDeFormularios.getTodasEstruturas()) {
+                    if (pagina.getAcaoGestaoVinculada() != null) {
+                        if (MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()) != null) {
+                            throw new UnsupportedOperationException("Uma ação de gestão só pode ser vinculada a uma Pgina, no entando a pagina"
+                                    + pagina.getAcaoGestaoVinculada() + "está vinculada a " + MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()).getClass().getSimpleName() + " e a"
+                                    + pagina.getClass().getSimpleName());
                         }
-
-                    } catch (Throwable t) {
-                        FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
+                        MAPA_ACOESMANAGED_BEAN.put(pagina.getAcaoGestaoVinculada().getNomeUnico(),
+                                new AcaoComLink(pagina));
                     }
-
                 }
-                mapaConfigurado = true;
-                System.out.println("Contexto Inicializado");
-            } catch (InstantiationException | IllegalAccessException ex) {
 
-                FabErro.PARA_TUDO.paraSistema("erro gerando cadastrado de recursos via siteMap", ex);
+            } catch (Throwable t) {
+                FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
             }
 
         }
+        mapaConfigurado = true;
+        System.out.println("Contexto Inicializado");
     }
 
     @Override
@@ -150,30 +109,22 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         //String recurso = "/resources/SBComp/SBSystemPages/paginaNaoEncontrada.xhtml";
         String recurso = null;
         for (String parteUrl : partes) {
-
-            recurso = MAPA_RECURSOS.get(parteUrl);
-
-            if (recurso != null) {
+            EstruturaDeFormulario pagina = MapaDeFormularios.getPaginaBySlug(parteUrl);
+            if (pagina != null) {
                 try {
-                    B_Pagina pagina = (B_Pagina) MAPA_PAGINAS.get(recurso);
-
-                    if (pagina.getAcaoVinculada() != null) {
-                        if (pagina.getAcaoVinculada().isPrecisaPermissao()) {
-                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoVinculada())) {
+                    if (pagina.getAcaoGestaoVinculada() != null) {
+                        if (pagina.getAcaoGestaoVinculada().isPrecisaPermissao()) {
+                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoGestaoVinculada())) {
                                 RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
                                 wp.forward(req, resp);
                                 return;
                             }
                         }
                     }
-
                     int idParametro = 0;
-
                     break;
                 } catch (Throwable e) {
-
                     FabErro.SOLICITAR_REPARO.paraDesenvolvedor("erro tentnado aplicar paramentros de URL padrão", e);
-
                     break;
                 }
             }
@@ -181,18 +132,18 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
 
         if (recurso == null) {
             recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
-            if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.HOMOLOGACAO)) {
-                try {
-                    throw new UnsupportedOperationException("url não asssociada a MB" + caminhoCOmpleto + "  ");
-
-                } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Endereço url não relacionado a nenhuma pagina, certifique se a pagima foi declarada no sitemap ou se o endereço foi digitado corretamente", t);
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, Lists.newArrayList(MAPA_RECURSOS.keySet()).toString(), t);
-                }
-            }
             if (recurso == null) {
                 recurso = "/site/home.xhtml";
             }
+            if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.HOMOLOGACAO)) {
+                try {
+                    throw new UnsupportedOperationException("url não asssociada a nenhuma pagina MB, certifique a declaração no SITEMAp e se o endereço está correto" + caminhoCOmpleto + "  ");
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Endereço url não relacionado a nenhuma pagina, certifique se a pagima foi declarada no sitemap ou se o endereço foi digitado corretamente", t);
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo pagina por URL", t);
+                }
+            }
+
         }
         System.out.println("ForWard para" + recurso);
 

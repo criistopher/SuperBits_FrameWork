@@ -4,8 +4,14 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
+import com.google.common.collect.Lists;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.controller.servletes.EstruturaDeFormulario;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,16 +23,21 @@ public class MapaDeFormularios {
     private static Map<String, EstruturaDeFormulario> mapaFormulariosByXhtmlPrincipal;
     private static Map<String, EstruturaDeFormulario> mapaFormulariosByAcaoGestao;
     private static Map<String, EstruturaDeFormulario> mapaFormulariosByNomeCompletoClasse;
+    private static Map<String, EstruturaDeFormulario> mapaFormulariosBySlug;
 
     private static boolean criouEestrutura = false;
 
-    public static void buildEstrutura() {
+    public static void buildEstrutura(List<Class> pagina) {
 
         if (criouEestrutura) {
 
         }
         criouEestrutura = true;
 
+    }
+
+    public static EstruturaDeFormulario getEstruturaByXHTMLDeGestao(String xhtml) {
+        return mapaFormulariosByXhtmlPrincipal.get(xhtml);
     }
 
     private static void buildEstrutura(Class pClasseFormulario) {
@@ -45,12 +56,44 @@ public class MapaDeFormularios {
                 pClasseFormulario.getName(),
                 mapaFormulariosByAcaoGestao.get(estrutura.getAcaoGestaoVinculada().getNomeUnico()));
 
+        mapaFormulariosBySlug.put(
+                estrutura.getNomeCurto(),
+                mapaFormulariosByAcaoGestao.get(estrutura.getAcaoGestaoVinculada().getNomeUnico()));
+
+        mapaFormulariosBySlug.put(
+                UtilSBCoreStrings.makeStrUrlAmigavel(estrutura.getAcaoGestaoVinculada().getModulo().getNome() + "_" + estrutura.getAcaoGestaoVinculada().getNomeAcao()),
+                mapaFormulariosByAcaoGestao.get(estrutura.getAcaoGestaoVinculada().getNomeUnico()));
+
+        estrutura.getTagsPalavraChave().stream().forEach((tag) -> {
+            mapaFormulariosBySlug.put(
+                    tag,
+                    mapaFormulariosByAcaoGestao.get(estrutura.getAcaoGestaoVinculada().getNomeUnico()));
+        });
+
+    }
+
+    public static EstruturaDeFormulario getPaginaBySlug(String pSlug) {
+        return mapaFormulariosBySlug.get(pSlug);
+    }
+
+    public static List<EstruturaDeFormulario> getTodasEstruturas() {
+        return Lists.newArrayList(mapaFormulariosByAcaoGestao.values());
+    }
+
+    public static EstruturaDeFormulario getEstruturaByClasseMB(Class pClasse) {
+        EstruturaDeFormulario est = mapaFormulariosByNomeCompletoClasse.get(pClasse.getName());
+        if (est == null) {
+            buildEstrutura(pClasse);
+        }
+        return getEstruturaByClasseMB(pClasse.getName());
+
     }
 
     public static EstruturaDeFormulario getEstruturaByClasseMB(String pClasse) {
 
         EstruturaDeFormulario est = mapaFormulariosByNomeCompletoClasse.get(pClasse);
         if (est == null) {
+
             throw new UnsupportedOperationException("A estrutura de pagnia vinculada a classe" + pClasse + " não foi encontrada, talvez ela não tenha sido injetada no SiteMapa (o nome enviado deve ser o nome completo e não SimpleName)");
         }
         return est;
@@ -69,15 +112,13 @@ public class MapaDeFormularios {
     }
 
     public static String getUrlFormulario(ItfAcaoDoSistema pAcao, Object... parametros) {
-
-        EstruturaDeFormulario strtura = mapaFormulariosByXhtmlPrincipal.get(pAcao.getNomeUnico());
-
-        if (parametros != null) {
-            for (Object pr : parametros) {
-                strtura
-            }
+        try {
+            EstruturaDeFormulario strtura = mapaFormulariosByXhtmlPrincipal.get(pAcao.getNomeUnico());
+            return strtura.gerarUrlPorValorParametro(pAcao, null, parametros);
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando url de formulario para ação" + pAcao + " com parametros" + parametros, t);
         }
-
+        return SBWebPaginas.getURLBase();
     }
 
 }

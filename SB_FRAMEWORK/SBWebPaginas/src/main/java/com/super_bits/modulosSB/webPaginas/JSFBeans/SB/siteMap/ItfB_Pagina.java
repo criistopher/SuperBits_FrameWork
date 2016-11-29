@@ -53,16 +53,6 @@ public interface ItfB_Pagina {
 
     /**
      *
-     * Altera o recruso XHTMl vinculado,será removido para melhorar questões de
-     * segurança
-     *
-     * @param recursoXHTML
-     */
-    @Deprecated
-    public void setRecursoXHTML(String recursoXHTML);
-
-    /**
-     *
      * Uma pagina de gestão (PgManagedBean) possui tags associadas a sua função.
      *
      * estas tags servem para montar os links de pagina e para facilitar
