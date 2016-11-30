@@ -16,6 +16,7 @@ import javax.persistence.Id;
 public class ItemSimplesTeste extends ItemSimples {
 
     @Id
+    @InfoCampo(tipo = FabCampos.ID)
     private int id;
     @InfoCampo(tipo = FabCampos.AAA_NOME)
     private String nome;
