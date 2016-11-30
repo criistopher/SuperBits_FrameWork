@@ -15,13 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-@SuppressWarnings("serial")
 public abstract class MB_SiteMapa implements ItfSiteMapa {
 
-    private final Map<String, Field> paginasInjetadas = new HashMap<>();
+    private static final Map<String, Field> paginasInjetadas = new HashMap<>();
 
     @Inject
     private PgErroCRitico erroCritico;
@@ -31,45 +29,45 @@ public abstract class MB_SiteMapa implements ItfSiteMapa {
     private PgAcessoNegado erroAcessoNegado;
 
     private ItfSiteMapa siteMapa;
+    private static boolean siteMapaCriado = false;
 
     public MB_SiteMapa() {
+        System.out.println("");
+        if (!siteMapaCriado) {
+            try {
 
-    }
+                List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
+                camposInjetados.addAll(UtilSBWPServletTools.getCamposReflexcaoInjetados(MB_SiteMapa.class));
+                ItfFabricaAcoes fabrica = null;
+                List<Class> classesDeFormuario = new ArrayList<>();
+                for (Field campo : camposInjetados) {
+                    try {
 
-    @PostConstruct
-    public void inicio() {
-        try {
+                        fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
+                        if (fabrica == null) {
+                            throw new UnsupportedOperationException("Impossível determinar a fabrica de ação para" + campo.getType() + " é Obrigatorio criar uma anotação nas classes de pagina com o metodo acao() retornando um ItfFabricaDeAcao");
+                        }
 
-            List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
-            camposInjetados.addAll(UtilSBWPServletTools.getCamposReflexcaoInjetados(MB_SiteMapa.class));
-            ItfFabricaAcoes fabrica = null;
-            List<Class> classesDeFormuario = new ArrayList<>();
-            for (Field campo : camposInjetados) {
-                try {
+                        ItfAcaoDoSistema acao = fabrica.getAcaoDoSistema();
 
-                    fabrica = (ItfFabricaAcoes) getFabricaAcaoByClasse(campo.getType());
-                    if (fabrica == null) {
-                        throw new UnsupportedOperationException("Impossível determinar a fabrica de ação para" + campo.getType() + " é Obrigatorio criar uma anotação nas classes de pagina com o metodo acao() retornando um ItfFabricaDeAcao");
+                        if (acao != null) {
+                            paginasInjetadas.put(acao.getComoGestaoEntidade().getXhtml(), campo);
+                            classesDeFormuario.add(campo.getType());
+
+                        } else {
+                            throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
+                        }
+                    } catch (Throwable t) {
+                        SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType() + " com anotação: " + fabrica, t);
                     }
-
-                    ItfAcaoDoSistema acao = fabrica.getAcaoDoSistema();
-
-                    if (acao != null) {
-                        paginasInjetadas.put(acao.getComoGestaoEntidade().getXhtml(), campo);
-                        classesDeFormuario.add(campo.getType());
-
-                    } else {
-                        throw new UnsupportedOperationException("A fabrica da ação foi encontrada, mas a ação retornou nulo verifique o retorno da ação " + fabrica);
-                    }
-                } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro adicionando campo de sitemap>>>" + campo.getName() + " ->" + campo.getType() + " com anotação: " + fabrica, t);
                 }
-            }
-            MapaDeFormularios.buildEstrutura(classesDeFormuario);
+                MapaDeFormularios.buildEstrutura(classesDeFormuario);
 
-        } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
+            }
         }
+        siteMapaCriado = true;
     }
 
     @Override

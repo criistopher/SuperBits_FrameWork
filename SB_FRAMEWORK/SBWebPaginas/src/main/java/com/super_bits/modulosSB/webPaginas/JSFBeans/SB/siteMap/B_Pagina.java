@@ -189,7 +189,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     @Override
     public AcaoGestaoEntidade getAcaoVinculada() {
         try {
-            return estruturaFormulario.getAcaoGestaoVinculada();
+            return getEstruturaFormulario().getAcaoGestaoVinculada();
         } catch (Throwable e) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro Obtendo ação vinculada a pagina" + this.getClass().getSimpleName(), e);
         }
@@ -384,6 +384,13 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Utilizando bean Pagina Atual sem Chamar método abrir pagina", e);
             }
         }
+    }
+
+    protected EstruturaDeFormulario getEstruturaFormulario() {
+        if (estruturaFormulario == null) {
+            return MapaDeFormularios.getEstruturaByClasseMB(this.getClass().getName());
+        }
+        return estruturaFormulario;
     }
 
     private void configEstruturaFormulario() {
