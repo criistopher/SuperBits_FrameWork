@@ -8,7 +8,7 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import java.lang.reflect.Field;
 
-public class ItemSimples extends ItemGenerico implements
+public abstract class ItemSimples extends ItemGenerico implements
         ItfBeanSimples {
 
     public ItemSimples() {

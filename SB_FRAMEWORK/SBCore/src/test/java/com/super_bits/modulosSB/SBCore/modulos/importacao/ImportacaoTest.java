@@ -7,6 +7,8 @@ package com.super_bits.modulosSB.SBCore.modulos.importacao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,8 +26,6 @@ public class ImportacaoTest {
     public void testCarregarArquivo() {
 
         SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
-        ItemSimples Teste = new ItemSimples();
-        Importacao<ItemSimples> importador = new Importacao<>(SBCore.getCaminhoDesenvolvimento(), null);
 
     }
 
