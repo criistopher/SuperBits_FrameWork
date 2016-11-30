@@ -68,13 +68,15 @@ public class UtilSBProjetosTest extends TesteJunit {
         Projeto moduloSeguranca = FabSBProjectProjetos.CONTROLE_USUARIOS_BASICO.getRegistro();
         Projeto sistemaSantaClara = FabSBProjectProjetos.SISTEMA_SANTA_CLARA.getRegistro();
         Projeto game_super_bits_elemental = FabSBProjectProjetos.ELEMENTAL.getRegistro();
+        Projeto intranet_sos = FabSBProjectProjetos.INTRANET_SOS.getRegistro();
 
         //UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.SUPER_KOMPRAS.getRegistro());
         //
         //UtilSBProjetos.configurarPastaProjeto(game_super_bits_elemental);
         //UtilSBProjetos.criarNovoProjeto(game_super_bits_elemental);
-        UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.SUPER_BITS_Fw_ADMIN_TOOLS.getRegistro());
+        //UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.SUPER_BITS_Fw_ADMIN_TOOLS.getRegistro());
         //UtilSBProjetos.configurarPastaProjeto(FabSBProjectProjetos.INTRANET_AQUA_QUALITY.getRegistro());
+        UtilSBProjetos.criarNovoProjeto((FabSBProjectProjetos.INTRANET_SOS.getRegistro()));
         //
         //    UtilSBProjetos.criarNovoProjeto(sistemaSantaClara);
 

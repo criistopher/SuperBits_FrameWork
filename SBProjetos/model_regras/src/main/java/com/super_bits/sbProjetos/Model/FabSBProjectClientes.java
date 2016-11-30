@@ -22,7 +22,8 @@ public enum FabSBProjectClientes implements ItfFabrica {
     CASA_NOVA_MARKETING_DIGITAL,
     MINAS_DRILL,
     ACOMAR,
-    GAME_SUPERBITS;
+    GAME_SUPERBITS,
+    SOS;
 
     public static String SERVIDOR_RELEASE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/release";
     public static String SERVIDOR_SOURCE_OFICIAL_SUPER_BITS = "ssh://git@consultoriaguiase.com.br/home/git/gitServer/source";
@@ -81,6 +82,10 @@ public enum FabSBProjectClientes implements ItfFabrica {
                 novoCliente.setServicorGitRelease(SERVIDOR_RELEASE_OFICIAL_SUPER_BITS);
                 novoCliente.setServidorGitCodigoFonte(SERVIDOR_SOURCE_GAME_SUPERBITS_ELEMENTAL_CRISTOPHER);
 
+                break;
+            case SOS:
+                novoCliente.setNome("SOS");
+                // USANDO DADOS PADRÃO
                 break;
             default:
                 throw new AssertionError(this.name());

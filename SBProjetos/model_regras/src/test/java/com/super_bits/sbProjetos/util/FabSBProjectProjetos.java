@@ -27,7 +27,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
     FINANCEIRO,
     ELEMENTAL,
     CRIADOR_COMPONENTE_VISUAL,
-    SUPER_BITS_Fw_ADMIN_TOOLS;
+    SUPER_BITS_Fw_ADMIN_TOOLS,
+    INTRANET_SOS;
 
     @Override
     public Projeto getRegistro() {
@@ -104,6 +105,13 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 novoProjeto.setNome("SB_AdminTools");
 
                 novoProjeto.setDescricao("Ferramentas de Administração do sistema- FrameWork SuperBits");
+                break;
+            case INTRANET_SOS:
+
+                novoProjeto.setNomeProjeto("Intranet SOS");
+                novoProjeto.setNomeComercial("SOS Ferramentas");
+                novoProjeto.setCliente(FabSBProjectClientes.SOS.getRegistro());
+
                 break;
             default:
                 throw new AssertionError(this.name());
