@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.SBCore.modulos.importacao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +51,8 @@ public class ImportacaoTest {
         }
 
         System.out.println(importador.getRelatorioImportacao());
+
+        UtilSBCoreArquivoTexto.escreverEmArquivo("/home/desenvolvedor/relatorio.html", importador.getRelatorioImportacao());
 
     }
 

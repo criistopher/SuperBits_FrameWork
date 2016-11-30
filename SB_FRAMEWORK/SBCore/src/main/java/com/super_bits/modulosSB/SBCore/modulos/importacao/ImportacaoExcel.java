@@ -249,11 +249,15 @@ public class ImportacaoExcel<T> {
 
     public String getRelatorioImportacao() {
 
-        String mensagemFinal = "Relatório de importação<BR><BR>\n\nSucessos: " + registrosSucesso.size() + "\nFalhas: " + registrosErro.size() + "\n\nTotal de registros: " + (registrosErro.size() + registrosSucesso.size()) + "<BR><BR>\n\n";
+        if (registrosErro == null || registrosSucesso == null) {
+            processar();
+        }
+
+        String mensagemFinal = "Relatório de importação<br><br>\n\nSucessos: " + registrosSucesso.size() + "\nFalhas: " + registrosErro.size() + "\n\nTotal de registros: " + (registrosErro.size() + registrosSucesso.size()) + "<br><br>\n\n";
 
         for (int l = 0; l < listaDeErros.size(); l++) {
 
-            mensagemFinal += "Erro n°: " + (l + 1) + "<BR><BR>\n" + listaDeErros.get(l) + "<BR>" + "<BR>" + "<div class=\"Separator\"/>" + "\n" + "\n";
+            mensagemFinal += "Erro n°: " + (l + 1) + "<br><br>\n" + listaDeErros.get(l) + "<br>" + "<br>" + "<div class=\"Separator\"/>" + "\n" + "\n";
 
         }
 
