@@ -64,11 +64,11 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private boolean anotacoesConfiguradas = false;
     private String tagUsada;
     @Deprecated
-    private final String titulo;
+    private String titulo;
     @Deprecated
     private String linkRotulo;
     @Deprecated
-    private final String descricao;
+    private String descricao;
     @InfoMB_Bean(descricao = "Div onde será exibido o xhtml da ação selecionada", exemplo = "<h:painelGroup id={#PaginaAtual.infoPagina.idConteudoPagina}")
     protected String idAreaExbicaoAcaoSelecionada = "divSBAreaAcaoSelecionada";
     protected String xhtmlAcaoAtual;
@@ -81,11 +81,16 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private final Map<String, BeanDeclarado> beansDeclarados = new HashMap<>();
     private final List<InfoMBAcao> infoAcoes = new ArrayList<>();
     private EntityManager emPagina;
+    protected FabTipoFormulario tipoFormulario;
 
-    private final EstruturaDeFormulario estruturaFormulario;
+    private EstruturaDeFormulario estruturaFormulario;
 
     protected Boolean getAbriuPagina() {
         return abriuPagina;
+    }
+
+    public B_Pagina() {
+        tipoFormulario = FabTipoFormulario.PAGINA_SIMPLES;
     }
 
     private boolean isPaginaEmProcessoDeAberturaInicial() {
@@ -93,20 +98,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             return false;
         }
         return (UtilSBWPServletTools.getRequestBean("CfgURLFrm") != null);
-    }
-
-    public B_Pagina() {
-        System.out.println("Constructor da pagina " + this.getClass().getName() + " iniciado");
-        aplicarAnotacoes();
-        titulo = defineTitulo();
-        descricao = defineDescricao();
-        UtilSBCoreReflexao.instanciarListas(this);
-        estruturaFormulario = MapaDeFormularios.getEstruturaByClasseMB(this.getClass());
-        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-            UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
-            paginaUtil = new PgUtil();
-        }
-
     }
 
     protected PgUtil getPaginaUtil() {
@@ -589,6 +580,18 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     public void inicioAberturaDePagina() {
 
         try {
+            estruturaFormulario = MapaDeFormularios.getEstruturaByClasseMB(this.getClass());
+            System.out.println("Constructor da pagina " + this.getClass().getName() + " iniciado");
+            aplicarAnotacoes();
+            titulo = defineTitulo();
+            descricao = defineDescricao();
+            UtilSBCoreReflexao.instanciarListas(this);
+
+            if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+                UtillSBWPReflexoesWebpaginas.instanciarInjecoes(this);
+                paginaUtil = new PgUtil();
+            }
+
             System.out.println("Executou post construct interno para" + this.getClass().getSimpleName());
 
             configParametros();
@@ -630,6 +633,12 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         try {
             if (acaoSelecionada == null) {
                 throw new UnsupportedOperationException("A ação selecionada não pode ser nula");
+            }
+            if (tipoFormulario.equals(FabTipoFormulario.PAGINA_SIMPLES)) {
+                if (!acaoSelecionada.getAcaoDeGestaoEntidade().equals(getAcaoVinculada())) {
+
+                    UtilSBWP_JSFTools.vaParaPagina(MapaDeFormularios.getUrlFormulario(acaoSelecionada));
+                }
             }
 
             if (acaoSelecionada.isUmaAcaoFormulario()) {

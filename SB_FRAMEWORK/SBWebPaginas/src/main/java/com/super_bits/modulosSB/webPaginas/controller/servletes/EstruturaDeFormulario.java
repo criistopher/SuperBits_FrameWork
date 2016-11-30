@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ParametroURL;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.InfoPagina;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.sistema.PgAcessoNegado;
 import com.super_bits.modulosSB.webPaginas.util.UtillSBWPReflexoesWebpaginas;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public class EstruturaDeFormulario {
         umaPaginaCadastroEntidade = UtilSBCoreReflexao.isInterfaceImplementadaNaClasse(pClassePAgina, ItfPaginaGerenciarEntidade.class);
 
         try {
-            InfoPagina anotacaoInfopagina = this.getClass().getAnnotation(InfoPagina.class);
+            InfoPagina anotacaoInfopagina = (InfoPagina) pClassePAgina.getAnnotation(InfoPagina.class);
             if (anotacaoInfopagina == null) {
                 throw new UnsupportedOperationException("A pagina" + pClassePAgina.getSimpleName() + " não foi anotada com Info-Pagina");
             }
@@ -73,15 +74,15 @@ public class EstruturaDeFormulario {
                 tagsPalavraChave.add(tg);
             }
         } catch (Exception e) {
-            FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina da pagina" + this.getClass().getSimpleName(), e);
+            FabErro.PARA_TUDO.paraSistema("Erro configurando anotações de infoPagina da pagina" + pClassePAgina, e);
             throw new UnsupportedOperationException("Não  foi possível determinar as palavras chave para a classe" + pClassePAgina.getSimpleName());
         }
 
-        acaoGestaoVinculada = (AcaoGestaoEntidade) UtilSBController.getAcaoByClasse(this.getClass());
+        acaoGestaoVinculada = (AcaoGestaoEntidade) UtilSBController.getAcaoByClasse(pClassePAgina);
 
         try {
             if (acaoGestaoVinculada == null) {
-                throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + this.getClass().toString());
+                throw new UnsupportedOperationException("NÃO EXITE AÇÃO VINCULADA AO MANAGED_BEAN" + pClassePAgina.toString());
             }
             urlPadrao = gerarURL(acaoGestaoVinculada);
             recursoXHTML = acaoGestaoVinculada.getXhtml();
@@ -115,7 +116,7 @@ public class EstruturaDeFormulario {
     }
 
     public String getUrlPadrao() {
-        return null;
+        return gerarUrlPorParametro(Lists.newArrayList(parametrosURL.values()), acaoGestaoVinculada, null);
     }
 
     private String gerarBaseURL(String tagUsada) {

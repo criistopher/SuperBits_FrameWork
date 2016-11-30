@@ -95,6 +95,11 @@ public class SBCore {
         return getEstadoAPP().equals(ESTADO_APP.DESENVOLVIMENTO);
     }
 
+    public static boolean isEmModoProducao() {
+
+        return getEstadoAPP().equals(ESTADO_APP.PRODUCAO);
+    }
+
     public static ItfConfiguracaoCoreSomenteLeitura getInfoAplicacao() {
         return infoAplicacao;
     }

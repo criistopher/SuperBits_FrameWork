@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfSiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MapaDeFormularios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
@@ -39,13 +40,38 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     private ControleDeSessaoWeb controleDeSessao;
     @Inject
     private InfoErroCritico erroCritico;
+    @Inject
+    private ItfSiteMapa siteMapa;
     public final static Map<String, AcaoComLink> MAPA_ACOESMANAGED_BEAN = new HashMap<>();
-    private static boolean mapaConfigurado = false;
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        // Instanciado site mapa para construção de Formulario
+        siteMapa.getFabricaMenu();
+        try {
+            for (EstruturaDeFormulario pagina : MapaDeFormularios.getTodasEstruturas()) {
+                if (pagina.getAcaoGestaoVinculada() != null) {
+                    if (MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()) != null) {
+                        throw new UnsupportedOperationException("Uma ação de gestão só pode ser vinculada a uma Pgina, no entando a pagina"
+                                + pagina.getAcaoGestaoVinculada() + "está vinculada a " + MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()).getClass().getSimpleName() + " e a"
+                                + pagina.getClass().getSimpleName());
+                    }
+                    MAPA_ACOESMANAGED_BEAN.put(pagina.getAcaoGestaoVinculada().getNomeUnico(),
+                            new AcaoComLink(pagina));
+                }
+            }
+
+        } catch (Throwable t) {
+            FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
+        }
+
+        System.out.println("Contexto Inicializado");
+
+    }
 
     public static AcaoComLink getAcaoComLinkByXHTML(String pXhtml) {
-        if (!mapaConfigurado) {
-            buildMapaRecurso();
-        }
+
         EstruturaDeFormulario paginaVinculada = MapaDeFormularios.getEstruturaByXHTMLDeGestao(pXhtml);
         if (paginaVinculada == null) {
             throw new UnsupportedOperationException("Nenguma pagina vinculada ao xhtml" + pXhtml + "Certifique que a pagina tenha sido declarada no sitemap");
@@ -53,36 +79,10 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         return MAPA_ACOESMANAGED_BEAN.get(paginaVinculada.getAcaoGestaoVinculada().getNomeUnico());
     }
 
-    private static void buildMapaRecurso() {
-
-        if (!mapaConfigurado) {
-
-            try {
-                for (EstruturaDeFormulario pagina : MapaDeFormularios.getTodasEstruturas()) {
-                    if (pagina.getAcaoGestaoVinculada() != null) {
-                        if (MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()) != null) {
-                            throw new UnsupportedOperationException("Uma ação de gestão só pode ser vinculada a uma Pgina, no entando a pagina"
-                                    + pagina.getAcaoGestaoVinculada() + "está vinculada a " + MAPA_ACOESMANAGED_BEAN.get(pagina.getAcaoGestaoVinculada().getNomeUnico()).getClass().getSimpleName() + " e a"
-                                    + pagina.getClass().getSimpleName());
-                        }
-                        MAPA_ACOESMANAGED_BEAN.put(pagina.getAcaoGestaoVinculada().getNomeUnico(),
-                                new AcaoComLink(pagina));
-                    }
-                }
-
-            } catch (Throwable t) {
-                FabErro.PARA_TUDO.paraSistema("Erro Criando Ações MB", t);
-            }
-
-        }
-        mapaConfigurado = true;
-        System.out.println("Contexto Inicializado");
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Iniciando servlet WP");
-        buildMapaRecurso();
+
         Cookie[] teste = req.getCookies();
 
         for (Cookie cook : teste) {
@@ -110,12 +110,15 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
         String recurso = null;
         for (String parteUrl : partes) {
             EstruturaDeFormulario pagina = MapaDeFormularios.getPaginaBySlug(parteUrl);
+
             if (pagina != null) {
                 try {
                     if (pagina.getAcaoGestaoVinculada() != null) {
+                        recurso = pagina.getAcaoGestaoVinculada().getXhtml();
                         if (pagina.getAcaoGestaoVinculada().isPrecisaPermissao()) {
                             if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoGestaoVinculada())) {
                                 RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
+
                                 wp.forward(req, resp);
                                 return;
                             }
@@ -134,14 +137,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             recurso = controleDeSessao.getSessaoAtual().getUsuario().getGrupo().getXhtmlPaginaInicial();
             if (recurso == null) {
                 recurso = "/site/home.xhtml";
-            }
-            if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.HOMOLOGACAO)) {
-                try {
-                    throw new UnsupportedOperationException("url não asssociada a nenhuma pagina MB, certifique a declaração no SITEMAp e se o endereço está correto" + caminhoCOmpleto + "  ");
-                } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Endereço url não relacionado a nenhuma pagina, certifique se a pagima foi declarada no sitemap ou se o endereço foi digitado corretamente", t);
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo pagina por URL", t);
-                }
+
             }
 
         }

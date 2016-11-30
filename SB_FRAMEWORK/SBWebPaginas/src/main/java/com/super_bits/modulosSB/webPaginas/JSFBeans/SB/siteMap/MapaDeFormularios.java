@@ -17,6 +17,9 @@ import java.util.Map;
 
 /**
  *
+ *
+ *
+ *
  * @author desenvolvedor
  */
 public class MapaDeFormularios {
@@ -76,7 +79,7 @@ public class MapaDeFormularios {
 
         estrutura.getTagsPalavraChave().stream().forEach((tag) -> {
             mapaFormulariosBySlug.put(
-                    tag,
+                    UtilSBCoreStrings.makeStrUrlAmigavel(tag),
                     mapaFormulariosByAcaoGestao.get(estrutura.getAcaoGestaoVinculada().getNomeUnico()));
         });
 
@@ -91,6 +94,7 @@ public class MapaDeFormularios {
     }
 
     public static EstruturaDeFormulario getEstruturaByClasseMB(Class pClasse) {
+
         EstruturaDeFormulario est = mapaFormulariosByNomeCompletoClasse.get(pClasse.getName());
         if (est == null) {
             buildEstrutura(pClasse);
@@ -100,7 +104,9 @@ public class MapaDeFormularios {
     }
 
     public static EstruturaDeFormulario getEstruturaByClasseMB(String pClasse) {
-
+        if (pClasse.contains("$")) {
+            pClasse = pClasse.split("\\$")[0];
+        }
         EstruturaDeFormulario est = mapaFormulariosByNomeCompletoClasse.get(pClasse);
         if (est == null) {
 
@@ -123,8 +129,9 @@ public class MapaDeFormularios {
 
     public static String getUrlFormulario(ItfAcaoDoSistema pAcao, Object... parametros) {
         try {
-            EstruturaDeFormulario strtura = mapaFormulariosByXhtmlPrincipal.get(pAcao.getNomeUnico());
-            return strtura.gerarUrlPorValorParametro(pAcao, null, parametros);
+            EstruturaDeFormulario strtura = mapaFormulariosByXhtmlPrincipal.get(pAcao.getAcaoDeGestaoEntidade().getXhtml());
+            String url = strtura.gerarUrlPorValorParametro(pAcao, null, parametros);
+            return url;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando url de formulario para ação" + pAcao + " com parametros" + parametros, t);
         }

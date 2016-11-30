@@ -2,6 +2,7 @@ package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfSessao;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
@@ -87,6 +88,14 @@ public abstract class MB_PaginaAtual implements Serializable {
             }
 
         }
+    }
+
+    public AcaoDeContexto getAcaoNoCotexto(ItfAcaoDoSistema pAcao) {
+        return new AcaoDeContexto(pAcao, FacesContext.getCurrentInstance(), getInfoPagina());
+    }
+
+    public boolean isPermitidoExecutarAcao(ItfAcaoDoSistema pAcao) {
+        return SBCore.getControleDeSessao().getSessaoAtual().isAcessoPermitido(pAcao);
     }
 
     public void iniciaConvesa() {

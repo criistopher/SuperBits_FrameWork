@@ -1,6 +1,5 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.google.common.collect.Lists;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import static com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController.getFabricaAcaoByClasse;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -8,23 +7,22 @@ import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWPServletTools;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.sistema.PgAcessoNegado;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.sistema.PgErroCRitico;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.sistema.PgErroSQLDeveloper;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @SuppressWarnings("serial")
-public abstract class MB_SiteMapa implements Serializable {
+public abstract class MB_SiteMapa implements ItfSiteMapa {
 
     private final Map<String, Field> paginasInjetadas = new HashMap<>();
-    private boolean paginasDoSistemaConstruidas = false;
+
     @Inject
     private PgErroCRitico erroCritico;
     @Inject
@@ -32,16 +30,14 @@ public abstract class MB_SiteMapa implements Serializable {
     @Inject
     private PgAcessoNegado erroAcessoNegado;
 
-    /**
-     *
-     * Uma fabrica de menu é uma classe do tipo enum, contendo os diversos menus
-     * do sistema
-     *
-     * @return Fabrica de menus do sistema
-     */
-    public abstract Class<? extends ItfFabricaMenu> getFabricaMenu();
+    private ItfSiteMapa siteMapa;
 
     public MB_SiteMapa() {
+
+    }
+
+    @PostConstruct
+    public void inicio() {
         try {
 
             List<Field> camposInjetados = UtilSBWPServletTools.getCamposReflexcaoInjetados(this.getClass());
@@ -74,9 +70,9 @@ public abstract class MB_SiteMapa implements Serializable {
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.PARA_TUDO, "Erro construindo o mapa de paginas do Sitemap", t);
         }
-
     }
 
+    @Override
     public ItfB_Pagina getPaginaNoContexto(String xhtmlGerenciarPG) throws UnsupportedOperationException {
 
         Field campo = paginasInjetadas.get(xhtmlGerenciarPG);

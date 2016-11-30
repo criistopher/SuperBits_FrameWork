@@ -364,11 +364,19 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
      */
     @Override
     public boolean isAcessoPermitido(ItfUsuario pUsuario, ItfAcaoDoSistema pAcao) {
-        return isPermitido(PERMISSAO_POR_ACAO_ID.get(pAcao.getId()), pUsuario);
+        if (!pAcao.isPrecisaPermissao()) {
+            return true;
+        } else {
+            return isPermitido(getPermissoes().get(pAcao.getId()), pUsuario);
+        }
     }
 
     public static boolean isAcessoPermitido(ItfAcaoDoSistema pAcao) {
-        return isPermitido(PERMISSAO_POR_ACAO_ID.get(pAcao.getId()), SBCore.getUsuarioLogado());
+        if (!pAcao.isPrecisaPermissao()) {
+            return true;
+        } else {
+            return isPermitido(getPermissoes().get(pAcao.getId()), SBCore.getUsuarioLogado());
+        }
     }
 
     /**

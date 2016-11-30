@@ -85,6 +85,7 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             boolean pSubChamadaDeConstructor
     ) {
         super();
+        tipoFormulario = FabTipoFormulario.GESTAO_DE_ENTIDADE;
         acoesRegistros = new ArrayList<>();
 
         acaoNovoRegistro = pAcaoNovoRegistro;
@@ -205,6 +206,15 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
             return;
+        }
+        if (tipoFormulario.equals(FabTipoFormulario.GESTAO_DE_ENTIDADE)) {
+            if (!acaoSelecionada.getAcaoDeGestaoEntidade().equals(getAcaoVinculada())) {
+                if (pEntidadeSelecionada == null) {
+                    UtilSBWP_JSFTools.vaParaPagina(MapaDeFormularios.getUrlFormulario(acaoSelecionada));
+                } else {
+                    UtilSBWP_JSFTools.vaParaPagina(MapaDeFormularios.getUrlFormulario(acaoSelecionada, pEntidadeSelecionada));
+                }
+            }
         }
 
         if ((acaoSelecionada.equals(acaoEntidadeEditar)
