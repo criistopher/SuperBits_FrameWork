@@ -37,7 +37,7 @@ public class ImportacaoTest {
 
         ImportacaoExcel<ItemSimplesTeste> importador = new ImportacaoExcel<>(SBCore.getCaminhoDesenvolvimento() + "/src/test/resources/excelTesteXLS.xls", parametros, ItemSimplesTeste.class);
 
-        for (ItemSimplesTeste reg : importador.getRegistros()) {
+        for (ItemSimplesTeste reg : importador.getRegistrosSucesso()) {
 
             System.out.println(reg.getId());
 
@@ -46,7 +46,10 @@ public class ImportacaoTest {
             System.out.println(reg.getDescricao());
 
             System.out.println("_________________________");
+
         }
+
+        System.out.println(importador.getRelatorioImportacao());
 
     }
 

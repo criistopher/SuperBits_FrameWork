@@ -33,8 +33,11 @@ public class ImportacaoExcel<T> {
     private Class classeImportacao;
 
     private Map<String, Integer> mapaDeColunas;
-    private List<T> registros;
+    private List<T> registrosSucesso;
+    private List<T> registrosErro;
     private String caminhoArquivo;
+    private List<String> listaDeErros;
+    private String mensagemErro;
 
     public ImportacaoExcel(String pCaminhoArquivo, Map<String, Integer> mapa, Class classe) {
 
@@ -60,13 +63,21 @@ public class ImportacaoExcel<T> {
     }
 
     public void processar() {
-        registros = new ArrayList<>();
+
+        registrosSucesso = new ArrayList<>();
+
+        registrosErro = new ArrayList<>();
+
+        listaDeErros = new ArrayList<>();
+
         for (Sheet aba : planilha.getSheets()) {
             try {
 
                 System.out.println("Lendo Aba" + aba.getName());
 
                 for (int i = 0; i < aba.getRows(); i++) {
+
+                    boolean deuErro = false;
 
                     ItfBeanSimples novoRegistro = (ItfBeanSimples) classeImportacao.newInstance();
 
@@ -94,6 +105,9 @@ public class ImportacaoExcel<T> {
 
                                         } else {
 
+                                            deuErro = true;
+                                            mensagemErro = "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "\nValor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1) + "\n" + "\nCausa provavel: CAMPO EM BRANCO\n";
+                                            listaDeErros.add(mensagemErro);
                                             novoRegistro.getCampoByNomeOuAnotacao(nomeCampo).setValor(0);
 
                                         }
@@ -118,6 +132,9 @@ public class ImportacaoExcel<T> {
 
                                         } else {
 
+                                            deuErro = true;
+                                            mensagemErro = "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "\nValor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1) + "\n" + "\nCausa provavel: CAMPO EM BRANCO\n";
+                                            listaDeErros.add(mensagemErro);
                                             novoRegistro.getCampoByNomeOuAnotacao(nomeCampo).setValor(null);
 
                                         }
@@ -134,6 +151,9 @@ public class ImportacaoExcel<T> {
 
                                         } else {
 
+                                            deuErro = true;
+                                            mensagemErro = "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "\nValor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1) + "\n" + "\nCausa provavel: CAMPO EM BRANCO\n";
+                                            listaDeErros.add(mensagemErro);
                                             novoRegistro.getCampoByNomeOuAnotacao(nomeCampo).setValor(false);
 
                                         }
@@ -150,6 +170,9 @@ public class ImportacaoExcel<T> {
 
                                         } else {
 
+                                            deuErro = true;
+                                            mensagemErro = "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "\nValor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1) + "\n" + "\nCausa provavel: CAMPO EM BRANCO\n";
+                                            listaDeErros.add(mensagemErro);
                                             novoRegistro.getCampoByNomeOuAnotacao(nomeCampo).setValor(0.0D);
 
                                         }
@@ -172,29 +195,70 @@ public class ImportacaoExcel<T> {
 
                         } catch (Throwable t) {
 
-                            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "     Valor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1), t);
+                            deuErro = true;
+                            mensagemErro = "\nNão foi possivel setar o valor do campo: " + nomeCampo + "\n" + "\nTipo do campo: " + tipoPrimitivo + "\n" + "\nValor recebido: " + valorCampo.getContents() + "\n" + "\nPOSIÇÃO NO XML" + "\n" + "\nLinha: " + (i + 1) + "\n" + "\nColuna: " + (coluna + 1) + "\n" + "\nCausa provavel: TIPO INCORRETO\n";
+                            listaDeErros.add(mensagemErro);
 
                         }
 
                     }
 
-                    registros.add((T) novoRegistro);
+                    if (deuErro) {
+
+                        registrosErro.add((T) novoRegistro);
+
+                    } else {
+
+                        registrosSucesso.add((T) novoRegistro);
+
+                    }
 
                 }
 
             } catch (InstantiationException | IllegalAccessException ex) {
-                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao ler colna", ex);
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro ao ler o arquivo", ex);
             }
 
         }
 
     }
 
-    public List<T> getRegistros() {
-        if (registros == null) {
+    public List<T> getRegistrosSucesso() {
+        if (registrosSucesso == null) {
             processar();
         }
-        return registros;
+        return registrosSucesso;
+    }
+
+    public List<T> getRegistrosErro() {
+
+        if (registrosErro == null) {
+            processar();
+        }
+        return registrosErro;
+
+    }
+
+    public String getCaminhoArquivo() {
+        return caminhoArquivo;
+    }
+
+    public List<String> getListaDeErros() {
+        return listaDeErros;
+    }
+
+    public String getRelatorioImportacao() {
+
+        String mensagemFinal = "Relatório de importação<BR><BR>\n\nSucessos: " + registrosSucesso.size() + "\nFalhas: " + registrosErro.size() + "\n\nTotal de registros: " + (registrosErro.size() + registrosSucesso.size()) + "<BR><BR>\n\n";
+
+        for (int l = 0; l < listaDeErros.size(); l++) {
+
+            mensagemFinal += "Erro n°: " + (l + 1) + "<BR><BR>\n" + listaDeErros.get(l) + "<BR>" + "<BR>" + "<div class=\"Separator\"/>" + "\n" + "\n";
+
+        }
+
+        return mensagemFinal;
+
     }
 
 }
