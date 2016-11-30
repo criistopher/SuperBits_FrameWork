@@ -23,7 +23,7 @@ import jxl.read.biff.BiffException;
  *
  * @author desenvolvedor
  */
-public class Importacao<T> {
+public class ImportacaoExcel<T> {
 
     private Workbook planilha;
 
@@ -32,18 +32,18 @@ public class Importacao<T> {
     private Map<String, Integer> mapaDeColunas;
     private List<T> registros;
 
-    public Importacao(String pCaminhoArquivo, Map<String, Integer> mapa) {
+    public ImportacaoExcel(String pCaminhoArquivo, Map<String, Integer> mapa) {
         carregarArquivo(pCaminhoArquivo);
 
     }
 
-    public void carregarArquivo(String pCaminhoArquivo) {
+    public final void carregarArquivo(String pCaminhoArquivo) {
         try {
             planilha = Workbook.getWorkbook(new File(pCaminhoArquivo));
         } catch (BiffException ex) {
             SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro Tentando carregar planilha", ex);
         } catch (IOException ex) {
-            Logger.getLogger(Importacao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImportacaoExcel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

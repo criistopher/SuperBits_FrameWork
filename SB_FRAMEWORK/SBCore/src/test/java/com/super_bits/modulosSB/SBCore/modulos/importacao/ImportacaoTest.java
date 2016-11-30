@@ -6,12 +6,11 @@ package com.super_bits.modulosSB.SBCore.modulos.importacao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorProjetoSBCore;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -26,6 +25,21 @@ public class ImportacaoTest {
     public void testCarregarArquivo() {
 
         SBCore.configurar(new ConfiguradorProjetoSBCore(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
+        ItfBeanSimples Teste = new ItemSimplesTeste();
+        Map<String, Integer> parametros = new HashMap<>();
+        parametros.put("nome", 1);
+        parametros.put("descricao", 2);
+        System.out.println(SBCore.getCaminhoDesenvolvimento());
+
+        ImportacaoExcel<ItemSimplesTeste> importador = new ImportacaoExcel<>(
+                SBCore.getCaminhoDesenvolvimento(), parametros);
+
+        for (ItemSimplesTeste reg : importador.getRegistros()) {
+
+            System.out.println(reg.getNome());
+            System.out.println(reg.getDescricao());
+            System.out.println("_________________________");
+        }
 
     }
 
