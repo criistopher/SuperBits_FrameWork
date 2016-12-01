@@ -1,13 +1,13 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = "conversorGenerico", forClass = ItfBeanSimples.class)
+@FacesConverter(value = "conversorGenerico", forClass = ItfBeanSimplesSomenteLeitura.class)
 public class ConversorGenerico implements Converter {
 
     public Object getAsObject(FacesContext ctx, UIComponent component,
@@ -54,7 +54,7 @@ public class ConversorGenerico implements Converter {
         try {
 
             if (value != null && !"".equals(value)) {
-                ItfBeanSimples entity = (ItfBeanSimples) value;
+                ItfBeanSimplesSomenteLeitura entity = (ItfBeanSimplesSomenteLeitura) value;
 
                 if (entity.getNomeCurto() != null) {
                     this.addAttribute(component, entity);
@@ -82,7 +82,7 @@ public class ConversorGenerico implements Converter {
     }
 
     protected void addAttribute(UIComponent component, Object o) {
-        String key = ((ItfBeanSimples) o).getNomeCurto(); // codigo da empresa
+        String key = ((ItfBeanSimplesSomenteLeitura) o).getNomeCurto(); // codigo da empresa
         // como chave neste
         // caso
         System.out.println("Adcionando Key" + key);
