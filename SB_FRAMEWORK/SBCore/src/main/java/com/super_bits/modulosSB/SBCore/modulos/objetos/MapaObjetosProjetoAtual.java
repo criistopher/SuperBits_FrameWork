@@ -85,6 +85,7 @@ public class MapaObjetosProjetoAtual {
         for (Field campo : UtilSBCoreReflexao.getCamposRecursivodaClasseAteConterNomeObjetoFinal(pClasse, "Entidade", "Item")) {
             Campo campoSB = FabCampos.getCampoByAnotacoesSimplesSemPersistencia(campo);
             EstruturaCampo cp = new EstruturaCampo(campoSB, novaEstrutura);
+            cp.setNomeDeclarado(campo.getName());
 
             switch (campoSB.getTipoDeclaracao()) {
                 case VALOR_CALCULADO:

@@ -30,7 +30,9 @@ import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.el.ValueExpression;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -38,6 +40,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -601,6 +604,14 @@ public class PgUtil implements Serializable {
 
     public AcaoDeContexto getAcaoDeContexto(ItfAcaoDoSistema pAcao) {
         return new AcaoDeContexto(pAcao, FacesContext.getCurrentInstance(), paginaAtual.getInfoPagina());
+    }
+
+    public void exibirModal(String xhtml) {
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("selectCar", options, null);
     }
 
 }

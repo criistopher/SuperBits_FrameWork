@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_PRI
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,16 +27,16 @@ import jxl.read.biff.BiffException;
  *
  * @author desenvolvedor
  */
-public class ImportacaoExcel<T> {
+public class ImportacaoExcel<T> implements Serializable {
 
     private Workbook planilha;
 
-    private Class classeImportacao;
+    private final Class classeImportacao;
 
-    private Map<String, Integer> mapaDeColunas;
+    private final Map<String, Integer> mapaDeColunas;
     private List<T> registrosSucesso;
     private List<T> registrosErro;
-    private String caminhoArquivo;
+    private final String caminhoArquivo;
     private List<String> listaDeErros;
     private String mensagemErro;
 

@@ -14,8 +14,13 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icone
  * @author desenvolvedor
  */
 public enum FabModulosSistemaSB implements ItfFabricaModulo {
-    SEGURANCA, COMUNICACAO, PAGINAS_DO_SISTEMA, DOCUMENTOS_INTRANET_GESTAO,
-    DOCUMENTOS_INTRANET_EXTERNO, ADMIN_TOOLS;
+
+    SEGURANCA,
+    COMUNICACAO,
+    PAGINAS_DO_SISTEMA,
+    DOCUMENTOS_INTRANET_GESTAO,
+    DOCUMENTOS_INTRANET_EXTERNO,
+    ADMIN_TOOLS;
 
     @Override
     public ModuloAcaoSistema getModulo() {
