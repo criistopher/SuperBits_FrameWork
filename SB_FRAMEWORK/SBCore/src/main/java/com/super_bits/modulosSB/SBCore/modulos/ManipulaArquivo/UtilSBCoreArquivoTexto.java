@@ -6,7 +6,6 @@
 package com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import static com.super_bits.modulosSB.SBCore.ConfigGeral.arquivosConfiguracao.ArquivoConfiguracaoCliente.NOME_ARQUIVO_CLIENTE;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import java.io.BufferedReader;
