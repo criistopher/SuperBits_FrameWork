@@ -36,11 +36,13 @@ public class BP_PickList<T> extends B_listaComOrigem<T> implements Serializable 
     }
 
     private void mudaListaPorDualList() {
+
+        // METODO ESTÁ SENDO EXECUTADO 2X
         lista.clear();
-        lista.addAll((List) dualListPrime.getTarget());
+        lista.addAll((List) dualListPrime.getTarget()); // A OPÇÃO AQUI É A OPÇÃO Q EU NÃO SELECIONEI
 
         origem.clear();
-        origem.addAll((List) dualListPrime.getSource());
+        origem.addAll((List) dualListPrime.getSource()); // A OPÇÃO AQUI É A OPÇÃO Q EU SELECIONEI
 
         System.out.println("bean Lista Selecionada=" + dualListPrime.getTarget());
         System.out.println("bem Source=" + dualListPrime.getSource());
