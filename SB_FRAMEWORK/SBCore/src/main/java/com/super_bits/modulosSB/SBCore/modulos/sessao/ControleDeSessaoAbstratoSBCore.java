@@ -29,6 +29,7 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
 
     @Override
     public void logarEmailESenha(String pEmail, String pSenha) {
+        ControllerAppAbstratoSBCore.reloadAcessos();
         ItfUsuario usuarioEncontrado = ControllerAppAbstratoSBCore.getUsuarioByEmail(pEmail);
 
         if (usuarioEncontrado != null) {

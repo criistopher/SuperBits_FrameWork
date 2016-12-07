@@ -286,7 +286,9 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
             List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(this, ParametroURL.class);
             for (Field cp : lista) {
-                cp.set(this, UtillSBWPReflexoesWebpaginas.getNovoParametroDeUrl(cp));
+                ParametroURL novoParametro = UtillSBWPReflexoesWebpaginas.getNovoParametroDeUrl(cp);
+                cp.set(this, novoParametro);
+                parametrosURL.put(novoParametro.getNome(), novoParametro);
             }
 
         } catch (Throwable t) {

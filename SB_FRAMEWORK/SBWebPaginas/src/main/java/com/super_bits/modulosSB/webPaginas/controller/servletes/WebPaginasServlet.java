@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
-import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfSiteMapa;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MapaDeFormularios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.ControleDeSessaoWeb;
@@ -40,15 +39,14 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
     private ControleDeSessaoWeb controleDeSessao;
     @Inject
     private InfoErroCritico erroCritico;
-    @Inject
-    private ItfSiteMapa siteMapa;
+
     public final static Map<String, AcaoComLink> MAPA_ACOESMANAGED_BEAN = new HashMap<>();
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         // Instanciado site mapa para construção de Formulario
-        siteMapa.getFabricaMenu();
+
         try {
             for (EstruturaDeFormulario pagina : MapaDeFormularios.getTodasEstruturas()) {
                 if (pagina.getAcaoGestaoVinculada() != null) {
