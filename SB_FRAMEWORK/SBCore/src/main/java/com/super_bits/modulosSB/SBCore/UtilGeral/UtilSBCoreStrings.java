@@ -726,4 +726,72 @@ public abstract class UtilSBCoreStrings {
 
     }
 
+    public static String inverteString(String pString) {
+
+        char auxiliar[] = pString.toCharArray();
+
+        pString = "";
+
+        int i = auxiliar.length - 1;
+
+        for (int j = i; j >= 0; j--) {
+
+            pString += auxiliar[j];
+
+        }
+
+        return pString;
+
+    }
+
+    /**
+     *
+     * RECEBE STRING CORRIDA DE UMA DATA E RETORNA A STRING INVERTIDA
+     *
+     * Ex: 30122016 para 20161230
+     *
+     * @param pString
+     * @return DATA INVERTIDA ANO / MES / DIA
+     */
+    public static String inverteStringData(String pString) {
+
+        char auxiliar[] = pString.toCharArray();
+
+        int passo = 0;
+
+        pString = "";
+
+        int i = auxiliar.length - 1;
+
+        for (int j = i; j >= 0; j--) {
+
+            if (passo == 3) {
+
+                pString += auxiliar[j];
+                pString += auxiliar[j + 1];
+                pString += auxiliar[j + 2];
+                pString += auxiliar[j + 3];
+            }
+
+            if (passo == 5) {
+
+                pString += auxiliar[j];
+                pString += auxiliar[j + 1];
+
+            }
+
+            if (passo == 7) {
+
+                pString += auxiliar[j];
+                pString += auxiliar[j + 1];
+
+            }
+            passo++;
+
+        }
+
+        return pString;
+
+    }
+
 }

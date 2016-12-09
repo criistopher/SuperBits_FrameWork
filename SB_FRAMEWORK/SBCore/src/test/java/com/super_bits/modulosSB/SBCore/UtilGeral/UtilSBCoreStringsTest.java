@@ -21,6 +21,24 @@ import org.junit.Test;
  */
 public class UtilSBCoreStringsTest extends TesteJunit {
 
+    @Test
+    public void testaInverterString() {
+
+        String resultado = UtilSBCoreStrings.inverteString("123");
+
+        System.out.println(resultado);
+
+    }
+
+    @Test
+    public void testaInverterStringData() {
+
+        String resultado = UtilSBCoreStrings.inverteStringData("09122016");
+
+        System.out.println(resultado);
+
+    }
+
     public UtilSBCoreStringsTest() {
     }
 

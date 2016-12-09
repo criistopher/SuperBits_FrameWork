@@ -788,6 +788,44 @@ public class UtilSBCoreDataHora {
 
     /**
      *
+     * DESCOBRE A DATA ATUAL SEM FORMATAÇÃO
+     *
+     * Ex: 29112016
+     *
+     * @return DIA, MES E ANO ATUAL EM UM NUMERO INTEIRO
+     */
+    public static int gerarInteiroDiaMesAnoDataInformada(Date pData) {
+
+        String textoData = converteDataEmStringCorrida(pData);
+
+        int numData = Integer.parseInt(textoData);
+
+        return numData;
+
+    }
+
+    /**
+     *
+     * DESCOBRE A DATA ATUAL SEM FORMATAÇÃO
+     *
+     * Ex: 29112016
+     *
+     * @return ANO, MES, DIA ATUAL EM UM NUMERO INTEIRO
+     */
+    public static int gerarInteiroInvertidoDiaMesAnoDataInformada(Date pData) {
+
+        String textoData = converteDataEmStringCorrida(pData);
+
+        textoData = UtilSBCoreStrings.inverteStringData(textoData);
+
+        int numData = Integer.parseInt(textoData);
+
+        return numData;
+
+    }
+
+    /**
+     *
      * DESCOBRE A DATA ATUAL COM HORA ZERADA
      *
      * Ex: Tue Nov 29 00:00:00 BRST 2016
@@ -828,13 +866,53 @@ public class UtilSBCoreDataHora {
      * @param pData DATA A CONVERTER
      * @return DATA ATUAL
      */
-    public static String converteDataEmString(Date pData) {
+    public static String converteDataEmStringFormatada(Date pData) {
 
         String dataFormatada;
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
         dataFormatada = formatador.format(pData);
+
+        return dataFormatada;
+
+    }
+
+    /**
+     *
+     * DEVOLVE DATA EM TEXTO CORRIDO SEM / OU - OU ESPAÇOS
+     *
+     * Ex: ENTRADA Tue Nov 29 05:09:37 BRST 2016 - SAIDA 29/11/2016
+     *
+     *
+     * @param pData DATA A CONVERTER
+     * @return DATA ATUAL
+     */
+    public static String converteDataEmStringCorrida(Date pData) {
+
+        String dataFormatada;
+        char[] auxiliar;
+        ArrayList lista = new ArrayList();
+
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+        dataFormatada = formatador.format(pData);
+
+        auxiliar = dataFormatada.toCharArray();
+
+        dataFormatada = "";
+
+        for (int i = 0; i < auxiliar.length; i++) {
+
+            lista.add(auxiliar[i]);
+
+            if ((!lista.get(i).equals('/')) && (!lista.get(i).equals('-')) && (!lista.get(i).equals(' '))) {
+
+                dataFormatada += lista.get(i);
+
+            }
+
+        }
 
         return dataFormatada;
 
