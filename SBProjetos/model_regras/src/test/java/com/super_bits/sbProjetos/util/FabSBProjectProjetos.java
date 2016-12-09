@@ -58,8 +58,8 @@ public enum FabSBProjectProjetos implements ItfFabrica {
 
                 break;
             case CONTROLE_USUARIOS_BASICO:
-                novoProjeto.setCliente(FabSBProjectClientes.SUPER_BITS_CORP.getRegistro());
-                novoProjeto.setNome("Controle usuário Basico");
+                novoProjeto.setCliente(FabSBProjectClientes.SUPERBITS_OPEN_SOURCE.getRegistro());
+                novoProjeto.setNome("Controle Usuario Basico");
 
                 break;
             case MONITOR_REQUISITOS:
