@@ -19,33 +19,31 @@ import java.util.List;
  *
  * @author Salvio Furbino
  */
-public class B_listaComOrigem<T> {
+public abstract class B_listaComOrigem<T> {
 
     private List<ItfBeanSimples> origemCompleta;
-    protected List<ItfBeanSimples> lista;
-    protected List<ItfBeanSimples> origem;
+    protected final List<ItfBeanSimples> lista;
+    protected final List<ItfBeanSimples> origem;
     private Class classeOrigem;
 
-    public B_listaComOrigem() {
-    }
-
     public B_listaComOrigem(List<T> pLista, List<T> pOrigem) {
-        carregaOrigemCompleta(pLista);
-        lista = (List) pOrigem;
+        carregaOrigemCompleta(pOrigem);
+        origem = (List) pOrigem;
+        lista = (List) pLista;
         ajuste(true);
     }
 
     public B_listaComOrigem(List<ItfBeanSimples> pLista, Class pClasseOrigemRetornaTodos) {
         lista = pLista;
         classeOrigem = pClasseOrigemRetornaTodos;
+        origem = (List) UtilSBPersistencia.getListaTodos(pClasseOrigemRetornaTodos);
 
-        carregaOrigemFromDataBase();
         ajuste(true);
     }
 
-    protected void carregaOrigemCompleta(List<T> pList) {
+    protected final void carregaOrigemCompleta(List<T> pList) {
         origemCompleta = (List) new ArrayList<T>();
-        origem = new ArrayList<>();
+        origemCompleta.clear();
         for (T item : pList) {
             origemCompleta.add((ItfBeanSimples) item);
         }
@@ -56,7 +54,7 @@ public class B_listaComOrigem<T> {
         ajuste(true);
     }
 
-    protected void ajuste(boolean pRenovar) {
+    protected final void ajuste(boolean pRenovar) {
         if (pRenovar) {
             origem.clear();
             origem.addAll(origemCompleta);
@@ -64,7 +62,7 @@ public class B_listaComOrigem<T> {
         if (!origem.isEmpty()) {
             origem.removeAll(getLista());
         }
-        atualizaBeans();
+        atualizaPickList();
     }
 
     public List<ItfBeanSimples> getLista() {
@@ -76,10 +74,9 @@ public class B_listaComOrigem<T> {
     }
 
     public void setLista(List<T> pLista) {
-        this.lista = (List) pLista;
 
         ajuste(true);
-        atualizaBeans();
+        atualizaPickList();
     }
 
     public List<ItfBeanSimples> getOrigem() {
@@ -89,11 +86,11 @@ public class B_listaComOrigem<T> {
     public void reloadOrigemDatabase() {
         carregaOrigemFromDataBase();
         ajuste(true);
-        atualizaBeans();
+        atualizaPickList();
     }
 
-    public void atualizaBeans() {
-        System.out.println("Metodo Atualiza Beans Não foi sobrescrito");
-    }
+    public abstract void atualizaPickList();
+
+    public abstract void atualizaListaOrigem();
 
 }

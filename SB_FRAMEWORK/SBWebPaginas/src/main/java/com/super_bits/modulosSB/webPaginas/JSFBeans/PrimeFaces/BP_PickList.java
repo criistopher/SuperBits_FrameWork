@@ -4,6 +4,7 @@
  */
 package com.super_bits.modulosSB.webPaginas.JSFBeans.PrimeFaces;
 
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.B_listaComOrigem;
 import java.io.Serializable;
 import java.util.List;
@@ -16,10 +17,6 @@ import org.primefaces.model.DualListModel;
 public class BP_PickList<T> extends B_listaComOrigem<T> implements Serializable {
 
     private DualListModel<T> dualListPrime;
-
-    public BP_PickList() {
-        super();
-    }
 
     public BP_PickList(List<T> pLista, List<T> pOrigem) {
         super(pLista, pOrigem);
@@ -35,34 +32,37 @@ public class BP_PickList<T> extends B_listaComOrigem<T> implements Serializable 
         return dualListPrime;
     }
 
-    private void mudaListaPorDualList() {
-        lista.clear();
-        lista.addAll((List) dualListPrime.getTarget());
-
-        origem.clear();
-        origem.addAll((List) dualListPrime.getSource());
-
-        System.out.println("bean Lista Selecionada=" + dualListPrime.getTarget());
-        System.out.println("bem Source=" + dualListPrime.getSource());
-
-        System.out.println("Dual Lista Selecionada=" + dualListPrime.getTarget());
-        System.out.println("Dual Lista Source=" + dualListPrime.getSource());
-        atualizaBeans();
-    }
-
     public void setDualListPrime(DualListModel<T> dualListPrime) {
-        this.dualListPrime = dualListPrime;
+
         System.out.println("Dual Lista Selecionada=" + dualListPrime.getTarget());
         System.out.println("Dual Lista Source=" + dualListPrime.getSource());
-        mudaListaPorDualList();
+
+        this.dualListPrime = dualListPrime;
+        //    atualizaListaOrigem();
     }
 
     @Override
-    public void atualizaBeans() {
+    public void atualizaPickList() {
         if (dualListPrime != null) {
             dualListPrime.setSource((List) origem);
             dualListPrime.setTarget((List) lista);
         }
+    }
+
+    @Override
+    public void atualizaListaOrigem() {
+
+        if (dualListPrime != null) {
+            origem.clear();
+            lista.clear();
+            for (T itemSrc : dualListPrime.getSource()) {
+                origem.add((ItfBeanSimples) itemSrc);
+            }
+            for (T itemLista : dualListPrime.getTarget()) {
+                lista.add((ItfBeanSimples) itemLista);
+            }
+        }
+
     }
 
 }

@@ -225,4 +225,9 @@ public class Resposta implements ItfResposta {
         return acaoFormularioResposta;
     }
 
+    @Override
+    public ItfAcaoDoSistema getAcaoVinculada() {
+        return acaoDosistema;
+    }
+
 }

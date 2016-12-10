@@ -149,10 +149,15 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     }
 
     protected void atualizarIdAreaExibicaoAcaoSelecionada() {
-        if (isPaginaEmProcessoDeAberturaInicial()) {
-            xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
+        if (!SBCore.isEmModoDesenvolvimento()) {
+            if (isPaginaEmProcessoDeAberturaInicial()) {
+                xhtmlAcaoAtual = acaoSelecionada.getComoFormulario().getXhtml();
+            } else {
+                getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            }
         } else {
-            getPaginaUtil().atualizaTelaPorID(idAreaExbicaoAcaoSelecionada);
+            SBCore.enviarAvisoAoUsuario("Atualizada area de exibição: " + idAreaExbicaoAcaoSelecionada);
+
         }
     }
 
