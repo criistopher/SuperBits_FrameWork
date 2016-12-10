@@ -105,6 +105,10 @@ public abstract class UtilSBWP_JSFTools {
         return resolveList(id, FacesContext.getCurrentInstance().getViewRoot());
     }
 
+    public static void limparEstadoDaArvoreDosInputs() {
+
+    }
+
     /**
      * Percorre toda arvore de componentes buscando pelo ID informado
      *

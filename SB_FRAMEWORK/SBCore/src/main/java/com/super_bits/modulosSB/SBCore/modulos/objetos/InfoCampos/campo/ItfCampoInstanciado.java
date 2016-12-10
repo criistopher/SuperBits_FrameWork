@@ -43,7 +43,7 @@ public interface ItfCampoInstanciado extends ItfCampo {
      *
      * @return O Field vinculado ao campo
      */
-    public Field getCampoReflection();
+    public FieldComSerializacao getCampoReflection();
 
     /**
      *

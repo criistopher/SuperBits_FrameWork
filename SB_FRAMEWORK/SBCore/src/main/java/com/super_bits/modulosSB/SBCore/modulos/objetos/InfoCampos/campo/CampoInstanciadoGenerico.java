@@ -18,24 +18,24 @@ import java.lang.reflect.Field;
  */
 public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampoInstanciado {
 
-    protected final Field campoReflection;
+    protected final FieldComSerializacao campoReflection;
     protected final InfoCampo infoCampo;
     protected int indiceValorLista = -1;
 
     public CampoInstanciadoGenerico(Campo pcampo, Field pCampoReflection) {
         super(pcampo);
-        campoReflection = pCampoReflection;
+        campoReflection = new FieldComSerializacao(pCampoReflection);
         infoCampo = pCampoReflection.getAnnotation(InfoCampo.class);
 
     }
 
     @Override
     public String getNomeCamponaClasse() {
-        return campoReflection.getName();
+        return campoReflection.campo().getName();
     }
 
     @Override
-    public Field getCampoReflection() {
+    public FieldComSerializacao getCampoReflection() {
         return campoReflection;
     }
 
@@ -83,13 +83,13 @@ public abstract class CampoInstanciadoGenerico extends Campo implements ItfCampo
         if (pComponente != null) {
             return getPrefixoUnicoParaIDHtml() + "_" + pComponente.getClasseCSS();
         } else {
-            return getPrefixoUnicoParaIDHtml() + "_" + campoReflection.getName();
+            return getPrefixoUnicoParaIDHtml() + "_" + campoReflection.campo().getName();
         }
     }
 
     @Override
     public String getPrefixoUnicoParaIDHtml() {
-        return campoReflection.getDeclaringClass().getSimpleName() + "_" + campoReflection.getName();
+        return campoReflection.campo().getDeclaringClass().getSimpleName() + "_" + campoReflection.campo().getName();
     }
 
     @Override

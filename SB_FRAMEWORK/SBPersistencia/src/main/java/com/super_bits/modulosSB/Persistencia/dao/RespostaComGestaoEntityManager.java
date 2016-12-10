@@ -32,8 +32,22 @@ public abstract class RespostaComGestaoEntityManager implements ItfResposta {
 
     }
 
-    public void atualizarObjeto(Object pObjeto) {
+    public void atualizarEntidade(Object pObjeto) {
         merge(pObjeto);
+    }
+
+    public void criaNovaEntidade(Object pObjeto) {
+        if (UtilSBPersistencia.persistirRegistro(pObjeto, em)) {
+            throw new UnsupportedOperationException("Erro Criando" + pObjeto);
+        }
+    }
+
+    public void excluirEntidade(Object pObjeto) {
+
+        if (!UtilSBPersistencia.exluirRegistro(pObjeto, em)) {
+            throw new UnsupportedOperationException("Erro excluindo Entidade" + pObjeto);
+        }
+
     }
 
     public void merge(Object pObjeto) {

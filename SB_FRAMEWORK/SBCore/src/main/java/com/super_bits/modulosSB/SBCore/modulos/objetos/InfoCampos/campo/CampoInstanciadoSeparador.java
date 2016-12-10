@@ -51,7 +51,7 @@ public class CampoInstanciadoSeparador implements ItfCampoInstanciado {
     }
 
     @Override
-    public Field getCampoReflection() {
+    public FieldComSerializacao getCampoReflection() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

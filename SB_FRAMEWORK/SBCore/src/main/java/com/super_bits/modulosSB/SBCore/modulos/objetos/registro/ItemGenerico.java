@@ -112,7 +112,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
             try {
 
                 if (indiceValorLista > 0) {
-                    List lista = (List) campoReflection.get(getInstancia());
+                    List lista = (List) campoReflection.campo().get(getInstancia());
                     if (lista == null) {
                         return;
 
@@ -124,23 +124,23 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 } else {
 
                     //
-                    infoMensagemErro = campoReflection.getName();
+                    infoMensagemErro = campoReflection.campo().getName();
                     String nomeMetodo = infoMensagemErro.substring(1);
-                    char primeiraLetra = campoReflection.getName().toUpperCase().charAt(0);
+                    char primeiraLetra = campoReflection.campo().getName().toUpperCase().charAt(0);
                     String marcador = Character.toString(primeiraLetra);
                     nomeMetodo = "set" + marcador + nomeMetodo;
 
                     try {
 
-                        String classeDeclarada = campoReflection.getDeclaringClass().toString();
+                        String classeDeclarada = campoReflection.campo().getDeclaringClass().toString();
 
-                        String tipo = campoReflection.getType().toString();
+                        String tipo = campoReflection.campo().getType().toString();
 
-                        String classe = campoReflection.getClass().toString();
+                        String classe = campoReflection.campo().getClass().toString();
 
-                        String tipoGenerico = campoReflection.getGenericType().toString();
+                        String tipoGenerico = campoReflection.campo().getGenericType().toString();
 
-                        Method metodo = getInstancia().getClass().getMethod(nomeMetodo, campoReflection.getType());
+                        Method metodo = getInstancia().getClass().getMethod(nomeMetodo, campoReflection.campo().getType());
 
                         if (tipo.equals("int")) {
                             try {
@@ -184,24 +184,24 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
                     } catch (NoSuchMethodException metodoNaoExiste) {
                         System.out.println("O metodo não foi encontrado o valor foi acessado diretamente");
-                        if (campoReflection.getType() == int.class) {
+                        if (campoReflection.campo().getType() == int.class) {
                             int valor = (int) Integer.parseInt(pValor.toString());
-                            campoReflection.set(getInstancia(), valor);
+                            campoReflection.campo().set(getInstancia(), valor);
                             return;
                         }
 
-                        if (campoReflection.getType() == double.class
-                                || campoReflection.getType() == double.class) {
+                        if (campoReflection.campo().getType() == double.class
+                                || campoReflection.campo().getType() == double.class) {
                             double valor = (int) Double.parseDouble(pValor.toString());
-                            campoReflection.set(getInstancia(), valor);
+                            campoReflection.campo().set(getInstancia(), valor);
                             return;
                         }
 
-                        campoReflection.setAccessible(true);
+                        campoReflection.campo().setAccessible(true);
                         Object instancia = getInstancia();
-                        Field cp = campoReflection;
+                        Field cp = campoReflection.campo();
 
-                        campoReflection.set(getInstancia(), pValor);
+                        campoReflection.campo().set(getInstancia(), pValor);
 
                     } catch (Throwable t) {
 
@@ -225,7 +225,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
                 if (indiceValorLista > 0) {
 
-                    List lista = (List) campoReflection.get(getInstancia());
+                    List lista = (List) campoReflection.campo().get(getInstancia());
                     if (lista == null) {
                         return null;
 
@@ -242,9 +242,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                         throw new UnsupportedOperationException("O campo" + infoCampo + "não possui um Field configurado");
                     }
 
-                    infomensagemErro = campoReflection.getName();
+                    infomensagemErro = campoReflection.campo().getName();
                     String nomeMetodo = infomensagemErro.substring(1);
-                    char primeiraLetra = campoReflection.getName().toUpperCase().charAt(0);
+                    char primeiraLetra = campoReflection.campo().getName().toUpperCase().charAt(0);
                     String marcador = Character.toString(primeiraLetra);
                     nomeMetodo = "get" + marcador + nomeMetodo;
 
@@ -258,9 +258,9 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
                     } catch (Throwable t) {
 
-                        campoReflection.setAccessible(true);
+                        campoReflection.campo().setAccessible(true);
                         Object instancia = getInstancia();
-                        Field cp = campoReflection;
+                        Field cp = campoReflection.campo();
                         return cp.get(instancia);
 
                     }
@@ -281,7 +281,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
 
         @Override
         public boolean validarCampo() {
-            NotNull naopodeSerNulo = campoReflection.getAnnotation(NotNull.class);
+            NotNull naopodeSerNulo = campoReflection.campo().getAnnotation(NotNull.class);
 
             if (naopodeSerNulo == null) {
                 if (getValor() == null) {
@@ -539,7 +539,8 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                 if (tipoDeValor.equals(String.class.toString())) {
                     valor = (String) pCampoReflexao.get(this);
                 } else // System.out.println("TTTTIIIPOOOO diferente de String:"+campoReflecao.getType().getName());
-                 if (pCampoReflexao.getType().getName().equals("int")) {
+                {
+                    if (pCampoReflexao.getType().getName().equals("int")) {
                         // System.out.println("TTTTIIIPOOOO int");
                         valor = (Integer) pCampoReflexao.get(this);
                     } else if (pCampoReflexao.getType().getName()
@@ -556,6 +557,7 @@ public abstract class ItemGenerico extends Object implements ItfBeanGenerico, It
                     } else {
                         return null;
                     }
+                }
                 return valor;
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro Obtendo Valor do Campo tipo:" + pCampoReflexao, e);

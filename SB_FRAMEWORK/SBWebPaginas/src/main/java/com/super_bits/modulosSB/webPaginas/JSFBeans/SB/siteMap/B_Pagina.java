@@ -226,7 +226,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                         emPagina.getTransaction().rollback();
                     }
                     emPagina.clear();
-                    emPagina.close();
 
                 }
 
