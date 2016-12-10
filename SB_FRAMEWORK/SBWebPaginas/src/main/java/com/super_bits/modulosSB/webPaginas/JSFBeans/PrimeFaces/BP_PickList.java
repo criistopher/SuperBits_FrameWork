@@ -32,7 +32,21 @@ public class BP_PickList<T> extends B_listaComOrigem<T> implements Serializable 
         return dualListPrime;
     }
 
+<<<<<<< HEAD
     public void setDualListPrime(DualListModel<T> dualListPrime) {
+=======
+    private void mudaListaPorDualList() {
+
+        // METODO ESTÁ SENDO EXECUTADO 2X
+        lista.clear();
+        lista.addAll((List) dualListPrime.getTarget()); // A OPÇÃO AQUI É A OPÇÃO Q EU NÃO SELECIONEI
+
+        origem.clear();
+        origem.addAll((List) dualListPrime.getSource()); // A OPÇÃO AQUI É A OPÇÃO Q EU SELECIONEI
+
+        System.out.println("bean Lista Selecionada=" + dualListPrime.getTarget());
+        System.out.println("bem Source=" + dualListPrime.getSource());
+>>>>>>> c59fd468b51100ae28fa66ec6fd6934deee0fb20
 
         System.out.println("Dual Lista Selecionada=" + dualListPrime.getTarget());
         System.out.println("Dual Lista Source=" + dualListPrime.getSource());
