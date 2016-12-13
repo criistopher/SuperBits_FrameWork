@@ -242,6 +242,18 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
             }
 
             setEntidadeSelecionada(pEntidadeSelecionada);
+            if (getEntidadeSelecionada().equals(pEntidadeSelecionada)) {
+                /// caso esteja selecionando uma nova entidade, o id dela não for 0, executa um novo load
+                try {
+                    if (((ItfBeanSimples) getEntidadeSelecionada()).getId() != 0) {
+                        setEntidadeSelecionada((T) UtilSBPersistencia.loadEntidade((ItfBeanSimples) pEntidadeSelecionada, getEMPagina()));
+                        getEMPagina().refresh(getEntidadeSelecionada());
+                    }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro recarregando entidade" + pEntidadeSelecionada, t);
+                }
+            }
+
             System.out.println("ALTERANDO A ENTIDADE SELECIONADA TESTE ---------------------- " + pEntidadeSelecionada);
         }
 

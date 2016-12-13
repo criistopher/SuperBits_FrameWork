@@ -4,6 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import java.util.List;
@@ -233,5 +235,11 @@ public interface ItfResposta {
      * @return verdadeiro se não houver mensagens de erro
      */
     public boolean isSucesso();
+
+    /**
+     *
+     * @return A ação vinculada ao método
+     */
+    public ItfAcaoDoSistema getAcaoVinculada();
 
 }

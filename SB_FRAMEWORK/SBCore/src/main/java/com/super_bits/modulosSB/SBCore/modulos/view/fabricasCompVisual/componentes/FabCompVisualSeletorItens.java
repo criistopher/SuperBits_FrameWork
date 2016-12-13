@@ -24,7 +24,7 @@ public enum FabCompVisualSeletorItens implements ItfFabTipoComponenteVisual {
 
     @Override
     public FabFamiliaCompVisual getFamilia() {
-        return FabFamiliaCompVisual.ITENS_BEAN_SIMPLES;
+        return FabFamiliaCompVisual.SELETOR_ITENS;
     }
 
     @Override
