@@ -124,7 +124,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
             precisaPermissao = true,
             descricao = "Mostra os detalhes do cadastro de usuario")
     USUARIO_CTR_ALTERAR_STATUS,
-    @InfoTipoAcaoController(icone = "fa fa-save")
+    @InfoTipoAcaoController(nomeAcao = "Ação interna do Sistema", descricao = "Ação interna generica do sistema", icone = "fa fa-save")
     ACAO_CTR_INTERNA_DO_SISTEMA,
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = "/resources/SBComp/SBSystemPages/seguranca/simples/ip/gerenciar.xhtml",
             descricao = "Gerenciamento de IP's",

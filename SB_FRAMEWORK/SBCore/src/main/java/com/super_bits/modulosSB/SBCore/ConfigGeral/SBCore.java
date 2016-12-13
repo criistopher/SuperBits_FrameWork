@@ -316,12 +316,15 @@ public class SBCore {
             soutInfoDebug(pErroJava.getMessage());
             soutInfoDebug(pErroJava.getLocalizedMessage());
             pErroJava.printStackTrace();
+
             fecharSistemaCasoNaoCOnfigurado();
         }
 
         try {
-            if (infoAplicacao.getClasseErro() == null) {
+
+            if (infoAplicacao == null || infoAplicacao.getClasseErro() == null) {
                 System.out.println("a classe de erro não foi definida no core, utilizando classe de erro padrao");
+
                 fecharSistemaCasoNaoCOnfigurado();
             }
             ItfInfoErroSBComAcoes erro = (InfoErroSBComAcoes) infoAplicacao.getClasseErro().newInstance();
