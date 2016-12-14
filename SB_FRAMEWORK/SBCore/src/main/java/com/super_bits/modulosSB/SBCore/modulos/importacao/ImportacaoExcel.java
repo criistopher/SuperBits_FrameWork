@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 
 /**
@@ -51,7 +52,10 @@ public class ImportacaoExcel<T> implements Serializable {
 
     public final void carregarArquivo(String pCaminhoArquivo) {
         try {
-            planilha = Workbook.getWorkbook(new File(pCaminhoArquivo));
+            WorkbookSettings ws = new WorkbookSettings();
+            ws.setEncoding("iso-8859-1");
+
+            planilha = Workbook.getWorkbook(new File(pCaminhoArquivo), ws);
         } catch (BiffException ex) {
             SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro Tentando carregar planilha", ex);
         } catch (IOException ex) {
@@ -72,6 +76,7 @@ public class ImportacaoExcel<T> implements Serializable {
         listaDeErros = new ArrayList<>();
 
         for (Sheet aba : planilha.getSheets()) {
+
             try {
 
                 System.out.println("Lendo Aba" + aba.getName());

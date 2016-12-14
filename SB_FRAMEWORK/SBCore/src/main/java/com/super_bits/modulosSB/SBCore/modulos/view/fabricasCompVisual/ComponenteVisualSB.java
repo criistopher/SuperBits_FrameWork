@@ -34,6 +34,7 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
     private FabFamiliaCompVisual familia;
     private String idHTMLObjetoPrincipal;
     private String classeCSS;
+    private ItfFabTipoComponenteVisual fabricaDoComponente;
 
     @Override
     public String getNome() {
@@ -150,6 +151,14 @@ public class ComponenteVisualSB extends ItemSimples implements ItfComponenteVisu
 
     public void setXhtmlJsfCaminhoRelativo(String xhtmlJsfCaminhoRelativo) {
         this.xhtmlJsfCaminhoRelativo = xhtmlJsfCaminhoRelativo;
+    }
+
+    public ItfFabTipoComponenteVisual getFabricaDoComponente() {
+        return fabricaDoComponente;
+    }
+
+    public void setFabricaDoComponente(ItfFabTipoComponenteVisual fabricaDoComponente) {
+        this.fabricaDoComponente = fabricaDoComponente;
     }
 
 }

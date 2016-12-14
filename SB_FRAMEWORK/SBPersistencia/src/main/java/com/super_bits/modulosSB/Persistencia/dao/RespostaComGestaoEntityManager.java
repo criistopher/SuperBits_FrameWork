@@ -96,6 +96,7 @@ public abstract class RespostaComGestaoEntityManager implements ItfResposta {
 
             } catch (Throwable t) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Ero inesperado executando " + resp.getAcaoVinculada(), t);
+                addErro("Ero inesperado executando " + resp.getAcaoVinculada());
                 if (em != null) {
                     if (em.isOpen()) {
                         em.close();

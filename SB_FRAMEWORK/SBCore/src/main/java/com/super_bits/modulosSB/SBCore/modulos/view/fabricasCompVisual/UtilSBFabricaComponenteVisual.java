@@ -37,6 +37,7 @@ public class UtilSBFabricaComponenteVisual {
 
     public static ComponenteVisualSB getComponenteVisual(ItfFabTipoComponenteVisual pFabrica) {
         ComponenteVisualSB componente = new ComponenteVisualSB();
+        componente.setFabricaDoComponente(pFabrica);
         try {
             Field campo = pFabrica.getClass().getField(pFabrica.toString());
             InfoComponenteVisual infoAnotacao = campo.getAnnotation(InfoComponenteVisual.class);
