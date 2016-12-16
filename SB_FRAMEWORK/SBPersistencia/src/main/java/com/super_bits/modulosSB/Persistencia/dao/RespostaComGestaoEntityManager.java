@@ -50,7 +50,7 @@ public abstract class RespostaComGestaoEntityManager implements ItfResposta {
 
     }
 
-    public void merge(Object pObjeto) {
+    public synchronized void merge(Object pObjeto) {
         try {
             Object retornoMerge = UtilSBPersistencia.mergeRegistro(pObjeto, em);
             if (retornoMerge == null) {
