@@ -43,7 +43,7 @@ public enum FabSBProjectProjetos implements ItfFabrica {
                 break;
             case INTRANET_CASA_NOVA:
                 novoProjeto.setCliente(FabSBProjectClientes.CASA_NOVA_MARKETING_DIGITAL.getRegistro());
-                novoProjeto.setNomeProjeto("Intranet Marketing Digiral ");
+                novoProjeto.setNomeProjeto("Intranet Marketing Digital");
                 novoProjeto.setNomeComercial("Sistema Casa Nova, Comunicação e softwares");
                 break;
             case SUPER_KOMPRAS:

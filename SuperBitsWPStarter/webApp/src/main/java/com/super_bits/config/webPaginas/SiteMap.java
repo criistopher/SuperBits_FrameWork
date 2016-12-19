@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgAcessos
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.PgCadastroUsuarios;
 
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfSiteMapa;
 import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,21 +29,12 @@ import javax.inject.Inject;
  * @author Salvio
  */
 @ApplicationScoped
-public class SiteMap extends MB_SiteMapa {
+public class SiteMap extends MB_SiteMapa implements ItfSiteMapa {
 
     @Inject
     private PgCadastroUsuarios usuarios;
     @Inject
     private PgAcessos congrolePermissao;
-
-    /// Injete aqui todas as Paginas que extendem o objeto MB_pagina
-    @Override
-    protected Map<String, ItfB_Pagina> buildPaginas() {
-        Map<String, ItfB_Pagina> paginasSimples = buildSystemPages();
-
-        return paginasSimples;
-
-    }
 
     @Override
     public Class<? extends ItfFabricaMenu> getFabricaMenu() {

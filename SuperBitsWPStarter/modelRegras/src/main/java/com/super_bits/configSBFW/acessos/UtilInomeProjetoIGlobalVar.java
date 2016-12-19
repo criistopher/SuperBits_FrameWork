@@ -5,7 +5,7 @@
  */
 package com.super_bits.configSBFW.acessos;
 
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoComunicacaoPadrao;
+import com.super_bits.InomeClienteI.InomeProjetoI.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 
@@ -16,7 +16,7 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 public abstract class UtilInomeProjetoIGlobalVar {
 
     public static Class<? extends ItfFabricaAcoes>[] pAcoesDoSistema() {
-        return new Class[]{FabAcaoComunicacaoPadrao.class, FabAcaoSeguranca.class};
+        return new Class[]{FabAcaoSeguranca.class, FabAcaoAcessoRestritoExemplo.class};
     }
 
 }

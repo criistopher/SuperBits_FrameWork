@@ -204,7 +204,12 @@ public class DevOpsPersistencia {
 
                     if (configurador.fabricasRegistrosIniciais() != null) {
                         for (Class classe : configurador.fabricasRegistrosIniciais()) {
-                            UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, primeiraConexao, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                            try {
+                                UtilSBPersistenciaFabricas.persistirRegistrosDaFabrica(classe, primeiraConexao, UtilSBPersistenciaFabricas.TipoOrdemGravacao.ORDERNAR_POR_ORDEM_DE_DECLARCAO);
+                            } catch (Throwable t) {
+                                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, arqResSBProjeto, t);
+                                throw new UnsupportedOperationException("Erro Cadastrando Fabrica de dados inicial: (Fabrica:" + classe + "");
+                            }
                         }
                     }
 
