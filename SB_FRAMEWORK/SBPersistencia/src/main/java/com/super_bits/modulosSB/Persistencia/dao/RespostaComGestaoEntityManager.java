@@ -32,8 +32,8 @@ public abstract class RespostaComGestaoEntityManager implements ItfResposta {
 
     }
 
-    public void atualizarEntidade(Object pObjeto) {
-        merge(pObjeto);
+    public Object atualizarEntidade(Object pObjeto) {
+        return merge(pObjeto);
     }
 
     public void criaNovaEntidade(Object pObjeto) {
@@ -50,16 +50,18 @@ public abstract class RespostaComGestaoEntityManager implements ItfResposta {
 
     }
 
-    public synchronized void merge(Object pObjeto) {
+    public Object merge(Object pObjeto) {
         try {
             Object retornoMerge = UtilSBPersistencia.mergeRegistro(pObjeto, em);
             if (retornoMerge == null) {
                 throw new UnsupportedOperationException("Erro gravando " + pObjeto + " na ação " + resp.getAcaoVinculada().getNomeAcao());
             }
-            pObjeto = retornoMerge;
+
+            return retornoMerge;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.LANCAR_EXCECÃO, "Erro Executando merge em " + pObjeto, t);
             throw new UnsupportedOperationException("Erro gravando " + pObjeto + " na ação " + resp.getAcaoVinculada().getNomeAcao());
+
         }
 
     }

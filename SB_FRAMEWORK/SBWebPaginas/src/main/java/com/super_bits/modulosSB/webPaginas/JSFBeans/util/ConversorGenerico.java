@@ -1,5 +1,7 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.util;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import java.util.Map;
 import javax.faces.component.UIComponent;
@@ -10,6 +12,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "conversorGenerico", forClass = ItfBeanSimplesSomenteLeitura.class)
 public class ConversorGenerico implements Converter {
 
+    @Override
     public Object getAsObject(FacesContext ctx, UIComponent component,
             String value) {
         if (FacesContext.getCurrentInstance().isValidationFailed()) {
@@ -40,8 +43,8 @@ public class ConversorGenerico implements Converter {
             }
 
         } catch (Exception e) {
-            System.out.println("erro " + value);
-            e.printStackTrace();
+
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro no conversor Generico, obtendo:" + value, e);
         }
         System.out.println("retornouNulo para " + value);
         return null;
@@ -54,15 +57,14 @@ public class ConversorGenerico implements Converter {
         try {
 
             if (value != null && !"".equals(value)) {
-                ItfBeanSimplesSomenteLeitura entity = (ItfBeanSimplesSomenteLeitura) value;
+                ItfBeanSimplesSomenteLeitura item = (ItfBeanSimplesSomenteLeitura) value;
 
-                if (entity.getNomeCurto() != null) {
-                    this.addAttribute(component, entity);
+                if (item.getId() != 0) {
+                    this.addAttribute(component, item);
 
-                    if (entity.getNomeCurto() != null) {
-                        System.out
-                                .println(String.valueOf(entity.getNomeCurto()));
-                        return String.valueOf(entity.getNomeCurto());
+                    if (item.getId() != 0) {
+                        System.out.println(String.valueOf(item.getId()));
+                        return String.valueOf(item.getId());
                     }
                     System.out.println("ExisteValor, mas o nome cuto é nulo");
                     return (String) value;
@@ -73,7 +75,7 @@ public class ConversorGenerico implements Converter {
 
         } catch (Exception e) {
             System.out.println("Erro de conversao STR");
-            e.printStackTrace();
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro de conversão generica As String FacesContext:" + ctx.toString() + "-- Component" + component.toString() + " objeto" + value, e);
 
         }
         System.out.println("Nao Convertido STRSTR:" + value);
@@ -82,10 +84,10 @@ public class ConversorGenerico implements Converter {
     }
 
     protected void addAttribute(UIComponent component, Object o) {
-        String key = ((ItfBeanSimplesSomenteLeitura) o).getNomeCurto(); // codigo da empresa
+        String key = String.valueOf(((ItfBeanSimplesSomenteLeitura) o).getId()); // codigo da empresa
         // como chave neste
         // caso
-        System.out.println("Adcionando Key" + key);
+        //  System.out.println("Adcionando Key" + key);
         this.getAttributesFrom(component).put(key, o);
     }
 
