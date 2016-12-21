@@ -274,7 +274,7 @@ public class SBCore {
             }
 
         } catch (Throwable t) {
-            ambienteExecucaoConfigurado = true;
+            ambienteExecucaoConfigurado = false;
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro configurando o Core" + t.getMessage(), t);
             FabErro.PARA_TUDO.paraSistema("Erro configurando o Core" + t.getMessage(), t);
         }

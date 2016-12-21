@@ -103,9 +103,16 @@ public abstract class ConfiguradorCoreAbstrato implements ItfConfiguradorCore {
         configuracao.setEstadoAPP(pEstadoApp);
         //Aplica os dados do arquivo SBProjeto.prop na configuração
         aplicarDadosArquivoConfiguracao(configuracao);
-
-        defineClassesBasicas(configuracao);
-        defineFabricasDeACao(configuracao);
+        try {
+            defineClassesBasicas(configuracao);
+        } catch (Throwable t) {
+            throw new UnsupportedOperationException("Erro definindo classes básicas do projeto", t);
+        }
+        try {
+            defineFabricasDeACao(configuracao);
+        } catch (Throwable t) {
+            throw new UnsupportedOperationException("Erro definindo Fabricas de ação do projeto", t);
+        }
         return configuracao;
     }
 

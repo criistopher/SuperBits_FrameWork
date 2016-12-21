@@ -19,12 +19,14 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.webPaginas.ConfigGeral.SBWebPaginas;
+import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoDeContexto;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.InfoWebApp;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfB_Pagina;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaAtual;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.ItfPaginaGerenciarEntidade;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMB_Acao;
+import static com.super_bits.modulosSB.webPaginas.controller.servletes.WebPaginasServlet.MAPA_ACOESMANAGED_BEAN;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.io.Serializable;
@@ -509,8 +511,15 @@ public class PgUtil implements Serializable {
                 if (pAcao == null) {
                     throw new UnsupportedOperationException("Ação não enviada para navegação de URL");
                 }
-                String url = infoWeb.getAcaoComLink(pAcao).getUrlDeAcesso();
-                irParaURL(url);
+                AcaoComLink acaoComLinkVinculada = infoWeb.getAcaoComLink(pAcao);
+                if (acaoComLinkVinculada != null) {
+                    String url = acaoComLinkVinculada.getUrlDeAcesso();
+
+                    irParaURL(url);
+                } else {
+                    throw new UnsupportedOperationException("Não foi possível Localizar uma ação com link a partir de " + pAcao.getNomeUnico());
+                }
+
             } else {
                 System.out.println("Enviando usuario para url da anção" + pAcao.getNomeUnico());
             }

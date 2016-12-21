@@ -298,6 +298,13 @@ public abstract class UtilSBCoreArquivoTexto {
         return null;
     }
 
+    /**
+     *
+     * @param pArquivo Caminho do arquivo
+     * @param novaLinha Conteúdo que será escrito
+     * @param linha Linha onde a String será escrita
+     * @return
+     */
     public static boolean substituirEstaLinha(String pArquivo, String novaLinha, int linha) {
         try {
             List<String> linhas = UTilSBCoreInputs.getStringsByArquivoLocal(pArquivo);

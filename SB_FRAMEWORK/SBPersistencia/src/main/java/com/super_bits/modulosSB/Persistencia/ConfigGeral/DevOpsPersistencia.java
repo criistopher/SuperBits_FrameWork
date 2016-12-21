@@ -6,7 +6,7 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import static com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia.getPastaExecucaoScriptsSQL;
-import static com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia.limparBanco;
+
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -93,6 +93,10 @@ public class DevOpsPersistencia {
 
     }
 
+    private void limparCodigoHash() {
+        UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, "0000");
+    }
+
     private boolean houveAlteracaoHomologacaoBanco(ItfConfigSBPersistencia configurador) {
         long codigoAlteracao = 0;
         for (Class entidade : UtilSBPersistencia.getTodasEntidades()) {
@@ -104,7 +108,7 @@ public class DevOpsPersistencia {
         codigoAlteracao += UtilSBCoreResources.getHashCodeClasseDoPacote(configurador.getClass());
 
         if (!new File(DESTINO_ARQUIVO_HASH_BANCO).exists()) {
-            UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, "0000");
+            limparCodigoHash();
         }
         //      UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(DESTINO_ARQUIVO_HASH_BANCO, provaTXT);
         String alteracaoAnterior = UTilSBCoreInputs.getStringByArquivoLocal(DESTINO_ARQUIVO_HASH_BANCO);
@@ -129,11 +133,15 @@ public class DevOpsPersistencia {
             throw new UnsupportedOperationException("A compilação do banco só pode ser realizada em modo desenvolvimento");
         }
         //  IO.co tring teste;
-        File script = new File(DESTINO_ARQUIVO_APAGA_BANCO);
+        File script = new File(DESTINO_ARQUIVO_COMPILA_BANCO);
+
         if (!script.exists()) {
-            throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
+            throw new UnsupportedOperationException("O arquivo de script para compilar o banco não foi encontrado em " + script);
         }
+
+        UtilSBCoreArquivoTexto.substituirEstaLinha(DESTINO_ARQUIVO_COMPILA_BANCO, "source ./" + getARQUIVO_CONFIGURACOES(), 1);
         String retornoCompilaBanco = UtilSBCoreShellBasico.executeCommand(DESTINO_ARQUIVO_COMPILA_BANCO);
+
         System.out.println("Retorno Compila Banco->" + retornoCompilaBanco);
 
     }
@@ -164,13 +172,43 @@ public class DevOpsPersistencia {
             throw new UnsupportedOperationException("o carregamento automatico do banco só pode ser realizado em modo desenvolvimento");
         }
         //  IO.co tring teste;
-        File script = new File(DESTINO_ARQUIVO_APAGA_BANCO);
+        File script = new File(DESTINO_ARQUIVO_CARREGA_BANCO);
         if (!script.exists()) {
-            throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
+            throw new UnsupportedOperationException("O arquivo de script para carregar banco não foi encontrado em " + script);
         }
+        UtilSBCoreArquivoTexto.substituirEstaLinha(DESTINO_ARQUIVO_CARREGA_BANCO, "source ./" + getARQUIVO_CONFIGURACOES(), 1);
         String retornoCarrregaBanco = UtilSBCoreShellBasico.executeCommand(DESTINO_ARQUIVO_CARREGA_BANCO);
         System.out.println("Retorno Carrega Banco" + retornoCarrregaBanco);
 
+    }
+
+    public void limparBanco() {
+
+        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
+            throw new UnsupportedOperationException("A limpeza do banco só pode ser realizada em modo desenvolvimento");
+        }
+        String caminhosScript = DESTINO_ARQUIVO_APAGA_BANCO;
+        File script = new File(caminhosScript);
+        if (!script.exists()) {
+            throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
+        }
+        String retornoApagaBanco = "";
+        try {
+            UtilSBCoreArquivoTexto.substituirEstaLinha(caminhosScript, "source ./" + getARQUIVO_CONFIGURACOES(), 1);
+            retornoApagaBanco = UtilSBCoreShellBasico.executeCommand(caminhosScript);
+        } catch (Throwable t) {
+            if (!t.getMessage().contains("doesn't exist")) {
+                throw new UnsupportedOperationException("Ocorreu um erro inesperado" + t.getMessage(), t);
+            } else {
+                retornoApagaBanco = "dropped (não existia o banco)";
+            }
+        }
+        System.out.println("Retorno Apaga banco=" + retornoApagaBanco);
+        if (!retornoApagaBanco.contains("dropped")) {
+            throw new UnsupportedOperationException("A palavra dropped não apareceu no retorno do comando apagaBanco.sh que integra as boas práticas de Devops do frameWork" + retornoApagaBanco);
+        }
+
+        //criarRegistrosIniciais();
     }
 
     public void iniciarBanco() {
@@ -224,7 +262,12 @@ public class DevOpsPersistencia {
 
                 //senão houve alterção no banco
             } else {
-                limparBanco();
+                try {
+                    limparBanco();
+                } catch (Throwable t) {
+                    limparCodigoHash();
+                    limparBanco();
+                }
                 carregaBanco();
                 UtilSBPersistencia.renovarFabrica();
             }

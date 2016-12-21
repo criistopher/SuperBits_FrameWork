@@ -158,34 +158,6 @@ public abstract class SBPersistencia {
         }
     }
 
-    public static void limparBanco() {
-
-        if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
-            throw new UnsupportedOperationException("A limpeza do banco só pode ser realizada em modo desenvolvimento");
-        }
-        String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/apagaBanco.sh");
-        File script = new File(caminhosScript);
-        if (!script.exists()) {
-            throw new UnsupportedOperationException("O arquivo de script para apagar banco não foi encontrado em " + script);
-        }
-        String retornoApagaBanco = "";
-        try {
-            retornoApagaBanco = UtilSBCoreShellBasico.executeCommand(caminhosScript);
-        } catch (Throwable t) {
-            if (!t.getMessage().contains("doesn't exist")) {
-                throw new UnsupportedOperationException("Ocorreu um erro inesperado" + t.getMessage(), t);
-            } else {
-                retornoApagaBanco = "dropped (não existia o banco)";
-            }
-        }
-        System.out.println("Retorno Apaga banco=" + retornoApagaBanco);
-        if (!retornoApagaBanco.contains("dropped")) {
-            throw new UnsupportedOperationException("A palavra dropped não apareceu no retorno do comando apagaBanco.sh que integra as boas práticas de Devops do frameWork" + retornoApagaBanco);
-        }
-
-        //criarRegistrosIniciais();
-    }
-
     /**
      * Valida se foi realizada a configuração do APP
      */
