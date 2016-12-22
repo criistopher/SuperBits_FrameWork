@@ -51,6 +51,7 @@ public abstract class SBPersistencia {
     private static String pastaImagensJPA = "/img";
     private static boolean configurado = false;
     private static final TipoBanco TIPO_BANCO = TipoBanco.MYSQL;
+    private static DevOpsPersistencia devBanco;
 
     private static Class<? extends ItfFabrica>[] fabricasRegistrosIniciais;
 
@@ -138,7 +139,7 @@ public abstract class SBPersistencia {
         fabricasRegistrosIniciais = configurador.fabricasRegistrosIniciais();
         configurado = true;
 
-        DevOpsPersistencia devBanco = new DevOpsPersistencia(configurador);
+        devBanco = new DevOpsPersistencia(configurador);
 
         devBanco.iniciarBanco();
 
@@ -248,4 +249,8 @@ public abstract class SBPersistencia {
 
     }
 
+    public static void limparBanco() {
+        devBanco.limparBanco();
+        devBanco.carregaBanco();
+    }
 }

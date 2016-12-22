@@ -167,7 +167,7 @@ public class DevOpsPersistencia {
         }
     }
 
-    private void carregaBanco() {
+    public void carregaBanco() {
         if (SBCore.getEstadoAPP() != SBCore.ESTADO_APP.DESENVOLVIMENTO) {
             throw new UnsupportedOperationException("o carregamento automatico do banco só pode ser realizado em modo desenvolvimento");
         }
