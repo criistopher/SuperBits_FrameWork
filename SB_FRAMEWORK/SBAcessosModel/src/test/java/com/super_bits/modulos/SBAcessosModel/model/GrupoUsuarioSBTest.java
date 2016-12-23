@@ -9,7 +9,6 @@ import aux.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 
 import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
-import com.super_bits.modulos.SBAcessosModel.controller.ModuloSeguranca;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
@@ -28,6 +27,14 @@ import static org.junit.Assert.*;
  */
 public class GrupoUsuarioSBTest extends TesteJunitSBPersistencia {
 
+    @Override
+    protected void configAmbienteDesevolvimento() {
+        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
+        SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
+
+    }
+
+    /*
     public GrupoUsuarioSBTest() {
     }
     private List<ModuloAcaoSistema> modulos;
@@ -36,12 +43,7 @@ public class GrupoUsuarioSBTest extends TesteJunitSBPersistencia {
     public void setUp() {
     }
 
-    @Override
-    protected void configAmbienteDesevolvimento() {
-        SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
-        SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
 
-    }
 
     private void configurarSelecaoDeAcoes(GrupoUsuarioSB grupoSelecionado) {
         for (ModuloAcaoSistema modulo : modulos) {
@@ -83,4 +85,5 @@ public class GrupoUsuarioSBTest extends TesteJunitSBPersistencia {
         }
     }
 
+     */
 }
