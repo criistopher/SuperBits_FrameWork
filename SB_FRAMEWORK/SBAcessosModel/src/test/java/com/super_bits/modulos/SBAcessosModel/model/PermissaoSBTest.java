@@ -6,7 +6,6 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import aux.ConfiguradorCoreSBAcessosModelTestes;
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
@@ -26,8 +25,7 @@ public class PermissaoSBTest extends TesteJunitSBPersistencia {
     @Test
     public void testgetEntidadesVinvuladas() {
 
-        AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
-
+        //AcaoDoSistema acaoDoSistema = FabAcaoSeguranca.GRUPO_FRM_NOVO.getAcaoDoSistema();
     }
 
     @Override

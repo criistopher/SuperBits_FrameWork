@@ -4,7 +4,6 @@
  */
 package aux;
 
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
@@ -23,7 +22,7 @@ public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProj
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
         pConfig.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
-        pConfig.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class});
+        //pConfig.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class});
         pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
 
     }

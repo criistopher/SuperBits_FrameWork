@@ -6,7 +6,6 @@
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -415,6 +414,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
          */
     }
 
+    /*
     @Before
     public void criaSimulaco() {
 
@@ -430,6 +430,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
 
     }
 
+     */
     public UtilSBGeradorDeCodigoTest() {
     }
 
@@ -454,6 +455,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
     }
     // @Test
 
+    /*
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
@@ -475,6 +477,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
         }
     }
 
+     */
     //@Test
     public void testMakeClasseAnotacaoInfoAcao() {
 
