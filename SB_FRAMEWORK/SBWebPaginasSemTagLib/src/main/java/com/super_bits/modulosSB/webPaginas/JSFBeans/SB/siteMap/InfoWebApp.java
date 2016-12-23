@@ -12,7 +12,8 @@ import com.super_bits.modulosSB.webPaginas.controller.servletes.WebPaginasServle
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
+
 import javax.inject.Named;
 
 /**

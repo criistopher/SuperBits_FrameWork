@@ -41,6 +41,8 @@ import javax.persistence.EntityManager;
 /**
  *
  *
+ *
+ *
  * @author Salvio
  */
 @SuppressWarnings("serial")
@@ -50,7 +52,6 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     public static final String PAGINAINICIALID = "inicial";
     private int id;
     private Boolean abriuPagina = false;
-
     private Map<String, ParametroURL> parametrosURL;
     private boolean parametrosDeUrlPreenchido = true;
     @Inject()

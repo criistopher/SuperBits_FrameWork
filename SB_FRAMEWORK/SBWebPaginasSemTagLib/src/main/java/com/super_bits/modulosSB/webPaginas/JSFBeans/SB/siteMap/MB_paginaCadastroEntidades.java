@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.util.PgUtil;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.util.ArrayList;
@@ -241,11 +242,11 @@ public abstract class MB_paginaCadastroEntidades<T> extends MB_PaginaConversatio
 
             }
 
-            setEntidadeSelecionada(pEntidadeSelecionada);
-            if (getEntidadeSelecionada().equals(pEntidadeSelecionada)) {
+            if (getEntidadeSelecionada() == null
+                    || ((ItfBeanSimplesSomenteLeitura) getEntidadeSelecionada()).getId() != ((ItfBeanSimplesSomenteLeitura) pEntidadeSelecionada).getId()) {
                 /// caso esteja selecionando uma nova entidade, o id dela não for 0, executa um novo load
                 try {
-                    if (((ItfBeanSimples) getEntidadeSelecionada()).getId() != 0) {
+                    if (getEntidadeSelecionada() == null || ((ItfBeanSimples) getEntidadeSelecionada()).getId() != 0) {
                         setEntidadeSelecionada((T) UtilSBPersistencia.loadEntidade((ItfBeanSimples) pEntidadeSelecionada, getEMPagina()));
                         getEMPagina().refresh(getEntidadeSelecionada());
                     }

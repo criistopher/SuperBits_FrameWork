@@ -97,7 +97,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
             controleDeSessao.getSessaoAtual();
             System.out.println(controleDeSessao.getSessaoAtual().getUsuario().getNome());
         } catch (Throwable t) {
-            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Controle de sessão não pode ser encontrado", t);
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Controle de sessão não pode ser encontrado, certifique que as injeções de CDI estão funcionando em servlets, revisando as configuraçoes de arquivos WEB-Inf, você pode execlutar os script atualizarRecursosWebBasicosSBCompEWebapp.sh na pasta web do projeto para recarregar os arquivos homologados", t);
         }
 
         ItfUsuario usuario = controleDeSessao.getSessaoAtual().getUsuario();

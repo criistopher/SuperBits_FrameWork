@@ -263,6 +263,7 @@ public class SBCore {
             estadoAplicativo = configuracoes.getEstadoApp();
             arquivoConfigBase = configurador.getArquivoConfiguradorBase();
             arquivoConfigCliente = configurador.getArquivoConfiguradorCliente();
+            
             arquivoConfigDistribuicao = configurador.getArquivoConfiguradorDistribuicao();
             servicoVisualizacao = configuracoes.getServicoVisualizacao().newInstance();
             centralComunicacao = configuracoes.getCentralComunicacao().newInstance();
