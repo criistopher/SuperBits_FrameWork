@@ -5,7 +5,7 @@
  */
 package com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller;
 
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+
 import com.super_bits.modulos.SBAcessosModel.fabricas.acoesDemonstracao.FabAcaoDemonstracaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
@@ -52,8 +52,8 @@ public enum FabMenuExemplo implements ItfFabricaMenu {
                 AcaoDoSistema acaosessao = new AcaoDoSistema();
                 acaosessao.setNome("Permissões ");
                 SessaoMenuSB adminUsuario = new SessaoMenuSB(acaosessao);
-                adminUsuario.addAcao(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getRegistro());
-                adminUsuario.addAcao(FabAcaoSeguranca.USUARIO_MB_GERENCIAR.getRegistro());
+            //    adminUsuario.addAcao(FabAcaoSeguranca.GRUPO_MB_GERENCIAR.getRegistro());
+            //    adminUsuario.addAcao(FabAcaoSeguranca.USUARIO_MB_GERENCIAR.getRegistro());
                 menu.addSessao(adminUsuario);
                 return menu;
             default:

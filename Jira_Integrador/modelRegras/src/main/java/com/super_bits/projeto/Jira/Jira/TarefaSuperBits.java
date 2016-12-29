@@ -97,6 +97,15 @@ public class TarefaSuperBits extends ItemSimples implements ItfTarefaSuperBitsFW
         return tipoProfissional;
     }
 
+    public TipoProfissional getTipoProfissional() {
+        return tipoProfissional;
+    }
+    
+    
+    
+    
+    
+    
     @Override
     public ItfAcaoFormulario getFormularioDetalhes() {
         switch (tarefaJiraOrigem.getTipoTarefa()) {

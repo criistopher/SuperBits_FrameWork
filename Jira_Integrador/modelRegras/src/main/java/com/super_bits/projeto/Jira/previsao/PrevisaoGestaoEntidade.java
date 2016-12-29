@@ -14,10 +14,10 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComponenteVisualSB;
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
 import com.super_bits.projeto.Jira.FabComponenteVisualRequisitos;
-import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import com.super_bits.projeto.Jira.ItfPrevisaoGestaoEntidade;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import com.super_bits.projeto.Jira.TipoGrupoTarefa;
+import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
 import com.super_bits.projeto.SBRequisito;
 import java.util.List;
@@ -42,6 +42,7 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
     private final PrevisaoProjeto previsaoProjeto;
     private CustosDesenvolvimento custoDesenvolvimento;
     private ItfRequisitoDoSistema requisitoVinculado;
+    private double percentualTrabalhado;
 
     public PrevisaoGestaoEntidade(ItfAcaoGerenciarEntidade pAcaoGEstao, List<TarefaSuperBits> pTarefasVinculadas, PrevisaoProjeto pPrevisaoProjeto) {
         this.gestao = pAcaoGEstao;
@@ -214,6 +215,15 @@ public class PrevisaoGestaoEntidade extends ItemSimples implements ItfPrevisaoGe
         } else {
             return FabComponenteVisualRequisitos.DECRICAO_ELEMENTO_NAO_VINCULADO.getComponente();
         }
+    }
+
+    @Override
+    public double getPercentualTrabalhado() {
+        return percentualTrabalhado;
+    }
+
+    public void setPercentualTrabalhado(double percentualTrabalhado) {
+        this.percentualTrabalhado = percentualTrabalhado;
     }
 
 }

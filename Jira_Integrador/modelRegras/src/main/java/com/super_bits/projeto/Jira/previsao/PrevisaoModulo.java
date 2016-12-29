@@ -5,16 +5,16 @@
  */
 package com.super_bits.projeto.Jira.previsao;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
-import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import com.super_bits.projeto.Jira.ItfPrevisaoModulo;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import com.super_bits.projeto.Jira.TipoGrupoTarefa;
+import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +34,7 @@ public class PrevisaoModulo extends ItemSimples implements ItfPrevisaoModulo {
     private final PrevisaoProjeto previsaoProjeto;
     private CustosDesenvolvimento custoDesenvolvimento;
     private final List<TarefaSuperBits> tarefasVinculadas;
+    private double percentualTrabalhado;
 
     public PrevisaoModulo(List<PrevisaoGestaoEntidade> gestoesPrevistas,
             List<PrevisaoEntidade> entidadesPrevistas, PrevisaoProjeto pPrevisaoProjeto) {
@@ -132,6 +133,19 @@ public class PrevisaoModulo extends ItemSimples implements ItfPrevisaoModulo {
     @Override
     public TipoGrupoTarefa getTipoGrupoTarefa() {
         return FabTipoGrupoTarefa.MODULO.getRegistro();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public double getPercentualTrabalhado() {
+        return percentualTrabalhado;
+    }
+
+    public void setPercentualTrabalhado(double percentualTrabalhado) {
+        this.percentualTrabalhado = percentualTrabalhado;
     }
 
 }

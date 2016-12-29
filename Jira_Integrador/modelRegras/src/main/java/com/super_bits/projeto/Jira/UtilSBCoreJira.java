@@ -17,11 +17,11 @@ import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -486,8 +486,8 @@ public class UtilSBCoreJira {
     }
 
     public static String getIdTarefaPeloLabel(JiraRestClient conexao, TarefaJira pTarefa) {
-
-        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("labels = \"" + pTarefa.getReferencia() + "\" and issueType =\"Task\"");
+        String referencia = pTarefa.getReferencia();
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("labels = \"" + referencia + "\" ");
         SearchResult resp = pesquisa.claim();
         List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
         if (resplist.size() > 0) {
@@ -534,6 +534,7 @@ public class UtilSBCoreJira {
             }
             String idTarefaPrincipal = getIdTarefaPeloLabel(conexao, tarefaPrincipal);
 
+            // verificando se tarefa principal existe
             BasicIssue tarefaPrincipalCriada = null;
             IssueInput issuePrincipal = null;
             if (idTarefaPrincipal == null) {
@@ -541,15 +542,18 @@ public class UtilSBCoreJira {
             } else {
                 issuePrincipal = tarefaPrincipal.getIssueGrupoAcoes(projeto, tipoTarefaPrincipal, prioridadeAlta, pUsuarioResponsavel);
             }
-
+            //caso não exista
             if (idTarefaPrincipal == null) {
                 tarefaPrincipalCriada = conexao.getIssueClient().createIssue(issuePrincipal).claim();
+                //caso exista
             } else {
                 conexao.getIssueClient().updateIssue(idTarefaPrincipal, issuePrincipal);
+
                 tarefaPrincipalCriada = conexao.getIssueClient().getIssue(idTarefaPrincipal).claim();
             }
-            String idTarefa = getIdSubTarefaPeloLabel(conexao, pTarefa);
 
+            //Obtendo ID da tarefa
+            String idTarefa = getIdSubTarefaPeloLabel(conexao, pTarefa);
             IssueInput issueTarefa = pTarefa.getIssue(projeto, tipoTarefaSecundaria, prioridadeAlta, tarefaPrincipalCriada, pUsuarioResponsavel);
             System.out.println(pTarefa.getNomeTarefa());
             if (idTarefa == null) {

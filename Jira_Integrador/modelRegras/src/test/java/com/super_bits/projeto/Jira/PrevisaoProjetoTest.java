@@ -6,15 +6,15 @@
 package com.super_bits.projeto.Jira;
 
 import com.super_bits.config.ConfigPersistenciaIntegrador;
-import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
-import com.super_bits.projeto.Jira.previsao.PrevisaoGestaoEntidade;
-import com.super_bits.projeto.Jira.previsao.PrevisaoModulo;
-import com.super_bits.projeto.Jira.previsao.PrevisaoEntidade;
 import com.super_bits.config.ConfiguradorJiraIntegradorModel;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.testesFW.TesteJunit;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
+import com.super_bits.projeto.Jira.previsao.PrevisaoEntidade;
+import com.super_bits.projeto.Jira.previsao.PrevisaoGestaoEntidade;
+import com.super_bits.projeto.Jira.previsao.PrevisaoModulo;
+import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
 import org.junit.Test;
 
 /**
@@ -46,6 +46,7 @@ public class PrevisaoProjetoTest extends TesteJunit {
                 System.out.println("Tarefas da gestao" + gestao.getGestao().getNome());
 
                 for (TarefaSuperBits tf : gestao.getTarefasVinculadas()) {
+                    tf.getTarefaJiraOrigem();
                     System.out.println("Tarefa de gestao:" + tf.getTarefaJiraOrigem().getAcaoVinculada().getNomeAcao());
                 }
             }

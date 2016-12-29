@@ -6,9 +6,9 @@
 package com.super_bits.projeto.Jira.grupoDeTarefas;
 
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
-import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import com.super_bits.projeto.Jira.TipoGrupoTarefa;
+import com.super_bits.projeto.Jira.previsao.PrevisaoProjeto;
 import java.util.List;
 
 /**
@@ -32,5 +32,7 @@ public interface ItfGrupoDeTarefas {
     public String getDescricao();
 
     public TipoGrupoTarefa getTipoGrupoTarefa();
+
+    public double getPercentualTrabalhado();
 
 }

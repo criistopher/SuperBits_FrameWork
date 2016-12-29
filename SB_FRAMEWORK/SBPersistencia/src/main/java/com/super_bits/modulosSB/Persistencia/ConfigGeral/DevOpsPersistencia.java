@@ -6,7 +6,6 @@
 package com.super_bits.modulosSB.Persistencia.ConfigGeral;
 
 import static com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia.getPastaExecucaoScriptsSQL;
-
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -44,7 +43,7 @@ public class DevOpsPersistencia {
         if (nomeArquivoPersistencia.contains("equisit")) {
             return "req_";
         }
-
+        // sem prefixo caso seja o model do projeto 
         if (nomeArquivoPersistencia.contains("Model") || nomeArquivoPersistencia.contains("model")) {
             return "";
         }
@@ -146,7 +145,7 @@ public class DevOpsPersistencia {
 
     }
 
-    public void criaScriptsBancoDeDAdos(ItfConfigSBPersistencia pConfigurador) {
+    public final void criaScriptsBancoDeDAdos(ItfConfigSBPersistencia pConfigurador) {
         //UtilSBCore String caminhosScript = (SBCore.getCaminhoGrupoProjetoSource() + "/complaBanco.sh");
 
         File arquivoApaBanco = new File(DESTINO_ARQUIVO_APAGA_BANCO);

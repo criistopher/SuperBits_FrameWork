@@ -6,12 +6,11 @@
 package com.super_bits.projeto.Jira.previsao;
 
 import com.super_bits.projeto.Jira.CustosDesenvolvimento;
-import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
-import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
 import com.super_bits.projeto.Jira.TipoGrupoTarefa;
 import com.super_bits.projeto.Jira.grupoDeTarefas.FabTipoGrupoTarefa;
 import com.super_bits.projeto.Jira.grupoDeTarefas.ItfGrupoDeTarefas;
+import com.super_bits.projeto.Jira.requisito.ItfRequisitoDoSistema;
 import java.util.List;
 
 /**
@@ -23,6 +22,7 @@ public class PrevisaoTarefasPersonalizadas implements ItfGrupoDeTarefas {
     private List<TarefaSuperBits> tarefasIntegracoes;
     private List<TarefaSuperBits> tarefasTecnologias;
     private List<TarefaSuperBits> tarefasExtras;
+    private double percentualTrabalhado;
 
     public PrevisaoTarefasPersonalizadas(List<TarefaSuperBits> tarefasIntegracoes, List<TarefaSuperBits> tarefasTecnologias, List<TarefaSuperBits> tarefasExtras) {
         this.tarefasIntegracoes = tarefasIntegracoes;
@@ -108,6 +108,15 @@ public class PrevisaoTarefasPersonalizadas implements ItfGrupoDeTarefas {
 
     public void addTarefaExtra(ItfRequisitoDoSistema pRequisitoExtra) {
 
+    }
+
+    @Override
+    public double getPercentualTrabalhado() {
+        return percentualTrabalhado;
+    }
+
+    public void setPercentualTrabalhado(double percentualTrabalhado) {
+        this.percentualTrabalhado = percentualTrabalhado;
     }
 
 }

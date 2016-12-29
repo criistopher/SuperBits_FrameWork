@@ -5,7 +5,7 @@
 package com.super_bits.config;
 
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 
@@ -53,7 +53,7 @@ public class ConfigPersistenciaIntegrador implements ItfConfigSBPersistencia {
 
     @Override
     public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
-        return new Class[]{FabAcaoAcessoRestritoExemplo.class, FabAcaoSeguranca.class};
+        return new Class[]{FabAcaoAcessoRestritoExemplo.class};
     }
 
 }

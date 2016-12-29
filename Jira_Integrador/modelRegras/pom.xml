@@ -19,6 +19,14 @@
 
     <dependencies>
 
+        
+                <dependency>
+            <groupId>com.super_bits.vip</groupId>
+            <artifactId>modelRegras</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        
         <!--  JIRA CLIENT DEPENDENCIAS -->
 
         <dependency>
@@ -80,7 +88,7 @@
         </dependency>
         <!-- Caused by: java.lang.ClassNotFoundException: org.apache.http.impl.nio.conn.PoolingClientAsyncConnectionManager -->
         <dependency>
-            <groupId>   org.apache.httpcomponents</groupId>
+            <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>
             <version>4.0-beta3-atlassian-1</version>
         </dependency>

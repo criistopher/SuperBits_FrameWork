@@ -5,20 +5,12 @@
  */
 package com.super_bits.config;
 
-import com.super_bits.config.ConfigPersistenciaIntegrador;
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.configSBFW.acessos.ConfigAcessos;
-import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoSeguranca;
+
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfigCoreCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Mensagens.CentramMensagemProgramadorMsgStop;
-import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
-import com.super_bits.modulosSB.SBCore.modulos.logeventos.CentralLogEventosArqTextoGenerica;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreSomenteLeitura;
 
 /**
  *
@@ -44,7 +36,7 @@ public class ConfiguradorJiraIntegradorModel extends ConfiguradorCoreDeProjetoJa
 
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
-        pConfig.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class, FabAcaoAcessoRestritoExemplo.class});
+        pConfig.setFabricaDeAcoes(new Class[]{ FabAcaoAcessoRestritoExemplo.class});
         pConfig.setClasseConfigPermissao(ConfigAcessos.class);
 
     }

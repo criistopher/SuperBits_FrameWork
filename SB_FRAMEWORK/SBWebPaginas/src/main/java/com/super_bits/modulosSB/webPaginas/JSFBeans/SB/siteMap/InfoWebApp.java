@@ -34,14 +34,12 @@ public class InfoWebApp implements Serializable {
             if (pAcao == null) {
                 throw new UnsupportedOperationException("Enviou ação nula como parametro");
             }
-            for (String chave : WebPaginasServlet.MAPA_ACOESMANAGED_BEAN.keySet()) {
-                System.out.println(chave);
-            }
+
             if (pAcao.isUmaAcaoGestaoDominio()) {
-                //     System.out.println("ação de dominio, retornando url para" + pAcao.getNomeUnico());
+                System.out.println("ação de dominio, retornando url para" + pAcao.getNomeUnico());
                 return WebPaginasServlet.MAPA_ACOESMANAGED_BEAN.get(pAcao.getNomeUnico());
             } else {
-                //   System.out.println("ação secundaria, retornando url para" + pAcao.getComoSecundaria().getAcaoPrincipal().getNomeUnico());
+                  System.out.println("ação secundaria, retornando url para" + pAcao.getComoSecundaria().getAcaoPrincipal().getNomeUnico());
                 return WebPaginasServlet.MAPA_ACOESMANAGED_BEAN.get(pAcao.getComoSecundaria().getAcaoPrincipal().getNomeUnico());
             }
         } catch (Throwable t) {

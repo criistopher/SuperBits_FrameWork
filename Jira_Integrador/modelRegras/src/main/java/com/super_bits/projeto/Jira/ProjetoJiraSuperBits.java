@@ -5,7 +5,10 @@
  */
 package com.super_bits.projeto.Jira;
 
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.User;
+import com.atlassian.jira.rest.client.api.domain.Worklog;
+import com.google.common.collect.Lists;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
@@ -100,6 +103,11 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
     }
 
+    /**
+     *
+     * Atualiza no servidor Jira todas as tarefas do projeto
+     *
+     */
     public void atualizaAcoesJira() {
 
         for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTodasTarefas()) {
@@ -112,8 +120,18 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
     }
 
+    public Issue getInssueJiraByTarefa(TarefaSuperBits pTarefa) {
+        String id = UtilSBCoreJira.getIdTarefaPeloLabel(getConexao(), pTarefa.getTarefaJiraOrigem());
+        return getConexao().getIssueClient().getIssue(id).claim();
+
+    }
+
+    public List<Worklog> getWorkLogDaTarefa(TarefaSuperBits pTarefa) {
+        return Lists.newArrayList(getInssueJiraByTarefa(pTarefa).getWorklogs());
+    }
+
     /**
-     *
+     * Constroi todas as tarefas na memória
      */
     public void buildAcoesJira() {
 
@@ -122,6 +140,7 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
         int minutosTotais = 0;
         for (TarefaSuperBits tr : tarefas) {
             System.out.println("Tarefa" + tr.getTarefaJiraOrigem().getNomeTarefa());
+            System.out.println("Tarafa ID=" + tr.getTarefaJiraOrigem().getReferencia());
             System.out.println("Tempo esperado:" + tr.getTarefaJiraOrigem().getTempoEsperado());
             minutosTotais += tr.getMinutosPrevistosTrabalho();
             System.out.println("tempo esperado long" + tr.getMinutosPrevistosTrabalho());
