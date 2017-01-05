@@ -31,6 +31,7 @@ public class DevOpsPersistencia {
 
     private final String nomeArquivoPersistencia;
     private final ItfConfigSBPersistencia configurador;
+    private String hashBancoGerado;
 
     private final String arqResCompilaBanco = "compilaBanco.sh";
     private final String arqResCarregaBanco = "carregaBanco.sh";
@@ -43,7 +44,7 @@ public class DevOpsPersistencia {
         if (nomeArquivoPersistencia.contains("equisit")) {
             return "req_";
         }
-        // sem prefixo caso seja o model do projeto 
+        // sem prefixo caso seja o model do projeto
         if (nomeArquivoPersistencia.contains("Model") || nomeArquivoPersistencia.contains("model")) {
             return "";
         }
@@ -116,6 +117,7 @@ public class DevOpsPersistencia {
         System.out.println("Hash   anterior " + altAnterior + "  em" + DESTINO_ARQUIVO_HASH_BANCO);
         System.out.println("Hash Atualizado " + codigoAlteracao);
         codigoAlteracao = Math.abs(codigoAlteracao);
+        hashBancoGerado = String.valueOf(codigoAlteracao);
         long diferenca = codigoAlteracao - altAnterior;
         if (diferenca == 0) {
             return false;
@@ -143,6 +145,10 @@ public class DevOpsPersistencia {
 
         System.out.println("Retorno Compila Banco->" + retornoCompilaBanco);
 
+    }
+
+    public String getHashBancoGerado() {
+        return hashBancoGerado;
     }
 
     public final void criaScriptsBancoDeDAdos(ItfConfigSBPersistencia pConfigurador) {

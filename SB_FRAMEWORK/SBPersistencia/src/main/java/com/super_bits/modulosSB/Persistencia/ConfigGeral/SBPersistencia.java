@@ -11,7 +11,6 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.util.UtilSBPersistenciaFabricas;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreShellBasico;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroSBCoreDeveloperSopMessagem;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
@@ -21,7 +20,6 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
 import java.io.File;
 import java.io.InputStream;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +76,10 @@ public abstract class SBPersistencia {
         } catch (Throwable t) {
             return null;
         }
+    }
+
+    public static DevOpsPersistencia getDevOps() {
+        return devBanco;
     }
 
     /**

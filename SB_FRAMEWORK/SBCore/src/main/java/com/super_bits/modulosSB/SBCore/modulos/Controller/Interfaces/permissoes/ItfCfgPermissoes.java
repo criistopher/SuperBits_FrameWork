@@ -4,7 +4,6 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
@@ -22,8 +21,6 @@ public interface ItfCfgPermissoes {
 
     public List<ItfUsuario> configuraUsuarios();
 
-    public ItfResposta ACAOCRUD(Class pEntidade, String TIPOACAO);
-
     public Class[] getClassesController();
 
     public MenusDaSessao definirMenu(ItfGrupoUsuario pGrupo);
@@ -31,5 +28,11 @@ public interface ItfCfgPermissoes {
     public void atualizarInformacoesDePermissoesDoSistema();
 
     public Method getMetodoByAcao(ItfAcaoDoSistema acao);
+
+    public boolean isAcaoPermitidaUsuarioLogado(ItfAcaoDoSistema acao);
+
+    public boolean isAcaoPermitidaUsuario(ItfUsuario pUsuario, ItfAcaoDoSistema acao);
+
+    public boolean isPermitidoUsuario(ItfUsuario pUsuario, ItfPermissao pPermissao);
 
 }

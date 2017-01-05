@@ -28,8 +28,13 @@ public class ProjetoJiraSuperBitsAbstrato {
         }
     }
 
+    public boolean isConexaoAberta() {
+        return conexaoAberta;
+    }
+
     public JiraRestClient getConexao() {
         if (!conexaoAberta) {
+
             throw new UnsupportedOperationException("A conexão com o Jira não está ativa");
         }
         return conexao;

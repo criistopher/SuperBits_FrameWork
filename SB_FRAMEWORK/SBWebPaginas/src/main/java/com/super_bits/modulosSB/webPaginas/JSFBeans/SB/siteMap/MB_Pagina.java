@@ -1,10 +1,9 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.dao.SBNQ;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
@@ -30,7 +29,7 @@ public abstract class MB_Pagina extends B_Pagina {
             if (getAcaoVinculada().isPrecisaPermissao()) {
                 try {
 
-                    if (!UtilSBAcessosModel.acessoAcaoPermitido(sessaoAtual.getUsuario(), getAcaoVinculada())) {
+                    if (!SBCore.getConfiguradorDePermissao().isAcaoPermitidaUsuario(sessaoAtual.getUsuario(), getAcaoVinculada())) {
                         UtilSBWP_JSFTools.vaParaPagina("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
                     }
 

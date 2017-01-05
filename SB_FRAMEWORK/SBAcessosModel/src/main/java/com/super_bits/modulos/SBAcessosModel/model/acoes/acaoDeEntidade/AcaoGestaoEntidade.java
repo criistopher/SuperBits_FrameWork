@@ -16,10 +16,11 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSi
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoClasse;
-
 import java.lang.reflect.Field;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -34,7 +35,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     @Transient
     private boolean utilizarMesmoFormEditarInserir = true;
 
-    @OneToMany(mappedBy = "acaoPrincipal")
+    @OneToMany(mappedBy = "acaoPrincipal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AcaoSecundaria> acoesVinculadas;
 
     @Transient

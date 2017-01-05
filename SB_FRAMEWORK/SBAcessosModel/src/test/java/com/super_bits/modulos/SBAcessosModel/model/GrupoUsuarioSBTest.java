@@ -6,20 +6,10 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import aux.ConfiguradorCoreSBAcessosModelTestes;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-
-import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
-import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
 import config.ConfigPersistenciaTestesAcesso;
-import java.util.List;
-import javax.persistence.EntityManager;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

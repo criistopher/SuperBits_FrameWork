@@ -8,7 +8,7 @@ package com.super_bits.modulos.SBAcessosModel.model;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao.TIPO_AUTENTICACAO;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
@@ -105,10 +105,14 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     public PermissaoSB(ItfFabricaAcoes fabricaAcoes) {
+        this((AcaoDoSistema) fabricaAcoes.getAcaoDoSistema());
+    }
+
+    public PermissaoSB(AcaoDoSistema pAcaoDoSistema) {
         super();
-        acaoDoSistema = (AcaoDoSistema) fabricaAcoes.getAcaoDoSistema();
-        id = acaoDoSistema.getId();
-        nomeAcesso = acaoDoSistema.getNomeAcao();
+        id = pAcaoDoSistema.getNomeUnico().hashCode();
+        nomeAcesso = pAcaoDoSistema.getNomeUnico();
+        acaoDoSistema = pAcaoDoSistema;
     }
 
     @Override
@@ -229,8 +233,8 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     @Override
-    public ItfAcaoController getAcao() {
-        return (ItfAcaoController) acaoDoSistema;
+    public ItfAcaoDoSistema getAcao() {
+        return acaoDoSistema;
     }
 
 }

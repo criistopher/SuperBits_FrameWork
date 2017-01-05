@@ -61,7 +61,7 @@ public class GrupoUsuariosDoSistema implements ItfGrupoUsuario {
         if (!usuarioRoot) {
             return "/site/home.xhtml";
         } else {
-            return "/resources/SBComp/debug/conformidadeInputCampo.xhtml";
+            return "/site/modulos/sb_admin_tools/sbinfoprojetoatual/gerenciar.xhtml";
         }
     }
 

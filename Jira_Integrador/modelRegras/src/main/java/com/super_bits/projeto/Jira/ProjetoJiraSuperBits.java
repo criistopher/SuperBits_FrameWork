@@ -9,6 +9,7 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.User;
 import com.atlassian.jira.rest.client.api.domain.Worklog;
 import com.google.common.collect.Lists;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
@@ -33,10 +34,6 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
     private User getUsuario(String pUsuario) {
         return UtilSBCoreJira.getUsuarioPorNome(getConexao(), pUsuario);
-    }
-
-    public boolean atualizarProjeto() {
-        return true;
     }
 
     public User getAnalistaBancoDados() {
@@ -110,13 +107,29 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
      */
     public void atualizaAcoesJira() {
 
-        for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTodasTarefas()) {
+        atualizarAcoesServidorJira(MapaTarefasProjeto.getTodasTarefas());
+        fecharConexao();
+
+    }
+
+    public void atualizarAcoesServidorJira(List<TarefaSuperBits> pAcoes) {
+
+        for (TarefaSuperBits tarefa : pAcoes) {
             if (!UtilSBCoreJira.criarTarefafasDaAcao(getConexao(), tarefa.getTarefaJiraOrigem(), getUsuarioPorTipoDeAcao(tarefa.getTarefaJiraOrigem()))) {
                 throw new UnsupportedOperationException("Erro criando ação para " + tarefa.getTarefaJiraOrigem().getAcaoVinculada().getNomeUnico());
             }
         }
 
-        fecharConexao();
+    }
+
+    public boolean atualizarAcoesDaGestao(ItfAcaoGerenciarEntidade pAcaoGestao) {
+        try {
+            List<TarefaSuperBits> tarefas = MapaTarefasProjeto.getTarefasDaGestao(pAcaoGestao);
+            atualizarAcoesServidorJira(tarefas);
+            return true;
+        } catch (Throwable t) {
+            return false;
+        }
 
     }
 
@@ -133,10 +146,10 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
     /**
      * Constroi todas as tarefas na memória
      */
+    @Deprecated
     public void buildAcoesJira() {
 
         List<TarefaSuperBits> tarefas = MapaTarefasProjeto.getTodasTarefas();
-
         int minutosTotais = 0;
         for (TarefaSuperBits tr : tarefas) {
             System.out.println("Tarefa" + tr.getTarefaJiraOrigem().getNomeTarefa());
@@ -147,8 +160,25 @@ public class ProjetoJiraSuperBits extends ProjetoJiraSuperBitsAbstrato {
 
         }
 
-        System.out.println("Mitutos totais=" + minutosTotais);
-
     }
 
+    public void limparTodasIssuesEncontradasNoServidorJira() {
+
+        List<Issue> tarefas = UtilSBCoreJira.listarTodasTarefasDoProjeto(getConexao());
+        // Enquanto houver tarefas deste projeto, excluir
+        while (!tarefas.isEmpty()) {
+            for (Issue tr : tarefas) {
+                getConexao().getIssueClient().deleteIssue(tr.getKey(), true).claim();
+            }
+            tarefas = UtilSBCoreJira.listarTodasTarefasDoProjeto(getConexao());
+        }
+    }
+
+    public void limparTodasAsAcoes() {
+
+        for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTodasTarefas()) {
+            UtilSBCoreJira.apagarTarefasDaCao(getConexao(), tarefa.getTarefaJiraOrigem(), true);
+        }
+
+    }
 }

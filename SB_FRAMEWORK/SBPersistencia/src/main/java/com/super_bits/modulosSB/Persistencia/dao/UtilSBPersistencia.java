@@ -29,7 +29,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.metamodel.EntityType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import org.hibernate.exception.JDBCConnectionException;
 
 /**
@@ -240,6 +239,24 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         return em;
     }
 
+    public static boolean fecharEM(EntityManager em) {
+        if (em == null) {
+            return true;
+        }
+        if (em.isOpen()) {
+            try {
+                em.close();
+                return true;
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro fechando entityManager", t);
+                return false;
+            }
+        } else {
+            return true;
+        }
+
+    }
+
     public static boolean finzalizaTransacaoEFechaEM(@NotNull EntityManager em) {
         try {
             if (em == null) {
@@ -351,34 +368,6 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
         List<Object> pEntidades = pInfoEntidadesPersistencia.getpEntidades();
         EntityManager pEM = pInfoEntidadesPersistencia.getpEM();
         FabInfoPersistirEntidade pTipoAlteracao = pInfoEntidadesPersistencia.getTipoAlteracao();
-
-        try {
-            if (!pInfoEntidadesPersistencia.isTemRegistroParaPersistir()) {
-                throw new UnsupportedOperationException("Favor informar ao menos uma entidade para persistir, é possível que você esteja tentando salvar um registro = a nulo");
-            }
-
-            System.out.println("executando alteração em [" + pEntidade.getClass().getSimpleName() + "] do tipo :" + pTipoAlteracao);
-            if (SBCore.isControleDeAcessoDefinido()) {
-                if (!SBCore.getConfiguradorDePermissao().ACAOCRUD(pEntidade.getClass(), pTipoAlteracao.toString()).isSucesso()) {
-                    FabMensagens.enviarMensagemUsuario("Ação não permita para este usuário, solicite permição ao Administrador", FabMensagens.AVISO);
-                    if (pTipoAlteracao == FabInfoPersistirEntidade.INSERT) {
-                        return false;
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            FabErro.SOLICITAR_REPARO.paraDesenvolvedor(" Erro Verificando permissoes de CRUD " + e.getMessage(), e);
-
-            if (e.getCause() != null) {
-                if (e.getCause().getClass().getSimpleName().equals(JDBCConnectionException.class.getSimpleName())) {
-                    renovarConexao();
-                }
-            }
-            return null;
-
-        }
 
         boolean entityManagerPaiEnviada = false;
         if (pEM != null) {

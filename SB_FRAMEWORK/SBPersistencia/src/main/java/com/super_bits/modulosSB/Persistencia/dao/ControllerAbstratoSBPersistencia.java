@@ -8,16 +8,13 @@ package com.super_bits.modulosSB.Persistencia.dao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.comunicacao.Resposta;
-import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanNormal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

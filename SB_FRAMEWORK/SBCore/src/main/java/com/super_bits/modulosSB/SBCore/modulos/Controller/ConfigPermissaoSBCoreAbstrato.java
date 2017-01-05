@@ -4,20 +4,17 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfCfgPermissoes;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.comunicacao.Resposta;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,8 +26,9 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
 
     private final Class[] classesControllers;
 
-    protected final Map<Integer, ItfAcaoDoSistema> acoesByHashMetodo = new HashMap<>();
+    protected final Map<Integer, String> acoesNomeUnicoByHashMetodo = new HashMap<>();
     private final Map<Integer, Method> metodosByHashMetodo = new HashMap<>();
+    private final Map<String, Method> metodoByAcao = new HashMap<>();
 
     public static List<ItfAcaoDoSistema> getAcoesDoSistema() {
         throw new UnsupportedOperationException("Get Açoes do Sistema ainda não foi implementado");
@@ -50,25 +48,13 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
      * @return
      */
     public ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo) {
-        return acoesByHashMetodo.get(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo));
+        return MapaAcoesSistema.getAcaoDoSistemaByNomeUnico(acoesNomeUnicoByHashMetodo.get(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo)));
     }
 
+    @Override
     public Method getMetodoByAcao(ItfAcaoDoSistema pAcao) {
 
-        if (SBCore.getEstadoAPP() == SBCore.ESTADO_APP.PRODUCAO) {
-            System.out.println("O metodo getMetodo pela ação deve ser usado com "
-                    + "moderação no modo de produção. (o custo de processamento é "
-                    + "elevado para utilizar muitas vezes seguida");
-        }
-
-        for (Map.Entry<Integer, Method> entry : metodosByHashMetodo.entrySet()) {
-
-            ItfAcaoDoSistema acaoDoMetodo = UtilSBController.getAcaoByMetodo(entry.getValue(), true);
-            if (acaoDoMetodo.getNomeAcao().equals(pAcao.getNomeAcao())) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        return metodoByAcao.get(pAcao.getNomeUnico());
 
     }
 
@@ -101,26 +87,31 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
     public ConfigPermissaoSBCoreAbstrato(Class[] pClassesControllers) {
 
         classesControllers = pClassesControllers;
+
         try {
             System.out.println("Ajustando configurações de serviços");
-            System.out.println("As seguinte classes de serviço foram encontradas:" + pClassesControllers);
             if (pClassesControllers == null) {
+                System.out.println("Nenhuma Classe de Controller foi Cadastrada no sistema");
                 return;
             }
+            System.out.println("As seguinte classes de serviço foram encontradas:" + Arrays.toString(pClassesControllers));
 
             for (Class classe : pClassesControllers) {
                 try {
-                    Method[] metodos
-                            = classe.getDeclaredMethods();
-                    acoesByHashMetodo.clear();
+                    if (classe == null) {
+                        throw new UnsupportedOperationException("Uma das classes Cadastradas no sistema como classe de controller é um null!!, verifique a declaração no core");
+                    }
+                    Method[] metodos = classe.getDeclaredMethods();
+                    acoesNomeUnicoByHashMetodo.clear();
                     for (Method metodo : metodos) {
                         ItfAcaoController acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
-                        Class classeAcao = acaovinculoMetodo.getClass();
+
                         //   if (classeAcao.isAssignableFrom(ItfAcaoController.class) == false) {
                         //       throw new UnsupportedOperationException("A ação " + acaovinculoMetodo.getNomeAcao() + " não é do tipo controller e foi vinculada ao método:" + metodo.getName() + " Na classe " + metodo.getDeclaringClass().getSimpleName());
                         // }
-                        acoesByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo);
+                        acoesNomeUnicoByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo.getNomeUnico());
                         metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+                        metodoByAcao.put(acaovinculoMetodo.getNomeUnico(), metodo);
                     }
                 } catch (Throwable t) {
                     String nomeclasse = "Classe nula";
@@ -153,47 +144,6 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
         FabErro.PARA_TUDO.paraSistema("Erro procurando " + pNomeMetodo + " na classe " + pClasse, null);
 
         return null;
-    }
-
-    @Override
-    public ItfResposta ACAOCRUD(Class pEntidade, String tipoAcao) {
-
-        Resposta resp = new Resposta(pEntidade, null);
-        String strCRUD = "D";
-
-        switch (tipoAcao) {
-            case "MERGE":
-            case "UPDATE":
-                strCRUD = "U";
-                break;
-            case "DELETE":
-                strCRUD = "D";
-                break;
-            case "INSERT":
-                strCRUD = "C";
-                break;
-
-        }
-
-        Method metodo = localizarLikeNomeMetodo(strCRUD + "_" + pEntidade.getSimpleName());
-        if (metodo == null) {
-            return resp;
-        } else {
-            try {
-                Object[] parametros = {pEntidade};
-
-                Object resposta = metodo.invoke(null, "teste");
-
-                return (ItfResposta) resposta;
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                FabErro.SOLICITAR_REPARO.paraDesenvolvedor("NÃO FOI POSSÍVEL EXECUTAR O METODO DE AÇÃO "
-                        + "DE AÇÃOCRUD PARA ENTIDADE" + pEntidade.getSimpleName() + ", certifique que a "
-                        + "nomeclatura do metodo esteja correta e que o método esteja retornando um objeto do tipo resposta  ", ex);
-                Logger.getLogger(ConfigPermissaoSBCoreAbstrato.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return null;
-        }
-
     }
 
 }

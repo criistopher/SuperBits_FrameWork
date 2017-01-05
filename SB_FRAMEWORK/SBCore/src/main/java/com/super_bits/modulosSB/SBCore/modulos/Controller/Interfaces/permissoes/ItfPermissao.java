@@ -4,7 +4,8 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.util.List;
@@ -15,14 +16,14 @@ import java.util.List;
  *
  * @author Salvio
  */
-public interface ItfPermissao {
+public interface ItfPermissao extends ItfBeanSimplesSomenteLeitura {
 
     public static enum TIPO_AUTENTICACAO {
 
         SOLICITAR_EMAIL, USUARIO_SENHA_SEM_CRIPTOGRAFIA
     }
 
-    public ItfAcaoController getAcao();
+    public ItfAcaoDoSistema getAcao();
 
     public String getDescricaoAcesso();
 

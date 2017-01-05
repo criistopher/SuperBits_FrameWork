@@ -21,6 +21,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.projeto.Jira.Jira.TarefaJira;
 import java.net.URI;
@@ -356,7 +357,15 @@ public class UtilSBCoreJira {
         List<BasicProject> lista = Lists.newArrayList(conexao.getProjectClient().getAllProjects().claim());
 
         if (lista.size() > 1) {
-            throw new UnsupportedOperationException("Foram encontrados mais de um projeto vinculado a este usuário, impossívcel determinar o projeto ");
+            String textoProjetos = "";
+
+            for (BasicProject proj : lista) {
+                textoProjetos += proj.getKey();
+                if (proj.getKey().contains("SK")) {
+                    return proj;
+                }
+            }
+            throw new UnsupportedOperationException("Foram encontrados mais de um projeto vinculado a este usuário, impossívcel determinar o projeto " + textoProjetos);
         }
         return lista.get(0);
     }
@@ -486,12 +495,27 @@ public class UtilSBCoreJira {
     }
 
     public static String getIdTarefaPeloLabel(JiraRestClient conexao, TarefaJira pTarefa) {
+        Issue tarefa = getIssuePeloLabel(conexao, pTarefa);
+        if (tarefa != null) {
+            return tarefa.getId().toString();
+        } else {
+            SBCore.getCentralDeEventos().registrarLogDeEvento(FabMensagens.ALERTA, "nenhuma tarefa vinculada foi encontrada no servidor gira para: " + pTarefa.getNomeUnicoTarefa());
+            return null;
+        }
+
+    }
+
+    public static Issue getIssuePeloLabel(JiraRestClient conexao, TarefaJira pTarefa) {
+
         String referencia = pTarefa.getReferencia();
         Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("labels = \"" + referencia + "\" ");
         SearchResult resp = pesquisa.claim();
         List<Issue> resplist = Lists.newArrayList(resp.getIssues().iterator());
-        if (resplist.size() > 0) {
-            return resplist.get(0).getId().toString();
+        if (resplist.size() == 1) {
+            return resplist.get(0);
+        } else if (resplist.size() > 1) {
+            SBCore.getCentralDeEventos().registrarLogDeEvento(FabMensagens.ALERTA, "Foram encontrados " + resplist.size() + " com o label " + referencia + " o método retornará apenas o primeiro registro");
+            return resplist.get(0);
         }
         return null;
     }
@@ -505,6 +529,46 @@ public class UtilSBCoreJira {
             return resplist.get(0).getId().toString();
         }
         return null;
+    }
+
+    public static boolean apagarTarefasDaCao(JiraRestClient conexao,
+            TarefaJira pTarefa, boolean pApagarSubTarefas) {
+        try {
+
+            if (pTarefa == null) {
+                throw new UnsupportedOperationException("Evocou metodo criar tarefas com a tarefa nula");
+            }
+            if (conexao == null) {
+                throw new UnsupportedOperationException("Evocou metodo criar tarefas com a conexão nula");
+            }
+
+            TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
+
+            if (tarefaPrincipal == null) {
+                throw new UnsupportedOperationException("Impossível deterinar a tarefa principal para" + pTarefa.getReferencia());
+            }
+
+            Issue tarefaEncontrada = getIssuePeloLabel(conexao, pTarefa);
+            if (tarefaEncontrada == null) {
+                return false;
+            } else {
+                conexao.getIssueClient().deleteIssue(tarefaEncontrada.getKey(), pApagarSubTarefas).claim();
+
+            }
+            return true;
+        } catch (Throwable t) {
+            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro excluindo tarefa" + pTarefa.getNomeTarefa(), t);
+            return false;
+        }
+    }
+
+    public static List<Issue> listarTodasTarefasDoProjeto(JiraRestClient conexao) {
+
+        BasicProject proj = getProjetoPrincipal(conexao);
+        Promise<SearchResult> pesquisa = conexao.getSearchClient().searchJql("project =  " + proj.getKey());
+        SearchResult resp = pesquisa.claim();
+        return Lists.newArrayList(resp.getIssues().iterator());
+
     }
 
     public static boolean criarTarefafasDaAcao(JiraRestClient conexao, TarefaJira pTarefa, User pUsuarioResponsavel) {
@@ -524,10 +588,6 @@ public class UtilSBCoreJira {
             BasicPriority prioridadeAlta = getPrioridadeMaxiama(conexao);
 
             TarefaJira tarefaPrincipal = buildTarefaPrincipal(conexao, pTarefa);
-
-            if (conexao == null) {
-
-            }
 
             if (tarefaPrincipal == null) {
                 throw new UnsupportedOperationException("Impossível deterinar a tarefa principal para" + pTarefa.getReferencia());

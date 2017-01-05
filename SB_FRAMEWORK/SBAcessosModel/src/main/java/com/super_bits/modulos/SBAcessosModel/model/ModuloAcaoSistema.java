@@ -15,7 +15,9 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampo
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -43,7 +45,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     private String nome;
     @InfoCampo(tipo = FabCampos.AAA_DESCRITIVO)
     private String descricao;
-    @OneToMany(mappedBy = "modulo")
+    @OneToMany(mappedBy = "modulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AcaoDoSistema> acoes;
     @Temporal(TemporalType.DATE)
     private Date dataHoraCriacao;

@@ -5,11 +5,9 @@
  */
 package com.super_bits.modulosSB.webPaginas.controller.servletes;
 
-import com.super_bits.modulos.SBAcessosModel.UtilSBAcessosModel;
-import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.AcaoComLink;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.MapaDeFormularios;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.declarados.Paginas.ErroCritico.InfoErroCritico;
@@ -114,7 +112,7 @@ public class WebPaginasServlet extends HttpServlet implements Serializable {
                     if (pagina.getAcaoGestaoVinculada() != null) {
                         recurso = pagina.getAcaoGestaoVinculada().getXhtml();
                         if (pagina.getAcaoGestaoVinculada().isPrecisaPermissao()) {
-                            if (!UtilSBAcessosModel.acessoAcaoPermitido(usuario, (AcaoDoSistema) pagina.getAcaoGestaoVinculada())) {
+                            if (!SBCore.getConfiguradorDePermissao().isAcaoPermitidaUsuario(usuario, pagina.getAcaoGestaoVinculada())) {
                                 RequestDispatcher wp = req.getRequestDispatcher("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
 
                                 wp.forward(req, resp);

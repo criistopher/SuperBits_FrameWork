@@ -4,17 +4,16 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.Controller;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfControlerAPP;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfCfgPermissoes;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.comunicacao.Resposta;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -193,8 +192,11 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
                 for (ItfPermissao ac : permissoesAtualizadas) {
 
                     if (ac.getAcao() != null) {
-                        PERMISSAO_POR_ACAO_ID.put(ac.getAcao().getId(), ac);
-                        IDPERMISSAO_POR_METODOID.put(ac.getAcao().getIdMetodo(), ac.getAcao().getId());
+                        if (ac.getAcao().isUmaAcaoController()) {
+                            PERMISSAO_POR_ACAO_ID.put(ac.getAcao().getId(), ac);
+                            IDPERMISSAO_POR_METODOID.put(ac.getAcao().getComoController().getIdMetodo(), ac.getAcao().getId());
+                        }
+
                     }
                 }
             }
@@ -303,54 +305,8 @@ public abstract class ControllerAppAbstratoSBCore implements ItfControlerAPP {
     }
 
     private static boolean isPermitido(ItfPermissao pAcesso, ItfUsuario pUsuario) {
-        System.out.println("PEsquisando lista de acesso negado");
 
-        if (!pAcesso.getAcao().isPrecisaPermissao()) {
-            return true;
-        }
-        if (pUsuario.getEmail().equals(new UsuarioSistemaRoot().getEmail())) {
-            return true;
-        }
-
-        for (ItfUsuario usuario : pAcesso.getUsuariosNegados()) {
-            if (usuario.getId() == pUsuario.getId()) {
-                System.out.println("Acesso negado de:" + pUsuario.getNome() + "registro usuario encontrado:" + usuario.getId());
-                return false;
-            }
-        }
-        for (ItfGrupoUsuario grupo : pAcesso.getGruposNegados()) {
-
-            for (ItfUsuario user : grupo.getUsuarios()) {
-                if (pUsuario.getGrupo().getId() == pUsuario.getGrupo().getId()) {
-                    return false;
-                }
-                if (user.getId() == pUsuario.getId()) {
-                    return false;
-                }
-            }
-        }
-
-        System.out.println("Listando permitidos");
-        for (ItfUsuario usuario : pAcesso.getUsuariosPermitidos()) {
-            System.out.println("permitido:" + usuario.getNome() + pAcesso.getAcao());
-            if (usuario.getId() == pUsuario.getId()) {
-                return true;
-            }
-        }
-
-        for (ItfGrupoUsuario grupo : pAcesso.getGruposPermitidos()) {
-            if (pUsuario.getGrupo().getId() == grupo.getId()) {
-                return true;
-            }
-
-            for (ItfUsuario user : grupo.getUsuarios()) {
-                if (user.getId() == pUsuario.getId()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return SBCore.getConfiguradorDePermissao().isAcaoPermitidaUsuario(pUsuario, pAcesso.getAcao());
 
     }
 

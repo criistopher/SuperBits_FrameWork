@@ -6,7 +6,6 @@
 package com.super_bits.projeto.Jira;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.domain.Worklog;
 import com.super_bits.InomeClienteI.JiraIntegradorModel.regras_de_negocio_e_controller.MODULOS.demonstracao_acesso_restrito.FabAcaoAcessoRestritoExemplo;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
@@ -15,7 +14,6 @@ import com.super_bits.modulosSB.Persistencia.ERROS.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.projeto.Jira.Jira.MapaTarefasProjeto;
 import com.super_bits.projeto.Jira.Jira.TarefaSuperBits;
-import com.super_bits.vip.superCompras.Model.Produto.Produto;
 import com.super_bits.vip.superCompras.configAppp.ConfigPersistenciaSuperCompras;
 import com.super_bits.vip.superCompras.configAppp.ConfiguradorCoreSuperKomprasModel;
 import org.junit.Test;
@@ -37,16 +35,16 @@ public class ProjetoJiraSuperBitsTest extends TesteJunitSBPersistencia {
             Class entidade = ModuloAcaoSistema.class;
 
             ProjetoJiraSuperBits testeOFicialProjeto = new ProjetoJiraSuperBits("salviof@gmail.com", "123321");
-            //testeOFicialProjeto.buildAcoesJira();
 
-            testeOFicialProjeto.buildAcoesJira();
-            //       testeOFicialProjeto.atualizaAcoesJira();
-            for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTarefasDaTabela(Produto.class)) {
+            //testeOFicialProjeto.buildAcoesJira();
+//            testeOFicialProjeto.atualizaAcoesJira();
+            testeOFicialProjeto.atualizaAcoesJira();
+            for (TarefaSuperBits tarefa : MapaTarefasProjeto.getTodasTarefas()) {
                 System.out.println("Tarefa:" + tarefa.getTarefaJiraOrigem().getReferencia());
-                for (Worklog trampo : testeOFicialProjeto.getWorkLogDaTarefa(tarefa)) {
-                    System.out.println("Trampo por" + trampo.getAuthor().getDisplayName());
-                    System.out.println("Minutos:" + trampo.getMinutesSpent());
-                }
+                //for (Worklog trampo : testeOFicialProjeto.getWorkLogDaTarefa(tarefa)) {
+                //   System.out.println("Trampo por" + trampo.getAuthor().getDisplayName());
+                //  System.out.println("Minutos:" + trampo.getMinutesSpent());
+                //}
             }
             //    testeOFicialProjeto.atualizaAcoesJira();
             //testeOFicialProjeto.buil4dAcoesJira();
