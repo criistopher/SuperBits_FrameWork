@@ -90,6 +90,9 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     private boolean houveAlteracoes() {
+        if (true) {
+            return false;
+        }
         ConfiguracaoDePermissao configPermissao = null;
         if (!SBCore.isEmModoProducao()) {
             configPermissao = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0);
