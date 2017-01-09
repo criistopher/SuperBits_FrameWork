@@ -20,8 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.persistence.CacheRetrieveMode;
+import javax.persistence.CacheStoreMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
@@ -29,7 +32,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.metamodel.EntityType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.CacheMode;
 import org.hibernate.exception.JDBCConnectionException;
+import org.hibernate.jpa.AvailableSettings;
 
 /**
  *
@@ -560,7 +565,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                     if (pTipoSelecao == TIPO_SELECAO_REGISTROS.SQL) {
                         consulta = em.createNativeQuery(sql);
                     } else {
+                        em.clear();
                         consulta = em.createQuery(sql);
+
                     }
 
                     if (maximo != -1 && maximo != 0) {
@@ -575,6 +582,10 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             i++;
                         }
                     }
+                    consulta.setHint(AvailableSettings.SHARED_CACHE_RETRIEVE_MODE, CacheRetrieveMode.BYPASS);
+                    consulta.setHint(AvailableSettings.SHARED_CACHE_STORE_MODE, CacheStoreMode.BYPASS);
+                    consulta.setHint(AvailableSettings.SHARED_CACHE_MODE, CacheMode.IGNORE);
+                    consulta.setHint("org.hibernate.cacheable", false);
                     List resultado = consulta.getResultList();
                     if (resultado.size() > MAXIMO_REGISTROS) {
                         System.out.println("este select retorna mais de" + MAXIMO_REGISTROS + "o sistema não deixará de executar, mas não posso deixar de perguntar Isto está certo ??");

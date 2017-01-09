@@ -218,6 +218,10 @@ public class DevOpsPersistencia {
 
     public void iniciarBanco() {
         Map<String, Object> propriedades = new HashMap<>();
+        propriedades.put("javax.persistence.sharedCache.mode", "NONE");
+        propriedades.put("org.hibernate.cacheable", "false");
+        propriedades.put("hibernate.cache.use_query_cache", "false");
+        propriedades.put("hibernate.cache.use_second_level_cache", "false");
         if (SBCore.getEstadoAPP().equals(SBCore.ESTADO_APP.DESENVOLVIMENTO)) {
             // desabilitando criação de banco de dados no início caso o banco seja o mesmo
             propriedades.put("hibernate.hbm2ddl.auto", null);
@@ -227,6 +231,7 @@ public class DevOpsPersistencia {
             propriedades.put("hibernate.format_sql", true);
             //Mostrar comentários explicativos
             propriedades.put("hibernate.use_sql_comments", true);
+
             EntityManagerFactory emFacturePadrao = Persistence.createEntityManagerFactory(nomeArquivoPersistencia, propriedades);
             UtilSBPersistencia.defineFabricaEntityManager(emFacturePadrao, propriedades);
 

@@ -217,7 +217,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         return null;
     }
 
-    protected void renovarEMPagina() {
+    private void renovarEMPagina(boolean segundaExcucao) {
+
         try {
 
             try {
@@ -227,6 +228,7 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
                         emPagina.getTransaction().rollback();
                     }
                     emPagina.clear();
+                    emPagina.close();
 
                 }
 
@@ -239,7 +241,14 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
 
         } catch (Exception e) {
             FabErro.SOLICITAR_REPARO.paraDesenvolvedor("Erro ao renovar EM", null);
+            if (segundaExcucao) {
+                renovarEMPagina(true);
+            }
         }
+    }
+
+    protected void renovarEMPagina() {
+        renovarEMPagina(false);
 
     }
 
@@ -289,7 +298,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             parametrosURL = new HashMap<>();
             parametrosURL.clear();
 
-            List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(this, ParametroURL.class);
+            List<Field> lista = UtilSBCoreReflexao.procuraCamposPorTipo(this, ParametroURL.class
+            );
             for (Field cp : lista) {
                 ParametroURL novoParametro = UtillSBWPReflexoesWebpaginas.getNovoParametroDeUrl(cp);
                 cp.set(this, novoParametro);
@@ -409,19 +419,24 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
     private void buldBeansDeclarados() {
         Field[] camposDeclarados = this.getClass().getDeclaredFields();
         Method[] metodos = this.getClass().getDeclaredMethods();
+
         for (Method metodo : metodos) {
-            InfoMB_Acao acao = metodo.getAnnotation(InfoMB_Acao.class);
-            InfoMB_IdWidget widget = metodo.getAnnotation(InfoMB_IdWidget.class);
+            InfoMB_Acao acao = metodo.getAnnotation(InfoMB_Acao.class
+            );
+            InfoMB_IdWidget widget = metodo.getAnnotation(InfoMB_IdWidget.class
+            );
             if (acao != null) {
                 infoAcoes.add(new InfoMBAcao("#{" + this.getClass().getSimpleName() + "." + metodo.getName() + "}", acao.descricao()));
             }
             if (widget != null) {
                 infoWidget.put(metodo.getName(), widget.descricao());
+
             }
         }
         for (Field campo : camposDeclarados) {
 
-            InfoMBIdComponente idcomp = campo.getAnnotation(InfoMBIdComponente.class);
+            InfoMBIdComponente idcomp = campo.getAnnotation(InfoMBIdComponente.class
+            );
             try {
                 if (TIPO_PRIMITIVO.getTIPO_PRIMITIVO(campo).equals(TIPO_PRIMITIVO.ENTIDADE)) {
                     beansDeclarados.put(campo.getName(), new BeanDeclarado(campo));
@@ -688,7 +703,8 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
         try {
             acoesDaPagina = new ArrayList<>();
 
-            List<Field> camposDeAcao = UtilSBCoreReflexao.getCamposRecursivoPorInterface(this.getClass(), ItfAcaoDoSistema.class, B_Pagina.class, MB_PaginaConversation.class);
+            List<Field> camposDeAcao = UtilSBCoreReflexao.getCamposRecursivoPorInterface(this.getClass(), ItfAcaoDoSistema.class, B_Pagina.class, MB_PaginaConversation.class
+            );
             for (Field cp : camposDeAcao) {
                 cp.setAccessible(true);
                 acoesDaPagina.add((ItfAcaoDoSistema) cp.get(this));
