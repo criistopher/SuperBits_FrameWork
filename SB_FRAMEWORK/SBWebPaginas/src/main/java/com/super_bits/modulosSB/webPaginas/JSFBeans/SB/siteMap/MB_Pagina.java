@@ -6,15 +6,16 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoS
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
-import com.super_bits.modulosSB.webPaginas.util.UtilSBWP_JSFTools;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 public abstract class MB_Pagina extends B_Pagina {
 
     protected Map<String, String> idsGerenciaveis = new HashMap<>();
     private String urlAcessada;
+    @Inject
     private SessaoAtualSBWP sessaoAtual;
 
     public MB_Pagina() {
@@ -26,18 +27,7 @@ public abstract class MB_Pagina extends B_Pagina {
         try {
             System.out.println("Iniciando InitBeanDePagina" + this.getClass().getSimpleName());
             configParametros();
-            if (getAcaoVinculada().isPrecisaPermissao()) {
-                try {
 
-                    if (!SBCore.getConfiguradorDePermissao().isAcaoPermitidaUsuario(sessaoAtual.getUsuario(), getAcaoVinculada())) {
-                        UtilSBWP_JSFTools.vaParaPagina("/resources/SBComp/SBSystemPages/acessoNegado.xhtml");
-                    }
-
-                } catch (Throwable t) {
-                    System.out.println("Erro verificando permissão de acesso para pagina" + getAcaoVinculada().getNomeUnico());
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando inito principal do bean", t);
-                }
-            }
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro executando inito principal do bean", t);
 
@@ -61,6 +51,43 @@ public abstract class MB_Pagina extends B_Pagina {
             return ControllerAppAbstratoSBCore.isAcessoPermitido((ItfAcaoDoSistema) getAcaoVinculada());
         }
         return false;
+    }
+
+    protected boolean isPermitidoAbrirFormulario() {
+
+        if (acaoSelecionada != null) {
+            if (acaoSelecionada.isUmaAcaoFormulario()) {
+                if (acaoSelecionada.isPrecisaPermissao()) {
+                    return true;
+                }
+                if (!SBCore.getConfiguradorDePermissao().isAcaoPermitidaUsuario(sessaoAtual.getUsuario(), getAcaoVinculada())) {
+                    xhtmlAcaoAtual = "/resources/SBComp/SBSystemPages/acessoNegado.xhtml";
+                    atualizarIdAreaExibicaoAcaoSelecionada();
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    protected boolean isAcaoSelecionadaTipoFormulario() {
+        if (acaoSelecionada == null) {
+            return false;
+        }
+        return acaoSelecionada.isUmaAcaoFormulario();
+    }
+
+    @Override
+    public void executarAcaoSelecionada() {
+        if (isAcaoSelecionadaTipoFormulario() && !isPermitidoAbrirFormulario()) {
+            return;
+        }
+        super.executarAcaoSelecionada();
     }
 
     @Override
