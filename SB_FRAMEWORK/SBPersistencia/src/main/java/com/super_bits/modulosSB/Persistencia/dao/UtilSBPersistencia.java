@@ -1253,16 +1253,22 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     private static boolean executaSQLcmd(EntityManager pEm, String pSQl) {
         EntityManager em = pEm;
+        boolean entityManagerEnviado = true;
         if (em == null) {
             em = getNovoEM();
+            entityManagerEnviado = false;
         }
         try {
 
             try {
-                em.getTransaction().begin();
+                if (!entityManagerEnviado) {
+                    em.getTransaction().begin();
+                }
                 Query q = em.createNativeQuery(pSQl);
                 q.executeUpdate();
-                em.getTransaction().commit();
+                if (!entityManagerEnviado) {
+                    em.getTransaction().commit();
+                }
             } finally {
                 if (em != null) {
                     em.close();

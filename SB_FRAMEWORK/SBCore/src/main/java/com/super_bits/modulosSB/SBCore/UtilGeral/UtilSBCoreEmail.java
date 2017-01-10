@@ -61,7 +61,7 @@ public abstract class UtilSBCoreEmail {
 
     private static boolean enviarEmail(Properties props, final String pUsuario, final String pSenha, String mensagem, String para, String pAssunto) {
         boolean envioucomsucesso = true;
-        Session session = Session.getDefaultInstance(props,
+        Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(pUsuario, pSenha);
