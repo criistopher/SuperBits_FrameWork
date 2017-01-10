@@ -626,15 +626,18 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             configParametros();
 
             try {
-                ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
-                if (configuracoesDeUrl == null) {
-                    System.out.println("Abandonando ações de abertura de pagina (Informações de Url que deveriam estar no request não foram encontradas)");
-                    //     return;
-                    // Verificação de configurações de URL ignoradas aguardando adequação do servlet com objeto de estrutura de formulario
-                    //   throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição");
-                } else {
-                    System.out.println("As informações de url serão determinadas");
-                    aplicarUrlDeAcesso(configuracoesDeUrl);
+                if (!SBCore.isEmModoDesenvolvimento()) {
+                    ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
+
+                    if (configuracoesDeUrl == null) {
+                        System.out.println("Abandonando ações de abertura de pagina (Informações de Url que deveriam estar no request não foram encontradas)");
+                        //     return;
+                        // Verificação de configurações de URL ignoradas aguardando adequação do servlet com objeto de estrutura de formulario
+                        //   throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição");
+                    } else {
+                        System.out.println("As informações de url serão determinadas");
+                        aplicarUrlDeAcesso(configuracoesDeUrl);
+                    }
                 }
             } catch (Throwable t) {
                 SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro obtendo configurações de url ao abrir a pagina" + this.getClass().getSimpleName(), t);

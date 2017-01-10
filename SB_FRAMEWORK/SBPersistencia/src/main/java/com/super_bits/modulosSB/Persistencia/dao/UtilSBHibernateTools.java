@@ -61,7 +61,7 @@ public class UtilSBHibernateTools {
     }
 
     public static List getQueryStatLess(String pSQL, Class pClasse, Object... parametros) {
-        return getQueryStatLess(null, pSQL, pClasse, parametros);
+        return getQueryStatLess(UtilSBPersistencia.getNovoEM(), pSQL, pClasse, parametros);
     }
 
 }

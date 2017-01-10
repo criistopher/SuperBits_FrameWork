@@ -26,9 +26,9 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
 
     private final Class[] classesControllers;
 
-    protected final Map<Integer, String> acoesNomeUnicoByHashMetodo = new HashMap<>();
-    private final Map<Integer, Method> metodosByHashMetodo = new HashMap<>();
-    private final Map<String, Method> metodoByAcao = new HashMap<>();
+    protected static final Map<Integer, String> ACOES_NOME_UNICO_BY_HASH_METODO = new HashMap<>();
+    private static final Map<Integer, Method> METODOS_BY_HASH_METODO = new HashMap<>();
+    private static final Map<String, Method> METODO_BY_ACAO = new HashMap<>();
 
     public static List<ItfAcaoDoSistema> getAcoesDoSistema() {
         throw new UnsupportedOperationException("Get Açoes do Sistema ainda não foi implementado");
@@ -48,13 +48,13 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
      * @return
      */
     public ItfAcaoDoSistema getAcaoByMetodo(Method pMetodo) {
-        return MapaAcoesSistema.getAcaoDoSistemaByNomeUnico(acoesNomeUnicoByHashMetodo.get(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo)));
+        return MapaAcoesSistema.getAcaoDoSistemaByNomeUnico(ACOES_NOME_UNICO_BY_HASH_METODO.get(UtilSBController.gerarIDMetodoAcaoDoSistema(pMetodo)));
     }
 
     @Override
     public Method getMetodoByAcao(ItfAcaoDoSistema pAcao) {
 
-        return metodoByAcao.get(pAcao.getNomeUnico());
+        return METODO_BY_ACAO.get(pAcao.getNomeUnico());
 
     }
 
@@ -68,7 +68,7 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
     protected Method localizarLikeNomeMetodo(String nomeMetodo) {
         Method metodoEncontrado = null;
 
-        for (Method metodo : metodosByHashMetodo.values()) {
+        for (Method metodo : METODOS_BY_HASH_METODO.values()) {
             if (metodo.getName().contains(nomeMetodo)) {
                 metodoEncontrado = metodo;
             }
@@ -102,16 +102,27 @@ public abstract class ConfigPermissaoSBCoreAbstrato implements ItfCfgPermissoes 
                         throw new UnsupportedOperationException("Uma das classes Cadastradas no sistema como classe de controller é um null!!, verifique a declaração no core");
                     }
                     Method[] metodos = classe.getDeclaredMethods();
-                    acoesNomeUnicoByHashMetodo.clear();
+                    ACOES_NOME_UNICO_BY_HASH_METODO.clear();
                     for (Method metodo : metodos) {
-                        ItfAcaoController acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
 
+                        ItfAcaoController acaovinculoMetodo = null;
+                        try {
+                            if (metodo.getDeclaredAnnotations().length > 0) {
+                                acaovinculoMetodo = UtilSBController.getAcaoByMetodo(metodo, true);
+                            }
+                        } catch (Throwable t) {
+
+                            SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Não foi possível vincular uma ação do tipo controller via anotação para o método:" + metodo.getName(), t);
+                        }
                         //   if (classeAcao.isAssignableFrom(ItfAcaoController.class) == false) {
                         //       throw new UnsupportedOperationException("A ação " + acaovinculoMetodo.getNomeAcao() + " não é do tipo controller e foi vinculada ao método:" + metodo.getName() + " Na classe " + metodo.getDeclaringClass().getSimpleName());
                         // }
-                        acoesNomeUnicoByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo.getNomeUnico());
-                        metodosByHashMetodo.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
-                        metodoByAcao.put(acaovinculoMetodo.getNomeUnico(), metodo);
+                        if (acaovinculoMetodo != null) {
+                            ACOES_NOME_UNICO_BY_HASH_METODO.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), acaovinculoMetodo.getNomeUnico());
+                            METODO_BY_ACAO.put(acaovinculoMetodo.getNomeUnico(), metodo);
+                            METODOS_BY_HASH_METODO.put(UtilSBController.gerarIDMetodoAcaoDoSistema(metodo), metodo);
+                        }
+
                     }
                 } catch (Throwable t) {
                     String nomeclasse = "Classe nula";

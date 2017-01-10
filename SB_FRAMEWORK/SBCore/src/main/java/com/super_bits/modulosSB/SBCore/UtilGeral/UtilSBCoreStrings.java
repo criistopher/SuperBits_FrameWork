@@ -625,6 +625,24 @@ public abstract class UtilSBCoreStrings {
 
     /**
      *
+     * @param pParametro String a ser analizada
+     * @return Verdadeiro se contiver apenas números
+     */
+    public static boolean isContemApenasNumero(String pParametro) {
+        if (pParametro.isEmpty()) {
+            return false;
+        }
+        for (Character ch : pParametro.toCharArray()) {
+            if (!Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     *
      * @param pMascara
      * @return Transforma uma mascara de campo formato Java, para mascara de
      * campo formato JQuery

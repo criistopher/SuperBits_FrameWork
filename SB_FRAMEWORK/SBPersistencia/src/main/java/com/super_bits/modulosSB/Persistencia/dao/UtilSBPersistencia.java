@@ -6,6 +6,7 @@ package com.super_bits.modulosSB.Persistencia.dao;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabCampos;
@@ -24,7 +25,6 @@ import javax.persistence.CacheRetrieveMode;
 import javax.persistence.CacheStoreMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
@@ -545,7 +545,7 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             String campoNomeCurto = registro.getNomeCampo(FabCampos.AAA_NOME);
                             String parametro = (String) parametros[0];
                             sql = "from " + tipoRegisto.getSimpleName() + " where "
-                                    + campoNomeCurto + " like '%" + parametro + "%'";
+                                    + campoNomeCurto + " like '%" + parametro + "%' order by " + campoNomeCurto;
                             numeroParamentrosNativos = 1;
                             break;
                         case JPQL:
@@ -555,7 +555,9 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
                             sql = pSQL;
                             break;
                         case TODOS:
-                            sql = "from " + tipoRegisto.getSimpleName();
+                            ItfBeanSimples registroTodos = (ItfBeanSimples) tipoRegisto.newInstance();
+                            String campoNomeCurtoTodos = registroTodos.getNomeCampo(FabCampos.AAA_NOME);
+                            sql = "from " + tipoRegisto.getSimpleName() + " order by " + campoNomeCurtoTodos;
                             break;
                         default:
                             break;
@@ -962,29 +964,42 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
     }
 
     public static Object getRegistroByNomeSlug(Class pClasse, String parametro, EntityManager pEm) {
+
+        List<Integer> codigosEncontrados = new ArrayList<>();
+        List<String> textosEncontrados = new ArrayList<>();
         if (parametro == null) {
             return null;
         }
         String[] valores = parametro.split("-");
 
-        String texto = valores[0];
-        Integer codigo = null;
-        try {
-            if (valores.length > 1) {
-                codigo = Integer.parseInt(valores[1]);
+        for (String valor : valores) {
+
+            if (valor != null && !valor.isEmpty()) {
+                if (UtilSBCoreStrings.isContemApenasNumero(valor)) {
+
+                    codigosEncontrados.add(Integer.valueOf(valor));
+                } else {
+                    textosEncontrados.add(valor);
+                }
             }
-        } catch (Throwable t) {
-            codigo = null;
         }
 
-        if (codigo != null) {
-            return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.ID, codigo);
-        } else {
-            Object valor = selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, texto);
-            if (valor == null) {
-                return selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.ID, texto);
+        for (Integer codigo : codigosEncontrados) {
+            Object resp = selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.ID, codigo);
+            if (resp != null) {
+                return resp;
             }
         }
+        for (String texto : textosEncontrados) {
+            if (texto != null && !texto.isEmpty()) {
+                Object valor = selecaoRegistro(pEm, null, null, pClasse, FabTipoSelecaoRegistro.LIKENOMECURTO, texto);
+                if (valor != null) {
+                    return valor;
+                }
+            }
+
+        }
+
         return null;
     }
 
@@ -1131,12 +1146,8 @@ public class UtilSBPersistencia implements Serializable, ItfDados {
 
     public static List getEmpresas(Class pClasse, String pParametro, EntityManager pEM) {
         boolean isNumerico = false;
-        try {
-            Integer.parseInt(pParametro);
-        } catch (Throwable t) {
-            isNumerico = false;
-        }
-        if (isNumerico) {
+
+        if (UtilSBCoreStrings.isContemApenasNumero(pParametro)) {
             List resposta = new ArrayList();
             Object empresa = UtilSBPersistencia.getRegistroByID(pClasse, Integer.parseInt(pParametro), pEM);
             if (empresa != null) {

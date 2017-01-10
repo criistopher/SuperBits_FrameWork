@@ -7,10 +7,10 @@ package com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidadorGoverno;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfResposta;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.UtilSBCoreFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualInputs;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualSeletorItem;
@@ -324,7 +324,7 @@ public enum FabCampos implements ItfFabrica {
             case TELEFONE_FIXO_NACIONAL:
                 sbCampo.setLabel("Tel");
 
-                sbCampo.setMascara("(##)#####-####");
+                sbCampo.setMascara("(##)?####-####");
                 break;
             case MOEDA_REAL:
                 // implementar: separadores, numero de casas decimais Sigla da moeda
