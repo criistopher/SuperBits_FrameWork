@@ -463,6 +463,29 @@ public abstract class UtilSBCoreStrings {
         return pString.replaceAll("\\s", pParametro);
     }
 
+    public static String getLTRIMRemoveEspacosAesquerda(String pParametro) {
+        if (pParametro == null) {
+            return null;
+        }
+        return pParametro.replaceAll("^\\s+", "");
+    }
+
+    public static String getRTRIMRemoveEspacosAesquerda(String pParametro) {
+        if (pParametro == null) {
+            return null;
+        }
+        return pParametro.replaceAll("\\s+$", "");
+
+    }
+
+    public static String getTRIMRemoveEspacos(String pParametro) {
+        if (pParametro == null) {
+            return null;
+        }
+        return pParametro.replaceAll("\\s", "");
+
+    }
+
     /**
      *
      *

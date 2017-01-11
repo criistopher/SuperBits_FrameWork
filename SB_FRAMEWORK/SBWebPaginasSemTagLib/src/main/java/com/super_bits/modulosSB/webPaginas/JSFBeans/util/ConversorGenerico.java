@@ -51,6 +51,17 @@ public class ConversorGenerico implements Converter {
 
     }
 
+    /**
+     *
+     * Converte um objeto em String
+     *
+     *
+     * @param ctx
+     * @param component
+     * @param value
+     * @return
+     */
+    @Override
     public String getAsString(FacesContext ctx, UIComponent component,
             Object value) {
 
@@ -66,7 +77,7 @@ public class ConversorGenerico implements Converter {
                         System.out.println(String.valueOf(item.getId()));
                         return String.valueOf(item.getId());
                     }
-                    System.out.println("ExisteValor, mas o nome cuto é nulo");
+                    System.out.println("ExisteValor, mas o nome  é nulo");
                     return (String) value;
                 }
             }
@@ -83,11 +94,18 @@ public class ConversorGenerico implements Converter {
 
     }
 
+    /**
+     *
+     * Adiciona o atributo no componente (mapa de nome do campo por Objeto)
+     *
+     * @param component
+     * @param o
+     */
     protected void addAttribute(UIComponent component, Object o) {
         String key = String.valueOf(((ItfBeanSimplesSomenteLeitura) o).getId()); // codigo da empresa
         // como chave neste
         // caso
-        //  System.out.println("Adcionando Key" + key);
+        //  System.out.println("Adcionando Key e Objeto no mapa de atributos" + key);
         this.getAttributesFrom(component).put(key, o);
     }
 

@@ -5,6 +5,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
 import com.super_bits.modulosSB.webPaginas.controller.sessao.SessaoAtualSBWP;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,10 @@ public abstract class MB_Pagina extends B_Pagina {
 
         }
 
+    }
+
+    protected ItfFabrica getEnumAcaoAtual() {
+        return getAcaoSelecionada().getEnumAcaoDoSistema();
     }
 
     @Override

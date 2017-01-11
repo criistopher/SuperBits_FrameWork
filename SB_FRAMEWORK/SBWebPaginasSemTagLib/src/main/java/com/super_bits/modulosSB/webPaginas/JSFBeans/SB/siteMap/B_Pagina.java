@@ -1,17 +1,17 @@
 package com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap;
 
 import com.google.common.collect.Lists;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStrings;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.FabErro;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.TIPO_PRIMITIVO;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.reflexao.ReflexaoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBAcao;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.InfoMBBean;
 import com.super_bits.modulosSB.webPaginas.JSFBeans.SB.siteMap.anotacoes.beans.InfoMBIdComponente;
@@ -613,10 +613,10 @@ public abstract class B_Pagina implements Serializable, ItfB_Pagina {
             try {
                 ConfiguracoesDeFormularioPorUrl configuracoesDeUrl = (ConfiguracoesDeFormularioPorUrl) UtilSBWPServletTools.getRequestBean("CfgURLFrm");
                 if (configuracoesDeUrl == null) {
-                    System.out.println("Abandonando ações de abertura de pagina (Informações de Url que deveriam estar no request não foram encontradas)");
+                    System.out.println("Abandonando ações de abertura de pagina em " + this.getClass().getSimpleName() + " (Informações de Url que deveriam estar no request não foram encontradas)");
                     //     return;
                     // Verificação de configurações de URL ignoradas aguardando adequação do servlet com objeto de estrutura de formulario
-                    //   throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição");
+                    throw new UnsupportedOperationException("A configuração de URL não foi encontrado no escopo de requisição ");
                 } else {
                     System.out.println("As informações de url serão determinadas");
                     aplicarUrlDeAcesso(configuracoesDeUrl);

@@ -22,6 +22,13 @@ import org.junit.Test;
 public class UtilSBCoreStringsTest extends TesteJunit {
 
     @Test
+    public void testarRetiradaDeEspaco() {
+        String texto = "         111         2222 ";
+
+        System.out.println(UtilSBCoreStrings.getTRIMRemoveEspacos(texto));
+    }
+
+    @Test
     public void testaInverterString() {
 
         String resultado = UtilSBCoreStrings.inverteString("123");

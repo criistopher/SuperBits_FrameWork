@@ -4,14 +4,14 @@
  */
 package com.super_bits.modulosSB.SBCore.modulos.sessao;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreComunicacao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreEmail;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ControllerAppAbstratoSBCore;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreEmail;
 import com.super_bits.modulosSB.SBCore.modulos.sessao.Interfaces.ItfControleDeSessao;
 
 /**
@@ -71,14 +71,14 @@ public abstract class ControleDeSessaoAbstratoSBCore implements ItfControleDeSes
         ItfUsuario usuarioEncontrado = ControllerAppAbstratoSBCore.getUsuarioByEmail(pEmail);
 
         if (usuarioEncontrado == null) {
-            SBCore.enviarMensagemUsuario("O email " + pEmail + " não foi encontrado no sistema", FabMensagens.AVISO);
+            SBCore.enviarMensagemUsuario("O email " + pEmail + " não foi encontrado no sistema", FabMensagens.ALERTA);
         } else if (UtilSBCoreEmail.enviarPorServidorPadrao(
                 pEmail,
-                "Olá, " + usuarioEncontrado.getNome() + ", segue sua senha, conforme solicitado <i>  " + usuarioEncontrado.getSenha() + " </i>, não se esqueça de excluir este e-mail por segurança. <br> " + UtilSBCoreComunicacao.getSaudacao() + " para você.",
+                UtilSBCoreComunicacao.getSaudacao() + " " + usuarioEncontrado.getNome() + ", segue sua senha, conforme solicitado <i>  " + usuarioEncontrado.getSenha() + " </i>, não se esqueça de excluir este e-mail por segurança. <br> " + UtilSBCoreComunicacao.getSaudacao() + " para você.",
                 "Recuperação de senha")) {
             SBCore.enviarAvisoAoUsuario("Um e-mail com a senha foi enviado para " + pEmail);
         } else {
-            SBCore.enviarAvisoAoUsuario("Um erro ocorreu ao tentar enviar o e-mail com a senha para: " + pEmail + " entre em contato conosco para recuperar a senha");
+            SBCore.enviarMensagemUsuario("Um erro ocorreu ao tentar enviar o e-mail com a senha para: " + pEmail + " entre em contato conosco para recuperar a senha", FabMensagens.ALERTA);
         }
     }
 
